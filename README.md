@@ -1,4 +1,4 @@
-First draft of an interpreter to evaluate EOperation implemenation in AQL
+First draft of an interpreter to evaluate EOperation implementation in AQL
 ---
 
 
