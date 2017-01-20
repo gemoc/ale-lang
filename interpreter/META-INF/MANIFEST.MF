@@ -18,7 +18,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtend.lib,
  org.eclipse.xtend.lib.macro,
- parser
+ implem.model,
+ k3.sample.maven.logo.model,
+ antlrParser
 Import-Package: org.antlr.v4.runtime
 Bundle-ActivationPolicy: lazy
 
