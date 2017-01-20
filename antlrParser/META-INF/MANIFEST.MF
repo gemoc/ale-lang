@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: antlrParser
+Bundle-SymbolicName: antlrParser
+Bundle-Version: 1.0.0.qualifier
+Export-Package: parser
+Require-Bundle: org.antlr.runtime,
+ implem.model,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.acceleo.query
