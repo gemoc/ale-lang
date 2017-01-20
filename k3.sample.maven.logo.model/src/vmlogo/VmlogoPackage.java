@@ -352,7 +352,7 @@ public interface VmlogoPackage extends EPackage {
 	int VARIABLE__NAME = 0;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' containment reference.
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -593,15 +593,15 @@ public interface VmlogoPackage extends EPackage {
 	EAttribute getVariable_Name();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link vmlogo.Variable#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link vmlogo.Variable#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @return the meta object for the attribute '<em>Value</em>'.
 	 * @see vmlogo.Variable#getValue()
 	 * @see #getVariable()
 	 * @generated
 	 */
-	EReference getVariable_Value();
+	EAttribute getVariable_Value();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -801,12 +801,12 @@ public interface VmlogoPackage extends EPackage {
 		EAttribute VARIABLE__NAME = eINSTANCE.getVariable_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference VARIABLE__VALUE = eINSTANCE.getVariable_Value();
+		EAttribute VARIABLE__VALUE = eINSTANCE.getVariable_Value();
 
 	}
 
