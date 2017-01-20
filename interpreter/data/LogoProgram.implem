@@ -28,11 +28,11 @@ class PenUp {
 class Repeat {
 	def eval(Context ctx) {
 		['Log from Repeat'.log() /];
-		back = [ASM::Back.create()/];
-		backConst = [ASM::Constant.create()/];
-		[backConst/].integerValue = [42/];
-		[back/].steps = [backConst/];
-		[self.block/].instructions.add([back/]);
+//		back = [ASM::Back.create()/];
+//		backConst = [ASM::Constant.create()/];
+//		[backConst/].integerValue = [42/];
+//		[back/].steps = [backConst/];
+//		[self.block/].instructions.add([back/]);
 		
 		time = [self.condition.eval(ctx)/];
 		while( [time > 0/] ){
@@ -65,7 +65,7 @@ class If {
 
 class Constant {
 	def eval(Context ctx) {
-		['Log from Constant'.log()/];
+//		['Log from Constant'.log()/];
 		result = [self.integerValue/]
 	}
 }
@@ -179,17 +179,16 @@ class ProcCall {
 		[('Calling '+self.declaration.name).log()/];
 	
 		newFrame = [vmlogo::StackFrame.create()/];
-		i = [0/];
+		i = [1/];
 		for (exp in [self.actualArgs/]){
 			newVar = [vmlogo::Variable.create()/];
 			[newVar/].name = [self.declaration.args->at(i).name/];
 			[newVar/].value = [exp.eval(ctx)/];
-			[newVar.log()/];
 			[newFrame/].variables.add([newVar/]);
 			i = [i+1/]
 		};
 		
-		[ctx.callStack/].frames.remove([newFrame/]);
+		[ctx.callStack/].frames.add([newFrame/]);
 		
 		result = [0/];
 		for(instr in [self.declaration.instructions/]){
@@ -202,8 +201,8 @@ class ProcCall {
 
 class ParameterCall {
 	def eval(Context ctx){
-		for(frame in [ctx.callStack.frame/]){
-			for(var in [frame/]){
+		for(frame in [ctx.callStack.frames/]){
+			for(var in [frame.variables/]){
 				if([var.name = self.parameter.name/]){
 					result = [var.value/]
 				}

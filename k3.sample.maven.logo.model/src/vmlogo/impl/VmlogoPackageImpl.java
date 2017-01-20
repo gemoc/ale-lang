@@ -321,8 +321,8 @@ public class VmlogoPackageImpl extends EPackageImpl implements VmlogoPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getVariable_Value() {
-		return (EReference)variableEClass.getEStructuralFeatures().get(1);
+	public EAttribute getVariable_Value() {
+		return (EAttribute)variableEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -379,7 +379,7 @@ public class VmlogoPackageImpl extends EPackageImpl implements VmlogoPackage {
 
 		variableEClass = createEClass(VARIABLE);
 		createEAttribute(variableEClass, VARIABLE__NAME);
-		createEReference(variableEClass, VARIABLE__VALUE);
+		createEAttribute(variableEClass, VARIABLE__VALUE);
 	}
 
 	/**
@@ -438,7 +438,7 @@ public class VmlogoPackageImpl extends EPackageImpl implements VmlogoPackage {
 
 		initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getVariable_Name(), ecorePackage.getEString(), "name", null, 1, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getVariable_Value(), ecorePackage.getEObject(), null, "value", null, 1, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVariable_Value(), ecorePackage.getEInt(), "value", null, 1, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
