@@ -1,33 +1,47 @@
 package interpreter;
 
-import fr.inria.diverse.xtdAQL.Method;
+import com.google.common.base.Objects;
+import com.google.common.collect.Iterables;
+import implementation.Behaviored;
+import implementation.Implementation;
+import implementation.Method;
 import interpreter.Interpreter;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
-import org.eclipse.acceleo.query.runtime.EvaluationResult;
+import java.util.Set;
+import org.eclipse.acceleo.query.ast.Call;
+import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
+import org.eclipse.acceleo.query.runtime.IValidationResult;
+import org.eclipse.acceleo.query.runtime.impl.AbstractService;
 import org.eclipse.acceleo.query.runtime.impl.EOperationService;
+import org.eclipse.acceleo.query.runtime.impl.ValidationServices;
+import org.eclipse.acceleo.query.validation.type.EClassifierType;
+import org.eclipse.acceleo.query.validation.type.IType;
+import org.eclipse.acceleo.query.validation.type.SequenceType;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.xtext.xbase.lib.Conversions;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 /**
  * AQL Service to eval EOperation implementation
  */
 @SuppressWarnings("all")
-public class EvalBodyService extends EOperationService {
+public class EvalBodyService extends AbstractService {
   private Interpreter interpreter;
   
-  private Method implem;
+  private Behaviored implem;
   
-  public EvalBodyService(final EOperation eOperation, final Method implem, final Interpreter interpreter) {
-    super(eOperation);
+  public EvalBodyService(final Behaviored implem, final Interpreter interpreter) {
     this.implem = implem;
     this.interpreter = interpreter;
-  }
-  
-  @Override
-  public boolean equals(final Object obj) {
-    return (this == obj);
   }
   
   @Override
@@ -38,9 +52,186 @@ public class EvalBodyService extends EOperationService {
       final EObject caller = ((EObject) _get);
       Iterable<Object> _drop = IterableExtensions.<Object>drop(((Iterable<Object>)Conversions.doWrapArray(arguments)), 1);
       List<Object> _list = IterableExtensions.<Object>toList(_drop);
-      EvaluationResult _eval = this.interpreter.eval(caller, this.implem, _list);
-      _xblockexpression = _eval.getResult();
+      _xblockexpression = this.interpreter.eval(caller, this.implem, _list);
     }
     return _xblockexpression;
+  }
+  
+  @Override
+  public String getName() {
+    if ((this.implem instanceof Method)) {
+      EOperation _operationDef = ((Method)this.implem).getOperationDef();
+      return _operationDef.getName();
+    } else {
+      if ((this.implem instanceof Implementation)) {
+        EOperation _operationRef = ((Implementation)this.implem).getOperationRef();
+        return _operationRef.getName();
+      } else {
+        return "undefined";
+      }
+    }
+  }
+  
+  @Override
+  public int getNumberOfParameters() {
+    if ((this.implem instanceof Method)) {
+      EOperation _operationDef = ((Method)this.implem).getOperationDef();
+      EList<EParameter> _eParameters = _operationDef.getEParameters();
+      int _size = _eParameters.size();
+      return (_size + 1);
+    } else {
+      if ((this.implem instanceof Implementation)) {
+        EOperation _operationRef = ((Implementation)this.implem).getOperationRef();
+        EList<EParameter> _eParameters_1 = _operationRef.getEParameters();
+        int _size_1 = _eParameters_1.size();
+        return (_size_1 + 1);
+      } else {
+        return 1;
+      }
+    }
+  }
+  
+  @Override
+  public List<IType> getParameterTypes(final IReadOnlyQueryEnvironment queryEnvironment) {
+    final List<IType> result = new ArrayList<IType>();
+    if ((this.implem instanceof Implementation)) {
+      EOperation _operationRef = ((Implementation)this.implem).getOperationRef();
+      EClass _eContainingClass = _operationRef.getEContainingClass();
+      EClassifierType _eClassifierType = new EClassifierType(queryEnvironment, _eContainingClass);
+      result.add(_eClassifierType);
+      EOperation _operationRef_1 = ((Implementation)this.implem).getOperationRef();
+      EList<EParameter> _eParameters = _operationRef_1.getEParameters();
+      for (final EParameter parameter : _eParameters) {
+        {
+          EClassifier _eType = parameter.getEType();
+          final EClassifierType rawType = new EClassifierType(queryEnvironment, _eType);
+          boolean _isMany = parameter.isMany();
+          if (_isMany) {
+            SequenceType _sequenceType = new SequenceType(queryEnvironment, rawType);
+            result.add(_sequenceType);
+          } else {
+            result.add(rawType);
+          }
+        }
+      }
+    } else {
+      if ((this.implem instanceof Method)) {
+        Set<EPackage> _metamodel = this.interpreter.getMetamodel();
+        final Function1<EPackage, EList<EClassifier>> _function = (EPackage it) -> {
+          return it.getEClassifiers();
+        };
+        Iterable<EList<EClassifier>> _map = IterableExtensions.<EPackage, EList<EClassifier>>map(_metamodel, _function);
+        Iterable<EClassifier> _flatten = Iterables.<EClassifier>concat(_map);
+        final Function1<EClassifier, Boolean> _function_1 = (EClassifier it) -> {
+          String _name = it.getName();
+          String _containingClass = ((Method)this.implem).getContainingClass();
+          return Boolean.valueOf(Objects.equal(_name, _containingClass));
+        };
+        final EClassifier containingClass = IterableExtensions.<EClassifier>findFirst(_flatten, _function_1);
+        EClassifierType _eClassifierType_1 = new EClassifierType(queryEnvironment, containingClass);
+        result.add(_eClassifierType_1);
+        EOperation _operationDef = ((Method)this.implem).getOperationDef();
+        EList<EParameter> _eParameters_1 = _operationDef.getEParameters();
+        for (final EParameter parameter_1 : _eParameters_1) {
+          {
+            EClassifier _eType = parameter_1.getEType();
+            final EClassifierType rawType = new EClassifierType(queryEnvironment, _eType);
+            boolean _isMany = parameter_1.isMany();
+            if (_isMany) {
+              SequenceType _sequenceType = new SequenceType(queryEnvironment, rawType);
+              result.add(_sequenceType);
+            } else {
+              result.add(rawType);
+            }
+          }
+        }
+      }
+    }
+    return result;
+  }
+  
+  @Override
+  public int getPriority() {
+    return (EOperationService.PRIORITY + 1);
+  }
+  
+  @Override
+  public String getShortSignature() {
+    final List<IType> parameterTypes = this.getParameterTypes(null);
+    return this.serviceShortSignature(((Object[])Conversions.unwrapArray(parameterTypes, Object.class)));
+  }
+  
+  @Override
+  public String getLongSignature() {
+    String ePkgNsURI = null;
+    String eCLassName = null;
+    EClass _xifexpression = null;
+    if ((this.implem instanceof Implementation)) {
+      EOperation _operationRef = ((Implementation)this.implem).getOperationRef();
+      _xifexpression = _operationRef.getEContainingClass();
+    } else {
+      EClass _xifexpression_1 = null;
+      if ((this.implem instanceof Method)) {
+        Set<EPackage> _metamodel = this.interpreter.getMetamodel();
+        final Function1<EPackage, EList<EClassifier>> _function = (EPackage it) -> {
+          return it.getEClassifiers();
+        };
+        Iterable<EList<EClassifier>> _map = IterableExtensions.<EPackage, EList<EClassifier>>map(_metamodel, _function);
+        Iterable<EClassifier> _flatten = Iterables.<EClassifier>concat(_map);
+        Iterable<EClass> _filter = Iterables.<EClass>filter(_flatten, EClass.class);
+        final Function1<EClass, Boolean> _function_1 = (EClass it) -> {
+          String _name = it.getName();
+          String _containingClass = ((Method)this.implem).getContainingClass();
+          return Boolean.valueOf(Objects.equal(_name, _containingClass));
+        };
+        _xifexpression_1 = IterableExtensions.<EClass>findFirst(_filter, _function_1);
+      }
+      _xifexpression = _xifexpression_1;
+    }
+    final EClass eContainingClass = _xifexpression;
+    boolean _notEquals = (!Objects.equal(eContainingClass, null));
+    if (_notEquals) {
+      String _name = eContainingClass.getName();
+      eCLassName = _name;
+      final EPackage ePackage = eContainingClass.getEPackage();
+      boolean _notEquals_1 = (!Objects.equal(ePackage, null));
+      if (_notEquals_1) {
+        String _nsURI = ePackage.getNsURI();
+        ePkgNsURI = _nsURI;
+      } else {
+        ePkgNsURI = null;
+      }
+    } else {
+      ePkgNsURI = null;
+      eCLassName = null;
+    }
+    String _shortSignature = this.getShortSignature();
+    return ((((ePkgNsURI + " ") + eCLassName) + " ") + _shortSignature);
+  }
+  
+  @Override
+  public Set<IType> getType(final Call call, final ValidationServices services, final IValidationResult validationResult, final IReadOnlyQueryEnvironment queryEnvironment, final List<IType> argTypes) {
+    final Set<IType> result = new LinkedHashSet<IType>();
+    EOperation _xifexpression = null;
+    if ((this.implem instanceof Implementation)) {
+      _xifexpression = ((Implementation)this.implem).getOperationRef();
+    } else {
+      EOperation _xifexpression_1 = null;
+      if ((this.implem instanceof Method)) {
+        _xifexpression_1 = ((Method)this.implem).getOperationDef();
+      }
+      _xifexpression = _xifexpression_1;
+    }
+    final EOperation eOperation = _xifexpression;
+    EClassifier _eType = eOperation.getEType();
+    final IType eClassifierType = new EClassifierType(queryEnvironment, _eType);
+    boolean _isMany = eOperation.isMany();
+    if (_isMany) {
+      SequenceType _sequenceType = new SequenceType(queryEnvironment, eClassifierType);
+      result.add(_sequenceType);
+    } else {
+      result.add(eClassifierType);
+    }
+    return result;
   }
 }

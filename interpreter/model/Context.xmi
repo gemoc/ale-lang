@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vmlogo:Context
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:vmlogo="http://vmlogo/"
+    xsi:schemaLocation="/home/fcoulon/git/k3/k3-samples-deployed/logo/k3.sample.maven.logo.model/model/VMLogo.ecore">
+  <turtle heading="1.0"/>
+  <callStack>
+    <frames/>
+  </callStack>
+</vmlogo:Context>

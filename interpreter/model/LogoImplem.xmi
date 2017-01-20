@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xtdAQL:Root
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xtdAQL="http://www.inria.fr/diverse/XtdAQL"
+    xsi:schemaLocation="http://www.inria.fr/diverse/XtdAQL ../../parser/model/generated/XtdAQL.ecore">
+  <classes name="LogoProgram">
+    <methods
+        name="eval"
+        body="['LogoProgram eval !'/]">
+      <param
+          name="context"/>
+    </methods>
+  </classes>
+  <classes name="PenUp">
+    <methods
+        name="eval">
+      <param
+          name="context"/>
+    </methods>
+  </classes>
+  <classes name="PenDown">
+    <methods
+        name="eval">
+      <param
+          name="context"/>
+    </methods>
+  </classes>
+  <classes name="Repeat">
+    <methods
+        name="eval">
+      <param
+          name="context"/>
+    </methods>
+  </classes>
+  <classes name="Constant">
+    <methods
+        name="eval">
+      <param
+          name="context"/>
+    </methods>
+  </classes>
+  <classes name="Block">
+    <methods
+        name="eval">
+      <param
+          name="context"/>
+    </methods>
+  </classes>
+  <classes name="Forward">
+    <methods
+        name="eval">
+      <param
+          name="context"/>
+    </methods>
+  </classes>
+  <classes name="Left">
+    <methods
+        name="eval">
+      <param
+          name="context"/>
+    </methods>
+  </classes>
+</xtdAQL:Root>

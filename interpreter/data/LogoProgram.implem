@@ -1,0 +1,225 @@
+
+class LogoProgram {
+
+	def eval(Context ctx) {
+		map = [ctx.callStack.frames->first().variables/];
+		for(it in [self.instructions/]){
+			[it.eval(ctx)/]
+		};
+		result = ['Hello from ' + self.instructions->first() /]
+	}
+}
+
+
+class PenDown {
+	def eval(Context ctx) {
+		[ctx.turtle/].penUp = [false/];
+		[('Log from PenDown : ' + ctx.turtle.penUp).log() /]
+	}
+}
+
+class PenUp {
+	def eval(Context ctx) {
+		[ctx.turtle/].penUp = [true/];
+		[('Log from PenUp : ' + ctx.turtle.penUp).log() /]
+	}
+}
+
+class Repeat {
+	def eval(Context ctx) {
+		['Log from Repeat'.log() /];
+		back = [ASM::Back.create()/];
+		backConst = [ASM::Constant.create()/];
+		[backConst/].integerValue = [42/];
+		[back/].steps = [backConst/];
+		[self.block/].instructions.add([back/]);
+		
+		time = [self.condition.eval(ctx)/];
+		while( [time > 0/] ){
+//			[time.log()/];
+			[self.block.eval(ctx)/];
+			time = [time - 1/]
+		}
+	}
+}
+
+class While {
+	def eval(Context ctx) {
+		while([self.condition.eval(ctx) > 0/]){
+			[self.block.eval(ctx)/]
+		};
+		result = [0/]
+	}
+}
+
+class If {
+	def eval(Context ctx) {
+		if ([self.condition.eval(ctx) != 0/]) {
+			result = [self.thenPart.eval(ctx)]
+		}
+		else{
+			result = [self.elsePart.eval(ctx)/]
+		}
+	}
+}
+
+class Constant {
+	def eval(Context ctx) {
+		['Log from Constant'.log()/];
+		result = [self.integerValue/]
+	}
+}
+
+class Block {
+	def eval(Context ctx) {
+		['Log from Block'.log()/];
+		for(inst in [self.instructions/]){
+			[inst.eval(ctx)/]
+		}
+	}
+}
+
+class Clear {
+	def eval(Context ctx) {
+	}
+}
+
+class Forward {
+	def eval(Context ctx) {
+		move = [self.steps.eval(ctx)/];
+		[('Log from Forward : ' + move).log()/]
+	}
+}
+
+class Back {
+	def eval(Context ctx) {
+		move = [self.steps.eval(ctx)/];
+		[('Log from Back : ' + move).log()/]
+	}
+}
+
+class Left {
+	def eval(Context ctx) {
+		angle = [self.angle.eval(ctx)/];
+		[('Log from Left : ' + angle).log()/]
+	}
+}
+
+class Right {
+	def eval(Context ctx) {
+		angle = [self.angle.eval(ctx)/];
+		[('Log from Right : ' + angle).log()/]
+	}
+}
+
+class Plus {
+	def eval(Context ctx) {
+		result = [self.lhs.eval(ctx) + self.rhs.eval(ctx)/]
+	}
+}
+
+class Minus {
+	def eval(Context ctx) {
+		result = [self.lhs.eval(ctx) - self.rhs.eval(ctx)/]
+	}
+}
+
+class Mult {
+	def eval(Context ctx) {
+		result = [self.lhs.eval(ctx) * self.rhs.eval(ctx)/]
+	}
+}
+
+class Div {
+	def eval(Context ctx) {
+		if([self.rhs.eval(ctx) != 0/]){
+			result = [self.lhs.eval(ctx) / self.rhs.eval(ctx)/]
+		}
+		else{
+			result = [0/]
+		}
+	}
+}
+
+class Equals {
+	def eval(Context ctx) {
+		if([self.lhs.eval(ctx) = self.rhs.eval(ctx)/]){
+			result = [1/]
+		}
+		else{
+			result = [0/]
+		}
+	}
+}
+
+class Lower {
+	def eval(Context ctx) {
+		if([self.lhs.eval(ctx) < self.rhs.eval(ctx)/]){
+			result = [1/]
+		}
+		else{
+			result = [0/]
+		}
+	}
+}
+
+class Greater {
+	def eval(Context ctx) {
+		if([self.lhs.eval(ctx) > self.rhs.eval(ctx)/]){
+			result = [1/]
+		}
+		else{
+			result = [0/]
+		}
+	}
+}
+
+class ProcCall {
+	def eval(Context ctx){
+		[('Calling '+self.declaration.name).log()/];
+	
+		newFrame = [vmlogo::StackFrame.create()/];
+		i = [0/];
+		for (exp in [self.actualArgs/]){
+			newVar = [vmlogo::Variable.create()/];
+			[newVar/].name = [self.declaration.args->at(i).name/];
+			[newVar/].value = [exp.eval(ctx)/];
+			[newVar.log()/];
+			[newFrame/].variables.add([newVar/]);
+			i = [i+1/]
+		};
+		
+		[ctx.callStack/].frames.remove([newFrame/]);
+		
+		result = [0/];
+		for(instr in [self.declaration.instructions/]){
+			result = [instr.eval(ctx)/]
+		};
+		
+		[ctx.callStack/].frames.remove([newFrame/])
+	}
+}
+
+class ParameterCall {
+	def eval(Context ctx){
+		for(frame in [ctx.callStack.frame/]){
+			for(var in [frame/]){
+				if([var.name = self.parameter.name/]){
+					result = [var.value/]
+				}
+			}
+		}
+	}
+}
+//--------------Context----------------------
+
+class Context {
+
+	/*def pushStack(List variables){
+		
+	}
+	
+	def popStack(){
+		
+	}*/
+}
