@@ -3,24 +3,24 @@
 package kmLogo.ASM.impl;
 
 import kmLogo.ASM.ASMPackage;
-import kmLogo.ASM.PenUp;
+import kmLogo.ASM.Tan;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Pen Up</b></em>'.
+ * An implementation of the model object '<em><b>Tan</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class PenUpImpl extends PrimitiveImpl implements PenUp {
+public class TanImpl extends UnaryExpressionImpl implements Tan {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PenUpImpl() {
+	protected TanImpl() {
 		super();
 	}
 
@@ -31,7 +31,7 @@ public class PenUpImpl extends PrimitiveImpl implements PenUp {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ASMPackage.Literals.PEN_UP;
+		return ASMPackage.Literals.TAN;
 	}
 
-} //PenUpImpl
+} //TanImpl

@@ -10,10 +10,10 @@ package kmLogo.ASM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link kmLogo.ASM.ControlStructure#getCondition <em>Condition</em>}</li>
  * </ul>
- * </p>
  *
  * @see kmLogo.ASM.ASMPackage#getControlStructure()
  * @model

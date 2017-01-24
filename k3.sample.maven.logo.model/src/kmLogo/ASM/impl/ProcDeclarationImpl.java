@@ -30,13 +30,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link kmLogo.ASM.impl.ProcDeclarationImpl#getName <em>Name</em>}</li>
  *   <li>{@link kmLogo.ASM.impl.ProcDeclarationImpl#getArgs <em>Args</em>}</li>
  *   <li>{@link kmLogo.ASM.impl.ProcDeclarationImpl#getProcCall <em>Proc Call</em>}</li>
  *   <li>{@link kmLogo.ASM.impl.ProcDeclarationImpl#getInstructions <em>Instructions</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -80,6 +80,9 @@ public class ASMFactoryImpl extends EFactoryImpl implements ASMFactory {
 			case ASMPackage.EQUALS: return createEquals();
 			case ASMPackage.GREATER: return createGreater();
 			case ASMPackage.LOWER: return createLower();
+			case ASMPackage.COS: return createCos();
+			case ASMPackage.SIN: return createSin();
+			case ASMPackage.TAN: return createTan();
 			case ASMPackage.LOGO_PROGRAM: return createLogoProgram();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -324,6 +327,36 @@ public class ASMFactoryImpl extends EFactoryImpl implements ASMFactory {
 	public Lower createLower() {
 		LowerImpl lower = new LowerImpl();
 		return lower;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Cos createCos() {
+		CosImpl cos = new CosImpl();
+		return cos;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Sin createSin() {
+		SinImpl sin = new SinImpl();
+		return sin;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Tan createTan() {
+		TanImpl tan = new TanImpl();
+		return tan;
 	}
 
 	/**

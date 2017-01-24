@@ -3,8 +3,8 @@
 package kmLogo.ASM.impl;
 
 import kmLogo.ASM.ASMPackage;
-import kmLogo.ASM.ControlStructure;
 import kmLogo.ASM.Expression;
+import kmLogo.ASM.UnaryExpression;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -13,37 +13,38 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Control Structure</b></em>'.
+ * An implementation of the model object '<em><b>Unary Expression</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link kmLogo.ASM.impl.ControlStructureImpl#getCondition <em>Condition</em>}</li>
+ *   <li>{@link kmLogo.ASM.impl.UnaryExpressionImpl#getExpression <em>Expression</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ControlStructureImpl extends InstructionImpl implements ControlStructure {
+public abstract class UnaryExpressionImpl extends MinimalEObjectImpl.Container implements UnaryExpression {
 	/**
-	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
+	 * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCondition()
+	 * @see #getExpression()
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression condition;
+	protected Expression expression;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ControlStructureImpl() {
+	protected UnaryExpressionImpl() {
 		super();
 	}
 
@@ -54,7 +55,7 @@ public class ControlStructureImpl extends InstructionImpl implements ControlStru
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ASMPackage.Literals.CONTROL_STRUCTURE;
+		return ASMPackage.Literals.UNARY_EXPRESSION;
 	}
 
 	/**
@@ -62,8 +63,8 @@ public class ControlStructureImpl extends InstructionImpl implements ControlStru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getCondition() {
-		return condition;
+	public Expression getExpression() {
+		return expression;
 	}
 
 	/**
@@ -71,11 +72,11 @@ public class ControlStructureImpl extends InstructionImpl implements ControlStru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCondition(Expression newCondition, NotificationChain msgs) {
-		Expression oldCondition = condition;
-		condition = newCondition;
+	public NotificationChain basicSetExpression(Expression newExpression, NotificationChain msgs) {
+		Expression oldExpression = expression;
+		expression = newExpression;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ASMPackage.CONTROL_STRUCTURE__CONDITION, oldCondition, newCondition);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ASMPackage.UNARY_EXPRESSION__EXPRESSION, oldExpression, newExpression);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -86,18 +87,18 @@ public class ControlStructureImpl extends InstructionImpl implements ControlStru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCondition(Expression newCondition) {
-		if (newCondition != condition) {
+	public void setExpression(Expression newExpression) {
+		if (newExpression != expression) {
 			NotificationChain msgs = null;
-			if (condition != null)
-				msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ASMPackage.CONTROL_STRUCTURE__CONDITION, null, msgs);
-			if (newCondition != null)
-				msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ASMPackage.CONTROL_STRUCTURE__CONDITION, null, msgs);
-			msgs = basicSetCondition(newCondition, msgs);
+			if (expression != null)
+				msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ASMPackage.UNARY_EXPRESSION__EXPRESSION, null, msgs);
+			if (newExpression != null)
+				msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ASMPackage.UNARY_EXPRESSION__EXPRESSION, null, msgs);
+			msgs = basicSetExpression(newExpression, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ASMPackage.CONTROL_STRUCTURE__CONDITION, newCondition, newCondition));
+			eNotify(new ENotificationImpl(this, Notification.SET, ASMPackage.UNARY_EXPRESSION__EXPRESSION, newExpression, newExpression));
 	}
 
 	/**
@@ -108,8 +109,8 @@ public class ControlStructureImpl extends InstructionImpl implements ControlStru
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ASMPackage.CONTROL_STRUCTURE__CONDITION:
-				return basicSetCondition(null, msgs);
+			case ASMPackage.UNARY_EXPRESSION__EXPRESSION:
+				return basicSetExpression(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -122,8 +123,8 @@ public class ControlStructureImpl extends InstructionImpl implements ControlStru
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ASMPackage.CONTROL_STRUCTURE__CONDITION:
-				return getCondition();
+			case ASMPackage.UNARY_EXPRESSION__EXPRESSION:
+				return getExpression();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -136,8 +137,8 @@ public class ControlStructureImpl extends InstructionImpl implements ControlStru
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ASMPackage.CONTROL_STRUCTURE__CONDITION:
-				setCondition((Expression)newValue);
+			case ASMPackage.UNARY_EXPRESSION__EXPRESSION:
+				setExpression((Expression)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -151,8 +152,8 @@ public class ControlStructureImpl extends InstructionImpl implements ControlStru
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ASMPackage.CONTROL_STRUCTURE__CONDITION:
-				setCondition((Expression)null);
+			case ASMPackage.UNARY_EXPRESSION__EXPRESSION:
+				setExpression((Expression)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -166,10 +167,10 @@ public class ControlStructureImpl extends InstructionImpl implements ControlStru
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ASMPackage.CONTROL_STRUCTURE__CONDITION:
-				return condition != null;
+			case ASMPackage.UNARY_EXPRESSION__EXPRESSION:
+				return expression != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ControlStructureImpl
+} //UnaryExpressionImpl

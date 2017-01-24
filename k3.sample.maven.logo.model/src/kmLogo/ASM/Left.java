@@ -10,10 +10,10 @@ package kmLogo.ASM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link kmLogo.ASM.Left#getAngle <em>Angle</em>}</li>
  * </ul>
- * </p>
  *
  * @see kmLogo.ASM.ASMPackage#getLeft()
  * @model

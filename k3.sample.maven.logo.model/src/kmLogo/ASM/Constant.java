@@ -10,10 +10,10 @@ package kmLogo.ASM;
  *
  * <p>
  * The following features are supported:
- * <ul>
- *   <li>{@link kmLogo.ASM.Constant#getIntegerValue <em>Integer Value</em>}</li>
- * </ul>
  * </p>
+ * <ul>
+ *   <li>{@link kmLogo.ASM.Constant#getValue <em>Value</em>}</li>
+ * </ul>
  *
  * @see kmLogo.ASM.ASMPackage#getConstant()
  * @model
@@ -21,29 +21,29 @@ package kmLogo.ASM;
  */
 public interface Constant extends Expression {
 	/**
-	 * Returns the value of the '<em><b>Integer Value</b></em>' attribute.
+	 * Returns the value of the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Integer Value</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Value</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Integer Value</em>' attribute.
-	 * @see #setIntegerValue(int)
-	 * @see kmLogo.ASM.ASMPackage#getConstant_IntegerValue()
-	 * @model dataType="kmLogo.Integer"
+	 * @return the value of the '<em>Value</em>' attribute.
+	 * @see #setValue(double)
+	 * @see kmLogo.ASM.ASMPackage#getConstant_Value()
+	 * @model
 	 * @generated
 	 */
-	int getIntegerValue();
+	double getValue();
 
 	/**
-	 * Sets the value of the '{@link kmLogo.ASM.Constant#getIntegerValue <em>Integer Value</em>}' attribute.
+	 * Sets the value of the '{@link kmLogo.ASM.Constant#getValue <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Integer Value</em>' attribute.
-	 * @see #getIntegerValue()
+	 * @param value the new value of the '<em>Value</em>' attribute.
+	 * @see #getValue()
 	 * @generated
 	 */
-	void setIntegerValue(int value);
+	void setValue(double value);
 
 } // Constant

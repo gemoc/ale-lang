@@ -10,6 +10,7 @@ import kmLogo.ASM.Block;
 import kmLogo.ASM.Clear;
 import kmLogo.ASM.Constant;
 import kmLogo.ASM.ControlStructure;
+import kmLogo.ASM.Cos;
 import kmLogo.ASM.Div;
 import kmLogo.ASM.Equals;
 import kmLogo.ASM.Expression;
@@ -32,6 +33,9 @@ import kmLogo.ASM.ProcCall;
 import kmLogo.ASM.ProcDeclaration;
 import kmLogo.ASM.Repeat;
 import kmLogo.ASM.Right;
+import kmLogo.ASM.Sin;
+import kmLogo.ASM.Tan;
+import kmLogo.ASM.UnaryExpression;
 import kmLogo.ASM.While;
 
 import kmLogo.KmLogoPackage;
@@ -128,6 +132,13 @@ public class ASMPackageImpl extends EPackageImpl implements ASMPackage {
 	 * @generated
 	 */
 	private EClass binaryExpEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass unaryExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -247,6 +258,27 @@ public class ASMPackageImpl extends EPackageImpl implements ASMPackage {
 	 * @generated
 	 */
 	private EClass lowerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass cosEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass sinEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass tanEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -479,6 +511,24 @@ public class ASMPackageImpl extends EPackageImpl implements ASMPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getUnaryExpression() {
+		return unaryExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getUnaryExpression_Expression() {
+		return (EReference)unaryExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getConstant() {
 		return constantEClass;
 	}
@@ -488,7 +538,7 @@ public class ASMPackageImpl extends EPackageImpl implements ASMPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConstant_IntegerValue() {
+	public EAttribute getConstant_Value() {
 		return (EAttribute)constantEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -767,6 +817,33 @@ public class ASMPackageImpl extends EPackageImpl implements ASMPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCos() {
+		return cosEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSin() {
+		return sinEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTan() {
+		return tanEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getLogoProgram() {
 		return logoProgramEClass;
 	}
@@ -836,8 +913,11 @@ public class ASMPackageImpl extends EPackageImpl implements ASMPackage {
 		createEReference(binaryExpEClass, BINARY_EXP__LHS);
 		createEReference(binaryExpEClass, BINARY_EXP__RHS);
 
+		unaryExpressionEClass = createEClass(UNARY_EXPRESSION);
+		createEReference(unaryExpressionEClass, UNARY_EXPRESSION__EXPRESSION);
+
 		constantEClass = createEClass(CONSTANT);
-		createEAttribute(constantEClass, CONSTANT__INTEGER_VALUE);
+		createEAttribute(constantEClass, CONSTANT__VALUE);
 
 		procCallEClass = createEClass(PROC_CALL);
 		createEReference(procCallEClass, PROC_CALL__ACTUAL_ARGS);
@@ -884,6 +964,12 @@ public class ASMPackageImpl extends EPackageImpl implements ASMPackage {
 		greaterEClass = createEClass(GREATER);
 
 		lowerEClass = createEClass(LOWER);
+
+		cosEClass = createEClass(COS);
+
+		sinEClass = createEClass(SIN);
+
+		tanEClass = createEClass(TAN);
 
 		logoProgramEClass = createEClass(LOGO_PROGRAM);
 		createEReference(logoProgramEClass, LOGO_PROGRAM__INSTRUCTIONS);
@@ -946,6 +1032,9 @@ public class ASMPackageImpl extends EPackageImpl implements ASMPackage {
 		equalsEClass.getESuperTypes().add(this.getBinaryExp());
 		greaterEClass.getESuperTypes().add(this.getBinaryExp());
 		lowerEClass.getESuperTypes().add(this.getBinaryExp());
+		cosEClass.getESuperTypes().add(this.getUnaryExpression());
+		sinEClass.getESuperTypes().add(this.getUnaryExpression());
+		tanEClass.getESuperTypes().add(this.getUnaryExpression());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(instructionEClass, Instruction.class, "Instruction", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -976,8 +1065,11 @@ public class ASMPackageImpl extends EPackageImpl implements ASMPackage {
 		initEReference(getBinaryExp_Lhs(), this.getExpression(), null, "lhs", null, 1, 1, BinaryExp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBinaryExp_Rhs(), this.getExpression(), null, "rhs", null, 1, 1, BinaryExp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(unaryExpressionEClass, UnaryExpression.class, "UnaryExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getUnaryExpression_Expression(), this.getExpression(), null, "expression", null, 1, 1, UnaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(constantEClass, Constant.class, "Constant", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getConstant_IntegerValue(), theKmLogoPackage.getInteger(), "integerValue", null, 0, 1, Constant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConstant_Value(), ecorePackage.getEDouble(), "value", null, 0, 1, Constant.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(procCallEClass, ProcCall.class, "ProcCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getProcCall_ActualArgs(), this.getExpression(), null, "actualArgs", null, 0, -1, ProcCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1024,6 +1116,12 @@ public class ASMPackageImpl extends EPackageImpl implements ASMPackage {
 		initEClass(greaterEClass, Greater.class, "Greater", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(lowerEClass, Lower.class, "Lower", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(cosEClass, Cos.class, "Cos", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(sinEClass, Sin.class, "Sin", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(tanEClass, Tan.class, "Tan", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(logoProgramEClass, LogoProgram.class, "LogoProgram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLogoProgram_Instructions(), this.getInstruction(), null, "instructions", null, 0, -1, LogoProgram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

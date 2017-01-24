@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: k3.sample.maven.logo.model;singleton:=true
+Bundle-SymbolicName: logo.model;singleton:=true
 Bundle-Version: 1.0.1.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
@@ -14,7 +14,8 @@ Export-Package: kmLogo,
  kmLogo.impl,
  vmlogo,
  vmlogo.impl,
- vmlogo.util
+ vmlogo.util,
+ drawing
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy

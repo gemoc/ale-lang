@@ -2,6 +2,8 @@
  */
 package vmlogo;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -103,29 +105,19 @@ public interface Turtle extends EObject {
 	void setPenUp(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Drawings</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Drawings</b></em>' containment reference list.
+	 * The list contents are of type {@link vmlogo.Segment}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Drawings</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Drawings</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Drawings</em>' containment reference.
-	 * @see #setDrawings(Segment)
+	 * @return the value of the '<em>Drawings</em>' containment reference list.
 	 * @see vmlogo.VmlogoPackage#getTurtle_Drawings()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Segment getDrawings();
-
-	/**
-	 * Sets the value of the '{@link vmlogo.Turtle#getDrawings <em>Drawings</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Drawings</em>' containment reference.
-	 * @see #getDrawings()
-	 * @generated
-	 */
-	void setDrawings(Segment value);
+	EList<Segment> getDrawings();
 
 } // Turtle

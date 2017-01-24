@@ -140,7 +140,7 @@ public interface VmlogoPackage extends EPackage {
 	int TURTLE__PEN_UP = 2;
 
 	/**
-	 * The feature id for the '<em><b>Drawings</b></em>' containment reference.
+	 * The feature id for the '<em><b>Drawings</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -455,10 +455,10 @@ public interface VmlogoPackage extends EPackage {
 	EAttribute getTurtle_PenUp();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link vmlogo.Turtle#getDrawings <em>Drawings</em>}'.
+	 * Returns the meta object for the containment reference list '{@link vmlogo.Turtle#getDrawings <em>Drawings</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Drawings</em>'.
+	 * @return the meta object for the containment reference list '<em>Drawings</em>'.
 	 * @see vmlogo.Turtle#getDrawings()
 	 * @see #getTurtle()
 	 * @generated
@@ -687,7 +687,7 @@ public interface VmlogoPackage extends EPackage {
 		EAttribute TURTLE__PEN_UP = eINSTANCE.getTurtle_PenUp();
 
 		/**
-		 * The meta object literal for the '<em><b>Drawings</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Drawings</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

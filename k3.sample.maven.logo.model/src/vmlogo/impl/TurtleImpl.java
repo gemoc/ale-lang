@@ -2,14 +2,21 @@
  */
 package vmlogo.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import vmlogo.Point;
 import vmlogo.Segment;
@@ -84,14 +91,14 @@ public class TurtleImpl extends MinimalEObjectImpl.Container implements Turtle {
 	protected boolean penUp = PEN_UP_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getDrawings() <em>Drawings</em>}' containment reference.
+	 * The cached value of the '{@link #getDrawings() <em>Drawings</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getDrawings()
 	 * @generated
 	 * @ordered
 	 */
-	protected Segment drawings;
+	protected EList<Segment> drawings;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -202,42 +209,11 @@ public class TurtleImpl extends MinimalEObjectImpl.Container implements Turtle {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Segment getDrawings() {
+	public EList<Segment> getDrawings() {
+		if (drawings == null) {
+			drawings = new EObjectContainmentEList<Segment>(Segment.class, this, VmlogoPackage.TURTLE__DRAWINGS);
+		}
 		return drawings;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetDrawings(Segment newDrawings, NotificationChain msgs) {
-		Segment oldDrawings = drawings;
-		drawings = newDrawings;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VmlogoPackage.TURTLE__DRAWINGS, oldDrawings, newDrawings);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDrawings(Segment newDrawings) {
-		if (newDrawings != drawings) {
-			NotificationChain msgs = null;
-			if (drawings != null)
-				msgs = ((InternalEObject)drawings).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VmlogoPackage.TURTLE__DRAWINGS, null, msgs);
-			if (newDrawings != null)
-				msgs = ((InternalEObject)newDrawings).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VmlogoPackage.TURTLE__DRAWINGS, null, msgs);
-			msgs = basicSetDrawings(newDrawings, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, VmlogoPackage.TURTLE__DRAWINGS, newDrawings, newDrawings));
 	}
 
 	/**
@@ -251,7 +227,7 @@ public class TurtleImpl extends MinimalEObjectImpl.Container implements Turtle {
 			case VmlogoPackage.TURTLE__POSITION:
 				return basicSetPosition(null, msgs);
 			case VmlogoPackage.TURTLE__DRAWINGS:
-				return basicSetDrawings(null, msgs);
+				return ((InternalEList<?>)getDrawings()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -281,6 +257,7 @@ public class TurtleImpl extends MinimalEObjectImpl.Container implements Turtle {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -294,7 +271,8 @@ public class TurtleImpl extends MinimalEObjectImpl.Container implements Turtle {
 				setPenUp((Boolean)newValue);
 				return;
 			case VmlogoPackage.TURTLE__DRAWINGS:
-				setDrawings((Segment)newValue);
+				getDrawings().clear();
+				getDrawings().addAll((Collection<? extends Segment>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -318,7 +296,7 @@ public class TurtleImpl extends MinimalEObjectImpl.Container implements Turtle {
 				setPenUp(PEN_UP_EDEFAULT);
 				return;
 			case VmlogoPackage.TURTLE__DRAWINGS:
-				setDrawings((Segment)null);
+				getDrawings().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -339,7 +317,7 @@ public class TurtleImpl extends MinimalEObjectImpl.Container implements Turtle {
 			case VmlogoPackage.TURTLE__PEN_UP:
 				return penUp != PEN_UP_EDEFAULT;
 			case VmlogoPackage.TURTLE__DRAWINGS:
-				return drawings != null;
+				return drawings != null && !drawings.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

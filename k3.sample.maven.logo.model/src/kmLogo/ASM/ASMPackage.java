@@ -38,7 +38,7 @@ public interface ASMPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.kermeta.org/kmLogo/ASM";
+	String eNS_URI = "http://kmLogo/ASM";
 
 	/**
 	 * The package namespace name.
@@ -419,6 +419,43 @@ public interface ASMPackage extends EPackage {
 	int BINARY_EXP_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link kmLogo.ASM.impl.UnaryExpressionImpl <em>Unary Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see kmLogo.ASM.impl.UnaryExpressionImpl
+	 * @see kmLogo.ASM.impl.ASMPackageImpl#getUnaryExpression()
+	 * @generated
+	 */
+	int UNARY_EXPRESSION = 11;
+
+	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNARY_EXPRESSION__EXPRESSION = 0;
+
+	/**
+	 * The number of structural features of the '<em>Unary Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNARY_EXPRESSION_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Unary Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNARY_EXPRESSION_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link kmLogo.ASM.impl.ConstantImpl <em>Constant</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -426,16 +463,16 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getConstant()
 	 * @generated
 	 */
-	int CONSTANT = 11;
+	int CONSTANT = 12;
 
 	/**
-	 * The feature id for the '<em><b>Integer Value</b></em>' attribute.
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTANT__INTEGER_VALUE = EXPRESSION_FEATURE_COUNT + 0;
+	int CONSTANT__VALUE = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Constant</em>' class.
@@ -463,7 +500,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getProcCall()
 	 * @generated
 	 */
-	int PROC_CALL = 12;
+	int PROC_CALL = 13;
 
 	/**
 	 * The feature id for the '<em><b>Actual Args</b></em>' containment reference list.
@@ -509,7 +546,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getProcDeclaration()
 	 * @generated
 	 */
-	int PROC_DECLARATION = 13;
+	int PROC_DECLARATION = 14;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -573,7 +610,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getBlock()
 	 * @generated
 	 */
-	int BLOCK = 14;
+	int BLOCK = 15;
 
 	/**
 	 * The feature id for the '<em><b>Instructions</b></em>' containment reference list.
@@ -610,7 +647,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getControlStructure()
 	 * @generated
 	 */
-	int CONTROL_STRUCTURE = 16;
+	int CONTROL_STRUCTURE = 17;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -647,7 +684,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getIf()
 	 * @generated
 	 */
-	int IF = 15;
+	int IF = 16;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -702,7 +739,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getRepeat()
 	 * @generated
 	 */
-	int REPEAT = 17;
+	int REPEAT = 18;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -748,7 +785,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getWhile()
 	 * @generated
 	 */
-	int WHILE = 18;
+	int WHILE = 19;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -794,7 +831,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getParameter()
 	 * @generated
 	 */
-	int PARAMETER = 19;
+	int PARAMETER = 20;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -831,7 +868,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getParameterCall()
 	 * @generated
 	 */
-	int PARAMETER_CALL = 20;
+	int PARAMETER_CALL = 21;
 
 	/**
 	 * The feature id for the '<em><b>Parameter</b></em>' reference.
@@ -868,7 +905,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getPlus()
 	 * @generated
 	 */
-	int PLUS = 21;
+	int PLUS = 22;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -914,7 +951,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getMinus()
 	 * @generated
 	 */
-	int MINUS = 22;
+	int MINUS = 23;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -960,7 +997,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getMult()
 	 * @generated
 	 */
-	int MULT = 23;
+	int MULT = 24;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -1006,7 +1043,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getDiv()
 	 * @generated
 	 */
-	int DIV = 24;
+	int DIV = 25;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -1052,7 +1089,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getEquals()
 	 * @generated
 	 */
-	int EQUALS = 25;
+	int EQUALS = 26;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -1098,7 +1135,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getGreater()
 	 * @generated
 	 */
-	int GREATER = 26;
+	int GREATER = 27;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -1144,7 +1181,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getLower()
 	 * @generated
 	 */
-	int LOWER = 27;
+	int LOWER = 28;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -1183,6 +1220,117 @@ public interface ASMPackage extends EPackage {
 	int LOWER_OPERATION_COUNT = BINARY_EXP_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link kmLogo.ASM.impl.CosImpl <em>Cos</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see kmLogo.ASM.impl.CosImpl
+	 * @see kmLogo.ASM.impl.ASMPackageImpl#getCos()
+	 * @generated
+	 */
+	int COS = 29;
+
+	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COS__EXPRESSION = UNARY_EXPRESSION__EXPRESSION;
+
+	/**
+	 * The number of structural features of the '<em>Cos</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COS_FEATURE_COUNT = UNARY_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Cos</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COS_OPERATION_COUNT = UNARY_EXPRESSION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link kmLogo.ASM.impl.SinImpl <em>Sin</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see kmLogo.ASM.impl.SinImpl
+	 * @see kmLogo.ASM.impl.ASMPackageImpl#getSin()
+	 * @generated
+	 */
+	int SIN = 30;
+
+	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIN__EXPRESSION = UNARY_EXPRESSION__EXPRESSION;
+
+	/**
+	 * The number of structural features of the '<em>Sin</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIN_FEATURE_COUNT = UNARY_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Sin</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIN_OPERATION_COUNT = UNARY_EXPRESSION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link kmLogo.ASM.impl.TanImpl <em>Tan</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see kmLogo.ASM.impl.TanImpl
+	 * @see kmLogo.ASM.impl.ASMPackageImpl#getTan()
+	 * @generated
+	 */
+	int TAN = 31;
+
+	/**
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAN__EXPRESSION = UNARY_EXPRESSION__EXPRESSION;
+
+	/**
+	 * The number of structural features of the '<em>Tan</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAN_FEATURE_COUNT = UNARY_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Tan</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAN_OPERATION_COUNT = UNARY_EXPRESSION_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link kmLogo.ASM.impl.LogoProgramImpl <em>Logo Program</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1190,7 +1338,7 @@ public interface ASMPackage extends EPackage {
 	 * @see kmLogo.ASM.impl.ASMPackageImpl#getLogoProgram()
 	 * @generated
 	 */
-	int LOGO_PROGRAM = 28;
+	int LOGO_PROGRAM = 32;
 
 	/**
 	 * The feature id for the '<em><b>Instructions</b></em>' containment reference list.
@@ -1397,6 +1545,27 @@ public interface ASMPackage extends EPackage {
 	EReference getBinaryExp_Rhs();
 
 	/**
+	 * Returns the meta object for class '{@link kmLogo.ASM.UnaryExpression <em>Unary Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Unary Expression</em>'.
+	 * @see kmLogo.ASM.UnaryExpression
+	 * @generated
+	 */
+	EClass getUnaryExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link kmLogo.ASM.UnaryExpression#getExpression <em>Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Expression</em>'.
+	 * @see kmLogo.ASM.UnaryExpression#getExpression()
+	 * @see #getUnaryExpression()
+	 * @generated
+	 */
+	EReference getUnaryExpression_Expression();
+
+	/**
 	 * Returns the meta object for class '{@link kmLogo.ASM.Constant <em>Constant</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1407,15 +1576,15 @@ public interface ASMPackage extends EPackage {
 	EClass getConstant();
 
 	/**
-	 * Returns the meta object for the attribute '{@link kmLogo.ASM.Constant#getIntegerValue <em>Integer Value</em>}'.
+	 * Returns the meta object for the attribute '{@link kmLogo.ASM.Constant#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Integer Value</em>'.
-	 * @see kmLogo.ASM.Constant#getIntegerValue()
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see kmLogo.ASM.Constant#getValue()
 	 * @see #getConstant()
 	 * @generated
 	 */
-	EAttribute getConstant_IntegerValue();
+	EAttribute getConstant_Value();
 
 	/**
 	 * Returns the meta object for class '{@link kmLogo.ASM.ProcCall <em>Proc Call</em>}'.
@@ -1732,6 +1901,36 @@ public interface ASMPackage extends EPackage {
 	EClass getLower();
 
 	/**
+	 * Returns the meta object for class '{@link kmLogo.ASM.Cos <em>Cos</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Cos</em>'.
+	 * @see kmLogo.ASM.Cos
+	 * @generated
+	 */
+	EClass getCos();
+
+	/**
+	 * Returns the meta object for class '{@link kmLogo.ASM.Sin <em>Sin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Sin</em>'.
+	 * @see kmLogo.ASM.Sin
+	 * @generated
+	 */
+	EClass getSin();
+
+	/**
+	 * Returns the meta object for class '{@link kmLogo.ASM.Tan <em>Tan</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Tan</em>'.
+	 * @see kmLogo.ASM.Tan
+	 * @generated
+	 */
+	EClass getTan();
+
+	/**
 	 * Returns the meta object for class '{@link kmLogo.ASM.LogoProgram <em>Logo Program</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1934,6 +2133,24 @@ public interface ASMPackage extends EPackage {
 		EReference BINARY_EXP__RHS = eINSTANCE.getBinaryExp_Rhs();
 
 		/**
+		 * The meta object literal for the '{@link kmLogo.ASM.impl.UnaryExpressionImpl <em>Unary Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see kmLogo.ASM.impl.UnaryExpressionImpl
+		 * @see kmLogo.ASM.impl.ASMPackageImpl#getUnaryExpression()
+		 * @generated
+		 */
+		EClass UNARY_EXPRESSION = eINSTANCE.getUnaryExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference UNARY_EXPRESSION__EXPRESSION = eINSTANCE.getUnaryExpression_Expression();
+
+		/**
 		 * The meta object literal for the '{@link kmLogo.ASM.impl.ConstantImpl <em>Constant</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1944,12 +2161,12 @@ public interface ASMPackage extends EPackage {
 		EClass CONSTANT = eINSTANCE.getConstant();
 
 		/**
-		 * The meta object literal for the '<em><b>Integer Value</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONSTANT__INTEGER_VALUE = eINSTANCE.getConstant_IntegerValue();
+		EAttribute CONSTANT__VALUE = eINSTANCE.getConstant_Value();
 
 		/**
 		 * The meta object literal for the '{@link kmLogo.ASM.impl.ProcCallImpl <em>Proc Call</em>}' class.
@@ -2222,6 +2439,36 @@ public interface ASMPackage extends EPackage {
 		 * @generated
 		 */
 		EClass LOWER = eINSTANCE.getLower();
+
+		/**
+		 * The meta object literal for the '{@link kmLogo.ASM.impl.CosImpl <em>Cos</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see kmLogo.ASM.impl.CosImpl
+		 * @see kmLogo.ASM.impl.ASMPackageImpl#getCos()
+		 * @generated
+		 */
+		EClass COS = eINSTANCE.getCos();
+
+		/**
+		 * The meta object literal for the '{@link kmLogo.ASM.impl.SinImpl <em>Sin</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see kmLogo.ASM.impl.SinImpl
+		 * @see kmLogo.ASM.impl.ASMPackageImpl#getSin()
+		 * @generated
+		 */
+		EClass SIN = eINSTANCE.getSin();
+
+		/**
+		 * The meta object literal for the '{@link kmLogo.ASM.impl.TanImpl <em>Tan</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see kmLogo.ASM.impl.TanImpl
+		 * @see kmLogo.ASM.impl.ASMPackageImpl#getTan()
+		 * @generated
+		 */
+		EClass TAN = eINSTANCE.getTan();
 
 		/**
 		 * The meta object literal for the '{@link kmLogo.ASM.impl.LogoProgramImpl <em>Logo Program</em>}' class.
