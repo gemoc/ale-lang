@@ -94,7 +94,11 @@ class StatementVisitor extends XtdAQLBaseVisitor<Statement> {
 class OpVisitor extends XtdAQLBaseVisitor<Behaviored> {
 	
 	override visitROperation(ROperationContext ctx) {
-		val parameters = (new ParamVisitor).visit(ctx.rParameters)
+		val parameters = 
+			if(ctx.rParameters !== null)
+				(new ParamVisitor).visit(ctx.rParameters)
+			else
+				newArrayList
 		val body = (new BlockVisitor).visit(ctx.rBlock)
 		
 		val operationName = ctx.getChild(1).text

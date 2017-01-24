@@ -7,7 +7,7 @@
   <instructions
       xsi:type="ASM:ProcDeclaration"
       name="Square"
-      procCall="//@instructions.3 //@instructions.1/@instructions.4 //@instructions.1/@instructions.10">
+      procCall="//@instructions.2 //@instructions.1/@instructions.3 //@instructions.1/@instructions.9">
     <args name="size"/>
     <instructions
         xsi:type="ASM:Block">
@@ -40,31 +40,10 @@
   <instructions
       xsi:type="ASM:ProcDeclaration"
       name="Tree"
-      procCall="//@instructions.1/@instructions.5/@thenPart/@instructions.0 //@instructions.4 //@instructions.1/@instructions.11/@thenPart/@instructions.0">
+      procCall="//@instructions.1/@instructions.4/@thenPart/@instructions.0 //@instructions.3 //@instructions.1/@instructions.10/@thenPart/@instructions.0">
     <args name="baseSize"/>
     <args name="depth"/>
     <instructions
-        xsi:type="ASM:ProcDeclaration"
-        name="SubSquareSize"
-        procCall="//@instructions.1/@instructions.4/@actualArgs.0 //@instructions.1/@instructions.9/@steps //@instructions.1/@instructions.10/@actualArgs.0 //@instructions.1/@instructions.12/@steps //@instructions.1/@instructions.5/@thenPart/@instructions.0/@actualArgs.0 //@instructions.1/@instructions.11/@thenPart/@instructions.0/@actualArgs.0">
-      <args
-          name="size"/>
-      <args
-          name="angle"/>
-      <instructions
-          xsi:type="ASM:Mult">
-        <lhs
-            xsi:type="ASM:ParameterCall"
-            parameter="//@instructions.1/@instructions.0/@args.0"/>
-        <rhs
-            xsi:type="ASM:Cos">
-          <expression
-              xsi:type="ASM:ParameterCall"
-              parameter="//@instructions.1/@instructions.0/@args.1"/>
-        </rhs>
-      </instructions>
-    </instructions>
-    <instructions
         xsi:type="ASM:Left">
       <angle
           xsi:type="ASM:Constant"
@@ -86,14 +65,13 @@
         xsi:type="ASM:ProcCall"
         declaration="//@instructions.0">
       <actualArgs
-          xsi:type="ASM:ProcCall"
-          declaration="//@instructions.1/@instructions.0">
-        <actualArgs
+          xsi:type="ASM:Div">
+        <lhs
             xsi:type="ASM:ParameterCall"
             parameter="//@instructions.1/@args.0"/>
-        <actualArgs
+        <rhs
             xsi:type="ASM:Constant"
-            value="45.0"/>
+            value="1.5"/>
       </actualArgs>
     </instructions>
     <instructions
@@ -111,14 +89,13 @@
             xsi:type="ASM:ProcCall"
             declaration="//@instructions.1">
           <actualArgs
-              xsi:type="ASM:ProcCall"
-              declaration="//@instructions.1/@instructions.0">
-            <actualArgs
+              xsi:type="ASM:Div">
+            <lhs
                 xsi:type="ASM:ParameterCall"
                 parameter="//@instructions.1/@args.0"/>
-            <actualArgs
+            <rhs
                 xsi:type="ASM:Constant"
-                value="45.0"/>
+                value="1.5"/>
           </actualArgs>
           <actualArgs
               xsi:type="ASM:Minus">
@@ -153,28 +130,26 @@
     <instructions
         xsi:type="ASM:Back">
       <steps
-          xsi:type="ASM:ProcCall"
-          declaration="//@instructions.1/@instructions.0">
-        <actualArgs
+          xsi:type="ASM:Div">
+        <lhs
             xsi:type="ASM:ParameterCall"
             parameter="//@instructions.1/@args.0"/>
-        <actualArgs
+        <rhs
             xsi:type="ASM:Constant"
-            value="45.0"/>
+            value="1.5"/>
       </steps>
     </instructions>
     <instructions
         xsi:type="ASM:ProcCall"
         declaration="//@instructions.0">
       <actualArgs
-          xsi:type="ASM:ProcCall"
-          declaration="//@instructions.1/@instructions.0">
-        <actualArgs
+          xsi:type="ASM:Div">
+        <lhs
             xsi:type="ASM:ParameterCall"
             parameter="//@instructions.1/@args.0"/>
-        <actualArgs
+        <rhs
             xsi:type="ASM:Constant"
-            value="45.0"/>
+            value="1.5"/>
       </actualArgs>
     </instructions>
     <instructions
@@ -192,14 +167,13 @@
             xsi:type="ASM:ProcCall"
             declaration="//@instructions.1">
           <actualArgs
-              xsi:type="ASM:ProcCall"
-              declaration="//@instructions.1/@instructions.0">
-            <actualArgs
+              xsi:type="ASM:Div">
+            <lhs
                 xsi:type="ASM:ParameterCall"
                 parameter="//@instructions.1/@args.0"/>
-            <actualArgs
+            <rhs
                 xsi:type="ASM:Constant"
-                value="45.0"/>
+                value="1.5"/>
           </actualArgs>
           <actualArgs
               xsi:type="ASM:Minus">
@@ -216,14 +190,13 @@
     <instructions
         xsi:type="ASM:Forward">
       <steps
-          xsi:type="ASM:ProcCall"
-          declaration="//@instructions.1/@instructions.0">
-        <actualArgs
+          xsi:type="ASM:Div">
+        <lhs
             xsi:type="ASM:ParameterCall"
             parameter="//@instructions.1/@args.0"/>
-        <actualArgs
+        <rhs
             xsi:type="ASM:Constant"
-            value="45.0"/>
+            value="1.5"/>
       </steps>
     </instructions>
     <instructions
@@ -255,22 +228,6 @@
       <angle
           xsi:type="ASM:Constant"
           value="90.0"/>
-    </instructions>
-  </instructions>
-  <instructions
-      xsi:type="ASM:ProcDeclaration"
-      name="SubSquareSize">
-    <args name="size"/>
-    <args name="angle"/>
-    <instructions
-        xsi:type="ASM:Mult">
-      <lhs xsi:type="ASM:ParameterCall"
-          parameter="//@instructions.2/@args.0"/>
-      <rhs xsi:type="ASM:Cos">
-        <expression
-            xsi:type="ASM:ParameterCall"
-            parameter="//@instructions.2/@args.1"/>
-      </rhs>
     </instructions>
   </instructions>
   <instructions
@@ -287,7 +244,15 @@
         xsi:type="ASM:Constant"
         value="150.0"/>
     <actualArgs
+        xsi:type="ASM:Constant"/>
+  </instructions>
+  <instructions
+      xsi:type="ASM:ProcDeclaration"
+      name="SubSquareSize">
+    <args name="baseSize"/>
+    <args name="angle"/>
+    <instructions
         xsi:type="ASM:Constant"
-        value="8.0"/>
+        value="25.0"/>
   </instructions>
 </ASM:LogoProgram>
