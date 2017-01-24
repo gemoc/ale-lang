@@ -20,11 +20,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link kmLogo.ASM.impl.BinaryExpImpl#getLhs <em>Lhs</em>}</li>
  *   <li>{@link kmLogo.ASM.impl.BinaryExpImpl#getRhs <em>Rhs</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

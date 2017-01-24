@@ -11,10 +11,10 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link kmLogo.ASM.Block#getInstructions <em>Instructions</em>}</li>
  * </ul>
- * </p>
  *
  * @see kmLogo.ASM.ASMPackage#getBlock()
  * @model

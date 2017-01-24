@@ -47,7 +47,7 @@ public class ASMSwitch<T> extends Switch<T> {
 	 * Checks whether this is a switch for the given package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @parameter ePackage the package in question.
+	 * @param ePackage the package in question.
 	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
@@ -147,6 +147,12 @@ public class ASMSwitch<T> extends Switch<T> {
 				T result = caseBinaryExp(binaryExp);
 				if (result == null) result = caseExpression(binaryExp);
 				if (result == null) result = caseInstruction(binaryExp);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ASMPackage.UNARY_EXPRESSION: {
+				UnaryExpression unaryExpression = (UnaryExpression)theEObject;
+				T result = caseUnaryExpression(unaryExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -285,6 +291,27 @@ public class ASMSwitch<T> extends Switch<T> {
 				if (result == null) result = caseBinaryExp(lower);
 				if (result == null) result = caseExpression(lower);
 				if (result == null) result = caseInstruction(lower);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ASMPackage.COS: {
+				Cos cos = (Cos)theEObject;
+				T result = caseCos(cos);
+				if (result == null) result = caseUnaryExpression(cos);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ASMPackage.SIN: {
+				Sin sin = (Sin)theEObject;
+				T result = caseSin(sin);
+				if (result == null) result = caseUnaryExpression(sin);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ASMPackage.TAN: {
+				Tan tan = (Tan)theEObject;
+				T result = caseTan(tan);
+				if (result == null) result = caseUnaryExpression(tan);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -460,6 +487,21 @@ public class ASMSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseBinaryExp(BinaryExp object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Unary Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Unary Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUnaryExpression(UnaryExpression object) {
 		return null;
 	}
 
@@ -715,6 +757,51 @@ public class ASMSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseLower(Lower object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Cos</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Cos</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCos(Cos object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Sin</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Sin</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSin(Sin object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tan</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tan</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTan(Tan object) {
 		return null;
 	}
 

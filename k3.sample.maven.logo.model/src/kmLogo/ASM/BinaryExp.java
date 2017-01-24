@@ -10,11 +10,11 @@ package kmLogo.ASM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link kmLogo.ASM.BinaryExp#getLhs <em>Lhs</em>}</li>
  *   <li>{@link kmLogo.ASM.BinaryExp#getRhs <em>Rhs</em>}</li>
  * </ul>
- * </p>
  *
  * @see kmLogo.ASM.ASMPackage#getBinaryExp()
  * @model abstract="true"

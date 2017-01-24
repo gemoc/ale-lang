@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/k3.sample.maven.logo.model/src" modelPluginID="k3.sample.maven.logo.model"
-    modelName="VMLogo" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
-    operationReflection="true" importOrganizing="true">
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/logo.model/src" modelPluginID="logo.model" modelName="VMLogo"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="8.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
   <foreignModel>VMLogo.ecore</foreignModel>
   <genPackages prefix="Vmlogo" disposableProviderFactory="true" ecorePackage="VMLogo.ecore#/">
     <genClasses ecoreClass="VMLogo.ecore#//Context">
@@ -32,7 +31,7 @@
     </genClasses>
     <genClasses ecoreClass="VMLogo.ecore#//Variable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VMLogo.ecore#//Variable/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VMLogo.ecore#//Variable/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VMLogo.ecore#//Variable/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

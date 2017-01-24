@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="kmLogo" nsURI="http://www.kermeta.org/kmLogo" nsPrefix="kmlogo">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="kmLogo" nsURI="http://kmLogo" nsPrefix="kmlogo">
   <eClassifiers xsi:type="ecore:EDataType" name="Integer" instanceClassName="int"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Boolean" instanceClassName="java.lang.Boolean"/>
   <eClassifiers xsi:type="ecore:EDataType" name="String" instanceClassName="java.lang.String"/>
-  <eSubpackages name="ASM" nsURI="http://www.kermeta.org/kmLogo/ASM" nsPrefix="ASM">
+  <eSubpackages name="ASM" nsURI="http://kmLogo/ASM" nsPrefix="ASM">
     <eClassifiers xsi:type="ecore:EClass" name="Instruction" abstract="true"/>
     <eClassifiers xsi:type="ecore:EClass" name="Primitive" abstract="true" eSuperTypes="#//ASM/Instruction"/>
     <eClassifiers xsi:type="ecore:EClass" name="Back" eSuperTypes="#//ASM/Primitive">
@@ -33,8 +33,12 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="rhs" lowerBound="1" eType="#//ASM/Expression"
           containment="true"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="UnaryExpression" abstract="true" eSuperTypes="#//ASM/Expression">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="expression" lowerBound="1"
+          eType="#//ASM/Expression" containment="true"/>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Constant" eSuperTypes="#//ASM/Expression">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="integerValue" eType="#//Integer"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ProcCall" eSuperTypes="#//ASM/Expression">
       <eStructuralFeatures xsi:type="ecore:EReference" name="actualArgs" upperBound="-1"
@@ -87,6 +91,9 @@
     <eClassifiers xsi:type="ecore:EClass" name="Equals" eSuperTypes="#//ASM/BinaryExp"/>
     <eClassifiers xsi:type="ecore:EClass" name="Greater" eSuperTypes="#//ASM/BinaryExp"/>
     <eClassifiers xsi:type="ecore:EClass" name="Lower" eSuperTypes="#//ASM/BinaryExp"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Cos" eSuperTypes="#//ASM/UnaryExpression"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Sin" eSuperTypes="#//ASM/UnaryExpression"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Tan" eSuperTypes="#//ASM/UnaryExpression"/>
     <eClassifiers xsi:type="ecore:EClass" name="LogoProgram">
       <eStructuralFeatures xsi:type="ecore:EReference" name="instructions" upperBound="-1"
           eType="#//ASM/Instruction" containment="true"/>

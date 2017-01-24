@@ -112,6 +112,10 @@ public class ASMAdapterFactory extends AdapterFactoryImpl {
 				return createBinaryExpAdapter();
 			}
 			@Override
+			public Adapter caseUnaryExpression(UnaryExpression object) {
+				return createUnaryExpressionAdapter();
+			}
+			@Override
 			public Adapter caseConstant(Constant object) {
 				return createConstantAdapter();
 			}
@@ -178,6 +182,18 @@ public class ASMAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseLower(Lower object) {
 				return createLowerAdapter();
+			}
+			@Override
+			public Adapter caseCos(Cos object) {
+				return createCosAdapter();
+			}
+			@Override
+			public Adapter caseSin(Sin object) {
+				return createSinAdapter();
+			}
+			@Override
+			public Adapter caseTan(Tan object) {
+				return createTanAdapter();
 			}
 			@Override
 			public Adapter caseLogoProgram(LogoProgram object) {
@@ -354,6 +370,20 @@ public class ASMAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBinaryExpAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link kmLogo.ASM.UnaryExpression <em>Unary Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see kmLogo.ASM.UnaryExpression
+	 * @generated
+	 */
+	public Adapter createUnaryExpressionAdapter() {
 		return null;
 	}
 
@@ -592,6 +622,48 @@ public class ASMAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLowerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link kmLogo.ASM.Cos <em>Cos</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see kmLogo.ASM.Cos
+	 * @generated
+	 */
+	public Adapter createCosAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link kmLogo.ASM.Sin <em>Sin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see kmLogo.ASM.Sin
+	 * @generated
+	 */
+	public Adapter createSinAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link kmLogo.ASM.Tan <em>Tan</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see kmLogo.ASM.Tan
+	 * @generated
+	 */
+	public Adapter createTanAdapter() {
 		return null;
 	}
 

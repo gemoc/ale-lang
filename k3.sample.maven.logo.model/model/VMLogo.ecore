@@ -12,8 +12,8 @@
         eType="#//Point" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="heading" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="penUp" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="drawings" eType="#//Segment"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="drawings" upperBound="-1"
+        eType="#//Segment" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Point">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
@@ -35,6 +35,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Variable">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
 </ecore:EPackage>

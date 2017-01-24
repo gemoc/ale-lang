@@ -52,17 +52,17 @@ public interface Variable extends EObject {
 	 * Returns the value of the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Value</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Value</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(int)
+	 * @see #setValue(double)
 	 * @see vmlogo.VmlogoPackage#getVariable_Value()
 	 * @model required="true"
 	 * @generated
 	 */
-	int getValue();
+	double getValue();
 
 	/**
 	 * Sets the value of the '{@link vmlogo.Variable#getValue <em>Value</em>}' attribute.
@@ -72,6 +72,6 @@ public interface Variable extends EObject {
 	 * @see #getValue()
 	 * @generated
 	 */
-	void setValue(int value);
+	void setValue(double value);
 
 } // Variable

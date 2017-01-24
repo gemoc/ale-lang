@@ -36,7 +36,7 @@ public interface KmLogoPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.kermeta.org/kmLogo";
+	String eNS_URI = "http://kmLogo";
 
 	/**
 	 * The package namespace name.

@@ -10,11 +10,11 @@ package kmLogo.ASM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link kmLogo.ASM.If#getThenPart <em>Then Part</em>}</li>
  *   <li>{@link kmLogo.ASM.If#getElsePart <em>Else Part</em>}</li>
  * </ul>
- * </p>
  *
  * @see kmLogo.ASM.ASMPackage#getIf()
  * @model

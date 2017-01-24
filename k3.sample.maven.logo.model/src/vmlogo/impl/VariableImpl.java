@@ -3,7 +3,9 @@
 package vmlogo.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EClass;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -53,7 +55,7 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int VALUE_EDEFAULT = 0;
+	protected static final double VALUE_EDEFAULT = 0.0;
 
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -63,7 +65,7 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 	 * @generated
 	 * @ordered
 	 */
-	protected int value = VALUE_EDEFAULT;
+	protected double value = VALUE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -110,7 +112,7 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getValue() {
+	public double getValue() {
 		return value;
 	}
 
@@ -119,8 +121,8 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setValue(int newValue) {
-		int oldValue = value;
+	public void setValue(double newValue) {
+		double oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, VmlogoPackage.VARIABLE__VALUE, oldValue, value));
@@ -154,7 +156,7 @@ public class VariableImpl extends MinimalEObjectImpl.Container implements Variab
 				setName((String)newValue);
 				return;
 			case VmlogoPackage.VARIABLE__VALUE:
-				setValue((Integer)newValue);
+				setValue((Double)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

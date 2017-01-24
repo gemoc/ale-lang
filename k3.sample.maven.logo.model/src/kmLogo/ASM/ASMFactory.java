@@ -238,6 +238,33 @@ public interface ASMFactory extends EFactory {
 	Lower createLower();
 
 	/**
+	 * Returns a new object of class '<em>Cos</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Cos</em>'.
+	 * @generated
+	 */
+	Cos createCos();
+
+	/**
+	 * Returns a new object of class '<em>Sin</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Sin</em>'.
+	 * @generated
+	 */
+	Sin createSin();
+
+	/**
+	 * Returns a new object of class '<em>Tan</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Tan</em>'.
+	 * @generated
+	 */
+	Tan createTan();
+
+	/**
 	 * Returns a new object of class '<em>Logo Program</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
