@@ -48,6 +48,8 @@ import implementation.FeatureInsert
 import implementation.FeaturePut
 import org.eclipse.emf.common.util.EMap
 import implementation.FeatureRemove
+import drawing.Window
+import vmlogo.Context
 
 public class Interpreter {
 	
@@ -60,7 +62,7 @@ public class Interpreter {
 		/*
 		 * Config
 		 */
-		val String metamodelPath 	= "/home/fcoulon/git/k3/k3-samples-deployed/logo/k3.sample.maven.logo.model/model/ASMLogo.ecore" //define EClasses
+		val String metamodelPath 	= "/home/fcoulon/git/fluffy-umbrella/k3.sample.maven.logo.model/model/ASMLogo.ecore" //define EClasses
 		
 //		val String implementionPath = "model/LogoImplem2.xmi" //define EOperations bodies
 //		val String implementionPath = "data/My.implementation"
@@ -87,6 +89,7 @@ public class Interpreter {
 		val fileContent = new String(Files.readAllBytes(Paths.get(implementionPath)));
 		val implemModel = (new AstBuilder(#[vmPkg as EPackage].toSet)).parse(fileContent)
 		
+		metamodel += vmPkg
 		val interpreter = new Interpreter(metamodel,implemModel)
 		interpreter.registerImplem()
 		interpreter.qryEnv.registerEPackage(vmPkg)//TODO: urgly
@@ -105,6 +108,8 @@ public class Interpreter {
 		val arguments = newHashMap("context" -> ctx)
 		val evaluationResult = interpreter.eval(root,astResult,arguments);
 		val status = evaluationResult.diagnostic
+		
+		val win = new Window((ctx as Context).turtle)
 		
 		println(status)
 		println
@@ -128,6 +133,12 @@ public class Interpreter {
 		qryEnv.registerService(new JavaMethodService(logMethod, null));
 		val createMethod = FactoryService.getMethod("create",EClass)
 		qryEnv.registerService(new JavaMethodService(createMethod, null));
+		val cosMethod = TrigoServices.getMethod("cosinus",Double)
+		qryEnv.registerService(new JavaMethodService(cosMethod, null));
+		val sinMethod = TrigoServices.getMethod("sinus",Double)
+		qryEnv.registerService(new JavaMethodService(sinMethod, null));
+		val tanMethod = TrigoServices.getMethod("tan",Double)
+		qryEnv.registerService(new JavaMethodService(tanMethod, null));
 //		val addMethod = EListService.getMethod("add",Collection,Object)
 //		qryEnv.registerService(new JavaMethodService(addMethod, null));
 //		val forEachMethod = ForEachService.getMethod("forEach",List,LambdaValue)

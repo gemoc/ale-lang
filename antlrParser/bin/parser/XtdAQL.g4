@@ -62,7 +62,7 @@ rPut : Expression '.' ID '.' 'put' '(' Expression ',' Expression ')'
 rForEach : 'for' '(' ID  'in' Expression ')' rBlock
 ;
 
-rBlock : '{' (rStatement (';' rStatement)*)? '}'
+rBlock : '{' (rStatement ';' (rStatement ';')*)? '}'
 ;
 
 rIf : 'if' '(' Expression ')' rBlock ('else' rBlock)?

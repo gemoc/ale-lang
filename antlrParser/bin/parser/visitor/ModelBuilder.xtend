@@ -192,6 +192,16 @@ class ModelBuilder {
 		if(candidate !== null)
 			return candidate
 			
-		return EcorePackage.eINSTANCE.EClassifier
+		switch className {
+			case "boolean" 	: return EcorePackage.eINSTANCE.EBoolean
+			case "byte" 	: return EcorePackage.eINSTANCE.EByte
+			case "char" 	: return EcorePackage.eINSTANCE.EChar
+			case "short" 	: return EcorePackage.eINSTANCE.EShort
+			case "int" 		: return EcorePackage.eINSTANCE.EInt
+			case "long" 	: return EcorePackage.eINSTANCE.ELong
+			case "float" 	: return EcorePackage.eINSTANCE.EFloat
+			case "double" 	: return EcorePackage.eINSTANCE.EDouble
+			default			: return EcorePackage.eINSTANCE.EClassifier
+		}
 	}
 }

@@ -2,6 +2,7 @@ package interpreter;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterators;
+import drawing.Window;
 import implementation.Behaviored;
 import implementation.Block;
 import implementation.Expression;
@@ -21,6 +22,7 @@ import interpreter.EvalBodyService;
 import interpreter.FactoryService;
 import interpreter.LogService;
 import interpreter.MyService;
+import interpreter.TrigoServices;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -66,6 +68,8 @@ import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.Pair;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure2;
 import parser.AstBuilder;
+import vmlogo.Context;
+import vmlogo.Turtle;
 import vmlogo.VmlogoPackage;
 
 @SuppressWarnings("all")
@@ -78,7 +82,7 @@ public class Interpreter {
   
   public static void main(final String[] args) {
     try {
-      final String metamodelPath = "/home/fcoulon/git/k3/k3-samples-deployed/logo/k3.sample.maven.logo.model/model/ASMLogo.ecore";
+      final String metamodelPath = "/home/fcoulon/git/fluffy-umbrella/k3.sample.maven.logo.model/model/ASMLogo.ecore";
       final String implementionPath = "data/LogoProgram.implem";
       final String modelPath = "model/LogoProgram.xmi";
       final String contextPath = "data/My.vmlogo";
@@ -96,6 +100,7 @@ public class Interpreter {
       Set<EPackage> _set = IterableExtensions.<EPackage>toSet(Collections.<EPackage>unmodifiableList(CollectionLiterals.<EPackage>newArrayList(((EPackage) vmPkg))));
       AstBuilder _astBuilder = new AstBuilder(_set);
       final Root implemModel = _astBuilder.parse(fileContent);
+      metamodel.add(vmPkg);
       final Interpreter interpreter = new Interpreter(metamodel, implemModel);
       interpreter.registerImplem();
       interpreter.qryEnv.registerEPackage(vmPkg);
@@ -110,6 +115,8 @@ public class Interpreter {
       final HashMap<String, EObject> arguments = CollectionLiterals.<String, EObject>newHashMap(_mappedTo);
       final EvaluationResult evaluationResult = interpreter.eval(root, astResult, arguments);
       final Diagnostic status = evaluationResult.getDiagnostic();
+      Turtle _turtle = ((Context) ctx).getTurtle();
+      final Window win = new Window(_turtle);
       InputOutput.<Diagnostic>println(status);
       InputOutput.println();
       Object _result = evaluationResult.getResult();
@@ -138,6 +145,15 @@ public class Interpreter {
       final Method createMethod = FactoryService.class.getMethod("create", EClass.class);
       JavaMethodService _javaMethodService_2 = new JavaMethodService(createMethod, null);
       this.qryEnv.registerService(_javaMethodService_2);
+      final Method cosMethod = TrigoServices.class.getMethod("cosinus", Double.class);
+      JavaMethodService _javaMethodService_3 = new JavaMethodService(cosMethod, null);
+      this.qryEnv.registerService(_javaMethodService_3);
+      final Method sinMethod = TrigoServices.class.getMethod("sinus", Double.class);
+      JavaMethodService _javaMethodService_4 = new JavaMethodService(sinMethod, null);
+      this.qryEnv.registerService(_javaMethodService_4);
+      final Method tanMethod = TrigoServices.class.getMethod("tan", Double.class);
+      JavaMethodService _javaMethodService_5 = new JavaMethodService(tanMethod, null);
+      this.qryEnv.registerService(_javaMethodService_5);
       final Consumer<EPackage> _function = (EPackage pkg) -> {
         this.qryEnv.registerEPackage(pkg);
         String _nsURI = pkg.getNsURI();

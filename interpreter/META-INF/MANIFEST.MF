@@ -7,9 +7,6 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: dummy,
- dummy.impl,
- dummy.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.acceleo.query,
@@ -19,7 +16,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.xtend.lib,
  org.eclipse.xtend.lib.macro,
  implem.model,
- k3.sample.maven.logo.model,
+ logo.model,
  antlrParser
 Import-Package: org.antlr.v4.runtime
 Bundle-ActivationPolicy: lazy

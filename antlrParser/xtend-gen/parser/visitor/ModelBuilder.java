@@ -193,6 +193,25 @@ public class ModelBuilder {
     if ((candidate != null)) {
       return candidate;
     }
-    return EcorePackage.eINSTANCE.getEClassifier();
+    switch (className) {
+      case "boolean":
+        return EcorePackage.eINSTANCE.getEBoolean();
+      case "byte":
+        return EcorePackage.eINSTANCE.getEByte();
+      case "char":
+        return EcorePackage.eINSTANCE.getEChar();
+      case "short":
+        return EcorePackage.eINSTANCE.getEShort();
+      case "int":
+        return EcorePackage.eINSTANCE.getEInt();
+      case "long":
+        return EcorePackage.eINSTANCE.getELong();
+      case "float":
+        return EcorePackage.eINSTANCE.getEFloat();
+      case "double":
+        return EcorePackage.eINSTANCE.getEDouble();
+      default:
+        return EcorePackage.eINSTANCE.getEClassifier();
+    }
   }
 }

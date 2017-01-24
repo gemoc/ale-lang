@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vmlogo:Context xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:vmlogo="http://vmlogo/">
-  <turtle heading="1.0"/>
+  <turtle heading="0.0">
+    <position
+        x="0.0"
+        y="0.0"/>
+  </turtle>
   <callStack>
     <frames/>
   </callStack>
