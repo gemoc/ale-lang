@@ -5,19 +5,14 @@ package implementation.impl;
 import implementation.Behaviored;
 import implementation.Block;
 import implementation.ImplementationPackage;
-
-import implementation.VariableDeclaration;
-import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,7 +23,6 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * </p>
  * <ul>
  *   <li>{@link implementation.impl.BehavioredImpl#getBody <em>Body</em>}</li>
- *   <li>{@link implementation.impl.BehavioredImpl#getAttributes <em>Attributes</em>}</li>
  * </ul>
  *
  * @generated
@@ -43,16 +37,6 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 	 * @ordered
 	 */
 	protected Block body;
-
-	/**
-	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAttributes()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<VariableDeclaration> attributes;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -121,18 +105,6 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<VariableDeclaration> getAttributes() {
-		if (attributes == null) {
-			attributes = new EObjectResolvingEList<VariableDeclaration>(VariableDeclaration.class, this, ImplementationPackage.BEHAVIORED__ATTRIBUTES);
-		}
-		return attributes;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -152,8 +124,6 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 		switch (featureID) {
 			case ImplementationPackage.BEHAVIORED__BODY:
 				return getBody();
-			case ImplementationPackage.BEHAVIORED__ATTRIBUTES:
-				return getAttributes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -170,10 +140,6 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 			case ImplementationPackage.BEHAVIORED__BODY:
 				setBody((Block)newValue);
 				return;
-			case ImplementationPackage.BEHAVIORED__ATTRIBUTES:
-				getAttributes().clear();
-				getAttributes().addAll((Collection<? extends VariableDeclaration>)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -189,9 +155,6 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 			case ImplementationPackage.BEHAVIORED__BODY:
 				setBody((Block)null);
 				return;
-			case ImplementationPackage.BEHAVIORED__ATTRIBUTES:
-				getAttributes().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -206,8 +169,6 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 		switch (featureID) {
 			case ImplementationPackage.BEHAVIORED__BODY:
 				return body != null;
-			case ImplementationPackage.BEHAVIORED__ATTRIBUTES:
-				return attributes != null && !attributes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

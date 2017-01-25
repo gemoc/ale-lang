@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link implementation.impl.MethodImpl#getOperationDef <em>Operation Def</em>}</li>
- *   <li>{@link implementation.impl.MethodImpl#getContainingClass <em>Containing Class</em>}</li>
  * </ul>
  *
  * @generated
@@ -36,26 +35,6 @@ public class MethodImpl extends BehavioredImpl implements Method {
 	 * @ordered
 	 */
 	protected EOperation operationDef;
-
-	/**
-	 * The default value of the '{@link #getContainingClass() <em>Containing Class</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContainingClass()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String CONTAINING_CLASS_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getContainingClass() <em>Containing Class</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContainingClass()
-	 * @generated
-	 * @ordered
-	 */
-	protected String containingClass = CONTAINING_CLASS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -124,27 +103,6 @@ public class MethodImpl extends BehavioredImpl implements Method {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getContainingClass() {
-		return containingClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setContainingClass(String newContainingClass) {
-		String oldContainingClass = containingClass;
-		containingClass = newContainingClass;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.METHOD__CONTAINING_CLASS, oldContainingClass, containingClass));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -164,8 +122,6 @@ public class MethodImpl extends BehavioredImpl implements Method {
 		switch (featureID) {
 			case ImplementationPackage.METHOD__OPERATION_DEF:
 				return getOperationDef();
-			case ImplementationPackage.METHOD__CONTAINING_CLASS:
-				return getContainingClass();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -182,9 +138,6 @@ public class MethodImpl extends BehavioredImpl implements Method {
 			case ImplementationPackage.METHOD__OPERATION_DEF:
 				setOperationDef((EOperation)newValue);
 				return;
-			case ImplementationPackage.METHOD__CONTAINING_CLASS:
-				setContainingClass((String)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -200,9 +153,6 @@ public class MethodImpl extends BehavioredImpl implements Method {
 			case ImplementationPackage.METHOD__OPERATION_DEF:
 				setOperationDef((EOperation)null);
 				return;
-			case ImplementationPackage.METHOD__CONTAINING_CLASS:
-				setContainingClass(CONTAINING_CLASS_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -217,26 +167,8 @@ public class MethodImpl extends BehavioredImpl implements Method {
 		switch (featureID) {
 			case ImplementationPackage.METHOD__OPERATION_DEF:
 				return operationDef != null;
-			case ImplementationPackage.METHOD__CONTAINING_CLASS:
-				return CONTAINING_CLASS_EDEFAULT == null ? containingClass != null : !CONTAINING_CLASS_EDEFAULT.equals(containingClass);
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (containingClass: ");
-		result.append(containingClass);
-		result.append(')');
-		return result.toString();
 	}
 
 } //MethodImpl

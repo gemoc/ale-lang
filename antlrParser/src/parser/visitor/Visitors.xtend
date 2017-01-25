@@ -104,11 +104,9 @@ class OpVisitor extends XtdAQLBaseVisitor<Behaviored> {
 		val body = (new BlockVisitor).visit(ctx.rBlock)
 		
 		val operationName = ctx.getChild(1).text
-		val nbArgs = parameters.size
 		val className = ctx.parent.getChild(1).text
 		
-//		val realOperation = resolve(className, operationName, nbArgs)
-		return ModelBuilder.singleton.buildMethod(className, operationName, parameters, body) //TODO: build Implem also
+		return ModelBuilder.singleton.buildOperation(className, operationName, parameters, body)
 	}
 	
 }

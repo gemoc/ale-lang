@@ -84,13 +84,13 @@ public class Interpreter {
 		val metamodel = loadModel(metamodelPath,rs).getAllContents().filter(EPackage).toSet
 		val implemPkg = ImplementationPackage.eINSTANCE
 		val vmPkg = VmlogoPackage.eINSTANCE
+		metamodel += vmPkg
 //		val implemModel = loadModel(implementionPath,rs).getAllContents().head as Root
 //		EcoreUtil.resolveAll(implemModel);
 		
 		val fileContent = new String(Files.readAllBytes(Paths.get(implementionPath)));
-		val implemModel = (new AstBuilder(#[vmPkg as EPackage].toSet)).parse(fileContent)
+		val implemModel = (new AstBuilder(metamodel)).parse(fileContent)
 		
-		metamodel += vmPkg
 		val interpreter = new Interpreter(metamodel,implemModel)
 		interpreter.registerImplem()
 		interpreter.qryEnv.registerEPackage(vmPkg)//TODO: urgly

@@ -12,6 +12,7 @@ import implementation.FeaturePut;
 import implementation.FeatureRemove;
 import implementation.ForEach;
 import implementation.If;
+import implementation.Implementation;
 import implementation.ImplementationFactory;
 import implementation.ImplementationPackage;
 import implementation.Method;
@@ -61,7 +62,17 @@ public class ModelBuilder {
     pkgs.forEach(_function);
   }
   
-  public Method buildMethod(final String containingClass, final String name, final List<Parameter> params, final Block body) {
+  public Behaviored buildOperation(final String containingClass, final String name, final List<Parameter> params, final Block body) {
+    int _size = params.size();
+    final EOperation existingOperation = this.resolve(containingClass, name, _size);
+    if ((existingOperation == null)) {
+      return this.buildMethod(name, params, body);
+    } else {
+      return this.buildImplementation(existingOperation, params, body);
+    }
+  }
+  
+  public Method buildMethod(final String name, final List<Parameter> params, final Block body) {
     final EOperation operation = this.ecoreFactory.createEOperation();
     operation.setName(name);
     final Consumer<Parameter> _function = (Parameter p) -> {
@@ -75,10 +86,16 @@ public class ModelBuilder {
     };
     params.forEach(_function);
     final Method newMethod = this.factory.createMethod();
-    newMethod.setContainingClass(containingClass);
     newMethod.setOperationDef(operation);
     newMethod.setBody(body);
     return newMethod;
+  }
+  
+  public Implementation buildImplementation(final EOperation operationRef, final List<Parameter> params, final Block body) {
+    final Implementation implem = this.factory.createImplementation();
+    implem.setOperationRef(operationRef);
+    implem.setBody(body);
+    return implem;
   }
   
   public Parameter buildParameter(final String type, final String name) {

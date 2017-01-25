@@ -1,8 +1,8 @@
 package interpreter;
 
 import com.google.common.base.Objects;
-import com.google.common.collect.Iterables;
 import implementation.Behaviored;
+import implementation.ExtendedClass;
 import implementation.Implementation;
 import implementation.Method;
 import interpreter.Interpreter;
@@ -27,7 +27,6 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.xtext.xbase.lib.Conversions;
-import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 /**
@@ -116,18 +115,8 @@ public class EvalBodyService extends AbstractService {
       }
     } else {
       if ((this.implem instanceof Method)) {
-        Set<EPackage> _metamodel = this.interpreter.getMetamodel();
-        final Function1<EPackage, EList<EClassifier>> _function = (EPackage it) -> {
-          return it.getEClassifiers();
-        };
-        Iterable<EList<EClassifier>> _map = IterableExtensions.<EPackage, EList<EClassifier>>map(_metamodel, _function);
-        Iterable<EClassifier> _flatten = Iterables.<EClassifier>concat(_map);
-        final Function1<EClassifier, Boolean> _function_1 = (EClassifier it) -> {
-          String _name = it.getName();
-          String _containingClass = ((Method)this.implem).getContainingClass();
-          return Boolean.valueOf(Objects.equal(_name, _containingClass));
-        };
-        final EClassifier containingClass = IterableExtensions.<EClassifier>findFirst(_flatten, _function_1);
+        EObject _eContainer = ((Method)this.implem).eContainer();
+        final EClass containingClass = ((ExtendedClass) _eContainer).getBaseClass();
         EClassifierType _eClassifierType_1 = new EClassifierType(queryEnvironment, containingClass);
         result.add(_eClassifierType_1);
         EOperation _operationDef = ((Method)this.implem).getOperationDef();
@@ -165,30 +154,8 @@ public class EvalBodyService extends AbstractService {
   public String getLongSignature() {
     String ePkgNsURI = null;
     String eCLassName = null;
-    EClass _xifexpression = null;
-    if ((this.implem instanceof Implementation)) {
-      EOperation _operationRef = ((Implementation)this.implem).getOperationRef();
-      _xifexpression = _operationRef.getEContainingClass();
-    } else {
-      EClass _xifexpression_1 = null;
-      if ((this.implem instanceof Method)) {
-        Set<EPackage> _metamodel = this.interpreter.getMetamodel();
-        final Function1<EPackage, EList<EClassifier>> _function = (EPackage it) -> {
-          return it.getEClassifiers();
-        };
-        Iterable<EList<EClassifier>> _map = IterableExtensions.<EPackage, EList<EClassifier>>map(_metamodel, _function);
-        Iterable<EClassifier> _flatten = Iterables.<EClassifier>concat(_map);
-        Iterable<EClass> _filter = Iterables.<EClass>filter(_flatten, EClass.class);
-        final Function1<EClass, Boolean> _function_1 = (EClass it) -> {
-          String _name = it.getName();
-          String _containingClass = ((Method)this.implem).getContainingClass();
-          return Boolean.valueOf(Objects.equal(_name, _containingClass));
-        };
-        _xifexpression_1 = IterableExtensions.<EClass>findFirst(_filter, _function_1);
-      }
-      _xifexpression = _xifexpression_1;
-    }
-    final EClass eContainingClass = _xifexpression;
+    EObject _eContainer = this.implem.eContainer();
+    final EClass eContainingClass = ((ExtendedClass) _eContainer).getBaseClass();
     boolean _notEquals = (!Objects.equal(eContainingClass, null));
     if (_notEquals) {
       String _name = eContainingClass.getName();

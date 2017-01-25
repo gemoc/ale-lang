@@ -22,6 +22,7 @@ import java.util.Set
 import java.util.LinkedHashSet
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
+import implementation.ExtendedClass
 
 /**
  * AQL Service to eval EOperation implementation 
@@ -87,7 +88,7 @@ class EvalBodyService extends AbstractService{
 		}
 		else if(implem instanceof Method) {
 			//TODO: take care of qualified name & EClass not found
-			val containingClass = interpreter.metamodel.map[EClassifiers].flatten.findFirst[name == implem.containingClass]
+			val containingClass = (implem.eContainer as ExtendedClass).baseClass
 			result.add(new EClassifierType(queryEnvironment, containingClass))
 			for (EParameter parameter : implem.operationDef.getEParameters()) {
 				val EClassifierType rawType = new EClassifierType(queryEnvironment, parameter.getEType)
@@ -116,12 +117,8 @@ class EvalBodyService extends AbstractService{
 	override getLongSignature() {
 		var String ePkgNsURI
 		var String eCLassName
-
-		val EClass eContainingClass = 
-			if(implem instanceof Implementation)
-				implem.operationRef.EContainingClass
-			else if(implem instanceof Method)
-				interpreter.metamodel.map[EClassifiers].flatten.filter(EClass).findFirst[name == implem.containingClass]
+		
+		val EClass eContainingClass = (implem.eContainer as ExtendedClass).baseClass
 		
 		if (eContainingClass != null) {
 			eCLassName = eContainingClass.getName()
