@@ -16,7 +16,7 @@ rRoot : rImports rClass*
 rImports : ('import' STRING)*
 ;
 
-rClass : 'class' ID '{' rOperation* '}'
+rClass : 'class' ID '{' rAssign* rOperation* '}'
 ; 
 
 rOperation : 'def' ID '(' rParameters? ')' rBlock

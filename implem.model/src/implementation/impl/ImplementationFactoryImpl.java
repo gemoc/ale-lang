@@ -57,6 +57,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case ImplementationPackage.ROOT: return createRoot();
+			case ImplementationPackage.EXTENDED_CLASS: return createExtendedClass();
 			case ImplementationPackage.BEHAVIORED: return createBehaviored();
 			case ImplementationPackage.IMPLEMENTATION: return createImplementation();
 			case ImplementationPackage.METHOD: return createMethod();
@@ -85,6 +86,16 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	public Root createRoot() {
 		RootImpl root = new RootImpl();
 		return root;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExtendedClass createExtendedClass() {
+		ExtendedClassImpl extendedClass = new ExtendedClassImpl();
+		return extendedClass;
 	}
 
 	/**

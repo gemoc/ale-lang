@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link implementation.Root#getDeclarations <em>Declarations</em>}</li>
+ *   <li>{@link implementation.Root#getClassExtensions <em>Class Extensions</em>}</li>
  * </ul>
  *
  * @see implementation.ImplementationPackage#getRoot()
@@ -24,19 +24,19 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Root extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Declarations</b></em>' containment reference list.
-	 * The list contents are of type {@link implementation.Behaviored}.
+	 * Returns the value of the '<em><b>Class Extensions</b></em>' containment reference list.
+	 * The list contents are of type {@link implementation.ExtendedClass}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Declarations</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Class Extensions</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Declarations</em>' containment reference list.
-	 * @see implementation.ImplementationPackage#getRoot_Declarations()
+	 * @return the value of the '<em>Class Extensions</em>' containment reference list.
+	 * @see implementation.ImplementationPackage#getRoot_ClassExtensions()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Behaviored> getDeclarations();
+	EList<ExtendedClass> getClassExtensions();
 
 } // Root

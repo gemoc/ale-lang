@@ -56,6 +56,7 @@ public class Interpreter {
 	IQueryEnvironment qryEnv
 	Root implemModel
 	Set<EPackage> metamodel
+	DynamicFeatureAccess dynamicFeatureAccess
 	
 	def static void main(String[] args) {
 		
@@ -139,6 +140,9 @@ public class Interpreter {
 		qryEnv.registerService(new JavaMethodService(sinMethod, null));
 		val tanMethod = TrigoServices.getMethod("tan",Double)
 		qryEnv.registerService(new JavaMethodService(tanMethod, null));
+		val featureAccessMethod = DynamicFeatureAccess.getMethod("aqlFeatureAccess",EObject,String)
+		this.dynamicFeatureAccess = new DynamicFeatureAccess(implemModel)
+		qryEnv.registerService(new DynamicFeatureAccessService(featureAccessMethod, dynamicFeatureAccess));
 //		val addMethod = EListService.getMethod("add",Collection,Object)
 //		qryEnv.registerService(new JavaMethodService(addMethod, null));
 //		val forEachMethod = ForEachService.getMethod("forEach",List,LambdaValue)
@@ -240,6 +244,9 @@ public class Interpreter {
 				val feature = assigned.eClass.getEStructuralFeature(stmt.targetFeature)
 				if(feature !== null){
 					assigned.eSet(feature,value)
+				}
+				else{
+					dynamicFeatureAccess.setDynamicFeatureValue(assigned,stmt.targetFeature,value)
 				}
 			}
 		}
@@ -381,7 +388,7 @@ public class Interpreter {
 //	}
 	
 	def private registerImplem() {
-		implemModel.declarations.forEach[implem |
+		implemModel.classExtensions.map[methods].flatten.forEach[implem |
 			qryEnv.registerService(new EvalBodyService(implem,this));
 		]
 	}

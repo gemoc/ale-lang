@@ -71,6 +71,10 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 				return createRootAdapter();
 			}
 			@Override
+			public Adapter caseExtendedClass(ExtendedClass object) {
+				return createExtendedClassAdapter();
+			}
+			@Override
 			public Adapter caseBehaviored(Behaviored object) {
 				return createBehavioredAdapter();
 			}
@@ -161,6 +165,20 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createRootAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link implementation.ExtendedClass <em>Extended Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see implementation.ExtendedClass
+	 * @generated
+	 */
+	public Adapter createExtendedClassAdapter() {
 		return null;
 	}
 

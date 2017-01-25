@@ -1,7 +1,7 @@
 package parser.visitor;
 
 import com.google.common.collect.Iterables;
-import implementation.Behaviored;
+import implementation.ExtendedClass;
 import implementation.ImplementationFactory;
 import implementation.ImplementationPackage;
 import implementation.Root;
@@ -22,14 +22,13 @@ public class RootVisitor extends XtdAQLBaseVisitor<Root> {
     EFactory _eFactoryInstance = ImplementationPackage.eINSTANCE.getEFactoryInstance();
     final ImplementationFactory factory = ((ImplementationFactory) _eFactoryInstance);
     final Root root = factory.createRoot();
-    EList<Behaviored> _declarations = root.getDeclarations();
+    EList<ExtendedClass> _classExtensions = root.getClassExtensions();
     List<XtdAQLParser.RClassContext> _rClass = ctx.rClass();
-    final Function1<XtdAQLParser.RClassContext, List<Behaviored>> _function = (XtdAQLParser.RClassContext it) -> {
+    final Function1<XtdAQLParser.RClassContext, ExtendedClass> _function = (XtdAQLParser.RClassContext it) -> {
       return subVisitor.visit(it);
     };
-    List<List<Behaviored>> _map = ListExtensions.<XtdAQLParser.RClassContext, List<Behaviored>>map(_rClass, _function);
-    Iterable<Behaviored> _flatten = Iterables.<Behaviored>concat(_map);
-    Iterables.<Behaviored>addAll(_declarations, _flatten);
+    List<ExtendedClass> _map = ListExtensions.<XtdAQLParser.RClassContext, ExtendedClass>map(_rClass, _function);
+    Iterables.<ExtendedClass>addAll(_classExtensions, _map);
     return root;
   }
 }

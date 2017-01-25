@@ -1,11 +1,13 @@
 package interpreter;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import drawing.Window;
 import implementation.Behaviored;
 import implementation.Block;
 import implementation.Expression;
+import implementation.ExtendedClass;
 import implementation.FeatureAssignment;
 import implementation.FeatureInsert;
 import implementation.FeaturePut;
@@ -18,6 +20,8 @@ import implementation.Root;
 import implementation.Statement;
 import implementation.VariableDeclaration;
 import implementation.While;
+import interpreter.DynamicFeatureAccess;
+import interpreter.DynamicFeatureAccessService;
 import interpreter.EvalBodyService;
 import interpreter.FactoryService;
 import interpreter.LogService;
@@ -65,6 +69,7 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.Pair;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure2;
 import parser.AstBuilder;
@@ -79,6 +84,8 @@ public class Interpreter {
   private Root implemModel;
   
   private Set<EPackage> metamodel;
+  
+  private DynamicFeatureAccess dynamicFeatureAccess;
   
   public static void main(final String[] args) {
     try {
@@ -154,6 +161,11 @@ public class Interpreter {
       final Method tanMethod = TrigoServices.class.getMethod("tan", Double.class);
       JavaMethodService _javaMethodService_5 = new JavaMethodService(tanMethod, null);
       this.qryEnv.registerService(_javaMethodService_5);
+      final Method featureAccessMethod = DynamicFeatureAccess.class.getMethod("aqlFeatureAccess", EObject.class, String.class);
+      DynamicFeatureAccess _dynamicFeatureAccess = new DynamicFeatureAccess(this.implemModel);
+      this.dynamicFeatureAccess = _dynamicFeatureAccess;
+      DynamicFeatureAccessService _dynamicFeatureAccessService = new DynamicFeatureAccessService(featureAccessMethod, this.dynamicFeatureAccess);
+      this.qryEnv.registerService(_dynamicFeatureAccessService);
       final Consumer<EPackage> _function = (EPackage pkg) -> {
         this.qryEnv.registerEPackage(pkg);
         String _nsURI = pkg.getNsURI();
@@ -267,6 +279,9 @@ public class Interpreter {
             final EStructuralFeature feature = _eClass.getEStructuralFeature(_targetFeature);
             if ((feature != null)) {
               ((EObject)assigned).eSet(feature, value);
+            } else {
+              String _targetFeature_1 = ((FeatureAssignment)stmt).getTargetFeature();
+              this.dynamicFeatureAccess.setDynamicFeatureValue(((EObject)assigned), _targetFeature_1, value);
             }
           }
         } else {
@@ -281,8 +296,8 @@ public class Interpreter {
             final Object value_1 = _eval_3.getResult();
             if ((assigned_1 instanceof EObject)) {
               EClass _eClass_1 = ((EObject)assigned_1).eClass();
-              String _targetFeature_1 = ((FeatureInsert)stmt).getTargetFeature();
-              final EStructuralFeature feature_1 = _eClass_1.getEStructuralFeature(_targetFeature_1);
+              String _targetFeature_2 = ((FeatureInsert)stmt).getTargetFeature();
+              final EStructuralFeature feature_1 = _eClass_1.getEStructuralFeature(_targetFeature_2);
               final Object featureValue = ((EObject)assigned_1).eGet(feature_1);
               if ((featureValue instanceof EList)) {
                 ((EList)featureValue).add(value_1);
@@ -300,8 +315,8 @@ public class Interpreter {
               final Object value_2 = _eval_5.getResult();
               if ((assigned_2 instanceof EObject)) {
                 EClass _eClass_2 = ((EObject)assigned_2).eClass();
-                String _targetFeature_2 = ((FeatureRemove)stmt).getTargetFeature();
-                final EStructuralFeature feature_2 = _eClass_2.getEStructuralFeature(_targetFeature_2);
+                String _targetFeature_3 = ((FeatureRemove)stmt).getTargetFeature();
+                final EStructuralFeature feature_2 = _eClass_2.getEStructuralFeature(_targetFeature_3);
                 final Object featureValue_1 = ((EObject)assigned_2).eGet(feature_2);
                 if ((featureValue_1 instanceof EList)) {
                   ((EList)featureValue_1).remove(value_2);
@@ -323,8 +338,8 @@ public class Interpreter {
                 final Object value_3 = _eval_8.getResult();
                 if ((assigned_3 instanceof EObject)) {
                   EClass _eClass_3 = ((EObject)assigned_3).eClass();
-                  String _targetFeature_3 = ((FeaturePut)stmt).getTargetFeature();
-                  final EStructuralFeature feature_3 = _eClass_3.getEStructuralFeature(_targetFeature_3);
+                  String _targetFeature_4 = ((FeaturePut)stmt).getTargetFeature();
+                  final EStructuralFeature feature_3 = _eClass_3.getEStructuralFeature(_targetFeature_4);
                   final Object featureValue_2 = ((EObject)assigned_3).eGet(feature_3);
                   if ((featureValue_2 instanceof EMap)) {
                     ((EMap)featureValue_2).put(key, value_3);
@@ -490,12 +505,17 @@ public class Interpreter {
   }
   
   private void registerImplem() {
-    EList<Behaviored> _declarations = this.implemModel.getDeclarations();
-    final Consumer<Behaviored> _function = (Behaviored implem) -> {
+    EList<ExtendedClass> _classExtensions = this.implemModel.getClassExtensions();
+    final Function1<ExtendedClass, EList<Behaviored>> _function = (ExtendedClass it) -> {
+      return it.getMethods();
+    };
+    List<EList<Behaviored>> _map = ListExtensions.<ExtendedClass, EList<Behaviored>>map(_classExtensions, _function);
+    Iterable<Behaviored> _flatten = Iterables.<Behaviored>concat(_map);
+    final Consumer<Behaviored> _function_1 = (Behaviored implem) -> {
       EvalBodyService _evalBodyService = new EvalBodyService(implem, this);
       this.qryEnv.registerService(_evalBodyService);
     };
-    _declarations.forEach(_function);
+    _flatten.forEach(_function_1);
   }
   
   public Set<EPackage> getMetamodel() {

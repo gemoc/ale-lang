@@ -24,6 +24,8 @@ import parser.XtdAQLParser.RSetContext
 import parser.XtdAQLParser.RInsertContext
 import parser.XtdAQLParser.RPutContext
 import parser.XtdAQLParser.RRemoveContext
+import implementation.ExtendedClass
+import implementation.VariableDeclaration
 
 class BlockVisitor extends XtdAQLBaseVisitor<Block> {
 	
@@ -130,12 +132,15 @@ class VarVisitor extends XtdAQLBaseVisitor<Parameter> {
 	
 }
 
-class ClassVisitor extends XtdAQLBaseVisitor<List<Behaviored>> {
+class ClassVisitor extends XtdAQLBaseVisitor<ExtendedClass> {
 	
 	override visitRClass(RClassContext ctx) {
-		val subVisitor = new OpVisitor
-		val res = ctx.rOperation.map[subVisitor.visit(it)]
-		return res
+		val name = ctx.ID.text
+		val subVisitor1 = new StatementVisitor
+		val attributes = ctx.rAssign.map[subVisitor1.visitRAssign(it) as VariableDeclaration]
+		val subVisitor2 = new OpVisitor
+		val operations = ctx.rOperation.map[subVisitor2.visit(it)]
+		return ModelBuilder.singleton.buildExtendedClass(name,attributes,operations)
 	}
 	
 }
@@ -167,7 +172,7 @@ class RootVisitor extends XtdAQLBaseVisitor<Root> {
 		val subVisitor = new ClassVisitor
 		val factory = ImplementationPackage.eINSTANCE.EFactoryInstance as ImplementationFactory
 		val root = factory.createRoot
-		root.declarations += ctx.rClass.map[(subVisitor).visit(it)].flatten
+		root.classExtensions += ctx.rClass.map[subVisitor.visit(it)]
 		return root
 	}
 	

@@ -70,6 +70,12 @@ public class ImplementationSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ImplementationPackage.EXTENDED_CLASS: {
+				ExtendedClass extendedClass = (ExtendedClass)theEObject;
+				T result = caseExtendedClass(extendedClass);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ImplementationPackage.BEHAVIORED: {
 				Behaviored behaviored = (Behaviored)theEObject;
 				T result = caseBehaviored(behaviored);
@@ -188,6 +194,21 @@ public class ImplementationSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseRoot(Root object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Extended Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Extended Class</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExtendedClass(ExtendedClass object) {
 		return null;
 	}
 
