@@ -168,22 +168,13 @@ public interface ImplementationPackage extends EPackage {
 	int BEHAVIORED__BODY = 0;
 
 	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIORED__ATTRIBUTES = 1;
-
-	/**
 	 * The number of structural features of the '<em>Behaviored</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIORED_FEATURE_COUNT = 2;
+	int BEHAVIORED_FEATURE_COUNT = 1;
 
 	/**
 	 * The number of operations of the '<em>Behaviored</em>' class.
@@ -212,15 +203,6 @@ public interface ImplementationPackage extends EPackage {
 	 * @ordered
 	 */
 	int IMPLEMENTATION__BODY = BEHAVIORED__BODY;
-
-	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLEMENTATION__ATTRIBUTES = BEHAVIORED__ATTRIBUTES;
 
 	/**
 	 * The feature id for the '<em><b>Operation Ref</b></em>' reference.
@@ -269,15 +251,6 @@ public interface ImplementationPackage extends EPackage {
 	int METHOD__BODY = BEHAVIORED__BODY;
 
 	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int METHOD__ATTRIBUTES = BEHAVIORED__ATTRIBUTES;
-
-	/**
 	 * The feature id for the '<em><b>Operation Def</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -287,22 +260,13 @@ public interface ImplementationPackage extends EPackage {
 	int METHOD__OPERATION_DEF = BEHAVIORED_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Containing Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int METHOD__CONTAINING_CLASS = BEHAVIORED_FEATURE_COUNT + 1;
-
-	/**
 	 * The number of structural features of the '<em>Method</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD_FEATURE_COUNT = BEHAVIORED_FEATURE_COUNT + 2;
+	int METHOD_FEATURE_COUNT = BEHAVIORED_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Method</em>' class.
@@ -982,17 +946,6 @@ public interface ImplementationPackage extends EPackage {
 	EReference getBehaviored_Body();
 
 	/**
-	 * Returns the meta object for the reference list '{@link implementation.Behaviored#getAttributes <em>Attributes</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Attributes</em>'.
-	 * @see implementation.Behaviored#getAttributes()
-	 * @see #getBehaviored()
-	 * @generated
-	 */
-	EReference getBehaviored_Attributes();
-
-	/**
 	 * Returns the meta object for class '{@link implementation.Implementation <em>Implementation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1033,17 +986,6 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMethod_OperationDef();
-
-	/**
-	 * Returns the meta object for the attribute '{@link implementation.Method#getContainingClass <em>Containing Class</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Containing Class</em>'.
-	 * @see implementation.Method#getContainingClass()
-	 * @see #getMethod()
-	 * @generated
-	 */
-	EAttribute getMethod_ContainingClass();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.Parameter <em>Parameter</em>}'.
@@ -1556,14 +1498,6 @@ public interface ImplementationPackage extends EPackage {
 		EReference BEHAVIORED__BODY = eINSTANCE.getBehaviored_Body();
 
 		/**
-		 * The meta object literal for the '<em><b>Attributes</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference BEHAVIORED__ATTRIBUTES = eINSTANCE.getBehaviored_Attributes();
-
-		/**
 		 * The meta object literal for the '{@link implementation.impl.ImplementationImpl <em>Implementation</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1598,14 +1532,6 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference METHOD__OPERATION_DEF = eINSTANCE.getMethod_OperationDef();
-
-		/**
-		 * The meta object literal for the '<em><b>Containing Class</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute METHOD__CONTAINING_CLASS = eINSTANCE.getMethod_ContainingClass();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.ParameterImpl <em>Parameter</em>}' class.

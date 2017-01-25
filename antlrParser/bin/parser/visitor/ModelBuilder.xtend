@@ -26,6 +26,7 @@ import implementation.FeaturePut
 import implementation.FeatureRemove
 import implementation.Behaviored
 import implementation.ExtendedClass
+import implementation.Implementation
 
 class ModelBuilder {
 	
@@ -59,7 +60,16 @@ class ModelBuilder {
 		pkgs.forEach[ePackageProvider.registerPackage(it)]
 	}
 	
-	def Method buildMethod(String containingClass, String name, List<Parameter> params, Block body) {
+	def Behaviored buildOperation(String containingClass, String name, List<Parameter> params, Block body) {
+		val existingOperation = resolve(containingClass, name, params.size)
+		
+		if(existingOperation === null)
+			return buildMethod(name,params,body)
+		else
+			return buildImplementation(existingOperation,params,body)
+	}
+	
+	def Method buildMethod(String name, List<Parameter> params, Block body) {
 		val operation = ecoreFactory.createEOperation
 		operation.name = name
 		params.forEach[p |
@@ -70,11 +80,19 @@ class ModelBuilder {
 		]
 		
 		val newMethod = factory.createMethod
-		newMethod.containingClass = containingClass
 		newMethod.operationDef = operation
 		newMethod.body = body
 		
 		return newMethod
+	}
+	
+	def Implementation buildImplementation(EOperation operationRef, List<Parameter> params, Block body) {
+		val implem = factory.createImplementation
+		
+		implem.operationRef = operationRef
+		implem.body = body
+		
+		return implem
 	}
 	
 	def Parameter buildParameter(String type, String name) {
@@ -172,12 +190,6 @@ class ModelBuilder {
 
 		//TODO: manage qualified name		
 		val candidates = ePackageProvider.EClassifiers.filter(EClass).filter[name == className]
-		
-//		val candidates = 
-//			allPackages
-//			.map[EClassifiers.filter(EClass)]
-//			.flatten
-//			.filter[name == className]
 			
 		val eOperation = 
 			candidates

@@ -32,9 +32,8 @@ public class OpVisitor extends XtdAQLBaseVisitor<Behaviored> {
     final Block body = _blockVisitor.visit(_rBlock);
     ParseTree _child = ctx.getChild(1);
     final String operationName = _child.getText();
-    final int nbArgs = parameters.size();
     ParseTree _child_1 = ctx.parent.getChild(1);
     final String className = _child_1.getText();
-    return ModelBuilder.singleton.buildMethod(className, operationName, parameters, body);
+    return ModelBuilder.singleton.buildOperation(className, operationName, parameters, body);
   }
 }
