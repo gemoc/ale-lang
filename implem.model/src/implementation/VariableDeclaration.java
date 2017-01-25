@@ -58,7 +58,7 @@ public interface VariableDeclaration extends Statement {
 	 * @return the value of the '<em>Value Expression</em>' attribute.
 	 * @see #setValueExpression(String)
 	 * @see implementation.ImplementationPackage#getVariableDeclaration_ValueExpression()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	String getValueExpression();

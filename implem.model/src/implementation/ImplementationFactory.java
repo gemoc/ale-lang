@@ -31,6 +31,15 @@ public interface ImplementationFactory extends EFactory {
 	Root createRoot();
 
 	/**
+	 * Returns a new object of class '<em>Extended Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Extended Class</em>'.
+	 * @generated
+	 */
+	ExtendedClass createExtendedClass();
+
+	/**
 	 * Returns a new object of class '<em>Behaviored</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

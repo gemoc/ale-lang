@@ -2,6 +2,9 @@
 class LogoProgram {
 
 	def eval(Context ctx) {
+		[ctx.turtle.originalSize.log()/];
+		[ctx.turtle/].originalSize = ['Test dynamic feature assignment'/];
+		[ctx.turtle.originalSize.log()/];
 		map = [ctx.callStack.frames->first().variables/];
 		for(it in [self.instructions/]){
 			[it.eval(ctx)/];
@@ -241,6 +244,9 @@ class Context {
 }
 
 class Turtle {
+
+	originalSize = [0.0/]
+	anotherAttrib = [0.0/]
 	
 	def move(double dx, double dy) {
 //		['debug move'.log()/];

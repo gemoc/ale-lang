@@ -24,6 +24,8 @@ import implementation.FeatureAssignment
 import implementation.FeatureInsert
 import implementation.FeaturePut
 import implementation.FeatureRemove
+import implementation.Behaviored
+import implementation.ExtendedClass
 
 class ModelBuilder {
 	
@@ -155,6 +157,14 @@ class ModelBuilder {
 		featSetting.keyExpression = keyExp
 		featSetting.valueExpression = valueExp
 		return featSetting
+	}
+	
+	def ExtendedClass buildExtendedClass(String baseCls, List<VariableDeclaration> vars, List<Behaviored> operations) {
+		val cls = factory.createExtendedClass
+		cls.baseClass = resolve(baseCls) as EClass
+		cls.methods += operations
+		cls.attributes += vars
+		return cls
 	}
 	
 	//Can return null

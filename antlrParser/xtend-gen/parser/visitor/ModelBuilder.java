@@ -2,8 +2,10 @@ package parser.visitor;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
+import implementation.Behaviored;
 import implementation.Block;
 import implementation.Expression;
+import implementation.ExtendedClass;
 import implementation.FeatureAssignment;
 import implementation.FeatureInsert;
 import implementation.FeaturePut;
@@ -161,6 +163,17 @@ public class ModelBuilder {
     featSetting.setKeyExpression(keyExp);
     featSetting.setValueExpression(valueExp);
     return featSetting;
+  }
+  
+  public ExtendedClass buildExtendedClass(final String baseCls, final List<VariableDeclaration> vars, final List<Behaviored> operations) {
+    final ExtendedClass cls = this.factory.createExtendedClass();
+    EClassifier _resolve = this.resolve(baseCls);
+    cls.setBaseClass(((EClass) _resolve));
+    EList<Behaviored> _methods = cls.getMethods();
+    Iterables.<Behaviored>addAll(_methods, operations);
+    EList<VariableDeclaration> _attributes = cls.getAttributes();
+    Iterables.<VariableDeclaration>addAll(_attributes, vars);
+    return cls;
   }
   
   public EOperation resolve(final String className, final String methodName, final int nbArgs) {

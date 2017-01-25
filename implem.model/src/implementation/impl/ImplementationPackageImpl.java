@@ -5,6 +5,7 @@ package implementation.impl;
 import implementation.Behaviored;
 import implementation.Block;
 import implementation.Expression;
+import implementation.ExtendedClass;
 import implementation.FeatureAssignment;
 import implementation.FeatureInsert;
 import implementation.FeaturePut;
@@ -41,6 +42,13 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * @generated
 	 */
 	private EClass rootEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass extendedClassEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -222,8 +230,44 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRoot_Declarations() {
+	public EReference getRoot_ClassExtensions() {
 		return (EReference)rootEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExtendedClass() {
+		return extendedClassEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtendedClass_BaseClass() {
+		return (EReference)extendedClassEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtendedClass_Methods() {
+		return (EReference)extendedClassEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtendedClass_Attributes() {
+		return (EReference)extendedClassEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -242,6 +286,15 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 */
 	public EReference getBehaviored_Body() {
 		return (EReference)behavioredEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBehaviored_Attributes() {
+		return (EReference)behavioredEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -669,10 +722,16 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 
 		// Create classes and their features
 		rootEClass = createEClass(ROOT);
-		createEReference(rootEClass, ROOT__DECLARATIONS);
+		createEReference(rootEClass, ROOT__CLASS_EXTENSIONS);
+
+		extendedClassEClass = createEClass(EXTENDED_CLASS);
+		createEReference(extendedClassEClass, EXTENDED_CLASS__BASE_CLASS);
+		createEReference(extendedClassEClass, EXTENDED_CLASS__METHODS);
+		createEReference(extendedClassEClass, EXTENDED_CLASS__ATTRIBUTES);
 
 		behavioredEClass = createEClass(BEHAVIORED);
 		createEReference(behavioredEClass, BEHAVIORED__BODY);
+		createEReference(behavioredEClass, BEHAVIORED__ATTRIBUTES);
 
 		implementationEClass = createEClass(IMPLEMENTATION);
 		createEReference(implementationEClass, IMPLEMENTATION__OPERATION_REF);
@@ -776,10 +835,16 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(rootEClass, Root.class, "Root", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRoot_Declarations(), this.getBehaviored(), null, "declarations", null, 0, -1, Root.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRoot_ClassExtensions(), this.getExtendedClass(), null, "classExtensions", null, 0, -1, Root.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(extendedClassEClass, ExtendedClass.class, "ExtendedClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExtendedClass_BaseClass(), ecorePackage.getEClass(), null, "baseClass", null, 1, 1, ExtendedClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExtendedClass_Methods(), this.getBehaviored(), null, "methods", null, 0, -1, ExtendedClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExtendedClass_Attributes(), this.getVariableDeclaration(), null, "attributes", null, 0, -1, ExtendedClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(behavioredEClass, Behaviored.class, "Behaviored", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBehaviored_Body(), this.getBlock(), null, "body", null, 1, 1, Behaviored.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviored_Attributes(), this.getVariableDeclaration(), null, "attributes", null, 0, -1, Behaviored.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(implementationEClass, Implementation.class, "Implementation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getImplementation_OperationRef(), ecorePackage.getEOperation(), null, "operationRef", null, 1, 1, Implementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -799,7 +864,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 
 		initEClass(variableDeclarationEClass, VariableDeclaration.class, "VariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getVariableDeclaration_Name(), ecorePackage.getEString(), "name", null, 1, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getVariableDeclaration_ValueExpression(), ecorePackage.getEString(), "valueExpression", null, 1, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVariableDeclaration_ValueExpression(), ecorePackage.getEString(), "valueExpression", null, 0, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureAssignmentEClass, FeatureAssignment.class, "FeatureAssignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFeatureAssignment_TargetExpression(), ecorePackage.getEString(), "targetExpression", null, 1, 1, FeatureAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

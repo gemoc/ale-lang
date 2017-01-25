@@ -67,13 +67,13 @@ public interface ImplementationPackage extends EPackage {
 	int ROOT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Declarations</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Class Extensions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ROOT__DECLARATIONS = 0;
+	int ROOT__CLASS_EXTENSIONS = 0;
 
 	/**
 	 * The number of structural features of the '<em>Root</em>' class.
@@ -94,6 +94,61 @@ public interface ImplementationPackage extends EPackage {
 	int ROOT_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link implementation.impl.ExtendedClassImpl <em>Extended Class</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see implementation.impl.ExtendedClassImpl
+	 * @see implementation.impl.ImplementationPackageImpl#getExtendedClass()
+	 * @generated
+	 */
+	int EXTENDED_CLASS = 1;
+
+	/**
+	 * The feature id for the '<em><b>Base Class</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__BASE_CLASS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Methods</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__METHODS = 1;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__ATTRIBUTES = 2;
+
+	/**
+	 * The number of structural features of the '<em>Extended Class</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>Extended Class</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link implementation.impl.BehavioredImpl <em>Behaviored</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -101,7 +156,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getBehaviored()
 	 * @generated
 	 */
-	int BEHAVIORED = 1;
+	int BEHAVIORED = 2;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -113,13 +168,22 @@ public interface ImplementationPackage extends EPackage {
 	int BEHAVIORED__BODY = 0;
 
 	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORED__ATTRIBUTES = 1;
+
+	/**
 	 * The number of structural features of the '<em>Behaviored</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIORED_FEATURE_COUNT = 1;
+	int BEHAVIORED_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Behaviored</em>' class.
@@ -138,7 +202,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getImplementation()
 	 * @generated
 	 */
-	int IMPLEMENTATION = 2;
+	int IMPLEMENTATION = 3;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -148,6 +212,15 @@ public interface ImplementationPackage extends EPackage {
 	 * @ordered
 	 */
 	int IMPLEMENTATION__BODY = BEHAVIORED__BODY;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLEMENTATION__ATTRIBUTES = BEHAVIORED__ATTRIBUTES;
 
 	/**
 	 * The feature id for the '<em><b>Operation Ref</b></em>' reference.
@@ -184,7 +257,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getMethod()
 	 * @generated
 	 */
-	int METHOD = 3;
+	int METHOD = 4;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -194,6 +267,15 @@ public interface ImplementationPackage extends EPackage {
 	 * @ordered
 	 */
 	int METHOD__BODY = BEHAVIORED__BODY;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD__ATTRIBUTES = BEHAVIORED__ATTRIBUTES;
 
 	/**
 	 * The feature id for the '<em><b>Operation Def</b></em>' containment reference.
@@ -240,7 +322,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getParameter()
 	 * @generated
 	 */
-	int PARAMETER = 4;
+	int PARAMETER = 5;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -287,7 +369,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getBlock()
 	 * @generated
 	 */
-	int BLOCK = 5;
+	int BLOCK = 6;
 
 	/**
 	 * The meta object id for the '{@link implementation.impl.StatementImpl <em>Statement</em>}' class.
@@ -297,7 +379,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getStatement()
 	 * @generated
 	 */
-	int STATEMENT = 6;
+	int STATEMENT = 7;
 
 	/**
 	 * The number of structural features of the '<em>Statement</em>' class.
@@ -352,7 +434,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getVariableDeclaration()
 	 * @generated
 	 */
-	int VARIABLE_DECLARATION = 7;
+	int VARIABLE_DECLARATION = 8;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -398,7 +480,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeatureAssignment()
 	 * @generated
 	 */
-	int FEATURE_ASSIGNMENT = 8;
+	int FEATURE_ASSIGNMENT = 9;
 
 	/**
 	 * The feature id for the '<em><b>Target Expression</b></em>' attribute.
@@ -453,7 +535,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeatureInsert()
 	 * @generated
 	 */
-	int FEATURE_INSERT = 9;
+	int FEATURE_INSERT = 10;
 
 	/**
 	 * The feature id for the '<em><b>Target Expression</b></em>' attribute.
@@ -508,7 +590,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeatureRemove()
 	 * @generated
 	 */
-	int FEATURE_REMOVE = 10;
+	int FEATURE_REMOVE = 11;
 
 	/**
 	 * The feature id for the '<em><b>Target Expression</b></em>' attribute.
@@ -563,7 +645,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeaturePut()
 	 * @generated
 	 */
-	int FEATURE_PUT = 11;
+	int FEATURE_PUT = 12;
 
 	/**
 	 * The feature id for the '<em><b>Target Expression</b></em>' attribute.
@@ -627,7 +709,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getForEach()
 	 * @generated
 	 */
-	int FOR_EACH = 12;
+	int FOR_EACH = 13;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' attribute.
@@ -682,7 +764,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getWhile()
 	 * @generated
 	 */
-	int WHILE = 13;
+	int WHILE = 14;
 
 	/**
 	 * The feature id for the '<em><b>Collection Expression</b></em>' attribute.
@@ -728,7 +810,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getIf()
 	 * @generated
 	 */
-	int IF = 14;
+	int IF = 15;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' attribute.
@@ -784,7 +866,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getExpression()
 	 * @generated
 	 */
-	int EXPRESSION = 15;
+	int EXPRESSION = 16;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -825,15 +907,58 @@ public interface ImplementationPackage extends EPackage {
 	EClass getRoot();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link implementation.Root#getDeclarations <em>Declarations</em>}'.
+	 * Returns the meta object for the containment reference list '{@link implementation.Root#getClassExtensions <em>Class Extensions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Declarations</em>'.
-	 * @see implementation.Root#getDeclarations()
+	 * @return the meta object for the containment reference list '<em>Class Extensions</em>'.
+	 * @see implementation.Root#getClassExtensions()
 	 * @see #getRoot()
 	 * @generated
 	 */
-	EReference getRoot_Declarations();
+	EReference getRoot_ClassExtensions();
+
+	/**
+	 * Returns the meta object for class '{@link implementation.ExtendedClass <em>Extended Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Extended Class</em>'.
+	 * @see implementation.ExtendedClass
+	 * @generated
+	 */
+	EClass getExtendedClass();
+
+	/**
+	 * Returns the meta object for the reference '{@link implementation.ExtendedClass#getBaseClass <em>Base Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Base Class</em>'.
+	 * @see implementation.ExtendedClass#getBaseClass()
+	 * @see #getExtendedClass()
+	 * @generated
+	 */
+	EReference getExtendedClass_BaseClass();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link implementation.ExtendedClass#getMethods <em>Methods</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Methods</em>'.
+	 * @see implementation.ExtendedClass#getMethods()
+	 * @see #getExtendedClass()
+	 * @generated
+	 */
+	EReference getExtendedClass_Methods();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link implementation.ExtendedClass#getAttributes <em>Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Attributes</em>'.
+	 * @see implementation.ExtendedClass#getAttributes()
+	 * @see #getExtendedClass()
+	 * @generated
+	 */
+	EReference getExtendedClass_Attributes();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.Behaviored <em>Behaviored</em>}'.
@@ -855,6 +980,17 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getBehaviored_Body();
+
+	/**
+	 * Returns the meta object for the reference list '{@link implementation.Behaviored#getAttributes <em>Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Attributes</em>'.
+	 * @see implementation.Behaviored#getAttributes()
+	 * @see #getBehaviored()
+	 * @generated
+	 */
+	EReference getBehaviored_Attributes();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.Implementation <em>Implementation</em>}'.
@@ -1360,12 +1496,46 @@ public interface ImplementationPackage extends EPackage {
 		EClass ROOT = eINSTANCE.getRoot();
 
 		/**
-		 * The meta object literal for the '<em><b>Declarations</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Class Extensions</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ROOT__DECLARATIONS = eINSTANCE.getRoot_Declarations();
+		EReference ROOT__CLASS_EXTENSIONS = eINSTANCE.getRoot_ClassExtensions();
+
+		/**
+		 * The meta object literal for the '{@link implementation.impl.ExtendedClassImpl <em>Extended Class</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see implementation.impl.ExtendedClassImpl
+		 * @see implementation.impl.ImplementationPackageImpl#getExtendedClass()
+		 * @generated
+		 */
+		EClass EXTENDED_CLASS = eINSTANCE.getExtendedClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Base Class</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXTENDED_CLASS__BASE_CLASS = eINSTANCE.getExtendedClass_BaseClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Methods</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXTENDED_CLASS__METHODS = eINSTANCE.getExtendedClass_Methods();
+
+		/**
+		 * The meta object literal for the '<em><b>Attributes</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXTENDED_CLASS__ATTRIBUTES = eINSTANCE.getExtendedClass_Attributes();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.BehavioredImpl <em>Behaviored</em>}' class.
@@ -1384,6 +1554,14 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BEHAVIORED__BODY = eINSTANCE.getBehaviored_Body();
+
+		/**
+		 * The meta object literal for the '<em><b>Attributes</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BEHAVIORED__ATTRIBUTES = eINSTANCE.getBehaviored_Attributes();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.ImplementationImpl <em>Implementation</em>}' class.
