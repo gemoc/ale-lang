@@ -9,7 +9,6 @@ import implementation.Root
 import implementation.Statement
 import java.util.List
 import parser.XtdAQLBaseVisitor
-import parser.XtdAQLParser.ExpContext
 import parser.XtdAQLParser.RAssignContext
 import parser.XtdAQLParser.RBlockContext
 import parser.XtdAQLParser.RClassContext
@@ -20,12 +19,15 @@ import parser.XtdAQLParser.RParametersContext
 import parser.XtdAQLParser.RRootContext
 import parser.XtdAQLParser.RVariableContext
 import parser.XtdAQLParser.RWhileContext
-import parser.XtdAQLParser.RSetContext
-import parser.XtdAQLParser.RInsertContext
-import parser.XtdAQLParser.RPutContext
-import parser.XtdAQLParser.RRemoveContext
 import implementation.ExtendedClass
 import implementation.VariableDeclaration
+import parser.XtdAQLParser.RAttributeContext
+import parser.XtdAQLParser.VarRefContext
+import parser.XtdAQLParser.NavContext
+import parser.XtdAQLParser.FeatureContext
+import parser.XtdAQLParser.RExpressionContext
+import parser.XtdAQLParser.ServiceCallContext
+import parser.XtdAQLParser.CallOrApplyContext
 
 class BlockVisitor extends XtdAQLBaseVisitor<Block> {
 	
@@ -40,10 +42,27 @@ class BlockVisitor extends XtdAQLBaseVisitor<Block> {
 class StatementVisitor extends XtdAQLBaseVisitor<Statement> {
 	
 	override visitRAssign(RAssignContext ctx) {
-		return ModelBuilder.singleton.buildVariableDecl(ctx.ID.text,ctx.Expression.text)
+		
+		val left = ctx.expression.get(0) // epxression.feature or variable?
+		val value =  ctx.expression.get(1).text
+		
+		if(left instanceof VarRefContext){
+			return ModelBuilder.singleton.buildVariableDecl(left.Ident.text,value)
+		}
+		else if(left instanceof NavContext){
+			val navSegment = left.navigationSegment
+			if(navSegment instanceof FeatureContext){
+				val feature = navSegment.Ident.text
+				val target = left.expression.text
+				return ModelBuilder.singleton.buildFeatureAssign(target,feature,value)
+			}
+		}
+
+		//TODO: raise error if we reach here
+		return ModelBuilder.singleton.buildVariableDecl(left.text,value)
 	}
 	override visitRIf(RIfContext ctx) {
-		val cond = ctx.Expression.text
+		val cond = ctx.expression.text
 		val then = (new BlockVisitor).visit(ctx.rBlock.head)
 		val elseB = 
 			if(ctx.rBlock.size > 1)
@@ -54,43 +73,52 @@ class StatementVisitor extends XtdAQLBaseVisitor<Statement> {
 	}
 	override visitRForEach(RForEachContext ctx) {
 		val body = (new BlockVisitor).visit(ctx.rBlock)
-		return ModelBuilder.singleton.buildForEach(ctx.ID.text,ctx.Expression.text,body)
+		return ModelBuilder.singleton.buildForEach(ctx.Ident.text,ctx.expression.text,body)
 	}
 	override visitRWhile(RWhileContext ctx) {
 		val body = (new BlockVisitor).visit(ctx.rBlock)
-		return ModelBuilder.singleton.buildWhile(ctx.Expression.text,body)
-	}
-	override visitRSet(RSetContext ctx) {
-		val target = ctx.Expression.get(0).text
-		val feature = ctx.ID.text
-		val value = ctx.Expression.get(1).text
-		return ModelBuilder.singleton.buildFeatureAssign(target,feature,value)
-	}
-	override visitRInsert(RInsertContext ctx) {
-		val target = ctx.Expression.get(0).text
-		val feature = ctx.ID.text
-		val value = ctx.Expression.get(1).text
-		return ModelBuilder.singleton.buildFeatureInsert(target,feature,value)
-	}
-	override visitRRemove(RRemoveContext ctx) {
-		val target = ctx.Expression.get(0).text
-		val feature = ctx.ID.text
-		val value = ctx.Expression.get(1).text
-		return ModelBuilder.singleton.buildFeatureRemove(target,feature,value)
-	}
-	override visitRPut(RPutContext ctx) {
-		val target = ctx.Expression.get(0).text
-		val feature = ctx.ID.text
-		val key = ctx.Expression.get(1).text
-		val value = ctx.Expression.get(2).text
-		return ModelBuilder.singleton.buildFeaturePut(target,feature,key,value)
+		return ModelBuilder.singleton.buildWhile(ctx.expression.text,body)
 	}
 	
-	override visitExp(ExpContext ctx) {
-		return ModelBuilder.singleton.buildExpression(ctx.Expression.text)
+	override visitRExpression(RExpressionContext ctx) {
+		
+		val exp = ctx.expression
+		
+		if(exp instanceof NavContext){
+			val navSegment = exp.navigationSegment
+			if(navSegment instanceof CallOrApplyContext){
+				val call = navSegment.callExp
+				if(call instanceof ServiceCallContext){
+					val serviceName = call.Ident.text
+					
+					var target = ""
+					var feature = ""
+					val beforeCall = exp.expression
+					if(beforeCall instanceof NavContext){
+						val featurePart = beforeCall.navigationSegment
+						if(featurePart instanceof FeatureContext){
+							feature = featurePart.Ident.text
+							target = beforeCall.expression.text
+						}
+					}
+					
+					val params = call.expressionSequence.expression
+					
+					if(serviceName == "add" && params.size == 1){
+						return ModelBuilder.singleton.buildFeatureInsert(target,feature,params.get(0).text)
+					}
+					else if(serviceName == "remove" && params.size == 1){
+						return ModelBuilder.singleton.buildFeatureRemove(target,feature,params.get(0).text)
+					}
+					else if(serviceName == "put" && params.size == 2){
+						return ModelBuilder.singleton.buildFeaturePut(target,feature,params.get(0).text,params.get(1).text)
+					}
+				}
+			}
+		}
+		
+		return ModelBuilder.singleton.buildExpression(exp.text)
 	}
-	
-	
 }
 
 class OpVisitor extends XtdAQLBaseVisitor<Behaviored> {
@@ -133,14 +161,20 @@ class VarVisitor extends XtdAQLBaseVisitor<Parameter> {
 class ClassVisitor extends XtdAQLBaseVisitor<ExtendedClass> {
 	
 	override visitRClass(RClassContext ctx) {
-		val name = ctx.ID.text
-		val subVisitor1 = new StatementVisitor
-		val attributes = ctx.rAssign.map[subVisitor1.visitRAssign(it) as VariableDeclaration]
+		val name = ctx.Ident.text
+		val subVisitor1 = new AttributeVisitor
+		val attributes = ctx.rAttribute.map[subVisitor1.visitRAttribute(it) as VariableDeclaration]
 		val subVisitor2 = new OpVisitor
 		val operations = ctx.rOperation.map[subVisitor2.visit(it)]
 		return ModelBuilder.singleton.buildExtendedClass(name,attributes,operations)
 	}
 	
+}
+
+class AttributeVisitor extends XtdAQLBaseVisitor<VariableDeclaration> {
+	override visitRAttribute(RAttributeContext ctx) {
+		return ModelBuilder.singleton.buildVariableDecl(ctx.Ident.text,ctx.expression.text)
+	}
 }
 
 //class ImportVisitor extends XtdAQLBaseVisitor<List<EPackage>> {
