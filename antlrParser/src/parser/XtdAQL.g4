@@ -1,8 +1,10 @@
 // Define a grammar called Hello
 grammar XtdAQL;
 
-ID : ([a-zA-Z] | '_') ([a-zA-Z] | [0-9] | '_')*;
-WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
+import Query;
+
+//ID : ([a-zA-Z] | '_') ([a-zA-Z] | [0-9] | '_')*;
+//WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 COMMENT : '/*' .*? '*/' -> skip ; // .*? matches anything until the first */
 LINECOMMENT : '//' ~[\r\n]* -> skip; //Line comment
 
@@ -16,63 +18,68 @@ rRoot : rImports rClass*
 rImports : ('import' STRING)*
 ;
 
-rClass : 'class' ID '{' rAssign* rOperation* '}'
+rClass : 'class' Ident '{' rAttribute* rOperation* '}'
 ; 
 
-rOperation : 'def' ID '(' rParameters? ')' rBlock
+rOperation : 'def' Ident '(' rParameters? ')' rBlock
 ;
 
 rParameters : rVariable (',' rVariable)*
 ;
 
-rVariable : ID ID
+rVariable : Ident Ident
 ;
 
+rAttribute : Ident (':=' expression)? ';'
+;
 
 /*
  * Statements
  */
 
-rStatement : rAssign #Assign
-		| rSet #Set
-		| rInsert #Insert
-		| rRemove #Remove
-		| rPut #Put
-		| rForEach #ForEach
-		| rWhile #While
-		| rIf #If
-		| Expression #Exp
+rStatement : rAssign
+//		| rSet #Set
+//		| rInsert #Insert
+//		| rRemove #Remove
+//		| rPut #Put
+		| rForEach
+		| rWhile
+		| rIf
+		| rExpression
 ;
 
-rAssign : ID '=' Expression
+//rAssign : ID ':=' expression ';'
+//;
+//
+rAssign : expression ':=' expression ';'
+;
+//
+//rInsert : expression '.' ID '.' 'add' '(' expression ')'
+//;
+//
+//rRemove : expression '.' ID '.' 'remove' '(' expression ')'
+//;
+//
+//rPut : expression '.' ID '.' 'put' '(' expression ',' expression ')'
+//;
+
+rForEach : 'for' '(' Ident  'in' expression ')' rBlock
 ;
 
-rSet : Expression '.' ID '=' Expression
+rBlock : '{' (rStatement (rStatement)*)? '}'
 ;
 
-rInsert : Expression '.' ID '.' 'add' '(' Expression ')'
+rIf : 'if' '(' expression ')' rBlock ('else' rBlock)?
 ;
 
-rRemove : Expression '.' ID '.' 'remove' '(' Expression ')'
+rWhile : 'while' '(' expression ')' rBlock
 ;
 
-rPut : Expression '.' ID '.' 'put' '(' Expression ',' Expression ')'
+rExpression : expression ';'
 ;
 
-rForEach : 'for' '(' ID  'in' Expression ')' rBlock
-;
-
-rBlock : '{' (rStatement ';' (rStatement ';')*)? '}'
-;
-
-rIf : 'if' '(' Expression ')' rBlock ('else' rBlock)?
-;
-
-rWhile : 'while' '(' Expression ')' rBlock
-;
-
-Expression :  '[' (.)*? '/]'
-;
+//Expression :  '[' (.)*? '/]'
+//;
 
 STRING :  '"' (.)*? '"'
 ;
