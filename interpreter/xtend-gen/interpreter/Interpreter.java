@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.regex.Pattern;
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
@@ -181,13 +180,8 @@ public class Interpreter {
   }
   
   public IQueryBuilderEngine.AstResult parse(final String expression) {
-    String _quote = Pattern.quote("[");
-    String exp = expression.replaceFirst(_quote, "");
-    String _quote_1 = Pattern.quote("/]");
-    String _replaceFirst = exp.replaceFirst(_quote_1, "");
-    exp = _replaceFirst;
     final QueryBuilderEngine builder = new QueryBuilderEngine(this.qryEnv);
-    return builder.build(exp);
+    return builder.build(expression);
   }
   
   /**
