@@ -1,5 +1,25 @@
 package interpreter
 
+import drawing.Window
+import implementation.Behaviored
+import implementation.Block
+import implementation.Expression
+import implementation.FeatureAssignment
+import implementation.FeatureInsert
+import implementation.FeaturePut
+import implementation.FeatureRemove
+import implementation.ForEach
+import implementation.If
+import implementation.Implementation
+import implementation.ImplementationPackage
+import implementation.Method
+import implementation.Root
+import implementation.Statement
+import implementation.VariableDeclaration
+import implementation.While
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.util.Collection
 import java.util.List
 import java.util.Map
 import java.util.Set
@@ -10,51 +30,24 @@ import org.eclipse.acceleo.query.runtime.Query
 import org.eclipse.acceleo.query.runtime.impl.JavaMethodService
 import org.eclipse.acceleo.query.runtime.impl.QueryBuilderEngine
 import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine
+import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.common.util.EMap
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
-import java.util.regex.Pattern
-import org.eclipse.emf.ecore.plugin.EcorePlugin
-import implementation.Behaviored
-import implementation.Root
-import implementation.Method
-import implementation.Implementation
-import org.eclipse.emf.ecore.resource.ResourceSet
-import implementation.impl.ImplementationFactoryImpl
-import implementation.ImplementationPackage
-import vmlogo.VmlogoPackage
-import org.eclipse.emf.ecore.util.EcoreUtil
-import org.eclipse.acceleo.query.runtime.impl.LambdaValue
-import implementation.Statement
-import implementation.Block
-import org.eclipse.emf.common.util.BasicDiagnostic
-import implementation.VariableDeclaration
-import implementation.FeatureAssignment
-import implementation.ForEach
-import implementation.If
-import implementation.Expression
-import java.util.Collection
 import parser.AstBuilder
-import java.nio.file.Paths
-import java.nio.file.Files
-import implementation.While
-import org.eclipse.emf.ecore.EFactory
-import org.eclipse.emf.common.util.EList
-import implementation.FeatureInsert
-import implementation.FeaturePut
-import org.eclipse.emf.common.util.EMap
-import implementation.FeatureRemove
-import drawing.Window
-import vmlogo.Context
-import services.MyService
-import services.LogService
-import services.FactoryService
-import services.TrigoServices
 import services.EvalBodyService
+import services.FactoryService
+import services.LogService
+import services.MyService
+import services.TrigoServices
+import vmlogo.Context
+import vmlogo.VmlogoPackage
 
 public class Interpreter {
 	
@@ -148,10 +141,6 @@ public class Interpreter {
 		val featureAccessMethod = DynamicFeatureAccess.getMethod("aqlFeatureAccess",EObject,String)
 		this.dynamicFeatureAccess = new DynamicFeatureAccess(implemModel)
 		qryEnv.registerService(new DynamicFeatureAccessService(featureAccessMethod, dynamicFeatureAccess));
-//		val addMethod = EListService.getMethod("add",Collection,Object)
-//		qryEnv.registerService(new JavaMethodService(addMethod, null));
-//		val forEachMethod = ForEachService.getMethod("forEach",List,LambdaValue)
-//		qryEnv.registerService(new JavaMethodService(forEachMethod, null));
 		
 		metamodel.forEach[pkg |
 			qryEnv.registerEPackage(pkg)
@@ -159,15 +148,11 @@ public class Interpreter {
 			if (!EPackage.Registry.INSTANCE.containsKey(pkg.nsURI))
 				EPackage.Registry.INSTANCE.put(pkg.nsURI, pkg);
 		]
-//		registerFactoryServices(metamodel)
 	}
 	
 	def AstResult parse(String expression) {
-		var exp = expression.replaceFirst(Pattern.quote("["),"")
-		exp = exp.replaceFirst(Pattern.quote("/]"),"")
-		
 		val builder = new QueryBuilderEngine(qryEnv)
-		return builder.build(exp)
+		return builder.build(expression)
 	}
 	
 	/**
@@ -176,7 +161,6 @@ public class Interpreter {
 	def EvaluationResult eval(EObject target, AstResult expression, Map<String, EObject> args) {
 		val engine = new QueryEvaluationEngine(qryEnv)
 		val Map<String, Object> variables = newHashMap
-//		variables.putAll(factoryRefs)
 		variables.put("self", target)
 		variables.putAll(args)
 		return engine.eval(expression, variables)
@@ -206,13 +190,6 @@ public class Interpreter {
 		eval(implem.body,variables)
 		
 		return variables.get("result")
-		
-//		var body = implem.statements.replaceFirst(Pattern.quote("["),"")
-//		body = body.replaceFirst(Pattern.quote("/]"),"")
-//		val expression = parse(body)
-//		
-//		val engine = new QueryEvaluationEngine(qryEnv)
-//		return engine.eval(expression, variables)
 	}
 	
 	/*
@@ -241,9 +218,6 @@ public class Interpreter {
 			val assigned = engine.eval(assignedExp, variables).result
 			val valueExp = parse(stmt.valueExpression)
 			val value = engine.eval(valueExp, variables).result
-//			val setter = getJavaMethod(assigned.class,"set"+stmt.targetFeature.toFirstUpper,value.class)
-//			if(setter !== null)
-//				setter.invoke(assigned,value)
 
 			if(assigned instanceof EObject){
 				val feature = assigned.eClass.getEStructuralFeature(stmt.targetFeature)
@@ -373,51 +347,12 @@ public class Interpreter {
 		
 		return null
 	} 
-//	/**
-//	 * Register a service for each implementation of EOperation
-//	 */
-//	def private registerImplem(EPackage p) {
-//		p.getEClassifiers.filter(EClass).forEach[registerImplem]
-//	}
-//	
-//	/**
-//	 * Register a service for each implementation of EOperation
-//	 */
-//	def private registerImplem(EClass cls) {
-//		cls.getEAllOperations().forEach[op |
-//			val opImpl = implem?.classes?.findFirst[it.name == cls.name]?.methods?.findFirst[name == op.name]
-//			if(opImpl !== null) {
-//				qryEnv.registerService(new EvalBodyService(op,opImpl,this));
-//			}
-//		]
-//	}
 	
 	def private registerImplem() {
 		implemModel.classExtensions.map[methods].flatten.forEach[implem |
 			qryEnv.registerService(new EvalBodyService(implem,this));
 		]
 	}
-	
-//	def private void registerFactoryServices(Set<EPackage> pkgs) {
-//		pkgs.forEach[pkg |
-//			val factory = pkg.EFactoryInstance
-//			factory.class.methods
-//				.filter[parameterCount == 0]
-//				.filter[name.startsWith("create")]
-//				.forEach[createMethod|
-//					qryEnv.registerService(new JavaMethodService(createMethod, factory));
-//				]
-//		]		
-//	}
-	
-//	def Map<String,EFactory> getFactoryRefs() {
-//		val map = newHashMap
-//		metamodel.forEach[pkg |
-//			val factory = pkg.EFactoryInstance
-//			map.put(factory.eClass.name,factory)
-//		]
-//		return map
-//	}
 	
 	def getMetamodel() {
 		return metamodel
@@ -437,6 +372,5 @@ public class Interpreter {
 		val uri = URI.createURI(path);
 		return rs.getResource(uri, true);
 	}
-	
 	
 }
