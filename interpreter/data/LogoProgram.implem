@@ -5,7 +5,7 @@ class LogoProgram {
 		ctx.turtle.originalSize.log();
 		ctx.turtle.originalSize := 'Test dynamic feature assignment';
 		ctx.turtle.originalSize.log();
-		map := ctx.callStack.frames->first().variables;
+		StackFrame map := ctx.callStack.frames->first().variables;
 		for(it in self.instructions){
 			it.eval(ctx);
 		}
@@ -33,7 +33,7 @@ class Repeat {
 	def eval(Context ctx) {
 //		'Log from Repeat'.log() ;
 		
-		time := self.condition.eval(ctx);
+		int time := self.condition.eval(ctx);
 		while( time > 0.0 ){
 			self.block.eval(ctx);
 			time := time - 1.0;
@@ -84,7 +84,7 @@ class Clear {
 
 class Forward {
 	def eval(Context ctx) {
-		move := self.steps.eval(ctx);
+		double move := self.steps.eval(ctx);
 		ctx.turtle.forward(move);
 //		('Log from Forward : ' + move).log();
 	}
@@ -92,7 +92,7 @@ class Forward {
 
 class Back {
 	def eval(Context ctx) {
-		move := self.steps.eval(ctx);
+		double move := self.steps.eval(ctx);
 		ctx.turtle.forward(-move);
 //		('Log from Back : ' + move).log();
 	}
@@ -100,7 +100,7 @@ class Back {
 
 class Left {
 	def eval(Context ctx) {
-		angle := self.angle.eval(ctx);
+		double angle := self.angle.eval(ctx);
 		ctx.turtle.rotate(angle);
 //		('Log from Left : ' + ctx.turtle.heading).log();
 	}
@@ -108,7 +108,7 @@ class Left {
 
 class Right {
 	def eval(Context ctx) {
-		angle := self.angle.eval(ctx);
+		double angle := self.angle.eval(ctx);
 		ctx.turtle.rotate(-angle);
 //		('Log from Right : ' + ctx.turtle.heading).log();
 	}
@@ -204,10 +204,10 @@ class ProcCall {
 		('Calling '+self.declaration.name).log();
 //(ctx.turtle.heading +' '+ctx.turtle.position.x+' '+ ctx.turtle.position.y).log();
 	
-		newFrame := vmlogo::StackFrame.create();
-		i := 1;
+		StackFrame newFrame := vmlogo::StackFrame.create();
+		int i := 1;
 		for (exp in self.actualArgs){
-			newVar := vmlogo::Variable.create();
+			Variable newVar := vmlogo::Variable.create();
 			newVar.name := self.declaration.args->at(i).name;
 			newVar.value := exp.eval(ctx);
 			newFrame.variables.add(newVar);
@@ -245,12 +245,12 @@ class Context {
 
 class Turtle {
 
-	originalSize := 0.0;
-	anotherAttrib := 0.0;
+	int originalSize := 0.0;
+	int anotherAttrib := 0.0;
 	
 	def move(double dx, double dy) {
 //		'debug move'.log();
-		newPos := vmlogo::Point.create();
+		Point newPos := vmlogo::Point.create();
 		newPos.x := self.position.x + dx;
 		newPos.y := self.position.y  + dy;
 		if(self.penUp) {
@@ -258,12 +258,12 @@ class Turtle {
 		}
 		else {
 //			('Turtle trace '+ self.position.x +':'+self.position.y +' to '+ newPos.x +':'+newPos.y +' head '+ self.heading).log();
-			newSegment := vmlogo::Segment.create();
+			Segment newSegment := vmlogo::Segment.create();
 			newSegment.begin := self.position;
 			newSegment.end := newPos;
 			self.drawings.add(newSegment);
 		}
-		newPosCopy := vmlogo::Point.create();
+		Point newPosCopy := vmlogo::Point.create();
 		newPosCopy.x := newPos.x;
 		newPosCopy.y := newPos.y;
 		self.position := newPosCopy;
@@ -274,7 +274,7 @@ class Turtle {
 	}
 	
 	def rotate(double angle) {
-		newAngle := self.heading + angle;
+		double newAngle := self.heading + angle;
 		if(newAngle > 360.0){
 				newAngle := newAngle - 360.0;
 				self.heading := newAngle;

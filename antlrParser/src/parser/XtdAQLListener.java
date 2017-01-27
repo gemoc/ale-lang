@@ -236,6 +236,17 @@ public interface XtdAQLListener extends ParseTreeListener {
 	void exitImplies(@NotNull XtdAQLParser.ImpliesContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link XtdAQLParser#rVarDecl}.
+	 * @param ctx the parse tree
+	 */
+	void enterRVarDecl(@NotNull XtdAQLParser.RVarDeclContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link XtdAQLParser#rVarDecl}.
+	 * @param ctx the parse tree
+	 */
+	void exitRVarDecl(@NotNull XtdAQLParser.RVarDeclContext ctx);
+
+	/**
 	 * Enter a parse tree produced by the {@code SetType}
 	 * labeled alternative in {@link XtdAQLParser#typeLiteral}.
 	 * @param ctx the parse tree

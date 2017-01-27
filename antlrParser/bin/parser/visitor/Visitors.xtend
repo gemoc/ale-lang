@@ -28,6 +28,8 @@ import parser.XtdAQLParser.FeatureContext
 import parser.XtdAQLParser.RExpressionContext
 import parser.XtdAQLParser.ServiceCallContext
 import parser.XtdAQLParser.CallOrApplyContext
+import parser.XtdAQLParser.VariableDefinitionContext
+import parser.XtdAQLParser.RVarDeclContext
 
 class BlockVisitor extends XtdAQLBaseVisitor<Block> {
 	
@@ -41,13 +43,17 @@ class BlockVisitor extends XtdAQLBaseVisitor<Block> {
 
 class StatementVisitor extends XtdAQLBaseVisitor<Statement> {
 	
+	override visitRVarDecl(RVarDeclContext ctx) {
+		return ModelBuilder.singleton.buildVariableDecl(ctx.Ident(1).text,ctx.expression.text,ctx.Ident(0).text)
+	}
+	
 	override visitRAssign(RAssignContext ctx) {
 		
 		val left = ctx.expression.get(0) // epxression.feature or variable?
 		val value =  ctx.expression.get(1).text
 		
 		if(left instanceof VarRefContext){
-			return ModelBuilder.singleton.buildVariableDecl(left.Ident.text,value)
+			return ModelBuilder.singleton.buildVariableAssignement(left.Ident.text,value)
 		}
 		else if(left instanceof NavContext){
 			val navSegment = left.navigationSegment
@@ -59,7 +65,7 @@ class StatementVisitor extends XtdAQLBaseVisitor<Statement> {
 		}
 
 		//TODO: raise error if we reach here
-		return ModelBuilder.singleton.buildVariableDecl(left.text,value)
+		return ModelBuilder.singleton.buildVariableAssignement(left.text,value)
 	}
 	override visitRIf(RIfContext ctx) {
 		val cond = ctx.expression.text
@@ -173,7 +179,7 @@ class ClassVisitor extends XtdAQLBaseVisitor<ExtendedClass> {
 
 class AttributeVisitor extends XtdAQLBaseVisitor<VariableDeclaration> {
 	override visitRAttribute(RAttributeContext ctx) {
-		return ModelBuilder.singleton.buildVariableDecl(ctx.Ident.text,ctx.expression.text)
+		return ModelBuilder.singleton.buildVariableDecl(ctx.Ident(1).text,ctx.expression.text,ctx.Ident(0).text)
 	}
 }
 

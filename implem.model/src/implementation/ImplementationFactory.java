@@ -103,6 +103,15 @@ public interface ImplementationFactory extends EFactory {
 	VariableDeclaration createVariableDeclaration();
 
 	/**
+	 * Returns a new object of class '<em>Variable Assignement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Variable Assignement</em>'.
+	 * @generated
+	 */
+	VariableAssignement createVariableAssignement();
+
+	/**
 	 * Returns a new object of class '<em>Feature Assignment</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

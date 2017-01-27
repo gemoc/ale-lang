@@ -30,38 +30,26 @@ rParameters : rVariable (',' rVariable)*
 rVariable : Ident Ident
 ;
 
-rAttribute : Ident (':=' expression)? ';'
+rAttribute : Ident Ident (':=' expression)? ';'
 ;
 
 /*
  * Statements
  */
 
-rStatement : rAssign
-//		| rSet #Set
-//		| rInsert #Insert
-//		| rRemove #Remove
-//		| rPut #Put
+rStatement : rVarDecl 
+		| rAssign
 		| rForEach
 		| rWhile
 		| rIf
 		| rExpression
 ;
 
-//rAssign : ID ':=' expression ';'
-//;
-//
+rVarDecl : Ident Ident (':=' expression) ';'
+;
+
 rAssign : expression ':=' expression ';'
 ;
-//
-//rInsert : expression '.' ID '.' 'add' '(' expression ')'
-//;
-//
-//rRemove : expression '.' ID '.' 'remove' '(' expression ')'
-//;
-//
-//rPut : expression '.' ID '.' 'put' '(' expression ',' expression ')'
-//;
 
 rForEach : 'for' '(' Ident  'in' expression ')' rBlock
 ;
@@ -77,9 +65,6 @@ rWhile : 'while' '(' expression ')' rBlock
 
 rExpression : expression ';'
 ;
-
-//Expression :  '[' (.)*? '/]'
-//;
 
 STRING :  '"' (.)*? '"'
 ;

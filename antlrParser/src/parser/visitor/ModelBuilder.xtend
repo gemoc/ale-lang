@@ -27,6 +27,7 @@ import implementation.FeatureRemove
 import implementation.Behaviored
 import implementation.ExtendedClass
 import implementation.Implementation
+import implementation.VariableAssignement
 
 class ModelBuilder {
 	
@@ -102,11 +103,19 @@ class ModelBuilder {
 		return param
 	}
 	
-	def VariableDeclaration buildVariableDecl(String name, String exp) {
+	def VariableDeclaration buildVariableDecl(String name, String exp, String type) {
 		val varDecl = factory. createVariableDeclaration
 		varDecl.name = name
 		varDecl.valueExpression = exp
+		varDecl.type = resolve(type)
 		return varDecl 
+	}
+	
+	def VariableAssignement buildVariableAssignement(String name, String exp) {
+		val varAssign = factory. createVariableAssignement
+		varAssign.name = name
+		varAssign.valueExpression = exp
+		return varAssign 
 	}
 	
 	def If buildIf(String condition, Block thenBlock, Block elseBlock) {
