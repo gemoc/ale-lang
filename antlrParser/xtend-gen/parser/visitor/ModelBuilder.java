@@ -18,6 +18,7 @@ import implementation.ImplementationPackage;
 import implementation.Method;
 import implementation.Parameter;
 import implementation.Statement;
+import implementation.VariableAssignement;
 import implementation.VariableDeclaration;
 import implementation.While;
 import java.util.List;
@@ -106,11 +107,20 @@ public class ModelBuilder {
     return param;
   }
   
-  public VariableDeclaration buildVariableDecl(final String name, final String exp) {
+  public VariableDeclaration buildVariableDecl(final String name, final String exp, final String type) {
     final VariableDeclaration varDecl = this.factory.createVariableDeclaration();
     varDecl.setName(name);
     varDecl.setValueExpression(exp);
+    EClassifier _resolve = this.resolve(type);
+    varDecl.setType(_resolve);
     return varDecl;
+  }
+  
+  public VariableAssignement buildVariableAssignement(final String name, final String exp) {
+    final VariableAssignement varAssign = this.factory.createVariableAssignement();
+    varAssign.setName(name);
+    varAssign.setValueExpression(exp);
+    return varAssign;
   }
   
   public If buildIf(final String condition, final Block thenBlock, final Block elseBlock) {

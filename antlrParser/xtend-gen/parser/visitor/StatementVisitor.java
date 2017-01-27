@@ -15,6 +15,17 @@ import parser.visitor.ModelBuilder;
 @SuppressWarnings("all")
 public class StatementVisitor extends XtdAQLBaseVisitor<Statement> {
   @Override
+  public Statement visitRVarDecl(final XtdAQLParser.RVarDeclContext ctx) {
+    TerminalNode _Ident = ctx.Ident(1);
+    String _text = _Ident.getText();
+    XtdAQLParser.ExpressionContext _expression = ctx.expression();
+    String _text_1 = _expression.getText();
+    TerminalNode _Ident_1 = ctx.Ident(0);
+    String _text_2 = _Ident_1.getText();
+    return ModelBuilder.singleton.buildVariableDecl(_text, _text_1, _text_2);
+  }
+  
+  @Override
   public Statement visitRAssign(final XtdAQLParser.RAssignContext ctx) {
     List<XtdAQLParser.ExpressionContext> _expression = ctx.expression();
     final XtdAQLParser.ExpressionContext left = _expression.get(0);
@@ -24,7 +35,7 @@ public class StatementVisitor extends XtdAQLBaseVisitor<Statement> {
     if ((left instanceof XtdAQLParser.VarRefContext)) {
       TerminalNode _Ident = ((XtdAQLParser.VarRefContext)left).Ident();
       String _text = _Ident.getText();
-      return ModelBuilder.singleton.buildVariableDecl(_text, value);
+      return ModelBuilder.singleton.buildVariableAssignement(_text, value);
     } else {
       if ((left instanceof XtdAQLParser.NavContext)) {
         final XtdAQLParser.NavigationSegmentContext navSegment = ((XtdAQLParser.NavContext)left).navigationSegment();
@@ -38,7 +49,7 @@ public class StatementVisitor extends XtdAQLBaseVisitor<Statement> {
       }
     }
     String _text_1 = left.getText();
-    return ModelBuilder.singleton.buildVariableDecl(_text_1, value);
+    return ModelBuilder.singleton.buildVariableAssignement(_text_1, value);
   }
   
   @Override

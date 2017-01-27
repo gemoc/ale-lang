@@ -18,6 +18,7 @@ import implementation.Implementation;
 import implementation.ImplementationPackage;
 import implementation.Root;
 import implementation.Statement;
+import implementation.VariableAssignement;
 import implementation.VariableDeclaration;
 import implementation.While;
 import interpreter.DynamicFeatureAccess;
@@ -256,147 +257,156 @@ public class Interpreter {
         Object _result = valueRes.getResult();
         variables.put(_name, _result);
       } else {
-        if ((stmt instanceof FeatureAssignment)) {
-          String _targetExpression = ((FeatureAssignment)stmt).getTargetExpression();
-          final IQueryBuilderEngine.AstResult assignedExp = this.parse(_targetExpression);
-          EvaluationResult _eval = engine.eval(assignedExp, variables);
-          final Object assigned = _eval.getResult();
-          String _valueExpression_1 = ((FeatureAssignment)stmt).getValueExpression();
-          final IQueryBuilderEngine.AstResult valueExp = this.parse(_valueExpression_1);
-          EvaluationResult _eval_1 = engine.eval(valueExp, variables);
-          final Object value = _eval_1.getResult();
-          if ((assigned instanceof EObject)) {
-            EClass _eClass = ((EObject)assigned).eClass();
-            String _targetFeature = ((FeatureAssignment)stmt).getTargetFeature();
-            final EStructuralFeature feature = _eClass.getEStructuralFeature(_targetFeature);
-            if ((feature != null)) {
-              ((EObject)assigned).eSet(feature, value);
-            } else {
-              String _targetFeature_1 = ((FeatureAssignment)stmt).getTargetFeature();
-              this.dynamicFeatureAccess.setDynamicFeatureValue(((EObject)assigned), _targetFeature_1, value);
-            }
-          }
+        if ((stmt instanceof VariableAssignement)) {
+          String _valueExpression_1 = ((VariableAssignement)stmt).getValueExpression();
+          final IQueryBuilderEngine.AstResult expression_1 = this.parse(_valueExpression_1);
+          final EvaluationResult valueRes_1 = engine.eval(expression_1, variables);
+          String _name_1 = ((VariableAssignement)stmt).getName();
+          Object _result_1 = valueRes_1.getResult();
+          variables.put(_name_1, _result_1);
         } else {
-          if ((stmt instanceof FeatureInsert)) {
-            String _targetExpression_1 = ((FeatureInsert)stmt).getTargetExpression();
-            final IQueryBuilderEngine.AstResult assignedExp_1 = this.parse(_targetExpression_1);
-            EvaluationResult _eval_2 = engine.eval(assignedExp_1, variables);
-            final Object assigned_1 = _eval_2.getResult();
-            String _valueExpression_2 = ((FeatureInsert)stmt).getValueExpression();
-            final IQueryBuilderEngine.AstResult valueExp_1 = this.parse(_valueExpression_2);
-            EvaluationResult _eval_3 = engine.eval(valueExp_1, variables);
-            final Object value_1 = _eval_3.getResult();
-            if ((assigned_1 instanceof EObject)) {
-              EClass _eClass_1 = ((EObject)assigned_1).eClass();
-              String _targetFeature_2 = ((FeatureInsert)stmt).getTargetFeature();
-              final EStructuralFeature feature_1 = _eClass_1.getEStructuralFeature(_targetFeature_2);
-              final Object featureValue = ((EObject)assigned_1).eGet(feature_1);
-              if ((featureValue instanceof EList)) {
-                ((EList)featureValue).add(value_1);
+          if ((stmt instanceof FeatureAssignment)) {
+            String _targetExpression = ((FeatureAssignment)stmt).getTargetExpression();
+            final IQueryBuilderEngine.AstResult assignedExp = this.parse(_targetExpression);
+            EvaluationResult _eval = engine.eval(assignedExp, variables);
+            final Object assigned = _eval.getResult();
+            String _valueExpression_2 = ((FeatureAssignment)stmt).getValueExpression();
+            final IQueryBuilderEngine.AstResult valueExp = this.parse(_valueExpression_2);
+            EvaluationResult _eval_1 = engine.eval(valueExp, variables);
+            final Object value = _eval_1.getResult();
+            if ((assigned instanceof EObject)) {
+              EClass _eClass = ((EObject)assigned).eClass();
+              String _targetFeature = ((FeatureAssignment)stmt).getTargetFeature();
+              final EStructuralFeature feature = _eClass.getEStructuralFeature(_targetFeature);
+              if ((feature != null)) {
+                ((EObject)assigned).eSet(feature, value);
+              } else {
+                String _targetFeature_1 = ((FeatureAssignment)stmt).getTargetFeature();
+                this.dynamicFeatureAccess.setDynamicFeatureValue(((EObject)assigned), _targetFeature_1, value);
               }
             }
           } else {
-            if ((stmt instanceof FeatureRemove)) {
-              String _targetExpression_2 = ((FeatureRemove)stmt).getTargetExpression();
-              final IQueryBuilderEngine.AstResult assignedExp_2 = this.parse(_targetExpression_2);
-              EvaluationResult _eval_4 = engine.eval(assignedExp_2, variables);
-              final Object assigned_2 = _eval_4.getResult();
-              String _valueExpression_3 = ((FeatureRemove)stmt).getValueExpression();
-              final IQueryBuilderEngine.AstResult valueExp_2 = this.parse(_valueExpression_3);
-              EvaluationResult _eval_5 = engine.eval(valueExp_2, variables);
-              final Object value_2 = _eval_5.getResult();
-              if ((assigned_2 instanceof EObject)) {
-                EClass _eClass_2 = ((EObject)assigned_2).eClass();
-                String _targetFeature_3 = ((FeatureRemove)stmt).getTargetFeature();
-                final EStructuralFeature feature_2 = _eClass_2.getEStructuralFeature(_targetFeature_3);
-                final Object featureValue_1 = ((EObject)assigned_2).eGet(feature_2);
-                if ((featureValue_1 instanceof EList)) {
-                  ((EList)featureValue_1).remove(value_2);
+            if ((stmt instanceof FeatureInsert)) {
+              String _targetExpression_1 = ((FeatureInsert)stmt).getTargetExpression();
+              final IQueryBuilderEngine.AstResult assignedExp_1 = this.parse(_targetExpression_1);
+              EvaluationResult _eval_2 = engine.eval(assignedExp_1, variables);
+              final Object assigned_1 = _eval_2.getResult();
+              String _valueExpression_3 = ((FeatureInsert)stmt).getValueExpression();
+              final IQueryBuilderEngine.AstResult valueExp_1 = this.parse(_valueExpression_3);
+              EvaluationResult _eval_3 = engine.eval(valueExp_1, variables);
+              final Object value_1 = _eval_3.getResult();
+              if ((assigned_1 instanceof EObject)) {
+                EClass _eClass_1 = ((EObject)assigned_1).eClass();
+                String _targetFeature_2 = ((FeatureInsert)stmt).getTargetFeature();
+                final EStructuralFeature feature_1 = _eClass_1.getEStructuralFeature(_targetFeature_2);
+                final Object featureValue = ((EObject)assigned_1).eGet(feature_1);
+                if ((featureValue instanceof EList)) {
+                  ((EList)featureValue).add(value_1);
                 }
               }
             } else {
-              if ((stmt instanceof FeaturePut)) {
-                String _targetExpression_3 = ((FeaturePut)stmt).getTargetExpression();
-                final IQueryBuilderEngine.AstResult assignedExp_3 = this.parse(_targetExpression_3);
-                EvaluationResult _eval_6 = engine.eval(assignedExp_3, variables);
-                final Object assigned_3 = _eval_6.getResult();
-                String _keyExpression = ((FeaturePut)stmt).getKeyExpression();
-                final IQueryBuilderEngine.AstResult keyExp = this.parse(_keyExpression);
-                EvaluationResult _eval_7 = engine.eval(keyExp, variables);
-                final Object key = _eval_7.getResult();
-                String _valueExpression_4 = ((FeaturePut)stmt).getValueExpression();
-                final IQueryBuilderEngine.AstResult valueExp_3 = this.parse(_valueExpression_4);
-                EvaluationResult _eval_8 = engine.eval(valueExp_3, variables);
-                final Object value_3 = _eval_8.getResult();
-                if ((assigned_3 instanceof EObject)) {
-                  EClass _eClass_3 = ((EObject)assigned_3).eClass();
-                  String _targetFeature_4 = ((FeaturePut)stmt).getTargetFeature();
-                  final EStructuralFeature feature_3 = _eClass_3.getEStructuralFeature(_targetFeature_4);
-                  final Object featureValue_2 = ((EObject)assigned_3).eGet(feature_3);
-                  if ((featureValue_2 instanceof EMap)) {
-                    ((EMap)featureValue_2).put(key, value_3);
+              if ((stmt instanceof FeatureRemove)) {
+                String _targetExpression_2 = ((FeatureRemove)stmt).getTargetExpression();
+                final IQueryBuilderEngine.AstResult assignedExp_2 = this.parse(_targetExpression_2);
+                EvaluationResult _eval_4 = engine.eval(assignedExp_2, variables);
+                final Object assigned_2 = _eval_4.getResult();
+                String _valueExpression_4 = ((FeatureRemove)stmt).getValueExpression();
+                final IQueryBuilderEngine.AstResult valueExp_2 = this.parse(_valueExpression_4);
+                EvaluationResult _eval_5 = engine.eval(valueExp_2, variables);
+                final Object value_2 = _eval_5.getResult();
+                if ((assigned_2 instanceof EObject)) {
+                  EClass _eClass_2 = ((EObject)assigned_2).eClass();
+                  String _targetFeature_3 = ((FeatureRemove)stmt).getTargetFeature();
+                  final EStructuralFeature feature_2 = _eClass_2.getEStructuralFeature(_targetFeature_3);
+                  final Object featureValue_1 = ((EObject)assigned_2).eGet(feature_2);
+                  if ((featureValue_1 instanceof EList)) {
+                    ((EList)featureValue_1).remove(value_2);
                   }
                 }
               } else {
-                if ((stmt instanceof ForEach)) {
-                  String _collectionExpression = ((ForEach)stmt).getCollectionExpression();
-                  final IQueryBuilderEngine.AstResult collectionExp = this.parse(_collectionExpression);
-                  EvaluationResult _eval_9 = engine.eval(collectionExp, variables);
-                  Object _result_1 = _eval_9.getResult();
-                  final Collection collection = ((Collection) _result_1);
-                  final HashMap<String, Object> newScope_1 = CollectionLiterals.<String, Object>newHashMap();
-                  newScope_1.putAll(variables);
-                  final Consumer<Object> _function_2 = (Object it) -> {
-                    String _variable = ((ForEach)stmt).getVariable();
-                    newScope_1.put(_variable, it);
-                    Block _body = ((ForEach)stmt).getBody();
-                    this.eval(_body, newScope_1);
-                  };
-                  collection.forEach(_function_2);
-                  Set<String> _keySet_1 = variables.keySet();
-                  final Consumer<String> _function_3 = (String key_1) -> {
-                    Object _get = newScope_1.get(key_1);
-                    variables.put(key_1, _get);
-                  };
-                  _keySet_1.forEach(_function_3);
-                } else {
-                  if ((stmt instanceof While)) {
-                    String _collectionExpression_1 = ((While)stmt).getCollectionExpression();
-                    final IQueryBuilderEngine.AstResult condition = this.parse(_collectionExpression_1);
-                    EvaluationResult _eval_10 = engine.eval(condition, variables);
-                    Object conditionValue = _eval_10.getResult();
-                    while (((conditionValue instanceof Boolean) && Objects.equal(conditionValue, Boolean.valueOf(true)))) {
-                      {
-                        Block _body = ((While)stmt).getBody();
-                        this.eval(_body, variables);
-                        EvaluationResult _eval_11 = engine.eval(condition, variables);
-                        Object _result_2 = _eval_11.getResult();
-                        conditionValue = _result_2;
-                      }
+                if ((stmt instanceof FeaturePut)) {
+                  String _targetExpression_3 = ((FeaturePut)stmt).getTargetExpression();
+                  final IQueryBuilderEngine.AstResult assignedExp_3 = this.parse(_targetExpression_3);
+                  EvaluationResult _eval_6 = engine.eval(assignedExp_3, variables);
+                  final Object assigned_3 = _eval_6.getResult();
+                  String _keyExpression = ((FeaturePut)stmt).getKeyExpression();
+                  final IQueryBuilderEngine.AstResult keyExp = this.parse(_keyExpression);
+                  EvaluationResult _eval_7 = engine.eval(keyExp, variables);
+                  final Object key = _eval_7.getResult();
+                  String _valueExpression_5 = ((FeaturePut)stmt).getValueExpression();
+                  final IQueryBuilderEngine.AstResult valueExp_3 = this.parse(_valueExpression_5);
+                  EvaluationResult _eval_8 = engine.eval(valueExp_3, variables);
+                  final Object value_3 = _eval_8.getResult();
+                  if ((assigned_3 instanceof EObject)) {
+                    EClass _eClass_3 = ((EObject)assigned_3).eClass();
+                    String _targetFeature_4 = ((FeaturePut)stmt).getTargetFeature();
+                    final EStructuralFeature feature_3 = _eClass_3.getEStructuralFeature(_targetFeature_4);
+                    final Object featureValue_2 = ((EObject)assigned_3).eGet(feature_3);
+                    if ((featureValue_2 instanceof EMap)) {
+                      ((EMap)featureValue_2).put(key, value_3);
                     }
+                  }
+                } else {
+                  if ((stmt instanceof ForEach)) {
+                    String _collectionExpression = ((ForEach)stmt).getCollectionExpression();
+                    final IQueryBuilderEngine.AstResult collectionExp = this.parse(_collectionExpression);
+                    EvaluationResult _eval_9 = engine.eval(collectionExp, variables);
+                    Object _result_2 = _eval_9.getResult();
+                    final Collection collection = ((Collection) _result_2);
+                    final HashMap<String, Object> newScope_1 = CollectionLiterals.<String, Object>newHashMap();
+                    newScope_1.putAll(variables);
+                    final Consumer<Object> _function_2 = (Object it) -> {
+                      String _variable = ((ForEach)stmt).getVariable();
+                      newScope_1.put(_variable, it);
+                      Block _body = ((ForEach)stmt).getBody();
+                      this.eval(_body, newScope_1);
+                    };
+                    collection.forEach(_function_2);
+                    Set<String> _keySet_1 = variables.keySet();
+                    final Consumer<String> _function_3 = (String key_1) -> {
+                      Object _get = newScope_1.get(key_1);
+                      variables.put(key_1, _get);
+                    };
+                    _keySet_1.forEach(_function_3);
                   } else {
-                    if ((stmt instanceof If)) {
-                      String _condition = ((If)stmt).getCondition();
-                      final IQueryBuilderEngine.AstResult conditionExp = this.parse(_condition);
-                      EvaluationResult _eval_11 = engine.eval(conditionExp, variables);
-                      Object _result_2 = _eval_11.getResult();
-                      final Boolean condition_1 = ((Boolean) _result_2);
-                      if ((condition_1).booleanValue()) {
-                        Block _then = ((If)stmt).getThen();
-                        this.eval(_then, variables);
-                      } else {
-                        Block _else = ((If)stmt).getElse();
-                        boolean _tripleNotEquals = (_else != null);
-                        if (_tripleNotEquals) {
-                          Block _else_1 = ((If)stmt).getElse();
-                          this.eval(_else_1, variables);
+                    if ((stmt instanceof While)) {
+                      String _collectionExpression_1 = ((While)stmt).getCollectionExpression();
+                      final IQueryBuilderEngine.AstResult condition = this.parse(_collectionExpression_1);
+                      EvaluationResult _eval_10 = engine.eval(condition, variables);
+                      Object conditionValue = _eval_10.getResult();
+                      while (((conditionValue instanceof Boolean) && Objects.equal(conditionValue, Boolean.valueOf(true)))) {
+                        {
+                          Block _body = ((While)stmt).getBody();
+                          this.eval(_body, variables);
+                          EvaluationResult _eval_11 = engine.eval(condition, variables);
+                          Object _result_3 = _eval_11.getResult();
+                          conditionValue = _result_3;
                         }
                       }
                     } else {
-                      if ((stmt instanceof Expression)) {
-                        String _value = ((Expression)stmt).getValue();
-                        final IQueryBuilderEngine.AstResult valueExp_4 = this.parse(_value);
-                        engine.eval(valueExp_4, variables);
+                      if ((stmt instanceof If)) {
+                        String _condition = ((If)stmt).getCondition();
+                        final IQueryBuilderEngine.AstResult conditionExp = this.parse(_condition);
+                        EvaluationResult _eval_11 = engine.eval(conditionExp, variables);
+                        Object _result_3 = _eval_11.getResult();
+                        final Boolean condition_1 = ((Boolean) _result_3);
+                        if ((condition_1).booleanValue()) {
+                          Block _then = ((If)stmt).getThen();
+                          this.eval(_then, variables);
+                        } else {
+                          Block _else = ((If)stmt).getElse();
+                          boolean _tripleNotEquals = (_else != null);
+                          if (_tripleNotEquals) {
+                            Block _else_1 = ((If)stmt).getElse();
+                            this.eval(_else_1, variables);
+                          }
+                        }
+                      } else {
+                        if ((stmt instanceof Expression)) {
+                          String _value = ((Expression)stmt).getValue();
+                          final IQueryBuilderEngine.AstResult valueExp_4 = this.parse(_value);
+                          engine.eval(valueExp_4, variables);
+                        }
                       }
                     }
                   }

@@ -48,6 +48,7 @@ import services.MyService
 import services.TrigoServices
 import vmlogo.Context
 import vmlogo.VmlogoPackage
+import implementation.VariableAssignement
 
 public class Interpreter {
 	
@@ -212,6 +213,11 @@ public class Interpreter {
 			val expression = parse(stmt.valueExpression)
 			val valueRes = engine.eval(expression, variables)
 			variables.put(stmt.name,valueRes.result)
+		}
+		else if(stmt instanceof VariableAssignement) {
+			val expression = parse(stmt.valueExpression)
+			val valueRes = engine.eval(expression, variables)
+			variables.put(stmt.name,valueRes.result) //TODO: check it exists
 		}
 		else if(stmt instanceof FeatureAssignment) {
 			val assignedExp = parse(stmt.targetExpression)

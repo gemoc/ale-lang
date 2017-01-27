@@ -166,6 +166,14 @@ public class XtdAQLBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitRVarDecl(@NotNull XtdAQLParser.RVarDeclContext ctx) { return visitChildren(ctx); }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitSetType(@NotNull XtdAQLParser.SetTypeContext ctx) { return visitChildren(ctx); }
 
 	/**

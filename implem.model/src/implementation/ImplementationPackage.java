@@ -419,13 +419,22 @@ public interface ImplementationPackage extends EPackage {
 	int VARIABLE_DECLARATION__VALUE_EXPRESSION = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_DECLARATION__TYPE = STATEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Variable Declaration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_DECLARATION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
+	int VARIABLE_DECLARATION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Variable Declaration</em>' class.
@@ -437,6 +446,52 @@ public interface ImplementationPackage extends EPackage {
 	int VARIABLE_DECLARATION_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link implementation.impl.VariableAssignementImpl <em>Variable Assignement</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see implementation.impl.VariableAssignementImpl
+	 * @see implementation.impl.ImplementationPackageImpl#getVariableAssignement()
+	 * @generated
+	 */
+	int VARIABLE_ASSIGNEMENT = 9;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_ASSIGNEMENT__NAME = STATEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Value Expression</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_ASSIGNEMENT__VALUE_EXPRESSION = STATEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Variable Assignement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_ASSIGNEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Variable Assignement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_ASSIGNEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link implementation.impl.FeatureAssignmentImpl <em>Feature Assignment</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -444,7 +499,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeatureAssignment()
 	 * @generated
 	 */
-	int FEATURE_ASSIGNMENT = 9;
+	int FEATURE_ASSIGNMENT = 10;
 
 	/**
 	 * The feature id for the '<em><b>Target Expression</b></em>' attribute.
@@ -499,7 +554,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeatureInsert()
 	 * @generated
 	 */
-	int FEATURE_INSERT = 10;
+	int FEATURE_INSERT = 11;
 
 	/**
 	 * The feature id for the '<em><b>Target Expression</b></em>' attribute.
@@ -554,7 +609,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeatureRemove()
 	 * @generated
 	 */
-	int FEATURE_REMOVE = 11;
+	int FEATURE_REMOVE = 12;
 
 	/**
 	 * The feature id for the '<em><b>Target Expression</b></em>' attribute.
@@ -609,7 +664,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeaturePut()
 	 * @generated
 	 */
-	int FEATURE_PUT = 12;
+	int FEATURE_PUT = 13;
 
 	/**
 	 * The feature id for the '<em><b>Target Expression</b></em>' attribute.
@@ -673,7 +728,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getForEach()
 	 * @generated
 	 */
-	int FOR_EACH = 13;
+	int FOR_EACH = 14;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' attribute.
@@ -728,7 +783,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getWhile()
 	 * @generated
 	 */
-	int WHILE = 14;
+	int WHILE = 15;
 
 	/**
 	 * The feature id for the '<em><b>Collection Expression</b></em>' attribute.
@@ -774,7 +829,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getIf()
 	 * @generated
 	 */
-	int IF = 15;
+	int IF = 16;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' attribute.
@@ -830,7 +885,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getExpression()
 	 * @generated
 	 */
-	int EXPRESSION = 16;
+	int EXPRESSION = 17;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1081,6 +1136,49 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getVariableDeclaration_ValueExpression();
+
+	/**
+	 * Returns the meta object for the reference '{@link implementation.VariableDeclaration#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Type</em>'.
+	 * @see implementation.VariableDeclaration#getType()
+	 * @see #getVariableDeclaration()
+	 * @generated
+	 */
+	EReference getVariableDeclaration_Type();
+
+	/**
+	 * Returns the meta object for class '{@link implementation.VariableAssignement <em>Variable Assignement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Variable Assignement</em>'.
+	 * @see implementation.VariableAssignement
+	 * @generated
+	 */
+	EClass getVariableAssignement();
+
+	/**
+	 * Returns the meta object for the attribute '{@link implementation.VariableAssignement#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see implementation.VariableAssignement#getName()
+	 * @see #getVariableAssignement()
+	 * @generated
+	 */
+	EAttribute getVariableAssignement_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link implementation.VariableAssignement#getValueExpression <em>Value Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value Expression</em>'.
+	 * @see implementation.VariableAssignement#getValueExpression()
+	 * @see #getVariableAssignement()
+	 * @generated
+	 */
+	EAttribute getVariableAssignement_ValueExpression();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.FeatureAssignment <em>Feature Assignment</em>}'.
@@ -1612,6 +1710,40 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute VARIABLE_DECLARATION__VALUE_EXPRESSION = eINSTANCE.getVariableDeclaration_ValueExpression();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference VARIABLE_DECLARATION__TYPE = eINSTANCE.getVariableDeclaration_Type();
+
+		/**
+		 * The meta object literal for the '{@link implementation.impl.VariableAssignementImpl <em>Variable Assignement</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see implementation.impl.VariableAssignementImpl
+		 * @see implementation.impl.ImplementationPackageImpl#getVariableAssignement()
+		 * @generated
+		 */
+		EClass VARIABLE_ASSIGNEMENT = eINSTANCE.getVariableAssignement();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VARIABLE_ASSIGNEMENT__NAME = eINSTANCE.getVariableAssignement_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Value Expression</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VARIABLE_ASSIGNEMENT__VALUE_EXPRESSION = eINSTANCE.getVariableAssignement_ValueExpression();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.FeatureAssignmentImpl <em>Feature Assignment</em>}' class.

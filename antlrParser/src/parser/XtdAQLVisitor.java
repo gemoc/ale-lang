@@ -157,6 +157,13 @@ public interface XtdAQLVisitor<T> extends ParseTreeVisitor<T> {
 	T visitImplies(@NotNull XtdAQLParser.ImpliesContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link XtdAQLParser#rVarDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRVarDecl(@NotNull XtdAQLParser.RVarDeclContext ctx);
+
+	/**
 	 * Visit a parse tree produced by the {@code SetType}
 	 * labeled alternative in {@link XtdAQLParser#typeLiteral}.
 	 * @param ctx the parse tree

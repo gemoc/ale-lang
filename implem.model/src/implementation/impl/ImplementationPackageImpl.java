@@ -20,6 +20,7 @@ import implementation.Parameter;
 import implementation.Root;
 
 import implementation.Statement;
+import implementation.VariableAssignement;
 import implementation.VariableDeclaration;
 import implementation.While;
 import org.eclipse.emf.ecore.EAttribute;
@@ -98,6 +99,13 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * @generated
 	 */
 	private EClass variableDeclarationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass variableAssignementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -403,6 +411,42 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 */
 	public EAttribute getVariableDeclaration_ValueExpression() {
 		return (EAttribute)variableDeclarationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getVariableDeclaration_Type() {
+		return (EReference)variableDeclarationEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getVariableAssignement() {
+		return variableAssignementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getVariableAssignement_Name() {
+		return (EAttribute)variableAssignementEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getVariableAssignement_ValueExpression() {
+		return (EAttribute)variableAssignementEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -732,6 +776,11 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		variableDeclarationEClass = createEClass(VARIABLE_DECLARATION);
 		createEAttribute(variableDeclarationEClass, VARIABLE_DECLARATION__NAME);
 		createEAttribute(variableDeclarationEClass, VARIABLE_DECLARATION__VALUE_EXPRESSION);
+		createEReference(variableDeclarationEClass, VARIABLE_DECLARATION__TYPE);
+
+		variableAssignementEClass = createEClass(VARIABLE_ASSIGNEMENT);
+		createEAttribute(variableAssignementEClass, VARIABLE_ASSIGNEMENT__NAME);
+		createEAttribute(variableAssignementEClass, VARIABLE_ASSIGNEMENT__VALUE_EXPRESSION);
 
 		featureAssignmentEClass = createEClass(FEATURE_ASSIGNMENT);
 		createEAttribute(featureAssignmentEClass, FEATURE_ASSIGNMENT__TARGET_EXPRESSION);
@@ -804,6 +853,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		methodEClass.getESuperTypes().add(this.getBehaviored());
 		blockEClass.getESuperTypes().add(this.getStatement());
 		variableDeclarationEClass.getESuperTypes().add(this.getStatement());
+		variableAssignementEClass.getESuperTypes().add(this.getStatement());
 		featureAssignmentEClass.getESuperTypes().add(this.getStatement());
 		featureInsertEClass.getESuperTypes().add(this.getStatement());
 		featureRemoveEClass.getESuperTypes().add(this.getStatement());
@@ -843,6 +893,11 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		initEClass(variableDeclarationEClass, VariableDeclaration.class, "VariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getVariableDeclaration_Name(), ecorePackage.getEString(), "name", null, 1, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getVariableDeclaration_ValueExpression(), ecorePackage.getEString(), "valueExpression", null, 0, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getVariableDeclaration_Type(), ecorePackage.getEClassifier(), null, "type", null, 1, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(variableAssignementEClass, VariableAssignement.class, "VariableAssignement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getVariableAssignement_Name(), ecorePackage.getEString(), "name", null, 1, 1, VariableAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVariableAssignement_ValueExpression(), ecorePackage.getEString(), "valueExpression", null, 1, 1, VariableAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureAssignmentEClass, FeatureAssignment.class, "FeatureAssignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFeatureAssignment_TargetExpression(), ecorePackage.getEString(), "targetExpression", null, 1, 1, FeatureAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

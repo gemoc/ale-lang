@@ -250,6 +250,19 @@ public class XtdAQLBaseListener implements XtdAQLListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterRVarDecl(@NotNull XtdAQLParser.RVarDeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRVarDecl(@NotNull XtdAQLParser.RVarDeclContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSetType(@NotNull XtdAQLParser.SetTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
