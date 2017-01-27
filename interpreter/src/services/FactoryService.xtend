@@ -1,4 +1,4 @@
-package interpreter
+package services
 
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject

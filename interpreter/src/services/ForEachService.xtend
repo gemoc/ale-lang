@@ -1,4 +1,4 @@
-package interpreter
+package services
 
 import org.eclipse.acceleo.query.runtime.impl.JavaMethodService
 import java.lang.reflect.Method

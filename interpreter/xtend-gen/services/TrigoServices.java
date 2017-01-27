@@ -1,4 +1,4 @@
-package interpreter;
+package services;
 
 @SuppressWarnings("all")
 public class TrigoServices {
