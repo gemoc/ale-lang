@@ -50,6 +50,11 @@ import org.eclipse.emf.common.util.EMap
 import implementation.FeatureRemove
 import drawing.Window
 import vmlogo.Context
+import services.MyService
+import services.LogService
+import services.FactoryService
+import services.TrigoServices
+import services.EvalBodyService
 
 public class Interpreter {
 	

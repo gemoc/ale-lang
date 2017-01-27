@@ -1,4 +1,4 @@
-package interpreter
+package services
 
 import org.eclipse.acceleo.query.runtime.impl.EOperationService
 import org.eclipse.emf.ecore.EOperation
@@ -23,6 +23,7 @@ import java.util.LinkedHashSet
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
 import implementation.ExtendedClass
+import interpreter.Interpreter
 
 /**
  * AQL Service to eval EOperation implementation 
