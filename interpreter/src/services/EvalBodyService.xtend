@@ -23,19 +23,21 @@ import java.util.LinkedHashSet
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
 import implementation.ExtendedClass
-import interpreter.Interpreter
+import interpreter.ImplementationEvaluator
+import interpreter.EvalEnvironment
+import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine
 
 /**
  * AQL Service to eval EOperation implementation 
  */
-class EvalBodyService extends AbstractService{
+class EvalBodyService extends AbstractService {
 	
-	Interpreter interpreter
+	EvalEnvironment evalEnv
 	Behaviored implem
 	
-	new(Behaviored implem, Interpreter interpreter) {
+	new(Behaviored implem, EvalEnvironment evalEnv) {
 		this.implem = implem
-		this.interpreter = interpreter
+		this.evalEnv = evalEnv
 	}
 	
 //	override int getPriority() {
@@ -49,7 +51,8 @@ class EvalBodyService extends AbstractService{
 	
 	override Object internalInvoke(Object[] arguments) throws Exception {
 		val caller = arguments.get(0) as EObject
-		interpreter.eval(caller, implem, arguments.drop(1).toList)
+		val evaluator = new ImplementationEvaluator(new QueryEvaluationEngine(evalEnv.queryEnvironment), evalEnv.featureAccess)
+		evaluator.eval(caller, implem, arguments.drop(1).toList)
 	}
 	
 	override getName() {

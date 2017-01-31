@@ -5,16 +5,20 @@ import implementation.Behaviored;
 import implementation.ExtendedClass;
 import implementation.Implementation;
 import implementation.Method;
-import interpreter.Interpreter;
+import interpreter.DynamicFeatureAccess;
+import interpreter.EvalEnvironment;
+import interpreter.ImplementationEvaluator;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import org.eclipse.acceleo.query.ast.Call;
+import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IValidationResult;
 import org.eclipse.acceleo.query.runtime.impl.AbstractService;
 import org.eclipse.acceleo.query.runtime.impl.EOperationService;
+import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
 import org.eclipse.acceleo.query.runtime.impl.ValidationServices;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
@@ -34,13 +38,13 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
  */
 @SuppressWarnings("all")
 public class EvalBodyService extends AbstractService {
-  private Interpreter interpreter;
+  private EvalEnvironment evalEnv;
   
   private Behaviored implem;
   
-  public EvalBodyService(final Behaviored implem, final Interpreter interpreter) {
+  public EvalBodyService(final Behaviored implem, final EvalEnvironment evalEnv) {
     this.implem = implem;
-    this.interpreter = interpreter;
+    this.evalEnv = evalEnv;
   }
   
   @Override
@@ -49,9 +53,13 @@ public class EvalBodyService extends AbstractService {
     {
       Object _get = arguments[0];
       final EObject caller = ((EObject) _get);
+      IQueryEnvironment _queryEnvironment = this.evalEnv.getQueryEnvironment();
+      QueryEvaluationEngine _queryEvaluationEngine = new QueryEvaluationEngine(_queryEnvironment);
+      DynamicFeatureAccess _featureAccess = this.evalEnv.getFeatureAccess();
+      final ImplementationEvaluator evaluator = new ImplementationEvaluator(_queryEvaluationEngine, _featureAccess);
       Iterable<Object> _drop = IterableExtensions.<Object>drop(((Iterable<Object>)Conversions.doWrapArray(arguments)), 1);
       List<Object> _list = IterableExtensions.<Object>toList(_drop);
-      _xblockexpression = this.interpreter.eval(caller, this.implem, _list);
+      _xblockexpression = evaluator.eval(caller, this.implem, _list);
     }
     return _xblockexpression;
   }
