@@ -36,6 +36,7 @@ public class ImplementationImpl extends BehavioredImpl implements Implementation
 	 * @ordered
 	 */
 	protected EOperation operationRef;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

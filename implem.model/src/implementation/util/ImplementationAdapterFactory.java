@@ -8,6 +8,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -135,8 +136,8 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 				return createIfAdapter();
 			}
 			@Override
-			public Adapter caseExpression(Expression object) {
-				return createExpressionAdapter();
+			public Adapter caseExpressionStatement(ExpressionStatement object) {
+				return createExpressionStatementAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -397,16 +398,16 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link implementation.Expression <em>Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link implementation.ExpressionStatement <em>Expression Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see implementation.Expression
+	 * @see implementation.ExpressionStatement
 	 * @generated
 	 */
-	public Adapter createExpressionAdapter() {
+	public Adapter createExpressionStatementAdapter() {
 		return null;
 	}
 

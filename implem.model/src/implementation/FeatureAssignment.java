@@ -2,6 +2,7 @@
  */
 package implementation;
 
+import org.eclipse.acceleo.query.ast.Expression;
 
 /**
  * <!-- begin-user-doc -->
@@ -12,9 +13,9 @@ package implementation;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link implementation.FeatureAssignment#getTargetExpression <em>Target Expression</em>}</li>
+ *   <li>{@link implementation.FeatureAssignment#getTarget <em>Target</em>}</li>
  *   <li>{@link implementation.FeatureAssignment#getTargetFeature <em>Target Feature</em>}</li>
- *   <li>{@link implementation.FeatureAssignment#getValueExpression <em>Value Expression</em>}</li>
+ *   <li>{@link implementation.FeatureAssignment#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @see implementation.ImplementationPackage#getFeatureAssignment()
@@ -23,30 +24,30 @@ package implementation;
  */
 public interface FeatureAssignment extends Statement {
 	/**
-	 * Returns the value of the '<em><b>Target Expression</b></em>' attribute.
+	 * Returns the value of the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Target Expression</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Target</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target Expression</em>' attribute.
-	 * @see #setTargetExpression(String)
-	 * @see implementation.ImplementationPackage#getFeatureAssignment_TargetExpression()
-	 * @model required="true"
+	 * @return the value of the '<em>Target</em>' containment reference.
+	 * @see #setTarget(Expression)
+	 * @see implementation.ImplementationPackage#getFeatureAssignment_Target()
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	String getTargetExpression();
+	Expression getTarget();
 
 	/**
-	 * Sets the value of the '{@link implementation.FeatureAssignment#getTargetExpression <em>Target Expression</em>}' attribute.
+	 * Sets the value of the '{@link implementation.FeatureAssignment#getTarget <em>Target</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target Expression</em>' attribute.
-	 * @see #getTargetExpression()
+	 * @param value the new value of the '<em>Target</em>' containment reference.
+	 * @see #getTarget()
 	 * @generated
 	 */
-	void setTargetExpression(String value);
+	void setTarget(Expression value);
 
 	/**
 	 * Returns the value of the '<em><b>Target Feature</b></em>' attribute.
@@ -75,29 +76,29 @@ public interface FeatureAssignment extends Statement {
 	void setTargetFeature(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Value Expression</b></em>' attribute.
+	 * Returns the value of the '<em><b>Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Value Expression</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Value</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Value Expression</em>' attribute.
-	 * @see #setValueExpression(String)
-	 * @see implementation.ImplementationPackage#getFeatureAssignment_ValueExpression()
-	 * @model required="true"
+	 * @return the value of the '<em>Value</em>' containment reference.
+	 * @see #setValue(Expression)
+	 * @see implementation.ImplementationPackage#getFeatureAssignment_Value()
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	String getValueExpression();
+	Expression getValue();
 
 	/**
-	 * Sets the value of the '{@link implementation.FeatureAssignment#getValueExpression <em>Value Expression</em>}' attribute.
+	 * Sets the value of the '{@link implementation.FeatureAssignment#getValue <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value Expression</em>' attribute.
-	 * @see #getValueExpression()
+	 * @param value the new value of the '<em>Value</em>' containment reference.
+	 * @see #getValue()
 	 * @generated
 	 */
-	void setValueExpression(String value);
+	void setValue(Expression value);
 
 } // FeatureAssignment

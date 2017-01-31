@@ -5,12 +5,15 @@ package implementation.impl;
 import implementation.ImplementationPackage;
 import implementation.VariableDeclaration;
 
+import org.eclipse.acceleo.query.ast.Expression;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -22,8 +25,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link implementation.impl.VariableDeclarationImpl#getName <em>Name</em>}</li>
- *   <li>{@link implementation.impl.VariableDeclarationImpl#getValueExpression <em>Value Expression</em>}</li>
  *   <li>{@link implementation.impl.VariableDeclarationImpl#getType <em>Type</em>}</li>
+ *   <li>{@link implementation.impl.VariableDeclarationImpl#getInitialValue <em>Initial Value</em>}</li>
  * </ul>
  *
  * @generated
@@ -50,26 +53,6 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getValueExpression() <em>Value Expression</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValueExpression()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String VALUE_EXPRESSION_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getValueExpression() <em>Value Expression</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValueExpression()
-	 * @generated
-	 * @ordered
-	 */
-	protected String valueExpression = VALUE_EXPRESSION_EDEFAULT;
-
-	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -78,6 +61,16 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * @ordered
 	 */
 	protected EClassifier type;
+
+	/**
+	 * The cached value of the '{@link #getInitialValue() <em>Initial Value</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInitialValue()
+	 * @generated
+	 * @ordered
+	 */
+	protected Expression initialValue;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -124,27 +117,6 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getValueExpression() {
-		return valueExpression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setValueExpression(String newValueExpression) {
-		String oldValueExpression = valueExpression;
-		valueExpression = newValueExpression;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.VARIABLE_DECLARATION__VALUE_EXPRESSION, oldValueExpression, valueExpression));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClassifier getType() {
 		if (type != null && type.eIsProxy()) {
 			InternalEObject oldType = (InternalEObject)type;
@@ -183,16 +155,73 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Expression getInitialValue() {
+		return initialValue;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetInitialValue(Expression newInitialValue, NotificationChain msgs) {
+		Expression oldInitialValue = initialValue;
+		initialValue = newInitialValue;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE, oldInitialValue, newInitialValue);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInitialValue(Expression newInitialValue) {
+		if (newInitialValue != initialValue) {
+			NotificationChain msgs = null;
+			if (initialValue != null)
+				msgs = ((InternalEObject)initialValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE, null, msgs);
+			if (newInitialValue != null)
+				msgs = ((InternalEObject)newInitialValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE, null, msgs);
+			msgs = basicSetInitialValue(newInitialValue, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE, newInitialValue, newInitialValue));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
+				return basicSetInitialValue(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ImplementationPackage.VARIABLE_DECLARATION__NAME:
 				return getName();
-			case ImplementationPackage.VARIABLE_DECLARATION__VALUE_EXPRESSION:
-				return getValueExpression();
 			case ImplementationPackage.VARIABLE_DECLARATION__TYPE:
 				if (resolve) return getType();
 				return basicGetType();
+			case ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
+				return getInitialValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -208,11 +237,11 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 			case ImplementationPackage.VARIABLE_DECLARATION__NAME:
 				setName((String)newValue);
 				return;
-			case ImplementationPackage.VARIABLE_DECLARATION__VALUE_EXPRESSION:
-				setValueExpression((String)newValue);
-				return;
 			case ImplementationPackage.VARIABLE_DECLARATION__TYPE:
 				setType((EClassifier)newValue);
+				return;
+			case ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
+				setInitialValue((Expression)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -229,11 +258,11 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 			case ImplementationPackage.VARIABLE_DECLARATION__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case ImplementationPackage.VARIABLE_DECLARATION__VALUE_EXPRESSION:
-				setValueExpression(VALUE_EXPRESSION_EDEFAULT);
-				return;
 			case ImplementationPackage.VARIABLE_DECLARATION__TYPE:
 				setType((EClassifier)null);
+				return;
+			case ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
+				setInitialValue((Expression)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -249,10 +278,10 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 		switch (featureID) {
 			case ImplementationPackage.VARIABLE_DECLARATION__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case ImplementationPackage.VARIABLE_DECLARATION__VALUE_EXPRESSION:
-				return VALUE_EXPRESSION_EDEFAULT == null ? valueExpression != null : !VALUE_EXPRESSION_EDEFAULT.equals(valueExpression);
 			case ImplementationPackage.VARIABLE_DECLARATION__TYPE:
 				return type != null;
+			case ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
+				return initialValue != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -269,8 +298,6 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
-		result.append(", valueExpression: ");
-		result.append(valueExpression);
 		result.append(')');
 		return result.toString();
 	}

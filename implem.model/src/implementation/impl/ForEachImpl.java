@@ -6,6 +6,8 @@ import implementation.Block;
 import implementation.ForEach;
 import implementation.ImplementationPackage;
 
+import org.eclipse.acceleo.query.ast.Expression;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -51,24 +53,14 @@ public class ForEachImpl extends StatementImpl implements ForEach {
 	protected String variable = VARIABLE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getCollectionExpression() <em>Collection Expression</em>}' attribute.
+	 * The cached value of the '{@link #getCollectionExpression() <em>Collection Expression</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getCollectionExpression()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String COLLECTION_EXPRESSION_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getCollectionExpression() <em>Collection Expression</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCollectionExpression()
-	 * @generated
-	 * @ordered
-	 */
-	protected String collectionExpression = COLLECTION_EXPRESSION_EDEFAULT;
+	protected Expression collectionExpression;
 
 	/**
 	 * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference.
@@ -125,7 +117,7 @@ public class ForEachImpl extends StatementImpl implements ForEach {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getCollectionExpression() {
+	public Expression getCollectionExpression() {
 		return collectionExpression;
 	}
 
@@ -134,11 +126,33 @@ public class ForEachImpl extends StatementImpl implements ForEach {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCollectionExpression(String newCollectionExpression) {
-		String oldCollectionExpression = collectionExpression;
+	public NotificationChain basicSetCollectionExpression(Expression newCollectionExpression, NotificationChain msgs) {
+		Expression oldCollectionExpression = collectionExpression;
 		collectionExpression = newCollectionExpression;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.FOR_EACH__COLLECTION_EXPRESSION, oldCollectionExpression, collectionExpression));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImplementationPackage.FOR_EACH__COLLECTION_EXPRESSION, oldCollectionExpression, newCollectionExpression);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCollectionExpression(Expression newCollectionExpression) {
+		if (newCollectionExpression != collectionExpression) {
+			NotificationChain msgs = null;
+			if (collectionExpression != null)
+				msgs = ((InternalEObject)collectionExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.FOR_EACH__COLLECTION_EXPRESSION, null, msgs);
+			if (newCollectionExpression != null)
+				msgs = ((InternalEObject)newCollectionExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.FOR_EACH__COLLECTION_EXPRESSION, null, msgs);
+			msgs = basicSetCollectionExpression(newCollectionExpression, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.FOR_EACH__COLLECTION_EXPRESSION, newCollectionExpression, newCollectionExpression));
 	}
 
 	/**
@@ -192,6 +206,8 @@ public class ForEachImpl extends StatementImpl implements ForEach {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case ImplementationPackage.FOR_EACH__COLLECTION_EXPRESSION:
+				return basicSetCollectionExpression(null, msgs);
 			case ImplementationPackage.FOR_EACH__BODY:
 				return basicSetBody(null, msgs);
 		}
@@ -228,7 +244,7 @@ public class ForEachImpl extends StatementImpl implements ForEach {
 				setVariable((String)newValue);
 				return;
 			case ImplementationPackage.FOR_EACH__COLLECTION_EXPRESSION:
-				setCollectionExpression((String)newValue);
+				setCollectionExpression((Expression)newValue);
 				return;
 			case ImplementationPackage.FOR_EACH__BODY:
 				setBody((Block)newValue);
@@ -249,7 +265,7 @@ public class ForEachImpl extends StatementImpl implements ForEach {
 				setVariable(VARIABLE_EDEFAULT);
 				return;
 			case ImplementationPackage.FOR_EACH__COLLECTION_EXPRESSION:
-				setCollectionExpression(COLLECTION_EXPRESSION_EDEFAULT);
+				setCollectionExpression((Expression)null);
 				return;
 			case ImplementationPackage.FOR_EACH__BODY:
 				setBody((Block)null);
@@ -269,7 +285,7 @@ public class ForEachImpl extends StatementImpl implements ForEach {
 			case ImplementationPackage.FOR_EACH__VARIABLE:
 				return VARIABLE_EDEFAULT == null ? variable != null : !VARIABLE_EDEFAULT.equals(variable);
 			case ImplementationPackage.FOR_EACH__COLLECTION_EXPRESSION:
-				return COLLECTION_EXPRESSION_EDEFAULT == null ? collectionExpression != null : !COLLECTION_EXPRESSION_EDEFAULT.equals(collectionExpression);
+				return collectionExpression != null;
 			case ImplementationPackage.FOR_EACH__BODY:
 				return body != null;
 		}
@@ -288,8 +304,6 @@ public class ForEachImpl extends StatementImpl implements ForEach {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (variable: ");
 		result.append(variable);
-		result.append(", collectionExpression: ");
-		result.append(collectionExpression);
 		result.append(')');
 		return result.toString();
 	}

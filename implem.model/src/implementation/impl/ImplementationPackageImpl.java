@@ -4,7 +4,7 @@ package implementation.impl;
 
 import implementation.Behaviored;
 import implementation.Block;
-import implementation.Expression;
+import implementation.ExpressionStatement;
 import implementation.ExtendedClass;
 import implementation.FeatureAssignment;
 import implementation.FeatureInsert;
@@ -18,11 +18,13 @@ import implementation.ImplementationPackage;
 import implementation.Method;
 import implementation.Parameter;
 import implementation.Root;
-
 import implementation.Statement;
 import implementation.VariableAssignement;
 import implementation.VariableDeclaration;
 import implementation.While;
+
+import org.eclipse.acceleo.query.ast.AstPackage;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -161,7 +163,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass expressionEClass = null;
+	private EClass expressionStatementEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -208,6 +210,9 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		ImplementationPackageImpl theImplementationPackage = (ImplementationPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ImplementationPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ImplementationPackageImpl());
 
 		isInited = true;
+
+		// Initialize simple dependencies
+		AstPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theImplementationPackage.createPackageContents();
@@ -409,8 +414,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getVariableDeclaration_ValueExpression() {
-		return (EAttribute)variableDeclarationEClass.getEStructuralFeatures().get(1);
+	public EReference getVariableDeclaration_Type() {
+		return (EReference)variableDeclarationEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -418,7 +423,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getVariableDeclaration_Type() {
+	public EReference getVariableDeclaration_InitialValue() {
 		return (EReference)variableDeclarationEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -445,8 +450,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getVariableAssignement_ValueExpression() {
-		return (EAttribute)variableAssignementEClass.getEStructuralFeatures().get(1);
+	public EReference getVariableAssignement_Value() {
+		return (EReference)variableAssignementEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -463,8 +468,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureAssignment_TargetExpression() {
-		return (EAttribute)featureAssignmentEClass.getEStructuralFeatures().get(0);
+	public EReference getFeatureAssignment_Target() {
+		return (EReference)featureAssignmentEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -481,8 +486,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureAssignment_ValueExpression() {
-		return (EAttribute)featureAssignmentEClass.getEStructuralFeatures().get(2);
+	public EReference getFeatureAssignment_Value() {
+		return (EReference)featureAssignmentEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -499,8 +504,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureInsert_TargetExpression() {
-		return (EAttribute)featureInsertEClass.getEStructuralFeatures().get(0);
+	public EReference getFeatureInsert_Target() {
+		return (EReference)featureInsertEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -517,8 +522,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureInsert_ValueExpression() {
-		return (EAttribute)featureInsertEClass.getEStructuralFeatures().get(2);
+	public EReference getFeatureInsert_Value() {
+		return (EReference)featureInsertEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -535,8 +540,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureRemove_TargetExpression() {
-		return (EAttribute)featureRemoveEClass.getEStructuralFeatures().get(0);
+	public EReference getFeatureRemove_Target() {
+		return (EReference)featureRemoveEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -553,8 +558,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureRemove_ValueExpression() {
-		return (EAttribute)featureRemoveEClass.getEStructuralFeatures().get(2);
+	public EReference getFeatureRemove_Value() {
+		return (EReference)featureRemoveEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -571,8 +576,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeaturePut_TargetExpression() {
-		return (EAttribute)featurePutEClass.getEStructuralFeatures().get(0);
+	public EReference getFeaturePut_Target() {
+		return (EReference)featurePutEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -589,8 +594,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeaturePut_KeyExpression() {
-		return (EAttribute)featurePutEClass.getEStructuralFeatures().get(2);
+	public EReference getFeaturePut_Key() {
+		return (EReference)featurePutEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -598,8 +603,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeaturePut_ValueExpression() {
-		return (EAttribute)featurePutEClass.getEStructuralFeatures().get(3);
+	public EReference getFeaturePut_Value() {
+		return (EReference)featurePutEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -625,8 +630,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getForEach_CollectionExpression() {
-		return (EAttribute)forEachEClass.getEStructuralFeatures().get(1);
+	public EReference getForEach_CollectionExpression() {
+		return (EReference)forEachEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -652,8 +657,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getWhile_CollectionExpression() {
-		return (EAttribute)whileEClass.getEStructuralFeatures().get(0);
+	public EReference getWhile_CollectionExpression() {
+		return (EReference)whileEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -679,8 +684,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getIf_Condition() {
-		return (EAttribute)ifEClass.getEStructuralFeatures().get(0);
+	public EReference getIf_Condition() {
+		return (EReference)ifEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -706,8 +711,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getExpression() {
-		return expressionEClass;
+	public EClass getExpressionStatement() {
+		return expressionStatementEClass;
 	}
 
 	/**
@@ -715,8 +720,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getExpression_Value() {
-		return (EAttribute)expressionEClass.getEStructuralFeatures().get(0);
+	public EReference getExpressionStatement_Expression() {
+		return (EReference)expressionStatementEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -775,50 +780,50 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 
 		variableDeclarationEClass = createEClass(VARIABLE_DECLARATION);
 		createEAttribute(variableDeclarationEClass, VARIABLE_DECLARATION__NAME);
-		createEAttribute(variableDeclarationEClass, VARIABLE_DECLARATION__VALUE_EXPRESSION);
 		createEReference(variableDeclarationEClass, VARIABLE_DECLARATION__TYPE);
+		createEReference(variableDeclarationEClass, VARIABLE_DECLARATION__INITIAL_VALUE);
 
 		variableAssignementEClass = createEClass(VARIABLE_ASSIGNEMENT);
 		createEAttribute(variableAssignementEClass, VARIABLE_ASSIGNEMENT__NAME);
-		createEAttribute(variableAssignementEClass, VARIABLE_ASSIGNEMENT__VALUE_EXPRESSION);
+		createEReference(variableAssignementEClass, VARIABLE_ASSIGNEMENT__VALUE);
 
 		featureAssignmentEClass = createEClass(FEATURE_ASSIGNMENT);
-		createEAttribute(featureAssignmentEClass, FEATURE_ASSIGNMENT__TARGET_EXPRESSION);
+		createEReference(featureAssignmentEClass, FEATURE_ASSIGNMENT__TARGET);
 		createEAttribute(featureAssignmentEClass, FEATURE_ASSIGNMENT__TARGET_FEATURE);
-		createEAttribute(featureAssignmentEClass, FEATURE_ASSIGNMENT__VALUE_EXPRESSION);
+		createEReference(featureAssignmentEClass, FEATURE_ASSIGNMENT__VALUE);
 
 		featureInsertEClass = createEClass(FEATURE_INSERT);
-		createEAttribute(featureInsertEClass, FEATURE_INSERT__TARGET_EXPRESSION);
+		createEReference(featureInsertEClass, FEATURE_INSERT__TARGET);
 		createEAttribute(featureInsertEClass, FEATURE_INSERT__TARGET_FEATURE);
-		createEAttribute(featureInsertEClass, FEATURE_INSERT__VALUE_EXPRESSION);
+		createEReference(featureInsertEClass, FEATURE_INSERT__VALUE);
 
 		featureRemoveEClass = createEClass(FEATURE_REMOVE);
-		createEAttribute(featureRemoveEClass, FEATURE_REMOVE__TARGET_EXPRESSION);
+		createEReference(featureRemoveEClass, FEATURE_REMOVE__TARGET);
 		createEAttribute(featureRemoveEClass, FEATURE_REMOVE__TARGET_FEATURE);
-		createEAttribute(featureRemoveEClass, FEATURE_REMOVE__VALUE_EXPRESSION);
+		createEReference(featureRemoveEClass, FEATURE_REMOVE__VALUE);
 
 		featurePutEClass = createEClass(FEATURE_PUT);
-		createEAttribute(featurePutEClass, FEATURE_PUT__TARGET_EXPRESSION);
+		createEReference(featurePutEClass, FEATURE_PUT__TARGET);
 		createEAttribute(featurePutEClass, FEATURE_PUT__TARGET_FEATURE);
-		createEAttribute(featurePutEClass, FEATURE_PUT__KEY_EXPRESSION);
-		createEAttribute(featurePutEClass, FEATURE_PUT__VALUE_EXPRESSION);
+		createEReference(featurePutEClass, FEATURE_PUT__KEY);
+		createEReference(featurePutEClass, FEATURE_PUT__VALUE);
 
 		forEachEClass = createEClass(FOR_EACH);
 		createEAttribute(forEachEClass, FOR_EACH__VARIABLE);
-		createEAttribute(forEachEClass, FOR_EACH__COLLECTION_EXPRESSION);
+		createEReference(forEachEClass, FOR_EACH__COLLECTION_EXPRESSION);
 		createEReference(forEachEClass, FOR_EACH__BODY);
 
 		whileEClass = createEClass(WHILE);
-		createEAttribute(whileEClass, WHILE__COLLECTION_EXPRESSION);
+		createEReference(whileEClass, WHILE__COLLECTION_EXPRESSION);
 		createEReference(whileEClass, WHILE__BODY);
 
 		ifEClass = createEClass(IF);
-		createEAttribute(ifEClass, IF__CONDITION);
+		createEReference(ifEClass, IF__CONDITION);
 		createEReference(ifEClass, IF__THEN);
 		createEReference(ifEClass, IF__ELSE);
 
-		expressionEClass = createEClass(EXPRESSION);
-		createEAttribute(expressionEClass, EXPRESSION__VALUE);
+		expressionStatementEClass = createEClass(EXPRESSION_STATEMENT);
+		createEReference(expressionStatementEClass, EXPRESSION_STATEMENT__EXPRESSION);
 	}
 
 	/**
@@ -844,6 +849,9 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		AstPackage theAstPackage = (AstPackage)EPackage.Registry.INSTANCE.getEPackage(AstPackage.eNS_URI);
+
 		// Create type parameters
 
 		// Set bounds for type parameters
@@ -861,7 +869,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		forEachEClass.getESuperTypes().add(this.getStatement());
 		whileEClass.getESuperTypes().add(this.getStatement());
 		ifEClass.getESuperTypes().add(this.getStatement());
-		expressionEClass.getESuperTypes().add(this.getStatement());
+		expressionStatementEClass.getESuperTypes().add(this.getStatement());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(rootEClass, Root.class, "Root", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -892,50 +900,50 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 
 		initEClass(variableDeclarationEClass, VariableDeclaration.class, "VariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getVariableDeclaration_Name(), ecorePackage.getEString(), "name", null, 1, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getVariableDeclaration_ValueExpression(), ecorePackage.getEString(), "valueExpression", null, 0, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariableDeclaration_Type(), ecorePackage.getEClassifier(), null, "type", null, 1, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getVariableDeclaration_InitialValue(), theAstPackage.getExpression(), null, "initialValue", null, 0, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(variableAssignementEClass, VariableAssignement.class, "VariableAssignement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getVariableAssignement_Name(), ecorePackage.getEString(), "name", null, 1, 1, VariableAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getVariableAssignement_ValueExpression(), ecorePackage.getEString(), "valueExpression", null, 1, 1, VariableAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getVariableAssignement_Value(), theAstPackage.getExpression(), null, "value", null, 1, 1, VariableAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureAssignmentEClass, FeatureAssignment.class, "FeatureAssignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFeatureAssignment_TargetExpression(), ecorePackage.getEString(), "targetExpression", null, 1, 1, FeatureAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureAssignment_Target(), theAstPackage.getExpression(), null, "target", null, 1, 1, FeatureAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureAssignment_TargetFeature(), ecorePackage.getEString(), "targetFeature", null, 1, 1, FeatureAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureAssignment_ValueExpression(), ecorePackage.getEString(), "valueExpression", null, 1, 1, FeatureAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureAssignment_Value(), theAstPackage.getExpression(), null, "value", null, 1, 1, FeatureAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureInsertEClass, FeatureInsert.class, "FeatureInsert", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFeatureInsert_TargetExpression(), ecorePackage.getEString(), "targetExpression", null, 1, 1, FeatureInsert.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureInsert_Target(), theAstPackage.getExpression(), null, "target", null, 1, 1, FeatureInsert.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureInsert_TargetFeature(), ecorePackage.getEString(), "targetFeature", null, 1, 1, FeatureInsert.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureInsert_ValueExpression(), ecorePackage.getEString(), "valueExpression", null, 1, 1, FeatureInsert.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureInsert_Value(), theAstPackage.getExpression(), null, "value", null, 1, 1, FeatureInsert.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureRemoveEClass, FeatureRemove.class, "FeatureRemove", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFeatureRemove_TargetExpression(), ecorePackage.getEString(), "targetExpression", null, 1, 1, FeatureRemove.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureRemove_Target(), theAstPackage.getExpression(), null, "target", null, 1, 1, FeatureRemove.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureRemove_TargetFeature(), ecorePackage.getEString(), "targetFeature", null, 1, 1, FeatureRemove.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureRemove_ValueExpression(), ecorePackage.getEString(), "valueExpression", null, 1, 1, FeatureRemove.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureRemove_Value(), theAstPackage.getExpression(), null, "value", null, 1, 1, FeatureRemove.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featurePutEClass, FeaturePut.class, "FeaturePut", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFeaturePut_TargetExpression(), ecorePackage.getEString(), "targetExpression", null, 1, 1, FeaturePut.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeaturePut_Target(), theAstPackage.getExpression(), null, "target", null, 1, 1, FeaturePut.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeaturePut_TargetFeature(), ecorePackage.getEString(), "targetFeature", null, 1, 1, FeaturePut.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeaturePut_KeyExpression(), ecorePackage.getEString(), "keyExpression", null, 1, 1, FeaturePut.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeaturePut_ValueExpression(), ecorePackage.getEString(), "valueExpression", null, 1, 1, FeaturePut.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeaturePut_Key(), theAstPackage.getExpression(), null, "key", null, 1, 1, FeaturePut.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeaturePut_Value(), theAstPackage.getExpression(), null, "value", null, 1, 1, FeaturePut.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(forEachEClass, ForEach.class, "ForEach", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getForEach_Variable(), ecorePackage.getEString(), "variable", null, 0, 1, ForEach.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getForEach_CollectionExpression(), ecorePackage.getEString(), "collectionExpression", null, 1, 1, ForEach.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getForEach_CollectionExpression(), theAstPackage.getExpression(), null, "collectionExpression", null, 1, 1, ForEach.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getForEach_Body(), this.getBlock(), null, "body", null, 1, 1, ForEach.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(whileEClass, While.class, "While", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getWhile_CollectionExpression(), ecorePackage.getEString(), "collectionExpression", null, 1, 1, While.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getWhile_CollectionExpression(), theAstPackage.getExpression(), null, "collectionExpression", null, 1, 1, While.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getWhile_Body(), this.getBlock(), null, "body", null, 1, 1, While.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(ifEClass, If.class, "If", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIf_Condition(), ecorePackage.getEString(), "condition", null, 1, 1, If.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIf_Condition(), theAstPackage.getExpression(), null, "condition", null, 1, 1, If.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIf_Then(), this.getBlock(), null, "then", null, 1, 1, If.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIf_Else(), this.getBlock(), null, "else", null, 0, 1, If.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getExpression_Value(), ecorePackage.getEString(), "value", null, 1, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(expressionStatementEClass, ExpressionStatement.class, "ExpressionStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExpressionStatement_Expression(), theAstPackage.getExpression(), null, "expression", null, 1, 1, ExpressionStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

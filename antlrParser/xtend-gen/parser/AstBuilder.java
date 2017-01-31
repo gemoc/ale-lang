@@ -8,7 +8,8 @@ import java.util.function.Consumer;
 import org.antlr.v4.runtime.CommonTokenFactory;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.UnbufferedCharStream;
-import org.eclipse.acceleo.query.runtime.impl.EPackageProvider;
+import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
+import org.eclipse.acceleo.query.runtime.Query;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.InputOutput;
@@ -21,12 +22,12 @@ import parser.visitor.RootVisitor;
 @SuppressWarnings("all")
 public class AstBuilder {
   public AstBuilder(final Set<EPackage> metamodel) {
-    final EPackageProvider ePackageProvider = new EPackageProvider();
+    final IQueryEnvironment qryEnv = Query.newEnvironmentWithDefaultServices(null);
     final Consumer<EPackage> _function = (EPackage it) -> {
-      ePackageProvider.registerPackage(it);
+      qryEnv.registerEPackage(it);
     };
     metamodel.forEach(_function);
-    ModelBuilder.createSingleton(ePackageProvider);
+    ModelBuilder.createSingleton(qryEnv);
   }
   
   public Root parse(final String program) {

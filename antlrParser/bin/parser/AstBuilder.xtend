@@ -10,13 +10,14 @@ import org.eclipse.acceleo.query.runtime.impl.EPackageProvider
 import parser.visitor.ModelBuilder
 import org.eclipse.emf.ecore.EPackage
 import java.util.Set
+import org.eclipse.acceleo.query.runtime.Query
 
 class AstBuilder {
 	
 	new(Set<EPackage> metamodel) {
-		val ePackageProvider = new EPackageProvider
-		metamodel.forEach[ePackageProvider.registerPackage(it)]
-		ModelBuilder.createSingleton(ePackageProvider)
+		val qryEnv = Query.newEnvironmentWithDefaultServices(null)
+		metamodel.forEach[qryEnv.registerEPackage(it)]
+		ModelBuilder.createSingleton(qryEnv)
 	}
 	
 	def Root parse(String program) {

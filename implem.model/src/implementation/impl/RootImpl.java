@@ -43,6 +43,7 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root {
 	 * @ordered
 	 */
 	protected EList<ExtendedClass> classExtensions;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EClassifier
 import implementation.VariableDeclaration
 import implementation.If
 import implementation.Statement
-import implementation.Expression
+import implementation.ExpressionStatement
 import implementation.ForEach
 import org.eclipse.emf.ecore.EPackage
 import java.util.ArrayList
@@ -28,38 +28,35 @@ import implementation.Behaviored
 import implementation.ExtendedClass
 import implementation.Implementation
 import implementation.VariableAssignement
+import org.eclipse.acceleo.query.ast.AstPackage
+import org.eclipse.acceleo.query.ast.AstFactory
+import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult
+import org.eclipse.acceleo.query.runtime.impl.QueryBuilderEngine
+import org.eclipse.acceleo.query.runtime.Query
+import org.eclipse.acceleo.query.runtime.IQueryEnvironment
 
 class ModelBuilder {
 	
 	public static ModelBuilder singleton
 	
-	def static ModelBuilder createSingleton(EPackageProvider ePackageProvider) {
-		ModelBuilder.singleton = new ModelBuilder(ePackageProvider)
+	def static ModelBuilder createSingleton(IQueryEnvironment qryEnv) {
+		ModelBuilder.singleton = new ModelBuilder(qryEnv)
 		return singleton
 	}
-
-
-	
-	
-	EPackageProvider ePackageProvider
 	
 	val ecoreFactory = EcorePackage.eINSTANCE.EFactoryInstance as EcoreFactory
 	val factory = ImplementationPackage.eINSTANCE.EFactoryInstance as ImplementationFactory
+	val IQueryEnvironment qryEnv
+	val QueryBuilderEngine builder
 	
-	new(EPackageProvider ePackageProvider){
-		this.ePackageProvider = ePackageProvider
+	new(IQueryEnvironment qryEnv){
+		this.qryEnv = qryEnv
+		builder = new QueryBuilderEngine(qryEnv);
 	}
 	
-//	static val allPackages = new ArrayList<EPackage>
-	
-//	def static void initPackages(List<EPackage> pkgs) { //TODO: remove static stuff
-//		allPackages.clear
-//		allPackages.addAll(pkgs)
+//	def void registerPackages(List<EPackage> pkgs) {
+//		pkgs.forEach[ePackageProvider.registerPackage(it)]
 //	}
-
-	def void registerPackages(List<EPackage> pkgs) {
-		pkgs.forEach[ePackageProvider.registerPackage(it)]
-	}
 	
 	def Behaviored buildOperation(String containingClass, String name, List<Parameter> params, Block body) {
 		val existingOperation = resolve(containingClass, name, params.size)
@@ -106,7 +103,7 @@ class ModelBuilder {
 	def VariableDeclaration buildVariableDecl(String name, String exp, String type) {
 		val varDecl = factory. createVariableDeclaration
 		varDecl.name = name
-		varDecl.valueExpression = exp
+		varDecl.initialValue = builder.build(exp).ast
 		varDecl.type = resolve(type)
 		return varDecl 
 	}
@@ -114,13 +111,13 @@ class ModelBuilder {
 	def VariableAssignement buildVariableAssignement(String name, String exp) {
 		val varAssign = factory. createVariableAssignement
 		varAssign.name = name
-		varAssign.valueExpression = exp
+		varAssign.value = builder.build(exp).ast
 		return varAssign 
 	}
 	
 	def If buildIf(String condition, Block thenBlock, Block elseBlock) {
 		val ifStmt = factory.createIf
-		ifStmt.condition = condition
+		ifStmt.condition = builder.build(condition).ast
 		ifStmt.then = thenBlock
 		ifStmt.^else = elseBlock
 		return ifStmt 
@@ -132,57 +129,57 @@ class ModelBuilder {
 		return block
 	}
 	
-	def Expression buildExpression(String value) {
-		val exp = factory.createExpression
-		exp.value = value
+	def ExpressionStatement buildExpressionStatement(String value) {
+		val exp = factory.createExpressionStatement
+		exp.expression = builder.build(value).ast
 		return exp
 	}
 	
 	def ForEach buildForEach(String variable, String expression, Block body) {
 		val loop = factory.createForEach
 		loop.variable = variable
-		loop.collectionExpression = expression
+		loop.collectionExpression = builder.build(expression).ast
 		loop.body = body
 		return loop
 	}
 	
 	def While buildWhile(String expression, Block body) {
 		val loop = factory.createWhile
-		loop.collectionExpression = expression
+		loop.collectionExpression = builder.build(expression).ast
 		loop.body = body
 		return loop
 	}
 	
 	def FeatureAssignment buildFeatureAssign(String target, String feature, String valueExp) {
 		val featSetting = factory.createFeatureAssignment
-		featSetting.targetExpression = target
+		featSetting.target = builder.build(target).ast
 		featSetting.targetFeature = feature
-		featSetting.valueExpression = valueExp
+		featSetting.value = builder.build(valueExp).ast
 		return featSetting
 	}
 	
 	def FeatureInsert buildFeatureInsert(String target, String feature, String valueExp) {
 		val featSetting = factory.createFeatureInsert
-		featSetting.targetExpression = target
+		featSetting.target = builder.build(target).ast
 		featSetting.targetFeature = feature
-		featSetting.valueExpression = valueExp
+		featSetting.value = builder.build(valueExp).ast
 		return featSetting
 	}
 	
 	def FeatureRemove buildFeatureRemove(String target, String feature, String valueExp) {
 		val featSetting = factory.createFeatureRemove
-		featSetting.targetExpression = target
+		featSetting.target = builder.build(target).ast
 		featSetting.targetFeature = feature
-		featSetting.valueExpression = valueExp
+		featSetting.value = builder.build(valueExp).ast
 		return featSetting
 	}
 	
 	def FeaturePut buildFeaturePut(String target, String feature, String keyExp, String valueExp) {
 		val featSetting = factory.createFeaturePut
-		featSetting.targetExpression = target
+		featSetting.target = builder.build(target).ast
 		featSetting.targetFeature = feature
-		featSetting.keyExpression = keyExp
-		featSetting.valueExpression = valueExp
+		featSetting.key = builder.build(keyExp).ast
+		featSetting.value = builder.build(valueExp).ast
 		return featSetting
 	}
 	
@@ -198,7 +195,7 @@ class ModelBuilder {
 	def EOperation resolve(String className, String methodName, int nbArgs) {
 
 		//TODO: manage qualified name		
-		val candidates = ePackageProvider.EClassifiers.filter(EClass).filter[name == className]
+		val candidates = qryEnv.EPackageProvider.EClassifiers.filter(EClass).filter[name == className]
 			
 		val eOperation = 
 			candidates
@@ -212,7 +209,7 @@ class ModelBuilder {
 	def EClassifier resolve(String className) {
 		
 		//TODO: manage qualified name
-		val candidate = ePackageProvider.EClassifiers.findFirst[name == className]
+		val candidate = qryEnv.EPackageProvider.EClassifiers.findFirst[name == className]
 		
 //		val candidate = 
 //			allPackages
@@ -234,5 +231,10 @@ class ModelBuilder {
 			case "double" 	: return EcorePackage.eINSTANCE.EDouble
 			default			: return EcorePackage.eINSTANCE.EClassifier
 		}
+	}
+	
+	def AstResult parse(String expression) {
+		
+		return builder.build(expression)
 	}
 }

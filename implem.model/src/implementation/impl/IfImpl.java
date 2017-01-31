@@ -6,6 +6,8 @@ import implementation.Block;
 import implementation.If;
 import implementation.ImplementationPackage;
 
+import org.eclipse.acceleo.query.ast.Expression;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -31,24 +33,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class IfImpl extends StatementImpl implements If {
 	/**
-	 * The default value of the '{@link #getCondition() <em>Condition</em>}' attribute.
+	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getCondition()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String CONDITION_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCondition()
-	 * @generated
-	 * @ordered
-	 */
-	protected String condition = CONDITION_EDEFAULT;
+	protected Expression condition;
 
 	/**
 	 * The cached value of the '{@link #getThen() <em>Then</em>}' containment reference.
@@ -94,7 +86,7 @@ public class IfImpl extends StatementImpl implements If {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getCondition() {
+	public Expression getCondition() {
 		return condition;
 	}
 
@@ -103,11 +95,33 @@ public class IfImpl extends StatementImpl implements If {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCondition(String newCondition) {
-		String oldCondition = condition;
+	public NotificationChain basicSetCondition(Expression newCondition, NotificationChain msgs) {
+		Expression oldCondition = condition;
 		condition = newCondition;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.IF__CONDITION, oldCondition, condition));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImplementationPackage.IF__CONDITION, oldCondition, newCondition);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCondition(Expression newCondition) {
+		if (newCondition != condition) {
+			NotificationChain msgs = null;
+			if (condition != null)
+				msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.IF__CONDITION, null, msgs);
+			if (newCondition != null)
+				msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.IF__CONDITION, null, msgs);
+			msgs = basicSetCondition(newCondition, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.IF__CONDITION, newCondition, newCondition));
 	}
 
 	/**
@@ -204,6 +218,8 @@ public class IfImpl extends StatementImpl implements If {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case ImplementationPackage.IF__CONDITION:
+				return basicSetCondition(null, msgs);
 			case ImplementationPackage.IF__THEN:
 				return basicSetThen(null, msgs);
 			case ImplementationPackage.IF__ELSE:
@@ -239,7 +255,7 @@ public class IfImpl extends StatementImpl implements If {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ImplementationPackage.IF__CONDITION:
-				setCondition((String)newValue);
+				setCondition((Expression)newValue);
 				return;
 			case ImplementationPackage.IF__THEN:
 				setThen((Block)newValue);
@@ -260,7 +276,7 @@ public class IfImpl extends StatementImpl implements If {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ImplementationPackage.IF__CONDITION:
-				setCondition(CONDITION_EDEFAULT);
+				setCondition((Expression)null);
 				return;
 			case ImplementationPackage.IF__THEN:
 				setThen((Block)null);
@@ -281,29 +297,13 @@ public class IfImpl extends StatementImpl implements If {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case ImplementationPackage.IF__CONDITION:
-				return CONDITION_EDEFAULT == null ? condition != null : !CONDITION_EDEFAULT.equals(condition);
+				return condition != null;
 			case ImplementationPackage.IF__THEN:
 				return then != null;
 			case ImplementationPackage.IF__ELSE:
 				return else_ != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (condition: ");
-		result.append(condition);
-		result.append(')');
-		return result.toString();
 	}
 
 } //IfImpl
