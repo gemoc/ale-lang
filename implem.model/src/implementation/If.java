@@ -2,6 +2,7 @@
  */
 package implementation;
 
+import org.eclipse.acceleo.query.ast.Expression;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,30 +24,30 @@ package implementation;
  */
 public interface If extends Statement {
 	/**
-	 * Returns the value of the '<em><b>Condition</b></em>' attribute.
+	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Condition</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Condition</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Condition</em>' attribute.
-	 * @see #setCondition(String)
+	 * @return the value of the '<em>Condition</em>' containment reference.
+	 * @see #setCondition(Expression)
 	 * @see implementation.ImplementationPackage#getIf_Condition()
-	 * @model required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	String getCondition();
+	Expression getCondition();
 
 	/**
-	 * Sets the value of the '{@link implementation.If#getCondition <em>Condition</em>}' attribute.
+	 * Sets the value of the '{@link implementation.If#getCondition <em>Condition</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Condition</em>' attribute.
+	 * @param value the new value of the '<em>Condition</em>' containment reference.
 	 * @see #getCondition()
 	 * @generated
 	 */
-	void setCondition(String value);
+	void setCondition(Expression value);
 
 	/**
 	 * Returns the value of the '<em><b>Then</b></em>' containment reference.

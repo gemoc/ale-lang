@@ -6,6 +6,8 @@ import implementation.Block;
 import implementation.ImplementationPackage;
 import implementation.While;
 
+import org.eclipse.acceleo.query.ast.Expression;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -30,24 +32,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class WhileImpl extends StatementImpl implements While {
 	/**
-	 * The default value of the '{@link #getCollectionExpression() <em>Collection Expression</em>}' attribute.
+	 * The cached value of the '{@link #getCollectionExpression() <em>Collection Expression</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getCollectionExpression()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String COLLECTION_EXPRESSION_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getCollectionExpression() <em>Collection Expression</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCollectionExpression()
-	 * @generated
-	 * @ordered
-	 */
-	protected String collectionExpression = COLLECTION_EXPRESSION_EDEFAULT;
+	protected Expression collectionExpression;
 
 	/**
 	 * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference.
@@ -83,7 +75,7 @@ public class WhileImpl extends StatementImpl implements While {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getCollectionExpression() {
+	public Expression getCollectionExpression() {
 		return collectionExpression;
 	}
 
@@ -92,11 +84,33 @@ public class WhileImpl extends StatementImpl implements While {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCollectionExpression(String newCollectionExpression) {
-		String oldCollectionExpression = collectionExpression;
+	public NotificationChain basicSetCollectionExpression(Expression newCollectionExpression, NotificationChain msgs) {
+		Expression oldCollectionExpression = collectionExpression;
 		collectionExpression = newCollectionExpression;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.WHILE__COLLECTION_EXPRESSION, oldCollectionExpression, collectionExpression));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImplementationPackage.WHILE__COLLECTION_EXPRESSION, oldCollectionExpression, newCollectionExpression);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCollectionExpression(Expression newCollectionExpression) {
+		if (newCollectionExpression != collectionExpression) {
+			NotificationChain msgs = null;
+			if (collectionExpression != null)
+				msgs = ((InternalEObject)collectionExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.WHILE__COLLECTION_EXPRESSION, null, msgs);
+			if (newCollectionExpression != null)
+				msgs = ((InternalEObject)newCollectionExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.WHILE__COLLECTION_EXPRESSION, null, msgs);
+			msgs = basicSetCollectionExpression(newCollectionExpression, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.WHILE__COLLECTION_EXPRESSION, newCollectionExpression, newCollectionExpression));
 	}
 
 	/**
@@ -150,6 +164,8 @@ public class WhileImpl extends StatementImpl implements While {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case ImplementationPackage.WHILE__COLLECTION_EXPRESSION:
+				return basicSetCollectionExpression(null, msgs);
 			case ImplementationPackage.WHILE__BODY:
 				return basicSetBody(null, msgs);
 		}
@@ -181,7 +197,7 @@ public class WhileImpl extends StatementImpl implements While {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ImplementationPackage.WHILE__COLLECTION_EXPRESSION:
-				setCollectionExpression((String)newValue);
+				setCollectionExpression((Expression)newValue);
 				return;
 			case ImplementationPackage.WHILE__BODY:
 				setBody((Block)newValue);
@@ -199,7 +215,7 @@ public class WhileImpl extends StatementImpl implements While {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ImplementationPackage.WHILE__COLLECTION_EXPRESSION:
-				setCollectionExpression(COLLECTION_EXPRESSION_EDEFAULT);
+				setCollectionExpression((Expression)null);
 				return;
 			case ImplementationPackage.WHILE__BODY:
 				setBody((Block)null);
@@ -217,27 +233,11 @@ public class WhileImpl extends StatementImpl implements While {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case ImplementationPackage.WHILE__COLLECTION_EXPRESSION:
-				return COLLECTION_EXPRESSION_EDEFAULT == null ? collectionExpression != null : !COLLECTION_EXPRESSION_EDEFAULT.equals(collectionExpression);
+				return collectionExpression != null;
 			case ImplementationPackage.WHILE__BODY:
 				return body != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (collectionExpression: ");
-		result.append(collectionExpression);
-		result.append(')');
-		return result.toString();
 	}
 
 } //WhileImpl

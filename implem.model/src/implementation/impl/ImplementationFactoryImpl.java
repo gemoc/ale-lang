@@ -73,7 +73,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 			case ImplementationPackage.FOR_EACH: return createForEach();
 			case ImplementationPackage.WHILE: return createWhile();
 			case ImplementationPackage.IF: return createIf();
-			case ImplementationPackage.EXPRESSION: return createExpression();
+			case ImplementationPackage.EXPRESSION_STATEMENT: return createExpressionStatement();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -254,9 +254,9 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression createExpression() {
-		ExpressionImpl expression = new ExpressionImpl();
-		return expression;
+	public ExpressionStatement createExpressionStatement() {
+		ExpressionStatementImpl expressionStatement = new ExpressionStatementImpl();
+		return expressionStatement;
 	}
 
 	/**

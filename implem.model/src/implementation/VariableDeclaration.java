@@ -2,8 +2,9 @@
  */
 package implementation;
 
-import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.acceleo.query.ast.Expression;
 
+import org.eclipse.emf.ecore.EClassifier;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,8 +16,8 @@ import org.eclipse.emf.ecore.EClassifier;
  * </p>
  * <ul>
  *   <li>{@link implementation.VariableDeclaration#getName <em>Name</em>}</li>
- *   <li>{@link implementation.VariableDeclaration#getValueExpression <em>Value Expression</em>}</li>
  *   <li>{@link implementation.VariableDeclaration#getType <em>Type</em>}</li>
+ *   <li>{@link implementation.VariableDeclaration#getInitialValue <em>Initial Value</em>}</li>
  * </ul>
  *
  * @see implementation.ImplementationPackage#getVariableDeclaration()
@@ -51,32 +52,6 @@ public interface VariableDeclaration extends Statement {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Value Expression</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Value Expression</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Value Expression</em>' attribute.
-	 * @see #setValueExpression(String)
-	 * @see implementation.ImplementationPackage#getVariableDeclaration_ValueExpression()
-	 * @model
-	 * @generated
-	 */
-	String getValueExpression();
-
-	/**
-	 * Sets the value of the '{@link implementation.VariableDeclaration#getValueExpression <em>Value Expression</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value Expression</em>' attribute.
-	 * @see #getValueExpression()
-	 * @generated
-	 */
-	void setValueExpression(String value);
-
-	/**
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -101,5 +76,31 @@ public interface VariableDeclaration extends Statement {
 	 * @generated
 	 */
 	void setType(EClassifier value);
+
+	/**
+	 * Returns the value of the '<em><b>Initial Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Initial Value</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Initial Value</em>' containment reference.
+	 * @see #setInitialValue(Expression)
+	 * @see implementation.ImplementationPackage#getVariableDeclaration_InitialValue()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Expression getInitialValue();
+
+	/**
+	 * Sets the value of the '{@link implementation.VariableDeclaration#getInitialValue <em>Initial Value</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Initial Value</em>' containment reference.
+	 * @see #getInitialValue()
+	 * @generated
+	 */
+	void setInitialValue(Expression value);
 
 } // VariableDeclaration

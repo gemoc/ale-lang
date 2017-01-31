@@ -2,6 +2,8 @@
  */
 package implementation;
 
+import org.eclipse.acceleo.query.ast.Expression;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>While</b></em>'.
@@ -21,30 +23,30 @@ package implementation;
  */
 public interface While extends Statement {
 	/**
-	 * Returns the value of the '<em><b>Collection Expression</b></em>' attribute.
+	 * Returns the value of the '<em><b>Collection Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Collection Expression</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Collection Expression</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Collection Expression</em>' attribute.
-	 * @see #setCollectionExpression(String)
+	 * @return the value of the '<em>Collection Expression</em>' containment reference.
+	 * @see #setCollectionExpression(Expression)
 	 * @see implementation.ImplementationPackage#getWhile_CollectionExpression()
-	 * @model required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	String getCollectionExpression();
+	Expression getCollectionExpression();
 
 	/**
-	 * Sets the value of the '{@link implementation.While#getCollectionExpression <em>Collection Expression</em>}' attribute.
+	 * Sets the value of the '{@link implementation.While#getCollectionExpression <em>Collection Expression</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Collection Expression</em>' attribute.
+	 * @param value the new value of the '<em>Collection Expression</em>' containment reference.
 	 * @see #getCollectionExpression()
 	 * @generated
 	 */
-	void setCollectionExpression(String value);
+	void setCollectionExpression(Expression value);
 
 	/**
 	 * Returns the value of the '<em><b>Body</b></em>' containment reference.

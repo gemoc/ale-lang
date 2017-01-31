@@ -3,8 +3,10 @@
 package implementation.util;
 
 import implementation.*;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+
 import org.eclipse.emf.ecore.util.Switch;
 
 /**
@@ -178,10 +180,10 @@ public class ImplementationSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ImplementationPackage.EXPRESSION: {
-				Expression expression = (Expression)theEObject;
-				T result = caseExpression(expression);
-				if (result == null) result = caseStatement(expression);
+			case ImplementationPackage.EXPRESSION_STATEMENT: {
+				ExpressionStatement expressionStatement = (ExpressionStatement)theEObject;
+				T result = caseExpressionStatement(expressionStatement);
+				if (result == null) result = caseStatement(expressionStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -445,17 +447,17 @@ public class ImplementationSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Expression</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Expression Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Expression</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Expression Statement</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseExpression(Expression object) {
+	public T caseExpressionStatement(ExpressionStatement object) {
 		return null;
 	}
 

@@ -4,7 +4,7 @@ import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
 import implementation.Behaviored;
 import implementation.Block;
-import implementation.Expression;
+import implementation.ExpressionStatement;
 import implementation.ExtendedClass;
 import implementation.FeatureAssignment;
 import implementation.FeatureInsert;
@@ -24,12 +24,15 @@ import implementation.While;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
-import org.eclipse.acceleo.query.runtime.impl.EPackageProvider;
+import org.eclipse.acceleo.query.ast.Expression;
+import org.eclipse.acceleo.query.runtime.IEPackageProvider;
+import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine;
+import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
+import org.eclipse.acceleo.query.runtime.impl.QueryBuilderEngine;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -40,27 +43,24 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 public class ModelBuilder {
   public static ModelBuilder singleton;
   
-  public static ModelBuilder createSingleton(final EPackageProvider ePackageProvider) {
-    ModelBuilder _modelBuilder = new ModelBuilder(ePackageProvider);
+  public static ModelBuilder createSingleton(final IQueryEnvironment qryEnv) {
+    ModelBuilder _modelBuilder = new ModelBuilder(qryEnv);
     ModelBuilder.singleton = _modelBuilder;
     return ModelBuilder.singleton;
   }
-  
-  private EPackageProvider ePackageProvider;
   
   private final EcoreFactory ecoreFactory = ((EcoreFactory) EcorePackage.eINSTANCE.getEFactoryInstance());
   
   private final ImplementationFactory factory = ((ImplementationFactory) ImplementationPackage.eINSTANCE.getEFactoryInstance());
   
-  public ModelBuilder(final EPackageProvider ePackageProvider) {
-    this.ePackageProvider = ePackageProvider;
-  }
+  private final IQueryEnvironment qryEnv;
   
-  public void registerPackages(final List<EPackage> pkgs) {
-    final Consumer<EPackage> _function = (EPackage it) -> {
-      this.ePackageProvider.registerPackage(it);
-    };
-    pkgs.forEach(_function);
+  private final QueryBuilderEngine builder;
+  
+  public ModelBuilder(final IQueryEnvironment qryEnv) {
+    this.qryEnv = qryEnv;
+    QueryBuilderEngine _queryBuilderEngine = new QueryBuilderEngine(qryEnv);
+    this.builder = _queryBuilderEngine;
   }
   
   public Behaviored buildOperation(final String containingClass, final String name, final List<Parameter> params, final Block body) {
@@ -110,7 +110,9 @@ public class ModelBuilder {
   public VariableDeclaration buildVariableDecl(final String name, final String exp, final String type) {
     final VariableDeclaration varDecl = this.factory.createVariableDeclaration();
     varDecl.setName(name);
-    varDecl.setValueExpression(exp);
+    IQueryBuilderEngine.AstResult _build = this.builder.build(exp);
+    Expression _ast = _build.getAst();
+    varDecl.setInitialValue(_ast);
     EClassifier _resolve = this.resolve(type);
     varDecl.setType(_resolve);
     return varDecl;
@@ -119,13 +121,17 @@ public class ModelBuilder {
   public VariableAssignement buildVariableAssignement(final String name, final String exp) {
     final VariableAssignement varAssign = this.factory.createVariableAssignement();
     varAssign.setName(name);
-    varAssign.setValueExpression(exp);
+    IQueryBuilderEngine.AstResult _build = this.builder.build(exp);
+    Expression _ast = _build.getAst();
+    varAssign.setValue(_ast);
     return varAssign;
   }
   
   public If buildIf(final String condition, final Block thenBlock, final Block elseBlock) {
     final If ifStmt = this.factory.createIf();
-    ifStmt.setCondition(condition);
+    IQueryBuilderEngine.AstResult _build = this.builder.build(condition);
+    Expression _ast = _build.getAst();
+    ifStmt.setCondition(_ast);
     ifStmt.setThen(thenBlock);
     ifStmt.setElse(elseBlock);
     return ifStmt;
@@ -138,57 +144,81 @@ public class ModelBuilder {
     return block;
   }
   
-  public Expression buildExpression(final String value) {
-    final Expression exp = this.factory.createExpression();
-    exp.setValue(value);
+  public ExpressionStatement buildExpressionStatement(final String value) {
+    final ExpressionStatement exp = this.factory.createExpressionStatement();
+    IQueryBuilderEngine.AstResult _build = this.builder.build(value);
+    Expression _ast = _build.getAst();
+    exp.setExpression(_ast);
     return exp;
   }
   
   public ForEach buildForEach(final String variable, final String expression, final Block body) {
     final ForEach loop = this.factory.createForEach();
     loop.setVariable(variable);
-    loop.setCollectionExpression(expression);
+    IQueryBuilderEngine.AstResult _build = this.builder.build(expression);
+    Expression _ast = _build.getAst();
+    loop.setCollectionExpression(_ast);
     loop.setBody(body);
     return loop;
   }
   
   public While buildWhile(final String expression, final Block body) {
     final While loop = this.factory.createWhile();
-    loop.setCollectionExpression(expression);
+    IQueryBuilderEngine.AstResult _build = this.builder.build(expression);
+    Expression _ast = _build.getAst();
+    loop.setCollectionExpression(_ast);
     loop.setBody(body);
     return loop;
   }
   
   public FeatureAssignment buildFeatureAssign(final String target, final String feature, final String valueExp) {
     final FeatureAssignment featSetting = this.factory.createFeatureAssignment();
-    featSetting.setTargetExpression(target);
+    IQueryBuilderEngine.AstResult _build = this.builder.build(target);
+    Expression _ast = _build.getAst();
+    featSetting.setTarget(_ast);
     featSetting.setTargetFeature(feature);
-    featSetting.setValueExpression(valueExp);
+    IQueryBuilderEngine.AstResult _build_1 = this.builder.build(valueExp);
+    Expression _ast_1 = _build_1.getAst();
+    featSetting.setValue(_ast_1);
     return featSetting;
   }
   
   public FeatureInsert buildFeatureInsert(final String target, final String feature, final String valueExp) {
     final FeatureInsert featSetting = this.factory.createFeatureInsert();
-    featSetting.setTargetExpression(target);
+    IQueryBuilderEngine.AstResult _build = this.builder.build(target);
+    Expression _ast = _build.getAst();
+    featSetting.setTarget(_ast);
     featSetting.setTargetFeature(feature);
-    featSetting.setValueExpression(valueExp);
+    IQueryBuilderEngine.AstResult _build_1 = this.builder.build(valueExp);
+    Expression _ast_1 = _build_1.getAst();
+    featSetting.setValue(_ast_1);
     return featSetting;
   }
   
   public FeatureRemove buildFeatureRemove(final String target, final String feature, final String valueExp) {
     final FeatureRemove featSetting = this.factory.createFeatureRemove();
-    featSetting.setTargetExpression(target);
+    IQueryBuilderEngine.AstResult _build = this.builder.build(target);
+    Expression _ast = _build.getAst();
+    featSetting.setTarget(_ast);
     featSetting.setTargetFeature(feature);
-    featSetting.setValueExpression(valueExp);
+    IQueryBuilderEngine.AstResult _build_1 = this.builder.build(valueExp);
+    Expression _ast_1 = _build_1.getAst();
+    featSetting.setValue(_ast_1);
     return featSetting;
   }
   
   public FeaturePut buildFeaturePut(final String target, final String feature, final String keyExp, final String valueExp) {
     final FeaturePut featSetting = this.factory.createFeaturePut();
-    featSetting.setTargetExpression(target);
+    IQueryBuilderEngine.AstResult _build = this.builder.build(target);
+    Expression _ast = _build.getAst();
+    featSetting.setTarget(_ast);
     featSetting.setTargetFeature(feature);
-    featSetting.setKeyExpression(keyExp);
-    featSetting.setValueExpression(valueExp);
+    IQueryBuilderEngine.AstResult _build_1 = this.builder.build(keyExp);
+    Expression _ast_1 = _build_1.getAst();
+    featSetting.setKey(_ast_1);
+    IQueryBuilderEngine.AstResult _build_2 = this.builder.build(valueExp);
+    Expression _ast_2 = _build_2.getAst();
+    featSetting.setValue(_ast_2);
     return featSetting;
   }
   
@@ -204,7 +234,8 @@ public class ModelBuilder {
   }
   
   public EOperation resolve(final String className, final String methodName, final int nbArgs) {
-    Set<EClassifier> _eClassifiers = this.ePackageProvider.getEClassifiers();
+    IEPackageProvider _ePackageProvider = this.qryEnv.getEPackageProvider();
+    Set<EClassifier> _eClassifiers = _ePackageProvider.getEClassifiers();
     Iterable<EClass> _filter = Iterables.<EClass>filter(_eClassifiers, EClass.class);
     final Function1<EClass, Boolean> _function = (EClass it) -> {
       String _name = it.getName();
@@ -224,7 +255,8 @@ public class ModelBuilder {
   }
   
   public EClassifier resolve(final String className) {
-    Set<EClassifier> _eClassifiers = this.ePackageProvider.getEClassifiers();
+    IEPackageProvider _ePackageProvider = this.qryEnv.getEPackageProvider();
+    Set<EClassifier> _eClassifiers = _ePackageProvider.getEClassifiers();
     final Function1<EClassifier, Boolean> _function = (EClassifier it) -> {
       String _name = it.getName();
       return Boolean.valueOf(Objects.equal(_name, className));
@@ -253,5 +285,9 @@ public class ModelBuilder {
       default:
         return EcorePackage.eINSTANCE.getEClassifier();
     }
+  }
+  
+  public IQueryBuilderEngine.AstResult parse(final String expression) {
+    return this.builder.build(expression);
   }
 }

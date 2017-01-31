@@ -5,9 +5,13 @@ package implementation.impl;
 import implementation.FeaturePut;
 import implementation.ImplementationPackage;
 
+import org.eclipse.acceleo.query.ast.Expression;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
@@ -19,34 +23,24 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link implementation.impl.FeaturePutImpl#getTargetExpression <em>Target Expression</em>}</li>
+ *   <li>{@link implementation.impl.FeaturePutImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link implementation.impl.FeaturePutImpl#getTargetFeature <em>Target Feature</em>}</li>
- *   <li>{@link implementation.impl.FeaturePutImpl#getKeyExpression <em>Key Expression</em>}</li>
- *   <li>{@link implementation.impl.FeaturePutImpl#getValueExpression <em>Value Expression</em>}</li>
+ *   <li>{@link implementation.impl.FeaturePutImpl#getKey <em>Key</em>}</li>
+ *   <li>{@link implementation.impl.FeaturePutImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	/**
-	 * The default value of the '{@link #getTargetExpression() <em>Target Expression</em>}' attribute.
+	 * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTargetExpression()
+	 * @see #getTarget()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String TARGET_EXPRESSION_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getTargetExpression() <em>Target Expression</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTargetExpression()
-	 * @generated
-	 * @ordered
-	 */
-	protected String targetExpression = TARGET_EXPRESSION_EDEFAULT;
+	protected Expression target;
 
 	/**
 	 * The default value of the '{@link #getTargetFeature() <em>Target Feature</em>}' attribute.
@@ -69,44 +63,24 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	protected String targetFeature = TARGET_FEATURE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getKeyExpression() <em>Key Expression</em>}' attribute.
+	 * The cached value of the '{@link #getKey() <em>Key</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getKeyExpression()
+	 * @see #getKey()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String KEY_EXPRESSION_EDEFAULT = null;
+	protected Expression key;
 
 	/**
-	 * The cached value of the '{@link #getKeyExpression() <em>Key Expression</em>}' attribute.
+	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getKeyExpression()
+	 * @see #getValue()
 	 * @generated
 	 * @ordered
 	 */
-	protected String keyExpression = KEY_EXPRESSION_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getValueExpression() <em>Value Expression</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValueExpression()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String VALUE_EXPRESSION_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getValueExpression() <em>Value Expression</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValueExpression()
-	 * @generated
-	 * @ordered
-	 */
-	protected String valueExpression = VALUE_EXPRESSION_EDEFAULT;
+	protected Expression value;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -132,8 +106,8 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getTargetExpression() {
-		return targetExpression;
+	public Expression getTarget() {
+		return target;
 	}
 
 	/**
@@ -141,11 +115,33 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTargetExpression(String newTargetExpression) {
-		String oldTargetExpression = targetExpression;
-		targetExpression = newTargetExpression;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.FEATURE_PUT__TARGET_EXPRESSION, oldTargetExpression, targetExpression));
+	public NotificationChain basicSetTarget(Expression newTarget, NotificationChain msgs) {
+		Expression oldTarget = target;
+		target = newTarget;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImplementationPackage.FEATURE_PUT__TARGET, oldTarget, newTarget);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTarget(Expression newTarget) {
+		if (newTarget != target) {
+			NotificationChain msgs = null;
+			if (target != null)
+				msgs = ((InternalEObject)target).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.FEATURE_PUT__TARGET, null, msgs);
+			if (newTarget != null)
+				msgs = ((InternalEObject)newTarget).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.FEATURE_PUT__TARGET, null, msgs);
+			msgs = basicSetTarget(newTarget, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.FEATURE_PUT__TARGET, newTarget, newTarget));
 	}
 
 	/**
@@ -174,8 +170,8 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getKeyExpression() {
-		return keyExpression;
+	public Expression getKey() {
+		return key;
 	}
 
 	/**
@@ -183,11 +179,14 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setKeyExpression(String newKeyExpression) {
-		String oldKeyExpression = keyExpression;
-		keyExpression = newKeyExpression;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.FEATURE_PUT__KEY_EXPRESSION, oldKeyExpression, keyExpression));
+	public NotificationChain basicSetKey(Expression newKey, NotificationChain msgs) {
+		Expression oldKey = key;
+		key = newKey;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImplementationPackage.FEATURE_PUT__KEY, oldKey, newKey);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -195,8 +194,18 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getValueExpression() {
-		return valueExpression;
+	public void setKey(Expression newKey) {
+		if (newKey != key) {
+			NotificationChain msgs = null;
+			if (key != null)
+				msgs = ((InternalEObject)key).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.FEATURE_PUT__KEY, null, msgs);
+			if (newKey != null)
+				msgs = ((InternalEObject)newKey).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.FEATURE_PUT__KEY, null, msgs);
+			msgs = basicSetKey(newKey, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.FEATURE_PUT__KEY, newKey, newKey));
 	}
 
 	/**
@@ -204,11 +213,60 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setValueExpression(String newValueExpression) {
-		String oldValueExpression = valueExpression;
-		valueExpression = newValueExpression;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.FEATURE_PUT__VALUE_EXPRESSION, oldValueExpression, valueExpression));
+	public Expression getValue() {
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetValue(Expression newValue, NotificationChain msgs) {
+		Expression oldValue = value;
+		value = newValue;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImplementationPackage.FEATURE_PUT__VALUE, oldValue, newValue);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValue(Expression newValue) {
+		if (newValue != value) {
+			NotificationChain msgs = null;
+			if (value != null)
+				msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.FEATURE_PUT__VALUE, null, msgs);
+			if (newValue != null)
+				msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.FEATURE_PUT__VALUE, null, msgs);
+			msgs = basicSetValue(newValue, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.FEATURE_PUT__VALUE, newValue, newValue));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ImplementationPackage.FEATURE_PUT__TARGET:
+				return basicSetTarget(null, msgs);
+			case ImplementationPackage.FEATURE_PUT__KEY:
+				return basicSetKey(null, msgs);
+			case ImplementationPackage.FEATURE_PUT__VALUE:
+				return basicSetValue(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -219,14 +277,14 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ImplementationPackage.FEATURE_PUT__TARGET_EXPRESSION:
-				return getTargetExpression();
+			case ImplementationPackage.FEATURE_PUT__TARGET:
+				return getTarget();
 			case ImplementationPackage.FEATURE_PUT__TARGET_FEATURE:
 				return getTargetFeature();
-			case ImplementationPackage.FEATURE_PUT__KEY_EXPRESSION:
-				return getKeyExpression();
-			case ImplementationPackage.FEATURE_PUT__VALUE_EXPRESSION:
-				return getValueExpression();
+			case ImplementationPackage.FEATURE_PUT__KEY:
+				return getKey();
+			case ImplementationPackage.FEATURE_PUT__VALUE:
+				return getValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -239,17 +297,17 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ImplementationPackage.FEATURE_PUT__TARGET_EXPRESSION:
-				setTargetExpression((String)newValue);
+			case ImplementationPackage.FEATURE_PUT__TARGET:
+				setTarget((Expression)newValue);
 				return;
 			case ImplementationPackage.FEATURE_PUT__TARGET_FEATURE:
 				setTargetFeature((String)newValue);
 				return;
-			case ImplementationPackage.FEATURE_PUT__KEY_EXPRESSION:
-				setKeyExpression((String)newValue);
+			case ImplementationPackage.FEATURE_PUT__KEY:
+				setKey((Expression)newValue);
 				return;
-			case ImplementationPackage.FEATURE_PUT__VALUE_EXPRESSION:
-				setValueExpression((String)newValue);
+			case ImplementationPackage.FEATURE_PUT__VALUE:
+				setValue((Expression)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -263,17 +321,17 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ImplementationPackage.FEATURE_PUT__TARGET_EXPRESSION:
-				setTargetExpression(TARGET_EXPRESSION_EDEFAULT);
+			case ImplementationPackage.FEATURE_PUT__TARGET:
+				setTarget((Expression)null);
 				return;
 			case ImplementationPackage.FEATURE_PUT__TARGET_FEATURE:
 				setTargetFeature(TARGET_FEATURE_EDEFAULT);
 				return;
-			case ImplementationPackage.FEATURE_PUT__KEY_EXPRESSION:
-				setKeyExpression(KEY_EXPRESSION_EDEFAULT);
+			case ImplementationPackage.FEATURE_PUT__KEY:
+				setKey((Expression)null);
 				return;
-			case ImplementationPackage.FEATURE_PUT__VALUE_EXPRESSION:
-				setValueExpression(VALUE_EXPRESSION_EDEFAULT);
+			case ImplementationPackage.FEATURE_PUT__VALUE:
+				setValue((Expression)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -287,14 +345,14 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ImplementationPackage.FEATURE_PUT__TARGET_EXPRESSION:
-				return TARGET_EXPRESSION_EDEFAULT == null ? targetExpression != null : !TARGET_EXPRESSION_EDEFAULT.equals(targetExpression);
+			case ImplementationPackage.FEATURE_PUT__TARGET:
+				return target != null;
 			case ImplementationPackage.FEATURE_PUT__TARGET_FEATURE:
 				return TARGET_FEATURE_EDEFAULT == null ? targetFeature != null : !TARGET_FEATURE_EDEFAULT.equals(targetFeature);
-			case ImplementationPackage.FEATURE_PUT__KEY_EXPRESSION:
-				return KEY_EXPRESSION_EDEFAULT == null ? keyExpression != null : !KEY_EXPRESSION_EDEFAULT.equals(keyExpression);
-			case ImplementationPackage.FEATURE_PUT__VALUE_EXPRESSION:
-				return VALUE_EXPRESSION_EDEFAULT == null ? valueExpression != null : !VALUE_EXPRESSION_EDEFAULT.equals(valueExpression);
+			case ImplementationPackage.FEATURE_PUT__KEY:
+				return key != null;
+			case ImplementationPackage.FEATURE_PUT__VALUE:
+				return value != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -309,14 +367,8 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (targetExpression: ");
-		result.append(targetExpression);
-		result.append(", targetFeature: ");
+		result.append(" (targetFeature: ");
 		result.append(targetFeature);
-		result.append(", keyExpression: ");
-		result.append(keyExpression);
-		result.append(", valueExpression: ");
-		result.append(valueExpression);
 		result.append(')');
 		return result.toString();
 	}

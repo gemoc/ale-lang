@@ -123,7 +123,7 @@ class StatementVisitor extends XtdAQLBaseVisitor<Statement> {
 			}
 		}
 		
-		return ModelBuilder.singleton.buildExpression(exp.text)
+		return ModelBuilder.singleton.buildExpressionStatement(exp.text)
 	}
 }
 

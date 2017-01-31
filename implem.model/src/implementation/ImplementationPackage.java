@@ -277,7 +277,6 @@ public interface ImplementationPackage extends EPackage {
 	 */
 	int METHOD_OPERATION_COUNT = BEHAVIORED_OPERATION_COUNT + 0;
 
-
 	/**
 	 * The meta object id for the '{@link implementation.impl.ParameterImpl <em>Parameter</em>}' class.
 	 * <!-- begin-user-doc -->
@@ -324,17 +323,6 @@ public interface ImplementationPackage extends EPackage {
 	 */
 	int PARAMETER_OPERATION_COUNT = 0;
 
-
-	/**
-	 * The meta object id for the '{@link implementation.impl.BlockImpl <em>Block</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see implementation.impl.BlockImpl
-	 * @see implementation.impl.ImplementationPackageImpl#getBlock()
-	 * @generated
-	 */
-	int BLOCK = 6;
-
 	/**
 	 * The meta object id for the '{@link implementation.impl.StatementImpl <em>Statement</em>}' class.
 	 * <!-- begin-user-doc -->
@@ -362,6 +350,16 @@ public interface ImplementationPackage extends EPackage {
 	 * @ordered
 	 */
 	int STATEMENT_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link implementation.impl.BlockImpl <em>Block</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see implementation.impl.BlockImpl
+	 * @see implementation.impl.ImplementationPackageImpl#getBlock()
+	 * @generated
+	 */
+	int BLOCK = 6;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -410,22 +408,22 @@ public interface ImplementationPackage extends EPackage {
 	int VARIABLE_DECLARATION__NAME = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Value Expression</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_DECLARATION__VALUE_EXPRESSION = STATEMENT_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_DECLARATION__TYPE = STATEMENT_FEATURE_COUNT + 2;
+	int VARIABLE_DECLARATION__TYPE = STATEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_DECLARATION__INITIAL_VALUE = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Variable Declaration</em>' class.
@@ -465,13 +463,13 @@ public interface ImplementationPackage extends EPackage {
 	int VARIABLE_ASSIGNEMENT__NAME = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Value Expression</b></em>' attribute.
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_ASSIGNEMENT__VALUE_EXPRESSION = STATEMENT_FEATURE_COUNT + 1;
+	int VARIABLE_ASSIGNEMENT__VALUE = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Variable Assignement</em>' class.
@@ -502,13 +500,13 @@ public interface ImplementationPackage extends EPackage {
 	int FEATURE_ASSIGNMENT = 10;
 
 	/**
-	 * The feature id for the '<em><b>Target Expression</b></em>' attribute.
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_ASSIGNMENT__TARGET_EXPRESSION = STATEMENT_FEATURE_COUNT + 0;
+	int FEATURE_ASSIGNMENT__TARGET = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Target Feature</b></em>' attribute.
@@ -520,13 +518,13 @@ public interface ImplementationPackage extends EPackage {
 	int FEATURE_ASSIGNMENT__TARGET_FEATURE = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Value Expression</b></em>' attribute.
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_ASSIGNMENT__VALUE_EXPRESSION = STATEMENT_FEATURE_COUNT + 2;
+	int FEATURE_ASSIGNMENT__VALUE = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Feature Assignment</em>' class.
@@ -557,13 +555,13 @@ public interface ImplementationPackage extends EPackage {
 	int FEATURE_INSERT = 11;
 
 	/**
-	 * The feature id for the '<em><b>Target Expression</b></em>' attribute.
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_INSERT__TARGET_EXPRESSION = STATEMENT_FEATURE_COUNT + 0;
+	int FEATURE_INSERT__TARGET = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Target Feature</b></em>' attribute.
@@ -575,13 +573,13 @@ public interface ImplementationPackage extends EPackage {
 	int FEATURE_INSERT__TARGET_FEATURE = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Value Expression</b></em>' attribute.
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_INSERT__VALUE_EXPRESSION = STATEMENT_FEATURE_COUNT + 2;
+	int FEATURE_INSERT__VALUE = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Feature Insert</em>' class.
@@ -612,13 +610,13 @@ public interface ImplementationPackage extends EPackage {
 	int FEATURE_REMOVE = 12;
 
 	/**
-	 * The feature id for the '<em><b>Target Expression</b></em>' attribute.
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_REMOVE__TARGET_EXPRESSION = STATEMENT_FEATURE_COUNT + 0;
+	int FEATURE_REMOVE__TARGET = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Target Feature</b></em>' attribute.
@@ -630,13 +628,13 @@ public interface ImplementationPackage extends EPackage {
 	int FEATURE_REMOVE__TARGET_FEATURE = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Value Expression</b></em>' attribute.
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_REMOVE__VALUE_EXPRESSION = STATEMENT_FEATURE_COUNT + 2;
+	int FEATURE_REMOVE__VALUE = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Feature Remove</em>' class.
@@ -667,13 +665,13 @@ public interface ImplementationPackage extends EPackage {
 	int FEATURE_PUT = 13;
 
 	/**
-	 * The feature id for the '<em><b>Target Expression</b></em>' attribute.
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PUT__TARGET_EXPRESSION = STATEMENT_FEATURE_COUNT + 0;
+	int FEATURE_PUT__TARGET = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Target Feature</b></em>' attribute.
@@ -685,22 +683,22 @@ public interface ImplementationPackage extends EPackage {
 	int FEATURE_PUT__TARGET_FEATURE = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Key Expression</b></em>' attribute.
+	 * The feature id for the '<em><b>Key</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PUT__KEY_EXPRESSION = STATEMENT_FEATURE_COUNT + 2;
+	int FEATURE_PUT__KEY = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Value Expression</b></em>' attribute.
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_PUT__VALUE_EXPRESSION = STATEMENT_FEATURE_COUNT + 3;
+	int FEATURE_PUT__VALUE = STATEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Feature Put</em>' class.
@@ -740,7 +738,7 @@ public interface ImplementationPackage extends EPackage {
 	int FOR_EACH__VARIABLE = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Collection Expression</b></em>' attribute.
+	 * The feature id for the '<em><b>Collection Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -786,7 +784,7 @@ public interface ImplementationPackage extends EPackage {
 	int WHILE = 15;
 
 	/**
-	 * The feature id for the '<em><b>Collection Expression</b></em>' attribute.
+	 * The feature id for the '<em><b>Collection Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -832,7 +830,7 @@ public interface ImplementationPackage extends EPackage {
 	int IF = 16;
 
 	/**
-	 * The feature id for the '<em><b>Condition</b></em>' attribute.
+	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -876,43 +874,42 @@ public interface ImplementationPackage extends EPackage {
 	 */
 	int IF_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
-
 	/**
-	 * The meta object id for the '{@link implementation.impl.ExpressionImpl <em>Expression</em>}' class.
+	 * The meta object id for the '{@link implementation.impl.ExpressionStatementImpl <em>Expression Statement</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see implementation.impl.ExpressionImpl
-	 * @see implementation.impl.ImplementationPackageImpl#getExpression()
+	 * @see implementation.impl.ExpressionStatementImpl
+	 * @see implementation.impl.ImplementationPackageImpl#getExpressionStatement()
 	 * @generated
 	 */
-	int EXPRESSION = 17;
+	int EXPRESSION_STATEMENT = 17;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION__VALUE = STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Expression</em>' class.
+	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
+	int EXPRESSION_STATEMENT__EXPRESSION = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of operations of the '<em>Expression</em>' class.
+	 * The number of structural features of the '<em>Expression Statement</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
+	int EXPRESSION_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Expression Statement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPRESSION_STATEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 
 	/**
@@ -1127,17 +1124,6 @@ public interface ImplementationPackage extends EPackage {
 	EAttribute getVariableDeclaration_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.VariableDeclaration#getValueExpression <em>Value Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value Expression</em>'.
-	 * @see implementation.VariableDeclaration#getValueExpression()
-	 * @see #getVariableDeclaration()
-	 * @generated
-	 */
-	EAttribute getVariableDeclaration_ValueExpression();
-
-	/**
 	 * Returns the meta object for the reference '{@link implementation.VariableDeclaration#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1147,6 +1133,17 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getVariableDeclaration_Type();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link implementation.VariableDeclaration#getInitialValue <em>Initial Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Initial Value</em>'.
+	 * @see implementation.VariableDeclaration#getInitialValue()
+	 * @see #getVariableDeclaration()
+	 * @generated
+	 */
+	EReference getVariableDeclaration_InitialValue();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.VariableAssignement <em>Variable Assignement</em>}'.
@@ -1170,15 +1167,15 @@ public interface ImplementationPackage extends EPackage {
 	EAttribute getVariableAssignement_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.VariableAssignement#getValueExpression <em>Value Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.VariableAssignement#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value Expression</em>'.
-	 * @see implementation.VariableAssignement#getValueExpression()
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see implementation.VariableAssignement#getValue()
 	 * @see #getVariableAssignement()
 	 * @generated
 	 */
-	EAttribute getVariableAssignement_ValueExpression();
+	EReference getVariableAssignement_Value();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.FeatureAssignment <em>Feature Assignment</em>}'.
@@ -1191,15 +1188,15 @@ public interface ImplementationPackage extends EPackage {
 	EClass getFeatureAssignment();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.FeatureAssignment#getTargetExpression <em>Target Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.FeatureAssignment#getTarget <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Target Expression</em>'.
-	 * @see implementation.FeatureAssignment#getTargetExpression()
+	 * @return the meta object for the containment reference '<em>Target</em>'.
+	 * @see implementation.FeatureAssignment#getTarget()
 	 * @see #getFeatureAssignment()
 	 * @generated
 	 */
-	EAttribute getFeatureAssignment_TargetExpression();
+	EReference getFeatureAssignment_Target();
 
 	/**
 	 * Returns the meta object for the attribute '{@link implementation.FeatureAssignment#getTargetFeature <em>Target Feature</em>}'.
@@ -1213,15 +1210,15 @@ public interface ImplementationPackage extends EPackage {
 	EAttribute getFeatureAssignment_TargetFeature();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.FeatureAssignment#getValueExpression <em>Value Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.FeatureAssignment#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value Expression</em>'.
-	 * @see implementation.FeatureAssignment#getValueExpression()
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see implementation.FeatureAssignment#getValue()
 	 * @see #getFeatureAssignment()
 	 * @generated
 	 */
-	EAttribute getFeatureAssignment_ValueExpression();
+	EReference getFeatureAssignment_Value();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.FeatureInsert <em>Feature Insert</em>}'.
@@ -1234,15 +1231,15 @@ public interface ImplementationPackage extends EPackage {
 	EClass getFeatureInsert();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.FeatureInsert#getTargetExpression <em>Target Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.FeatureInsert#getTarget <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Target Expression</em>'.
-	 * @see implementation.FeatureInsert#getTargetExpression()
+	 * @return the meta object for the containment reference '<em>Target</em>'.
+	 * @see implementation.FeatureInsert#getTarget()
 	 * @see #getFeatureInsert()
 	 * @generated
 	 */
-	EAttribute getFeatureInsert_TargetExpression();
+	EReference getFeatureInsert_Target();
 
 	/**
 	 * Returns the meta object for the attribute '{@link implementation.FeatureInsert#getTargetFeature <em>Target Feature</em>}'.
@@ -1256,15 +1253,15 @@ public interface ImplementationPackage extends EPackage {
 	EAttribute getFeatureInsert_TargetFeature();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.FeatureInsert#getValueExpression <em>Value Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.FeatureInsert#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value Expression</em>'.
-	 * @see implementation.FeatureInsert#getValueExpression()
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see implementation.FeatureInsert#getValue()
 	 * @see #getFeatureInsert()
 	 * @generated
 	 */
-	EAttribute getFeatureInsert_ValueExpression();
+	EReference getFeatureInsert_Value();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.FeatureRemove <em>Feature Remove</em>}'.
@@ -1277,15 +1274,15 @@ public interface ImplementationPackage extends EPackage {
 	EClass getFeatureRemove();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.FeatureRemove#getTargetExpression <em>Target Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.FeatureRemove#getTarget <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Target Expression</em>'.
-	 * @see implementation.FeatureRemove#getTargetExpression()
+	 * @return the meta object for the containment reference '<em>Target</em>'.
+	 * @see implementation.FeatureRemove#getTarget()
 	 * @see #getFeatureRemove()
 	 * @generated
 	 */
-	EAttribute getFeatureRemove_TargetExpression();
+	EReference getFeatureRemove_Target();
 
 	/**
 	 * Returns the meta object for the attribute '{@link implementation.FeatureRemove#getTargetFeature <em>Target Feature</em>}'.
@@ -1299,15 +1296,15 @@ public interface ImplementationPackage extends EPackage {
 	EAttribute getFeatureRemove_TargetFeature();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.FeatureRemove#getValueExpression <em>Value Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.FeatureRemove#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value Expression</em>'.
-	 * @see implementation.FeatureRemove#getValueExpression()
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see implementation.FeatureRemove#getValue()
 	 * @see #getFeatureRemove()
 	 * @generated
 	 */
-	EAttribute getFeatureRemove_ValueExpression();
+	EReference getFeatureRemove_Value();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.FeaturePut <em>Feature Put</em>}'.
@@ -1320,15 +1317,15 @@ public interface ImplementationPackage extends EPackage {
 	EClass getFeaturePut();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.FeaturePut#getTargetExpression <em>Target Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.FeaturePut#getTarget <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Target Expression</em>'.
-	 * @see implementation.FeaturePut#getTargetExpression()
+	 * @return the meta object for the containment reference '<em>Target</em>'.
+	 * @see implementation.FeaturePut#getTarget()
 	 * @see #getFeaturePut()
 	 * @generated
 	 */
-	EAttribute getFeaturePut_TargetExpression();
+	EReference getFeaturePut_Target();
 
 	/**
 	 * Returns the meta object for the attribute '{@link implementation.FeaturePut#getTargetFeature <em>Target Feature</em>}'.
@@ -1342,26 +1339,26 @@ public interface ImplementationPackage extends EPackage {
 	EAttribute getFeaturePut_TargetFeature();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.FeaturePut#getKeyExpression <em>Key Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.FeaturePut#getKey <em>Key</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Key Expression</em>'.
-	 * @see implementation.FeaturePut#getKeyExpression()
+	 * @return the meta object for the containment reference '<em>Key</em>'.
+	 * @see implementation.FeaturePut#getKey()
 	 * @see #getFeaturePut()
 	 * @generated
 	 */
-	EAttribute getFeaturePut_KeyExpression();
+	EReference getFeaturePut_Key();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.FeaturePut#getValueExpression <em>Value Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.FeaturePut#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value Expression</em>'.
-	 * @see implementation.FeaturePut#getValueExpression()
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see implementation.FeaturePut#getValue()
 	 * @see #getFeaturePut()
 	 * @generated
 	 */
-	EAttribute getFeaturePut_ValueExpression();
+	EReference getFeaturePut_Value();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.ForEach <em>For Each</em>}'.
@@ -1385,15 +1382,15 @@ public interface ImplementationPackage extends EPackage {
 	EAttribute getForEach_Variable();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.ForEach#getCollectionExpression <em>Collection Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.ForEach#getCollectionExpression <em>Collection Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Collection Expression</em>'.
+	 * @return the meta object for the containment reference '<em>Collection Expression</em>'.
 	 * @see implementation.ForEach#getCollectionExpression()
 	 * @see #getForEach()
 	 * @generated
 	 */
-	EAttribute getForEach_CollectionExpression();
+	EReference getForEach_CollectionExpression();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link implementation.ForEach#getBody <em>Body</em>}'.
@@ -1417,15 +1414,15 @@ public interface ImplementationPackage extends EPackage {
 	EClass getWhile();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.While#getCollectionExpression <em>Collection Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.While#getCollectionExpression <em>Collection Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Collection Expression</em>'.
+	 * @return the meta object for the containment reference '<em>Collection Expression</em>'.
 	 * @see implementation.While#getCollectionExpression()
 	 * @see #getWhile()
 	 * @generated
 	 */
-	EAttribute getWhile_CollectionExpression();
+	EReference getWhile_CollectionExpression();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link implementation.While#getBody <em>Body</em>}'.
@@ -1449,15 +1446,15 @@ public interface ImplementationPackage extends EPackage {
 	EClass getIf();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.If#getCondition <em>Condition</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.If#getCondition <em>Condition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Condition</em>'.
+	 * @return the meta object for the containment reference '<em>Condition</em>'.
 	 * @see implementation.If#getCondition()
 	 * @see #getIf()
 	 * @generated
 	 */
-	EAttribute getIf_Condition();
+	EReference getIf_Condition();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link implementation.If#getThen <em>Then</em>}'.
@@ -1482,25 +1479,25 @@ public interface ImplementationPackage extends EPackage {
 	EReference getIf_Else();
 
 	/**
-	 * Returns the meta object for class '{@link implementation.Expression <em>Expression</em>}'.
+	 * Returns the meta object for class '{@link implementation.ExpressionStatement <em>Expression Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Expression</em>'.
-	 * @see implementation.Expression
+	 * @return the meta object for class '<em>Expression Statement</em>'.
+	 * @see implementation.ExpressionStatement
 	 * @generated
 	 */
-	EClass getExpression();
+	EClass getExpressionStatement();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.Expression#getValue <em>Value</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.ExpressionStatement#getExpression <em>Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see implementation.Expression#getValue()
-	 * @see #getExpression()
+	 * @return the meta object for the containment reference '<em>Expression</em>'.
+	 * @see implementation.ExpressionStatement#getExpression()
+	 * @see #getExpressionStatement()
 	 * @generated
 	 */
-	EAttribute getExpression_Value();
+	EReference getExpressionStatement_Expression();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1704,20 +1701,20 @@ public interface ImplementationPackage extends EPackage {
 		EAttribute VARIABLE_DECLARATION__NAME = eINSTANCE.getVariableDeclaration_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Value Expression</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute VARIABLE_DECLARATION__VALUE_EXPRESSION = eINSTANCE.getVariableDeclaration_ValueExpression();
-
-		/**
 		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference VARIABLE_DECLARATION__TYPE = eINSTANCE.getVariableDeclaration_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Initial Value</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference VARIABLE_DECLARATION__INITIAL_VALUE = eINSTANCE.getVariableDeclaration_InitialValue();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.VariableAssignementImpl <em>Variable Assignement</em>}' class.
@@ -1738,12 +1735,12 @@ public interface ImplementationPackage extends EPackage {
 		EAttribute VARIABLE_ASSIGNEMENT__NAME = eINSTANCE.getVariableAssignement_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Value Expression</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute VARIABLE_ASSIGNEMENT__VALUE_EXPRESSION = eINSTANCE.getVariableAssignement_ValueExpression();
+		EReference VARIABLE_ASSIGNEMENT__VALUE = eINSTANCE.getVariableAssignement_Value();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.FeatureAssignmentImpl <em>Feature Assignment</em>}' class.
@@ -1756,12 +1753,12 @@ public interface ImplementationPackage extends EPackage {
 		EClass FEATURE_ASSIGNMENT = eINSTANCE.getFeatureAssignment();
 
 		/**
-		 * The meta object literal for the '<em><b>Target Expression</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_ASSIGNMENT__TARGET_EXPRESSION = eINSTANCE.getFeatureAssignment_TargetExpression();
+		EReference FEATURE_ASSIGNMENT__TARGET = eINSTANCE.getFeatureAssignment_Target();
 
 		/**
 		 * The meta object literal for the '<em><b>Target Feature</b></em>' attribute feature.
@@ -1772,12 +1769,12 @@ public interface ImplementationPackage extends EPackage {
 		EAttribute FEATURE_ASSIGNMENT__TARGET_FEATURE = eINSTANCE.getFeatureAssignment_TargetFeature();
 
 		/**
-		 * The meta object literal for the '<em><b>Value Expression</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_ASSIGNMENT__VALUE_EXPRESSION = eINSTANCE.getFeatureAssignment_ValueExpression();
+		EReference FEATURE_ASSIGNMENT__VALUE = eINSTANCE.getFeatureAssignment_Value();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.FeatureInsertImpl <em>Feature Insert</em>}' class.
@@ -1790,12 +1787,12 @@ public interface ImplementationPackage extends EPackage {
 		EClass FEATURE_INSERT = eINSTANCE.getFeatureInsert();
 
 		/**
-		 * The meta object literal for the '<em><b>Target Expression</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_INSERT__TARGET_EXPRESSION = eINSTANCE.getFeatureInsert_TargetExpression();
+		EReference FEATURE_INSERT__TARGET = eINSTANCE.getFeatureInsert_Target();
 
 		/**
 		 * The meta object literal for the '<em><b>Target Feature</b></em>' attribute feature.
@@ -1806,12 +1803,12 @@ public interface ImplementationPackage extends EPackage {
 		EAttribute FEATURE_INSERT__TARGET_FEATURE = eINSTANCE.getFeatureInsert_TargetFeature();
 
 		/**
-		 * The meta object literal for the '<em><b>Value Expression</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_INSERT__VALUE_EXPRESSION = eINSTANCE.getFeatureInsert_ValueExpression();
+		EReference FEATURE_INSERT__VALUE = eINSTANCE.getFeatureInsert_Value();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.FeatureRemoveImpl <em>Feature Remove</em>}' class.
@@ -1824,12 +1821,12 @@ public interface ImplementationPackage extends EPackage {
 		EClass FEATURE_REMOVE = eINSTANCE.getFeatureRemove();
 
 		/**
-		 * The meta object literal for the '<em><b>Target Expression</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_REMOVE__TARGET_EXPRESSION = eINSTANCE.getFeatureRemove_TargetExpression();
+		EReference FEATURE_REMOVE__TARGET = eINSTANCE.getFeatureRemove_Target();
 
 		/**
 		 * The meta object literal for the '<em><b>Target Feature</b></em>' attribute feature.
@@ -1840,12 +1837,12 @@ public interface ImplementationPackage extends EPackage {
 		EAttribute FEATURE_REMOVE__TARGET_FEATURE = eINSTANCE.getFeatureRemove_TargetFeature();
 
 		/**
-		 * The meta object literal for the '<em><b>Value Expression</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_REMOVE__VALUE_EXPRESSION = eINSTANCE.getFeatureRemove_ValueExpression();
+		EReference FEATURE_REMOVE__VALUE = eINSTANCE.getFeatureRemove_Value();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.FeaturePutImpl <em>Feature Put</em>}' class.
@@ -1858,12 +1855,12 @@ public interface ImplementationPackage extends EPackage {
 		EClass FEATURE_PUT = eINSTANCE.getFeaturePut();
 
 		/**
-		 * The meta object literal for the '<em><b>Target Expression</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_PUT__TARGET_EXPRESSION = eINSTANCE.getFeaturePut_TargetExpression();
+		EReference FEATURE_PUT__TARGET = eINSTANCE.getFeaturePut_Target();
 
 		/**
 		 * The meta object literal for the '<em><b>Target Feature</b></em>' attribute feature.
@@ -1874,20 +1871,20 @@ public interface ImplementationPackage extends EPackage {
 		EAttribute FEATURE_PUT__TARGET_FEATURE = eINSTANCE.getFeaturePut_TargetFeature();
 
 		/**
-		 * The meta object literal for the '<em><b>Key Expression</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Key</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_PUT__KEY_EXPRESSION = eINSTANCE.getFeaturePut_KeyExpression();
+		EReference FEATURE_PUT__KEY = eINSTANCE.getFeaturePut_Key();
 
 		/**
-		 * The meta object literal for the '<em><b>Value Expression</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_PUT__VALUE_EXPRESSION = eINSTANCE.getFeaturePut_ValueExpression();
+		EReference FEATURE_PUT__VALUE = eINSTANCE.getFeaturePut_Value();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.ForEachImpl <em>For Each</em>}' class.
@@ -1908,12 +1905,12 @@ public interface ImplementationPackage extends EPackage {
 		EAttribute FOR_EACH__VARIABLE = eINSTANCE.getForEach_Variable();
 
 		/**
-		 * The meta object literal for the '<em><b>Collection Expression</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Collection Expression</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FOR_EACH__COLLECTION_EXPRESSION = eINSTANCE.getForEach_CollectionExpression();
+		EReference FOR_EACH__COLLECTION_EXPRESSION = eINSTANCE.getForEach_CollectionExpression();
 
 		/**
 		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
@@ -1934,12 +1931,12 @@ public interface ImplementationPackage extends EPackage {
 		EClass WHILE = eINSTANCE.getWhile();
 
 		/**
-		 * The meta object literal for the '<em><b>Collection Expression</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Collection Expression</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute WHILE__COLLECTION_EXPRESSION = eINSTANCE.getWhile_CollectionExpression();
+		EReference WHILE__COLLECTION_EXPRESSION = eINSTANCE.getWhile_CollectionExpression();
 
 		/**
 		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
@@ -1960,12 +1957,12 @@ public interface ImplementationPackage extends EPackage {
 		EClass IF = eINSTANCE.getIf();
 
 		/**
-		 * The meta object literal for the '<em><b>Condition</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute IF__CONDITION = eINSTANCE.getIf_Condition();
+		EReference IF__CONDITION = eINSTANCE.getIf_Condition();
 
 		/**
 		 * The meta object literal for the '<em><b>Then</b></em>' containment reference feature.
@@ -1984,22 +1981,22 @@ public interface ImplementationPackage extends EPackage {
 		EReference IF__ELSE = eINSTANCE.getIf_Else();
 
 		/**
-		 * The meta object literal for the '{@link implementation.impl.ExpressionImpl <em>Expression</em>}' class.
+		 * The meta object literal for the '{@link implementation.impl.ExpressionStatementImpl <em>Expression Statement</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see implementation.impl.ExpressionImpl
-		 * @see implementation.impl.ImplementationPackageImpl#getExpression()
+		 * @see implementation.impl.ExpressionStatementImpl
+		 * @see implementation.impl.ImplementationPackageImpl#getExpressionStatement()
 		 * @generated
 		 */
-		EClass EXPRESSION = eINSTANCE.getExpression();
+		EClass EXPRESSION_STATEMENT = eINSTANCE.getExpressionStatement();
 
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute EXPRESSION__VALUE = eINSTANCE.getExpression_Value();
+		EReference EXPRESSION_STATEMENT__EXPRESSION = eINSTANCE.getExpressionStatement_Expression();
 
 	}
 

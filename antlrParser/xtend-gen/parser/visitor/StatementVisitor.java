@@ -151,6 +151,6 @@ public class StatementVisitor extends XtdAQLBaseVisitor<Statement> {
       }
     }
     String _text_6 = exp.getText();
-    return ModelBuilder.singleton.buildExpression(_text_6);
+    return ModelBuilder.singleton.buildExpressionStatement(_text_6);
   }
 }

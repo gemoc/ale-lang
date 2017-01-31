@@ -175,13 +175,13 @@ public interface ImplementationFactory extends EFactory {
 	If createIf();
 
 	/**
-	 * Returns a new object of class '<em>Expression</em>'.
+	 * Returns a new object of class '<em>Expression Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Expression</em>'.
+	 * @return a new object of class '<em>Expression Statement</em>'.
 	 * @generated
 	 */
-	Expression createExpression();
+	ExpressionStatement createExpressionStatement();
 
 	/**
 	 * Returns the package supported by this factory.
