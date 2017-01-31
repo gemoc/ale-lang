@@ -153,6 +153,8 @@ public class ASMSwitch<T> extends Switch<T> {
 			case ASMPackage.UNARY_EXPRESSION: {
 				UnaryExpression unaryExpression = (UnaryExpression)theEObject;
 				T result = caseUnaryExpression(unaryExpression);
+				if (result == null) result = caseExpression(unaryExpression);
+				if (result == null) result = caseInstruction(unaryExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -298,6 +300,8 @@ public class ASMSwitch<T> extends Switch<T> {
 				Cos cos = (Cos)theEObject;
 				T result = caseCos(cos);
 				if (result == null) result = caseUnaryExpression(cos);
+				if (result == null) result = caseExpression(cos);
+				if (result == null) result = caseInstruction(cos);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -305,6 +309,8 @@ public class ASMSwitch<T> extends Switch<T> {
 				Sin sin = (Sin)theEObject;
 				T result = caseSin(sin);
 				if (result == null) result = caseUnaryExpression(sin);
+				if (result == null) result = caseExpression(sin);
+				if (result == null) result = caseInstruction(sin);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -312,6 +318,8 @@ public class ASMSwitch<T> extends Switch<T> {
 				Tan tan = (Tan)theEObject;
 				T result = caseTan(tan);
 				if (result == null) result = caseUnaryExpression(tan);
+				if (result == null) result = caseExpression(tan);
+				if (result == null) result = caseInstruction(tan);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

@@ -435,7 +435,7 @@ public interface ASMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int UNARY_EXPRESSION__EXPRESSION = 0;
+	int UNARY_EXPRESSION__EXPRESSION = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Unary Expression</em>' class.
@@ -444,7 +444,7 @@ public interface ASMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int UNARY_EXPRESSION_FEATURE_COUNT = 1;
+	int UNARY_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Unary Expression</em>' class.
@@ -453,7 +453,7 @@ public interface ASMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int UNARY_EXPRESSION_OPERATION_COUNT = 0;
+	int UNARY_EXPRESSION_OPERATION_COUNT = EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link kmLogo.ASM.impl.ConstantImpl <em>Constant</em>}' class.
