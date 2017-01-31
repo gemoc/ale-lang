@@ -8,3 +8,5 @@
 /.DynamicFeatureAccessService.java._trace
 /.DynamicFeatureAccess.java._trace
 /.ImplementationEvaluator.java._trace
+/.EvalEnvironment.java._trace
+/.ImplementationEngine.java._trace
