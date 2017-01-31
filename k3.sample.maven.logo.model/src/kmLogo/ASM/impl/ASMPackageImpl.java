@@ -1016,6 +1016,7 @@ public class ASMPackageImpl extends EPackageImpl implements ASMPackage {
 		clearEClass.getESuperTypes().add(this.getPrimitive());
 		expressionEClass.getESuperTypes().add(this.getInstruction());
 		binaryExpEClass.getESuperTypes().add(this.getExpression());
+		unaryExpressionEClass.getESuperTypes().add(this.getExpression());
 		constantEClass.getESuperTypes().add(this.getExpression());
 		procCallEClass.getESuperTypes().add(this.getExpression());
 		procDeclarationEClass.getESuperTypes().add(this.getInstruction());
