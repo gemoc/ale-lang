@@ -4,17 +4,17 @@ import org.eclipse.acceleo.query.runtime.AcceleoQueryEvaluationException
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EStructuralFeature
-import implementation.Root
+import implementation.ModelBehavior
 import java.util.Map
 import java.util.HashMap
 
 class DynamicFeatureAccess {
 	
-	Root implem
+	ModelBehavior implem
 	
 	Map<EObject,Map<String,Object>> extendedObjects //instance -> (featureName -> value)
 	
-	new(Root implem){
+	new(ModelBehavior implem){
 		this.implem = implem
 		extendedObjects = newHashMap
 	}

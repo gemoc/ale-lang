@@ -56,7 +56,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case ImplementationPackage.ROOT: return createRoot();
+			case ImplementationPackage.MODEL_BEHAVIOR: return createModelBehavior();
 			case ImplementationPackage.EXTENDED_CLASS: return createExtendedClass();
 			case ImplementationPackage.BEHAVIORED: return createBehaviored();
 			case ImplementationPackage.IMPLEMENTATION: return createImplementation();
@@ -84,9 +84,9 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Root createRoot() {
-		RootImpl root = new RootImpl();
-		return root;
+	public ModelBehavior createModelBehavior() {
+		ModelBehaviorImpl modelBehavior = new ModelBehaviorImpl();
+		return modelBehavior;
 	}
 
 	/**

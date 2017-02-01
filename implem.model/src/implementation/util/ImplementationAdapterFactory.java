@@ -68,8 +68,8 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 	protected ImplementationSwitch<Adapter> modelSwitch =
 		new ImplementationSwitch<Adapter>() {
 			@Override
-			public Adapter caseRoot(Root object) {
-				return createRootAdapter();
+			public Adapter caseModelBehavior(ModelBehavior object) {
+				return createModelBehaviorAdapter();
 			}
 			@Override
 			public Adapter caseExtendedClass(ExtendedClass object) {
@@ -160,16 +160,16 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link implementation.Root <em>Root</em>}'.
+	 * Creates a new adapter for an object of class '{@link implementation.ModelBehavior <em>Model Behavior</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see implementation.Root
+	 * @see implementation.ModelBehavior
 	 * @generated
 	 */
-	public Adapter createRootAdapter() {
+	public Adapter createModelBehaviorAdapter() {
 		return null;
 	}
 

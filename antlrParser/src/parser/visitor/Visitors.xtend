@@ -5,7 +5,7 @@ import implementation.Block
 import implementation.ImplementationFactory
 import implementation.ImplementationPackage
 import implementation.Parameter
-import implementation.Root
+import implementation.ModelBehavior
 import implementation.Statement
 import java.util.List
 import parser.XtdAQLBaseVisitor
@@ -201,7 +201,7 @@ class AttributeVisitor extends XtdAQLBaseVisitor<VariableDeclaration> {
 //	
 //}
 
-class RootVisitor extends XtdAQLBaseVisitor<Root> {
+class ModelBehaviorVisitor extends XtdAQLBaseVisitor<ModelBehavior> {
 	
 	override visitRRoot(RRootContext ctx) {
 //		val allPackages = (new ImportVisitor).visit(ctx.rImports)
@@ -209,7 +209,7 @@ class RootVisitor extends XtdAQLBaseVisitor<Root> {
 		
 		val subVisitor = new ClassVisitor
 		val factory = ImplementationPackage.eINSTANCE.EFactoryInstance as ImplementationFactory
-		val root = factory.createRoot
+		val root = factory.createModelBehavior
 		root.classExtensions += ctx.rClass.map[subVisitor.visit(it)]
 		return root
 	}

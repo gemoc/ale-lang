@@ -8,21 +8,21 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Root</b></em>'.
+ * A representation of the model object '<em><b>Model Behavior</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link implementation.Root#getClassExtensions <em>Class Extensions</em>}</li>
+ *   <li>{@link implementation.ModelBehavior#getClassExtensions <em>Class Extensions</em>}</li>
  * </ul>
  *
- * @see implementation.ImplementationPackage#getRoot()
+ * @see implementation.ImplementationPackage#getModelBehavior()
  * @model
  * @generated
  */
-public interface Root extends EObject {
+public interface ModelBehavior extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Class Extensions</b></em>' containment reference list.
 	 * The list contents are of type {@link implementation.ExtendedClass}.
@@ -33,10 +33,10 @@ public interface Root extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Class Extensions</em>' containment reference list.
-	 * @see implementation.ImplementationPackage#getRoot_ClassExtensions()
+	 * @see implementation.ImplementationPackage#getModelBehavior_ClassExtensions()
 	 * @model containment="true"
 	 * @generated
 	 */
 	EList<ExtendedClass> getClassExtensions();
 
-} // Root
+} // ModelBehavior

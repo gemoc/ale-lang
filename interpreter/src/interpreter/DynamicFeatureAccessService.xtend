@@ -1,30 +1,27 @@
 package interpreter
 
-import org.eclipse.acceleo.query.services.EObjectServices
 import java.lang.reflect.Method
-import org.eclipse.acceleo.query.runtime.impl.JavaMethodService
-import org.eclipse.acceleo.query.ast.Call
-import org.eclipse.acceleo.query.runtime.impl.ValidationServices
-import org.eclipse.acceleo.query.runtime.IValidationResult
-import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment
-import java.util.List
-import org.eclipse.acceleo.query.validation.type.IType
-import java.util.Set
-import org.eclipse.acceleo.query.ast.StringLiteral
+import java.util.ArrayList
 import java.util.LinkedHashSet
+import java.util.List
+import java.util.Map
+import java.util.Map.Entry
+import java.util.Set
+import org.eclipse.acceleo.query.ast.Call
+import org.eclipse.acceleo.query.ast.StringLiteral
+import org.eclipse.acceleo.query.runtime.ICompletionProposal
+import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment
+import org.eclipse.acceleo.query.runtime.IValidationResult
+import org.eclipse.acceleo.query.runtime.impl.AbstractService
+import org.eclipse.acceleo.query.runtime.impl.JavaMethodService
+import org.eclipse.acceleo.query.runtime.impl.ValidationServices
+import org.eclipse.acceleo.query.runtime.impl.completion.EFeatureCompletionProposal
+import org.eclipse.acceleo.query.validation.type.EClassifierType
+import org.eclipse.acceleo.query.validation.type.IType
+import org.eclipse.acceleo.query.validation.type.SequenceType
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EStructuralFeature
-import org.eclipse.acceleo.query.validation.type.EClassifierType
-import org.eclipse.acceleo.query.validation.type.SequenceType
-import java.util.Map
-import java.util.Map.Entry
-import org.eclipse.acceleo.query.runtime.ICompletionProposal
-import java.util.ArrayList
-import org.eclipse.acceleo.query.runtime.impl.completion.EFeatureCompletionProposal
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.acceleo.query.runtime.AcceleoQueryEvaluationException
-import implementation.Root
 
 /**
  * Copy/past of EObjectServices.EObjectFeatureAccess cause it's private & final :(
@@ -50,7 +47,7 @@ class DynamicFeatureAccessService extends JavaMethodService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.acceleo.query.runtime.impl.JavaMethodService#getType(org.eclipse.acceleo.query.ast.Call,
+	 * @see JavaMethodService#getType(org.eclipse.acceleo.query.ast.Call,
 	 *      org.eclipse.acceleo.query.runtime.impl.ValidationServices,
 	 *      org.eclipse.acceleo.query.runtime.IValidationResult,
 	 *      org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment, java.util.List)
@@ -123,7 +120,7 @@ class DynamicFeatureAccessService extends JavaMethodService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @see org.eclipse.acceleo.query.runtime.impl.AbstractService#validateAllType(org.eclipse.acceleo.query.runtime.impl.ValidationServices,
+	 * @see AbstractService#validateAllType(org.eclipse.acceleo.query.runtime.impl.ValidationServices,
 	 *      org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment, java.util.Map)
 	 */
 	override Set<IType> validateAllType(ValidationServices services,

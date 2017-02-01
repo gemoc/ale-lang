@@ -15,6 +15,7 @@ import org.eclipse.acceleo.query.runtime.ICompletionProposal;
 import org.eclipse.acceleo.query.runtime.IEPackageProvider;
 import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IValidationResult;
+import org.eclipse.acceleo.query.runtime.impl.AbstractService;
 import org.eclipse.acceleo.query.runtime.impl.JavaMethodService;
 import org.eclipse.acceleo.query.runtime.impl.ValidationServices;
 import org.eclipse.acceleo.query.runtime.impl.completion.EFeatureCompletionProposal;
@@ -53,7 +54,7 @@ public class DynamicFeatureAccessService extends JavaMethodService {
   /**
    * {@inheritDoc}
    * 
-   * @see org.eclipse.acceleo.query.runtime.impl.JavaMethodService#getType(org.eclipse.acceleo.query.ast.Call,
+   * @see JavaMethodService#getType(org.eclipse.acceleo.query.ast.Call,
    *      org.eclipse.acceleo.query.runtime.impl.ValidationServices,
    *      org.eclipse.acceleo.query.runtime.IValidationResult,
    *      org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment, java.util.List)
@@ -142,7 +143,7 @@ public class DynamicFeatureAccessService extends JavaMethodService {
   /**
    * {@inheritDoc}
    * 
-   * @see org.eclipse.acceleo.query.runtime.impl.AbstractService#validateAllType(org.eclipse.acceleo.query.runtime.impl.ValidationServices,
+   * @see AbstractService#validateAllType(org.eclipse.acceleo.query.runtime.impl.ValidationServices,
    *      org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment, java.util.Map)
    */
   @Override
