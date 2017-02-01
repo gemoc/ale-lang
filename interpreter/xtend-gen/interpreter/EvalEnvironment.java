@@ -3,7 +3,7 @@ package interpreter;
 import com.google.common.collect.Iterables;
 import implementation.Behaviored;
 import implementation.ExtendedClass;
-import implementation.Root;
+import implementation.ModelBehavior;
 import interpreter.DynamicFeatureAccess;
 import interpreter.DynamicFeatureAccessService;
 import interpreter.ImplementationEvaluator;
@@ -31,11 +31,11 @@ import services.TrigoServices;
 public class EvalEnvironment {
   private IQueryEnvironment qryEnv;
   
-  private Root implemModel;
+  private ModelBehavior implemModel;
   
   private DynamicFeatureAccess dynamicFeatures;
   
-  public EvalEnvironment(final IQueryEnvironment qryEnv, final Set<EPackage> metamodel, final Root implem) {
+  public EvalEnvironment(final IQueryEnvironment qryEnv, final Set<EPackage> metamodel, final ModelBehavior implem) {
     this.qryEnv = qryEnv;
     this.createDefaultServices();
     final Consumer<EPackage> _function = (EPackage it) -> {
@@ -81,7 +81,7 @@ public class EvalEnvironment {
   /**
    * Register services to access dynamic features and evaluate operations
    */
-  public ServiceRegistrationResult registerImplem(final Root implemModel) {
+  public ServiceRegistrationResult registerImplem(final ModelBehavior implemModel) {
     try {
       ServiceRegistrationResult _xblockexpression = null;
       {

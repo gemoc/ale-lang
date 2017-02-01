@@ -4,8 +4,8 @@ import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.UnbufferedCharStream
 import java.io.StringReader
 import org.antlr.v4.runtime.CommonTokenFactory
-import parser.visitor.RootVisitor
-import implementation.Root
+import parser.visitor.ModelBehaviorVisitor
+import implementation.ModelBehavior
 import org.eclipse.acceleo.query.runtime.impl.EPackageProvider
 import parser.visitor.ModelBuilder
 import org.eclipse.emf.ecore.EPackage
@@ -20,7 +20,7 @@ class AstBuilder {
 		ModelBuilder.createSingleton(qryEnv)
 	}
 	
-	def Root parse(String program) {
+	def ModelBehavior parse(String program) {
 		val input = new UnbufferedCharStream(new StringReader(program), program.length());
 		val lexer = new XtdAQLLexer(input)
 		lexer.setTokenFactory(new CommonTokenFactory(true));
@@ -32,7 +32,7 @@ class AstBuilder {
 		
 //		listener.getModel
 		
-		return (new RootVisitor).visit(rootCtx)
+		return (new ModelBehaviorVisitor).visit(rootCtx)
 	}
 	
 	def static void main(String[] args) {

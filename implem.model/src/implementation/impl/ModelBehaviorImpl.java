@@ -4,7 +4,7 @@ package implementation.impl;
 
 import implementation.ExtendedClass;
 import implementation.ImplementationPackage;
-import implementation.Root;
+import implementation.ModelBehavior;
 
 import java.util.Collection;
 
@@ -22,18 +22,18 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Root</b></em>'.
+ * An implementation of the model object '<em><b>Model Behavior</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link implementation.impl.RootImpl#getClassExtensions <em>Class Extensions</em>}</li>
+ *   <li>{@link implementation.impl.ModelBehaviorImpl#getClassExtensions <em>Class Extensions</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class RootImpl extends MinimalEObjectImpl.Container implements Root {
+public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements ModelBehavior {
 	/**
 	 * The cached value of the '{@link #getClassExtensions() <em>Class Extensions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -49,7 +49,7 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RootImpl() {
+	protected ModelBehaviorImpl() {
 		super();
 	}
 
@@ -60,7 +60,7 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ImplementationPackage.Literals.ROOT;
+		return ImplementationPackage.Literals.MODEL_BEHAVIOR;
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root {
 	 */
 	public EList<ExtendedClass> getClassExtensions() {
 		if (classExtensions == null) {
-			classExtensions = new EObjectContainmentEList<ExtendedClass>(ExtendedClass.class, this, ImplementationPackage.ROOT__CLASS_EXTENSIONS);
+			classExtensions = new EObjectContainmentEList<ExtendedClass>(ExtendedClass.class, this, ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS);
 		}
 		return classExtensions;
 	}
@@ -83,7 +83,7 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ImplementationPackage.ROOT__CLASS_EXTENSIONS:
+			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
 				return ((InternalEList<?>)getClassExtensions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -97,7 +97,7 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ImplementationPackage.ROOT__CLASS_EXTENSIONS:
+			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
 				return getClassExtensions();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -112,7 +112,7 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ImplementationPackage.ROOT__CLASS_EXTENSIONS:
+			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
 				getClassExtensions().clear();
 				getClassExtensions().addAll((Collection<? extends ExtendedClass>)newValue);
 				return;
@@ -128,7 +128,7 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ImplementationPackage.ROOT__CLASS_EXTENSIONS:
+			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
 				getClassExtensions().clear();
 				return;
 		}
@@ -143,10 +143,10 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ImplementationPackage.ROOT__CLASS_EXTENSIONS:
+			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
 				return classExtensions != null && !classExtensions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //RootImpl
+} //ModelBehaviorImpl

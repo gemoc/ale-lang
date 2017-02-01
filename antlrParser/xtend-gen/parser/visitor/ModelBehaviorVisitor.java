@@ -4,7 +4,7 @@ import com.google.common.collect.Iterables;
 import implementation.ExtendedClass;
 import implementation.ImplementationFactory;
 import implementation.ImplementationPackage;
-import implementation.Root;
+import implementation.ModelBehavior;
 import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EFactory;
@@ -15,13 +15,13 @@ import parser.XtdAQLParser;
 import parser.visitor.ClassVisitor;
 
 @SuppressWarnings("all")
-public class RootVisitor extends XtdAQLBaseVisitor<Root> {
+public class ModelBehaviorVisitor extends XtdAQLBaseVisitor<ModelBehavior> {
   @Override
-  public Root visitRRoot(final XtdAQLParser.RRootContext ctx) {
+  public ModelBehavior visitRRoot(final XtdAQLParser.RRootContext ctx) {
     final ClassVisitor subVisitor = new ClassVisitor();
     EFactory _eFactoryInstance = ImplementationPackage.eINSTANCE.getEFactoryInstance();
     final ImplementationFactory factory = ((ImplementationFactory) _eFactoryInstance);
-    final Root root = factory.createRoot();
+    final ModelBehavior root = factory.createModelBehavior();
     EList<ExtendedClass> _classExtensions = root.getClassExtensions();
     List<XtdAQLParser.RClassContext> _rClass = ctx.rClass();
     final Function1<XtdAQLParser.RClassContext, ExtendedClass> _function = (XtdAQLParser.RClassContext it) -> {

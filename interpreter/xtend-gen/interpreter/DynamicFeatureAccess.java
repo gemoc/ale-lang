@@ -2,7 +2,7 @@ package interpreter;
 
 import com.google.common.base.Objects;
 import implementation.ExtendedClass;
-import implementation.Root;
+import implementation.ModelBehavior;
 import implementation.VariableDeclaration;
 import interpreter.DynamicFeatureAccessService;
 import java.util.HashMap;
@@ -18,11 +18,11 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
 public class DynamicFeatureAccess {
-  private Root implem;
+  private ModelBehavior implem;
   
   private Map<EObject, Map<String, Object>> extendedObjects;
   
-  public DynamicFeatureAccess(final Root implem) {
+  public DynamicFeatureAccess(final ModelBehavior implem) {
     this.implem = implem;
     HashMap<EObject, Map<String, Object>> _newHashMap = CollectionLiterals.<EObject, Map<String, Object>>newHashMap();
     this.extendedObjects = _newHashMap;

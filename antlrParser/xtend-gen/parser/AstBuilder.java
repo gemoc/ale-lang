@@ -1,6 +1,6 @@
 package parser;
 
-import implementation.Root;
+import implementation.ModelBehavior;
 import java.io.StringReader;
 import java.util.Collections;
 import java.util.Set;
@@ -16,8 +16,8 @@ import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import parser.XtdAQLLexer;
 import parser.XtdAQLParser;
+import parser.visitor.ModelBehaviorVisitor;
 import parser.visitor.ModelBuilder;
-import parser.visitor.RootVisitor;
 
 @SuppressWarnings("all")
 public class AstBuilder {
@@ -30,7 +30,7 @@ public class AstBuilder {
     ModelBuilder.createSingleton(qryEnv);
   }
   
-  public Root parse(final String program) {
+  public ModelBehavior parse(final String program) {
     StringReader _stringReader = new StringReader(program);
     int _length = program.length();
     final UnbufferedCharStream input = new UnbufferedCharStream(_stringReader, _length);
@@ -40,15 +40,15 @@ public class AstBuilder {
     final CommonTokenStream tokens = new CommonTokenStream(lexer);
     final XtdAQLParser parser = new XtdAQLParser(tokens);
     final XtdAQLParser.RRootContext rootCtx = parser.rRoot();
-    RootVisitor _rootVisitor = new RootVisitor();
-    return _rootVisitor.visit(rootCtx);
+    ModelBehaviorVisitor _modelBehaviorVisitor = new ModelBehaviorVisitor();
+    return _modelBehaviorVisitor.visit(rootCtx);
   }
   
   public static void main(final String[] args) {
     final String prog = "class toto {\n\t\t\tdef method (int x) {\n\t\t\t\t[test some expression here!/]\n\t\t\t}\n\t\t}";
     Set<EPackage> _set = IterableExtensions.<EPackage>toSet(Collections.<EPackage>unmodifiableList(CollectionLiterals.<EPackage>newArrayList()));
     final AstBuilder builder = new AstBuilder(_set);
-    final Root root = builder.parse(prog);
+    final ModelBehavior root = builder.parse(prog);
     InputOutput.<String>println("Done");
   }
 }

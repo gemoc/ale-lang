@@ -1,6 +1,6 @@
 package interpreter
 
-import implementation.Root
+import implementation.ModelBehavior
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment
 import org.eclipse.acceleo.query.runtime.impl.JavaMethodService
 import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine
@@ -19,10 +19,10 @@ import java.util.Set
 class EvalEnvironment {
 	
 	IQueryEnvironment qryEnv
-	Root implemModel
+	ModelBehavior implemModel
 	DynamicFeatureAccess dynamicFeatures
 	
-	new(IQueryEnvironment qryEnv, Set<EPackage> metamodel, Root implem) {
+	new(IQueryEnvironment qryEnv, Set<EPackage> metamodel, ModelBehavior implem) {
 		this.qryEnv = qryEnv
 		createDefaultServices()
 		metamodel.forEach[registerEPackage]
@@ -52,7 +52,7 @@ class EvalEnvironment {
 	/**
 	 * Register services to access dynamic features and evaluate operations
 	 */
-	def registerImplem(Root implemModel) {
+	def registerImplem(ModelBehavior implemModel) {
 		this.implemModel = implemModel
 		this.dynamicFeatures = new DynamicFeatureAccess(implemModel)
 		val evaluator = new ImplementationEvaluator(new QueryEvaluationEngine(qryEnv), dynamicFeatures)

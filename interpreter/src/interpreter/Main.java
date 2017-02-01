@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import drawing.Window;
 import implementation.Behaviored;
 import implementation.ExtendedClass;
-import implementation.Root;
+import implementation.ModelBehavior;
 import kmLogo.ASM.ASMPackage;
 import kmLogo.ASM.LogoProgram;
 import parser.AstBuilder;
@@ -30,7 +30,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Set<EPackage> mm = loadMetamodel();
-		Root implem = loadImplem(mm);
+		ModelBehavior implem = loadImplem(mm);
 		
 		ResourceSetImpl rs = new ResourceSetImpl();
 		LogoProgram model = (LogoProgram) loadModel("model/LogoProgram.xmi",rs).getContents().get(0);
@@ -45,7 +45,7 @@ public class Main {
 		new Window(ctx.getTurtle());
 	}
 	
-	public static Behaviored getMainOp(Root implem) {
+	public static Behaviored getMainOp(ModelBehavior implem) {
 		ExtendedClass clsImplem = implem.getClassExtensions().stream()
 			.filter(cls -> cls.getBaseClass().getName().equals("LogoProgram"))
 			.findFirst()
@@ -60,7 +60,7 @@ public class Main {
 		return metamodel;
 	}
 	
-	public static Root loadImplem(Set<EPackage> metamodel){
+	public static ModelBehavior loadImplem(Set<EPackage> metamodel){
 		String implementionPath = "data/LogoProgram.implem";
 		String fileContent = "";
 		try {

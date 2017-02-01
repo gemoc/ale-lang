@@ -22,13 +22,13 @@ public interface ImplementationFactory extends EFactory {
 	ImplementationFactory eINSTANCE = implementation.impl.ImplementationFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Root</em>'.
+	 * Returns a new object of class '<em>Model Behavior</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Root</em>'.
+	 * @return a new object of class '<em>Model Behavior</em>'.
 	 * @generated
 	 */
-	Root createRoot();
+	ModelBehavior createModelBehavior();
 
 	/**
 	 * Returns a new object of class '<em>Extended Class</em>'.

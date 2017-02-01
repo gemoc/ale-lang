@@ -57,14 +57,14 @@ public interface ImplementationPackage extends EPackage {
 	ImplementationPackage eINSTANCE = implementation.impl.ImplementationPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link implementation.impl.RootImpl <em>Root</em>}' class.
+	 * The meta object id for the '{@link implementation.impl.ModelBehaviorImpl <em>Model Behavior</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see implementation.impl.RootImpl
-	 * @see implementation.impl.ImplementationPackageImpl#getRoot()
+	 * @see implementation.impl.ModelBehaviorImpl
+	 * @see implementation.impl.ImplementationPackageImpl#getModelBehavior()
 	 * @generated
 	 */
-	int ROOT = 0;
+	int MODEL_BEHAVIOR = 0;
 
 	/**
 	 * The feature id for the '<em><b>Class Extensions</b></em>' containment reference list.
@@ -73,25 +73,25 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ROOT__CLASS_EXTENSIONS = 0;
+	int MODEL_BEHAVIOR__CLASS_EXTENSIONS = 0;
 
 	/**
-	 * The number of structural features of the '<em>Root</em>' class.
+	 * The number of structural features of the '<em>Model Behavior</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ROOT_FEATURE_COUNT = 1;
+	int MODEL_BEHAVIOR_FEATURE_COUNT = 1;
 
 	/**
-	 * The number of operations of the '<em>Root</em>' class.
+	 * The number of operations of the '<em>Model Behavior</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ROOT_OPERATION_COUNT = 0;
+	int MODEL_BEHAVIOR_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link implementation.impl.ExtendedClassImpl <em>Extended Class</em>}' class.
@@ -913,25 +913,25 @@ public interface ImplementationPackage extends EPackage {
 
 
 	/**
-	 * Returns the meta object for class '{@link implementation.Root <em>Root</em>}'.
+	 * Returns the meta object for class '{@link implementation.ModelBehavior <em>Model Behavior</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Root</em>'.
-	 * @see implementation.Root
+	 * @return the meta object for class '<em>Model Behavior</em>'.
+	 * @see implementation.ModelBehavior
 	 * @generated
 	 */
-	EClass getRoot();
+	EClass getModelBehavior();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link implementation.Root#getClassExtensions <em>Class Extensions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link implementation.ModelBehavior#getClassExtensions <em>Class Extensions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Class Extensions</em>'.
-	 * @see implementation.Root#getClassExtensions()
-	 * @see #getRoot()
+	 * @see implementation.ModelBehavior#getClassExtensions()
+	 * @see #getModelBehavior()
 	 * @generated
 	 */
-	EReference getRoot_ClassExtensions();
+	EReference getModelBehavior_ClassExtensions();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.ExtendedClass <em>Extended Class</em>}'.
@@ -1523,14 +1523,14 @@ public interface ImplementationPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link implementation.impl.RootImpl <em>Root</em>}' class.
+		 * The meta object literal for the '{@link implementation.impl.ModelBehaviorImpl <em>Model Behavior</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see implementation.impl.RootImpl
-		 * @see implementation.impl.ImplementationPackageImpl#getRoot()
+		 * @see implementation.impl.ModelBehaviorImpl
+		 * @see implementation.impl.ImplementationPackageImpl#getModelBehavior()
 		 * @generated
 		 */
-		EClass ROOT = eINSTANCE.getRoot();
+		EClass MODEL_BEHAVIOR = eINSTANCE.getModelBehavior();
 
 		/**
 		 * The meta object literal for the '<em><b>Class Extensions</b></em>' containment reference list feature.
@@ -1538,7 +1538,7 @@ public interface ImplementationPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ROOT__CLASS_EXTENSIONS = eINSTANCE.getRoot_ClassExtensions();
+		EReference MODEL_BEHAVIOR__CLASS_EXTENSIONS = eINSTANCE.getModelBehavior_ClassExtensions();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.ExtendedClassImpl <em>Extended Class</em>}' class.
