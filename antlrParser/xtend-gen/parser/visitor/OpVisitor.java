@@ -4,6 +4,7 @@ import implementation.Behaviored;
 import implementation.Block;
 import implementation.Parameter;
 import java.util.List;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import parser.XtdAQLBaseVisitor;
@@ -16,6 +17,8 @@ import parser.visitor.ParamVisitor;
 public class OpVisitor extends XtdAQLBaseVisitor<Behaviored> {
   @Override
   public Behaviored visitROperation(final XtdAQLParser.ROperationContext ctx) {
+    Token _start = ctx.getStart();
+    final String firstToken = _start.getText();
     List<Parameter> _xifexpression = null;
     XtdAQLParser.RParametersContext _rParameters = ctx.rParameters();
     boolean _tripleNotEquals = (_rParameters != null);
@@ -34,6 +37,7 @@ public class OpVisitor extends XtdAQLBaseVisitor<Behaviored> {
     final String operationName = _child.getText();
     ParseTree _child_1 = ctx.parent.getChild(1);
     final String className = _child_1.getText();
-    return ModelBuilder.singleton.buildOperation(className, operationName, parameters, body);
+    final boolean isMain = firstToken.equals("@main");
+    return ModelBuilder.singleton.buildOperation(className, operationName, parameters, body, isMain);
   }
 }

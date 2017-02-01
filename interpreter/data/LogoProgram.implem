@@ -1,6 +1,7 @@
 
 class LogoProgram {
 
+	@main
 	def eval(Context ctx) {
 		ctx.turtle.originalSize.log();
 		ctx.turtle.originalSize := 'Test dynamic feature assignment';

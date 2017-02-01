@@ -168,13 +168,22 @@ public interface ImplementationPackage extends EPackage {
 	int BEHAVIORED__BODY = 0;
 
 	/**
+	 * The feature id for the '<em><b>Is Main</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORED__IS_MAIN = 1;
+
+	/**
 	 * The number of structural features of the '<em>Behaviored</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIORED_FEATURE_COUNT = 1;
+	int BEHAVIORED_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Behaviored</em>' class.
@@ -203,6 +212,15 @@ public interface ImplementationPackage extends EPackage {
 	 * @ordered
 	 */
 	int IMPLEMENTATION__BODY = BEHAVIORED__BODY;
+
+	/**
+	 * The feature id for the '<em><b>Is Main</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLEMENTATION__IS_MAIN = BEHAVIORED__IS_MAIN;
 
 	/**
 	 * The feature id for the '<em><b>Operation Ref</b></em>' reference.
@@ -249,6 +267,15 @@ public interface ImplementationPackage extends EPackage {
 	 * @ordered
 	 */
 	int METHOD__BODY = BEHAVIORED__BODY;
+
+	/**
+	 * The feature id for the '<em><b>Is Main</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD__IS_MAIN = BEHAVIORED__IS_MAIN;
 
 	/**
 	 * The feature id for the '<em><b>Operation Def</b></em>' containment reference.
@@ -998,6 +1025,17 @@ public interface ImplementationPackage extends EPackage {
 	EReference getBehaviored_Body();
 
 	/**
+	 * Returns the meta object for the attribute '{@link implementation.Behaviored#isIsMain <em>Is Main</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Is Main</em>'.
+	 * @see implementation.Behaviored#isIsMain()
+	 * @see #getBehaviored()
+	 * @generated
+	 */
+	EAttribute getBehaviored_IsMain();
+
+	/**
 	 * Returns the meta object for class '{@link implementation.Implementation <em>Implementation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1591,6 +1629,14 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BEHAVIORED__BODY = eINSTANCE.getBehaviored_Body();
+
+		/**
+		 * The meta object literal for the '<em><b>Is Main</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BEHAVIORED__IS_MAIN = eINSTANCE.getBehaviored_IsMain();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.ImplementationImpl <em>Implementation</em>}' class.

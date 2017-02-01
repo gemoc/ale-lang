@@ -21,7 +21,7 @@ rImports : ('import' STRING)*
 rClass : 'class' Ident '{' rAttribute* rOperation* '}'
 ; 
 
-rOperation : 'def' Ident '(' rParameters? ')' rBlock
+rOperation : '@main'? 'def' Ident '(' rParameters? ')' rBlock
 ;
 
 rParameters : rVariable (',' rVariable)*
