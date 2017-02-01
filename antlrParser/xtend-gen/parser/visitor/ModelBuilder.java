@@ -63,17 +63,17 @@ public class ModelBuilder {
     this.builder = _queryBuilderEngine;
   }
   
-  public Behaviored buildOperation(final String containingClass, final String name, final List<Parameter> params, final Block body) {
+  public Behaviored buildOperation(final String containingClass, final String name, final List<Parameter> params, final Block body, final boolean isMain) {
     int _size = params.size();
     final EOperation existingOperation = this.resolve(containingClass, name, _size);
     if ((existingOperation == null)) {
-      return this.buildMethod(name, params, body);
+      return this.buildMethod(name, params, body, isMain);
     } else {
-      return this.buildImplementation(existingOperation, params, body);
+      return this.buildImplementation(existingOperation, params, body, isMain);
     }
   }
   
-  public Method buildMethod(final String name, final List<Parameter> params, final Block body) {
+  public Method buildMethod(final String name, final List<Parameter> params, final Block body, final boolean isMain) {
     final EOperation operation = this.ecoreFactory.createEOperation();
     operation.setName(name);
     final Consumer<Parameter> _function = (Parameter p) -> {
@@ -89,13 +89,15 @@ public class ModelBuilder {
     final Method newMethod = this.factory.createMethod();
     newMethod.setOperationDef(operation);
     newMethod.setBody(body);
+    newMethod.setIsMain(isMain);
     return newMethod;
   }
   
-  public Implementation buildImplementation(final EOperation operationRef, final List<Parameter> params, final Block body) {
+  public Implementation buildImplementation(final EOperation operationRef, final List<Parameter> params, final Block body, final boolean isMain) {
     final Implementation implem = this.factory.createImplementation();
     implem.setOperationRef(operationRef);
     implem.setBody(body);
+    implem.setIsMain(isMain);
     return implem;
   }
   

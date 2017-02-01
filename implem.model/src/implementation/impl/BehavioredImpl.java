@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link implementation.impl.BehavioredImpl#getBody <em>Body</em>}</li>
+ *   <li>{@link implementation.impl.BehavioredImpl#isIsMain <em>Is Main</em>}</li>
  * </ul>
  *
  * @generated
@@ -38,6 +39,25 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 	 * @ordered
 	 */
 	protected Block body;
+
+	/**
+	 * The default value of the '{@link #isIsMain() <em>Is Main</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIsMain()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean IS_MAIN_EDEFAULT = false;
+	/**
+	 * The cached value of the '{@link #isIsMain() <em>Is Main</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIsMain()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean isMain = IS_MAIN_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -106,6 +126,27 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isIsMain() {
+		return isMain;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIsMain(boolean newIsMain) {
+		boolean oldIsMain = isMain;
+		isMain = newIsMain;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.BEHAVIORED__IS_MAIN, oldIsMain, isMain));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -125,6 +166,8 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 		switch (featureID) {
 			case ImplementationPackage.BEHAVIORED__BODY:
 				return getBody();
+			case ImplementationPackage.BEHAVIORED__IS_MAIN:
+				return isIsMain();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -139,6 +182,9 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 		switch (featureID) {
 			case ImplementationPackage.BEHAVIORED__BODY:
 				setBody((Block)newValue);
+				return;
+			case ImplementationPackage.BEHAVIORED__IS_MAIN:
+				setIsMain((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -155,6 +201,9 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 			case ImplementationPackage.BEHAVIORED__BODY:
 				setBody((Block)null);
 				return;
+			case ImplementationPackage.BEHAVIORED__IS_MAIN:
+				setIsMain(IS_MAIN_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -169,8 +218,26 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 		switch (featureID) {
 			case ImplementationPackage.BEHAVIORED__BODY:
 				return body != null;
+			case ImplementationPackage.BEHAVIORED__IS_MAIN:
+				return isMain != IS_MAIN_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (isMain: ");
+		result.append(isMain);
+		result.append(')');
+		return result.toString();
 	}
 
 } //BehavioredImpl

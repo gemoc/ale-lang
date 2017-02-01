@@ -58,16 +58,16 @@ class ModelBuilder {
 //		pkgs.forEach[ePackageProvider.registerPackage(it)]
 //	}
 	
-	def Behaviored buildOperation(String containingClass, String name, List<Parameter> params, Block body) {
+	def Behaviored buildOperation(String containingClass, String name, List<Parameter> params, Block body, boolean isMain) {
 		val existingOperation = resolve(containingClass, name, params.size)
 		
 		if(existingOperation === null)
-			return buildMethod(name,params,body)
+			return buildMethod(name,params,body, isMain)
 		else
-			return buildImplementation(existingOperation,params,body)
+			return buildImplementation(existingOperation,params,body, isMain)
 	}
 	
-	def Method buildMethod(String name, List<Parameter> params, Block body) {
+	def Method buildMethod(String name, List<Parameter> params, Block body, boolean isMain) {
 		val operation = ecoreFactory.createEOperation
 		operation.name = name
 		params.forEach[p |
@@ -80,15 +80,17 @@ class ModelBuilder {
 		val newMethod = factory.createMethod
 		newMethod.operationDef = operation
 		newMethod.body = body
+		newMethod.isMain = isMain
 		
 		return newMethod
 	}
 	
-	def Implementation buildImplementation(EOperation operationRef, List<Parameter> params, Block body) {
+	def Implementation buildImplementation(EOperation operationRef, List<Parameter> params, Block body, boolean isMain) {
 		val implem = factory.createImplementation
 		
 		implem.operationRef = operationRef
 		implem.body = body
+		implem.isMain = isMain
 		
 		return implem
 	}

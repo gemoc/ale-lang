@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.eclipse.acceleo.query.runtime.Query;
@@ -46,11 +47,13 @@ public class Main {
 	}
 	
 	public static Behaviored getMainOp(ModelBehavior implem) {
-		ExtendedClass clsImplem = implem.getClassExtensions().stream()
-			.filter(cls -> cls.getBaseClass().getName().equals("LogoProgram"))
-			.findFirst()
-			.get();
-		return clsImplem.getMethods().get(0);
+		Optional<Behaviored> mainOp = 
+				implem.getClassExtensions().stream()
+				.flatMap(cls -> cls.getMethods().stream())
+				.filter(op -> op.isIsMain())
+				.findFirst();
+		
+		return mainOp.get();
 	}
 	
 	public static Set<EPackage> loadMetamodel(){

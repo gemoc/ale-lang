@@ -130,6 +130,7 @@ class StatementVisitor extends XtdAQLBaseVisitor<Statement> {
 class OpVisitor extends XtdAQLBaseVisitor<Behaviored> {
 	
 	override visitROperation(ROperationContext ctx) {
+		val firstToken = ctx.getStart.text
 		val parameters = 
 			if(ctx.rParameters !== null)
 				(new ParamVisitor).visit(ctx.rParameters)
@@ -140,7 +141,9 @@ class OpVisitor extends XtdAQLBaseVisitor<Behaviored> {
 		val operationName = ctx.getChild(1).text
 		val className = ctx.parent.getChild(1).text
 		
-		return ModelBuilder.singleton.buildOperation(className, operationName, parameters, body)
+		val isMain = firstToken.equals("@main")
+		
+		return ModelBuilder.singleton.buildOperation(className, operationName, parameters, body, isMain)
 	}
 	
 }

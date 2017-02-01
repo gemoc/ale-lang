@@ -306,6 +306,15 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getBehaviored_IsMain() {
+		return (EAttribute)behavioredEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getImplementation() {
 		return implementationEClass;
 	}
@@ -762,6 +771,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 
 		behavioredEClass = createEClass(BEHAVIORED);
 		createEReference(behavioredEClass, BEHAVIORED__BODY);
+		createEAttribute(behavioredEClass, BEHAVIORED__IS_MAIN);
 
 		implementationEClass = createEClass(IMPLEMENTATION);
 		createEReference(implementationEClass, IMPLEMENTATION__OPERATION_REF);
@@ -882,6 +892,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 
 		initEClass(behavioredEClass, Behaviored.class, "Behaviored", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBehaviored_Body(), this.getBlock(), null, "body", null, 1, 1, Behaviored.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBehaviored_IsMain(), ecorePackage.getEBoolean(), "isMain", "false", 1, 1, Behaviored.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(implementationEClass, Implementation.class, "Implementation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getImplementation_OperationRef(), ecorePackage.getEOperation(), null, "operationRef", null, 1, 1, Implementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
