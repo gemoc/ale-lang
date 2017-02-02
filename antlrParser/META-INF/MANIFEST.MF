@@ -3,7 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: antlrParser
 Bundle-SymbolicName: antlrParser
 Bundle-Version: 1.0.0.qualifier
-Export-Package: parser
+Export-Package: parser,
+ parser.visitor
 Require-Bundle: org.antlr.runtime,
  implem.model,
  org.eclipse.emf.ecore.xmi,

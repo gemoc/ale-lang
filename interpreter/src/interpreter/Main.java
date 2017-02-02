@@ -1,6 +1,9 @@
 package interpreter;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.LineNumberReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -9,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.Query;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
@@ -24,6 +28,7 @@ import implementation.ModelBehavior;
 import kmLogo.ASM.ASMPackage;
 import kmLogo.ASM.LogoProgram;
 import parser.AstBuilder;
+import parser.visitor.ParseResult;
 import vmlogo.Context;
 import vmlogo.VmlogoPackage;
 
@@ -41,7 +46,9 @@ public class Main {
 		
 		EvalEnvironment env = new EvalEnvironment(Query.newEnvironmentWithDefaultServices(null), mm, implem);
 		ImplementationEngine engine = new ImplementationEngine(env);
-		engine.eval(model, getMainOp(implem), params);
+		EvaluationResult result = engine.eval(model, getMainOp(implem), params);
+		
+		System.out.println(result.getDiagnostic());
 		
 		new Window(ctx.getTurtle());
 	}
@@ -71,12 +78,35 @@ public class Main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return (new AstBuilder(metamodel)).parse(fileContent);
+		ParseResult<ModelBehavior> parseRes = (new AstBuilder(metamodel)).parse(fileContent);
+//		int offset = parseRes.getStartPositions().get(parseRes.getRoot().getClassExtensions().get(5).getMethods().get(0).getBody().getStatements().get(0));
+//		int line = getLine(offset,implementionPath);
+		return parseRes.getRoot();
 	}
 	
 	public static Resource loadModel(String path,ResourceSet rs) {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
 		URI uri = URI.createURI(path);
 		return rs.getResource(uri, true);
+	}
+	
+	public static int getLine(int offset, String file) {
+		try (LineNumberReader r = new LineNumberReader(new FileReader(file))) {
+			r.setLineNumber(1); //first line is number 0 by default
+		    int count = 0;
+		    while (r.read() != -1 && count < offset) {
+		        count++;
+		    }
+		    if (count == offset) {
+		        return r.getLineNumber();
+		    } else {
+		        System.out.println("File is not long enough");
+		    }
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }

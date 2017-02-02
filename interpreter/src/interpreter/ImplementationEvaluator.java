@@ -42,7 +42,7 @@ public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 	IQueryEvaluationEngine aqlEngine;
 	DynamicFeatureAccess dynamicFeatureAccess;
 	
-	Diagnostic diagnostic;
+	BasicDiagnostic diagnostic;
 	Stack<Map<String, Object>> variablesStack;
 	
 	public ImplementationEvaluator (IQueryEvaluationEngine aqlEngine, DynamicFeatureAccess dynamicFeatureAccess) {
@@ -50,7 +50,7 @@ public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 		this.dynamicFeatureAccess = dynamicFeatureAccess;
 	}
 	
-	public Object eval(EObject target, Behaviored operation, List<Object> parameters) {
+	public EvaluationResult eval(EObject target, Behaviored operation, List<Object> parameters) {
 		variablesStack = new Stack();
 		//Init variables
 		Map<String, Object> variables = new HashMap<String, Object>();
@@ -74,8 +74,7 @@ public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 		Object result =  variables.get("result");
 		variablesStack.pop();
 		
-		//return new EvaluationResult(result, diagnostic);
-		return result;
+		return new EvaluationResult(result, diagnostic);
 	}
 	
 	@Override
@@ -234,7 +233,12 @@ public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 	
 	private Object aqlEval(Expression expression) {
 		AstResult dummyAstResult = new AstResult(expression, new HashMap(), new HashMap(), new ArrayList(), new BasicDiagnostic());
-		return aqlEngine.eval(dummyAstResult, getCurrentScope()).getResult();
+		EvaluationResult result = aqlEngine.eval(dummyAstResult, getCurrentScope());
+		
+		if(result.getDiagnostic().getSeverity() != Diagnostic.OK)
+			diagnostic.add(result.getDiagnostic());
+		
+		return result.getResult();
 	}
 	
 	private Map<String,Object> findScope(String variable) {

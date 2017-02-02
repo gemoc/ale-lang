@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EPackage;
 import implementation.ModelBehavior;
 import parser.XtdAQLParser.RRootContext;
 import parser.visitor.ModelBuilder;
+import parser.visitor.ParseResult;
 import parser.visitor.Visitors;
 
 public class AstBuilder {
@@ -23,7 +24,7 @@ public class AstBuilder {
 		ModelBuilder.createSingleton(qryEnv);
 	}
 	
-	public ModelBehavior parse(String program) {
+	public ParseResult<ModelBehavior> parse(String program) {
 		UnbufferedCharStream input = new UnbufferedCharStream(new StringReader(program), program.length());
 		XtdAQLLexer lexer = new XtdAQLLexer(input);
 		lexer.setTokenFactory(new CommonTokenFactory(true));
