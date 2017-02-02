@@ -39,6 +39,9 @@ import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 
 public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 	
+	public static final String PLUGIN_ID = "interpreter"; //FIXME: set real name
+	public static final String AQL_ERROR = "An error occured during evaluation of a query";
+	
 	IQueryEvaluationEngine aqlEngine;
 	DynamicFeatureAccess dynamicFeatureAccess;
 	
@@ -235,8 +238,16 @@ public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 		AstResult dummyAstResult = new AstResult(expression, new HashMap(), new HashMap(), new ArrayList(), new BasicDiagnostic());
 		EvaluationResult result = aqlEngine.eval(dummyAstResult, getCurrentScope());
 		
-		if(result.getDiagnostic().getSeverity() != Diagnostic.OK)
-			diagnostic.add(result.getDiagnostic());
+		if(result.getDiagnostic().getSeverity() != Diagnostic.OK){
+			Diagnostic child = new BasicDiagnostic(
+					result.getDiagnostic().getSeverity(),
+					ImplementationEvaluator.PLUGIN_ID,
+					0,
+					ImplementationEvaluator.AQL_ERROR,
+					new Object[] { expression , result.getDiagnostic()}
+					);
+			diagnostic.add(child);
+		}
 		
 		return result.getResult();
 	}

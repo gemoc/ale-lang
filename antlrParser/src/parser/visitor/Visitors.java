@@ -2,11 +2,13 @@ package parser.visitor;
 
 import implementation.Behaviored;
 import implementation.Block;
+import implementation.ExpressionStatement;
 import implementation.ImplementationFactory;
 import implementation.ImplementationPackage;
 import implementation.Parameter;
 import implementation.ModelBehavior;
 import implementation.Statement;
+import implementation.VariableAssignement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +28,14 @@ import parser.XtdAQLParser.RRootContext;
 import parser.XtdAQLParser.RVariableContext;
 import parser.XtdAQLParser.RWhileContext;
 import implementation.ExtendedClass;
+import implementation.FeatureAssignment;
+import implementation.FeatureInsert;
+import implementation.FeaturePut;
+import implementation.FeatureRemove;
+import implementation.ForEach;
+import implementation.If;
 import implementation.VariableDeclaration;
+import implementation.While;
 import parser.XtdAQLParser.RAttributeContext;
 import parser.XtdAQLParser.VarRefContext;
 import parser.XtdAQLParser.NavContext;
@@ -77,13 +86,17 @@ public class Visitors {
 		
 		@Override
 		public Statement visitRVarDecl(RVarDeclContext ctx) {
-			Statement res = ModelBuilder.singleton.buildVariableDecl(
+			VariableDeclaration res = ModelBuilder.singleton.buildVariableDecl(
 				ctx.Ident(1).getText(),
 				ctx.expression().getText(),
 				ctx.Ident(0).getText()
 			);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			if(res.getInitialValue() != null){
+				parseRes.getStartPositions().put(res.getInitialValue(),ctx.expression().start.getStartIndex());
+				parseRes.getEndPositions().put(res.getInitialValue(),ctx.expression().stop.getStopIndex());
+			}
 			return res;
 		}
 		
@@ -96,6 +109,8 @@ public class Visitors {
 			if(left instanceof VarRefContext){
 				VarRefContext varRef = (VarRefContext) left;
 				res = ModelBuilder.singleton.buildVariableAssignement(varRef.Ident().getText(),value);
+				parseRes.getStartPositions().put(((VariableAssignement)res).getValue(),ctx.expression().get(1).start.getStartIndex());
+				parseRes.getEndPositions().put(((VariableAssignement)res).getValue(),ctx.expression().get(1).stop.getStopIndex());
 			}
 			else if(left instanceof NavContext){
 				NavContext navCtx = (NavContext) left;
@@ -105,6 +120,8 @@ public class Visitors {
 					String feature = featCtx.Ident().getText();
 					String target = navCtx.expression().getText();
 					res = ModelBuilder.singleton.buildFeatureAssign(target,feature,value);
+					parseRes.getStartPositions().put(((FeatureAssignment)res).getValue(),ctx.expression().get(1).start.getStartIndex());
+					parseRes.getEndPositions().put(((FeatureAssignment)res).getValue(),ctx.expression().get(1).stop.getStopIndex());
 				}
 			}
 			else {
@@ -123,27 +140,33 @@ public class Visitors {
 			Block elseB = null;
 			if(ctx.rBlock().size() > 1)
 				elseB = (new BlockVisitor(parseRes)).visit(ctx.rBlock().get(1));
-			Statement res = ModelBuilder.singleton.buildIf(cond,then,elseB);
+			If res = ModelBuilder.singleton.buildIf(cond,then,elseB);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			parseRes.getStartPositions().put(res.getCondition(),ctx.expression().start.getStartIndex());
+			parseRes.getEndPositions().put(res.getCondition(),ctx.expression().stop.getStopIndex());
 			return res;
 		}
 		
 		@Override
 		public Statement visitRForEach(RForEachContext ctx) {
 			Block body = (new BlockVisitor(parseRes)).visit(ctx.rBlock());
-			Statement res = ModelBuilder.singleton.buildForEach(ctx.Ident().getText(),ctx.expression().getText(),body);
+			ForEach res = ModelBuilder.singleton.buildForEach(ctx.Ident().getText(),ctx.expression().getText(),body);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			parseRes.getStartPositions().put(res.getCollectionExpression(),ctx.expression().start.getStartIndex());
+			parseRes.getEndPositions().put(res.getCollectionExpression(),ctx.expression().stop.getStopIndex());
 			return res;
 		}
 		
 		@Override
 		public Statement visitRWhile(RWhileContext ctx) {
 			Block body = (new BlockVisitor(parseRes)).visit(ctx.rBlock());
-			Statement res = ModelBuilder.singleton.buildWhile(ctx.expression().getText(),body);
+			While res = ModelBuilder.singleton.buildWhile(ctx.expression().getText(),body);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			parseRes.getStartPositions().put(res.getCollectionExpression(),ctx.expression().start.getStartIndex());
+			parseRes.getEndPositions().put(res.getCollectionExpression(),ctx.expression().stop.getStopIndex());
 			return res;
 		}
 	
@@ -175,20 +198,35 @@ public class Visitors {
 						
 						if(serviceName.equals("add") && params.size() == 1){
 							res = ModelBuilder.singleton.buildFeatureInsert(target,feature,params.get(0).getText());
+							parseRes.getStartPositions().put(((FeatureInsert)res).getTarget(),((NavContext)beforeCall).expression().start.getStartIndex());
+							parseRes.getEndPositions().put(((FeatureInsert)res).getTarget(),((NavContext)beforeCall).expression().stop.getStopIndex());
+							parseRes.getStartPositions().put(((FeatureInsert)res).getValue(),params.get(0).start.getStartIndex());
+							parseRes.getEndPositions().put(((FeatureInsert)res).getValue(),params.get(0).stop.getStopIndex());
 						}
 						else if(serviceName.equals("remove") && params.size() == 1){
 							res = ModelBuilder.singleton.buildFeatureRemove(target,feature,params.get(0).getText());
+							parseRes.getStartPositions().put(((FeatureRemove)res).getTarget(),((NavContext)beforeCall).expression().start.getStartIndex());
+							parseRes.getEndPositions().put(((FeatureRemove)res).getTarget(),((NavContext)beforeCall).expression().stop.getStopIndex());
+							parseRes.getStartPositions().put(((FeatureRemove)res).getValue(),params.get(0).start.getStartIndex());
+							parseRes.getEndPositions().put(((FeatureRemove)res).getValue(),params.get(0).stop.getStopIndex());
 						}
 						else if(serviceName.equals("put") && params.size() == 2){
 							res = ModelBuilder.singleton.buildFeaturePut(target,feature,params.get(0).getText(),params.get(1).getText());
+							parseRes.getStartPositions().put(((FeaturePut)res).getTarget(),((NavContext)beforeCall).expression().start.getStartIndex());
+							parseRes.getEndPositions().put(((FeaturePut)res).getTarget(),((NavContext)beforeCall).expression().stop.getStopIndex());
+							parseRes.getStartPositions().put(((FeaturePut)res).getKey(),params.get(0).start.getStartIndex());
+							parseRes.getEndPositions().put(((FeaturePut)res).getKey(),params.get(0).stop.getStopIndex());
+							parseRes.getStartPositions().put(((FeaturePut)res).getValue(),params.get(1).start.getStartIndex());
+							parseRes.getEndPositions().put(((FeaturePut)res).getValue(),params.get(1).stop.getStopIndex());
 						}
 					}
 				}
 			}
 			
 			if(res == null){
-				//TODO: raise error here
 				res = ModelBuilder.singleton.buildExpressionStatement(exp.getText());
+				parseRes.getStartPositions().put(((ExpressionStatement)res).getExpression(),exp.start.getStartIndex());
+				parseRes.getEndPositions().put(((ExpressionStatement)res).getExpression(),exp.stop.getStopIndex());
 			}
 			
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
@@ -319,6 +357,10 @@ public class Visitors {
 					ctx.Ident(0).getText());
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			if(res.getInitialValue() != null){
+				parseRes.getStartPositions().put(res.getInitialValue(),ctx.expression().start.getStartIndex());
+				parseRes.getEndPositions().put(res.getInitialValue(),ctx.expression().stop.getStopIndex());
+			}
 			return res;
 		}
 	}

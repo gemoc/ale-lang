@@ -23,9 +23,11 @@ public class EvalEnvironment {
 	IQueryEnvironment qryEnv;
 	ModelBehavior implemModel;
 	DynamicFeatureAccess dynamicFeatures;
+	DiagnosticLogger logger;
 	
-	public EvalEnvironment (IQueryEnvironment qryEnv, Set<EPackage> metamodel, ModelBehavior implem) {
+	public EvalEnvironment (IQueryEnvironment qryEnv, Set<EPackage> metamodel, ModelBehavior implem, DiagnosticLogger logger) {
 		this.qryEnv = qryEnv;
+		this.logger = logger;
 		createDefaultServices();
 		metamodel
 			.stream()
@@ -69,7 +71,7 @@ public class EvalEnvironment {
 			.getClassExtensions()
 			.stream()
 			.flatMap(cls -> cls.getMethods().stream())
-			.forEach(implemOp -> qryEnv.registerService(new EvalBodyService(implemOp,this)));
+			.forEach(implemOp -> qryEnv.registerService(new EvalBodyService(implemOp,this,logger)));
 		Method featureAccessMethod;
 		try {
 			featureAccessMethod = DynamicFeatureAccess.class.getMethod("aqlFeatureAccess",EObject.class,String.class);

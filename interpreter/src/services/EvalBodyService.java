@@ -5,6 +5,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EObject;
 import implementation.Behaviored;
 import org.eclipse.acceleo.query.runtime.impl.AbstractService;
+import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
 import org.eclipse.acceleo.query.ast.Call;
 import org.eclipse.acceleo.query.runtime.impl.ValidationServices;
@@ -24,6 +25,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import implementation.ExtendedClass;
 import interpreter.ImplementationEvaluator;
+import interpreter.DiagnosticLogger;
 import interpreter.EvalEnvironment;
 import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
 
@@ -34,10 +36,12 @@ public class EvalBodyService extends AbstractService {
 	
 	EvalEnvironment evalEnv;
 	Behaviored implem;
+	DiagnosticLogger logger;
 	
-	public EvalBodyService (Behaviored implem, EvalEnvironment evalEnv) {
+	public EvalBodyService (Behaviored implem, EvalEnvironment evalEnv, DiagnosticLogger logger) {
 		this.implem = implem;
 		this.evalEnv = evalEnv;
+		this.logger = logger;
 	}
 	
 	@Override
@@ -47,7 +51,9 @@ public class EvalBodyService extends AbstractService {
 		List<Object> args = new ArrayList<Object>();
 		for(int i = 1; i < arguments.length; i++)
 			args.add(arguments[i]);
-		return evaluator.eval(caller, implem, args).getResult();
+		EvaluationResult eval = evaluator.eval(caller, implem, args);
+		logger.notify(eval.getDiagnostic());
+		return eval.getResult();
 	}
 	
 	@Override
