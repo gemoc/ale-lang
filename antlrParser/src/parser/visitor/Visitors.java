@@ -9,7 +9,9 @@ import implementation.ModelBehavior;
 import implementation.Statement;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import parser.XtdAQLBaseVisitor;
@@ -39,10 +41,18 @@ import parser.XtdAQLParser.VariableDefinitionContext;
 import parser.XtdAQLParser.RVarDeclContext;
 
 public class Visitors {
+	
 	static class BlockVisitor extends XtdAQLBaseVisitor<Block> {
+		
+		ParseResult<ModelBehavior> parseRes;
+		
+		public BlockVisitor(ParseResult<ModelBehavior> parseRes) {
+			this.parseRes = parseRes;
+		}
+		
 		@Override
 		public Block visitRBlock(RBlockContext ctx) {
-			StatementVisitor subVisitor = new StatementVisitor();
+			StatementVisitor subVisitor = new StatementVisitor(parseRes);
 			List<Statement> body =
 					ctx
 					.rStatement()
@@ -50,18 +60,31 @@ public class Visitors {
 					.map(s -> subVisitor.visit(s))
 					.collect(Collectors.toList());
 					
-			return ModelBuilder.singleton.buildBlock(body);
+			Block res =  ModelBuilder.singleton.buildBlock(body);
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			return res;
 		}
 	}
 	
 	static class StatementVisitor extends XtdAQLBaseVisitor<Statement> {
+		
+		ParseResult<ModelBehavior> parseRes;
+		
+		public StatementVisitor(ParseResult<ModelBehavior> parseRes) {
+			this.parseRes = parseRes;
+		}
+		
 		@Override
 		public Statement visitRVarDecl(RVarDeclContext ctx) {
-			return ModelBuilder.singleton.buildVariableDecl(
+			Statement res = ModelBuilder.singleton.buildVariableDecl(
 				ctx.Ident(1).getText(),
 				ctx.expression().getText(),
 				ctx.Ident(0).getText()
 			);
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			return res;
 		}
 		
 		@Override
@@ -69,9 +92,10 @@ public class Visitors {
 			ExpressionContext left = ctx.expression().get(0); // epxression.feature or variable?
 			String value =  ctx.expression().get(1).getText();
 			
+			Statement res = null;
 			if(left instanceof VarRefContext){
 				VarRefContext varRef = (VarRefContext) left;
-				return ModelBuilder.singleton.buildVariableAssignement(varRef.Ident().getText(),value);
+				res = ModelBuilder.singleton.buildVariableAssignement(varRef.Ident().getText(),value);
 			}
 			else if(left instanceof NavContext){
 				NavContext navCtx = (NavContext) left;
@@ -80,34 +104,47 @@ public class Visitors {
 					FeatureContext featCtx = (FeatureContext) navSegment;
 					String feature = featCtx.Ident().getText();
 					String target = navCtx.expression().getText();
-					return ModelBuilder.singleton.buildFeatureAssign(target,feature,value);
+					res = ModelBuilder.singleton.buildFeatureAssign(target,feature,value);
 				}
 			}
-	
-			//TODO: raise error if we reach here
-			return ModelBuilder.singleton.buildVariableAssignement(left.getText(),value);
+			else {
+				//TODO: raise error if we reach here
+				res = ModelBuilder.singleton.buildVariableAssignement(left.getText(),value);
+			}
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			return res;
 		}
 		
 		@Override
 		public Statement visitRIf(RIfContext ctx) {
 			String cond = ctx.expression().getText();
-			Block then = (new BlockVisitor()).visit(ctx.rBlock().get(0));
+			Block then = (new BlockVisitor(parseRes)).visit(ctx.rBlock().get(0));
 			Block elseB = null;
 			if(ctx.rBlock().size() > 1)
-				elseB = (new BlockVisitor()).visit(ctx.rBlock().get(1));
-			return ModelBuilder.singleton.buildIf(cond,then,elseB);
+				elseB = (new BlockVisitor(parseRes)).visit(ctx.rBlock().get(1));
+			Statement res = ModelBuilder.singleton.buildIf(cond,then,elseB);
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			return res;
 		}
 		
 		@Override
 		public Statement visitRForEach(RForEachContext ctx) {
-			Block body = (new BlockVisitor()).visit(ctx.rBlock());
-			return ModelBuilder.singleton.buildForEach(ctx.Ident().getText(),ctx.expression().getText(),body);
+			Block body = (new BlockVisitor(parseRes)).visit(ctx.rBlock());
+			Statement res = ModelBuilder.singleton.buildForEach(ctx.Ident().getText(),ctx.expression().getText(),body);
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			return res;
 		}
 		
 		@Override
 		public Statement visitRWhile(RWhileContext ctx) {
-			Block body = (new BlockVisitor()).visit(ctx.rBlock());
-			return ModelBuilder.singleton.buildWhile(ctx.expression().getText(),body);
+			Block body = (new BlockVisitor(parseRes)).visit(ctx.rBlock());
+			Statement res = ModelBuilder.singleton.buildWhile(ctx.expression().getText(),body);
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			return res;
 		}
 	
 		@Override
@@ -115,6 +152,7 @@ public class Visitors {
 			
 			ExpressionContext exp = ctx.expression();
 			
+			Statement res =  null;
 			if(exp instanceof NavContext){
 				NavigationSegmentContext navSegment = ((NavContext)exp).navigationSegment();
 				if(navSegment instanceof CallOrApplyContext){
@@ -136,23 +174,36 @@ public class Visitors {
 						List<ExpressionContext> params = ((ServiceCallContext)call).expressionSequence().expression();
 						
 						if(serviceName.equals("add") && params.size() == 1){
-							return ModelBuilder.singleton.buildFeatureInsert(target,feature,params.get(0).getText());
+							res = ModelBuilder.singleton.buildFeatureInsert(target,feature,params.get(0).getText());
 						}
 						else if(serviceName.equals("remove") && params.size() == 1){
-							return ModelBuilder.singleton.buildFeatureRemove(target,feature,params.get(0).getText());
+							res = ModelBuilder.singleton.buildFeatureRemove(target,feature,params.get(0).getText());
 						}
 						else if(serviceName.equals("put") && params.size() == 2){
-							return ModelBuilder.singleton.buildFeaturePut(target,feature,params.get(0).getText(),params.get(1).getText());
+							res = ModelBuilder.singleton.buildFeaturePut(target,feature,params.get(0).getText(),params.get(1).getText());
 						}
 					}
 				}
 			}
 			
-			return ModelBuilder.singleton.buildExpressionStatement(exp.getText());
+			if(res == null){
+				//TODO: raise error here
+				res = ModelBuilder.singleton.buildExpressionStatement(exp.getText());
+			}
+			
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			return res;
 		}
 	}
 
 	static class OpVisitor extends XtdAQLBaseVisitor<Behaviored> {
+		
+		ParseResult<ModelBehavior> parseRes;
+		
+		public OpVisitor(ParseResult<ModelBehavior> parseRes) {
+			this.parseRes = parseRes;
+		}
 		
 		@Override
 		public Behaviored visitROperation(ROperationContext ctx) {
@@ -160,95 +211,148 @@ public class Visitors {
 			
 			List<Parameter> parameters = new ArrayList<Parameter>();
 			if(ctx.rParameters() != null)
-				parameters = (new ParamVisitor()).visit(ctx.rParameters());
+				parameters = (new ParamVisitor(parseRes)).visit(ctx.rParameters());
 				
-			Block body = (new BlockVisitor()).visit(ctx.rBlock());
+			Block body = (new BlockVisitor(parseRes)).visit(ctx.rBlock());
 			
 			String operationName = ctx.getChild(1).getText();
 			String className = ctx.parent.getChild(1).getText();
 			
 			boolean isMain = firstToken.equals("@main");
 			
-			return ModelBuilder.singleton.buildOperation(className, operationName, parameters, body, isMain);
+			Behaviored res = ModelBuilder.singleton.buildOperation(className, operationName, parameters, body, isMain);
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			return res;
 		}
 		
 	}
 	
 	static class ParamVisitor extends XtdAQLBaseVisitor<List<Parameter>> {
+		
+		ParseResult<ModelBehavior> parseRes;
+		
+		public ParamVisitor(ParseResult<ModelBehavior> parseRes) {
+			this.parseRes = parseRes;
+		}
+		
 		@Override
 		public List<Parameter> visitRParameters(RParametersContext ctx) {
-			VarVisitor subVisitor = new VarVisitor();
-			return 
+			VarVisitor subVisitor = new VarVisitor(parseRes);
+			List<Parameter> res = 
 				ctx
 				.rVariable()
 				.stream()
 				.map(var -> subVisitor.visit(var))
 				.collect(Collectors.toList());
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			return res;
 		}
 	}
 	
 	static class VarVisitor extends XtdAQLBaseVisitor<Parameter> {
+		
+		ParseResult<ModelBehavior> parseRes;
+		
+		public VarVisitor(ParseResult<ModelBehavior> parseRes) {
+			this.parseRes = parseRes;
+		}
+		
 		@Override
 		public Parameter visitRVariable(RVariableContext ctx) {
 			String type = ctx.getChild(0).getText();
 			String name = ctx.getChild(1).getText();
-			return ModelBuilder.singleton.buildParameter(type,name);
+			Parameter res = ModelBuilder.singleton.buildParameter(type,name);
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			return res;
 		}
 	}
 	
 	static class ClassVisitor extends XtdAQLBaseVisitor<ExtendedClass> {
 		
+		ParseResult<ModelBehavior> parseRes;
+		
+		public ClassVisitor(ParseResult<ModelBehavior> parseRes) {
+			this.parseRes = parseRes;
+		}
+		
 		@Override
 		public ExtendedClass visitRClass(RClassContext ctx) {
 			String name = ctx.Ident().getText();
-			AttributeVisitor subVisitor1 = new AttributeVisitor();
+			AttributeVisitor subVisitor1 = new AttributeVisitor(parseRes);
 			List<VariableDeclaration> attributes = 
 					ctx
 					.rAttribute()
 					.stream()
 					.map(attr -> (VariableDeclaration) subVisitor1.visitRAttribute(attr))
 					.collect(Collectors.toList());
-			OpVisitor subVisitor2 = new OpVisitor();
+			OpVisitor subVisitor2 = new OpVisitor(parseRes);
 			List<Behaviored> operations = 
 					ctx
 					.rOperation()
 					.stream()
 					.map(op -> subVisitor2.visit(op))
 					.collect(Collectors.toList());
-			return ModelBuilder.singleton.buildExtendedClass(name,attributes,operations);
+			ExtendedClass res = ModelBuilder.singleton.buildExtendedClass(name,attributes,operations);
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			return res;
 		}
 		
 	}
 	
 	static class AttributeVisitor extends XtdAQLBaseVisitor<VariableDeclaration> {
+		
+		ParseResult<ModelBehavior> parseRes;
+		
+		public AttributeVisitor(ParseResult<ModelBehavior> parseRes) {
+			this.parseRes = parseRes;
+		}
+		
 		@Override
 		public VariableDeclaration visitRAttribute(RAttributeContext ctx) {
-			return ModelBuilder.singleton.buildVariableDecl(
+			VariableDeclaration res = ModelBuilder.singleton.buildVariableDecl(
 					ctx.Ident(1).getText(),
 					ctx.expression().getText(),
 					ctx.Ident(0).getText());
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			return res;
 		}
 	}
 
 	static class ModelBehaviorVisitor extends XtdAQLBaseVisitor<ModelBehavior> {
 		
+		ParseResult<ModelBehavior> parseRes;
+		
+		public ModelBehaviorVisitor(ParseResult<ModelBehavior> parseRes) {
+			this.parseRes = parseRes;
+		}
+		
 		@Override
 		public ModelBehavior visitRRoot(RRootContext ctx) {
-			ClassVisitor subVisitor = new ClassVisitor();
+			ClassVisitor subVisitor = new ClassVisitor(parseRes);
 			ImplementationFactory factory = (ImplementationFactory) ImplementationPackage.eINSTANCE.getEFactoryInstance();
-			ModelBehavior root = factory.createModelBehavior();
-			root.getClassExtensions().addAll(
+			ModelBehavior res = factory.createModelBehavior();
+			res.getClassExtensions().addAll(
 					ctx
 					.rClass()
 					.stream()
 					.map(cls -> subVisitor.visit(cls))
 					.collect(Collectors.toList())
 					);
-			return root;
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			return res;
 		}
 	}
 	
-	public static ModelBehavior visit(RRootContext rootCtx){
-		return (new ModelBehaviorVisitor()).visit(rootCtx);
+	public static ParseResult<ModelBehavior> visit(RRootContext rootCtx) {
+		ParseResult<ModelBehavior> result = new ParseResult<ModelBehavior>();
+		ModelBehavior root = (new ModelBehaviorVisitor(result)).visit(rootCtx);
+		result.setRoot(root);
+		return result;
 	}
 }

@@ -47,7 +47,7 @@ public class EvalBodyService extends AbstractService {
 		List<Object> args = new ArrayList<Object>();
 		for(int i = 1; i < arguments.length; i++)
 			args.add(arguments[i]);
-		return evaluator.eval(caller, implem, args);
+		return evaluator.eval(caller, implem, args).getResult();
 	}
 	
 	@Override
