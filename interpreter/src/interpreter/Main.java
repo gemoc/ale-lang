@@ -17,7 +17,6 @@ import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.Query;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -27,13 +26,12 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import drawing.Window;
 import implementation.Behaviored;
-import implementation.ExtendedClass;
 import implementation.ModelBehavior;
 import kmLogo.ASM.ASMPackage;
 import kmLogo.ASM.LogoProgram;
 import parser.AstBuilder;
 import parser.visitor.ParseResult;
-import vmlogo.Context;
+import vmlogo.Turtle;
 import vmlogo.VmlogoPackage;
 
 public class Main {
@@ -45,20 +43,17 @@ public class Main {
 		
 		ResourceSetImpl rs = new ResourceSetImpl();
 		LogoProgram model = (LogoProgram) loadModel("model/LogoProgram.xmi",rs).getContents().get(0);
-		Context ctx = (Context) loadModel("data/My.vmlogo",rs).getContents().get(0);
-		List params = new ArrayList();
-		params.add(ctx);
 		
 		DiagnosticLogger logger = new DiagnosticLogger();
 		EvalEnvironment env = new EvalEnvironment(Query.newEnvironmentWithDefaultServices(null), mm, implem, logger);
 		ImplementationEngine engine = new ImplementationEngine(env);
-		EvaluationResult result = engine.eval(model, getMainOp(implem), params);
+		EvaluationResult result = engine.eval(model, getMainOp(implem), new ArrayList());
 		
 //		System.out.println(result.getDiagnostic());
 		logger.notify(result.getDiagnostic());
 		diagnosticForHuman(logger,"data/LogoProgram.implem",parseResult);
 		
-		new Window(ctx.getTurtle());
+		new Window((Turtle) result.getResult());
 	}
 	
 	public static Behaviored getMainOp(ModelBehavior implem) {

@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link vmlogo.Turtle#getHeading <em>Heading</em>}</li>
  *   <li>{@link vmlogo.Turtle#isPenUp <em>Pen Up</em>}</li>
  *   <li>{@link vmlogo.Turtle#getDrawings <em>Drawings</em>}</li>
+ *   <li>{@link vmlogo.Turtle#getCallStack <em>Call Stack</em>}</li>
  * </ul>
  *
  * @see vmlogo.VmlogoPackage#getTurtle()
@@ -119,5 +120,31 @@ public interface Turtle extends EObject {
 	 * @generated
 	 */
 	EList<Segment> getDrawings();
+
+	/**
+	 * Returns the value of the '<em><b>Call Stack</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Call Stack</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Call Stack</em>' containment reference.
+	 * @see #setCallStack(CallStack)
+	 * @see vmlogo.VmlogoPackage#getTurtle_CallStack()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	CallStack getCallStack();
+
+	/**
+	 * Sets the value of the '{@link vmlogo.Turtle#getCallStack <em>Call Stack</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Call Stack</em>' containment reference.
+	 * @see #getCallStack()
+	 * @generated
+	 */
+	void setCallStack(CallStack value);
 
 } // Turtle

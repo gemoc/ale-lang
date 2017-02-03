@@ -10,7 +10,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import vmlogo.CallStack;
-import vmlogo.Context;
 import vmlogo.Point;
 import vmlogo.Segment;
 import vmlogo.StackFrame;
@@ -26,13 +25,6 @@ import vmlogo.VmlogoPackage;
  * @generated
  */
 public class VmlogoPackageImpl extends EPackageImpl implements VmlogoPackage {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass contextEClass = null;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -141,33 +133,6 @@ public class VmlogoPackageImpl extends EPackageImpl implements VmlogoPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getContext() {
-		return contextEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getContext_Turtle() {
-		return (EReference)contextEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getContext_CallStack() {
-		return (EReference)contextEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getTurtle() {
 		return turtleEClass;
 	}
@@ -206,6 +171,15 @@ public class VmlogoPackageImpl extends EPackageImpl implements VmlogoPackage {
 	 */
 	public EReference getTurtle_Drawings() {
 		return (EReference)turtleEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTurtle_CallStack() {
+		return (EReference)turtleEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -353,15 +327,12 @@ public class VmlogoPackageImpl extends EPackageImpl implements VmlogoPackage {
 		isCreated = true;
 
 		// Create classes and their features
-		contextEClass = createEClass(CONTEXT);
-		createEReference(contextEClass, CONTEXT__TURTLE);
-		createEReference(contextEClass, CONTEXT__CALL_STACK);
-
 		turtleEClass = createEClass(TURTLE);
 		createEReference(turtleEClass, TURTLE__POSITION);
 		createEAttribute(turtleEClass, TURTLE__HEADING);
 		createEAttribute(turtleEClass, TURTLE__PEN_UP);
 		createEReference(turtleEClass, TURTLE__DRAWINGS);
+		createEReference(turtleEClass, TURTLE__CALL_STACK);
 
 		pointEClass = createEClass(POINT);
 		createEAttribute(pointEClass, POINT__X);
@@ -412,15 +383,12 @@ public class VmlogoPackageImpl extends EPackageImpl implements VmlogoPackage {
 		// Add supertypes to classes
 
 		// Initialize classes, features, and operations; add parameters
-		initEClass(contextEClass, Context.class, "Context", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getContext_Turtle(), this.getTurtle(), null, "turtle", null, 1, 1, Context.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getContext_CallStack(), this.getCallStack(), null, "callStack", null, 1, 1, Context.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(turtleEClass, Turtle.class, "Turtle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTurtle_Position(), this.getPoint(), null, "position", null, 1, 1, Turtle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTurtle_Heading(), ecorePackage.getEDouble(), "heading", null, 0, 1, Turtle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTurtle_PenUp(), ecorePackage.getEBoolean(), "penUp", null, 0, 1, Turtle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTurtle_Drawings(), this.getSegment(), null, "drawings", null, 0, -1, Turtle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTurtle_CallStack(), this.getCallStack(), null, "callStack", null, 1, 1, Turtle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pointEClass, Point.class, "Point", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPoint_X(), ecorePackage.getEDouble(), "x", null, 0, 1, Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
