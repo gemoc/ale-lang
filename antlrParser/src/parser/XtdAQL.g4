@@ -51,7 +51,10 @@ rVarDecl : Ident Ident (':=' expression) ';'
 rAssign : expression ':=' expression ';'
 ;
 
-rForEach : 'for' '(' Ident  'in' expression ')' rBlock
+rForEach : 'for' '(' Ident  'in' rCollection ')' rBlock
+;
+
+rCollection : '[' Integer '..' Integer ']' | expression
 ;
 
 rBlock : '{' (rStatement (rStatement)*)? '}'

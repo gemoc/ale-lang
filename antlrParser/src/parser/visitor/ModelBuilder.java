@@ -3,6 +3,10 @@ package parser.visitor;
 import java.util.List;
 import java.util.Optional;
 
+import org.eclipse.acceleo.query.ast.AstFactory;
+import org.eclipse.acceleo.query.ast.AstPackage;
+import org.eclipse.acceleo.query.ast.IntegerLiteral;
+import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.impl.QueryBuilderEngine;
@@ -44,6 +48,7 @@ public class ModelBuilder {
 	
 	EcoreFactory ecoreFactory = (EcoreFactory) EcorePackage.eINSTANCE.getEFactoryInstance();
 	ImplementationFactory factory = (ImplementationFactory) ImplementationPackage.eINSTANCE.getEFactoryInstance();
+	AstFactory aqlFactory = (AstFactory) AstPackage.eINSTANCE.getEFactoryInstance();
 	IQueryEnvironment qryEnv;
 	QueryBuilderEngine builder;
 	
@@ -140,6 +145,14 @@ public class ModelBuilder {
 		return loop;
 	}
 	
+	public ForEach buildForEach(String variable, SequenceInExtensionLiteral expression, Block body) {
+		ForEach loop = factory.createForEach();
+		loop.setVariable(variable);
+		loop.setCollectionExpression(expression);
+		loop.setBody(body);
+		return loop;
+	}
+	
 	public While buildWhile(String expression, Block body) {
 		While loop = factory.createWhile();
 		loop.setCollectionExpression(builder.build(expression).getAst());
@@ -186,6 +199,36 @@ public class ModelBuilder {
 		cls.getMethods().addAll(operations);
 		cls.getAttributes().addAll(vars);
 		return cls;
+	}
+	
+	public SequenceInExtensionLiteral buildIntSequence(String left, String right) {
+		
+		SequenceInExtensionLiteral seq = aqlFactory.createSequenceInExtensionLiteral();
+		
+		try{
+			int min = Integer.parseInt(left);
+			int max = Integer.parseInt(right);
+			
+			if(min <= max){
+				for(int i = min; i <= max; i++){
+					IntegerLiteral item = aqlFactory.createIntegerLiteral();
+					item.setValue(i);
+					seq.getValues().add(item);
+				}
+			}
+			else {
+				for(int i = min; i >= max; i--){
+					IntegerLiteral item = aqlFactory.createIntegerLiteral();
+					item.setValue(i);
+					seq.getValues().add(item);
+				}
+			}
+		}
+		catch(NumberFormatException e) {
+			//TODO: complain here
+		}
+		
+		return seq;
 	}
 	
 	//Can return null

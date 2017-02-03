@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
+
 import parser.XtdAQLBaseVisitor;
 import parser.XtdAQLParser.RAssignContext;
 import parser.XtdAQLParser.RBlockContext;
@@ -150,12 +152,23 @@ public class Visitors {
 		
 		@Override
 		public Statement visitRForEach(RForEachContext ctx) {
+			
+			ForEach res = null;
 			Block body = (new BlockVisitor(parseRes)).visit(ctx.rBlock());
-			ForEach res = ModelBuilder.singleton.buildForEach(ctx.Ident().getText(),ctx.expression().getText(),body);
+			ExpressionContext collectionExp = ctx.rCollection().expression();
+			if(collectionExp == null){
+				String left = ctx.rCollection().Integer().get(0).getText();
+				String right = ctx.rCollection().Integer().get(1).getText();
+				SequenceInExtensionLiteral intSeq = ModelBuilder.singleton.buildIntSequence(left,right);
+				res = ModelBuilder.singleton.buildForEach(ctx.Ident().getText(),intSeq,body);
+			}
+			else {
+				res = ModelBuilder.singleton.buildForEach(ctx.Ident().getText(),collectionExp.getText(),body);
+				parseRes.getStartPositions().put(res.getCollectionExpression(),collectionExp.start.getStartIndex());
+				parseRes.getEndPositions().put(res.getCollectionExpression(),collectionExp.stop.getStopIndex());
+			}
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
-			parseRes.getStartPositions().put(res.getCollectionExpression(),ctx.expression().start.getStartIndex());
-			parseRes.getEndPositions().put(res.getCollectionExpression(),ctx.expression().stop.getStopIndex());
 			return res;
 		}
 		
