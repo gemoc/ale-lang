@@ -57,52 +57,6 @@ public interface VmlogoPackage extends EPackage {
 	VmlogoPackage eINSTANCE = vmlogo.impl.VmlogoPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link vmlogo.impl.ContextImpl <em>Context</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see vmlogo.impl.ContextImpl
-	 * @see vmlogo.impl.VmlogoPackageImpl#getContext()
-	 * @generated
-	 */
-	int CONTEXT = 0;
-
-	/**
-	 * The feature id for the '<em><b>Turtle</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTEXT__TURTLE = 0;
-
-	/**
-	 * The feature id for the '<em><b>Call Stack</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTEXT__CALL_STACK = 1;
-
-	/**
-	 * The number of structural features of the '<em>Context</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTEXT_FEATURE_COUNT = 2;
-
-	/**
-	 * The number of operations of the '<em>Context</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTEXT_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link vmlogo.impl.TurtleImpl <em>Turtle</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -110,7 +64,7 @@ public interface VmlogoPackage extends EPackage {
 	 * @see vmlogo.impl.VmlogoPackageImpl#getTurtle()
 	 * @generated
 	 */
-	int TURTLE = 1;
+	int TURTLE = 0;
 
 	/**
 	 * The feature id for the '<em><b>Position</b></em>' containment reference.
@@ -149,13 +103,22 @@ public interface VmlogoPackage extends EPackage {
 	int TURTLE__DRAWINGS = 3;
 
 	/**
+	 * The feature id for the '<em><b>Call Stack</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TURTLE__CALL_STACK = 4;
+
+	/**
 	 * The number of structural features of the '<em>Turtle</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TURTLE_FEATURE_COUNT = 4;
+	int TURTLE_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Turtle</em>' class.
@@ -174,7 +137,7 @@ public interface VmlogoPackage extends EPackage {
 	 * @see vmlogo.impl.VmlogoPackageImpl#getPoint()
 	 * @generated
 	 */
-	int POINT = 2;
+	int POINT = 1;
 
 	/**
 	 * The feature id for the '<em><b>X</b></em>' attribute.
@@ -220,7 +183,7 @@ public interface VmlogoPackage extends EPackage {
 	 * @see vmlogo.impl.VmlogoPackageImpl#getSegment()
 	 * @generated
 	 */
-	int SEGMENT = 3;
+	int SEGMENT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Begin</b></em>' containment reference.
@@ -266,7 +229,7 @@ public interface VmlogoPackage extends EPackage {
 	 * @see vmlogo.impl.VmlogoPackageImpl#getCallStack()
 	 * @generated
 	 */
-	int CALL_STACK = 4;
+	int CALL_STACK = 3;
 
 	/**
 	 * The feature id for the '<em><b>Frames</b></em>' containment reference list.
@@ -303,7 +266,7 @@ public interface VmlogoPackage extends EPackage {
 	 * @see vmlogo.impl.VmlogoPackageImpl#getStackFrame()
 	 * @generated
 	 */
-	int STACK_FRAME = 5;
+	int STACK_FRAME = 4;
 
 	/**
 	 * The feature id for the '<em><b>Variables</b></em>' containment reference list.
@@ -340,7 +303,7 @@ public interface VmlogoPackage extends EPackage {
 	 * @see vmlogo.impl.VmlogoPackageImpl#getVariable()
 	 * @generated
 	 */
-	int VARIABLE = 6;
+	int VARIABLE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -378,38 +341,6 @@ public interface VmlogoPackage extends EPackage {
 	 */
 	int VARIABLE_OPERATION_COUNT = 0;
 
-
-	/**
-	 * Returns the meta object for class '{@link vmlogo.Context <em>Context</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Context</em>'.
-	 * @see vmlogo.Context
-	 * @generated
-	 */
-	EClass getContext();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link vmlogo.Context#getTurtle <em>Turtle</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Turtle</em>'.
-	 * @see vmlogo.Context#getTurtle()
-	 * @see #getContext()
-	 * @generated
-	 */
-	EReference getContext_Turtle();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link vmlogo.Context#getCallStack <em>Call Stack</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Call Stack</em>'.
-	 * @see vmlogo.Context#getCallStack()
-	 * @see #getContext()
-	 * @generated
-	 */
-	EReference getContext_CallStack();
 
 	/**
 	 * Returns the meta object for class '{@link vmlogo.Turtle <em>Turtle</em>}'.
@@ -464,6 +395,17 @@ public interface VmlogoPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTurtle_Drawings();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link vmlogo.Turtle#getCallStack <em>Call Stack</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Call Stack</em>'.
+	 * @see vmlogo.Turtle#getCallStack()
+	 * @see #getTurtle()
+	 * @generated
+	 */
+	EReference getTurtle_CallStack();
 
 	/**
 	 * Returns the meta object for class '{@link vmlogo.Point <em>Point</em>}'.
@@ -627,32 +569,6 @@ public interface VmlogoPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link vmlogo.impl.ContextImpl <em>Context</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see vmlogo.impl.ContextImpl
-		 * @see vmlogo.impl.VmlogoPackageImpl#getContext()
-		 * @generated
-		 */
-		EClass CONTEXT = eINSTANCE.getContext();
-
-		/**
-		 * The meta object literal for the '<em><b>Turtle</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CONTEXT__TURTLE = eINSTANCE.getContext_Turtle();
-
-		/**
-		 * The meta object literal for the '<em><b>Call Stack</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CONTEXT__CALL_STACK = eINSTANCE.getContext_CallStack();
-
-		/**
 		 * The meta object literal for the '{@link vmlogo.impl.TurtleImpl <em>Turtle</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -693,6 +609,14 @@ public interface VmlogoPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TURTLE__DRAWINGS = eINSTANCE.getTurtle_Drawings();
+
+		/**
+		 * The meta object literal for the '<em><b>Call Stack</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TURTLE__CALL_STACK = eINSTANCE.getTurtle_CallStack();
 
 		/**
 		 * The meta object literal for the '{@link vmlogo.impl.PointImpl <em>Point</em>}' class.

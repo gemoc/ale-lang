@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import vmlogo.CallStack;
 import vmlogo.Point;
 import vmlogo.Segment;
 import vmlogo.Turtle;
@@ -35,6 +36,7 @@ import vmlogo.VmlogoPackage;
  *   <li>{@link vmlogo.impl.TurtleImpl#getHeading <em>Heading</em>}</li>
  *   <li>{@link vmlogo.impl.TurtleImpl#isPenUp <em>Pen Up</em>}</li>
  *   <li>{@link vmlogo.impl.TurtleImpl#getDrawings <em>Drawings</em>}</li>
+ *   <li>{@link vmlogo.impl.TurtleImpl#getCallStack <em>Call Stack</em>}</li>
  * </ul>
  *
  * @generated
@@ -99,6 +101,16 @@ public class TurtleImpl extends MinimalEObjectImpl.Container implements Turtle {
 	 * @ordered
 	 */
 	protected EList<Segment> drawings;
+
+	/**
+	 * The cached value of the '{@link #getCallStack() <em>Call Stack</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCallStack()
+	 * @generated
+	 * @ordered
+	 */
+	protected CallStack callStack;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -221,6 +233,49 @@ public class TurtleImpl extends MinimalEObjectImpl.Container implements Turtle {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public CallStack getCallStack() {
+		return callStack;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetCallStack(CallStack newCallStack, NotificationChain msgs) {
+		CallStack oldCallStack = callStack;
+		callStack = newCallStack;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, VmlogoPackage.TURTLE__CALL_STACK, oldCallStack, newCallStack);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCallStack(CallStack newCallStack) {
+		if (newCallStack != callStack) {
+			NotificationChain msgs = null;
+			if (callStack != null)
+				msgs = ((InternalEObject)callStack).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - VmlogoPackage.TURTLE__CALL_STACK, null, msgs);
+			if (newCallStack != null)
+				msgs = ((InternalEObject)newCallStack).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - VmlogoPackage.TURTLE__CALL_STACK, null, msgs);
+			msgs = basicSetCallStack(newCallStack, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, VmlogoPackage.TURTLE__CALL_STACK, newCallStack, newCallStack));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -228,6 +283,8 @@ public class TurtleImpl extends MinimalEObjectImpl.Container implements Turtle {
 				return basicSetPosition(null, msgs);
 			case VmlogoPackage.TURTLE__DRAWINGS:
 				return ((InternalEList<?>)getDrawings()).basicRemove(otherEnd, msgs);
+			case VmlogoPackage.TURTLE__CALL_STACK:
+				return basicSetCallStack(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -248,6 +305,8 @@ public class TurtleImpl extends MinimalEObjectImpl.Container implements Turtle {
 				return isPenUp();
 			case VmlogoPackage.TURTLE__DRAWINGS:
 				return getDrawings();
+			case VmlogoPackage.TURTLE__CALL_STACK:
+				return getCallStack();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -274,6 +333,9 @@ public class TurtleImpl extends MinimalEObjectImpl.Container implements Turtle {
 				getDrawings().clear();
 				getDrawings().addAll((Collection<? extends Segment>)newValue);
 				return;
+			case VmlogoPackage.TURTLE__CALL_STACK:
+				setCallStack((CallStack)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -298,6 +360,9 @@ public class TurtleImpl extends MinimalEObjectImpl.Container implements Turtle {
 			case VmlogoPackage.TURTLE__DRAWINGS:
 				getDrawings().clear();
 				return;
+			case VmlogoPackage.TURTLE__CALL_STACK:
+				setCallStack((CallStack)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -318,6 +383,8 @@ public class TurtleImpl extends MinimalEObjectImpl.Container implements Turtle {
 				return penUp != PEN_UP_EDEFAULT;
 			case VmlogoPackage.TURTLE__DRAWINGS:
 				return drawings != null && !drawings.isEmpty();
+			case VmlogoPackage.TURTLE__CALL_STACK:
+				return callStack != null;
 		}
 		return super.eIsSet(featureID);
 	}

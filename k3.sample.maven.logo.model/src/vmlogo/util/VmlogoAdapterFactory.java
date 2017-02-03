@@ -68,10 +68,6 @@ public class VmlogoAdapterFactory extends AdapterFactoryImpl {
 	protected VmlogoSwitch<Adapter> modelSwitch =
 		new VmlogoSwitch<Adapter>() {
 			@Override
-			public Adapter caseContext(Context object) {
-				return createContextAdapter();
-			}
-			@Override
 			public Adapter caseTurtle(Turtle object) {
 				return createTurtleAdapter();
 			}
@@ -114,20 +110,6 @@ public class VmlogoAdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
-
-	/**
-	 * Creates a new adapter for an object of class '{@link vmlogo.Context <em>Context</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see vmlogo.Context
-	 * @generated
-	 */
-	public Adapter createContextAdapter() {
-		return null;
-	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link vmlogo.Turtle <em>Turtle</em>}'.

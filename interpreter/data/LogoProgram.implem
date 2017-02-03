@@ -2,145 +2,152 @@
 class LogoProgram {
 
 	@main
-	def eval(Context ctx) {
-		ctx.turtle.originalSize.log();
-		ctx.turtle.originalSize := 'Test dynamic feature assignment';
-		ctx.turtle.originalSize.log();
-		StackFrame map := ctx.callStack.frames->first().variables;
+	def eval() {
+		Turtle turtle :=  self.createTurtle();
+	
 		for(it in self.instructions){
-			it.eval(ctx);
+			it.eval(turtle);
 		}
-		result := 'Hello from ' + self.instructions->first() ;
-		ctx.turtle.forward(10.0);
+		result := turtle;
+	}
+	
+	def createTurtle() {
+		Turtle turtle := vmlogo::Turtle.create();
+		turtle.position := vmlogo::Point.create();
+		turtle.position.x := 0.0;
+		turtle.position.y := 0.0;
+		turtle.callStack := vmlogo::CallStack.create();
+		turtle.callStack.frames.add(vmlogo::StackFrame.create());
+		result := turtle;
 	}
 }
 
 
 class PenDown {
-	def eval(Context ctx) {
-		ctx.turtle.penUp := false;
-//		('Log from PenDown : ' + ctx.turtle.penUp).log() ;
+	def eval(Turtle turtle) {
+		turtle.penUp := false;
+//		('Log from PenDown : ' + turtle.penUp).log() ;
 	}
 }
 
 class PenUp {
-	def eval(Context ctx) {
-		ctx.turtle.penUp := true;
-//		('Log from PenUp : ' + ctx.turtle.penUp).log() ;
+	def eval(Turtle turtle) {
+		turtle.penUp := true;
+//		('Log from PenUp : ' + turtle.penUp).log() ;
 	}
 }
 
 class Repeat {
-	def eval(Context ctx) {
+	def eval(Turtle turtle) {
 //		'Log from Repeat'.log() ;
 		
-		int time := self.condition.eval(ctx);
+		int time := self.condition.eval(turtle);
 		while( time > 0.0 ){
-			self.block.eval(ctx);
+			self.block.eval(turtle);
 			time := time - 1.0;
 		}
 	}
 }
 
 class While {
-	def eval(Context ctx) {
-		while(self.condition.eval(ctx) > 0){
-			self.block.eval(ctx);
+	def eval(Turtle turtle) {
+		while(self.condition.eval(turtle) > 0){
+			self.block.eval(turtle);
 		}
 		result := 0;
 	}
 }
 
 class If {
-	def eval(Context ctx) {
-		if (self.condition.eval(ctx) != 0) {
-			result := self.thenPart.eval(ctx);
+	def eval(Turtle turtle) {
+		if (self.condition.eval(turtle) != 0) {
+			result := self.thenPart.eval(turtle);
 		}
 		else{
-			result := self.elsePart.eval(ctx);
+			result := self.elsePart.eval(turtle);
 		}
 	}
 }
 
 class Constant {
-	def eval(Context ctx) {
+	def eval(Turtle turtle) {
 		//('Log from Constant '+self.value).log();
 		result := self.value;
 	}
 }
 
 class Block {
-	def eval(Context ctx) {
+	def eval(Turtle turtle) {
 //		'Log from Block'.log();
 		for(inst in self.instructions){
-			inst.eval(ctx);
+			inst.eval(turtle);
 		}
 	}
 }
 
 class Clear {
-	def eval(Context ctx) {
+	def eval(CTurtle turtle) {
 	}
 }
 
 class Forward {
-	def eval(Context ctx) {
-		double move := self.steps.eval(ctx);
-		ctx.turtle.forward(move);
+	def eval(Turtle turtle) {
+		double move := self.steps.eval(turtle);
+		turtle.forward(move);
 //		('Log from Forward : ' + move).log();
 	}
 }
 
 class Back {
-	def eval(Context ctx) {
-		double move := self.steps.eval(ctx);
-		ctx.turtle.forward(-move);
+	def eval(Turtle turtle) {
+		double move := self.steps.eval(turtle);
+		turtle.forward(-move);
 //		('Log from Back : ' + move).log();
 	}
 }
 
 class Left {
-	def eval(Context ctx) {
-		double angle := self.angle.eval(ctx);
-		ctx.turtle.rotate(angle);
-//		('Log from Left : ' + ctx.turtle.heading).log();
+	def eval(Turtle turtle) {
+		double angle := self.angle.eval(turtle);
+		turtle.rotate(angle);
+//		('Log from Left : ' + turtle.heading).log();
 	}
 }
 
 class Right {
-	def eval(Context ctx) {
-		double angle := self.angle.eval(ctx);
-		ctx.turtle.rotate(-angle);
-//		('Log from Right : ' + ctx.turtle.heading).log();
+	def eval(Turtle turtle) {
+		double angle := self.angle.eval(turtle);
+		turtle.rotate(-angle);
+//		('Log from Right : ' + turtle.heading).log();
 	}
 }
 
 class Plus {
-	def eval(Context ctx) {
-		result := self.lhs.eval(ctx) + self.rhs.eval(ctx);
+	def eval(Turtle turtle) {
+		result := self.lhs.eval(turtle) + self.rhs.eval(turtle);
 	}
 }
 
 class Minus {
-	def eval(Context ctx) {
-		result := self.lhs.eval(ctx) - self.rhs.eval(ctx);
+	def eval(Turtle turtle) {
+		result := self.lhs.eval(turtle) - self.rhs.eval(turtle);
 		('Minus ' + result).log;
 	}
 }
 
 class Mult {
-	def eval(Context ctx) {
-//	self.lhs.eval(ctx).log();
-//	self.rhs.eval(ctx).log();
-		result := self.lhs.eval(ctx) * self.rhs.eval(ctx);
+	def eval(Turtle turtle) {
+//	self.lhs.eval(turtle).log();
+//	self.rhs.eval(turtle).log();
+		result := self.lhs.eval(turtle) * self.rhs.eval(turtle);
 	}
 }
 
 class Div {
-	def eval(Context ctx) {
+	def eval(Turtle turtle) {
 		('Div ' + self.lhs).log;
-		if(self.rhs.eval(ctx) != 0){
-			result := self.lhs.eval(ctx) / self.rhs.eval(ctx);
+		if(self.rhs.eval(turtle) != 0){
+			result := self.lhs.eval(turtle) / self.rhs.eval(turtle);
 		}
 		else{
 			result := 0;
@@ -149,8 +156,8 @@ class Div {
 }
 
 class Equals {
-	def eval(Context ctx) {
-		if(self.lhs.eval(ctx) = self.rhs.eval(ctx)){
+	def eval(Turtle turtle) {
+		if(self.lhs.eval(turtle) = self.rhs.eval(turtle)){
 			result := 1;
 		}
 		else{
@@ -160,8 +167,8 @@ class Equals {
 }
 
 class Lower {
-	def eval(Context ctx) {
-		if(self.lhs.eval(ctx) < self.rhs.eval(ctx)){
+	def eval(Turtle turtle) {
+		if(self.lhs.eval(turtle) < self.rhs.eval(turtle)){
 			result := 1;
 		}
 		else{
@@ -171,8 +178,8 @@ class Lower {
 }
 
 class Greater {
-	def eval(Context ctx) {
-		if(self.lhs.eval(ctx) > self.rhs.eval(ctx)){
+	def eval(Turtle turtle) {
+		if(self.lhs.eval(turtle) > self.rhs.eval(turtle)){
 			result := 1;
 		}
 		else{
@@ -182,53 +189,53 @@ class Greater {
 }
 
 class Cos {
-	def eval(Context ctx) {
-//		self.expression.eval(ctx).log();
-		result := self.expression.eval(ctx).cosinus();
+	def eval(Turtle turtle) {
+//		self.expression.eval(turtle).log();
+		result := self.expression.eval(turtle).cosinus();
 	}
 }
 
 class Sin {
-	def eval(Context ctx) {
+	def eval(Turtle turtle) {
 		result := self.expression.sinus();
 	}
 }
 
 class Tan {
-	def eval(Context ctx) {
+	def eval(Turtle turtle) {
 		result := self.expression.tan();
 	}
 }
 
 class ProcCall {
-	def eval(Context ctx) {
+	def eval(Turtle turtle) {
 		('Calling '+self.declaration.name).log();
-//(ctx.turtle.heading +' '+ctx.turtle.position.x+' '+ ctx.turtle.position.y).log();
+//(turtle.heading +' '+turtle.position.x+' '+ turtle.position.y).log();
 	
 		StackFrame newFrame := vmlogo::StackFrame.create();
 		int i := 1;
 		for (exp in self.actualArgs){
 			Variable newVar := vmlogo::Variable.create();
 			newVar.name := self.declaration.args->at(i).name;
-			newVar.value := exp.eval(ctx);
+			newVar.value := exp.eval(turtle);
 			newFrame.variables.add(newVar);
 			i := i+1;
 //			(newVar.value).log();
 		}
-		ctx.callStack.frames.add(newFrame);
+		turtle.callStack.frames.add(newFrame);
 		
 		result := 0;
 		for(instr in self.declaration.instructions){
-			result := instr.eval(ctx);
+			result := instr.eval(turtle);
 		}
 		
-		ctx.callStack.frames.remove(newFrame);
+		turtle.callStack.frames.remove(newFrame);
 	}
 }
 
 class ParameterCall {
-	def eval(Context ctx){
-		for(frame in ctx.callStack.frames){
+	def eval(Turtle turtle){
+		for(frame in turtle.callStack.frames){
 			for(var in frame.variables){
 				if(var.name = self.parameter.name){
 					result := var.value;
@@ -239,10 +246,6 @@ class ParameterCall {
 	}
 }
 //--------------Context----------------------
-
-class Context {
-	
-}
 
 class Turtle {
 

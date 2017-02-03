@@ -56,7 +56,6 @@ public class VmlogoFactoryImpl extends EFactoryImpl implements VmlogoFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case VmlogoPackage.CONTEXT: return createContext();
 			case VmlogoPackage.TURTLE: return createTurtle();
 			case VmlogoPackage.POINT: return createPoint();
 			case VmlogoPackage.SEGMENT: return createSegment();
@@ -66,16 +65,6 @@ public class VmlogoFactoryImpl extends EFactoryImpl implements VmlogoFactory {
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Context createContext() {
-		ContextImpl context = new ContextImpl();
-		return context;
 	}
 
 	/**
