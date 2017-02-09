@@ -1,0 +1,38 @@
+package lang.core.parser.visitor;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecore.EObject;
+
+public class ParseResult<T> {
+	private final Map<Object, Integer> startPositions = new HashMap<Object, Integer>();
+	private final Map<Object, Integer> endPositions = new HashMap<Object, Integer>();
+	private Diagnostic diagnostic;
+	private T root;
+	
+	public Map<Object, Integer> getStartPositions() {
+		return startPositions;
+	}
+	
+	public Map<Object, Integer> getEndPositions() {
+		return endPositions;
+	}
+	
+	public Diagnostic getDiagnostic() {
+		return diagnostic;
+	}
+	
+	public void setDiagnostic(Diagnostic diagnostic) {
+		this.diagnostic = diagnostic;
+	}
+	
+	public T getRoot() {
+		return root;
+	}
+	
+	public void setRoot(T root) {
+		this.root = root;
+	}
+}
