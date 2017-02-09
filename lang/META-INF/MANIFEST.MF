@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: lang
+Bundle-SymbolicName: lang
+Bundle-Version: 1.0.0.qualifier
+Export-Package: lang
+Require-Bundle: org.eclipse.acceleo.query,
+ org.eclipse.emf.common,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ lang.core,
+ logo.model

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<xtdAQL:Root xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xtdAQL="http://www.inria.fr/diverse/XtdAQL">
-  <classes name="NewEClass1">
-    <methods name="foobar" body="[' Foobar from : ' +self.name/]"/>
-  </classes>
-</xtdAQL:Root>
