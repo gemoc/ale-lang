@@ -62,16 +62,16 @@ public class ModelBuilder {
 		aqlFactory = (AstFactory) qryEnv.getEPackageProvider().getEPackage("ast").iterator().next().getEFactoryInstance();
 	}
 	
-	public Behaviored buildOperation(String containingClass, String name, List<Parameter> params, Block body, boolean isMain) {
+	public Behaviored buildOperation(String containingClass, String name, List<Parameter> params, Block body, List<String> tags) {
 		Optional<EOperation> existingOperation = resolve(containingClass, name, params.size());
 		
 		if(existingOperation.isPresent())
-			return buildImplementation(existingOperation.get(),params,body, isMain);
+			return buildImplementation(existingOperation.get(),params,body, tags);
 		else
-			return buildMethod(name,params,body, isMain);
+			return buildMethod(name,params,body, tags);
 	}
 	
-	public Method buildMethod(String name, List<Parameter> params, Block body, boolean isMain) {
+	public Method buildMethod(String name, List<Parameter> params, Block body, List<String> tags) {
 		EOperation operation = ecoreFactory.createEOperation();
 		operation.setName(name);
 		
@@ -85,17 +85,17 @@ public class ModelBuilder {
 		Method newMethod = factory.createMethod();
 		newMethod.setOperationDef(operation);
 		newMethod.setBody(body);
-		newMethod.setIsMain(isMain);
+		newMethod.getTags().addAll(tags);
 		
 		return newMethod;
 	}
 	
-	public Implementation buildImplementation(EOperation operationRef, List<Parameter> params, Block body, boolean isMain) {
+	public Implementation buildImplementation(EOperation operationRef, List<Parameter> params, Block body, List<String> tags) {
 		Implementation implem = factory.createImplementation();
 		
 		implem.setOperationRef(operationRef);
 		implem.setBody(body);
-		implem.setIsMain(isMain);
+		implem.getTags().addAll(tags);
 		
 		return implem;
 	}
