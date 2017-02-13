@@ -6,14 +6,17 @@ import implementation.Behaviored;
 import implementation.Block;
 import implementation.ImplementationPackage;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,7 +27,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link implementation.impl.BehavioredImpl#getBody <em>Body</em>}</li>
- *   <li>{@link implementation.impl.BehavioredImpl#isIsMain <em>Is Main</em>}</li>
+ *   <li>{@link implementation.impl.BehavioredImpl#getTags <em>Tags</em>}</li>
  * </ul>
  *
  * @generated
@@ -41,24 +44,14 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 	protected Block body;
 
 	/**
-	 * The default value of the '{@link #isIsMain() <em>Is Main</em>}' attribute.
+	 * The cached value of the '{@link #getTags() <em>Tags</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsMain()
+	 * @see #getTags()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_MAIN_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isIsMain() <em>Is Main</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isIsMain()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean isMain = IS_MAIN_EDEFAULT;
+	protected EList<String> tags;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -127,20 +120,11 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isIsMain() {
-		return isMain;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setIsMain(boolean newIsMain) {
-		boolean oldIsMain = isMain;
-		isMain = newIsMain;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.BEHAVIORED__IS_MAIN, oldIsMain, isMain));
+	public EList<String> getTags() {
+		if (tags == null) {
+			tags = new EDataTypeUniqueEList<String>(String.class, this, ImplementationPackage.BEHAVIORED__TAGS);
+		}
+		return tags;
 	}
 
 	/**
@@ -167,8 +151,8 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 		switch (featureID) {
 			case ImplementationPackage.BEHAVIORED__BODY:
 				return getBody();
-			case ImplementationPackage.BEHAVIORED__IS_MAIN:
-				return isIsMain();
+			case ImplementationPackage.BEHAVIORED__TAGS:
+				return getTags();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -178,14 +162,16 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ImplementationPackage.BEHAVIORED__BODY:
 				setBody((Block)newValue);
 				return;
-			case ImplementationPackage.BEHAVIORED__IS_MAIN:
-				setIsMain((Boolean)newValue);
+			case ImplementationPackage.BEHAVIORED__TAGS:
+				getTags().clear();
+				getTags().addAll((Collection<? extends String>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -202,8 +188,8 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 			case ImplementationPackage.BEHAVIORED__BODY:
 				setBody((Block)null);
 				return;
-			case ImplementationPackage.BEHAVIORED__IS_MAIN:
-				setIsMain(IS_MAIN_EDEFAULT);
+			case ImplementationPackage.BEHAVIORED__TAGS:
+				getTags().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -219,8 +205,8 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 		switch (featureID) {
 			case ImplementationPackage.BEHAVIORED__BODY:
 				return body != null;
-			case ImplementationPackage.BEHAVIORED__IS_MAIN:
-				return isMain != IS_MAIN_EDEFAULT;
+			case ImplementationPackage.BEHAVIORED__TAGS:
+				return tags != null && !tags.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -235,8 +221,8 @@ public class BehavioredImpl extends MinimalEObjectImpl.Container implements Beha
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isMain: ");
-		result.append(isMain);
+		result.append(" (tags: ");
+		result.append(tags);
 		result.append(')');
 		return result.toString();
 	}

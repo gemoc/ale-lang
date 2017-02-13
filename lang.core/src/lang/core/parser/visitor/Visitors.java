@@ -256,20 +256,23 @@ public class Visitors {
 		
 		@Override
 		public Behaviored visitROperation(ROperationContext ctx) {
-			String firstToken = ctx.getStart().getText();
-			
 			List<Parameter> parameters = new ArrayList<Parameter>();
 			if(ctx.rParameters() != null)
 				parameters = (new ParamVisitor(parseRes)).visit(ctx.rParameters());
 				
 			Block body = (new BlockVisitor(parseRes)).visit(ctx.rBlock());
 			
-			String operationName = ctx.getChild(1).getText();
+			String operationName = ctx.Ident().getText();
 			String className = ctx.parent.getChild(1).getText();
 			
-			boolean isMain = firstToken.equals("@main");
+			List<String> tags =
+				ctx
+				.rTag()
+				.stream()
+				.map(t -> t.Ident().getText())
+				.collect(Collectors.toList());
 			
-			Behaviored res = ModelBuilder.singleton.buildOperation(className, operationName, parameters, body, isMain);
+			Behaviored res = ModelBuilder.singleton.buildOperation(className, operationName, parameters, body, tags);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
 			return res;

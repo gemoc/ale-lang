@@ -168,13 +168,13 @@ public interface ImplementationPackage extends EPackage {
 	int BEHAVIORED__BODY = 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Main</b></em>' attribute.
+	 * The feature id for the '<em><b>Tags</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIORED__IS_MAIN = 1;
+	int BEHAVIORED__TAGS = 1;
 
 	/**
 	 * The number of structural features of the '<em>Behaviored</em>' class.
@@ -214,13 +214,13 @@ public interface ImplementationPackage extends EPackage {
 	int IMPLEMENTATION__BODY = BEHAVIORED__BODY;
 
 	/**
-	 * The feature id for the '<em><b>Is Main</b></em>' attribute.
+	 * The feature id for the '<em><b>Tags</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IMPLEMENTATION__IS_MAIN = BEHAVIORED__IS_MAIN;
+	int IMPLEMENTATION__TAGS = BEHAVIORED__TAGS;
 
 	/**
 	 * The feature id for the '<em><b>Operation Ref</b></em>' reference.
@@ -269,13 +269,13 @@ public interface ImplementationPackage extends EPackage {
 	int METHOD__BODY = BEHAVIORED__BODY;
 
 	/**
-	 * The feature id for the '<em><b>Is Main</b></em>' attribute.
+	 * The feature id for the '<em><b>Tags</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD__IS_MAIN = BEHAVIORED__IS_MAIN;
+	int METHOD__TAGS = BEHAVIORED__TAGS;
 
 	/**
 	 * The feature id for the '<em><b>Operation Def</b></em>' containment reference.
@@ -1025,15 +1025,15 @@ public interface ImplementationPackage extends EPackage {
 	EReference getBehaviored_Body();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.Behaviored#isIsMain <em>Is Main</em>}'.
+	 * Returns the meta object for the attribute list '{@link implementation.Behaviored#getTags <em>Tags</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Main</em>'.
-	 * @see implementation.Behaviored#isIsMain()
+	 * @return the meta object for the attribute list '<em>Tags</em>'.
+	 * @see implementation.Behaviored#getTags()
 	 * @see #getBehaviored()
 	 * @generated
 	 */
-	EAttribute getBehaviored_IsMain();
+	EAttribute getBehaviored_Tags();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.Implementation <em>Implementation</em>}'.
@@ -1631,12 +1631,12 @@ public interface ImplementationPackage extends EPackage {
 		EReference BEHAVIORED__BODY = eINSTANCE.getBehaviored_Body();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Main</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Tags</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute BEHAVIORED__IS_MAIN = eINSTANCE.getBehaviored_IsMain();
+		EAttribute BEHAVIORED__TAGS = eINSTANCE.getBehaviored_Tags();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.ImplementationImpl <em>Implementation</em>}' class.

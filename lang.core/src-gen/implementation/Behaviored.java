@@ -2,6 +2,7 @@
  */
 package implementation;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -14,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link implementation.Behaviored#getBody <em>Body</em>}</li>
- *   <li>{@link implementation.Behaviored#isIsMain <em>Is Main</em>}</li>
+ *   <li>{@link implementation.Behaviored#getTags <em>Tags</em>}</li>
  * </ul>
  *
  * @see implementation.ImplementationPackage#getBehaviored()
@@ -49,30 +50,19 @@ public interface Behaviored extends EObject {
 	void setBody(Block value);
 
 	/**
-	 * Returns the value of the '<em><b>Is Main</b></em>' attribute.
-	 * The default value is <code>"false"</code>.
+	 * Returns the value of the '<em><b>Tags</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Is Main</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Tags</em>' attribute list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Is Main</em>' attribute.
-	 * @see #setIsMain(boolean)
-	 * @see implementation.ImplementationPackage#getBehaviored_IsMain()
-	 * @model default="false" required="true"
+	 * @return the value of the '<em>Tags</em>' attribute list.
+	 * @see implementation.ImplementationPackage#getBehaviored_Tags()
+	 * @model
 	 * @generated
 	 */
-	boolean isIsMain();
-
-	/**
-	 * Sets the value of the '{@link implementation.Behaviored#isIsMain <em>Is Main</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Main</em>' attribute.
-	 * @see #isIsMain()
-	 * @generated
-	 */
-	void setIsMain(boolean value);
+	EList<String> getTags();
 
 } // Behaviored

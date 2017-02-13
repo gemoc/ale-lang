@@ -130,7 +130,7 @@ public class LangInterpreter {
 		Optional<Behaviored> mainOp = 
 				implem.getClassExtensions().stream()
 				.flatMap(cls -> cls.getMethods().stream())
-				.filter(op -> op.isIsMain())
+				.filter(op -> op.getTags().contains("main"))
 				.findFirst();
 		
 		return mainOp.get();
