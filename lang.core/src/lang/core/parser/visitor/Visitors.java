@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 
@@ -256,6 +258,15 @@ public class Visitors {
 		
 		@Override
 		public Behaviored visitROperation(ROperationContext ctx) {
+			String keyword = 
+				ctx
+				.children
+				.stream()
+				.filter(c -> c instanceof TerminalNode)
+				.findFirst()
+				.get()
+				.getText();
+			
 			List<Parameter> parameters = new ArrayList<Parameter>();
 			if(ctx.rParameters() != null)
 				parameters = (new ParamVisitor(parseRes)).visit(ctx.rParameters());
@@ -272,7 +283,18 @@ public class Visitors {
 				.map(t -> t.Ident().getText())
 				.collect(Collectors.toList());
 			
-			Behaviored res = ModelBuilder.singleton.buildOperation(className, operationName, parameters, body, tags);
+			Behaviored res = null;
+			if(keyword == "def") {
+				res = ModelBuilder.singleton.buildMethod(operationName, parameters, body, tags);
+			}
+			else if(keyword == "override") {
+				res = ModelBuilder.singleton.buildImplementation(className, operationName, parameters, body, tags);
+			}
+			else {
+				//TODO: error: should not happen
+				res = ModelBuilder.singleton.buildMethod(operationName, parameters, body, tags);
+			}
+			
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
 			return res;
