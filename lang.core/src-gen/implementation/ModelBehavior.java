@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link implementation.ModelBehavior#getClassExtensions <em>Class Extensions</em>}</li>
+ *   <li>{@link implementation.ModelBehavior#getServices <em>Services</em>}</li>
  * </ul>
  *
  * @see implementation.ImplementationPackage#getModelBehavior()
@@ -38,5 +39,21 @@ public interface ModelBehavior extends EObject {
 	 * @generated
 	 */
 	EList<ExtendedClass> getClassExtensions();
+
+	/**
+	 * Returns the value of the '<em><b>Services</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Services</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Services</em>' attribute list.
+	 * @see implementation.ImplementationPackage#getModelBehavior_Services()
+	 * @model
+	 * @generated
+	 */
+	EList<String> getServices();
 
 } // ModelBehavior

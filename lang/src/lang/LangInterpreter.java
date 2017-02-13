@@ -88,6 +88,14 @@ public class LangInterpreter {
     
     public IEvaluationResult eval(EObject caller, List<Object> args, String implementation) {
     	ParseResult<ModelBehavior> parseResult = (new AstBuilder(queryEnvironment)).parse(implementation);
+    	
+    	parseResult
+    		.getRoot()
+    		.getServices()
+    		.stream()
+    		.forEach(srv -> javaExtensions.addImport(srv));
+    	javaExtensions.reloadIfNeeded();
+    	
     	Behaviored mainOp = getMainOp(parseResult.getRoot());
 		EvaluationResult evalResult = eval(caller,mainOp,args);
 		
