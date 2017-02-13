@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
+import org.eclipse.emf.common.util.BasicDiagnostic;
 
 import lang.core.parser.XtdAQLBaseVisitor;
 import lang.core.parser.XtdAQLParser.RAssignContext;
@@ -403,6 +404,7 @@ public class Visitors {
 	
 	public static ParseResult<ModelBehavior> visit(RRootContext rootCtx) {
 		ParseResult<ModelBehavior> result = new ParseResult<ModelBehavior>();
+		result.setDiagnostic(new BasicDiagnostic());
 		ModelBehavior root = (new ModelBehaviorVisitor(result)).visit(rootCtx);
 		result.setRoot(root);
 		return result;
