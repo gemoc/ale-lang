@@ -13,6 +13,7 @@ import java.util.Set;
 
 import org.eclipse.acceleo.query.ast.AstPackage;
 import org.eclipse.acceleo.query.ast.Expression;
+import org.eclipse.acceleo.query.runtime.ServiceUtils;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
@@ -32,8 +33,6 @@ import lang.LangInterpreter;
 import lang.core.interpreter.DiagnosticLogger;
 import lang.core.interpreter.ImplementationEvaluator;
 import lang.core.parser.visitor.ParseResult;
-import logo.example.service.Display;
-import vmlogo.Turtle;
 import vmlogo.VmlogoPackage;
 
 public class Main {
@@ -54,12 +53,19 @@ public class Main {
 		mm.stream().forEach(pkg -> interpreter.getQueryEnvironment().registerEPackage(pkg));
 		interpreter.getQueryEnvironment().registerEPackage(ImplementationPackage.eINSTANCE);
 		interpreter.getQueryEnvironment().registerEPackage(AstPackage.eINSTANCE);
+		try {
+			ServiceUtils.registerServices(
+					interpreter.getQueryEnvironment(),
+					ServiceUtils.getServices(interpreter.getQueryEnvironment(),	Class.forName("logo.example.service.Display"))
+					);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		/*
 		 * Eval
 		 */
 		IEvaluationResult result = interpreter.eval(model, new ArrayList(), implementation);
-		Display.show((Turtle) result.getValue());
 	}
 	
 	public static Behaviored getMainOp(ModelBehavior implem) {

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
 import org.eclipse.emf.common.util.BasicDiagnostic;
@@ -28,6 +27,7 @@ import lang.core.parser.XtdAQLParser.RIfContext;
 import lang.core.parser.XtdAQLParser.ROperationContext;
 import lang.core.parser.XtdAQLParser.RParametersContext;
 import lang.core.parser.XtdAQLParser.RRootContext;
+import lang.core.parser.XtdAQLParser.RServiceContext;
 import lang.core.parser.XtdAQLParser.RVariableContext;
 import lang.core.parser.XtdAQLParser.RWhileContext;
 import implementation.ExtendedClass;
@@ -400,6 +400,17 @@ public class Visitors {
 			return res;
 		}
 	}
+	
+	static class ServiceVisitor extends XtdAQLBaseVisitor<String> {
+		@Override
+		public String visitRService(RServiceContext ctx) {
+			String rawText = ctx.getText();
+			rawText = rawText.replaceFirst("use", "");
+			rawText = rawText.replaceFirst(";", "");
+			rawText.replaceAll("\\t\\r\\n", "");
+			return rawText;
+		}
+	}
 
 	static class ModelBehaviorVisitor extends XtdAQLBaseVisitor<ModelBehavior> {
 		
@@ -419,6 +430,14 @@ public class Visitors {
 					.rClass()
 					.stream()
 					.map(cls -> subVisitor.visit(cls))
+					.collect(Collectors.toList())
+					);
+			ServiceVisitor serviceVisitor = new ServiceVisitor();
+			res.getServices().addAll(
+					ctx
+					.rService()
+					.stream()
+					.map(srv -> serviceVisitor.visit(srv))
 					.collect(Collectors.toList())
 					);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());

@@ -16,10 +16,13 @@ LINECOMMENT : '//' ~[\r\n]* -> skip; //Line comment
  * Structure
  */
 
-rRoot : rImports rClass*
+rRoot : rImport* rService* rClass*
 ;
 
-rImports : ('import' STRING)*
+rImport : 'import' Ident ('.' Ident)* ';'
+;
+
+rService : 'use' Ident ('.' Ident)* ';'
 ;
 
 rClass : 'class' Ident '{' rAttribute* rOperation* '}'
