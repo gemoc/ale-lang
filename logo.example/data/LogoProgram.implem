@@ -3,18 +3,19 @@ class LogoProgram {
 
 	@main
 	def eval() {
-		for(i in [0..5]){
+		/*for(i in [0..5]){
 		 i.log();
 		}
 		for(i in [10..5]){
 		 i.log();
-		}
+		}*/
 		Turtle turtle :=  self.createTurtle();
 	
 		for(it in self.instructions){
 			it.eval(turtle);
 		}
 		result := turtle;
+		turtle.show();
 	}
 	
 	def createTurtle() {

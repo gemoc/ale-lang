@@ -1,4 +1,4 @@
-package lang;
+package logo.standalone;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,9 +11,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import org.eclipse.acceleo.query.ast.AstPackage;
 import org.eclipse.acceleo.query.ast.Expression;
-import org.eclipse.acceleo.query.runtime.EvaluationResult;
-import org.eclipse.acceleo.query.runtime.Query;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
@@ -22,41 +21,45 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 
-import drawing.Window;
 import implementation.Behaviored;
+import implementation.ImplementationPackage;
 import implementation.ModelBehavior;
-import lang.core.interpreter.DiagnosticLogger;
-import lang.core.interpreter.EvalEnvironment;
-import lang.core.interpreter.ImplementationEngine;
-import lang.core.interpreter.ImplementationEvaluator;
 import kmLogo.ASM.ASMPackage;
 import kmLogo.ASM.LogoProgram;
-import lang.core.parser.AstBuilder;
+import lang.LangInterpreter;
+import lang.core.interpreter.DiagnosticLogger;
+import lang.core.interpreter.ImplementationEvaluator;
 import lang.core.parser.visitor.ParseResult;
+import logo.example.service.Display;
 import vmlogo.Turtle;
 import vmlogo.VmlogoPackage;
 
 public class Main {
+	
 	public static void main(String[] args) {
-		
+		/*
+		 * Load resources
+		 */
 		Set<EPackage> mm = loadMetamodel();
-		ParseResult<ModelBehavior> parseResult = loadImplem(mm);
-		ModelBehavior implem = parseResult.getRoot();
-		
 		ResourceSetImpl rs = new ResourceSetImpl();
-		LogoProgram model = (LogoProgram) loadModel("data/LogoProgram.xmi",rs).getContents().get(0);
+		LogoProgram model = (LogoProgram) loadModel("../logo.example/data/LogoProgram.xmi",rs).getContents().get(0);
+		String implementation = getFileContent("../logo.example/data/LogoProgram.implem");
 		
-		DiagnosticLogger logger = new DiagnosticLogger();
-		EvalEnvironment env = new EvalEnvironment(Query.newEnvironmentWithDefaultServices(null), mm, implem, logger);
-		ImplementationEngine engine = new ImplementationEngine(env);
-		EvaluationResult result = engine.eval(model, getMainOp(implem), new ArrayList());
+		/*
+		 * Init eval environment
+		 */
+		LangInterpreter interpreter = new LangInterpreter();
+		mm.stream().forEach(pkg -> interpreter.getQueryEnvironment().registerEPackage(pkg));
+		interpreter.getQueryEnvironment().registerEPackage(ImplementationPackage.eINSTANCE);
+		interpreter.getQueryEnvironment().registerEPackage(AstPackage.eINSTANCE);
 		
-//		System.out.println(result.getDiagnostic());
-		logger.notify(result.getDiagnostic());
-		diagnosticForHuman(logger,"data/LogoProgram.implem",parseResult);
-		
-		new Window((Turtle) result.getResult());
+		/*
+		 * Eval
+		 */
+		IEvaluationResult result = interpreter.eval(model, new ArrayList(), implementation);
+		Display.show((Turtle) result.getValue());
 	}
 	
 	public static Behaviored getMainOp(ModelBehavior implem) {
@@ -76,18 +79,14 @@ public class Main {
 		return metamodel;
 	}
 	
-	public static ParseResult<ModelBehavior> loadImplem(Set<EPackage> metamodel){
-		String implementionPath = "data/LogoProgram.implem";
+	public static String getFileContent(String implementionPath){
 		String fileContent = "";
 		try {
 			fileContent = new String(Files.readAllBytes(Paths.get(implementionPath)));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		ParseResult<ModelBehavior> parseRes = (new AstBuilder(metamodel)).parse(fileContent);
-//		int offset = parseRes.getStartPositions().get(parseRes.getRoot().getClassExtensions().get(5).getMethods().get(0).getBody().getStatements().get(0));
-//		int line = getLine(offset,implementionPath);
-		return parseRes;
+		return fileContent;
 	}
 	
 	public static Resource loadModel(String path,ResourceSet rs) {

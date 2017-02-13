@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Standalone
+Bundle-SymbolicName: logo.standalone
+Bundle-Version: 1.0.0.qualifier
+Export-Package: logo.standalone
+Require-Bundle: org.eclipse.acceleo.query,
+ org.eclipse.emf.common,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ lang.core,
+ lang,
+ logo.example,
+ logo.model,
+ org.eclipse.sirius.common
