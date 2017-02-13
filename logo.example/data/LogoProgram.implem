@@ -1,8 +1,9 @@
+use logo.example.service.Display;
 
 class LogoProgram {
 
 	@main
-	def eval() {
+	def Turtle eval() {
 		/*for(i in [0..5]){
 		 i.log();
 		}
@@ -18,7 +19,7 @@ class LogoProgram {
 		turtle.show();
 	}
 	
-	def createTurtle() {
+	def Turtle createTurtle() {
 		Turtle turtle := vmlogo::Turtle.create();
 		turtle.position := vmlogo::Point.create();
 		turtle.position.x := 0.0;
@@ -31,21 +32,21 @@ class LogoProgram {
 
 
 class PenDown {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		turtle.penUp := false;
 //		('Log from PenDown : ' + turtle.penUp).log() ;
 	}
 }
 
 class PenUp {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		turtle.penUp := true;
 //		('Log from PenUp : ' + turtle.penUp).log() ;
 	}
 }
 
 class Repeat {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 //		'Log from Repeat'.log() ;
 		
 		int time := self.condition.eval(turtle);
@@ -57,7 +58,7 @@ class Repeat {
 }
 
 class While {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		while(self.condition.eval(turtle) > 0){
 			self.block.eval(turtle);
 		}
@@ -66,7 +67,7 @@ class While {
 }
 
 class If {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		if (self.condition.eval(turtle) != 0) {
 			result := self.thenPart.eval(turtle);
 		}
@@ -77,14 +78,14 @@ class If {
 }
 
 class Constant {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		//('Log from Constant '+self.value).log();
 		result := self.value;
 	}
 }
 
 class Block {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 //		'Log from Block'.log();
 		for(inst in self.instructions){
 			inst.eval(turtle);
@@ -93,12 +94,12 @@ class Block {
 }
 
 class Clear {
-	def eval(CTurtle turtle) {
+	def double eval(CTurtle turtle) {
 	}
 }
 
 class Forward {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		double move := self.steps.eval(turtle);
 		turtle.forward(move);
 //		('Log from Forward : ' + move).log();
@@ -106,7 +107,7 @@ class Forward {
 }
 
 class Back {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		double move := self.steps.eval(turtle);
 		turtle.forward(-move);
 //		('Log from Back : ' + move).log();
@@ -114,7 +115,7 @@ class Back {
 }
 
 class Left {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		double angle := self.angle.eval(turtle);
 		turtle.rotate(angle);
 //		('Log from Left : ' + turtle.heading).log();
@@ -122,7 +123,7 @@ class Left {
 }
 
 class Right {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		double angle := self.angle.eval(turtle);
 		turtle.rotate(-angle);
 //		('Log from Right : ' + turtle.heading).log();
@@ -130,20 +131,20 @@ class Right {
 }
 
 class Plus {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		result := self.lhs.eval(turtle) + self.rhs.eval(turtle);
 	}
 }
 
 class Minus {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		result := self.lhs.eval(turtle) - self.rhs.eval(turtle);
 		('Minus ' + result).log;
 	}
 }
 
 class Mult {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 //	self.lhs.eval(turtle).log();
 //	self.rhs.eval(turtle).log();
 		result := self.lhs.eval(turtle) * self.rhs.eval(turtle);
@@ -151,7 +152,7 @@ class Mult {
 }
 
 class Div {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		('Div ' + self.lhs).log;
 		if(self.rhs.eval(turtle) != 0){
 			result := self.lhs.eval(turtle) / self.rhs.eval(turtle);
@@ -163,7 +164,7 @@ class Div {
 }
 
 class Equals {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		if(self.lhs.eval(turtle) = self.rhs.eval(turtle)){
 			result := 1;
 		}
@@ -174,7 +175,7 @@ class Equals {
 }
 
 class Lower {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		if(self.lhs.eval(turtle) < self.rhs.eval(turtle)){
 			result := 1;
 		}
@@ -185,7 +186,7 @@ class Lower {
 }
 
 class Greater {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		if(self.lhs.eval(turtle) > self.rhs.eval(turtle)){
 			result := 1;
 		}
@@ -196,26 +197,26 @@ class Greater {
 }
 
 class Cos {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 //		self.expression.eval(turtle).log();
 		result := self.expression.eval(turtle).cosinus();
 	}
 }
 
 class Sin {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		result := self.expression.sinus();
 	}
 }
 
 class Tan {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		result := self.expression.tan();
 	}
 }
 
 class ProcCall {
-	def eval(Turtle turtle) {
+	def double eval(Turtle turtle) {
 		('Calling '+self.declaration.name).log();
 //(turtle.heading +' '+turtle.position.x+' '+ turtle.position.y).log();
 	
@@ -241,7 +242,7 @@ class ProcCall {
 }
 
 class ParameterCall {
-	def eval(Turtle turtle){
+	def double eval(Turtle turtle){
 		for(frame in turtle.callStack.frames){
 			for(var in frame.variables){
 				if(var.name = self.parameter.name){
@@ -259,7 +260,7 @@ class Turtle {
 	int originalSize := 0.0;
 	int anotherAttrib := 0.0;
 	
-	def move(double dx, double dy) {
+	def void move(double dx, double dy) {
 //		'debug move'.log();
 		Point newPos := vmlogo::Point.create();
 		newPos.x := self.position.x + dx;
@@ -280,11 +281,11 @@ class Turtle {
 		self.position := newPosCopy;
 	}
 	
-	def forward(double steps) {
+	def void forward(double steps) {
 		self.move(steps*(self.heading.cosinus()), steps*(self.heading.sinus()));
 	}
 	
-	def rotate(double angle) {
+	def void rotate(double angle) {
 		double newAngle := self.heading + angle;
 		if(newAngle > 360.0){
 				newAngle := newAngle - 360.0;
