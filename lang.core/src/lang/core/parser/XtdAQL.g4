@@ -25,7 +25,7 @@ rImports : ('import' STRING)*
 rClass : 'class' Ident '{' rAttribute* rOperation* '}'
 ; 
 
-rOperation : (rTag)* 'def' Ident '(' rParameters? ')' rBlock
+rOperation : (rTag)* ('def' | 'override') Ident '(' rParameters? ')' rBlock
 ;
 
 rTag : '@'Ident
