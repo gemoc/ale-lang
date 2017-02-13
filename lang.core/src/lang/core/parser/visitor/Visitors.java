@@ -273,7 +273,8 @@ public class Visitors {
 				
 			Block body = (new BlockVisitor(parseRes)).visit(ctx.rBlock());
 			
-			String operationName = ctx.Ident().getText();
+			String returnType = ctx.Ident().get(0).getText();
+			String operationName = ctx.Ident().get(1).getText();
 			String className = ctx.parent.getChild(1).getText();
 			
 			List<String> tags =
@@ -285,14 +286,14 @@ public class Visitors {
 			
 			Behaviored res = null;
 			if(keyword == "def") {
-				res = ModelBuilder.singleton.buildMethod(operationName, parameters, body, tags);
+				res = ModelBuilder.singleton.buildMethod(operationName, parameters, returnType, body, tags);
 			}
 			else if(keyword == "override") {
-				res = ModelBuilder.singleton.buildImplementation(className, operationName, parameters, body, tags);
+				res = ModelBuilder.singleton.buildImplementation(className, operationName, parameters, returnType, body, tags);
 			}
 			else {
 				//TODO: error: should not happen
-				res = ModelBuilder.singleton.buildMethod(operationName, parameters, body, tags);
+				res = ModelBuilder.singleton.buildMethod(operationName, parameters, returnType, body, tags);
 			}
 			
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());

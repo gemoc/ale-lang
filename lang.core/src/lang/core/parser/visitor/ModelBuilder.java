@@ -62,7 +62,7 @@ public class ModelBuilder {
 		aqlFactory = (AstFactory) qryEnv.getEPackageProvider().getEPackage("ast").iterator().next().getEFactoryInstance();
 	}
 	
-	public Method buildMethod(String name, List<Parameter> params, Block body, List<String> tags) {
+	public Method buildMethod(String name, List<Parameter> params, String returnType, Block body, List<String> tags) {
 		EOperation operation = ecoreFactory.createEOperation();
 		operation.setName(name);
 		
@@ -73,6 +73,9 @@ public class ModelBuilder {
 			operation.getEParameters().add(opParam);
 		});
 		
+		EClassifier type = resolve(returnType);
+		operation.setEType(type);
+		
 		Method newMethod = factory.createMethod();
 		newMethod.setOperationDef(operation);
 		newMethod.setBody(body);
@@ -81,8 +84,8 @@ public class ModelBuilder {
 		return newMethod;
 	}
 	
-	public Implementation buildImplementation(String containingClass, String name, List<Parameter> params, Block body, List<String> tags) {
-		Optional<EOperation> existingOperation = resolve(containingClass, name, params.size());
+	public Implementation buildImplementation(String containingClass, String name, List<Parameter> params, String returnType, Block body, List<String> tags) {
+		Optional<EOperation> existingOperation = resolve(containingClass, name, params.size(), returnType);
 		
 		if(!existingOperation.isPresent()){
 			//TODO: error
@@ -234,7 +237,8 @@ public class ModelBuilder {
 	}
 	
 	//Can return null
-	public Optional<EOperation> resolve(String className, String methodName, int nbArgs) {
+	public Optional<EOperation> resolve(String className, String methodName, int nbArgs, String returnType) {
+		EClassifier type = resolve(returnType);
 		//TODO: manage qualified name		
 		Optional<EOperation> eOperation = 
 			qryEnv
@@ -244,7 +248,7 @@ public class ModelBuilder {
 			.filter(cls -> cls instanceof EClass)
 			.filter(cls -> cls.getName().equals(className))
 			.flatMap(cls -> ((EClass)cls).getEOperations().stream())
-			.filter(op -> op.getName().equals(methodName) && op.getEParameters().size() == nbArgs)
+			.filter(op -> op.getName().equals(methodName) && op.getEParameters().size() == nbArgs && op.getEType() == type)
 			.findFirst();
 		
 		return eOperation;
@@ -274,6 +278,7 @@ public class ModelBuilder {
 			case "long" 	: return EcorePackage.eINSTANCE.getELong();
 			case "float" 	: return EcorePackage.eINSTANCE.getEFloat();
 			case "double" 	: return EcorePackage.eINSTANCE.getEDouble();
+			case "void"		: return null;
 			default			: return EcorePackage.eINSTANCE.getEClassifier();
 		}
 	}

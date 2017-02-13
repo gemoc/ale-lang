@@ -28,7 +28,7 @@ rService : 'use' Ident ('.' Ident)* ';'
 rClass : 'class' Ident '{' rAttribute* rOperation* '}'
 ; 
 
-rOperation : (rTag)* ('def' | 'override') Ident '(' rParameters? ')' rBlock
+rOperation : (rTag)* ('def' | 'override') Ident Ident '(' rParameters? ')' rBlock
 ;
 
 rTag : '@'Ident
