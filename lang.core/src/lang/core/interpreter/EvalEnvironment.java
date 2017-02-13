@@ -27,13 +27,10 @@ public class EvalEnvironment {
 	DynamicFeatureRegistry dynamicFeatures;
 	DiagnosticLogger logger;
 	
-	public EvalEnvironment (IQueryEnvironment qryEnv, Set<EPackage> metamodel, ModelBehavior implem, DiagnosticLogger logger) {
+	public EvalEnvironment (IQueryEnvironment qryEnv, ModelBehavior implem, DiagnosticLogger logger) {
 		this.qryEnv = qryEnv;
 		this.logger = logger;
 		createDefaultServices();
-		metamodel
-			.stream()
-			.forEach(pkg -> registerEPackage(pkg));
 		registerImplem(implem);
 	}
 	
@@ -54,12 +51,6 @@ public class EvalEnvironment {
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public void registerEPackage(EPackage pkg){
-		qryEnv.registerEPackage(pkg);
-		if (!EPackage.Registry.INSTANCE.containsKey(pkg.getNsURI()));
-			EPackage.Registry.INSTANCE.put(pkg.getNsURI(), pkg);
 	}
 	
 	/**

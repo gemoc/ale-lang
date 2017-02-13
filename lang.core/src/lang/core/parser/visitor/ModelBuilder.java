@@ -46,15 +46,20 @@ public class ModelBuilder {
 		return singleton;
 	}
 	
-	EcoreFactory ecoreFactory = (EcoreFactory) EcorePackage.eINSTANCE.getEFactoryInstance();
-	ImplementationFactory factory = (ImplementationFactory) ImplementationPackage.eINSTANCE.getEFactoryInstance();
-	AstFactory aqlFactory = (AstFactory) AstPackage.eINSTANCE.getEFactoryInstance();
 	IQueryEnvironment qryEnv;
 	QueryBuilderEngine builder;
+	
+	ImplementationFactory factory;
+	EcoreFactory ecoreFactory;
+	AstFactory aqlFactory;
 	
 	public ModelBuilder (IQueryEnvironment qryEnv){
 		this.qryEnv = qryEnv;
 		builder = new QueryBuilderEngine(qryEnv);
+		
+		ecoreFactory = (EcoreFactory) qryEnv.getEPackageProvider().getEPackage("ecore").iterator().next().getEFactoryInstance();
+		factory = (ImplementationFactory) qryEnv.getEPackageProvider().getEPackage("implementation").iterator().next().getEFactoryInstance();
+		aqlFactory = (AstFactory) qryEnv.getEPackageProvider().getEPackage("ast").iterator().next().getEFactoryInstance();
 	}
 	
 	public Behaviored buildOperation(String containingClass, String name, List<Parameter> params, Block body, boolean isMain) {
@@ -255,6 +260,7 @@ public class ModelBuilder {
 			.getEPackageProvider()
 			.getEClassifiers()
 			.stream()
+			.filter(cls -> !cls.getEPackage().getName().equals("implementation"))
 			.filter(cls -> cls instanceof EClass)
 			.filter(cls -> cls.getName().equals(className))
 			.findFirst();
