@@ -9,4 +9,5 @@ Require-Bundle: org.eclipse.acceleo.query,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  lang.core,
- logo.model
+ org.eclipse.sirius.common,
+ org.eclipse.core.resources
