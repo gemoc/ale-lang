@@ -202,7 +202,9 @@ public class ModelBuilder {
 	
 	public ExtendedClass buildExtendedClass(String baseCls, List<VariableDeclaration> vars, List<Behaviored> operations) {
 		ExtendedClass cls = factory.createExtendedClass();
-		cls.setBaseClass((EClass) resolve(baseCls));
+		EClassifier resolvedType = resolve(baseCls);
+		if(resolvedType instanceof EClass)
+			cls.setBaseClass((EClass)resolvedType);
 		cls.getMethods().addAll(operations);
 		cls.getAttributes().addAll(vars);
 		return cls;
@@ -264,7 +266,6 @@ public class ModelBuilder {
 			.getEClassifiers()
 			.stream()
 			.filter(cls -> !cls.getEPackage().getName().equals("implementation"))
-			.filter(cls -> cls instanceof EClass)
 			.filter(cls -> cls.getName().equals(className))
 			.findFirst();
 		
