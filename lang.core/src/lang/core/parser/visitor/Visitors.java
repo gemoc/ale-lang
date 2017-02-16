@@ -289,10 +289,10 @@ public class Visitors {
 				.collect(Collectors.toList());
 			
 			Behaviored res = null;
-			if(keyword == "def") {
+			if(keyword.equals("def")) {
 				res = ModelBuilder.singleton.buildMethod(operationName, parameters, returnType, body, tags);
 			}
-			else if(keyword == "override") {
+			else if(keyword.equals("override")) {
 				res = ModelBuilder.singleton.buildImplementation(className, operationName, parameters, returnType, body, tags);
 			}
 			else {
