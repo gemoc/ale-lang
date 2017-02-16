@@ -1,0 +1,23 @@
+class EPackage {
+	
+	@main
+	def void entryPoint(int arg) {
+		EPackage me := self;
+		
+		/*
+		 * Comments
+		 */
+		for(i in self.eClassifiers()){
+			EObject o := ecore::EObject.create();
+		}
+		
+		//Comments
+		for(j in [1..4]){
+			j.log();
+		}
+		
+		for(k in [2..0]){
+			//Nothing
+		}
+	}
+}
