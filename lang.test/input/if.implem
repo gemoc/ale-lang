@@ -1,0 +1,19 @@
+class EPackage {
+	
+	@main
+	def void entryPoint(int arg) {
+		EPackage me := self;
+		
+		int i := 0;
+		if(me = self){
+			i := 1; 
+		}
+		
+		if(false){
+			i:= 2;
+		}
+		else {
+			i := 3;
+		}
+	}
+}

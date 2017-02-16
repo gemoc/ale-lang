@@ -1,0 +1,10 @@
+class EPackage {
+	
+	@main
+	def void entryPoint(int arg) {
+		int i := 0;
+		while(i < 2){
+			i := 1 + i;
+		}
+	}
+}

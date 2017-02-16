@@ -1,0 +1,6 @@
+class EObject {
+	override EClass eClass() {
+		self.log();
+		result := ecore::EModelElement;
+	}
+}
