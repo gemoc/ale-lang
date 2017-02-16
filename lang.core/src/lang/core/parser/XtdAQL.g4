@@ -55,7 +55,7 @@ rStatement : rVarDecl
 		| rExpression
 ;
 
-rVarDecl : Ident Ident (':=' expression) ';'
+rVarDecl : Ident Ident (':=' expression)? ';'
 ;
 
 rAssign : expression ':=' expression ';'
