@@ -124,10 +124,10 @@ public class ImplementationSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ImplementationPackage.VARIABLE_ASSIGNEMENT: {
-				VariableAssignement variableAssignement = (VariableAssignement)theEObject;
-				T result = caseVariableAssignement(variableAssignement);
-				if (result == null) result = caseStatement(variableAssignement);
+			case ImplementationPackage.VARIABLE_ASSIGNMENT: {
+				VariableAssignment variableAssignment = (VariableAssignment)theEObject;
+				T result = caseVariableAssignment(variableAssignment);
+				if (result == null) result = caseStatement(variableAssignment);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -327,17 +327,17 @@ public class ImplementationSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Variable Assignement</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Variable Assignment</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Variable Assignement</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Variable Assignment</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseVariableAssignement(VariableAssignement object) {
+	public T caseVariableAssignment(VariableAssignment object) {
 		return null;
 	}
 

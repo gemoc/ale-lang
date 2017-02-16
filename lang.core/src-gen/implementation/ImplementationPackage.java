@@ -480,14 +480,14 @@ public interface ImplementationPackage extends EPackage {
 	int VARIABLE_DECLARATION_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link implementation.impl.VariableAssignementImpl <em>Variable Assignement</em>}' class.
+	 * The meta object id for the '{@link implementation.impl.VariableAssignmentImpl <em>Variable Assignment</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see implementation.impl.VariableAssignementImpl
-	 * @see implementation.impl.ImplementationPackageImpl#getVariableAssignement()
+	 * @see implementation.impl.VariableAssignmentImpl
+	 * @see implementation.impl.ImplementationPackageImpl#getVariableAssignment()
 	 * @generated
 	 */
-	int VARIABLE_ASSIGNEMENT = 9;
+	int VARIABLE_ASSIGNMENT = 9;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -496,7 +496,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_ASSIGNEMENT__NAME = STATEMENT_FEATURE_COUNT + 0;
+	int VARIABLE_ASSIGNMENT__NAME = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -505,25 +505,25 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_ASSIGNEMENT__VALUE = STATEMENT_FEATURE_COUNT + 1;
+	int VARIABLE_ASSIGNMENT__VALUE = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Variable Assignement</em>' class.
+	 * The number of structural features of the '<em>Variable Assignment</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_ASSIGNEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
+	int VARIABLE_ASSIGNMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of operations of the '<em>Variable Assignement</em>' class.
+	 * The number of operations of the '<em>Variable Assignment</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_ASSIGNEMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
+	int VARIABLE_ASSIGNMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link implementation.impl.FeatureAssignmentImpl <em>Feature Assignment</em>}' class.
@@ -820,13 +820,13 @@ public interface ImplementationPackage extends EPackage {
 	int WHILE = 15;
 
 	/**
-	 * The feature id for the '<em><b>Collection Expression</b></em>' containment reference.
+	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WHILE__COLLECTION_EXPRESSION = STATEMENT_FEATURE_COUNT + 0;
+	int WHILE__CONDITION = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -1204,36 +1204,36 @@ public interface ImplementationPackage extends EPackage {
 	EReference getVariableDeclaration_InitialValue();
 
 	/**
-	 * Returns the meta object for class '{@link implementation.VariableAssignement <em>Variable Assignement</em>}'.
+	 * Returns the meta object for class '{@link implementation.VariableAssignment <em>Variable Assignment</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Variable Assignement</em>'.
-	 * @see implementation.VariableAssignement
+	 * @return the meta object for class '<em>Variable Assignment</em>'.
+	 * @see implementation.VariableAssignment
 	 * @generated
 	 */
-	EClass getVariableAssignement();
+	EClass getVariableAssignment();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.VariableAssignement#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link implementation.VariableAssignment#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see implementation.VariableAssignement#getName()
-	 * @see #getVariableAssignement()
+	 * @see implementation.VariableAssignment#getName()
+	 * @see #getVariableAssignment()
 	 * @generated
 	 */
-	EAttribute getVariableAssignement_Name();
+	EAttribute getVariableAssignment_Name();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link implementation.VariableAssignement#getValue <em>Value</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.VariableAssignment#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Value</em>'.
-	 * @see implementation.VariableAssignement#getValue()
-	 * @see #getVariableAssignement()
+	 * @see implementation.VariableAssignment#getValue()
+	 * @see #getVariableAssignment()
 	 * @generated
 	 */
-	EReference getVariableAssignement_Value();
+	EReference getVariableAssignment_Value();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.FeatureAssignment <em>Feature Assignment</em>}'.
@@ -1472,15 +1472,15 @@ public interface ImplementationPackage extends EPackage {
 	EClass getWhile();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link implementation.While#getCollectionExpression <em>Collection Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link implementation.While#getCondition <em>Condition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Collection Expression</em>'.
-	 * @see implementation.While#getCollectionExpression()
+	 * @return the meta object for the containment reference '<em>Condition</em>'.
+	 * @see implementation.While#getCondition()
 	 * @see #getWhile()
 	 * @generated
 	 */
-	EReference getWhile_CollectionExpression();
+	EReference getWhile_Condition();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link implementation.While#getBody <em>Body</em>}'.
@@ -1791,14 +1791,14 @@ public interface ImplementationPackage extends EPackage {
 		EReference VARIABLE_DECLARATION__INITIAL_VALUE = eINSTANCE.getVariableDeclaration_InitialValue();
 
 		/**
-		 * The meta object literal for the '{@link implementation.impl.VariableAssignementImpl <em>Variable Assignement</em>}' class.
+		 * The meta object literal for the '{@link implementation.impl.VariableAssignmentImpl <em>Variable Assignment</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see implementation.impl.VariableAssignementImpl
-		 * @see implementation.impl.ImplementationPackageImpl#getVariableAssignement()
+		 * @see implementation.impl.VariableAssignmentImpl
+		 * @see implementation.impl.ImplementationPackageImpl#getVariableAssignment()
 		 * @generated
 		 */
-		EClass VARIABLE_ASSIGNEMENT = eINSTANCE.getVariableAssignement();
+		EClass VARIABLE_ASSIGNMENT = eINSTANCE.getVariableAssignment();
 
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -1806,7 +1806,7 @@ public interface ImplementationPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute VARIABLE_ASSIGNEMENT__NAME = eINSTANCE.getVariableAssignement_Name();
+		EAttribute VARIABLE_ASSIGNMENT__NAME = eINSTANCE.getVariableAssignment_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
@@ -1814,7 +1814,7 @@ public interface ImplementationPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference VARIABLE_ASSIGNEMENT__VALUE = eINSTANCE.getVariableAssignement_Value();
+		EReference VARIABLE_ASSIGNMENT__VALUE = eINSTANCE.getVariableAssignment_Value();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.FeatureAssignmentImpl <em>Feature Assignment</em>}' class.
@@ -2005,12 +2005,12 @@ public interface ImplementationPackage extends EPackage {
 		EClass WHILE = eINSTANCE.getWhile();
 
 		/**
-		 * The meta object literal for the '<em><b>Collection Expression</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference WHILE__COLLECTION_EXPRESSION = eINSTANCE.getWhile_CollectionExpression();
+		EReference WHILE__CONDITION = eINSTANCE.getWhile_Condition();
 
 		/**
 		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.

@@ -41,7 +41,7 @@ import implementation.Implementation;
 import implementation.Method;
 import implementation.ModelBehavior;
 import implementation.Statement;
-import implementation.VariableAssignement;
+import implementation.VariableAssignment;
 import implementation.VariableDeclaration;
 import implementation.While;
 import implementation.util.ImplementationSwitch;
@@ -517,7 +517,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 	}
 	
 	@Override
-	public Object caseVariableAssignement(VariableAssignement varAssign) {
+	public Object caseVariableAssignment(VariableAssignment varAssign) {
 		/*
 		 * Check expression
 		 */
@@ -610,13 +610,13 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		/*
 		 * Check expression
 		 */
-		IValidationResult expValidation = validateExpression(loop.getCollectionExpression(),currentScope);
+		IValidationResult expValidation = validateExpression(loop.getCondition(),currentScope);
 		msgs.addAll(expValidation.getMessages());
 		
 		/*
 		 * Check expression is boolean
 		 */
-		Set<IType> selectorTypes = expValidation.getPossibleTypes(loop.getCollectionExpression());
+		Set<IType> selectorTypes = expValidation.getPossibleTypes(loop.getCondition());
 		boolean onlyNotBoolean = true;
 		final IType booleanObjectType = new ClassType(qryEnv, Boolean.class);
 		final IType booleanType = new ClassType(qryEnv, boolean.class);
@@ -631,8 +631,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					.stream()
 					.map(type -> type.toString())
 					.collect(Collectors.joining(",","[","]"));
-			int startPostion = model.getStartPositions().get(loop.getCollectionExpression());
-			int endPosition = model.getEndPositions().get(loop.getCollectionExpression());
+			int startPostion = model.getStartPositions().get(loop.getCondition());
+			int endPosition = model.getEndPositions().get(loop.getCondition());
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(BOOLEAN_TYPE,inferredToString),

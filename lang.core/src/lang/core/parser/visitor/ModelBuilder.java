@@ -33,7 +33,7 @@ import implementation.ImplementationPackage;
 import implementation.Method;
 import implementation.Parameter;
 import implementation.Statement;
-import implementation.VariableAssignement;
+import implementation.VariableAssignment;
 import implementation.VariableDeclaration;
 import implementation.While;
 
@@ -115,8 +115,8 @@ public class ModelBuilder {
 		return varDecl;
 	}
 	
-	public VariableAssignement buildVariableAssignement(String name, String exp) {
-		VariableAssignement varAssign = factory. createVariableAssignement();
+	public VariableAssignment buildVariableAssignement(String name, String exp) {
+		VariableAssignment varAssign = factory. createVariableAssignment();
 		varAssign.setName(name);
 		varAssign.setValue(builder.build(exp).getAst());
 		return varAssign; 
@@ -160,7 +160,7 @@ public class ModelBuilder {
 	
 	public While buildWhile(String expression, Block body) {
 		While loop = factory.createWhile();
-		loop.setCollectionExpression(builder.build(expression).getAst());
+		loop.setCondition(builder.build(expression).getAst());
 		loop.setBody(body);
 		return loop;
 	}
