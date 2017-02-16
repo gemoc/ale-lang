@@ -33,7 +33,7 @@ import implementation.Behaviored;
 import java.util.List;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
-import implementation.VariableAssignement;
+import implementation.VariableAssignment;
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 
@@ -99,7 +99,7 @@ public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 	}
 	
 	@Override
-	public Object caseVariableAssignement(VariableAssignement varAssign) {
+	public Object caseVariableAssignment(VariableAssignment varAssign) {
 		Map<String,Object> scope = findScope(varAssign.getName());
 		if(scope != null) {
 			Object value = aqlEval(varAssign.getValue());
@@ -196,10 +196,10 @@ public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 	
 	@Override
 	public Object caseWhile(While loop) {
-		Object conditionValue = aqlEval(loop.getCollectionExpression());
+		Object conditionValue = aqlEval(loop.getCondition());
 		while(conditionValue instanceof Boolean && conditionValue.equals(true)){
 			doSwitch(loop.getBody());
-			conditionValue = aqlEval(loop.getCollectionExpression());
+			conditionValue = aqlEval(loop.getCondition());
 		}
 		return null;
 	}

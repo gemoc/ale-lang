@@ -13,7 +13,7 @@ import org.eclipse.acceleo.query.ast.Expression;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link implementation.While#getCollectionExpression <em>Collection Expression</em>}</li>
+ *   <li>{@link implementation.While#getCondition <em>Condition</em>}</li>
  *   <li>{@link implementation.While#getBody <em>Body</em>}</li>
  * </ul>
  *
@@ -23,30 +23,30 @@ import org.eclipse.acceleo.query.ast.Expression;
  */
 public interface While extends Statement {
 	/**
-	 * Returns the value of the '<em><b>Collection Expression</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Collection Expression</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Condition</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Collection Expression</em>' containment reference.
-	 * @see #setCollectionExpression(Expression)
-	 * @see implementation.ImplementationPackage#getWhile_CollectionExpression()
+	 * @return the value of the '<em>Condition</em>' containment reference.
+	 * @see #setCondition(Expression)
+	 * @see implementation.ImplementationPackage#getWhile_Condition()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	Expression getCollectionExpression();
+	Expression getCondition();
 
 	/**
-	 * Sets the value of the '{@link implementation.While#getCollectionExpression <em>Collection Expression</em>}' containment reference.
+	 * Sets the value of the '{@link implementation.While#getCondition <em>Condition</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Collection Expression</em>' containment reference.
-	 * @see #getCollectionExpression()
+	 * @param value the new value of the '<em>Condition</em>' containment reference.
+	 * @see #getCondition()
 	 * @generated
 	 */
-	void setCollectionExpression(Expression value);
+	void setCondition(Expression value);
 
 	/**
 	 * Returns the value of the '<em><b>Body</b></em>' containment reference.

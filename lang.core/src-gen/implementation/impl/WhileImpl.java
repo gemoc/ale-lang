@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link implementation.impl.WhileImpl#getCollectionExpression <em>Collection Expression</em>}</li>
+ *   <li>{@link implementation.impl.WhileImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link implementation.impl.WhileImpl#getBody <em>Body</em>}</li>
  * </ul>
  *
@@ -32,14 +32,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class WhileImpl extends StatementImpl implements While {
 	/**
-	 * The cached value of the '{@link #getCollectionExpression() <em>Collection Expression</em>}' containment reference.
+	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCollectionExpression()
+	 * @see #getCondition()
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression collectionExpression;
+	protected Expression condition;
 
 	/**
 	 * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference.
@@ -75,8 +75,8 @@ public class WhileImpl extends StatementImpl implements While {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getCollectionExpression() {
-		return collectionExpression;
+	public Expression getCondition() {
+		return condition;
 	}
 
 	/**
@@ -84,11 +84,11 @@ public class WhileImpl extends StatementImpl implements While {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCollectionExpression(Expression newCollectionExpression, NotificationChain msgs) {
-		Expression oldCollectionExpression = collectionExpression;
-		collectionExpression = newCollectionExpression;
+	public NotificationChain basicSetCondition(Expression newCondition, NotificationChain msgs) {
+		Expression oldCondition = condition;
+		condition = newCondition;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImplementationPackage.WHILE__COLLECTION_EXPRESSION, oldCollectionExpression, newCollectionExpression);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImplementationPackage.WHILE__CONDITION, oldCondition, newCondition);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -99,18 +99,18 @@ public class WhileImpl extends StatementImpl implements While {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCollectionExpression(Expression newCollectionExpression) {
-		if (newCollectionExpression != collectionExpression) {
+	public void setCondition(Expression newCondition) {
+		if (newCondition != condition) {
 			NotificationChain msgs = null;
-			if (collectionExpression != null)
-				msgs = ((InternalEObject)collectionExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.WHILE__COLLECTION_EXPRESSION, null, msgs);
-			if (newCollectionExpression != null)
-				msgs = ((InternalEObject)newCollectionExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.WHILE__COLLECTION_EXPRESSION, null, msgs);
-			msgs = basicSetCollectionExpression(newCollectionExpression, msgs);
+			if (condition != null)
+				msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.WHILE__CONDITION, null, msgs);
+			if (newCondition != null)
+				msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.WHILE__CONDITION, null, msgs);
+			msgs = basicSetCondition(newCondition, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.WHILE__COLLECTION_EXPRESSION, newCollectionExpression, newCollectionExpression));
+			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.WHILE__CONDITION, newCondition, newCondition));
 	}
 
 	/**
@@ -164,8 +164,8 @@ public class WhileImpl extends StatementImpl implements While {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ImplementationPackage.WHILE__COLLECTION_EXPRESSION:
-				return basicSetCollectionExpression(null, msgs);
+			case ImplementationPackage.WHILE__CONDITION:
+				return basicSetCondition(null, msgs);
 			case ImplementationPackage.WHILE__BODY:
 				return basicSetBody(null, msgs);
 		}
@@ -180,8 +180,8 @@ public class WhileImpl extends StatementImpl implements While {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ImplementationPackage.WHILE__COLLECTION_EXPRESSION:
-				return getCollectionExpression();
+			case ImplementationPackage.WHILE__CONDITION:
+				return getCondition();
 			case ImplementationPackage.WHILE__BODY:
 				return getBody();
 		}
@@ -196,8 +196,8 @@ public class WhileImpl extends StatementImpl implements While {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ImplementationPackage.WHILE__COLLECTION_EXPRESSION:
-				setCollectionExpression((Expression)newValue);
+			case ImplementationPackage.WHILE__CONDITION:
+				setCondition((Expression)newValue);
 				return;
 			case ImplementationPackage.WHILE__BODY:
 				setBody((Block)newValue);
@@ -214,8 +214,8 @@ public class WhileImpl extends StatementImpl implements While {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ImplementationPackage.WHILE__COLLECTION_EXPRESSION:
-				setCollectionExpression((Expression)null);
+			case ImplementationPackage.WHILE__CONDITION:
+				setCondition((Expression)null);
 				return;
 			case ImplementationPackage.WHILE__BODY:
 				setBody((Block)null);
@@ -232,8 +232,8 @@ public class WhileImpl extends StatementImpl implements While {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ImplementationPackage.WHILE__COLLECTION_EXPRESSION:
-				return collectionExpression != null;
+			case ImplementationPackage.WHILE__CONDITION:
+				return condition != null;
 			case ImplementationPackage.WHILE__BODY:
 				return body != null;
 		}

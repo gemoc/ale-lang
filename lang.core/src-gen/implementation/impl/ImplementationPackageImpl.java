@@ -19,7 +19,7 @@ import implementation.Method;
 import implementation.ModelBehavior;
 import implementation.Parameter;
 import implementation.Statement;
-import implementation.VariableAssignement;
+import implementation.VariableAssignment;
 import implementation.VariableDeclaration;
 import implementation.While;
 
@@ -107,7 +107,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass variableAssignementEClass = null;
+	private EClass variableAssignmentEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -450,8 +450,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getVariableAssignement() {
-		return variableAssignementEClass;
+	public EClass getVariableAssignment() {
+		return variableAssignmentEClass;
 	}
 
 	/**
@@ -459,8 +459,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getVariableAssignement_Name() {
-		return (EAttribute)variableAssignementEClass.getEStructuralFeatures().get(0);
+	public EAttribute getVariableAssignment_Name() {
+		return (EAttribute)variableAssignmentEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -468,8 +468,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getVariableAssignement_Value() {
-		return (EReference)variableAssignementEClass.getEStructuralFeatures().get(1);
+	public EReference getVariableAssignment_Value() {
+		return (EReference)variableAssignmentEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -675,7 +675,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getWhile_CollectionExpression() {
+	public EReference getWhile_Condition() {
 		return (EReference)whileEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -803,9 +803,9 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		createEReference(variableDeclarationEClass, VARIABLE_DECLARATION__TYPE);
 		createEReference(variableDeclarationEClass, VARIABLE_DECLARATION__INITIAL_VALUE);
 
-		variableAssignementEClass = createEClass(VARIABLE_ASSIGNEMENT);
-		createEAttribute(variableAssignementEClass, VARIABLE_ASSIGNEMENT__NAME);
-		createEReference(variableAssignementEClass, VARIABLE_ASSIGNEMENT__VALUE);
+		variableAssignmentEClass = createEClass(VARIABLE_ASSIGNMENT);
+		createEAttribute(variableAssignmentEClass, VARIABLE_ASSIGNMENT__NAME);
+		createEReference(variableAssignmentEClass, VARIABLE_ASSIGNMENT__VALUE);
 
 		featureAssignmentEClass = createEClass(FEATURE_ASSIGNMENT);
 		createEReference(featureAssignmentEClass, FEATURE_ASSIGNMENT__TARGET);
@@ -834,7 +834,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		createEReference(forEachEClass, FOR_EACH__BODY);
 
 		whileEClass = createEClass(WHILE);
-		createEReference(whileEClass, WHILE__COLLECTION_EXPRESSION);
+		createEReference(whileEClass, WHILE__CONDITION);
 		createEReference(whileEClass, WHILE__BODY);
 
 		ifEClass = createEClass(IF);
@@ -881,7 +881,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		methodEClass.getESuperTypes().add(this.getBehaviored());
 		blockEClass.getESuperTypes().add(this.getStatement());
 		variableDeclarationEClass.getESuperTypes().add(this.getStatement());
-		variableAssignementEClass.getESuperTypes().add(this.getStatement());
+		variableAssignmentEClass.getESuperTypes().add(this.getStatement());
 		featureAssignmentEClass.getESuperTypes().add(this.getStatement());
 		featureInsertEClass.getESuperTypes().add(this.getStatement());
 		featureRemoveEClass.getESuperTypes().add(this.getStatement());
@@ -925,9 +925,9 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		initEReference(getVariableDeclaration_Type(), ecorePackage.getEClassifier(), null, "type", null, 1, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariableDeclaration_InitialValue(), theAstPackage.getExpression(), null, "initialValue", null, 0, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(variableAssignementEClass, VariableAssignement.class, "VariableAssignement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getVariableAssignement_Name(), ecorePackage.getEString(), "name", null, 1, 1, VariableAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getVariableAssignement_Value(), theAstPackage.getExpression(), null, "value", null, 1, 1, VariableAssignement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(variableAssignmentEClass, VariableAssignment.class, "VariableAssignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getVariableAssignment_Name(), ecorePackage.getEString(), "name", null, 1, 1, VariableAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getVariableAssignment_Value(), theAstPackage.getExpression(), null, "value", null, 1, 1, VariableAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureAssignmentEClass, FeatureAssignment.class, "FeatureAssignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureAssignment_Target(), theAstPackage.getExpression(), null, "target", null, 1, 1, FeatureAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -956,7 +956,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		initEReference(getForEach_Body(), this.getBlock(), null, "body", null, 1, 1, ForEach.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(whileEClass, While.class, "While", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getWhile_CollectionExpression(), theAstPackage.getExpression(), null, "collectionExpression", null, 1, 1, While.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getWhile_Condition(), theAstPackage.getExpression(), null, "condition", null, 1, 1, While.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getWhile_Body(), this.getBlock(), null, "body", null, 1, 1, While.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(ifEClass, If.class, "If", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

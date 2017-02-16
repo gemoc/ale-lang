@@ -8,7 +8,7 @@ import implementation.ImplementationPackage;
 import implementation.Parameter;
 import implementation.ModelBehavior;
 import implementation.Statement;
-import implementation.VariableAssignement;
+import implementation.VariableAssignment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,8 +111,8 @@ public class Visitors {
 			if(left instanceof VarRefContext){
 				VarRefContext varRef = (VarRefContext) left;
 				res = ModelBuilder.singleton.buildVariableAssignement(varRef.Ident().getText(),value);
-				parseRes.getStartPositions().put(((VariableAssignement)res).getValue(),ctx.expression().get(1).start.getStartIndex());
-				parseRes.getEndPositions().put(((VariableAssignement)res).getValue(),ctx.expression().get(1).stop.getStopIndex());
+				parseRes.getStartPositions().put(((VariableAssignment)res).getValue(),ctx.expression().get(1).start.getStartIndex());
+				parseRes.getEndPositions().put(((VariableAssignment)res).getValue(),ctx.expression().get(1).stop.getStopIndex());
 			}
 			else if(left instanceof NavContext){
 				NavContext navCtx = (NavContext) left;
@@ -178,8 +178,8 @@ public class Visitors {
 			While res = ModelBuilder.singleton.buildWhile(ctx.expression().getText(),body);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
-			parseRes.getStartPositions().put(res.getCollectionExpression(),ctx.expression().start.getStartIndex());
-			parseRes.getEndPositions().put(res.getCollectionExpression(),ctx.expression().stop.getStopIndex());
+			parseRes.getStartPositions().put(res.getCondition(),ctx.expression().start.getStartIndex());
+			parseRes.getEndPositions().put(res.getCondition(),ctx.expression().stop.getStopIndex());
 			return res;
 		}
 	
