@@ -110,7 +110,9 @@ public class ModelBuilder {
 	public VariableDeclaration buildVariableDecl(String name, String exp, String type) {
 		VariableDeclaration varDecl = factory. createVariableDeclaration();
 		varDecl.setName(name);
-		varDecl.setInitialValue(builder.build(exp).getAst());
+		if(exp != null){
+			varDecl.setInitialValue(builder.build(exp).getAst());
+		}
 		varDecl.setType(resolve(type));
 		return varDecl;
 	}
