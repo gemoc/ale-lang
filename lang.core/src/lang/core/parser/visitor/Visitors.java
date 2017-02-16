@@ -88,9 +88,13 @@ public class Visitors {
 		
 		@Override
 		public Statement visitRVarDecl(RVarDeclContext ctx) {
+			String initialValue = null;
+			if(ctx.expression() != null){
+				initialValue = ctx.expression().getText();
+			}
 			VariableDeclaration res = ModelBuilder.singleton.buildVariableDecl(
 				ctx.Ident(1).getText(),
-				ctx.expression().getText(),
+				initialValue,
 				ctx.Ident(0).getText()
 			);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
