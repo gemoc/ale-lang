@@ -1,0 +1,9 @@
+class ClassA {
+	
+	@main
+	def int main() {
+		result := self; 
+		result.field := 4;
+		result := result.field;
+	}
+}

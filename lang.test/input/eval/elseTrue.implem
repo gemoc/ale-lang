@@ -1,0 +1,15 @@
+class ClassA {
+	
+	@main
+	def int main() {
+	
+		int var := 0;
+		if(var = 0){
+			var := 1;
+		}
+		else {
+			var := 2;
+		}
+		result := var;
+	}
+}

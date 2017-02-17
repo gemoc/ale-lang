@@ -1,0 +1,14 @@
+class ClassA {
+	
+	@main
+	def int main() {
+		self.collection.add(test::ClassA.create());
+		self.collection.add(test::ClassA.create());
+	
+		String var := 0;
+		for(i in self.collection){
+			var := var + 1;
+		}
+		result := var;
+	}
+}

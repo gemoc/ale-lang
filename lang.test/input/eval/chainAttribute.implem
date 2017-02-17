@@ -1,0 +1,8 @@
+class ClassA {
+	
+	@main
+	def ClassA main() {
+		self.itself := self;
+		result := self.itself.itself;
+	}
+}

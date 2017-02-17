@@ -1,0 +1,10 @@
+class ClassA {
+	
+	ClassA toSelf;
+	
+	@main
+	def ClassA main() {
+		self.toSelf := self;
+		result := self.toSelf.toSelf;
+	}
+}

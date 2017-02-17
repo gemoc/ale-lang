@@ -1,0 +1,14 @@
+class ClassA {
+
+	ClassA toSelf;
+	
+	@main
+	def int main() {
+		self.toSelf := self;
+		result := self.toSelf.getSelf();
+	}
+	
+	def int getSelf(){
+		result := 4;
+	}
+}

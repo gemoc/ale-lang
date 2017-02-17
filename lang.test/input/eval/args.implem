@@ -1,0 +1,7 @@
+class ClassA {
+	
+	@main
+	def String main(String arg) {
+		result := arg;
+	}
+}

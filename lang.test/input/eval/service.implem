@@ -1,0 +1,9 @@
+use lang.core.interpreter.test.Service;
+
+class ClassA {
+	
+	@main
+	def String main() {
+		result := self.foobar();
+	}
+}

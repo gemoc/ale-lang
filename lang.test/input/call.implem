@@ -1,0 +1,15 @@
+class ClassA {
+	
+	String attrib;
+	
+	@main
+	def String main() {
+		self.attrib := "foo";
+		self.op(self);
+		result := self.attrib;
+	}
+	
+	def void op(ClassA a){
+		a.attrib := a.attrib + "bar";
+	}
+}
