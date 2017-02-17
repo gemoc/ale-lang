@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.eclipse.acceleo.query.ast.AstPackage;
 import org.eclipse.acceleo.query.runtime.AcceleoQueryValidationException;
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
@@ -36,6 +37,7 @@ import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnosti
 import org.eclipse.sirius.common.tools.api.interpreter.JavaExtensionsManager;
 
 import implementation.Behaviored;
+import implementation.ImplementationPackage;
 import implementation.ModelBehavior;
 import lang.core.interpreter.DiagnosticLogger;
 import lang.core.interpreter.EvalEnvironment;
@@ -69,6 +71,8 @@ public class LangInterpreter {
     
     public LangInterpreter() {
         this.queryEnvironment = Query.newEnvironmentWithDefaultServices(null);
+        queryEnvironment.registerEPackage(ImplementationPackage.eINSTANCE);
+		queryEnvironment.registerEPackage(AstPackage.eINSTANCE);
         this.ePackageCallBack = new EPackageLoadingCallback() {
 
             @Override
