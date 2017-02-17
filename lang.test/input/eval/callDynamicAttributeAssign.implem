@@ -1,0 +1,14 @@
+class ClassA {
+	
+	String attrib := 'foo';
+	
+	@main
+	def int main() {
+		self.getSelf().attrib := 'bar';
+		result := self.getSelf().attrib;
+	}
+	
+	def ClassA getSelf(){
+		result := self;
+	}
+}

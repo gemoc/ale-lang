@@ -1,0 +1,13 @@
+class ClassA {
+	
+	String attrib = "foo";
+	
+	@main
+	def String main() {
+		
+		ClassA newInstance = test::ClassA.create();
+		newInstance.attrib = self.attrib + "bar";
+	
+		result := newInstance.attrib;
+	}
+}

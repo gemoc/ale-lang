@@ -1,0 +1,12 @@
+class ClassA {
+	
+	@main
+	def void main() {
+		self.field := "5";
+		
+		ClassA newInstance = test::ClassA.create();
+		newInstance.field = 37;
+		
+		self.field := self.field + newInstance.field;
+	}
+}

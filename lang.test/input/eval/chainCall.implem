@@ -1,0 +1,11 @@
+class ClassA {
+	
+	@main
+	def ClassA main() {
+		result := self.getSelf().getSelf();
+	}
+	
+	def ClassA getSelf(){
+		result := self;
+	}
+}

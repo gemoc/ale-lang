@@ -1,0 +1,11 @@
+class ClassA {
+	
+	String attrib := 'foo';
+	
+	@main
+	def String main() {
+		result := self;
+		result.attrib := 'bar';
+		result := result.attrib;
+	}
+}

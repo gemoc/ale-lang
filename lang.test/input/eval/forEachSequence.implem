@@ -1,0 +1,11 @@
+class ClassA {
+	
+	@main
+	def String main() {
+		String var := '';
+		for(i in [0..5]){
+			var := var + i;
+		}
+		result := var;
+	}
+}

@@ -1,0 +1,10 @@
+class ClassA {
+	
+	@main
+	def int main() {
+		self.collection.add(test::ClassA.create());
+		self.collection.add(test::ClassA.create());
+		self.collection.add(test::ClassA.create());
+		result := self.collection->size();
+	}
+}

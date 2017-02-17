@@ -1,0 +1,8 @@
+class ClassA {
+	
+	@main
+	def String main() {
+		String var := 'foobar';
+		result := var;
+	}
+}

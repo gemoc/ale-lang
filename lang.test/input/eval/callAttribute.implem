@@ -1,0 +1,11 @@
+class ClassA {
+	
+	@main
+	def int main() {
+		result := self.getSelf().field;
+	}
+	
+	def ClassA getSelf(){
+		result := self;
+	}
+}

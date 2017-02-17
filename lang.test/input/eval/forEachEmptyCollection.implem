@@ -1,0 +1,12 @@
+class ClassA {
+	
+	@main
+	def int main() {
+	
+		String var := 0;
+		for(i in self.collection){
+			var := var + 1;
+		}
+		result := var;
+	}
+}
