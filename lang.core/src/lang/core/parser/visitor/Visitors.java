@@ -89,13 +89,30 @@ public class Visitors {
 		@Override
 		public Statement visitRVarDecl(RVarDeclContext ctx) {
 			String initialValue = null;
-			if(ctx.expression() != null){
+			if(ctx.expression() != null){ //no initial value
 				initialValue = ctx.expression().getText();
 			}
+			
+			String typeName = null;
+			if(ctx.Ident().size() == 1){ // String type
+				typeName = ctx.children.get(0).toString();
+			}
+			else{
+				typeName = ctx.Ident(0).getText();
+			}
+			
+			String name = null;
+			if(ctx.Ident().size() == 1){ 
+				name = ctx.Ident(0).getText();
+			}
+			else{
+				name = ctx.Ident(1).getText();
+			}
+			
 			VariableDeclaration res = ModelBuilder.singleton.buildVariableDecl(
-				ctx.Ident(1).getText(),
+				name,
 				initialValue,
-				ctx.Ident(0).getText()
+				typeName
 			);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
@@ -271,14 +288,29 @@ public class Visitors {
 				.get()
 				.getText();
 			
+			String returnType = null;
+			if(ctx.Ident().size() == 1){ // String type
+				int index = ctx.children.indexOf(ctx.Ident(0)) - 1; // just before the name
+				returnType = ctx.children.get(index).toString();
+			}
+			else{
+				returnType = ctx.Ident(0).getText();
+			}
+			
+			String operationName = null;
+			if(ctx.Ident().size() == 1){ 
+				operationName = ctx.Ident(0).getText();
+			}
+			else{
+				operationName = ctx.Ident(1).getText();
+			}
+			
 			List<Parameter> parameters = new ArrayList<Parameter>();
 			if(ctx.rParameters() != null)
 				parameters = (new ParamVisitor(parseRes)).visit(ctx.rParameters());
 				
 			Block body = (new BlockVisitor(parseRes)).visit(ctx.rBlock());
 			
-			String returnType = ctx.Ident().get(0).getText();
-			String operationName = ctx.Ident().get(1).getText();
 			String className = ctx.parent.getChild(1).getText();
 			
 			List<String> tags =
@@ -340,9 +372,22 @@ public class Visitors {
 		
 		@Override
 		public Parameter visitRVariable(RVariableContext ctx) {
-			String type = ctx.getChild(0).getText();
-			String name = ctx.getChild(1).getText();
-			Parameter res = ModelBuilder.singleton.buildParameter(type,name);
+			String typeName = null;
+			if(ctx.Ident().size() == 1){ // String type
+				typeName = ctx.children.get(0).toString();
+			}
+			else{
+				typeName = ctx.Ident(0).getText();
+			}
+			
+			String name = null;
+			if(ctx.Ident().size() == 1){ 
+				name = ctx.Ident(0).getText();
+			}
+			else{
+				name = ctx.Ident(1).getText();
+			}
+			Parameter res = ModelBuilder.singleton.buildParameter(typeName,name);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
 			return res;
@@ -396,11 +441,27 @@ public class Visitors {
 			if(ctx.expression() != null) {
 				initialValue = ctx.expression().getText();
 			}
+			
+			String typeName = null;
+			if(ctx.Ident().size() == 1){ // String type
+				typeName = ctx.children.get(0).toString();
+			}
+			else{
+				typeName = ctx.Ident(0).getText();
+			}
+			
+			String name = null;
+			if(ctx.Ident().size() == 1){ 
+				name = ctx.Ident(0).getText();
+			}
+			else{
+				name = ctx.Ident(1).getText();
+			}
 					
 			VariableDeclaration res = ModelBuilder.singleton.buildVariableDecl(
-					ctx.Ident(1).getText(),
+					name,
 					initialValue,
-					ctx.Ident(0).getText());
+					typeName);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
 			if(res.getInitialValue() != null){

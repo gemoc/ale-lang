@@ -273,6 +273,7 @@ public class ModelBuilder {
 			return candidate.get();
 		
 		switch (className) {
+			case "String"	: return EcorePackage.eINSTANCE.getEString();
 			case "boolean" 	: return EcorePackage.eINSTANCE.getEBoolean();
 			case "byte" 	: return EcorePackage.eINSTANCE.getEByte();
 			case "char" 	: return EcorePackage.eINSTANCE.getEChar();
