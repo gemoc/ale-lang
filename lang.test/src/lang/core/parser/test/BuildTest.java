@@ -63,7 +63,7 @@ public class BuildTest {
 	
 	@Test
 	public void testClassExtension() {
-		String fileContent = getFileContent("input/extendedClass.implem");
+		String fileContent = getFileContent("input/structure/extendedClass.implem");
 		ParseResult<ModelBehavior> res = parser.parse(fileContent);
 		ModelBehavior root = res.getRoot();
 		
@@ -79,7 +79,7 @@ public class BuildTest {
 	
 	@Test
 	public void testAttributes() {
-		String fileContent = getFileContent("input/attributes.implem");
+		String fileContent = getFileContent("input/structure/attributes.implem");
 		ParseResult<ModelBehavior> res = parser.parse(fileContent);
 		ModelBehavior root = res.getRoot();
 		
@@ -108,7 +108,7 @@ public class BuildTest {
 	
 	@Test
 	public void testMethod(){
-		String fileContent = getFileContent("input/defMethod.implem");
+		String fileContent = getFileContent("input/structure/defMethod.implem");
 		ParseResult<ModelBehavior> res = parser.parse(fileContent);
 		ModelBehavior root = res.getRoot();
 		
@@ -156,7 +156,7 @@ public class BuildTest {
 	
 	@Test
 	public void testImplem() {
-		String fileContent = getFileContent("input/defImplem.implem");
+		String fileContent = getFileContent("input/structure/defImplem.implem");
 		ParseResult<ModelBehavior> res = parser.parse(fileContent);
 		ModelBehavior root = res.getRoot();
 		
@@ -194,7 +194,7 @@ public class BuildTest {
 	
 	@Test
 	public void testFor(){
-		String fileContent = getFileContent("input/for.implem");
+		String fileContent = getFileContent("input/structure/for.implem");
 		ParseResult<ModelBehavior> res = parser.parse(fileContent);
 		ModelBehavior root = res.getRoot();
 		
@@ -298,7 +298,7 @@ public class BuildTest {
 	
 	@Test
 	public void testWhile(){
-		String fileContent = getFileContent("input/while.implem");
+		String fileContent = getFileContent("input/structure/while.implem");
 		ParseResult<ModelBehavior> res = parser.parse(fileContent);
 		ModelBehavior root = res.getRoot();
 		
@@ -368,7 +368,7 @@ public class BuildTest {
 	
 	@Test
 	public void testIf(){
-		String fileContent = getFileContent("input/if.implem");
+		String fileContent = getFileContent("input/structure/if.implem");
 		ParseResult<ModelBehavior> res = parser.parse(fileContent);
 		ModelBehavior root = res.getRoot();
 		
@@ -467,7 +467,7 @@ public class BuildTest {
 	
 	@Test
 	public void testAllFeatures(){
-		String fileContent = getFileContent("input/allFeatures.implem");
+		String fileContent = getFileContent("input/structure/allFeatures.implem");
 		ParseResult<ModelBehavior> res = parser.parse(fileContent);
 		ModelBehavior root = res.getRoot();
 		assertEquals(Diagnostic.OK,res.getDiagnostic().getCode());
