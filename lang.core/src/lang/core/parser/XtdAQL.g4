@@ -28,7 +28,7 @@ rService : 'use' Ident ('.' Ident)* ';'
 rClass : 'class' Ident '{' rAttribute* rOperation* '}'
 ; 
 
-rOperation : (rTag)* ('def' | 'override') Ident Ident '(' rParameters? ')' rBlock
+rOperation : (rTag)* ('def' | 'override') (Ident|'String') Ident '(' rParameters? ')' rBlock
 ;
 
 rTag : '@'Ident
@@ -37,10 +37,10 @@ rTag : '@'Ident
 rParameters : rVariable (',' rVariable)*
 ;
 
-rVariable : Ident Ident
+rVariable : (Ident|'String') Ident
 ;
 
-rAttribute : Ident Ident (':=' expression)? ';'
+rAttribute : (Ident|'String') Ident (':=' expression)? ';'
 ;
 
 /*
@@ -55,7 +55,7 @@ rStatement : rVarDecl
 		| rExpression
 ;
 
-rVarDecl : Ident Ident (':=' expression)? ';'
+rVarDecl : (Ident|'String') Ident (':=' expression)? ';'
 ;
 
 rAssign : expression ':=' expression ';'
