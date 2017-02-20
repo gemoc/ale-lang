@@ -429,7 +429,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		 * Collect feature types
 		 */
 		Set<IType> targetTypes = expValidation.getPossibleTypes(featRemove.getTarget());
-		Set<IType> featureTypes = new HashSet<IType>();
+		Set<EClassifierType> featureTypes = new HashSet<EClassifierType>();
 		for(IType type: targetTypes){
 			if(type.getType() instanceof EClass){
 				EClass realType = (EClass) type.getType();
@@ -466,7 +466,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			String featureToString = 
 					featureTypes
 					.stream()
-					.map(type -> type.toString())
+					.map(type -> type.getType().getName())
 					.collect(Collectors.joining(",","[","]"));
 			
 			int startPostion = model.getStartPositions().get(featRemove);
