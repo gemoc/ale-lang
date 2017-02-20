@@ -652,7 +652,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		doSwitch(model.getRoot());
 	}
 	
-	List<IValidationMessage> getMessages() {
+	public List<IValidationMessage> getMessages() {
 		return msgs;
 	}
 	
