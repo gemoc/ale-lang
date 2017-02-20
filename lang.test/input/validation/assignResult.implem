@@ -1,0 +1,9 @@
+class EClass {
+	def void op(){
+		result := 2;
+	}
+	def String op2(){
+		result := 'foobar';
+		result := 9;
+	}
+}

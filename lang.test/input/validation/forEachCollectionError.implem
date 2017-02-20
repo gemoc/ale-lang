@@ -1,0 +1,6 @@
+class EClass {
+	def void op(){
+		for(i in true){
+		}
+	}
+}

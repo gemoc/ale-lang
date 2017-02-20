@@ -1,0 +1,6 @@
+class EClass {
+	def void op(){
+	}
+	def void op(){
+	}
+}
