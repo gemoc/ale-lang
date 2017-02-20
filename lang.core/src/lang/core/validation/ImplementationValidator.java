@@ -77,6 +77,17 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			/*
 			 * Check name
 			 */
+			if(attrib.getName().equals("result")){
+				int startPostion = model.getStartPositions().get(attrib);
+				int endPosition = model.getEndPositions().get(attrib);
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(RESULT_RESERVED,attrib.getName()),
+						startPostion,
+						endPosition
+						));
+			}
+			
 			Set<IType> possibleTypes = attributeTypes.get(attrib.getName());
 			if(possibleTypes != null) {
 				int startPostion = model.getStartPositions().get(attrib);
@@ -178,6 +189,18 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		Map<String,Set<IType>> parameterTypes = new HashMap<String,Set<IType>>();
 		
 		for (EParameter param : params) {
+			
+			if(param.getName().equals("result")){
+				int startPostion = model.getStartPositions().get(op);
+				int endPosition = model.getEndPositions().get(op);
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(RESULT_RESERVED,param.getName()),
+						startPostion,
+						endPosition
+						));
+			}
+			
 			Set<IType> possibleTypes = parameterTypes.get(param.getName());
 			if(possibleTypes != null) {
 				int startPostion = model.getStartPositions().get(op); //FIXME: need parameter bounds
@@ -565,6 +588,17 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		/*
 		 * Check name
 		 */
+		if(varDecl.getName().equals("result")){
+			int startPostion = model.getStartPositions().get(varDecl);
+			int endPosition = model.getEndPositions().get(varDecl);
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					String.format(RESULT_RESERVED,varDecl.getName()),
+					startPostion,
+					endPosition
+					));
+		}
+		
 		Map<String, Set<IType>> lastScope = variableTypesStack.peek();
 		if(lastScope.get(varDecl.getName()) != null){
 			int startPostion = model.getStartPositions().get(varDecl);
