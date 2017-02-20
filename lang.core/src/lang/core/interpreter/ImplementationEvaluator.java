@@ -37,6 +37,9 @@ import implementation.VariableAssignment;
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 
+/**
+ * This class evaluate the body of an operation.
+ */
 public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 	
 	public static final String PLUGIN_ID = "interpreter"; //FIXME: set real name

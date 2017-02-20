@@ -6,6 +6,10 @@ import java.util.Map;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
 
+/**
+ * Wrapper for Implementation model.
+ * It keeps a mapping between elements of the model & their offset in the '.implem' file.
+ */
 public class ParseResult<T> {
 	private final Map<Object, Integer> startPositions = new HashMap<Object, Integer>();
 	private final Map<Object, Integer> endPositions = new HashMap<Object, Integer>();

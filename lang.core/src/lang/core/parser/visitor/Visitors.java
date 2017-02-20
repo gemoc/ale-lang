@@ -51,6 +51,9 @@ import lang.core.parser.XtdAQLParser.CallOrApplyContext;
 import lang.core.parser.XtdAQLParser.ExpressionContext;
 import lang.core.parser.XtdAQLParser.RVarDeclContext;
 
+/**
+ * Visits the result of the antlr parser to build the Implementation model.
+ */
 public class Visitors {
 	
 	static class BlockVisitor extends XtdAQLBaseVisitor<Block> {
