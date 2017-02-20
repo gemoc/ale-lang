@@ -603,7 +603,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			int endPosition = model.getEndPositions().get(varDecl);
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
-					String.format(INCOMPATIBLE_TYPE,varType,inferredToString),
+					String.format(INCOMPATIBLE_TYPE,varDecl.getType().getName(),inferredToString),
 					startPostion,
 					endPosition
 					));
