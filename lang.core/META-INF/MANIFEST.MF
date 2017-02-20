@@ -13,7 +13,8 @@ Export-Package: implementation,
  lang.core.parser,
  lang.core.parser.visitor,
  lang.core.interpreter,
- lang.core.interpreter.services
+ lang.core.interpreter.services,
+ lang.core.validation
 Require-Bundle: org.antlr.runtime,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.core.runtime,
