@@ -1,0 +1,6 @@
+class EClass {
+	String localVar;
+	def void op(){
+		self.localVar := 11;
+	}
+}

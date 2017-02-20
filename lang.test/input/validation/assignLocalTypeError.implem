@@ -1,0 +1,9 @@
+class EClass {
+	def void op(){
+		int correct;
+		correct := 10;
+		
+		int wrong;
+		wrong := 'foobar';
+	}
+}

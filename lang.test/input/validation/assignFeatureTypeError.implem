@@ -1,0 +1,5 @@
+class EClass {
+	def void op(){
+		self.ePackage := 11;
+	}
+}

@@ -1,0 +1,6 @@
+class EClass {
+	int result := 5;
+	def int op(int result){
+		int result := 5;
+	}
+}

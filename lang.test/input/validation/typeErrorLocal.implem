@@ -1,0 +1,6 @@
+class EClass {
+	def void op(String foo){
+		String wrong := 0;
+		int correct := 0;
+	}
+}
