@@ -56,6 +56,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 	public static final String COLLECTION_TYPE = "Expected Collection but was %s";
 	public static final String BOOLEAN_TYPE = "Expected Boolean but was %s";
 	public static final String VARIABLE_UNDEFINED = "The variable %s is not defined";
+	public static final String FEATURE_UNDEFINED = "The feature %s is not defined";
 	
 	ParseResult<ModelBehavior> model;
 	List<IValidationMessage> msgs;
@@ -292,45 +293,59 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			}
 		}
 		
+		if(featureTypes.isEmpty()){
+			int startPostion = model.getStartPositions().get(featAssign);
+			int endPosition = model.getEndPositions().get(featAssign);
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					String.format(FEATURE_UNDEFINED,featAssign.getTargetFeature()),
+					startPostion,
+					endPosition
+					));
+		}
+		
 		/*
 		 * Check assigned expression
 		 */
 		expValidation = validateExpression(featAssign.getValue(),getCurrentScope());
 		msgs.addAll(expValidation.getMessages());
 		
-		/*
-		 * Check assignment type
-		 */
-		Set<IType> inferredTypes = expValidation.getPossibleTypes(featAssign.getValue());
-		boolean isAnyAssignable = false;
-		for(EClassifierType featureType: featureTypes){
-			Optional<IType> existResult = inferredTypes.stream().filter(t -> featureType.isAssignableFrom(t)).findAny();
-			if(existResult.isPresent()){
-				isAnyAssignable = true;
-				break;
+		if(!featureTypes.isEmpty()){
+			/*
+			 * Check assignment type
+			 */
+			Set<IType> inferredTypes = expValidation.getPossibleTypes(featAssign.getValue());
+			boolean isAnyAssignable = false;
+			for(EClassifierType featureType: featureTypes){
+				Optional<IType> existResult = inferredTypes.stream().filter(t -> featureType.isAssignableFrom(t)).findAny();
+				if(existResult.isPresent()){
+					isAnyAssignable = true;
+					break;
+				}
+			}
+			if(!isAnyAssignable){
+				String inferredToString = 
+					inferredTypes
+					.stream()
+					.map(type -> type.toString())
+					.collect(Collectors.joining(",","[","]"));
+				String featureToString = 
+						featureTypes
+						.stream()
+						.map(type -> type.getType().getName())
+						.collect(Collectors.joining(",","[","]"));
+				
+				int startPostion = model.getStartPositions().get(featAssign);
+				int endPosition = model.getEndPositions().get(featAssign);
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(INCOMPATIBLE_TYPE,featureToString,inferredToString),
+						startPostion,
+						endPosition
+						));
 			}
 		}
-		if(!isAnyAssignable){
-			String inferredToString = 
-				inferredTypes
-				.stream()
-				.map(type -> type.toString())
-				.collect(Collectors.joining(",","[","]"));
-			String featureToString = 
-					featureTypes
-					.stream()
-					.map(type -> type.getType().getName())
-					.collect(Collectors.joining(",","[","]"));
-			
-			int startPostion = model.getStartPositions().get(featAssign);
-			int endPosition = model.getEndPositions().get(featAssign);
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(INCOMPATIBLE_TYPE,featureToString,inferredToString),
-					startPostion,
-					endPosition
-					));
-		}
+		
 		return null;
 	}
 	
