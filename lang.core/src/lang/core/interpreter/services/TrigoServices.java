@@ -1,5 +1,8 @@
 package lang.core.interpreter.services;
 
+/**
+ * AQL service providing basic trigonometry
+ */
 public class TrigoServices {
 	
 	public static double cosinus(Double angle) {

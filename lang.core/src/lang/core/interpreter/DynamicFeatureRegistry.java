@@ -14,6 +14,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.HashMap;
 
+/**
+ * This class manages dynamic attributes for EObjects.
+ */
 public class DynamicFeatureRegistry {
 	
 	ModelBehavior implem;
@@ -26,7 +29,9 @@ public class DynamicFeatureRegistry {
 	}
 	
 	/**
-	 * Returns the value of the specified feature on the specified object. The object must be an
+	 * Returns the value of the specified feature on the specified object.
+	 * Attributes declared in EClasses take priority over dynamic attributes. 
+	 * The object must be an
 	 * {@link EObject} or a {@link Set}, {@link List} of {@link EObject}.
 	 * 
 	 * @param context

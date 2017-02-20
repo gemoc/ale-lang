@@ -37,6 +37,9 @@ import implementation.VariableAssignment;
 import implementation.VariableDeclaration;
 import implementation.While;
 
+/**
+ * Helper to create parts of Implemenatation model & to resolve types.
+ */
 public class ModelBuilder {
 	
 	public static ModelBuilder singleton;

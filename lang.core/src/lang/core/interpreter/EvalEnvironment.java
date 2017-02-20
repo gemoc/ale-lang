@@ -18,13 +18,29 @@ import java.lang.reflect.Method;
 import java.util.Set;
 
 /**
- * 
+ * This class is the context of an evaluation.
  */
 public class EvalEnvironment {
 	
+	/**
+	 * It contains declared EPackages & services.
+	 * Mainly used to evalute AQL expression and to resolve types
+	 */
 	IQueryEnvironment qryEnv;
+	
+	/**
+	 * Contains declarations of dynamics attributes & operations bodies
+	 */
 	ModelBehavior implemModel;
+	
+	/**
+	 * Store dynamics attributes
+	 */
 	DynamicFeatureRegistry dynamicFeatures;
+	
+	/**
+	 * Keep trace of evaluation errors
+	 */
 	DiagnosticLogger logger;
 	
 	public EvalEnvironment (IQueryEnvironment qryEnv, ModelBehavior implem, DiagnosticLogger logger) {

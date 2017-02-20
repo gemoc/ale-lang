@@ -28,6 +28,7 @@ import lang.core.interpreter.DynamicFeatureRegistry;
 
 /**
  * Copy/past of EObjectServices.EObjectFeatureAccess cause it's private & final :(
+ * Overrides the AQL service accessing attributes in order to get dynamic attributes.
  */
 public class DynamicFeatureAccessService extends JavaMethodService {
 	

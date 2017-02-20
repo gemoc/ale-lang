@@ -1,35 +1,17 @@
 package lang;
 
-import java.io.ObjectInputStream.GetField;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.eclipse.acceleo.query.ast.AstPackage;
-import org.eclipse.acceleo.query.runtime.AcceleoQueryValidationException;
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
-import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
-import org.eclipse.acceleo.query.runtime.IService;
 import org.eclipse.acceleo.query.runtime.Query;
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
-import org.eclipse.acceleo.query.runtime.impl.AbstractService;
-import org.eclipse.acceleo.query.runtime.impl.JavaMethodService;
-import org.eclipse.acceleo.query.validation.type.ClassType;
-import org.eclipse.acceleo.query.validation.type.EClassifierLiteralType;
-import org.eclipse.acceleo.query.validation.type.EClassifierType;
-import org.eclipse.acceleo.query.validation.type.IJavaType;
-import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.sirius.common.tools.api.interpreter.ClassLoadingCallback;
 import org.eclipse.sirius.common.tools.api.interpreter.EPackageLoadingCallback;
@@ -45,12 +27,31 @@ import lang.core.interpreter.ImplementationEngine;
 import lang.core.parser.AstBuilder;
 import lang.core.parser.visitor.ParseResult;
 
+/**
+ * This class is an interpreter for the 'Lang' Language.
+ */
 public class LangInterpreter {
 	
+	/**
+	 * Environment of the evaluation. It contains declared EPackages & services.
+	 * Mainly used to evalute AQL expression and to resolve types. 
+	 */
 	IQueryEnvironment queryEnvironment;
-	EPackageLoadingCallback ePackageCallBack;
+	
+	
+	/**
+	 * Tracks updates of EPackges & services from the workspace  
+	 */
 	public JavaExtensionsManager javaExtensions;
 	
+	/**
+	 * Binding between {@link javaExtensions} and {@link queryEnvironment}
+	 */
+	EPackageLoadingCallback ePackageCallBack;
+	
+	/**
+	 * Binding between {@link javaExtensions} and {@link queryEnvironment} 
+	 */
 	private final ClassLoadingCallback callback = new ClassLoadingCallback() {
 
         @Override
@@ -69,6 +70,9 @@ public class LangInterpreter {
         }
     };
     
+    /**
+     * The environment is setup with default services & EPackages
+     */
     public LangInterpreter() {
         this.queryEnvironment = Query.newEnvironmentWithDefaultServices(null);
         queryEnvironment.registerEPackage(ImplementationPackage.eINSTANCE);
@@ -90,6 +94,10 @@ public class LangInterpreter {
         this.javaExtensions.addEPackageCallBack(ePackageCallBack);
 	}
     
+    /**
+     * Entry point for an evaluation.Search in {@link implementation}
+     * for the first operation tagged 'main' and apply it to {@link caller}
+     */
     public IEvaluationResult eval(EObject caller, List<Object> args, String implementation) {
     	ParseResult<ModelBehavior> parseResult = (new AstBuilder(queryEnvironment)).parse(implementation);
     	

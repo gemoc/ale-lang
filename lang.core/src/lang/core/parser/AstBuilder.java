@@ -13,6 +13,9 @@ import lang.core.parser.visitor.ModelBuilder;
 import lang.core.parser.visitor.ParseResult;
 import lang.core.parser.visitor.Visitors;
 
+/**
+ * This class parse ".implem" file and produce model intance of Implementation metamodel
+ */
 public class AstBuilder {
 	
 	public AstBuilder(IQueryEnvironment qryEnv) {

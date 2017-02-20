@@ -1,5 +1,8 @@
 package lang.core.interpreter.services;
 
+/**
+ * AQL service to print objects on the output
+ */
 public class LogService {
 	
 	public static void log(Object o) {
