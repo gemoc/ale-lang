@@ -58,6 +58,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 	public static final String VARIABLE_UNDEFINED = "The variable %s is not defined";
 	public static final String FEATURE_UNDEFINED = "The feature %s is not defined";
 	public static final String VOID_RESULT_ASSIGN = "'result' is assigned in void operation";
+	public static final String PARAM_ASSIGN = "%s is a parameter and can't be assigned";
+	public static final String SELF_ASSIGN = "'self' can't be assigned";
 	
 	ParseResult<ModelBehavior> model;
 	List<IValidationMessage> msgs;
@@ -604,6 +606,16 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		}
 		else if(varAssign.getName().equals("result")){
 			//FIXME: check operation return type
+		}
+		else if(varAssign.getName().equals("self")){
+			int startPostion = model.getStartPositions().get(varAssign);
+			int endPosition = model.getEndPositions().get(varAssign);
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					String.format(SELF_ASSIGN,varAssign.getName()),
+					startPostion,
+					endPosition
+					));
 		}
 		else{
 			Set<IType> currentTypes = declaringScope.get(varAssign.getName());
