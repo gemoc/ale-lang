@@ -87,6 +87,16 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 						endPosition
 						));
 			}
+			else if(attrib.getName().equals("self")){
+				int startPostion = model.getStartPositions().get(attrib);
+				int endPosition = model.getEndPositions().get(attrib);
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(SELF_RESERVED,attrib.getName()),
+						startPostion,
+						endPosition
+						));
+			}
 			
 			Set<IType> possibleTypes = attributeTypes.get(attrib.getName());
 			if(possibleTypes != null) {
@@ -196,6 +206,16 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
 						String.format(RESULT_RESERVED,param.getName()),
+						startPostion,
+						endPosition
+						));
+			}
+			else if(param.getName().equals("self")){
+				int startPostion = model.getStartPositions().get(op);
+				int endPosition = model.getEndPositions().get(op);
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(SELF_RESERVED,param.getName()),
 						startPostion,
 						endPosition
 						));
@@ -594,6 +614,16 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(RESULT_RESERVED,varDecl.getName()),
+					startPostion,
+					endPosition
+					));
+		}
+		else if(varDecl.getName().equals("self")){
+			int startPostion = model.getStartPositions().get(varDecl);
+			int endPosition = model.getEndPositions().get(varDecl);
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					String.format(SELF_RESERVED,varDecl.getName()),
 					startPostion,
 					endPosition
 					));
