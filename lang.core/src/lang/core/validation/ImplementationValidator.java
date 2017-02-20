@@ -277,7 +277,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		 * Collect feature types
 		 */
 		Set<IType> targetTypes = expValidation.getPossibleTypes(featAssign.getTarget());
-		Set<IType> featureTypes = new HashSet<IType>();
+		Set<EClassifierType> featureTypes = new HashSet<EClassifierType>();
 		for(IType type: targetTypes){
 			if(type.getType() instanceof EClass){
 				EClass realType = (EClass) type.getType();
@@ -303,7 +303,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		 */
 		Set<IType> inferredTypes = expValidation.getPossibleTypes(featAssign.getValue());
 		boolean isAnyAssignable = false;
-		for(IType featureType: featureTypes){
+		for(EClassifierType featureType: featureTypes){
 			Optional<IType> existResult = inferredTypes.stream().filter(t -> featureType.isAssignableFrom(t)).findAny();
 			if(existResult.isPresent()){
 				isAnyAssignable = true;
@@ -319,7 +319,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			String featureToString = 
 					featureTypes
 					.stream()
-					.map(type -> type.toString())
+					.map(type -> type.getType().getName())
 					.collect(Collectors.joining(",","[","]"));
 			
 			int startPostion = model.getStartPositions().get(featAssign);
