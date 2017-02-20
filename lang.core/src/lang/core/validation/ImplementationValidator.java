@@ -282,8 +282,13 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			if(type.getType() instanceof EClass){
 				EClass realType = (EClass) type.getType();
 				EStructuralFeature feature = realType.getEStructuralFeature(featAssign.getTargetFeature());
-				EClassifierType featureType = new EClassifierType(qryEnv, feature.getEType());
-				featureTypes.add(featureType);
+				if(feature  != null){
+					EClassifierType featureType = new EClassifierType(qryEnv, feature.getEType());
+					featureTypes.add(featureType);
+				}
+				else {
+					//TODO: check dynamic attribute declaration
+				}
 			}
 		}
 		
