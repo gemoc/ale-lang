@@ -57,6 +57,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 	public static final String BOOLEAN_TYPE = "Expected Boolean but was %s";
 	public static final String VARIABLE_UNDEFINED = "The variable %s is not defined";
 	public static final String FEATURE_UNDEFINED = "The feature %s is not defined";
+	public static final String VOID_RESULT_ASSIGN = "'result' is assigned in void operation";
 	
 	ParseResult<ModelBehavior> model;
 	List<IValidationMessage> msgs;
@@ -591,7 +592,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		 * Check name
 		 */
 		Map<String, Set<IType>> declaringScope = findScope(varAssign.getName());
-		if(declaringScope == null){
+		if(declaringScope == null && !varAssign.getName().equals("result")){
 			int startPostion = model.getStartPositions().get(varAssign);
 			int endPosition = model.getEndPositions().get(varAssign);
 			msgs.add(new ValidationMessage(
@@ -600,6 +601,9 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					startPostion,
 					endPosition
 					));
+		}
+		else if(varAssign.getName().equals("result")){
+			//FIXME: check operation return type
 		}
 		else{
 			Set<IType> currentTypes = declaringScope.get(varAssign.getName());
