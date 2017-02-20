@@ -556,8 +556,11 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		/*
 		 * Check expression
 		 */
-		IValidationResult expValidation = validateExpression(varDecl.getInitialValue(),getCurrentScope());
-		msgs.addAll(expValidation.getMessages());
+		IValidationResult expValidation = null;
+		if(varDecl.getInitialValue() != null) {
+			expValidation = validateExpression(varDecl.getInitialValue(),getCurrentScope());
+			msgs.addAll(expValidation.getMessages());
+		}
 		
 		/*
 		 * Check name
@@ -573,15 +576,21 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					endPosition
 					));
 		}
-		else{
+		else if(expValidation != null){
 			lastScope.put(varDecl.getName(), expValidation.getPossibleTypes(varDecl.getInitialValue()));
+		}
+		else {
+			EClassifierType declaredType = new EClassifierType(qryEnv, varDecl.getType());
+			Set<IType> typeSet = new HashSet<IType>();
+			typeSet.add(declaredType);
+			lastScope.put(varDecl.getName(), typeSet);
 		}
 		
 		/*
 		 * Check assignment type
 		 */
 		EClassifierType varType = new EClassifierType(qryEnv, varDecl.getType());
-		Set<IType> inferredTypes = expValidation.getPossibleTypes(varDecl.getInitialValue());
+		Set<IType> inferredTypes = lastScope.get(varDecl.getName());
 		Optional<IType> existResult = inferredTypes.stream().filter(t -> varType.isAssignableFrom(t)).findAny();
 		if(!existResult.isPresent()){
 			String inferredToString = 
