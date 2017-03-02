@@ -499,6 +499,7 @@ public class Visitors {
 			ClassVisitor subVisitor = new ClassVisitor(parseRes);
 			ImplementationFactory factory = (ImplementationFactory) ImplementationPackage.eINSTANCE.getEFactoryInstance();
 			ModelBehavior res = factory.createModelBehavior();
+			
 			res.getClassExtensions().addAll(
 					ctx
 					.rClass()
@@ -514,8 +515,10 @@ public class Visitors {
 					.map(srv -> serviceVisitor.visit(srv))
 					.collect(Collectors.toList())
 					);
-			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
-			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			if(parseRes.getRoot() != null) {
+				parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+				parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			}
 			return res;
 		}
 	}
