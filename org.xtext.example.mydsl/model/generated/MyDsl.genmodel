@@ -11,7 +11,7 @@
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//rClass">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//rClass/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//rClass/attributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//rClass/attributes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//rClass/operations"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//rOperation">
@@ -26,6 +26,10 @@
     <genClasses ecoreClass="MyDsl.ecore#//rVariable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//rVariable/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//rVariable/name"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//rAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//rAttribute/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//rAttribute/name"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

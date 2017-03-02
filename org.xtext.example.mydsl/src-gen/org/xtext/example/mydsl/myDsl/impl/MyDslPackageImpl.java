@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.xtext.example.mydsl.myDsl.MyDslFactory;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
+import org.xtext.example.mydsl.myDsl.rAttribute;
 import org.xtext.example.mydsl.myDsl.rClass;
 import org.xtext.example.mydsl.myDsl.rOperation;
 import org.xtext.example.mydsl.myDsl.rParameters;
@@ -60,6 +61,13 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * @generated
    */
   private EClass rVariableEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass rAttributeEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -169,9 +177,9 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getrClass_Attributes()
+  public EReference getrClass_Attributes()
   {
-    return (EAttribute)rClassEClass.getEStructuralFeatures().get(1);
+    return (EReference)rClassEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -289,6 +297,36 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getrAttribute()
+  {
+    return rAttributeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getrAttribute_Type()
+  {
+    return (EAttribute)rAttributeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getrAttribute_Name()
+  {
+    return (EAttribute)rAttributeEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public MyDslFactory getMyDslFactory()
   {
     return (MyDslFactory)getEFactoryInstance();
@@ -319,7 +357,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
 
     rClassEClass = createEClass(RCLASS);
     createEAttribute(rClassEClass, RCLASS__NAME);
-    createEAttribute(rClassEClass, RCLASS__ATTRIBUTES);
+    createEReference(rClassEClass, RCLASS__ATTRIBUTES);
     createEReference(rClassEClass, RCLASS__OPERATIONS);
 
     rOperationEClass = createEClass(ROPERATION);
@@ -334,6 +372,10 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     rVariableEClass = createEClass(RVARIABLE);
     createEAttribute(rVariableEClass, RVARIABLE__TYPE);
     createEAttribute(rVariableEClass, RVARIABLE__NAME);
+
+    rAttributeEClass = createEClass(RATTRIBUTE);
+    createEAttribute(rAttributeEClass, RATTRIBUTE__TYPE);
+    createEAttribute(rAttributeEClass, RATTRIBUTE__NAME);
   }
 
   /**
@@ -372,7 +414,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
 
     initEClass(rClassEClass, rClass.class, "rClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getrClass_Name(), ecorePackage.getEString(), "name", null, 0, 1, rClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getrClass_Attributes(), ecorePackage.getEString(), "attributes", null, 0, -1, rClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getrClass_Attributes(), this.getrAttribute(), null, "attributes", null, 0, -1, rClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getrClass_Operations(), this.getrOperation(), null, "operations", null, 0, -1, rClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(rOperationEClass, rOperation.class, "rOperation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -387,6 +429,10 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     initEClass(rVariableEClass, rVariable.class, "rVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getrVariable_Type(), ecorePackage.getEString(), "type", null, 0, 1, rVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getrVariable_Name(), ecorePackage.getEString(), "name", null, 0, 1, rVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(rAttributeEClass, rAttribute.class, "rAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getrAttribute_Type(), ecorePackage.getEString(), "type", null, 0, 1, rAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getrAttribute_Name(), ecorePackage.getEString(), "name", null, 0, 1, rAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

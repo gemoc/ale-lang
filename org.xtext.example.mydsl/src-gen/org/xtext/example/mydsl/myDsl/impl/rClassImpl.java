@@ -16,11 +16,11 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
+import org.xtext.example.mydsl.myDsl.rAttribute;
 import org.xtext.example.mydsl.myDsl.rClass;
 import org.xtext.example.mydsl.myDsl.rOperation;
 
@@ -62,14 +62,14 @@ public class rClassImpl extends MinimalEObjectImpl.Container implements rClass
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' attribute list.
+   * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getAttributes()
    * @generated
    * @ordered
    */
-  protected EList<String> attributes;
+  protected EList<rAttribute> attributes;
 
   /**
    * The cached value of the '{@link #getOperations() <em>Operations</em>}' containment reference list.
@@ -130,11 +130,11 @@ public class rClassImpl extends MinimalEObjectImpl.Container implements rClass
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getAttributes()
+  public EList<rAttribute> getAttributes()
   {
     if (attributes == null)
     {
-      attributes = new EDataTypeEList<String>(String.class, this, MyDslPackage.RCLASS__ATTRIBUTES);
+      attributes = new EObjectContainmentEList<rAttribute>(rAttribute.class, this, MyDslPackage.RCLASS__ATTRIBUTES);
     }
     return attributes;
   }
@@ -163,6 +163,8 @@ public class rClassImpl extends MinimalEObjectImpl.Container implements rClass
   {
     switch (featureID)
     {
+      case MyDslPackage.RCLASS__ATTRIBUTES:
+        return ((InternalEList<?>)getAttributes()).basicRemove(otherEnd, msgs);
       case MyDslPackage.RCLASS__OPERATIONS:
         return ((InternalEList<?>)getOperations()).basicRemove(otherEnd, msgs);
     }
@@ -205,7 +207,7 @@ public class rClassImpl extends MinimalEObjectImpl.Container implements rClass
         return;
       case MyDslPackage.RCLASS__ATTRIBUTES:
         getAttributes().clear();
-        getAttributes().addAll((Collection<? extends String>)newValue);
+        getAttributes().addAll((Collection<? extends rAttribute>)newValue);
         return;
       case MyDslPackage.RCLASS__OPERATIONS:
         getOperations().clear();
@@ -271,8 +273,6 @@ public class rClassImpl extends MinimalEObjectImpl.Container implements rClass
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", attributes: ");
-    result.append(attributes);
     result.append(')');
     return result.toString();
   }

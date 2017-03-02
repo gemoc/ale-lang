@@ -3616,11 +3616,11 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                 if ( (LA6_1==RULE_IDENT) ) {
                     int LA6_3 = input.LA(3);
 
-                    if ( (LA6_3==EOF||LA6_3==RULE_MULTOP||(LA6_3>=17 && LA6_3<=26)||(LA6_3>=46 && LA6_3<=47)||LA6_3==50||LA6_3==52||(LA6_3>=54 && LA6_3<=55)||LA6_3==57||LA6_3==62||(LA6_3>=64 && LA6_3<=68)||(LA6_3>=70 && LA6_3<=71)) ) {
-                        alt6=1;
-                    }
-                    else if ( (LA6_3==51) ) {
+                    if ( (LA6_3==51) ) {
                         alt6=2;
+                    }
+                    else if ( (LA6_3==EOF||LA6_3==RULE_MULTOP||(LA6_3>=17 && LA6_3<=26)||(LA6_3>=46 && LA6_3<=47)||LA6_3==50||LA6_3==52||(LA6_3>=54 && LA6_3<=55)||LA6_3==57||LA6_3==62||(LA6_3>=64 && LA6_3<=68)||(LA6_3>=70 && LA6_3<=71)) ) {
+                        alt6=1;
                     }
                     else {
                         if (state.backtracking>0) {state.failed=true; return ;}
@@ -3780,11 +3780,11 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                 {
                 int LA7_3 = input.LA(2);
 
-                if ( (LA7_3==EOF||LA7_3==RULE_MULTOP||(LA7_3>=17 && LA7_3<=26)||(LA7_3>=46 && LA7_3<=47)||LA7_3==50||LA7_3==52||(LA7_3>=54 && LA7_3<=55)||LA7_3==57||LA7_3==62||(LA7_3>=64 && LA7_3<=68)||(LA7_3>=70 && LA7_3<=71)) ) {
-                    alt7=3;
-                }
-                else if ( (LA7_3==73||LA7_3==77) ) {
+                if ( (LA7_3==73||LA7_3==77) ) {
                     alt7=4;
+                }
+                else if ( (LA7_3==EOF||LA7_3==RULE_MULTOP||(LA7_3>=17 && LA7_3<=26)||(LA7_3>=46 && LA7_3<=47)||LA7_3==50||LA7_3==52||(LA7_3>=54 && LA7_3<=55)||LA7_3==57||LA7_3==62||(LA7_3>=64 && LA7_3<=68)||(LA7_3>=70 && LA7_3<=71)) ) {
+                    alt7=3;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -8311,24 +8311,34 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RAttribute__Group__0__Impl"
-    // InternalMyDsl.g:2324:1: rule__RAttribute__Group__0__Impl : ( RULE_IDENT ) ;
+    // InternalMyDsl.g:2324:1: rule__RAttribute__Group__0__Impl : ( ( rule__RAttribute__TypeAssignment_0 ) ) ;
     public final void rule__RAttribute__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalMyDsl.g:2328:1: ( ( RULE_IDENT ) )
-            // InternalMyDsl.g:2329:1: ( RULE_IDENT )
+            // InternalMyDsl.g:2328:1: ( ( ( rule__RAttribute__TypeAssignment_0 ) ) )
+            // InternalMyDsl.g:2329:1: ( ( rule__RAttribute__TypeAssignment_0 ) )
             {
-            // InternalMyDsl.g:2329:1: ( RULE_IDENT )
-            // InternalMyDsl.g:2330:2: RULE_IDENT
+            // InternalMyDsl.g:2329:1: ( ( rule__RAttribute__TypeAssignment_0 ) )
+            // InternalMyDsl.g:2330:2: ( rule__RAttribute__TypeAssignment_0 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getRAttributeAccess().getIdentTerminalRuleCall_0()); 
+               before(grammarAccess.getRAttributeAccess().getTypeAssignment_0()); 
             }
-            match(input,RULE_IDENT,FOLLOW_2); if (state.failed) return ;
+            // InternalMyDsl.g:2331:2: ( rule__RAttribute__TypeAssignment_0 )
+            // InternalMyDsl.g:2331:3: rule__RAttribute__TypeAssignment_0
+            {
+            pushFollow(FOLLOW_2);
+            rule__RAttribute__TypeAssignment_0();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getRAttributeAccess().getIdentTerminalRuleCall_0()); 
+               after(grammarAccess.getRAttributeAccess().getTypeAssignment_0()); 
             }
 
             }
@@ -8390,24 +8400,34 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RAttribute__Group__1__Impl"
-    // InternalMyDsl.g:2351:1: rule__RAttribute__Group__1__Impl : ( RULE_IDENT ) ;
+    // InternalMyDsl.g:2351:1: rule__RAttribute__Group__1__Impl : ( ( rule__RAttribute__NameAssignment_1 ) ) ;
     public final void rule__RAttribute__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalMyDsl.g:2355:1: ( ( RULE_IDENT ) )
-            // InternalMyDsl.g:2356:1: ( RULE_IDENT )
+            // InternalMyDsl.g:2355:1: ( ( ( rule__RAttribute__NameAssignment_1 ) ) )
+            // InternalMyDsl.g:2356:1: ( ( rule__RAttribute__NameAssignment_1 ) )
             {
-            // InternalMyDsl.g:2356:1: ( RULE_IDENT )
-            // InternalMyDsl.g:2357:2: RULE_IDENT
+            // InternalMyDsl.g:2356:1: ( ( rule__RAttribute__NameAssignment_1 ) )
+            // InternalMyDsl.g:2357:2: ( rule__RAttribute__NameAssignment_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getRAttributeAccess().getIdentTerminalRuleCall_1()); 
+               before(grammarAccess.getRAttributeAccess().getNameAssignment_1()); 
             }
-            match(input,RULE_IDENT,FOLLOW_2); if (state.failed) return ;
+            // InternalMyDsl.g:2358:2: ( rule__RAttribute__NameAssignment_1 )
+            // InternalMyDsl.g:2358:3: rule__RAttribute__NameAssignment_1
+            {
+            pushFollow(FOLLOW_2);
+            rule__RAttribute__NameAssignment_1();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getRAttributeAccess().getIdentTerminalRuleCall_1()); 
+               after(grammarAccess.getRAttributeAccess().getNameAssignment_1()); 
             }
 
             }
@@ -20795,6 +20815,88 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
     }
     // $ANTLR end "rule__RVariable__NameAssignment_1"
 
+
+    // $ANTLR start "rule__RAttribute__TypeAssignment_0"
+    // InternalMyDsl.g:6515:1: rule__RAttribute__TypeAssignment_0 : ( RULE_IDENT ) ;
+    public final void rule__RAttribute__TypeAssignment_0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalMyDsl.g:6519:1: ( ( RULE_IDENT ) )
+            // InternalMyDsl.g:6520:2: ( RULE_IDENT )
+            {
+            // InternalMyDsl.g:6520:2: ( RULE_IDENT )
+            // InternalMyDsl.g:6521:3: RULE_IDENT
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getRAttributeAccess().getTypeIdentTerminalRuleCall_0_0()); 
+            }
+            match(input,RULE_IDENT,FOLLOW_2); if (state.failed) return ;
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getRAttributeAccess().getTypeIdentTerminalRuleCall_0_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__RAttribute__TypeAssignment_0"
+
+
+    // $ANTLR start "rule__RAttribute__NameAssignment_1"
+    // InternalMyDsl.g:6530:1: rule__RAttribute__NameAssignment_1 : ( RULE_IDENT ) ;
+    public final void rule__RAttribute__NameAssignment_1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalMyDsl.g:6534:1: ( ( RULE_IDENT ) )
+            // InternalMyDsl.g:6535:2: ( RULE_IDENT )
+            {
+            // InternalMyDsl.g:6535:2: ( RULE_IDENT )
+            // InternalMyDsl.g:6536:3: RULE_IDENT
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getRAttributeAccess().getNameIdentTerminalRuleCall_1_0()); 
+            }
+            match(input,RULE_IDENT,FOLLOW_2); if (state.failed) return ;
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getRAttributeAccess().getNameIdentTerminalRuleCall_1_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__RAttribute__NameAssignment_1"
+
     // $ANTLR start synpred3_InternalMyDsl
     public final void synpred3_InternalMyDsl_fragment() throws RecognitionException {   
         // InternalMyDsl.g:904:2: ( ( rulerVarDecl ) )
@@ -21419,7 +21521,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
     static final String dfa_16s = "\1\10\21\0\2\uffff";
     static final String dfa_17s = "\1\107\21\0\2\uffff";
     static final String dfa_18s = "\22\uffff\1\2\1\1";
-    static final String dfa_19s = "\1\uffff\1\20\1\11\1\13\1\6\1\14\1\7\1\4\1\15\1\10\1\5\1\16\1\12\1\17\1\0\1\1\1\2\1\3\2\uffff}>";
+    static final String dfa_19s = "\1\uffff\1\16\1\17\1\13\1\20\1\7\1\0\1\14\1\10\1\1\1\15\1\11\1\2\1\12\1\3\1\4\1\5\1\6\2\uffff}>";
     static final String[] dfa_20s = {
             "\1\3\10\uffff\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15\23\uffff\1\22\1\1\2\uffff\1\22\1\uffff\1\22\1\uffff\2\22\1\uffff\1\22\4\uffff\1\22\1\uffff\1\16\1\17\1\20\1\21\1\2\1\uffff\2\22",
             "\1\uffff",
@@ -21472,111 +21574,6 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA29_14 = input.LA(1);
-
-                         
-                        int index29_14 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index29_14);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA29_15 = input.LA(1);
-
-                         
-                        int index29_15 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index29_15);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA29_16 = input.LA(1);
-
-                         
-                        int index29_16 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index29_16);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA29_17 = input.LA(1);
-
-                         
-                        int index29_17 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index29_17);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA29_7 = input.LA(1);
-
-                         
-                        int index29_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index29_7);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA29_10 = input.LA(1);
-
-                         
-                        int index29_10 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index29_10);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA29_4 = input.LA(1);
-
-                         
-                        int index29_4 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index29_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
                         int LA29_6 = input.LA(1);
 
                          
@@ -21591,7 +21588,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                         input.seek(index29_6);
                         if ( s>=0 ) return s;
                         break;
-                    case 8 : 
+                    case 1 : 
                         int LA29_9 = input.LA(1);
 
                          
@@ -21606,22 +21603,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                         input.seek(index29_9);
                         if ( s>=0 ) return s;
                         break;
-                    case 9 : 
-                        int LA29_2 = input.LA(1);
-
-                         
-                        int index29_2 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index29_2);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
+                    case 2 : 
                         int LA29_12 = input.LA(1);
 
                          
@@ -21634,6 +21616,126 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
 
                          
                         input.seek(index29_12);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA29_14 = input.LA(1);
+
+                         
+                        int index29_14 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index29_14);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA29_15 = input.LA(1);
+
+                         
+                        int index29_15 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index29_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA29_16 = input.LA(1);
+
+                         
+                        int index29_16 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index29_16);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA29_17 = input.LA(1);
+
+                         
+                        int index29_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index29_17);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA29_5 = input.LA(1);
+
+                         
+                        int index29_5 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index29_5);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA29_8 = input.LA(1);
+
+                         
+                        int index29_8 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index29_8);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA29_11 = input.LA(1);
+
+                         
+                        int index29_11 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index29_11);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA29_13 = input.LA(1);
+
+                         
+                        int index29_13 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index29_13);
                         if ( s>=0 ) return s;
                         break;
                     case 11 : 
@@ -21652,10 +21754,10 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                         if ( s>=0 ) return s;
                         break;
                     case 12 : 
-                        int LA29_5 = input.LA(1);
+                        int LA29_7 = input.LA(1);
 
                          
-                        int index29_5 = input.index();
+                        int index29_7 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred74_InternalMyDsl()) ) {s = 19;}
@@ -21663,14 +21765,14 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                         else if ( (true) ) {s = 18;}
 
                          
-                        input.seek(index29_5);
+                        input.seek(index29_7);
                         if ( s>=0 ) return s;
                         break;
                     case 13 : 
-                        int LA29_8 = input.LA(1);
+                        int LA29_10 = input.LA(1);
 
                          
-                        int index29_8 = input.index();
+                        int index29_10 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred74_InternalMyDsl()) ) {s = 19;}
@@ -21678,40 +21780,10 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                         else if ( (true) ) {s = 18;}
 
                          
-                        input.seek(index29_8);
+                        input.seek(index29_10);
                         if ( s>=0 ) return s;
                         break;
                     case 14 : 
-                        int LA29_11 = input.LA(1);
-
-                         
-                        int index29_11 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index29_11);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
-                        int LA29_13 = input.LA(1);
-
-                         
-                        int index29_13 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index29_13);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
                         int LA29_1 = input.LA(1);
 
                          
@@ -21724,6 +21796,36 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
 
                          
                         input.seek(index29_1);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA29_2 = input.LA(1);
+
+                         
+                        int index29_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index29_2);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA29_4 = input.LA(1);
+
+                         
+                        int index29_4 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred74_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index29_4);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -21756,111 +21858,6 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA30_14 = input.LA(1);
-
-                         
-                        int index30_14 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index30_14);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA30_15 = input.LA(1);
-
-                         
-                        int index30_15 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index30_15);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA30_16 = input.LA(1);
-
-                         
-                        int index30_16 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index30_16);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA30_17 = input.LA(1);
-
-                         
-                        int index30_17 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index30_17);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA30_7 = input.LA(1);
-
-                         
-                        int index30_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index30_7);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA30_10 = input.LA(1);
-
-                         
-                        int index30_10 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index30_10);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA30_4 = input.LA(1);
-
-                         
-                        int index30_4 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index30_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
                         int LA30_6 = input.LA(1);
 
                          
@@ -21875,7 +21872,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                         input.seek(index30_6);
                         if ( s>=0 ) return s;
                         break;
-                    case 8 : 
+                    case 1 : 
                         int LA30_9 = input.LA(1);
 
                          
@@ -21890,22 +21887,7 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                         input.seek(index30_9);
                         if ( s>=0 ) return s;
                         break;
-                    case 9 : 
-                        int LA30_2 = input.LA(1);
-
-                         
-                        int index30_2 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index30_2);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
+                    case 2 : 
                         int LA30_12 = input.LA(1);
 
                          
@@ -21918,6 +21900,126 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
 
                          
                         input.seek(index30_12);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA30_14 = input.LA(1);
+
+                         
+                        int index30_14 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index30_14);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA30_15 = input.LA(1);
+
+                         
+                        int index30_15 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index30_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA30_16 = input.LA(1);
+
+                         
+                        int index30_16 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index30_16);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA30_17 = input.LA(1);
+
+                         
+                        int index30_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index30_17);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA30_5 = input.LA(1);
+
+                         
+                        int index30_5 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index30_5);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA30_8 = input.LA(1);
+
+                         
+                        int index30_8 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index30_8);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA30_11 = input.LA(1);
+
+                         
+                        int index30_11 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index30_11);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA30_13 = input.LA(1);
+
+                         
+                        int index30_13 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index30_13);
                         if ( s>=0 ) return s;
                         break;
                     case 11 : 
@@ -21936,10 +22038,10 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                         if ( s>=0 ) return s;
                         break;
                     case 12 : 
-                        int LA30_5 = input.LA(1);
+                        int LA30_7 = input.LA(1);
 
                          
-                        int index30_5 = input.index();
+                        int index30_7 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred75_InternalMyDsl()) ) {s = 19;}
@@ -21947,14 +22049,14 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                         else if ( (true) ) {s = 18;}
 
                          
-                        input.seek(index30_5);
+                        input.seek(index30_7);
                         if ( s>=0 ) return s;
                         break;
                     case 13 : 
-                        int LA30_8 = input.LA(1);
+                        int LA30_10 = input.LA(1);
 
                          
-                        int index30_8 = input.index();
+                        int index30_10 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred75_InternalMyDsl()) ) {s = 19;}
@@ -21962,40 +22064,10 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
                         else if ( (true) ) {s = 18;}
 
                          
-                        input.seek(index30_8);
+                        input.seek(index30_10);
                         if ( s>=0 ) return s;
                         break;
                     case 14 : 
-                        int LA30_11 = input.LA(1);
-
-                         
-                        int index30_11 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index30_11);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
-                        int LA30_13 = input.LA(1);
-
-                         
-                        int index30_13 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
-
-                        else if ( (true) ) {s = 18;}
-
-                         
-                        input.seek(index30_13);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
                         int LA30_1 = input.LA(1);
 
                          
@@ -22008,6 +22080,36 @@ public class InternalMyDslParser extends AbstractInternalContentAssistParser {
 
                          
                         input.seek(index30_1);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA30_2 = input.LA(1);
+
+                         
+                        int index30_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index30_2);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA30_4 = input.LA(1);
+
+                         
+                        int index30_4 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred75_InternalMyDsl()) ) {s = 19;}
+
+                        else if ( (true) ) {s = 18;}
+
+                         
+                        input.seek(index30_4);
                         if ( s>=0 ) return s;
                         break;
             }

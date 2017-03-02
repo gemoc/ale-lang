@@ -31,7 +31,7 @@ rParameters : params+=rVariable (',' params+=rVariable)*
 rVariable : type=Ident name=Ident
 ;
 
-rAttribute : Ident Ident (':=' expression)? ';'
+rAttribute : type=Ident name=Ident (':=' expression)? ';'
 ;
 
 rStatement : rVarDecl 

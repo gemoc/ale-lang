@@ -119,6 +119,8 @@ public class MyDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRParametersAccess().getParamsAssignment_1_1(), "rule__RParameters__ParamsAssignment_1_1");
 					put(grammarAccess.getRVariableAccess().getTypeAssignment_0(), "rule__RVariable__TypeAssignment_0");
 					put(grammarAccess.getRVariableAccess().getNameAssignment_1(), "rule__RVariable__NameAssignment_1");
+					put(grammarAccess.getRAttributeAccess().getTypeAssignment_0(), "rule__RAttribute__TypeAssignment_0");
+					put(grammarAccess.getRAttributeAccess().getNameAssignment_1(), "rule__RAttribute__NameAssignment_1");
 				}
 			};
 		}

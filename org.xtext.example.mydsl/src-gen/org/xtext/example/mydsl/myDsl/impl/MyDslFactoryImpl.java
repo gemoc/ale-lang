@@ -70,6 +70,7 @@ public class MyDslFactoryImpl extends EFactoryImpl implements MyDslFactory
       case MyDslPackage.ROPERATION: return createrOperation();
       case MyDslPackage.RPARAMETERS: return createrParameters();
       case MyDslPackage.RVARIABLE: return createrVariable();
+      case MyDslPackage.RATTRIBUTE: return createrAttribute();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -128,6 +129,17 @@ public class MyDslFactoryImpl extends EFactoryImpl implements MyDslFactory
   {
     rVariableImpl rVariable = new rVariableImpl();
     return rVariable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public rAttribute createrAttribute()
+  {
+    rAttributeImpl rAttribute = new rAttributeImpl();
+    return rAttribute;
   }
 
   /**

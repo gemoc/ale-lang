@@ -303,25 +303,33 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	public class RAttributeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.rAttribute");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cIdentTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final RuleCall cIdentTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Assignment cTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cTypeIdentTerminalRuleCall_0_0 = (RuleCall)cTypeAssignment_0.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIdentTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cColonEqualsSignKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final RuleCall cExpressionParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//rAttribute:
-		//	Ident Ident (':=' expression)? ';';
+		//	type=Ident name=Ident (':=' expression)? ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//Ident Ident (':=' expression)? ';'
+		//type=Ident name=Ident (':=' expression)? ';'
 		public Group getGroup() { return cGroup; }
 		
-		//Ident
-		public RuleCall getIdentTerminalRuleCall_0() { return cIdentTerminalRuleCall_0; }
+		//type=Ident
+		public Assignment getTypeAssignment_0() { return cTypeAssignment_0; }
 		
 		//Ident
-		public RuleCall getIdentTerminalRuleCall_1() { return cIdentTerminalRuleCall_1; }
+		public RuleCall getTypeIdentTerminalRuleCall_0_0() { return cTypeIdentTerminalRuleCall_0_0; }
+		
+		//name=Ident
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		
+		//Ident
+		public RuleCall getNameIdentTerminalRuleCall_1_0() { return cNameIdentTerminalRuleCall_1_0; }
 		
 		//(':=' expression)?
 		public Group getGroup_2() { return cGroup_2; }
@@ -1692,7 +1700,7 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//rAttribute:
-	//	Ident Ident (':=' expression)? ';';
+	//	type=Ident name=Ident (':=' expression)? ';';
 	public RAttributeElements getRAttributeAccess() {
 		return pRAttribute;
 	}
