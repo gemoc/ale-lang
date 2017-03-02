@@ -570,14 +570,14 @@ rulerVariable returns [EObject current=null]
 ;
 
 // Entry rule entryRulerAttribute
-entryRulerAttribute returns [String current=null]:
+entryRulerAttribute returns [EObject current=null]:
 	{ newCompositeNode(grammarAccess.getRAttributeRule()); }
 	iv_rulerAttribute=rulerAttribute
-	{ $current=$iv_rulerAttribute.current.getText(); }
+	{ $current=$iv_rulerAttribute.current; }
 	EOF;
 
 // Rule rAttribute
-rulerAttribute returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+rulerAttribute returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -585,41 +585,61 @@ rulerAttribute returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToke
 	leaveRule();
 }:
 	(
-		this_Ident_0=RULE_IDENT
-		{
-			$current.merge(this_Ident_0);
-		}
-		{
-			newLeafNode(this_Ident_0, grammarAccess.getRAttributeAccess().getIdentTerminalRuleCall_0());
-		}
-		this_Ident_1=RULE_IDENT
-		{
-			$current.merge(this_Ident_1);
-		}
-		{
-			newLeafNode(this_Ident_1, grammarAccess.getRAttributeAccess().getIdentTerminalRuleCall_1());
-		}
 		(
-			kw=':='
+			(
+				lv_type_0_0=RULE_IDENT
+				{
+					newLeafNode(lv_type_0_0, grammarAccess.getRAttributeAccess().getTypeIdentTerminalRuleCall_0_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getRAttributeRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"type",
+						lv_type_0_0,
+						"org.xtext.example.mydsl.MyDsl.Ident");
+				}
+			)
+		)
+		(
+			(
+				lv_name_1_0=RULE_IDENT
+				{
+					newLeafNode(lv_name_1_0, grammarAccess.getRAttributeAccess().getNameIdentTerminalRuleCall_1_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getRAttributeRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_1_0,
+						"org.xtext.example.mydsl.MyDsl.Ident");
+				}
+			)
+		)
+		(
+			otherlv_2=':='
 			{
-				$current.merge(kw);
-				newLeafNode(kw, grammarAccess.getRAttributeAccess().getColonEqualsSignKeyword_2_0());
+				newLeafNode(otherlv_2, grammarAccess.getRAttributeAccess().getColonEqualsSignKeyword_2_0());
+			}
+			{
+				/* */
 			}
 			{
 				newCompositeNode(grammarAccess.getRAttributeAccess().getExpressionParserRuleCall_2_1());
 			}
-			this_expression_3=ruleexpression
-			{
-				$current.merge(this_expression_3);
-			}
+			ruleexpression
 			{
 				afterParserOrEnumRuleCall();
 			}
 		)?
-		kw=';'
+		otherlv_4=';'
 		{
-			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getRAttributeAccess().getSemicolonKeyword_3());
+			newLeafNode(otherlv_4, grammarAccess.getRAttributeAccess().getSemicolonKeyword_3());
 		}
 	)
 ;

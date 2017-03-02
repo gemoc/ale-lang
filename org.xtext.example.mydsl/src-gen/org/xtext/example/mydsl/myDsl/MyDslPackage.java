@@ -105,7 +105,7 @@ public interface MyDslPackage extends EPackage
   int RCLASS__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Attributes</b></em>' attribute list.
+   * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -251,6 +251,43 @@ public interface MyDslPackage extends EPackage
    */
   int RVARIABLE_FEATURE_COUNT = 2;
 
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.rAttributeImpl <em>rAttribute</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.myDsl.impl.rAttributeImpl
+   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrAttribute()
+   * @generated
+   */
+  int RATTRIBUTE = 5;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RATTRIBUTE__TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RATTRIBUTE__NAME = 1;
+
+  /**
+   * The number of structural features of the '<em>rAttribute</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RATTRIBUTE_FEATURE_COUNT = 2;
+
 
   /**
    * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.rRoot <em>rRoot</em>}'.
@@ -295,15 +332,15 @@ public interface MyDslPackage extends EPackage
   EAttribute getrClass_Name();
 
   /**
-   * Returns the meta object for the attribute list '{@link org.xtext.example.mydsl.myDsl.rClass#getAttributes <em>Attributes</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.xtext.example.mydsl.myDsl.rClass#getAttributes <em>Attributes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Attributes</em>'.
+   * @return the meta object for the containment reference list '<em>Attributes</em>'.
    * @see org.xtext.example.mydsl.myDsl.rClass#getAttributes()
    * @see #getrClass()
    * @generated
    */
-  EAttribute getrClass_Attributes();
+  EReference getrClass_Attributes();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.xtext.example.mydsl.myDsl.rClass#getOperations <em>Operations</em>}'.
@@ -424,6 +461,38 @@ public interface MyDslPackage extends EPackage
   EAttribute getrVariable_Name();
 
   /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.rAttribute <em>rAttribute</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>rAttribute</em>'.
+   * @see org.xtext.example.mydsl.myDsl.rAttribute
+   * @generated
+   */
+  EClass getrAttribute();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.rAttribute#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Type</em>'.
+   * @see org.xtext.example.mydsl.myDsl.rAttribute#getType()
+   * @see #getrAttribute()
+   * @generated
+   */
+  EAttribute getrAttribute_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.rAttribute#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.xtext.example.mydsl.myDsl.rAttribute#getName()
+   * @see #getrAttribute()
+   * @generated
+   */
+  EAttribute getrAttribute_Name();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -483,12 +552,12 @@ public interface MyDslPackage extends EPackage
     EAttribute RCLASS__NAME = eINSTANCE.getrClass_Name();
 
     /**
-     * The meta object literal for the '<em><b>Attributes</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Attributes</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RCLASS__ATTRIBUTES = eINSTANCE.getrClass_Attributes();
+    EReference RCLASS__ATTRIBUTES = eINSTANCE.getrClass_Attributes();
 
     /**
      * The meta object literal for the '<em><b>Operations</b></em>' containment reference list feature.
@@ -583,6 +652,32 @@ public interface MyDslPackage extends EPackage
      * @generated
      */
     EAttribute RVARIABLE__NAME = eINSTANCE.getrVariable_Name();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.rAttributeImpl <em>rAttribute</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.myDsl.impl.rAttributeImpl
+     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrAttribute()
+     * @generated
+     */
+    EClass RATTRIBUTE = eINSTANCE.getrAttribute();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RATTRIBUTE__TYPE = eINSTANCE.getrAttribute_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RATTRIBUTE__NAME = eINSTANCE.getrAttribute_Name();
 
   }
 

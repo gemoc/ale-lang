@@ -101,6 +101,11 @@ public class MyDslAdapterFactory extends AdapterFactoryImpl
         return createrVariableAdapter();
       }
       @Override
+      public Adapter caserAttribute(rAttribute object)
+      {
+        return createrAttributeAdapter();
+      }
+      @Override
       public Adapter defaultCase(EObject object)
       {
         return createEObjectAdapter();
@@ -193,6 +198,21 @@ public class MyDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createrVariableAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.rAttribute <em>rAttribute</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.myDsl.rAttribute
+   * @generated
+   */
+  public Adapter createrAttributeAdapter()
   {
     return null;
   }

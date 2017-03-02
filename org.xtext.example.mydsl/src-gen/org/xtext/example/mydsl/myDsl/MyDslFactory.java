@@ -69,6 +69,15 @@ public interface MyDslFactory extends EFactory
   rVariable createrVariable();
 
   /**
+   * Returns a new object of class '<em>rAttribute</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>rAttribute</em>'.
+   * @generated
+   */
+  rAttribute createrAttribute();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

@@ -16,10 +16,9 @@ import org.eclipse.xtext.generator.IGeneratorContext
 class MyDslGenerator extends AbstractGenerator {
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-//		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-//			resource.allContents
-//				.filter(typeof(Greeting))
-//				.map[name]
-//				.join(', '))
+		val xmiUri = resource.URI.trimFileExtension.appendFileExtension("xmi");
+		val xmiRes = resource.resourceSet.createResource(xmiUri);
+		xmiRes.contents.addAll(resource.contents);
+		xmiRes.save(null);
 	}
 }

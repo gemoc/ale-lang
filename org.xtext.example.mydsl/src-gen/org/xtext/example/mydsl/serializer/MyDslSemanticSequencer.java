@@ -15,6 +15,7 @@ import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
+import org.xtext.example.mydsl.myDsl.rAttribute;
 import org.xtext.example.mydsl.myDsl.rClass;
 import org.xtext.example.mydsl.myDsl.rOperation;
 import org.xtext.example.mydsl.myDsl.rParameters;
@@ -36,6 +37,9 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == MyDslPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case MyDslPackage.RATTRIBUTE:
+				sequence_rAttribute(context, (rAttribute) semanticObject); 
+				return; 
 			case MyDslPackage.RCLASS:
 				sequence_rClass(context, (rClass) semanticObject); 
 				return; 
@@ -55,6 +59,27 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 		if (errorAcceptor != null)
 			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
+	
+	/**
+	 * Contexts:
+	 *     rAttribute returns rAttribute
+	 *
+	 * Constraint:
+	 *     (type=Ident name=Ident)
+	 */
+	protected void sequence_rAttribute(ISerializationContext context, rAttribute semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.RATTRIBUTE__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.RATTRIBUTE__TYPE));
+			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.RATTRIBUTE__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.RATTRIBUTE__NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getRAttributeAccess().getTypeIdentTerminalRuleCall_0_0(), semanticObject.getType());
+		feeder.accept(grammarAccess.getRAttributeAccess().getNameIdentTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
 	
 	/**
 	 * Contexts:
