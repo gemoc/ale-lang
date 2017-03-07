@@ -108,8 +108,7 @@ public class LangInterpreter {
         this.javaExtensions.addEPackageCallBack(ePackageCallBack);
 	}
     
-    public IEvaluationResult eval(String modelURI, List<Object> args, String dslFile) {
-    	DslContent dsl = new DslContent(dslFile);
+    public IEvaluationResult eval(String modelURI, List<Object> args, Dsl dsl) {
     	
     	/*
     	 * Register EPackages

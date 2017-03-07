@@ -2,15 +2,16 @@ package lang;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-public class DslContent {
-	List<String> allSyntaxes;
-	List<String> allSemantics;
+public class Dsl {
+	List<String> allSyntaxes = new ArrayList<String>();
+	List<String> allSemantics = new ArrayList<String>();
 	
-	public DslContent(String dslFile) {
+	public Dsl(String dslFile) {
 		
 		Properties dslProp = new Properties();
 		try {
@@ -27,8 +28,8 @@ public class DslContent {
 		String[] syntaxes = allSyntaxes.split(",");
 		String[] behaviors = allBehaviors.split(",");
 		
-		this.allSyntaxes = Arrays.asList(syntaxes);
-		this.allSemantics = Arrays.asList(behaviors);
+		this.allSyntaxes.addAll(Arrays.asList(syntaxes));
+		this.allSemantics.addAll(Arrays.asList(behaviors));
 		
 	}
 	

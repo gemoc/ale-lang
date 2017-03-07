@@ -30,6 +30,7 @@ import implementation.ImplementationPackage;
 import implementation.ModelBehavior;
 import kmLogo.ASM.ASMPackage;
 import kmLogo.ASM.LogoProgram;
+import lang.Dsl;
 import lang.LangInterpreter;
 import lang.core.interpreter.DiagnosticLogger;
 import lang.core.interpreter.ImplementationEvaluator;
@@ -42,7 +43,7 @@ public class Main {
 		/*
 		 * Input files
 		 */
-		String dslFile = "../logo.example/data/logo.dsl";
+		String dslFile = "logo-standalone.dsl";
 		String modelFile = "../logo.example/data/LogoProgram.xmi";
 		
 		/*
@@ -60,7 +61,7 @@ public class Main {
 		/*
 		 * Eval
 		 */
-		IEvaluationResult result = interpreter.eval(modelFile, new ArrayList(), dslFile);
+		IEvaluationResult result = interpreter.eval(modelFile, new ArrayList(), new Dsl(dslFile));
 	}
 	
 //	public static Behaviored getMainOp(ModelBehavior implem) {

@@ -27,6 +27,7 @@ import org.eclipse.ui.dialogs.ResourceListSelectionDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import lang.LangInterpreter;
+import lang.ide.WorkbenchDsl;
 
 public class RunModel extends AbstractHandler {
 
@@ -67,7 +68,7 @@ public class RunModel extends AbstractHandler {
 		/*
 		 * Eval
 		 */
-		IEvaluationResult result = interpreter.eval(modelLocation, new ArrayList(), resource.getLocationURI().getPath().toString());
+		IEvaluationResult result = interpreter.eval(modelLocation, new ArrayList(), new WorkbenchDsl(resource.getLocationURI().getPath().toString()));
 		
 		return null;
 	}

@@ -1,2 +1,2 @@
-syntax=../logo.model/model/ASMLogo.ecore,../logo.model/model/VMLogo.ecore,
-behavior=../logo.example/data/LogoProgram.implem
+syntax=platform:/resource/logo.model/model/ASMLogo.ecore,platform:/resource/logo.model/model/VMLogo.ecore,
+behavior=platform:/resource/logo.example/data/LogoProgram.implem
