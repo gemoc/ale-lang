@@ -55,20 +55,36 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.rImport");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cImportKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cSTRINGTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final RuleCall cIdentTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cFullStopKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final RuleCall cIdentTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//rImport:
-		//	'import' STRING;
+		//	'import' Ident ('.' Ident)* ';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'import' STRING
+		//'import' Ident ('.' Ident)* ';'
 		public Group getGroup() { return cGroup; }
 		
 		//'import'
 		public Keyword getImportKeyword_0() { return cImportKeyword_0; }
 		
-		//STRING
-		public RuleCall getSTRINGTerminalRuleCall_1() { return cSTRINGTerminalRuleCall_1; }
+		//Ident
+		public RuleCall getIdentTerminalRuleCall_1() { return cIdentTerminalRuleCall_1; }
+		
+		//('.' Ident)*
+		public Group getGroup_2() { return cGroup_2; }
+		
+		//'.'
+		public Keyword getFullStopKeyword_2_0() { return cFullStopKeyword_2_0; }
+		
+		//Ident
+		public RuleCall getIdentTerminalRuleCall_2_1() { return cIdentTerminalRuleCall_2_1; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 	}
 	public class RServiceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtext.example.mydsl.MyDsl.rService");
@@ -1630,7 +1646,7 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//rImport:
-	//	'import' STRING;
+	//	'import' Ident ('.' Ident)* ';';
 	public RImportElements getRImportAccess() {
 		return pRImport;
 	}

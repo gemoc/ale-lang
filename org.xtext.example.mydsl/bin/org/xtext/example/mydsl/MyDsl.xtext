@@ -10,7 +10,7 @@ generate myDsl "http://www.xtext.org/example/mydsl/MyDsl"
 rRoot : rImport* rService* xtendedClasses+=rClass*
 ;
 
-rImport : 'import' STRING
+rImport : 'import' Ident ('.' Ident)* ';'
 ;
 
 rService : 'use' Ident ('.' Ident)* ';'

@@ -67,13 +67,13 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	}
 	
 	/**
-	 * rImport : 'import' STRING
+	 * rImport : 'import' Ident ('.' Ident)* ';'
 	 * ;
 	 */
 	protected String getrImportToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
-		return "import\"\"";
+		return "import;";
 	}
 	
 	/**

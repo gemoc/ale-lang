@@ -149,12 +149,31 @@ rulerImport returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()
 			$current.merge(kw);
 			newLeafNode(kw, grammarAccess.getRImportAccess().getImportKeyword_0());
 		}
-		this_STRING_1=RULE_STRING
+		this_Ident_1=RULE_IDENT
 		{
-			$current.merge(this_STRING_1);
+			$current.merge(this_Ident_1);
 		}
 		{
-			newLeafNode(this_STRING_1, grammarAccess.getRImportAccess().getSTRINGTerminalRuleCall_1());
+			newLeafNode(this_Ident_1, grammarAccess.getRImportAccess().getIdentTerminalRuleCall_1());
+		}
+		(
+			kw='.'
+			{
+				$current.merge(kw);
+				newLeafNode(kw, grammarAccess.getRImportAccess().getFullStopKeyword_2_0());
+			}
+			this_Ident_3=RULE_IDENT
+			{
+				$current.merge(this_Ident_3);
+			}
+			{
+				newLeafNode(this_Ident_3, grammarAccess.getRImportAccess().getIdentTerminalRuleCall_2_1());
+			}
+		)*
+		kw=';'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getRImportAccess().getSemicolonKeyword_3());
 		}
 	)
 ;

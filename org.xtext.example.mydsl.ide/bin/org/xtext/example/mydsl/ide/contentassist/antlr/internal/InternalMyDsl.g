@@ -1532,6 +1532,7 @@ rule__RImport__Group__1
 	}
 :
 	rule__RImport__Group__1__Impl
+	rule__RImport__Group__2
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -1543,9 +1544,116 @@ rule__RImport__Group__1__Impl
 	}
 :
 (
-	{ before(grammarAccess.getRImportAccess().getSTRINGTerminalRuleCall_1()); }
-	RULE_STRING
-	{ after(grammarAccess.getRImportAccess().getSTRINGTerminalRuleCall_1()); }
+	{ before(grammarAccess.getRImportAccess().getIdentTerminalRuleCall_1()); }
+	RULE_IDENT
+	{ after(grammarAccess.getRImportAccess().getIdentTerminalRuleCall_1()); }
+)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__RImport__Group__2
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	rule__RImport__Group__2__Impl
+	rule__RImport__Group__3
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__RImport__Group__2__Impl
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+(
+	{ before(grammarAccess.getRImportAccess().getGroup_2()); }
+	(rule__RImport__Group_2__0)*
+	{ after(grammarAccess.getRImportAccess().getGroup_2()); }
+)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__RImport__Group__3
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	rule__RImport__Group__3__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__RImport__Group__3__Impl
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+(
+	{ before(grammarAccess.getRImportAccess().getSemicolonKeyword_3()); }
+	';'
+	{ after(grammarAccess.getRImportAccess().getSemicolonKeyword_3()); }
+)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__RImport__Group_2__0
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	rule__RImport__Group_2__0__Impl
+	rule__RImport__Group_2__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__RImport__Group_2__0__Impl
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+(
+	{ before(grammarAccess.getRImportAccess().getFullStopKeyword_2_0()); }
+	'.'
+	{ after(grammarAccess.getRImportAccess().getFullStopKeyword_2_0()); }
+)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__RImport__Group_2__1
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	rule__RImport__Group_2__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__RImport__Group_2__1__Impl
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+(
+	{ before(grammarAccess.getRImportAccess().getIdentTerminalRuleCall_2_1()); }
+	RULE_IDENT
+	{ after(grammarAccess.getRImportAccess().getIdentTerminalRuleCall_2_1()); }
 )
 ;
 finally {
