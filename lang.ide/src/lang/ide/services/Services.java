@@ -86,7 +86,7 @@ public class Services {
 		ResourceSet rs = editingDomain.getResourceSet();
 		
     	URI uri = ecoreRes.getURI();
-    	URI implemURI = uri.trimFileExtension().appendFileExtension(IMPLEM_EXTENSION+"/"+RESOURCE_SUFFIX);
+    	URI implemURI = uri.trimFileExtension().appendFileExtension(IMPLEM_EXTENSION+"."+RESOURCE_SUFFIX);
     	
     	/*
     	 * Remove existing implem resource
@@ -266,7 +266,7 @@ public class Services {
     	Session session = SessionManager.INSTANCE.getSession(elem);
     	
     	URI uri = elem.eResource().getURI();
-    	URI implemURI = uri.trimFileExtension().appendFileExtension(IMPLEM_EXTENSION+"/"+RESOURCE_SUFFIX);
+    	URI implemURI = uri.trimFileExtension().appendFileExtension(IMPLEM_EXTENSION+"."+RESOURCE_SUFFIX);
     	
     	Optional<Resource> implemSearch = 
     			session
@@ -305,7 +305,7 @@ public class Services {
 		ResourceSet rs = editingDomain.getResourceSet();
 		
     	URI uri = cls.eResource().getURI();
-    	URI implemURI = uri.trimFileExtension().appendFileExtension(IMPLEM_EXTENSION+"/"+RESOURCE_SUFFIX);
+    	URI implemURI = uri.trimFileExtension().appendFileExtension(IMPLEM_EXTENSION+"."+RESOURCE_SUFFIX);
     	
     	Optional<Resource> implemSearch = 
 			session
@@ -335,7 +335,7 @@ public class Services {
 		ResourceSet rs = editingDomain.getResourceSet();
 		
     	URI uri = cls.eResource().getURI();
-    	URI implemURI = uri.trimFileExtension().appendFileExtension(IMPLEM_EXTENSION+"/"+RESOURCE_SUFFIX);
+    	URI implemURI = uri.trimFileExtension().appendFileExtension(IMPLEM_EXTENSION+"."+RESOURCE_SUFFIX);
     	
     	Optional<Resource> implemSearch = 
 			session
