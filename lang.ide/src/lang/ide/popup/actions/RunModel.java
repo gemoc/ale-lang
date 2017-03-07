@@ -36,57 +36,39 @@ public class RunModel extends AbstractHandler {
 		System.out.println("Run model!");
 		Shell shell = HandlerUtil.getActiveWorkbenchWindow(event).getShell();
 		
+		/*
+		 * Dsl file
+		 */
 		IStructuredSelection selection = (IStructuredSelection) HandlerUtil.getActiveMenuSelection(event);
 		IResource resource = (IResource) selection.getFirstElement();
+		String dslProject = resource.getProject().getName();
 		
-		
+		/*
+		 * Selected model
+		 */
 		ResourceListSelectionDialog dialog = new ResourceListSelectionDialog(shell, ResourcesPlugin.getWorkspace().getRoot(), IResource.FILE);
 		dialog.setTitle("Resource Selection");
 		dialog.open();
 		Object[] selected = dialog.getResult();
+		String modelLocation = ((File)selected[0]).getLocationURI().toString();
+		String modelProject = ((File)selected[0]).getProject().getName();
 		
-		LangInterpreter interpreter = new LangInterpreter();
-		
-//		interpreter.javaExtensions.addImport("logo.example.service.Display");
+		/*
+		 * Init interpreter
+		 */
 		Set<String> projects = new HashSet<String>();
-		projects.add("logo.example");
-		projects.add("logo.model");
 		Set<String> plugins = new HashSet<String>();
-			plugins.add("lang.core");
-			plugins.add("org.eclipse.acceleo.query");
+		projects.add(dslProject);
+		projects.add(modelProject);
+		LangInterpreter interpreter = new LangInterpreter();
 		interpreter.javaExtensions.updateScope(plugins,projects);
-		
 		interpreter.javaExtensions.reloadIfNeeded();
 		
-		ResourceSetImpl rs = new ResourceSetImpl();
-		Set<EPackage> lastEPackages = 
-				interpreter
-				.getQueryEnvironment()
-				.getEPackageProvider()
-				.getEClassifiers()
-				.stream()
-				.map(cls -> cls.getEPackage())
-				.collect(Collectors.toSet());
-		lastEPackages
-			.stream()
-			.forEach(pkg -> rs.getPackageRegistry().put(pkg.getNsURI(), pkg));
-		Resource res = rs.getResource(URI.createPlatformResourceURI(resource.getFullPath().toString(), true), true);
-		EObject caller = res.getContents().get(0);
-		EClass cls = caller.eClass();
-		String implem = getFileContent(((File)selected[0]).getLocation().toString());
-		
-		IEvaluationResult result = interpreter.eval(resource.getLocationURI().toString(), new ArrayList(), implem);
+		/*
+		 * Eval
+		 */
+		IEvaluationResult result = interpreter.eval(modelLocation, new ArrayList(), resource.getLocationURI().getPath().toString());
 		
 		return null;
-	}
-
-	public static String getFileContent(String implementionPath){
-		String fileContent = "";
-		try {
-			fileContent = new String(Files.readAllBytes(Paths.get(implementionPath)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return fileContent;
 	}
 }
