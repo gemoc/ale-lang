@@ -13,18 +13,19 @@ import lang.core.interpreter.services.DynamicFeatureAccessService;
 import java.util.Map;
 import java.util.Optional;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * This class manages dynamic attributes for EObjects.
  */
 public class DynamicFeatureRegistry {
 	
-	ModelBehavior implem;
+	List<ModelBehavior> allImplemModels;
 	
 	Map<EObject,Map<String,Object>> extendedObjects; //instance -> (featureName -> value)
 	
-	public DynamicFeatureRegistry (ModelBehavior implem){
-		this.implem = implem;
+	public DynamicFeatureRegistry (List<ModelBehavior> allImplemModels){
+		this.allImplemModels = allImplemModels;
 		extendedObjects = new HashMap<EObject,Map<String,Object>>();
 	}
 	
@@ -74,9 +75,9 @@ public class DynamicFeatureRegistry {
 			return featureValue;
 		
 		Optional<ExtendedClass> xtdClass = //FIXME:look type hierarchy 
-				implem
-				.getClassExtensions()
+				allImplemModels
 				.stream()
+				.flatMap(m -> m.getClassExtensions().stream())
 				.filter(cls -> cls.getBaseClass().isInstance(instance))
 				.findFirst(); 
 		
@@ -112,9 +113,9 @@ public class DynamicFeatureRegistry {
 			extendedInstance.put(featureName,newValue);
 		else{
 			Optional<ExtendedClass> xtdClass = //FIXME:look type hierarchy 
-					implem
-					.getClassExtensions()
+					allImplemModels
 					.stream()
+					.flatMap(m -> m.getClassExtensions().stream())
 					.filter(cls -> cls.getBaseClass().isInstance(instance))
 					.findFirst();
 			

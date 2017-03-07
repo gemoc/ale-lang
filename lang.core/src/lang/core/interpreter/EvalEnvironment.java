@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -31,7 +32,7 @@ public class EvalEnvironment {
 	/**
 	 * Contains declarations of dynamics attributes & operations bodies
 	 */
-	ModelBehavior implemModel;
+	List<ModelBehavior> allImplemModels;
 	
 	/**
 	 * Store dynamics attributes
@@ -43,11 +44,11 @@ public class EvalEnvironment {
 	 */
 	DiagnosticLogger logger;
 	
-	public EvalEnvironment (IQueryEnvironment qryEnv, ModelBehavior implem, DiagnosticLogger logger) {
+	public EvalEnvironment (IQueryEnvironment qryEnv, List<ModelBehavior> allImplem, DiagnosticLogger logger) {
 		this.qryEnv = qryEnv;
 		this.logger = logger;
 		createDefaultServices();
-		registerImplem(implem);
+		registerImplem(allImplem);
 	}
 	
 	public void createDefaultServices() {
@@ -72,15 +73,18 @@ public class EvalEnvironment {
 	/**
 	 * Register services to access dynamic features and evaluate operations
 	 */
-	public void registerImplem(ModelBehavior implemModel) {
-		this.implemModel = implemModel;
-		this.dynamicFeatures = new DynamicFeatureRegistry(implemModel);
-		ImplementationEvaluator evaluator = new ImplementationEvaluator(new QueryEvaluationEngine(qryEnv), dynamicFeatures);
-		implemModel
+	public void registerImplem(List<ModelBehavior> allImplemModels) {
+		this.allImplemModels = allImplemModels;
+		this.dynamicFeatures = new DynamicFeatureRegistry(allImplemModels);
+		allImplemModels
+		.stream()
+		.forEach(implemModel -> {
+			implemModel
 			.getClassExtensions()
 			.stream()
 			.flatMap(cls -> cls.getMethods().stream())
 			.forEach(implemOp -> qryEnv.registerService(new EvalBodyService(implemOp,this,logger)));
+		});
 		Method featureAccessMethod;
 		try {
 			featureAccessMethod = DynamicFeatureRegistry.class.getMethod("aqlFeatureAccess",EObject.class,String.class);

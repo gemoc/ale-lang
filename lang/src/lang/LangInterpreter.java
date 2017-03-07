@@ -1,7 +1,15 @@
 package lang;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
+import java.util.stream.Collectors;
 
 import org.eclipse.acceleo.query.ast.AstPackage;
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
@@ -10,9 +18,14 @@ import org.eclipse.acceleo.query.runtime.Query;
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.sirius.common.tools.api.interpreter.ClassLoadingCallback;
 import org.eclipse.sirius.common.tools.api.interpreter.EPackageLoadingCallback;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
@@ -94,54 +107,117 @@ public class LangInterpreter {
         this.javaExtensions.addEPackageCallBack(ePackageCallBack);
 	}
     
-    /**
-     * Entry point for an evaluation.Search in {@link implementation}
-     * for the first operation tagged 'main' and apply it to {@link caller}
-     */
-    public IEvaluationResult eval(EObject caller, List<Object> args, String implementation) {
-    	ParseResult<ModelBehavior> parseResult = (new AstBuilder(queryEnvironment)).parse(implementation);
-    	
-    	parseResult
-    		.getRoot()
-    		.getServices()
+    public IEvaluationResult eval(String modelURI, List<Object> args, String dslFile) {
+    	DslContent dsl = new DslContent(dslFile);
+    	ResourceSet rs = new ResourceSetImpl();
+    	rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
+    	dsl.getAllSyntaxes()
     		.stream()
-    		.forEach(srv -> javaExtensions.addImport(srv));
+    		.forEach(syntaxURI -> {
+    			List<EPackage> pkgImports = load(syntaxURI, rs);
+    			pkgImports
+	    			.stream()
+	    			.forEach(pkg -> queryEnvironment.registerEPackage(pkg));
+    		});
+    	
+    	List<ParseResult<ModelBehavior>> parsedSemantics =
+	    	dsl
+	    	.getAllSemantics()
+	    	.stream()
+	    	.map(behaviorFile -> (new AstBuilder(queryEnvironment)).parse(getFileContent(behaviorFile)))
+	    	.collect(Collectors.toList());
+    	
+    	parsedSemantics
+	    	.stream()
+	    	.forEach(sem -> {
+	    		ModelBehavior root = sem.getRoot();
+	    		if(root != null) {
+	    			root
+	    			.getServices()
+	        		.stream()
+	        		.forEach(srv -> javaExtensions.addImport(srv));
+	    		}
+	    	});
     	javaExtensions.reloadIfNeeded();
     	
-    	Behaviored mainOp = getMainOp(parseResult.getRoot());
-		EvaluationResult evalResult = eval(caller,mainOp,args);
+    	ResourceSet modelRs = new ResourceSetImpl();
+    	modelRs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
+    	queryEnvironment
+    	.getEPackageProvider()
+    	.getRegisteredEPackages()
+    	.stream()
+    	.forEach(pkg -> {
+    		modelRs.getPackageRegistry().put(pkg.getNsURI(), pkg);
+    	});
+    	
+    	URI uri = URI.createURI(modelURI);
+		Resource modelRes = modelRs.getResource(uri, true);
+		EObject caller = modelRes.getContents().get(0);
 		
-		final BasicDiagnostic diagnostic = new BasicDiagnostic();
-        if (Diagnostic.OK != parseResult.getDiagnostic().getSeverity()) {
-            diagnostic.merge(parseResult.getDiagnostic());
-        }
-        if (Diagnostic.OK != evalResult.getDiagnostic().getSeverity()) {
-            diagnostic.merge(evalResult.getDiagnostic());
-        }
-
-        return new IEvaluationResult() {
-
-            @Override
-            public Object getValue() {
-                return evalResult.getResult();
-            }
-
-            @Override
-            public Diagnostic getDiagnostic() {
-                List<Diagnostic> children = diagnostic.getChildren();
-                if (children.size() == 1) {
-                    return children.get(0);
-                } else {
-                    return diagnostic;
-                }
-            }
-        };
+		return eval(caller,args,parsedSemantics);
+		
     }
     
-    private EvaluationResult eval(EObject caller, Behaviored operation, List<Object> args) {
-    	ModelBehavior root = (ModelBehavior) EcoreUtil.getRootContainer(operation);
+    
+    /**
+     * Entry point for an evaluation.
+     * Search in {@link dslFile}'s semantics
+     * for the first operation tagged 'main' and apply it to {@link caller}
+     */
+    private IEvaluationResult eval(EObject caller, List<Object> args, List<ParseResult<ModelBehavior>> parsedSemantics) {
+    	
+    	Optional<Behaviored> mainOp =
+    		parsedSemantics
+	    	.stream()
+	    	.filter(sem -> sem.getRoot() != null)
+	    	.map(sem -> getMainOp(sem.getRoot()))
+	    	.findFirst();
+    	
+    	final BasicDiagnostic diagnostic = new BasicDiagnostic();
+    	parsedSemantics
+    	.stream()
+    	.filter(parseResult -> Diagnostic.OK != parseResult.getDiagnostic().getSeverity())
+    	.forEach(parseResult -> diagnostic.merge(parseResult.getDiagnostic()));
+    	
+    	
+    	Object value = null;
+		if (mainOp.isPresent()) {
+			List<ModelBehavior> allBehaviors = 
+				parsedSemantics
+		    	.stream()
+		    	.filter(sem -> sem.getRoot() != null)
+		    	.map(sem -> sem.getRoot())
+		    	.collect(Collectors.toList());
+			EvaluationResult evalResult = eval(caller, mainOp.get(), args, allBehaviors);
+			if (Diagnostic.OK != evalResult.getDiagnostic().getSeverity()) {
+				diagnostic.merge(evalResult.getDiagnostic());
+			}
+			value = evalResult.getResult();
+		}
+		
+		Object dumbFinal = value;
+		return new IEvaluationResult() {
+
+			@Override
+			public Object getValue() {
+				return dumbFinal;
+			}
+
+			@Override
+			public Diagnostic getDiagnostic() {
+				List<Diagnostic> children = diagnostic.getChildren();
+				if (children.size() == 1) {
+					return children.get(0);
+				} else {
+					return diagnostic;
+				}
+			}
+		};
+    }
+    
+    private EvaluationResult eval(EObject caller, Behaviored operation, List<Object> args, List<ModelBehavior> allBehaviors) {
     	DiagnosticLogger logger = new DiagnosticLogger();
-    	EvalEnvironment env = new EvalEnvironment(queryEnvironment, root, logger);
+    	EvalEnvironment env = new EvalEnvironment(queryEnvironment, allBehaviors, logger);
     	ImplementationEngine engine = new ImplementationEngine(env);
     	return engine.eval(caller, operation, args);
     }
@@ -158,5 +234,28 @@ public class LangInterpreter {
     
     public IQueryEnvironment getQueryEnvironment() {
         return this.queryEnvironment;
+    }
+    
+    private static String getFileContent(String implementionPath){
+		String fileContent = "";
+		try {
+			fileContent = new String(Files.readAllBytes(Paths.get(implementionPath)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return fileContent;
+	}
+    
+    private List<EPackage> load(String ecoreURI, ResourceSet rs) {
+    	URI uri = URI.createURI(ecoreURI);
+    	Resource res  = rs.getResource(uri, true);
+    	
+    	return 
+    		res
+	    	.getContents()
+	    	.stream()
+	    	.filter(o -> o instanceof EPackage)
+	    	.map(o -> (EPackage) o)
+	    	.collect(Collectors.toList());
     }
 }
