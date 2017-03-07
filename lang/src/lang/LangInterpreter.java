@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -109,6 +110,10 @@ public class LangInterpreter {
     
     public IEvaluationResult eval(String modelURI, List<Object> args, String dslFile) {
     	DslContent dsl = new DslContent(dslFile);
+    	
+    	/*
+    	 * Register EPackages
+    	 */
     	ResourceSet rs = new ResourceSetImpl();
     	rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
     	dsl.getAllSyntaxes()
@@ -117,9 +122,19 @@ public class LangInterpreter {
     			List<EPackage> pkgImports = load(syntaxURI, rs);
     			pkgImports
 	    			.stream()
-	    			.forEach(pkg -> queryEnvironment.registerEPackage(pkg));
+	    			.forEach(pkg -> {
+	    				//Register if not already there
+	    				Collection<EPackage> matchingPkgs = queryEnvironment.getEPackageProvider().getEPackage(pkg.getName());
+	    				Optional<EPackage> existingPkg = matchingPkgs.stream().filter(p -> p.getNsURI().equals(pkg.getNsURI())).findFirst();
+	    				if(!existingPkg.isPresent()){
+	    					queryEnvironment.registerEPackage(pkg);
+	    				}
+	    			});
     		});
     	
+    	/*
+    	 * Parse behavior files
+    	 */
     	List<ParseResult<ModelBehavior>> parsedSemantics =
 	    	dsl
 	    	.getAllSemantics()
@@ -127,6 +142,9 @@ public class LangInterpreter {
 	    	.map(behaviorFile -> (new AstBuilder(queryEnvironment)).parse(getFileContent(behaviorFile)))
 	    	.collect(Collectors.toList());
     	
+    	/*
+    	 * Register services
+    	 */
     	parsedSemantics
 	    	.stream()
 	    	.forEach(sem -> {
@@ -140,20 +158,25 @@ public class LangInterpreter {
 	    	});
     	javaExtensions.reloadIfNeeded();
     	
+    	/*
+    	 * Load input model
+    	 */
     	ResourceSet modelRs = new ResourceSetImpl();
     	modelRs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
     	queryEnvironment
-    	.getEPackageProvider()
-    	.getRegisteredEPackages()
-    	.stream()
-    	.forEach(pkg -> {
-    		modelRs.getPackageRegistry().put(pkg.getNsURI(), pkg);
-    	});
-    	
+	    	.getEPackageProvider()
+	    	.getRegisteredEPackages()
+	    	.stream()
+	    	.forEach(pkg -> {
+	    		modelRs.getPackageRegistry().put(pkg.getNsURI(), pkg);
+	    	});
     	URI uri = URI.createURI(modelURI);
 		Resource modelRes = modelRs.getResource(uri, true);
 		EObject caller = modelRes.getContents().get(0);
 		
+		/*
+		 * Eval
+		 */
 		return eval(caller,args,parsedSemantics);
 		
     }
@@ -236,7 +259,7 @@ public class LangInterpreter {
         return this.queryEnvironment;
     }
     
-    private static String getFileContent(String implementionPath){
+    private static String getFileContent(String implementionPath) {
 		String fileContent = "";
 		try {
 			fileContent = new String(Files.readAllBytes(Paths.get(implementionPath)));
