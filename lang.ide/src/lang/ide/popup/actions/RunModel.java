@@ -33,8 +33,6 @@ public class RunModel extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		
-		
-		
 		System.out.println("Run model!");
 		Shell shell = HandlerUtil.getActiveWorkbenchWindow(event).getShell();
 		
@@ -77,7 +75,7 @@ public class RunModel extends AbstractHandler {
 		EClass cls = caller.eClass();
 		String implem = getFileContent(((File)selected[0]).getLocation().toString());
 		
-		IEvaluationResult result = interpreter.eval(caller, new ArrayList(), implem);
+		IEvaluationResult result = interpreter.eval(resource.getLocationURI().toString(), new ArrayList(), implem);
 		
 		return null;
 	}
