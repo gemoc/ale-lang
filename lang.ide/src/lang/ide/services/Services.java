@@ -69,6 +69,7 @@ import implementation.ExtendedClass;
 import implementation.Implementation;
 import implementation.ImplementationFactory;
 import implementation.ImplementationPackage;
+import implementation.Method;
 import implementation.ModelBehavior;
 import implementation.VariableDeclaration;
 import lang.core.parser.AstBuilder;
@@ -306,9 +307,6 @@ public class Services {
     	URI uri = cls.eResource().getURI();
     	URI implemURI = uri.trimFileExtension().appendFileExtension(IMPLEM_EXTENSION+"/"+RESOURCE_SUFFIX);
     	
-    	/*
-    	 * Remove existing implem resource
-    	 */
     	Optional<Resource> implemSearch = 
 			session
 			.getSemanticResources()
@@ -329,6 +327,42 @@ public class Services {
 			}
     	}
     	return new ArrayList<VariableDeclaration>();
+    }
+    
+    public List<Method> getMethod(EClass cls){
+    	Session session = SessionManager.INSTANCE.getSession(cls);
+    	final TransactionalEditingDomain editingDomain = session.getTransactionalEditingDomain();
+		ResourceSet rs = editingDomain.getResourceSet();
+		
+    	URI uri = cls.eResource().getURI();
+    	URI implemURI = uri.trimFileExtension().appendFileExtension(IMPLEM_EXTENSION+"/"+RESOURCE_SUFFIX);
+    	
+    	Optional<Resource> implemSearch = 
+			session
+			.getSemanticResources()
+			.stream()
+			.filter(r -> r.getURI().equals(implemURI))
+			.findFirst();
+    	if(implemSearch.isPresent()){
+    		Resource implemRes = implemSearch.get();
+    		ModelBehavior root = (ModelBehavior) implemRes.getContents().get(0);
+			Optional<ExtendedClass> searchCls = 
+				root
+				.getClassExtensions()
+				.stream()
+				.filter(ext -> ext.getBaseClass().getName().equals(cls.getName())).findFirst();
+			if(searchCls.isPresent()){
+				ExtendedClass xtdCls = searchCls.get();
+				return 
+					xtdCls
+					.getMethods()
+					.stream()
+					.filter(op -> op instanceof Method)
+					.map(op -> (Method) op)
+					.collect(Collectors.toList());
+			}
+    	}
+    	return new ArrayList<Method>();
     }
     
 	public EOperation editImplementation(EOperation op) {
