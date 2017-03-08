@@ -14,6 +14,10 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.internal.resources.File;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -72,7 +76,39 @@ public class RunModel extends AbstractHandler {
 		/*
 		 * Eval
 		 */
-		IEvaluationResult result = interpreter.eval(modelLocation, new ArrayList(), new WorkbenchDsl(resource.getLocationURI().getPath().toString()));
+		Job evalJob = new Job("AQL Eval") {
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				
+				Thread execThread = new Thread("Aql eval thread"){
+					@Override
+					public void run() {
+						IEvaluationResult result = interpreter.eval(modelLocation, new ArrayList(), new WorkbenchDsl(resource.getLocationURI().getPath().toString()));
+						this.stop();
+					}
+				};
+				execThread.start();
+				
+				while(execThread.isAlive()){
+					if(monitor.isCanceled()){
+						execThread.stop();
+						return Status.CANCEL_STATUS;
+					}
+					 try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				if(execThread.isAlive()){
+					execThread.stop();
+				}
+				
+				return Status.OK_STATUS;
+			}
+		};
+		evalJob.schedule();
 		
 		return null;
 	}
