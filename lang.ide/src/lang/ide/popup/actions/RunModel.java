@@ -51,6 +51,10 @@ public class RunModel extends AbstractHandler {
 		dialog.setTitle("Resource Selection");
 		dialog.open();
 		Object[] selected = dialog.getResult();
+		
+		if(selected == null)
+			return null;
+		
 		String modelLocation = ((File)selected[0]).getLocationURI().toString();
 		String modelProject = ((File)selected[0]).getProject().getName();
 		
