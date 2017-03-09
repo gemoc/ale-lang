@@ -3,15 +3,10 @@
  */
 package org.xtext.example.mydsl.generator;
 
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
-import org.eclipse.xtext.xbase.lib.Exceptions;
 
 /**
  * Generates code from your model files on save.
@@ -22,18 +17,5 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 public class MyDslGenerator extends AbstractGenerator {
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
-    try {
-      URI _uRI = resource.getURI();
-      URI _trimFileExtension = _uRI.trimFileExtension();
-      final URI xmiUri = _trimFileExtension.appendFileExtension("xmi");
-      ResourceSet _resourceSet = resource.getResourceSet();
-      final Resource xmiRes = _resourceSet.createResource(xmiUri);
-      EList<EObject> _contents = xmiRes.getContents();
-      EList<EObject> _contents_1 = resource.getContents();
-      _contents.addAll(_contents_1);
-      xmiRes.save(null);
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
   }
 }

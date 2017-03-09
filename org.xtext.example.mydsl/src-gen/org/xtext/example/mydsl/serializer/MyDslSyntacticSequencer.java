@@ -23,23 +23,25 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected MyDslGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q;
+	protected AbstractElementAlias match_rClass___ExtendsKeyword_2_0_RQualifiedParserRuleCall_2_1___CommaKeyword_2_2_0_RQualifiedParserRuleCall_2_2_1__a__q;
 	protected AbstractElementAlias match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1;
 	protected AbstractElementAlias match_rOperation_RTagParserRuleCall_0_a;
-	protected AbstractElementAlias match_rRoot_RImportParserRuleCall_0_a;
-	protected AbstractElementAlias match_rRoot_RImportParserRuleCall_0_q;
-	protected AbstractElementAlias match_rRoot_RServiceParserRuleCall_1_a;
-	protected AbstractElementAlias match_rRoot_RServiceParserRuleCall_1_q;
+	protected AbstractElementAlias match_rRoot_RImportParserRuleCall_3_a;
+	protected AbstractElementAlias match_rRoot_RImportParserRuleCall_3_q;
+	protected AbstractElementAlias match_rRoot_RServiceParserRuleCall_4_a;
+	protected AbstractElementAlias match_rRoot_RServiceParserRuleCall_4_q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (MyDslGrammarAccess) access;
 		match_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRAttributeAccess().getColonEqualsSignKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getRAttributeAccess().getExpressionParserRuleCall_2_1()));
+		match_rClass___ExtendsKeyword_2_0_RQualifiedParserRuleCall_2_1___CommaKeyword_2_2_0_RQualifiedParserRuleCall_2_2_1__a__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRClassAccess().getExtendsKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getRClassAccess().getRQualifiedParserRuleCall_2_1()), new GroupAlias(true, true, new TokenAlias(false, false, grammarAccess.getRClassAccess().getCommaKeyword_2_2_0()), new TokenAlias(false, false, grammarAccess.getRClassAccess().getRQualifiedParserRuleCall_2_2_1())));
 		match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getROperationAccess().getDefKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getROperationAccess().getOverrideKeyword_1_1()));
 		match_rOperation_RTagParserRuleCall_0_a = new TokenAlias(true, true, grammarAccess.getROperationAccess().getRTagParserRuleCall_0());
-		match_rRoot_RImportParserRuleCall_0_a = new TokenAlias(true, true, grammarAccess.getRRootAccess().getRImportParserRuleCall_0());
-		match_rRoot_RImportParserRuleCall_0_q = new TokenAlias(false, true, grammarAccess.getRRootAccess().getRImportParserRuleCall_0());
-		match_rRoot_RServiceParserRuleCall_1_a = new TokenAlias(true, true, grammarAccess.getRRootAccess().getRServiceParserRuleCall_1());
-		match_rRoot_RServiceParserRuleCall_1_q = new TokenAlias(false, true, grammarAccess.getRRootAccess().getRServiceParserRuleCall_1());
+		match_rRoot_RImportParserRuleCall_3_a = new TokenAlias(true, true, grammarAccess.getRRootAccess().getRImportParserRuleCall_3());
+		match_rRoot_RImportParserRuleCall_3_q = new TokenAlias(false, true, grammarAccess.getRRootAccess().getRImportParserRuleCall_3());
+		match_rRoot_RServiceParserRuleCall_4_a = new TokenAlias(true, true, grammarAccess.getRRootAccess().getRServiceParserRuleCall_4());
+		match_rRoot_RServiceParserRuleCall_4_q = new TokenAlias(false, true, grammarAccess.getRRootAccess().getRServiceParserRuleCall_4());
 	}
 	
 	@Override
@@ -48,6 +50,8 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 			return getexpressionToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getRImportRule())
 			return getrImportToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getRQualifiedRule())
+			return getrQualifiedToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getRServiceRule())
 			return getrServiceToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getRTagRule())
@@ -67,13 +71,23 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	}
 	
 	/**
-	 * rImport : 'import' Ident ('.' Ident)* ';'
+	 * rImport : 'import' rQualified 'as' Ident ';'
 	 * ;
 	 */
 	protected String getrImportToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
-		return "import;";
+		return "importas;";
+	}
+	
+	/**
+	 * rQualified : Ident ('.'Ident)*
+	 * ;
+	 */
+	protected String getrQualifiedToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "";
 	}
 	
 	/**
@@ -104,18 +118,20 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
 			if (match_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q.equals(syntax))
 				emit_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_rClass___ExtendsKeyword_2_0_RQualifiedParserRuleCall_2_1___CommaKeyword_2_2_0_RQualifiedParserRuleCall_2_2_1__a__q.equals(syntax))
+				emit_rClass___ExtendsKeyword_2_0_RQualifiedParserRuleCall_2_1___CommaKeyword_2_2_0_RQualifiedParserRuleCall_2_2_1__a__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1.equals(syntax))
 				emit_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_rOperation_RTagParserRuleCall_0_a.equals(syntax))
 				emit_rOperation_RTagParserRuleCall_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_rRoot_RImportParserRuleCall_0_a.equals(syntax))
-				emit_rRoot_RImportParserRuleCall_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_rRoot_RImportParserRuleCall_0_q.equals(syntax))
-				emit_rRoot_RImportParserRuleCall_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_rRoot_RServiceParserRuleCall_1_a.equals(syntax))
-				emit_rRoot_RServiceParserRuleCall_1_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_rRoot_RServiceParserRuleCall_1_q.equals(syntax))
-				emit_rRoot_RServiceParserRuleCall_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_rRoot_RImportParserRuleCall_3_a.equals(syntax))
+				emit_rRoot_RImportParserRuleCall_3_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_rRoot_RImportParserRuleCall_3_q.equals(syntax))
+				emit_rRoot_RImportParserRuleCall_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_rRoot_RServiceParserRuleCall_4_a.equals(syntax))
+				emit_rRoot_RServiceParserRuleCall_4_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_rRoot_RServiceParserRuleCall_4_q.equals(syntax))
+				emit_rRoot_RServiceParserRuleCall_4_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -128,6 +144,19 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     name=Ident (ambiguity) ';' (rule end)
 	 */
 	protected void emit_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('extends' rQualified (',' rQualified)*)?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     name=Ident (ambiguity) '{' '}' (rule end)
+	 *     name=Ident (ambiguity) '{' attributes+=rAttribute
+	 *     name=Ident (ambiguity) '{' operations+=rOperation
+	 */
+	protected void emit_rClass___ExtendsKeyword_2_0_RQualifiedParserRuleCall_2_1___CommaKeyword_2_2_0_RQualifiedParserRuleCall_2_2_1__a__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -158,9 +187,9 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     rImport*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) rService* (rule start)
+	 *     (rule start) 'behavior' rQualified ';' (ambiguity) rService* (rule start)
 	 */
-	protected void emit_rRoot_RImportParserRuleCall_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_rRoot_RImportParserRuleCall_3_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -169,9 +198,9 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     rImport?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) rService? xtendedClasses+=rClass
+	 *     (rule start) 'behavior' rQualified ';' (ambiguity) rService? xtendedClasses+=rClass
 	 */
-	protected void emit_rRoot_RImportParserRuleCall_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_rRoot_RImportParserRuleCall_3_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -180,9 +209,9 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     rService*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) rImport* (ambiguity) (rule start)
+	 *     (rule start) 'behavior' rQualified ';' rImport* (ambiguity) (rule start)
 	 */
-	protected void emit_rRoot_RServiceParserRuleCall_1_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_rRoot_RServiceParserRuleCall_4_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -191,9 +220,9 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     rService?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) rImport? (ambiguity) xtendedClasses+=rClass
+	 *     (rule start) 'behavior' rQualified ';' rImport? (ambiguity) xtendedClasses+=rClass
 	 */
-	protected void emit_rRoot_RServiceParserRuleCall_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_rRoot_RServiceParserRuleCall_4_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

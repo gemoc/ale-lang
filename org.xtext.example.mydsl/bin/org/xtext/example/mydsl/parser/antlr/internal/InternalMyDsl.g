@@ -82,12 +82,30 @@ rulerRoot returns [EObject current=null]
 	leaveRule();
 }:
 	(
+		otherlv_0='behavior'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getRRootAccess().getBehaviorKeyword_0());
+		}
+		{
+			/* */
+		}
+		{
+			newCompositeNode(grammarAccess.getRRootAccess().getRQualifiedParserRuleCall_1());
+		}
+		rulerQualified
+		{
+			afterParserOrEnumRuleCall();
+		}
+		otherlv_2=';'
+		{
+			newLeafNode(otherlv_2, grammarAccess.getRRootAccess().getSemicolonKeyword_2());
+		}
 		(
 			{
 				/* */
 			}
 			{
-				newCompositeNode(grammarAccess.getRRootAccess().getRImportParserRuleCall_0());
+				newCompositeNode(grammarAccess.getRRootAccess().getRImportParserRuleCall_3());
 			}
 			rulerImport
 			{
@@ -99,7 +117,7 @@ rulerRoot returns [EObject current=null]
 				/* */
 			}
 			{
-				newCompositeNode(grammarAccess.getRRootAccess().getRServiceParserRuleCall_1());
+				newCompositeNode(grammarAccess.getRRootAccess().getRServiceParserRuleCall_4());
 			}
 			rulerService
 			{
@@ -109,9 +127,9 @@ rulerRoot returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getRRootAccess().getXtendedClassesRClassParserRuleCall_2_0());
+					newCompositeNode(grammarAccess.getRRootAccess().getXtendedClassesRClassParserRuleCall_5_0());
 				}
-				lv_xtendedClasses_2_0=rulerClass
+				lv_xtendedClasses_5_0=rulerClass
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getRRootRule());
@@ -119,7 +137,7 @@ rulerRoot returns [EObject current=null]
 					add(
 						$current,
 						"xtendedClasses",
-						lv_xtendedClasses_2_0,
+						lv_xtendedClasses_5_0,
 						"org.xtext.example.mydsl.MyDsl.rClass");
 					afterParserOrEnumRuleCall();
 				}
@@ -149,31 +167,32 @@ rulerImport returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()
 			$current.merge(kw);
 			newLeafNode(kw, grammarAccess.getRImportAccess().getImportKeyword_0());
 		}
-		this_Ident_1=RULE_IDENT
 		{
-			$current.merge(this_Ident_1);
+			newCompositeNode(grammarAccess.getRImportAccess().getRQualifiedParserRuleCall_1());
+		}
+		this_rQualified_1=rulerQualified
+		{
+			$current.merge(this_rQualified_1);
 		}
 		{
-			newLeafNode(this_Ident_1, grammarAccess.getRImportAccess().getIdentTerminalRuleCall_1());
+			afterParserOrEnumRuleCall();
 		}
-		(
-			kw='.'
-			{
-				$current.merge(kw);
-				newLeafNode(kw, grammarAccess.getRImportAccess().getFullStopKeyword_2_0());
-			}
-			this_Ident_3=RULE_IDENT
-			{
-				$current.merge(this_Ident_3);
-			}
-			{
-				newLeafNode(this_Ident_3, grammarAccess.getRImportAccess().getIdentTerminalRuleCall_2_1());
-			}
-		)*
+		kw='as'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getRImportAccess().getAsKeyword_2());
+		}
+		this_Ident_3=RULE_IDENT
+		{
+			$current.merge(this_Ident_3);
+		}
+		{
+			newLeafNode(this_Ident_3, grammarAccess.getRImportAccess().getIdentTerminalRuleCall_3());
+		}
 		kw=';'
 		{
 			$current.merge(kw);
-			newLeafNode(kw, grammarAccess.getRImportAccess().getSemicolonKeyword_3());
+			newLeafNode(kw, grammarAccess.getRImportAccess().getSemicolonKeyword_4());
 		}
 	)
 ;
@@ -266,16 +285,48 @@ rulerClass returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_2='{'
+		(
+			otherlv_2='extends'
+			{
+				newLeafNode(otherlv_2, grammarAccess.getRClassAccess().getExtendsKeyword_2_0());
+			}
+			{
+				/* */
+			}
+			{
+				newCompositeNode(grammarAccess.getRClassAccess().getRQualifiedParserRuleCall_2_1());
+			}
+			rulerQualified
+			{
+				afterParserOrEnumRuleCall();
+			}
+			(
+				otherlv_4=','
+				{
+					newLeafNode(otherlv_4, grammarAccess.getRClassAccess().getCommaKeyword_2_2_0());
+				}
+				{
+					/* */
+				}
+				{
+					newCompositeNode(grammarAccess.getRClassAccess().getRQualifiedParserRuleCall_2_2_1());
+				}
+				rulerQualified
+				{
+					afterParserOrEnumRuleCall();
+				}
+			)*
+		)?
+		otherlv_6='{'
 		{
-			newLeafNode(otherlv_2, grammarAccess.getRClassAccess().getLeftCurlyBracketKeyword_2());
+			newLeafNode(otherlv_6, grammarAccess.getRClassAccess().getLeftCurlyBracketKeyword_3());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getRClassAccess().getAttributesRAttributeParserRuleCall_3_0());
+					newCompositeNode(grammarAccess.getRClassAccess().getAttributesRAttributeParserRuleCall_4_0());
 				}
-				lv_attributes_3_0=rulerAttribute
+				lv_attributes_7_0=rulerAttribute
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getRClassRule());
@@ -283,7 +334,7 @@ rulerClass returns [EObject current=null]
 					add(
 						$current,
 						"attributes",
-						lv_attributes_3_0,
+						lv_attributes_7_0,
 						"org.xtext.example.mydsl.MyDsl.rAttribute");
 					afterParserOrEnumRuleCall();
 				}
@@ -292,9 +343,9 @@ rulerClass returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getRClassAccess().getOperationsROperationParserRuleCall_4_0());
+					newCompositeNode(grammarAccess.getRClassAccess().getOperationsROperationParserRuleCall_5_0());
 				}
-				lv_operations_4_0=rulerOperation
+				lv_operations_8_0=rulerOperation
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getRClassRule());
@@ -302,15 +353,15 @@ rulerClass returns [EObject current=null]
 					add(
 						$current,
 						"operations",
-						lv_operations_4_0,
+						lv_operations_8_0,
 						"org.xtext.example.mydsl.MyDsl.rOperation");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)*
-		otherlv_5='}'
+		otherlv_9='}'
 		{
-			newLeafNode(otherlv_5, grammarAccess.getRClassAccess().getRightCurlyBracketKeyword_5());
+			newLeafNode(otherlv_9, grammarAccess.getRClassAccess().getRightCurlyBracketKeyword_6());
 		}
 	)
 ;
@@ -2493,6 +2544,46 @@ ruleclassifierTypeRule returns [AntlrDatatypeRuleToken current=new AntlrDatatype
 				newLeafNode(kw, grammarAccess.getClassifierTypeRuleAccess().getColonKeyword_1_1());
 			}
 		)
+	)
+;
+
+// Entry rule entryRulerQualified
+entryRulerQualified returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getRQualifiedRule()); }
+	iv_rulerQualified=rulerQualified
+	{ $current=$iv_rulerQualified.current.getText(); }
+	EOF;
+
+// Rule rQualified
+rulerQualified returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		this_Ident_0=RULE_IDENT
+		{
+			$current.merge(this_Ident_0);
+		}
+		{
+			newLeafNode(this_Ident_0, grammarAccess.getRQualifiedAccess().getIdentTerminalRuleCall_0());
+		}
+		(
+			kw='.'
+			{
+				$current.merge(kw);
+				newLeafNode(kw, grammarAccess.getRQualifiedAccess().getFullStopKeyword_1_0());
+			}
+			this_Ident_2=RULE_IDENT
+			{
+				$current.merge(this_Ident_2);
+			}
+			{
+				newLeafNode(this_Ident_2, grammarAccess.getRQualifiedAccess().getIdentTerminalRuleCall_1_1());
+			}
+		)*
 	)
 ;
 
