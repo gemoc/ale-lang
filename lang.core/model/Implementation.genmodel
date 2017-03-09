@@ -8,15 +8,18 @@
   <genPackages prefix="Implementation" disposableProviderFactory="true" ecorePackage="Implementation.ecore#/">
     <genClasses ecoreClass="Implementation.ecore#//ModelBehavior">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ModelBehavior/classExtensions"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//ModelBehavior/services"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//ModelBehavior/name"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//ExtendedClass">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/baseClass"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/methods"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/attributes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/extends"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//Behaviored">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Behaviored/body"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//Behaviored/isMain"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//Behaviored/tags"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//Implementation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//Implementation/operationRef"/>
@@ -37,9 +40,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//VariableDeclaration/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//VariableDeclaration/initialValue"/>
     </genClasses>
-    <genClasses ecoreClass="Implementation.ecore#//VariableAssignement">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//VariableAssignement/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//VariableAssignement/value"/>
+    <genClasses ecoreClass="Implementation.ecore#//VariableAssignment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//VariableAssignment/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//VariableAssignment/value"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//FeatureAssignment">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//FeatureAssignment/target"/>
@@ -68,7 +71,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ForEach/body"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//While">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//While/collectionExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//While/condition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//While/body"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//If">

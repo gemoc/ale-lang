@@ -85,13 +85,22 @@ public interface ImplementationPackage extends EPackage {
 	int MODEL_BEHAVIOR__SERVICES = 1;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_BEHAVIOR__NAME = 2;
+
+	/**
 	 * The number of structural features of the '<em>Model Behavior</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_BEHAVIOR_FEATURE_COUNT = 2;
+	int MODEL_BEHAVIOR_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Model Behavior</em>' class.
@@ -140,13 +149,22 @@ public interface ImplementationPackage extends EPackage {
 	int EXTENDED_CLASS__ATTRIBUTES = 2;
 
 	/**
+	 * The feature id for the '<em><b>Extends</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__EXTENDS = 3;
+
+	/**
 	 * The number of structural features of the '<em>Extended Class</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENDED_CLASS_FEATURE_COUNT = 3;
+	int EXTENDED_CLASS_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Extended Class</em>' class.
@@ -981,6 +999,17 @@ public interface ImplementationPackage extends EPackage {
 	EAttribute getModelBehavior_Services();
 
 	/**
+	 * Returns the meta object for the attribute '{@link implementation.ModelBehavior#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see implementation.ModelBehavior#getName()
+	 * @see #getModelBehavior()
+	 * @generated
+	 */
+	EAttribute getModelBehavior_Name();
+
+	/**
 	 * Returns the meta object for class '{@link implementation.ExtendedClass <em>Extended Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1022,6 +1051,17 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getExtendedClass_Attributes();
+
+	/**
+	 * Returns the meta object for the reference list '{@link implementation.ExtendedClass#getExtends <em>Extends</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Extends</em>'.
+	 * @see implementation.ExtendedClass#getExtends()
+	 * @see #getExtendedClass()
+	 * @generated
+	 */
+	EReference getExtendedClass_Extends();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.Behaviored <em>Behaviored</em>}'.
@@ -1607,6 +1647,14 @@ public interface ImplementationPackage extends EPackage {
 		EAttribute MODEL_BEHAVIOR__SERVICES = eINSTANCE.getModelBehavior_Services();
 
 		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODEL_BEHAVIOR__NAME = eINSTANCE.getModelBehavior_Name();
+
+		/**
 		 * The meta object literal for the '{@link implementation.impl.ExtendedClassImpl <em>Extended Class</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1639,6 +1687,14 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EXTENDED_CLASS__ATTRIBUTES = eINSTANCE.getExtendedClass_Attributes();
+
+		/**
+		 * The meta object literal for the '<em><b>Extends</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXTENDED_CLASS__EXTENDS = eINSTANCE.getExtendedClass_Extends();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.BehavioredImpl <em>Behaviored</em>}' class.

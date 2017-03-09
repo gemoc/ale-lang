@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -34,6 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link implementation.impl.ExtendedClassImpl#getBaseClass <em>Base Class</em>}</li>
  *   <li>{@link implementation.impl.ExtendedClassImpl#getMethods <em>Methods</em>}</li>
  *   <li>{@link implementation.impl.ExtendedClassImpl#getAttributes <em>Attributes</em>}</li>
+ *   <li>{@link implementation.impl.ExtendedClassImpl#getExtends <em>Extends</em>}</li>
  * </ul>
  *
  * @generated
@@ -68,6 +70,16 @@ public class ExtendedClassImpl extends MinimalEObjectImpl.Container implements E
 	 * @ordered
 	 */
 	protected EList<VariableDeclaration> attributes;
+
+	/**
+	 * The cached value of the '{@link #getExtends() <em>Extends</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExtends()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ExtendedClass> extends_;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -155,6 +167,18 @@ public class ExtendedClassImpl extends MinimalEObjectImpl.Container implements E
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<ExtendedClass> getExtends() {
+		if (extends_ == null) {
+			extends_ = new EObjectResolvingEList<ExtendedClass>(ExtendedClass.class, this, ImplementationPackage.EXTENDED_CLASS__EXTENDS);
+		}
+		return extends_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -181,6 +205,8 @@ public class ExtendedClassImpl extends MinimalEObjectImpl.Container implements E
 				return getMethods();
 			case ImplementationPackage.EXTENDED_CLASS__ATTRIBUTES:
 				return getAttributes();
+			case ImplementationPackage.EXTENDED_CLASS__EXTENDS:
+				return getExtends();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -205,6 +231,10 @@ public class ExtendedClassImpl extends MinimalEObjectImpl.Container implements E
 				getAttributes().clear();
 				getAttributes().addAll((Collection<? extends VariableDeclaration>)newValue);
 				return;
+			case ImplementationPackage.EXTENDED_CLASS__EXTENDS:
+				getExtends().clear();
+				getExtends().addAll((Collection<? extends ExtendedClass>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -226,6 +256,9 @@ public class ExtendedClassImpl extends MinimalEObjectImpl.Container implements E
 			case ImplementationPackage.EXTENDED_CLASS__ATTRIBUTES:
 				getAttributes().clear();
 				return;
+			case ImplementationPackage.EXTENDED_CLASS__EXTENDS:
+				getExtends().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -244,6 +277,8 @@ public class ExtendedClassImpl extends MinimalEObjectImpl.Container implements E
 				return methods != null && !methods.isEmpty();
 			case ImplementationPackage.EXTENDED_CLASS__ATTRIBUTES:
 				return attributes != null && !attributes.isEmpty();
+			case ImplementationPackage.EXTENDED_CLASS__EXTENDS:
+				return extends_ != null && !extends_.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

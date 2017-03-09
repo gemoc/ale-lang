@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link implementation.ModelBehavior#getClassExtensions <em>Class Extensions</em>}</li>
  *   <li>{@link implementation.ModelBehavior#getServices <em>Services</em>}</li>
+ *   <li>{@link implementation.ModelBehavior#getName <em>Name</em>}</li>
  * </ul>
  *
  * @see implementation.ImplementationPackage#getModelBehavior()
@@ -55,5 +56,32 @@ public interface ModelBehavior extends EObject {
 	 * @generated
 	 */
 	EList<String> getServices();
+
+	/**
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * The default value is <code>""</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see implementation.ImplementationPackage#getModelBehavior_Name()
+	 * @model default="" required="true"
+	 * @generated
+	 */
+	String getName();
+
+	/**
+	 * Sets the value of the '{@link implementation.ModelBehavior#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
+	 * @generated
+	 */
+	void setName(String value);
 
 } // ModelBehavior

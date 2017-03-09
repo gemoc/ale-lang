@@ -8,6 +8,7 @@ import implementation.ModelBehavior;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -15,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
@@ -31,6 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link implementation.impl.ModelBehaviorImpl#getClassExtensions <em>Class Extensions</em>}</li>
  *   <li>{@link implementation.impl.ModelBehaviorImpl#getServices <em>Services</em>}</li>
+ *   <li>{@link implementation.impl.ModelBehaviorImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
@@ -55,6 +58,26 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	 * @ordered
 	 */
 	protected EList<String> services;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = "";
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -104,6 +127,27 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.MODEL_BEHAVIOR__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -125,6 +169,8 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 				return getClassExtensions();
 			case ImplementationPackage.MODEL_BEHAVIOR__SERVICES:
 				return getServices();
+			case ImplementationPackage.MODEL_BEHAVIOR__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -146,6 +192,9 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 				getServices().clear();
 				getServices().addAll((Collection<? extends String>)newValue);
 				return;
+			case ImplementationPackage.MODEL_BEHAVIOR__NAME:
+				setName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -164,6 +213,9 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 			case ImplementationPackage.MODEL_BEHAVIOR__SERVICES:
 				getServices().clear();
 				return;
+			case ImplementationPackage.MODEL_BEHAVIOR__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -180,6 +232,8 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 				return classExtensions != null && !classExtensions.isEmpty();
 			case ImplementationPackage.MODEL_BEHAVIOR__SERVICES:
 				return services != null && !services.isEmpty();
+			case ImplementationPackage.MODEL_BEHAVIOR__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -196,6 +250,8 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (services: ");
 		result.append(services);
+		result.append(", name: ");
+		result.append(name);
 		result.append(')');
 		return result.toString();
 	}
