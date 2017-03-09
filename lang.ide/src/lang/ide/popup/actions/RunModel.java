@@ -86,6 +86,7 @@ public class RunModel extends AbstractHandler {
 					@Override
 					public void run() {
 						IEvaluationResult result = interpreter.eval(modelLocation, new ArrayList(), new WorkbenchDsl(resource.getLocationURI().getPath().toString()));
+						interpreter.getLogger().diagnosticForHuman();
 						this.stop();
 					}
 				};

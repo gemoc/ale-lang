@@ -92,6 +92,11 @@ public class LangInterpreter {
     };
     
     /**
+     * Logs diagnostic for each call of implementation
+     */
+    DiagnosticLogger logger;
+    
+    /**
      * The environment is setup with default services & EPackages
      */
     public LangInterpreter() {
@@ -145,7 +150,7 @@ public class LangInterpreter {
 	    	dsl
 	    	.getAllSemantics()
 	    	.stream()
-	    	.map(behaviorFile -> (new AstBuilder(queryEnvironment)).parse(getFileContent(behaviorFile)))
+	    	.map(behaviorFile -> (new AstBuilder(queryEnvironment)).parseFromFile(behaviorFile))
 	    	.collect(Collectors.toList());
     	
     	/*
@@ -265,13 +270,7 @@ public class LangInterpreter {
     	
     	Object value = null;
 		if (mainOp.isPresent()) {
-			List<ModelBehavior> allBehaviors = 
-				parsedSemantics
-		    	.stream()
-		    	.filter(sem -> sem.getRoot() != null)
-		    	.map(sem -> sem.getRoot())
-		    	.collect(Collectors.toList());
-			EvaluationResult evalResult = eval(caller, mainOp.get(), args, allBehaviors);
+			EvaluationResult evalResult = eval(caller, mainOp.get(), args, parsedSemantics);
 			if (Diagnostic.OK != evalResult.getDiagnostic().getSeverity()) {
 				diagnostic.merge(evalResult.getDiagnostic());
 			}
@@ -298,8 +297,14 @@ public class LangInterpreter {
 		};
     }
     
-    private EvaluationResult eval(EObject caller, Behaviored operation, List<Object> args, List<ModelBehavior> allBehaviors) {
-    	DiagnosticLogger logger = new DiagnosticLogger();
+    private EvaluationResult eval(EObject caller, Behaviored operation, List<Object> args, List<ParseResult<ModelBehavior>> parsedSemantics) {
+    	List<ModelBehavior> allBehaviors = 
+				parsedSemantics
+		    	.stream()
+		    	.filter(sem -> sem.getRoot() != null)
+		    	.map(sem -> sem.getRoot())
+		    	.collect(Collectors.toList());
+    	logger = new DiagnosticLogger(parsedSemantics);
     	EvalEnvironment env = new EvalEnvironment(queryEnvironment, allBehaviors, logger);
     	ImplementationEngine engine = new ImplementationEngine(env);
     	return engine.eval(caller, operation, args);
@@ -317,14 +322,8 @@ public class LangInterpreter {
         return this.queryEnvironment;
     }
     
-    private static String getFileContent(String implementionPath) {
-		String fileContent = "";
-		try {
-			fileContent = new String(Files.readAllBytes(Paths.get(implementionPath)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return fileContent;
+    public DiagnosticLogger getLogger() {
+		return logger;
 	}
     
     private List<EPackage> load(String ecoreURI, ResourceSet rs) {

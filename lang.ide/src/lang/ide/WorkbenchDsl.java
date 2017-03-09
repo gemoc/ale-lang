@@ -9,7 +9,7 @@ import org.eclipse.emf.common.util.URI;
 
 import lang.Dsl;
 
-public class WorkbenchDsl extends Dsl{
+public class WorkbenchDsl extends Dsl {
 
 	public WorkbenchDsl(String dslFile) {
 		super(dslFile);
