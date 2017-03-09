@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link implementation.ExtendedClass#getBaseClass <em>Base Class</em>}</li>
  *   <li>{@link implementation.ExtendedClass#getMethods <em>Methods</em>}</li>
  *   <li>{@link implementation.ExtendedClass#getAttributes <em>Attributes</em>}</li>
+ *   <li>{@link implementation.ExtendedClass#getExtends <em>Extends</em>}</li>
  * </ul>
  *
  * @see implementation.ImplementationPackage#getExtendedClass()
@@ -83,5 +84,21 @@ public interface ExtendedClass extends EObject {
 	 * @generated
 	 */
 	EList<VariableDeclaration> getAttributes();
+
+	/**
+	 * Returns the value of the '<em><b>Extends</b></em>' reference list.
+	 * The list contents are of type {@link implementation.ExtendedClass}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Extends</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Extends</em>' reference list.
+	 * @see implementation.ImplementationPackage#getExtendedClass_Extends()
+	 * @model
+	 * @generated
+	 */
+	EList<ExtendedClass> getExtends();
 
 } // ExtendedClass
