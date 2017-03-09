@@ -10,8 +10,10 @@ import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.impl.QueryBuilderEngine;
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EcoreFactory;
@@ -43,6 +45,8 @@ import implementation.While;
 public class ModelBuilder {
 	
 	public static ModelBuilder singleton;
+	public static final String PARSER_SOURCE = "http://lang/parser/metadata";
+	public static final String PARSER_EXTENDS_KEY = "extends";
 	
 	public static ModelBuilder createSingleton(IQueryEnvironment qryEnv) {
 		ModelBuilder.singleton = new ModelBuilder(qryEnv);
@@ -203,13 +207,24 @@ public class ModelBuilder {
 		return featSetting;
 	}
 	
-	public ExtendedClass buildExtendedClass(String baseCls, List<VariableDeclaration> vars, List<Behaviored> operations) {
+	public ExtendedClass buildExtendedClass(String baseCls, List<VariableDeclaration> vars, List<Behaviored> operations, List<String> extendedCls) {
 		ExtendedClass cls = factory.createExtendedClass();
 		EClassifier resolvedType = resolve(baseCls);
 		if(resolvedType instanceof EClass)
 			cls.setBaseClass((EClass)resolvedType);
 		cls.getMethods().addAll(operations);
 		cls.getAttributes().addAll(vars);
+		
+		//Add metadata for ID to be resolved
+		extendedCls
+			.stream()
+			.forEach(xtd -> {
+				EAnnotation annot = ecoreFactory.createEAnnotation();
+				annot.setSource(PARSER_SOURCE);
+				annot.getDetails().put(PARSER_EXTENDS_KEY, xtd);
+				cls.getEAnnotations().add(annot);
+			});
+		
 		return cls;
 	}
 	

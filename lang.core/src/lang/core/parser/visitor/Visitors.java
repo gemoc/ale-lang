@@ -11,7 +11,9 @@ import implementation.Statement;
 import implementation.VariableAssignment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -76,6 +78,22 @@ public class Visitors {
 		}
 
 		return builder.toString();
+	}
+	
+	public static boolean isQualified(String name) {
+		return name.contains(".");
+	}
+	
+	public static String aliasToRealName(String qname, Map<String,String> importedBehaviors) {
+		if(isQualified(qname)) {
+			String[] segments = qname.split("\\.");
+			String importSeg = importedBehaviors.get(segments[0]);
+			if(importSeg != null) {
+				segments[0] = importSeg;
+			}
+			return String.join(".", segments);
+		}
+		return qname;
 	}
 	
 	static class BlockVisitor extends XtdAQLBaseVisitor<Block> {
@@ -422,9 +440,11 @@ public class Visitors {
 	static class ClassVisitor extends XtdAQLBaseVisitor<ExtendedClass> {
 		
 		ParseResult<ModelBehavior> parseRes;
+		Map<String,String> importedBehaviors;
 		
-		public ClassVisitor(ParseResult<ModelBehavior> parseRes) {
+		public ClassVisitor(ParseResult<ModelBehavior> parseRes, Map<String,String> importedBehaviors) {
 			this.parseRes = parseRes;
+			this.importedBehaviors = importedBehaviors;
 		}
 		
 		@Override
@@ -444,7 +464,14 @@ public class Visitors {
 					.stream()
 					.map(op -> subVisitor2.visit(op))
 					.collect(Collectors.toList());
-			ExtendedClass res = ModelBuilder.singleton.buildExtendedClass(name,attributes,operations);
+			List<String> extended = 
+				ctx
+				.rQualified()
+				.stream()
+				.map(q -> aliasToRealName(q.getText(),importedBehaviors))
+				.collect(Collectors.toList());
+			
+			ExtendedClass res = ModelBuilder.singleton.buildExtendedClass(name,attributes,operations,extended);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
 			return res;
@@ -518,10 +545,20 @@ public class Visitors {
 		
 		@Override
 		public ModelBehavior visitRRoot(RRootContext ctx) {
-			ClassVisitor subVisitor = new ClassVisitor(parseRes);
 			ImplementationFactory factory = (ImplementationFactory) ImplementationPackage.eINSTANCE.getEFactoryInstance();
 			ModelBehavior res = factory.createModelBehavior();
 			
+			res.setName(ctx.rQualified().getText());
+			
+			Map<String,String> importedBehaviors = new HashMap<String,String>();
+			ctx
+			.rImport()
+			.stream()
+			.forEach(imp -> 
+				importedBehaviors.put(imp.Ident().getText(), imp.rQualified().getText())
+			);
+			
+			ClassVisitor subVisitor = new ClassVisitor(parseRes,importedBehaviors);
 			res.getClassExtensions().addAll(
 					ctx
 					.rClass()
