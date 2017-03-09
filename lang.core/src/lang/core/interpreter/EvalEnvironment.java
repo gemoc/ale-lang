@@ -1,5 +1,7 @@
 package lang.core.interpreter;
 
+import implementation.Behaviored;
+import implementation.ExtendedClass;
 import implementation.ModelBehavior;
 import lang.core.interpreter.services.DynamicFeatureAccessService;
 import lang.core.interpreter.services.EvalBodyService;
@@ -15,8 +17,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import java.lang.reflect.Method;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.Stack;
+import java.util.stream.Collectors;
 
 /**
  * This class is the context of an evaluation.
@@ -76,15 +84,9 @@ public class EvalEnvironment {
 	public void registerImplem(List<ModelBehavior> allImplemModels) {
 		this.allImplemModels = allImplemModels;
 		this.dynamicFeatures = new DynamicFeatureRegistry(allImplemModels);
-		allImplemModels
-		.stream()
-		.forEach(implemModel -> {
-			implemModel
-			.getClassExtensions()
+		createServices(allImplemModels)
 			.stream()
-			.flatMap(cls -> cls.getMethods().stream())
-			.forEach(implemOp -> qryEnv.registerService(new EvalBodyService(implemOp,this,logger)));
-		});
+			.forEach(opService -> qryEnv.registerService(opService));
 		Method featureAccessMethod;
 		try {
 			featureAccessMethod = DynamicFeatureRegistry.class.getMethod("aqlFeatureAccess",EObject.class,String.class);
@@ -100,5 +102,86 @@ public class EvalEnvironment {
 	
 	public DynamicFeatureRegistry getFeatureAccess() {
 		return dynamicFeatures;
+	}
+	
+	private List<EvalBodyService> createServices(List<ModelBehavior> allImplemModels) {
+		Map<Behaviored, EvalBodyService> res = new HashMap<Behaviored, EvalBodyService>();
+		
+		/*
+		 * Create services
+		 */
+		allImplemModels
+			.stream()
+			.forEach(implemModel -> {
+				implemModel
+				.getClassExtensions()
+				.stream()
+				.flatMap(cls -> cls.getMethods().stream())
+				.forEach(implemOp -> res.put(implemOp,(new EvalBodyService(implemOp,this,logger))));
+			});
+		
+		
+		/*
+		 * Set lookup priorities
+		 */
+		List<ExtendedClass> allExtendedClasses = 
+			allImplemModels
+			.stream()
+			.flatMap(implem -> implem.getClassExtensions().stream())
+			.collect(Collectors.toList());
+		 Map<ExtendedClass,Integer> priorityMap = getPriorities(allExtendedClasses);
+		 res
+			 .keySet()
+			 .stream()
+			 .forEach(op -> {
+				 int prio = priorityMap.get(op.eContainer());
+				 res.get(op).setPriority(prio);
+			 });
+		 
+		return 
+			res
+			.entrySet()
+			.stream()
+			.map(entry -> (EvalBodyService) entry.getValue())
+			.collect(Collectors.toList());
+	}
+	
+	private Map<ExtendedClass,Integer> getPriorities(List<ExtendedClass> allCls) {
+		
+		Map<ExtendedClass,Integer> priorities = new HashMap<ExtendedClass,Integer>();
+		allCls
+			.stream()
+			.forEach(cls -> getPriority(cls,priorities));
+		return priorities;
+	}
+	
+	private int getMaxPriority(List<ExtendedClass> superCls, Map<ExtendedClass,Integer> priorities) {
+		Optional<Integer> max = 
+			superCls
+			.stream()
+			.map(cls -> getPriority(cls,priorities))
+			.max((a,b) -> Integer.compare(a,b));
+		if(max.isPresent()){
+			return max.get();
+		}
+		else {
+			return 0;
+		}
+	}
+	
+	private int getPriority(ExtendedClass cls, Map<ExtendedClass,Integer> priorities) {
+		Integer priority = priorities.get(cls);
+		if(priority == null) {
+			if(!cls.getExtends().isEmpty()) {
+				int p = getMaxPriority(cls.getExtends(),priorities) + 1 ;
+				priorities.put(cls, p);
+				return p;
+			}
+			else {
+				priorities.put(cls, 0);
+				return 0;
+			}
+		}
+		return priority;
 	}
 }
