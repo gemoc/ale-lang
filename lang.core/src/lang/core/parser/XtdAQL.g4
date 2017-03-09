@@ -16,16 +16,20 @@ LINECOMMENT : '//' ~[\r\n]* -> skip; //Line comment
  * Structure
  */
 
-rRoot : rImport* rService* rClass*
+rRoot : 
+	'behavior' rQualified ';'
+ 	rImport*
+ 	rService*
+ 	rClass*
 ;
 
-rImport : 'import' Ident ('.' Ident)* ';'
+rImport : 'import' rQualified 'as' Ident ';'
 ;
 
 rService : 'use' Ident ('.' Ident)* ';'
 ;
 
-rClass : 'class' Ident '{' rAttribute* rOperation* '}'
+rClass : 'class' Ident ('extends' rQualified (',' rQualified)* )? '{' rAttribute* rOperation* '}'
 ; 
 
 rOperation : (rTag)* ('def' | 'override') (Ident|'String') Ident '(' rParameters? ')' rBlock
@@ -77,6 +81,9 @@ rWhile : 'while' '(' expression ')' rBlock
 ;
 
 rExpression : expression ';'
+;
+
+rQualified : Ident ('.'Ident)*
 ;
 
 STRING :  '"' (.)*? '"'
