@@ -1,6 +1,9 @@
 package lang.core.parser;
 
+import java.io.IOException;
 import java.io.StringReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.antlr.v4.runtime.CommonTokenFactory;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -31,5 +34,21 @@ public class AstBuilder {
 		RRootContext rootCtx  = parser.rRoot();
 		
 		return Visitors.visit(rootCtx);
+	}
+	
+	public ParseResult<ModelBehavior> parseFromFile(String filePath) {
+		ParseResult<ModelBehavior> parseRes = parse(getFileContent(filePath));
+		parseRes.setSourceFile(filePath);
+		return parseRes;
+	}
+	
+    private static String getFileContent(String implementionPath) {
+		String fileContent = "";
+		try {
+			fileContent = new String(Files.readAllBytes(Paths.get(implementionPath)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return fileContent;
 	}
 }

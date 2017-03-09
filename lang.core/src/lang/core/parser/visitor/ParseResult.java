@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
  * It keeps a mapping between elements of the model & their offset in the '.implem' file.
  */
 public class ParseResult<T> {
+	private String sourceFile;
 	private final Map<Object, Integer> startPositions = new HashMap<Object, Integer>();
 	private final Map<Object, Integer> endPositions = new HashMap<Object, Integer>();
 	private Diagnostic diagnostic;
@@ -38,5 +39,13 @@ public class ParseResult<T> {
 	
 	public void setRoot(T root) {
 		this.root = root;
+	}
+	
+	public void setSourceFile(String sourceFile) {
+		this.sourceFile = sourceFile;
+	}
+	
+	public String getSourceFile() {
+		return sourceFile;
 	}
 }
