@@ -50,10 +50,11 @@ public class MyDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getClassifierTypeRuleAccess().getAlternatives(), "rule__ClassifierTypeRule__Alternatives");
 					put(grammarAccess.getRRootAccess().getGroup(), "rule__RRoot__Group__0");
 					put(grammarAccess.getRImportAccess().getGroup(), "rule__RImport__Group__0");
-					put(grammarAccess.getRImportAccess().getGroup_2(), "rule__RImport__Group_2__0");
 					put(grammarAccess.getRServiceAccess().getGroup(), "rule__RService__Group__0");
 					put(grammarAccess.getRServiceAccess().getGroup_2(), "rule__RService__Group_2__0");
 					put(grammarAccess.getRClassAccess().getGroup(), "rule__RClass__Group__0");
+					put(grammarAccess.getRClassAccess().getGroup_2(), "rule__RClass__Group_2__0");
+					put(grammarAccess.getRClassAccess().getGroup_2_2(), "rule__RClass__Group_2_2__0");
 					put(grammarAccess.getROperationAccess().getGroup(), "rule__ROperation__Group__0");
 					put(grammarAccess.getRTagAccess().getGroup(), "rule__RTag__Group__0");
 					put(grammarAccess.getRParametersAccess().getGroup(), "rule__RParameters__Group__0");
@@ -108,10 +109,12 @@ public class MyDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTypeLiteralAccess().getGroup_7_2(), "rule__TypeLiteral__Group_7_2__0");
 					put(grammarAccess.getClassifierTypeRuleAccess().getGroup_0(), "rule__ClassifierTypeRule__Group_0__0");
 					put(grammarAccess.getClassifierTypeRuleAccess().getGroup_1(), "rule__ClassifierTypeRule__Group_1__0");
-					put(grammarAccess.getRRootAccess().getXtendedClassesAssignment_2(), "rule__RRoot__XtendedClassesAssignment_2");
+					put(grammarAccess.getRQualifiedAccess().getGroup(), "rule__RQualified__Group__0");
+					put(grammarAccess.getRQualifiedAccess().getGroup_1(), "rule__RQualified__Group_1__0");
+					put(grammarAccess.getRRootAccess().getXtendedClassesAssignment_5(), "rule__RRoot__XtendedClassesAssignment_5");
 					put(grammarAccess.getRClassAccess().getNameAssignment_1(), "rule__RClass__NameAssignment_1");
-					put(grammarAccess.getRClassAccess().getAttributesAssignment_3(), "rule__RClass__AttributesAssignment_3");
-					put(grammarAccess.getRClassAccess().getOperationsAssignment_4(), "rule__RClass__OperationsAssignment_4");
+					put(grammarAccess.getRClassAccess().getAttributesAssignment_4(), "rule__RClass__AttributesAssignment_4");
+					put(grammarAccess.getRClassAccess().getOperationsAssignment_5(), "rule__RClass__OperationsAssignment_5");
 					put(grammarAccess.getROperationAccess().getTypeAssignment_2(), "rule__ROperation__TypeAssignment_2");
 					put(grammarAccess.getROperationAccess().getNameAssignment_3(), "rule__ROperation__NameAssignment_3");
 					put(grammarAccess.getROperationAccess().getParamListAssignment_5(), "rule__ROperation__ParamListAssignment_5");

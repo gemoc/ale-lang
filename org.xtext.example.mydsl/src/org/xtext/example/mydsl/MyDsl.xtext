@@ -7,16 +7,16 @@ generate myDsl "http://www.xtext.org/example/mydsl/MyDsl"
  * AQL++ grammar *
  *****************/
 
-rRoot : rImport* rService* xtendedClasses+=rClass*
+rRoot : 'behavior' rQualified ';' rImport* rService* xtendedClasses+=rClass*
 ;
 
-rImport : 'import' Ident ('.' Ident)* ';'
+rImport : 'import' rQualified 'as' Ident ';'
 ;
 
 rService : 'use' Ident ('.' Ident)* ';'
 ;
 
-rClass : 'class' name=Ident '{' attributes+=rAttribute* operations+=rOperation* '}'
+rClass : 'class' name=Ident ('extends' rQualified (',' rQualified)* )? '{' attributes+=rAttribute* operations+=rOperation* '}'
 ; 
 
 rOperation : rTag* ('def' | 'override') type=Ident name=Ident '(' paramList+=rParameters? ')' body=rBlock
@@ -151,6 +151,9 @@ typeLiteral :   'String'
 
 classifierTypeRule :   Ident '::' Ident
 				     | Ident ':' 
+;
+
+rQualified : Ident ('.'Ident)*
 ;
 
 terminal MultOp : '*' | '/'
