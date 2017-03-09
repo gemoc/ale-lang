@@ -5,9 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -20,6 +23,7 @@ import org.eclipse.acceleo.query.runtime.ServiceUtils;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -33,13 +37,16 @@ import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnosti
 import org.eclipse.sirius.common.tools.api.interpreter.JavaExtensionsManager;
 
 import implementation.Behaviored;
+import implementation.ExtendedClass;
 import implementation.ImplementationPackage;
 import implementation.ModelBehavior;
 import lang.core.interpreter.DiagnosticLogger;
 import lang.core.interpreter.EvalEnvironment;
 import lang.core.interpreter.ImplementationEngine;
 import lang.core.parser.AstBuilder;
+import lang.core.parser.visitor.ModelBuilder;
 import lang.core.parser.visitor.ParseResult;
+import lang.core.parser.visitor.Visitors;
 
 /**
  * This class is an interpreter for the 'Lang' Language.
@@ -158,6 +165,58 @@ public class LangInterpreter {
     	javaExtensions.reloadIfNeeded();
     	
     	/*
+    	 * Resolve extends
+    	 */
+    	Map<String,List<ExtendedClass>> behaviorToClass = new HashMap<String,List<ExtendedClass>>();
+    	List<ExtendedClass> allExtensions = new ArrayList<ExtendedClass>();
+    	parsedSemantics
+    	.stream()
+    	.forEach(sem -> {
+    		ModelBehavior root = sem.getRoot();
+    		if(root != null) {
+    			List<ExtendedClass> xtdCls =  root.getClassExtensions().stream().collect(Collectors.toList());
+    			behaviorToClass.put(root.getName(), xtdCls);
+    			allExtensions.addAll(xtdCls);
+    		}
+    	});
+    	allExtensions
+    	.stream()
+    	.forEach(cls -> {
+    		List<EAnnotation> toResolve =
+				cls
+				.getEAnnotations()
+				.stream()
+				.filter(a -> a.getSource().equals(ModelBuilder.PARSER_SOURCE))
+				.filter(a -> a.getDetails().get(ModelBuilder.PARSER_EXTENDS_KEY) != null)
+				.collect(Collectors.toList());
+    		toResolve
+	    		.stream()
+	    		.forEach(annot -> {
+	    			String xtd = annot.getDetails().get(ModelBuilder.PARSER_EXTENDS_KEY);
+	    			if(Visitors.isQualified(xtd)) {
+	    				int lastDot = xtd.lastIndexOf(".");
+	    				if(lastDot < xtd.length()){
+	    					String qualifying = xtd.substring(0, lastDot);
+	    					String name = xtd.substring(lastDot+1);
+	    					List<ExtendedClass> candidates = behaviorToClass.get(qualifying);
+	    					if(candidates != null) {
+	    						Optional<ExtendedClass> searchRes =
+	    							candidates
+		    						.stream()
+		    						.filter(c -> c.getBaseClass().getName().equals(name))
+		    						.findFirst();
+	    						if(searchRes.isPresent()) {
+	    							cls.getExtends().add(searchRes.get());
+	    							cls.getEAnnotations().remove(annot);
+	    						}
+	    					}
+	    				}
+	    			}
+	    		});
+    	});
+    	
+    	
+    	/*
     	 * Load input model
     	 */
     	ResourceSet modelRs = new ResourceSetImpl();
@@ -193,6 +252,8 @@ public class LangInterpreter {
 	    	.stream()
 	    	.filter(sem -> sem.getRoot() != null)
 	    	.map(sem -> getMainOp(sem.getRoot()))
+	    	.filter(op -> op.isPresent())
+	    	.map(op -> op.get())
 	    	.findFirst();
     	
     	final BasicDiagnostic diagnostic = new BasicDiagnostic();
@@ -244,14 +305,12 @@ public class LangInterpreter {
     	return engine.eval(caller, operation, args);
     }
     
-    private Behaviored getMainOp(ModelBehavior implem) {
-		Optional<Behaviored> mainOp = 
-				implem.getClassExtensions().stream()
-				.flatMap(cls -> cls.getMethods().stream())
-				.filter(op -> op.getTags().contains("main"))
-				.findFirst();
-		
-		return mainOp.get();
+    private Optional<Behaviored> getMainOp(ModelBehavior implem) {
+		return 
+			implem.getClassExtensions().stream()
+			.flatMap(cls -> cls.getMethods().stream())
+			.filter(op -> op.getTags().contains("main"))
+			.findFirst();
 	}
     
     public IQueryEnvironment getQueryEnvironment() {

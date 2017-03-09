@@ -17,9 +17,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.EModelElementImpl;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -40,7 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class ExtendedClassImpl extends MinimalEObjectImpl.Container implements ExtendedClass {
+public class ExtendedClassImpl extends EModelElementImpl implements ExtendedClass {
 	/**
 	 * The cached value of the '{@link #getBaseClass() <em>Base Class</em>}' reference.
 	 * <!-- begin-user-doc -->

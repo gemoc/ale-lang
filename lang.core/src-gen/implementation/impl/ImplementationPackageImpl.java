@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
@@ -890,6 +891,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
+		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 		AstPackage theAstPackage = (AstPackage)EPackage.Registry.INSTANCE.getEPackage(AstPackage.eNS_URI);
 
 		// Create type parameters
@@ -897,6 +899,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		extendedClassEClass.getESuperTypes().add(theEcorePackage.getEModelElement());
 		implementationEClass.getESuperTypes().add(this.getBehaviored());
 		methodEClass.getESuperTypes().add(this.getBehaviored());
 		blockEClass.getESuperTypes().add(this.getStatement());
