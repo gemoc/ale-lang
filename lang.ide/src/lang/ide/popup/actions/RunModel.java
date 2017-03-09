@@ -38,7 +38,6 @@ public class RunModel extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		
-		System.out.println("Run model!");
 		Shell shell = HandlerUtil.getActiveWorkbenchWindow(event).getShell();
 		
 		/*
@@ -47,6 +46,9 @@ public class RunModel extends AbstractHandler {
 		IStructuredSelection selection = (IStructuredSelection) HandlerUtil.getActiveMenuSelection(event);
 		IResource resource = (IResource) selection.getFirstElement();
 		String dslProject = resource.getProject().getName();
+		
+		System.out.println("\nRun "+resource.getName());
+		System.out.println("------------");
 		
 		/*
 		 * Selected model
