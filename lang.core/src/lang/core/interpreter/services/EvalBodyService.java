@@ -40,6 +40,8 @@ public class EvalBodyService extends AbstractService {
 	Behaviored implem;
 	DiagnosticLogger logger;
 	
+	int priority = EOperationService.PRIORITY + 1;
+	
 	public EvalBodyService (Behaviored implem, EvalEnvironment evalEnv, DiagnosticLogger logger) {
 		this.implem = implem;
 		this.evalEnv = evalEnv;
@@ -114,7 +116,7 @@ public class EvalBodyService extends AbstractService {
 	
 	@Override
 	public int getPriority() {
-		return EOperationService.PRIORITY + 1;
+		return priority;
 	}
 	
 	@Override
@@ -164,5 +166,9 @@ public class EvalBodyService extends AbstractService {
 		}
 
 		return result;
+	}
+	
+	public void setPriority(int newValue) {
+		priority = newValue;
 	}
 }
