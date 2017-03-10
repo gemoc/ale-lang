@@ -4,15 +4,8 @@ package implementation.impl;
 
 import implementation.ImplementationPackage;
 import implementation.VariableAssignment;
-
-import org.eclipse.acceleo.query.ast.Expression;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -24,12 +17,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link implementation.impl.VariableAssignmentImpl#getName <em>Name</em>}</li>
- *   <li>{@link implementation.impl.VariableAssignmentImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class VariableAssignmentImpl extends StatementImpl implements VariableAssignment {
+public class VariableAssignmentImpl extends AssignmentImpl implements VariableAssignment {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -49,16 +41,6 @@ public class VariableAssignmentImpl extends StatementImpl implements VariableAss
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValue()
-	 * @generated
-	 * @ordered
-	 */
-	protected Expression value;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -105,70 +87,11 @@ public class VariableAssignmentImpl extends StatementImpl implements VariableAss
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getValue() {
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetValue(Expression newValue, NotificationChain msgs) {
-		Expression oldValue = value;
-		value = newValue;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImplementationPackage.VARIABLE_ASSIGNMENT__VALUE, oldValue, newValue);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setValue(Expression newValue) {
-		if (newValue != value) {
-			NotificationChain msgs = null;
-			if (value != null)
-				msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.VARIABLE_ASSIGNMENT__VALUE, null, msgs);
-			if (newValue != null)
-				msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.VARIABLE_ASSIGNMENT__VALUE, null, msgs);
-			msgs = basicSetValue(newValue, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.VARIABLE_ASSIGNMENT__VALUE, newValue, newValue));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ImplementationPackage.VARIABLE_ASSIGNMENT__VALUE:
-				return basicSetValue(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ImplementationPackage.VARIABLE_ASSIGNMENT__NAME:
 				return getName();
-			case ImplementationPackage.VARIABLE_ASSIGNMENT__VALUE:
-				return getValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -183,9 +106,6 @@ public class VariableAssignmentImpl extends StatementImpl implements VariableAss
 		switch (featureID) {
 			case ImplementationPackage.VARIABLE_ASSIGNMENT__NAME:
 				setName((String)newValue);
-				return;
-			case ImplementationPackage.VARIABLE_ASSIGNMENT__VALUE:
-				setValue((Expression)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -202,9 +122,6 @@ public class VariableAssignmentImpl extends StatementImpl implements VariableAss
 			case ImplementationPackage.VARIABLE_ASSIGNMENT__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case ImplementationPackage.VARIABLE_ASSIGNMENT__VALUE:
-				setValue((Expression)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -219,8 +136,6 @@ public class VariableAssignmentImpl extends StatementImpl implements VariableAss
 		switch (featureID) {
 			case ImplementationPackage.VARIABLE_ASSIGNMENT__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case ImplementationPackage.VARIABLE_ASSIGNMENT__VALUE:
-				return value != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EModelElementImpl;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link implementation.impl.ExtendedClassImpl#getMethods <em>Methods</em>}</li>
  *   <li>{@link implementation.impl.ExtendedClassImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link implementation.impl.ExtendedClassImpl#getExtends <em>Extends</em>}</li>
+ *   <li>{@link implementation.impl.ExtendedClassImpl#getChildren <em>Children</em>}</li>
  * </ul>
  *
  * @generated
@@ -79,6 +80,16 @@ public class ExtendedClassImpl extends EModelElementImpl implements ExtendedClas
 	 * @ordered
 	 */
 	protected EList<ExtendedClass> extends_;
+
+	/**
+	 * The cached value of the '{@link #getChildren() <em>Children</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getChildren()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ExtendedClass> children;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -168,9 +179,38 @@ public class ExtendedClassImpl extends EModelElementImpl implements ExtendedClas
 	 */
 	public EList<ExtendedClass> getExtends() {
 		if (extends_ == null) {
-			extends_ = new EObjectResolvingEList<ExtendedClass>(ExtendedClass.class, this, ImplementationPackage.EXTENDED_CLASS__EXTENDS);
+			extends_ = new EObjectWithInverseResolvingEList.ManyInverse<ExtendedClass>(ExtendedClass.class, this, ImplementationPackage.EXTENDED_CLASS__EXTENDS, ImplementationPackage.EXTENDED_CLASS__CHILDREN);
 		}
 		return extends_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ExtendedClass> getChildren() {
+		if (children == null) {
+			children = new EObjectWithInverseResolvingEList.ManyInverse<ExtendedClass>(ExtendedClass.class, this, ImplementationPackage.EXTENDED_CLASS__CHILDREN, ImplementationPackage.EXTENDED_CLASS__EXTENDS);
+		}
+		return children;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ImplementationPackage.EXTENDED_CLASS__EXTENDS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getExtends()).basicAdd(otherEnd, msgs);
+			case ImplementationPackage.EXTENDED_CLASS__CHILDREN:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildren()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -185,6 +225,10 @@ public class ExtendedClassImpl extends EModelElementImpl implements ExtendedClas
 				return ((InternalEList<?>)getMethods()).basicRemove(otherEnd, msgs);
 			case ImplementationPackage.EXTENDED_CLASS__ATTRIBUTES:
 				return ((InternalEList<?>)getAttributes()).basicRemove(otherEnd, msgs);
+			case ImplementationPackage.EXTENDED_CLASS__EXTENDS:
+				return ((InternalEList<?>)getExtends()).basicRemove(otherEnd, msgs);
+			case ImplementationPackage.EXTENDED_CLASS__CHILDREN:
+				return ((InternalEList<?>)getChildren()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -206,6 +250,8 @@ public class ExtendedClassImpl extends EModelElementImpl implements ExtendedClas
 				return getAttributes();
 			case ImplementationPackage.EXTENDED_CLASS__EXTENDS:
 				return getExtends();
+			case ImplementationPackage.EXTENDED_CLASS__CHILDREN:
+				return getChildren();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -234,6 +280,10 @@ public class ExtendedClassImpl extends EModelElementImpl implements ExtendedClas
 				getExtends().clear();
 				getExtends().addAll((Collection<? extends ExtendedClass>)newValue);
 				return;
+			case ImplementationPackage.EXTENDED_CLASS__CHILDREN:
+				getChildren().clear();
+				getChildren().addAll((Collection<? extends ExtendedClass>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -258,6 +308,9 @@ public class ExtendedClassImpl extends EModelElementImpl implements ExtendedClas
 			case ImplementationPackage.EXTENDED_CLASS__EXTENDS:
 				getExtends().clear();
 				return;
+			case ImplementationPackage.EXTENDED_CLASS__CHILDREN:
+				getChildren().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -278,6 +331,8 @@ public class ExtendedClassImpl extends EModelElementImpl implements ExtendedClas
 				return attributes != null && !attributes.isEmpty();
 			case ImplementationPackage.EXTENDED_CLASS__EXTENDS:
 				return extends_ != null && !extends_.isEmpty();
+			case ImplementationPackage.EXTENDED_CLASS__CHILDREN:
+				return children != null && !children.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

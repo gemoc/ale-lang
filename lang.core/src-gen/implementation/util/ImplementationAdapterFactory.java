@@ -105,6 +105,10 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 				return createVariableDeclarationAdapter();
 			}
 			@Override
+			public Adapter caseAssignment(Assignment object) {
+				return createAssignmentAdapter();
+			}
+			@Override
 			public Adapter caseVariableAssignment(VariableAssignment object) {
 				return createVariableAssignmentAdapter();
 			}
@@ -287,6 +291,20 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createVariableDeclarationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link implementation.Assignment <em>Assignment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see implementation.Assignment
+	 * @generated
+	 */
+	public Adapter createAssignmentAdapter() {
 		return null;
 	}
 

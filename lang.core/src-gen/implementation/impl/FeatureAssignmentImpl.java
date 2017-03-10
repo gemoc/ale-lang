@@ -25,12 +25,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link implementation.impl.FeatureAssignmentImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link implementation.impl.FeatureAssignmentImpl#getTargetFeature <em>Target Feature</em>}</li>
- *   <li>{@link implementation.impl.FeatureAssignmentImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class FeatureAssignmentImpl extends StatementImpl implements FeatureAssignment {
+public class FeatureAssignmentImpl extends AssignmentImpl implements FeatureAssignment {
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -60,16 +59,6 @@ public class FeatureAssignmentImpl extends StatementImpl implements FeatureAssig
 	 * @ordered
 	 */
 	protected String targetFeature = TARGET_FEATURE_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValue()
-	 * @generated
-	 * @ordered
-	 */
-	protected Expression value;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -159,56 +148,11 @@ public class FeatureAssignmentImpl extends StatementImpl implements FeatureAssig
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getValue() {
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetValue(Expression newValue, NotificationChain msgs) {
-		Expression oldValue = value;
-		value = newValue;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImplementationPackage.FEATURE_ASSIGNMENT__VALUE, oldValue, newValue);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setValue(Expression newValue) {
-		if (newValue != value) {
-			NotificationChain msgs = null;
-			if (value != null)
-				msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.FEATURE_ASSIGNMENT__VALUE, null, msgs);
-			if (newValue != null)
-				msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.FEATURE_ASSIGNMENT__VALUE, null, msgs);
-			msgs = basicSetValue(newValue, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.FEATURE_ASSIGNMENT__VALUE, newValue, newValue));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ImplementationPackage.FEATURE_ASSIGNMENT__TARGET:
 				return basicSetTarget(null, msgs);
-			case ImplementationPackage.FEATURE_ASSIGNMENT__VALUE:
-				return basicSetValue(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -225,8 +169,6 @@ public class FeatureAssignmentImpl extends StatementImpl implements FeatureAssig
 				return getTarget();
 			case ImplementationPackage.FEATURE_ASSIGNMENT__TARGET_FEATURE:
 				return getTargetFeature();
-			case ImplementationPackage.FEATURE_ASSIGNMENT__VALUE:
-				return getValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -244,9 +186,6 @@ public class FeatureAssignmentImpl extends StatementImpl implements FeatureAssig
 				return;
 			case ImplementationPackage.FEATURE_ASSIGNMENT__TARGET_FEATURE:
 				setTargetFeature((String)newValue);
-				return;
-			case ImplementationPackage.FEATURE_ASSIGNMENT__VALUE:
-				setValue((Expression)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -266,9 +205,6 @@ public class FeatureAssignmentImpl extends StatementImpl implements FeatureAssig
 			case ImplementationPackage.FEATURE_ASSIGNMENT__TARGET_FEATURE:
 				setTargetFeature(TARGET_FEATURE_EDEFAULT);
 				return;
-			case ImplementationPackage.FEATURE_ASSIGNMENT__VALUE:
-				setValue((Expression)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -285,8 +221,6 @@ public class FeatureAssignmentImpl extends StatementImpl implements FeatureAssig
 				return target != null;
 			case ImplementationPackage.FEATURE_ASSIGNMENT__TARGET_FEATURE:
 				return TARGET_FEATURE_EDEFAULT == null ? targetFeature != null : !TARGET_FEATURE_EDEFAULT.equals(targetFeature);
-			case ImplementationPackage.FEATURE_ASSIGNMENT__VALUE:
-				return value != null;
 		}
 		return super.eIsSet(featureID);
 	}

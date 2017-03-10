@@ -168,13 +168,22 @@ public interface ImplementationPackage extends EPackage {
 	int EXTENDED_CLASS__EXTENDS = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__CHILDREN = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Extended Class</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENDED_CLASS_FEATURE_COUNT = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 4;
+	int EXTENDED_CLASS_FEATURE_COUNT = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The operation id for the '<em>Get EAnnotation</em>' operation.
@@ -517,23 +526,14 @@ public interface ImplementationPackage extends EPackage {
 	int VARIABLE_DECLARATION_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link implementation.impl.VariableAssignmentImpl <em>Variable Assignment</em>}' class.
+	 * The meta object id for the '{@link implementation.impl.AssignmentImpl <em>Assignment</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see implementation.impl.VariableAssignmentImpl
-	 * @see implementation.impl.ImplementationPackageImpl#getVariableAssignment()
+	 * @see implementation.impl.AssignmentImpl
+	 * @see implementation.impl.ImplementationPackageImpl#getAssignment()
 	 * @generated
 	 */
-	int VARIABLE_ASSIGNMENT = 9;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_ASSIGNMENT__NAME = STATEMENT_FEATURE_COUNT + 0;
+	int ASSIGNMENT = 9;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -542,7 +542,53 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_ASSIGNMENT__VALUE = STATEMENT_FEATURE_COUNT + 1;
+	int ASSIGNMENT__VALUE = STATEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Assignment</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSIGNMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Assignment</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSIGNMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link implementation.impl.VariableAssignmentImpl <em>Variable Assignment</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see implementation.impl.VariableAssignmentImpl
+	 * @see implementation.impl.ImplementationPackageImpl#getVariableAssignment()
+	 * @generated
+	 */
+	int VARIABLE_ASSIGNMENT = 10;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_ASSIGNMENT__VALUE = ASSIGNMENT__VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_ASSIGNMENT__NAME = ASSIGNMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Variable Assignment</em>' class.
@@ -551,7 +597,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_ASSIGNMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
+	int VARIABLE_ASSIGNMENT_FEATURE_COUNT = ASSIGNMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Variable Assignment</em>' class.
@@ -560,7 +606,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_ASSIGNMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
+	int VARIABLE_ASSIGNMENT_OPERATION_COUNT = ASSIGNMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link implementation.impl.FeatureAssignmentImpl <em>Feature Assignment</em>}' class.
@@ -570,25 +616,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeatureAssignment()
 	 * @generated
 	 */
-	int FEATURE_ASSIGNMENT = 10;
-
-	/**
-	 * The feature id for the '<em><b>Target</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_ASSIGNMENT__TARGET = STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Target Feature</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_ASSIGNMENT__TARGET_FEATURE = STATEMENT_FEATURE_COUNT + 1;
+	int FEATURE_ASSIGNMENT = 11;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -597,7 +625,25 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_ASSIGNMENT__VALUE = STATEMENT_FEATURE_COUNT + 2;
+	int FEATURE_ASSIGNMENT__VALUE = ASSIGNMENT__VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_ASSIGNMENT__TARGET = ASSIGNMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Target Feature</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_ASSIGNMENT__TARGET_FEATURE = ASSIGNMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Feature Assignment</em>' class.
@@ -606,7 +652,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_ASSIGNMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
+	int FEATURE_ASSIGNMENT_FEATURE_COUNT = ASSIGNMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Feature Assignment</em>' class.
@@ -615,7 +661,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_ASSIGNMENT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
+	int FEATURE_ASSIGNMENT_OPERATION_COUNT = ASSIGNMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link implementation.impl.FeatureInsertImpl <em>Feature Insert</em>}' class.
@@ -625,25 +671,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeatureInsert()
 	 * @generated
 	 */
-	int FEATURE_INSERT = 11;
-
-	/**
-	 * The feature id for the '<em><b>Target</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_INSERT__TARGET = STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Target Feature</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_INSERT__TARGET_FEATURE = STATEMENT_FEATURE_COUNT + 1;
+	int FEATURE_INSERT = 12;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -652,7 +680,25 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_INSERT__VALUE = STATEMENT_FEATURE_COUNT + 2;
+	int FEATURE_INSERT__VALUE = ASSIGNMENT__VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_INSERT__TARGET = ASSIGNMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Target Feature</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_INSERT__TARGET_FEATURE = ASSIGNMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Feature Insert</em>' class.
@@ -661,7 +707,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_INSERT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
+	int FEATURE_INSERT_FEATURE_COUNT = ASSIGNMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Feature Insert</em>' class.
@@ -670,7 +716,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_INSERT_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
+	int FEATURE_INSERT_OPERATION_COUNT = ASSIGNMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link implementation.impl.FeatureRemoveImpl <em>Feature Remove</em>}' class.
@@ -680,25 +726,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeatureRemove()
 	 * @generated
 	 */
-	int FEATURE_REMOVE = 12;
-
-	/**
-	 * The feature id for the '<em><b>Target</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_REMOVE__TARGET = STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Target Feature</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_REMOVE__TARGET_FEATURE = STATEMENT_FEATURE_COUNT + 1;
+	int FEATURE_REMOVE = 13;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -707,7 +735,25 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_REMOVE__VALUE = STATEMENT_FEATURE_COUNT + 2;
+	int FEATURE_REMOVE__VALUE = ASSIGNMENT__VALUE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_REMOVE__TARGET = ASSIGNMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Target Feature</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_REMOVE__TARGET_FEATURE = ASSIGNMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Feature Remove</em>' class.
@@ -716,7 +762,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_REMOVE_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
+	int FEATURE_REMOVE_FEATURE_COUNT = ASSIGNMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Feature Remove</em>' class.
@@ -725,7 +771,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_REMOVE_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
+	int FEATURE_REMOVE_OPERATION_COUNT = ASSIGNMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link implementation.impl.FeaturePutImpl <em>Feature Put</em>}' class.
@@ -735,7 +781,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeaturePut()
 	 * @generated
 	 */
-	int FEATURE_PUT = 13;
+	int FEATURE_PUT = 14;
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' containment reference.
@@ -799,7 +845,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getForEach()
 	 * @generated
 	 */
-	int FOR_EACH = 14;
+	int FOR_EACH = 15;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' attribute.
@@ -854,7 +900,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getWhile()
 	 * @generated
 	 */
-	int WHILE = 15;
+	int WHILE = 16;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -900,7 +946,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getIf()
 	 * @generated
 	 */
-	int IF = 16;
+	int IF = 17;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -955,7 +1001,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getExpressionStatement()
 	 * @generated
 	 */
-	int EXPRESSION_STATEMENT = 17;
+	int EXPRESSION_STATEMENT = 18;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -1081,6 +1127,17 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getExtendedClass_Extends();
+
+	/**
+	 * Returns the meta object for the reference list '{@link implementation.ExtendedClass#getChildren <em>Children</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Children</em>'.
+	 * @see implementation.ExtendedClass#getChildren()
+	 * @see #getExtendedClass()
+	 * @generated
+	 */
+	EReference getExtendedClass_Children();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.Behaviored <em>Behaviored</em>}'.
@@ -1263,6 +1320,27 @@ public interface ImplementationPackage extends EPackage {
 	EReference getVariableDeclaration_InitialValue();
 
 	/**
+	 * Returns the meta object for class '{@link implementation.Assignment <em>Assignment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Assignment</em>'.
+	 * @see implementation.Assignment
+	 * @generated
+	 */
+	EClass getAssignment();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link implementation.Assignment#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see implementation.Assignment#getValue()
+	 * @see #getAssignment()
+	 * @generated
+	 */
+	EReference getAssignment_Value();
+
+	/**
 	 * Returns the meta object for class '{@link implementation.VariableAssignment <em>Variable Assignment</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1282,17 +1360,6 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getVariableAssignment_Name();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link implementation.VariableAssignment#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Value</em>'.
-	 * @see implementation.VariableAssignment#getValue()
-	 * @see #getVariableAssignment()
-	 * @generated
-	 */
-	EReference getVariableAssignment_Value();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.FeatureAssignment <em>Feature Assignment</em>}'.
@@ -1327,17 +1394,6 @@ public interface ImplementationPackage extends EPackage {
 	EAttribute getFeatureAssignment_TargetFeature();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link implementation.FeatureAssignment#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Value</em>'.
-	 * @see implementation.FeatureAssignment#getValue()
-	 * @see #getFeatureAssignment()
-	 * @generated
-	 */
-	EReference getFeatureAssignment_Value();
-
-	/**
 	 * Returns the meta object for class '{@link implementation.FeatureInsert <em>Feature Insert</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1370,17 +1426,6 @@ public interface ImplementationPackage extends EPackage {
 	EAttribute getFeatureInsert_TargetFeature();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link implementation.FeatureInsert#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Value</em>'.
-	 * @see implementation.FeatureInsert#getValue()
-	 * @see #getFeatureInsert()
-	 * @generated
-	 */
-	EReference getFeatureInsert_Value();
-
-	/**
 	 * Returns the meta object for class '{@link implementation.FeatureRemove <em>Feature Remove</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1411,17 +1456,6 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getFeatureRemove_TargetFeature();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link implementation.FeatureRemove#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Value</em>'.
-	 * @see implementation.FeatureRemove#getValue()
-	 * @see #getFeatureRemove()
-	 * @generated
-	 */
-	EReference getFeatureRemove_Value();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.FeaturePut <em>Feature Put</em>}'.
@@ -1716,6 +1750,14 @@ public interface ImplementationPackage extends EPackage {
 		EReference EXTENDED_CLASS__EXTENDS = eINSTANCE.getExtendedClass_Extends();
 
 		/**
+		 * The meta object literal for the '<em><b>Children</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXTENDED_CLASS__CHILDREN = eINSTANCE.getExtendedClass_Children();
+
+		/**
 		 * The meta object literal for the '{@link implementation.impl.BehavioredImpl <em>Behaviored</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1866,6 +1908,24 @@ public interface ImplementationPackage extends EPackage {
 		EReference VARIABLE_DECLARATION__INITIAL_VALUE = eINSTANCE.getVariableDeclaration_InitialValue();
 
 		/**
+		 * The meta object literal for the '{@link implementation.impl.AssignmentImpl <em>Assignment</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see implementation.impl.AssignmentImpl
+		 * @see implementation.impl.ImplementationPackageImpl#getAssignment()
+		 * @generated
+		 */
+		EClass ASSIGNMENT = eINSTANCE.getAssignment();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSIGNMENT__VALUE = eINSTANCE.getAssignment_Value();
+
+		/**
 		 * The meta object literal for the '{@link implementation.impl.VariableAssignmentImpl <em>Variable Assignment</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1882,14 +1942,6 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute VARIABLE_ASSIGNMENT__NAME = eINSTANCE.getVariableAssignment_Name();
-
-		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference VARIABLE_ASSIGNMENT__VALUE = eINSTANCE.getVariableAssignment_Value();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.FeatureAssignmentImpl <em>Feature Assignment</em>}' class.
@@ -1918,14 +1970,6 @@ public interface ImplementationPackage extends EPackage {
 		EAttribute FEATURE_ASSIGNMENT__TARGET_FEATURE = eINSTANCE.getFeatureAssignment_TargetFeature();
 
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FEATURE_ASSIGNMENT__VALUE = eINSTANCE.getFeatureAssignment_Value();
-
-		/**
 		 * The meta object literal for the '{@link implementation.impl.FeatureInsertImpl <em>Feature Insert</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1952,14 +1996,6 @@ public interface ImplementationPackage extends EPackage {
 		EAttribute FEATURE_INSERT__TARGET_FEATURE = eINSTANCE.getFeatureInsert_TargetFeature();
 
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FEATURE_INSERT__VALUE = eINSTANCE.getFeatureInsert_Value();
-
-		/**
 		 * The meta object literal for the '{@link implementation.impl.FeatureRemoveImpl <em>Feature Remove</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1984,14 +2020,6 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FEATURE_REMOVE__TARGET_FEATURE = eINSTANCE.getFeatureRemove_TargetFeature();
-
-		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FEATURE_REMOVE__VALUE = eINSTANCE.getFeatureRemove_Value();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.FeaturePutImpl <em>Feature Put</em>}' class.

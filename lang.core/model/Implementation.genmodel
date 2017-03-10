@@ -16,6 +16,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/methods"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/attributes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/extends"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/children"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//Behaviored">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Behaviored/body"/>
@@ -40,24 +41,23 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//VariableDeclaration/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//VariableDeclaration/initialValue"/>
     </genClasses>
+    <genClasses ecoreClass="Implementation.ecore#//Assignment">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Assignment/value"/>
+    </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//VariableAssignment">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//VariableAssignment/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//VariableAssignment/value"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//FeatureAssignment">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//FeatureAssignment/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//FeatureAssignment/targetFeature"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//FeatureAssignment/value"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//FeatureInsert">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//FeatureInsert/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//FeatureInsert/targetFeature"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//FeatureInsert/value"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//FeatureRemove">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//FeatureRemove/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//FeatureRemove/targetFeature"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//FeatureRemove/value"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//FeaturePut">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//FeaturePut/target"/>
