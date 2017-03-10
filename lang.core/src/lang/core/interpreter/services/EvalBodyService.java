@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.acceleo.query.validation.type.SequenceType;
-import implementation.Parameter;
 import lang.core.interpreter.DiagnosticLogger;
 import lang.core.interpreter.EvalEnvironment;
 import lang.core.interpreter.ImplementationEvaluator;

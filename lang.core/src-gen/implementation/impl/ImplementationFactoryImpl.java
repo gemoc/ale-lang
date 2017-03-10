@@ -61,7 +61,6 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 			case ImplementationPackage.BEHAVIORED: return createBehaviored();
 			case ImplementationPackage.IMPLEMENTATION: return createImplementation();
 			case ImplementationPackage.METHOD: return createMethod();
-			case ImplementationPackage.PARAMETER: return createParameter();
 			case ImplementationPackage.BLOCK: return createBlock();
 			case ImplementationPackage.STATEMENT: return createStatement();
 			case ImplementationPackage.VARIABLE_DECLARATION: return createVariableDeclaration();
@@ -128,16 +127,6 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	public Method createMethod() {
 		MethodImpl method = new MethodImpl();
 		return method;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Parameter createParameter() {
-		ParameterImpl parameter = new ParameterImpl();
-		return parameter;
 	}
 
 	/**

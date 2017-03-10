@@ -360,52 +360,6 @@ public interface ImplementationPackage extends EPackage {
 	int METHOD_OPERATION_COUNT = BEHAVIORED_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link implementation.impl.ParameterImpl <em>Parameter</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see implementation.impl.ParameterImpl
-	 * @see implementation.impl.ImplementationPackageImpl#getParameter()
-	 * @generated
-	 */
-	int PARAMETER = 5;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__NAME = 0;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__TYPE = 1;
-
-	/**
-	 * The number of structural features of the '<em>Parameter</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER_FEATURE_COUNT = 2;
-
-	/**
-	 * The number of operations of the '<em>Parameter</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link implementation.impl.StatementImpl <em>Statement</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -413,7 +367,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getStatement()
 	 * @generated
 	 */
-	int STATEMENT = 7;
+	int STATEMENT = 6;
 
 	/**
 	 * The number of structural features of the '<em>Statement</em>' class.
@@ -441,7 +395,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getBlock()
 	 * @generated
 	 */
-	int BLOCK = 6;
+	int BLOCK = 5;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -478,7 +432,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getVariableDeclaration()
 	 * @generated
 	 */
-	int VARIABLE_DECLARATION = 8;
+	int VARIABLE_DECLARATION = 7;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -533,7 +487,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getAssignment()
 	 * @generated
 	 */
-	int ASSIGNMENT = 9;
+	int ASSIGNMENT = 8;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -570,7 +524,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getVariableAssignment()
 	 * @generated
 	 */
-	int VARIABLE_ASSIGNMENT = 10;
+	int VARIABLE_ASSIGNMENT = 9;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -616,7 +570,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeatureAssignment()
 	 * @generated
 	 */
-	int FEATURE_ASSIGNMENT = 11;
+	int FEATURE_ASSIGNMENT = 10;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -671,7 +625,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeatureInsert()
 	 * @generated
 	 */
-	int FEATURE_INSERT = 12;
+	int FEATURE_INSERT = 11;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -726,7 +680,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeatureRemove()
 	 * @generated
 	 */
-	int FEATURE_REMOVE = 13;
+	int FEATURE_REMOVE = 12;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -781,7 +735,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getFeaturePut()
 	 * @generated
 	 */
-	int FEATURE_PUT = 14;
+	int FEATURE_PUT = 13;
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' containment reference.
@@ -845,7 +799,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getForEach()
 	 * @generated
 	 */
-	int FOR_EACH = 15;
+	int FOR_EACH = 14;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' attribute.
@@ -900,7 +854,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getWhile()
 	 * @generated
 	 */
-	int WHILE = 16;
+	int WHILE = 15;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -946,7 +900,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getIf()
 	 * @generated
 	 */
-	int IF = 17;
+	int IF = 16;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -1001,7 +955,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getExpressionStatement()
 	 * @generated
 	 */
-	int EXPRESSION_STATEMENT = 18;
+	int EXPRESSION_STATEMENT = 17;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -1212,38 +1166,6 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMethod_OperationDef();
-
-	/**
-	 * Returns the meta object for class '{@link implementation.Parameter <em>Parameter</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Parameter</em>'.
-	 * @see implementation.Parameter
-	 * @generated
-	 */
-	EClass getParameter();
-
-	/**
-	 * Returns the meta object for the attribute '{@link implementation.Parameter#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see implementation.Parameter#getName()
-	 * @see #getParameter()
-	 * @generated
-	 */
-	EAttribute getParameter_Name();
-
-	/**
-	 * Returns the meta object for the reference '{@link implementation.Parameter#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Type</em>'.
-	 * @see implementation.Parameter#getType()
-	 * @see #getParameter()
-	 * @generated
-	 */
-	EReference getParameter_Type();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.Block <em>Block</em>}'.
@@ -1818,32 +1740,6 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference METHOD__OPERATION_DEF = eINSTANCE.getMethod_OperationDef();
-
-		/**
-		 * The meta object literal for the '{@link implementation.impl.ParameterImpl <em>Parameter</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see implementation.impl.ParameterImpl
-		 * @see implementation.impl.ImplementationPackageImpl#getParameter()
-		 * @generated
-		 */
-		EClass PARAMETER = eINSTANCE.getParameter();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PARAMETER__NAME = eINSTANCE.getParameter_Name();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PARAMETER__TYPE = eINSTANCE.getParameter_Type();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.BlockImpl <em>Block</em>}' class.
