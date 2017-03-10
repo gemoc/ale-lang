@@ -1,5 +1,7 @@
 package lang.core.parser.visitor;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,9 +17,13 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
+import com.google.common.collect.Lists;
 
 import implementation.Behaviored;
 import implementation.Block;
@@ -277,7 +283,22 @@ public class ModelBuilder {
 	}
 	
 	public EClassifier resolve(String className) {
-		//TODO: manage qualified name
+		
+		int lastDotIndex = className.lastIndexOf(".");
+		if(lastDotIndex != -1 && lastDotIndex < className.length()) {
+			String simpleName = className.substring(lastDotIndex+1);
+			
+			Collection<EClassifier> clsCandidates = qryEnv.getEPackageProvider().getTypes(simpleName);
+			
+			Optional<EClassifier> foundCls = 
+				clsCandidates
+				.stream()
+				.filter(c -> getQualifiedName(c).equals(className))
+				.findFirst();
+			if(foundCls.isPresent())
+				return foundCls.get();
+		}
+		
 		Optional<EClassifier> candidate =
 			qryEnv
 			.getEPackageProvider()
@@ -303,6 +324,22 @@ public class ModelBuilder {
 			case "void"		: return null;
 			default			: return EcorePackage.eINSTANCE.getEClassifier();
 		}
+	}
+	
+	private String getQualifiedName(EClassifier cls) {
+		
+		List<String> fullName = new ArrayList<String>();
+		
+		fullName.add(cls.getName());
+		
+		EPackage current = cls.getEPackage();
+		fullName.add(current.getName());
+		while(current.getESuperPackage() != null) {
+			current = current.getESuperPackage();
+			fullName.add(current.getName());
+		}
+		
+		return String.join(".", Lists.reverse(fullName));
 	}
 	
 	public AstResult parse(String expression) {
