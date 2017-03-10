@@ -39,7 +39,6 @@ import implementation.Implementation;
 import implementation.ImplementationFactory;
 import implementation.ImplementationPackage;
 import implementation.Method;
-import implementation.Parameter;
 import implementation.Statement;
 import implementation.VariableAssignment;
 import implementation.VariableDeclaration;
@@ -54,9 +53,29 @@ public class ModelBuilder {
 	public static final String PARSER_SOURCE = "http://lang/parser/metadata";
 	public static final String PARSER_EXTENDS_KEY = "extends";
 	
+	
 	public static ModelBuilder createSingleton(IQueryEnvironment qryEnv) {
 		ModelBuilder.singleton = new ModelBuilder(qryEnv);
 		return singleton;
+	}
+	
+	public static class Parameter {
+		
+		String name;
+		EClassifier type;
+		
+		public Parameter(String name, EClassifier type) {
+			this.name = name;
+			this.type = type;
+		}
+		
+		public String getName() {
+			return name;
+		}
+		
+		public EClassifier getType() {
+			return type;
+		}
 	}
 	
 	IQueryEnvironment qryEnv;
@@ -113,11 +132,10 @@ public class ModelBuilder {
 		return implem;
 	}
 	
+	
+	
 	public Parameter buildParameter(String type, String name) {
-		Parameter param = factory.createParameter();
-		param.setName(name);
-		param.setType(resolve(type));
-		return param;
+		return new Parameter(name, resolve(type));
 	}
 	
 	public VariableDeclaration buildVariableDecl(String name, String exp, String type) {

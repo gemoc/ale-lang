@@ -5,7 +5,6 @@ import implementation.Block;
 import implementation.ExpressionStatement;
 import implementation.ImplementationFactory;
 import implementation.ImplementationPackage;
-import implementation.Parameter;
 import implementation.ModelBehavior;
 import implementation.Statement;
 import implementation.VariableAssignment;
@@ -53,6 +52,7 @@ import lang.core.parser.XtdAQLParser.CallExpContext;
 import lang.core.parser.XtdAQLParser.CallOrApplyContext;
 import lang.core.parser.XtdAQLParser.ExpressionContext;
 import lang.core.parser.XtdAQLParser.RVarDeclContext;
+import lang.core.parser.visitor.ModelBuilder.Parameter;
 
 /**
  * Visits the result of the antlr parser to build the Implementation model.
