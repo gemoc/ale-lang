@@ -126,9 +126,17 @@ public class ImplementationSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ImplementationPackage.ASSIGNMENT: {
+				Assignment assignment = (Assignment)theEObject;
+				T result = caseAssignment(assignment);
+				if (result == null) result = caseStatement(assignment);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ImplementationPackage.VARIABLE_ASSIGNMENT: {
 				VariableAssignment variableAssignment = (VariableAssignment)theEObject;
 				T result = caseVariableAssignment(variableAssignment);
+				if (result == null) result = caseAssignment(variableAssignment);
 				if (result == null) result = caseStatement(variableAssignment);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -136,6 +144,7 @@ public class ImplementationSwitch<T> extends Switch<T> {
 			case ImplementationPackage.FEATURE_ASSIGNMENT: {
 				FeatureAssignment featureAssignment = (FeatureAssignment)theEObject;
 				T result = caseFeatureAssignment(featureAssignment);
+				if (result == null) result = caseAssignment(featureAssignment);
 				if (result == null) result = caseStatement(featureAssignment);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -143,6 +152,7 @@ public class ImplementationSwitch<T> extends Switch<T> {
 			case ImplementationPackage.FEATURE_INSERT: {
 				FeatureInsert featureInsert = (FeatureInsert)theEObject;
 				T result = caseFeatureInsert(featureInsert);
+				if (result == null) result = caseAssignment(featureInsert);
 				if (result == null) result = caseStatement(featureInsert);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -150,6 +160,7 @@ public class ImplementationSwitch<T> extends Switch<T> {
 			case ImplementationPackage.FEATURE_REMOVE: {
 				FeatureRemove featureRemove = (FeatureRemove)theEObject;
 				T result = caseFeatureRemove(featureRemove);
+				if (result == null) result = caseAssignment(featureRemove);
 				if (result == null) result = caseStatement(featureRemove);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -325,6 +336,21 @@ public class ImplementationSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseVariableDeclaration(VariableDeclaration object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Assignment</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Assignment</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAssignment(Assignment object) {
 		return null;
 	}
 

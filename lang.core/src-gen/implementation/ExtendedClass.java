@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EModelElement;
  *   <li>{@link implementation.ExtendedClass#getMethods <em>Methods</em>}</li>
  *   <li>{@link implementation.ExtendedClass#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link implementation.ExtendedClass#getExtends <em>Extends</em>}</li>
+ *   <li>{@link implementation.ExtendedClass#getChildren <em>Children</em>}</li>
  * </ul>
  *
  * @see implementation.ImplementationPackage#getExtendedClass()
@@ -88,6 +89,7 @@ public interface ExtendedClass extends EModelElement {
 	/**
 	 * Returns the value of the '<em><b>Extends</b></em>' reference list.
 	 * The list contents are of type {@link implementation.ExtendedClass}.
+	 * It is bidirectional and its opposite is '{@link implementation.ExtendedClass#getChildren <em>Children</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Extends</em>' reference list isn't clear,
@@ -96,9 +98,28 @@ public interface ExtendedClass extends EModelElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Extends</em>' reference list.
 	 * @see implementation.ImplementationPackage#getExtendedClass_Extends()
-	 * @model
+	 * @see implementation.ExtendedClass#getChildren
+	 * @model opposite="children"
 	 * @generated
 	 */
 	EList<ExtendedClass> getExtends();
+
+	/**
+	 * Returns the value of the '<em><b>Children</b></em>' reference list.
+	 * The list contents are of type {@link implementation.ExtendedClass}.
+	 * It is bidirectional and its opposite is '{@link implementation.ExtendedClass#getExtends <em>Extends</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Children</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Children</em>' reference list.
+	 * @see implementation.ImplementationPackage#getExtendedClass_Children()
+	 * @see implementation.ExtendedClass#getExtends
+	 * @model opposite="extends"
+	 * @generated
+	 */
+	EList<ExtendedClass> getChildren();
 
 } // ExtendedClass

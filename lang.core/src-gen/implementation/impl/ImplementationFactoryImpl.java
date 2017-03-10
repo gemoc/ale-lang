@@ -65,6 +65,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 			case ImplementationPackage.BLOCK: return createBlock();
 			case ImplementationPackage.STATEMENT: return createStatement();
 			case ImplementationPackage.VARIABLE_DECLARATION: return createVariableDeclaration();
+			case ImplementationPackage.ASSIGNMENT: return createAssignment();
 			case ImplementationPackage.VARIABLE_ASSIGNMENT: return createVariableAssignment();
 			case ImplementationPackage.FEATURE_ASSIGNMENT: return createFeatureAssignment();
 			case ImplementationPackage.FEATURE_INSERT: return createFeatureInsert();
@@ -167,6 +168,16 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	public VariableDeclaration createVariableDeclaration() {
 		VariableDeclarationImpl variableDeclaration = new VariableDeclarationImpl();
 		return variableDeclaration;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Assignment createAssignment() {
+		AssignmentImpl assignment = new AssignmentImpl();
+		return assignment;
 	}
 
 	/**
