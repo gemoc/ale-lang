@@ -29,10 +29,10 @@ rImport : 'import' rQualified 'as' Ident ';'
 rService : 'use' Ident ('.' Ident)* ';'
 ;
 
-rClass : 'class' Ident ('extends' rQualified (',' rQualified)* )? '{' rAttribute* rOperation* '}'
+rClass : 'class' name=rQualified ('extends' rQualified (',' rQualified)* )? '{' rAttribute* rOperation* '}'
 ; 
 
-rOperation : (rTag)* ('def' | 'override') (Ident|'String') Ident '(' rParameters? ')' rBlock
+rOperation : (rTag)* ('def' | 'override') type=rType name=Ident '(' rParameters? ')' rBlock
 ;
 
 rTag : '@'Ident
@@ -41,10 +41,10 @@ rTag : '@'Ident
 rParameters : rVariable (',' rVariable)*
 ;
 
-rVariable : (Ident|'String') Ident
+rVariable : type=rType Ident
 ;
 
-rAttribute : (Ident|'String') Ident (':=' expression)? ';'
+rAttribute : type=rType Ident (':=' expression)? ';'
 ;
 
 /*
@@ -59,7 +59,7 @@ rStatement : rVarDecl
 		| rExpression
 ;
 
-rVarDecl : (Ident|'String') Ident (':=' expression)? ';'
+rVarDecl : type=rType Ident (':=' expression)? ';'
 ;
 
 rAssign : expression ':=' expression ';'
@@ -81,6 +81,9 @@ rWhile : 'while' '(' expression ')' rBlock
 ;
 
 rExpression : expression ';'
+;
+
+rType: rQualified | typeLiteral
 ;
 
 rQualified : Ident ('.'Ident)*
