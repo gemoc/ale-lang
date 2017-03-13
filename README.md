@@ -1,5 +1,9 @@
 This repository contains the implementation of a language to define behaviors on the top of Ecore models.
 
+Doc
+===
+[Website](https://fcoulon.github.io/fluffy-umbrella/)
+
 Content description :
 =====================
 
