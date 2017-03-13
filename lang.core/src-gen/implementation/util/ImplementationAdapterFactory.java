@@ -77,6 +77,10 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 				return createExtendedClassAdapter();
 			}
 			@Override
+			public Adapter caseRuntimeClass(RuntimeClass object) {
+				return createRuntimeClassAdapter();
+			}
+			@Override
 			public Adapter caseBehaviored(Behaviored object) {
 				return createBehavioredAdapter();
 			}
@@ -189,6 +193,20 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createExtendedClassAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link implementation.RuntimeClass <em>Runtime Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see implementation.RuntimeClass
+	 * @generated
+	 */
+	public Adapter createRuntimeClassAdapter() {
 		return null;
 	}
 

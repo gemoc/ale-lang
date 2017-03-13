@@ -4,6 +4,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="ModelBehavior">
     <eStructuralFeatures xsi:type="ecore:EReference" name="classExtensions" upperBound="-1"
         eType="#//ExtendedClass" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="classDefinitions" upperBound="-1"
+        eType="#//RuntimeClass" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="services" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
@@ -20,6 +22,14 @@
         eType="#//ExtendedClass" eOpposite="#//ExtendedClass/children"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
         eType="#//ExtendedClass" eOpposite="#//ExtendedClass/extends"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RuntimeClass">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
+        eType="#//VariableDeclaration" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="methods" upperBound="-1"
+        eType="#//Method" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Behaviored">
     <eStructuralFeatures xsi:type="ecore:EReference" name="body" lowerBound="1" eType="#//Block"

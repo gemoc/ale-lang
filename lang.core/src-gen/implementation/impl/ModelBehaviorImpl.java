@@ -6,6 +6,7 @@ import implementation.ExtendedClass;
 import implementation.ImplementationPackage;
 import implementation.ModelBehavior;
 
+import implementation.RuntimeClass;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -32,6 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link implementation.impl.ModelBehaviorImpl#getClassExtensions <em>Class Extensions</em>}</li>
+ *   <li>{@link implementation.impl.ModelBehaviorImpl#getClassDefinitions <em>Class Definitions</em>}</li>
  *   <li>{@link implementation.impl.ModelBehaviorImpl#getServices <em>Services</em>}</li>
  *   <li>{@link implementation.impl.ModelBehaviorImpl#getName <em>Name</em>}</li>
  * </ul>
@@ -48,6 +50,16 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	 * @ordered
 	 */
 	protected EList<ExtendedClass> classExtensions;
+
+	/**
+	 * The cached value of the '{@link #getClassDefinitions() <em>Class Definitions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getClassDefinitions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<RuntimeClass> classDefinitions;
 
 	/**
 	 * The cached value of the '{@link #getServices() <em>Services</em>}' attribute list.
@@ -115,6 +127,18 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<RuntimeClass> getClassDefinitions() {
+		if (classDefinitions == null) {
+			classDefinitions = new EObjectContainmentEList<RuntimeClass>(RuntimeClass.class, this, ImplementationPackage.MODEL_BEHAVIOR__CLASS_DEFINITIONS);
+		}
+		return classDefinitions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<String> getServices() {
 		if (services == null) {
 			services = new EDataTypeUniqueEList<String>(String.class, this, ImplementationPackage.MODEL_BEHAVIOR__SERVICES);
@@ -153,6 +177,8 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 		switch (featureID) {
 			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
 				return ((InternalEList<?>)getClassExtensions()).basicRemove(otherEnd, msgs);
+			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_DEFINITIONS:
+				return ((InternalEList<?>)getClassDefinitions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -167,6 +193,8 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 		switch (featureID) {
 			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
 				return getClassExtensions();
+			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_DEFINITIONS:
+				return getClassDefinitions();
 			case ImplementationPackage.MODEL_BEHAVIOR__SERVICES:
 				return getServices();
 			case ImplementationPackage.MODEL_BEHAVIOR__NAME:
@@ -187,6 +215,10 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
 				getClassExtensions().clear();
 				getClassExtensions().addAll((Collection<? extends ExtendedClass>)newValue);
+				return;
+			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_DEFINITIONS:
+				getClassDefinitions().clear();
+				getClassDefinitions().addAll((Collection<? extends RuntimeClass>)newValue);
 				return;
 			case ImplementationPackage.MODEL_BEHAVIOR__SERVICES:
 				getServices().clear();
@@ -210,6 +242,9 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
 				getClassExtensions().clear();
 				return;
+			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_DEFINITIONS:
+				getClassDefinitions().clear();
+				return;
 			case ImplementationPackage.MODEL_BEHAVIOR__SERVICES:
 				getServices().clear();
 				return;
@@ -230,6 +265,8 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 		switch (featureID) {
 			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
 				return classExtensions != null && !classExtensions.isEmpty();
+			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_DEFINITIONS:
+				return classDefinitions != null && !classDefinitions.isEmpty();
 			case ImplementationPackage.MODEL_BEHAVIOR__SERVICES:
 				return services != null && !services.isEmpty();
 			case ImplementationPackage.MODEL_BEHAVIOR__NAME:
