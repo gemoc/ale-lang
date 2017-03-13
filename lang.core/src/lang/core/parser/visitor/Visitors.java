@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
@@ -334,6 +335,14 @@ public class Visitors {
 			Block body = (new BlockVisitor(parseRes)).visit(ctx.rBlock());
 			
 			String className = ctx.parent.getChild(1).getText();
+			
+			RuleContext parent = ctx.parent;
+			if(parent instanceof RNewClassContext) {
+				className = ((RNewClassContext)parent).name.getText();
+			}
+			else if(parent instanceof ROpenClassContext){
+				className = ((ROpenClassContext)parent).name.getText();
+			}
 			
 			List<String> tags =
 				ctx
