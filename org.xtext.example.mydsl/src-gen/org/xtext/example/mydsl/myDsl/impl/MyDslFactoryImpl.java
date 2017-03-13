@@ -67,6 +67,8 @@ public class MyDslFactoryImpl extends EFactoryImpl implements MyDslFactory
     {
       case MyDslPackage.RROOT: return createrRoot();
       case MyDslPackage.RCLASS: return createrClass();
+      case MyDslPackage.ROPEN_CLASS: return createrOpenClass();
+      case MyDslPackage.RNEW_CLASS: return createrNewClass();
       case MyDslPackage.ROPERATION: return createrOperation();
       case MyDslPackage.RPARAMETERS: return createrParameters();
       case MyDslPackage.RVARIABLE: return createrVariable();
@@ -96,6 +98,28 @@ public class MyDslFactoryImpl extends EFactoryImpl implements MyDslFactory
   {
     rClassImpl rClass = new rClassImpl();
     return rClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public rOpenClass createrOpenClass()
+  {
+    rOpenClassImpl rOpenClass = new rOpenClassImpl();
+    return rOpenClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public rNewClass createrNewClass()
+  {
+    rNewClassImpl rNewClass = new rNewClassImpl();
+    return rNewClass;
   }
 
   /**
