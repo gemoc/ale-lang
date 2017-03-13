@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="fr.inria.diverse.objectalgebragenerator.contribution1"
+            nameFilter="*.ecore"
+            objectClass="org.eclipse.core.resources.IFile">
+         <menu
+               label="Object Algebra"
+               path="additions"
+               id="fr.inria.diverse.objectalgebragenerator.menu1">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               label="Generate Object Algebra"
+               class="fr.inria.diverse.objectalgebragenerator.popup.actions.GenerateObjectAlgebra"
+               menubarPath="fr.inria.diverse.objectalgebragenerator.menu1/group1"
+               enablesFor="1"
+               id="fr.inria.diverse.objectalgebragenerator.newAction">
+         </action>
+      </objectContribution>
+   </extension>
+
+</plugin>
