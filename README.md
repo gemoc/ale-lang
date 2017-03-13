@@ -1,16 +1,42 @@
 # ale-lang
 Action Language for EMF
 
-First draft of an interpreter to evaluate EOperation implementation in AQL
+This repository contains the implementation of a language to define behaviors on the top of Ecore models.
 ---
 
+Content description :
+=====================
 
-The entry point is **interpreter.Interpreter.main()** [in the 'interpreter' project :) ]
+lang.core
+---------
+ * parser
+ * evaluation
+ * validation
 
-This POC evaluate this AQL expression :
-"self.name + ' : ' + `self.eClass().name + '\nService : ' + self.foobar()"`
+lang
+----
+ * interpreter
 
-**self** refer to the first element of **model.xmi**
+lang.ide
+--------
+ * Context menu 'Run model'
+ * Basic EcoreTools'odesign extension
 
-**foobar()** is defined in **dummy.ecore** and implemented in **implem.xmi**
+lang.test
+---------
+ * parser test
+ * evaluation test
+ * validation test
+
+logo.model
+----------
+ * Ecore model of the Logo language
+
+lodo.example
+------------
+ * Behavior of the Logo language
+
+org.xtext.example.mydsl
+-----------------------
+ * Basic Xtext editor for behavior files
 
