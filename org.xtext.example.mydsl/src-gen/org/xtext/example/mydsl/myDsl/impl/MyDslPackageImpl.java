@@ -14,6 +14,8 @@ import org.xtext.example.mydsl.myDsl.MyDslFactory;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
 import org.xtext.example.mydsl.myDsl.rAttribute;
 import org.xtext.example.mydsl.myDsl.rClass;
+import org.xtext.example.mydsl.myDsl.rNewClass;
+import org.xtext.example.mydsl.myDsl.rOpenClass;
 import org.xtext.example.mydsl.myDsl.rOperation;
 import org.xtext.example.mydsl.myDsl.rParameters;
 import org.xtext.example.mydsl.myDsl.rRoot;
@@ -40,6 +42,20 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * @generated
    */
   private EClass rClassEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass rOpenClassEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass rNewClassEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -190,6 +206,26 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
   public EReference getrClass_Operations()
   {
     return (EReference)rClassEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getrOpenClass()
+  {
+    return rOpenClassEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getrNewClass()
+  {
+    return rNewClassEClass;
   }
 
   /**
@@ -360,6 +396,10 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     createEReference(rClassEClass, RCLASS__ATTRIBUTES);
     createEReference(rClassEClass, RCLASS__OPERATIONS);
 
+    rOpenClassEClass = createEClass(ROPEN_CLASS);
+
+    rNewClassEClass = createEClass(RNEW_CLASS);
+
     rOperationEClass = createEClass(ROPERATION);
     createEAttribute(rOperationEClass, ROPERATION__TYPE);
     createEAttribute(rOperationEClass, ROPERATION__NAME);
@@ -407,6 +447,8 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    rOpenClassEClass.getESuperTypes().add(this.getrClass());
+    rNewClassEClass.getESuperTypes().add(this.getrClass());
 
     // Initialize classes and features; add operations and parameters
     initEClass(rRootEClass, rRoot.class, "rRoot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -416,6 +458,10 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     initEAttribute(getrClass_Name(), ecorePackage.getEString(), "name", null, 0, 1, rClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getrClass_Attributes(), this.getrAttribute(), null, "attributes", null, 0, -1, rClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getrClass_Operations(), this.getrOperation(), null, "operations", null, 0, -1, rClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(rOpenClassEClass, rOpenClass.class, "rOpenClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(rNewClassEClass, rNewClass.class, "rNewClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(rOperationEClass, rOperation.class, "rOperation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getrOperation_Type(), ecorePackage.getEString(), "type", null, 0, 1, rOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

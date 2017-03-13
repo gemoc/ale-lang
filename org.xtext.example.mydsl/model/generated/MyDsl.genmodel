@@ -14,6 +14,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//rClass/attributes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//rClass/operations"/>
     </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//rOpenClass"/>
+    <genClasses ecoreClass="MyDsl.ecore#//rNewClass"/>
     <genClasses ecoreClass="MyDsl.ecore#//rOperation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//rOperation/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//rOperation/name"/>

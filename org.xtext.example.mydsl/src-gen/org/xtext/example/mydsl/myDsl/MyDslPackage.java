@@ -132,6 +132,98 @@ public interface MyDslPackage extends EPackage
   int RCLASS_FEATURE_COUNT = 3;
 
   /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.rOpenClassImpl <em>rOpen Class</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.myDsl.impl.rOpenClassImpl
+   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrOpenClass()
+   * @generated
+   */
+  int ROPEN_CLASS = 2;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ROPEN_CLASS__NAME = RCLASS__NAME;
+
+  /**
+   * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ROPEN_CLASS__ATTRIBUTES = RCLASS__ATTRIBUTES;
+
+  /**
+   * The feature id for the '<em><b>Operations</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ROPEN_CLASS__OPERATIONS = RCLASS__OPERATIONS;
+
+  /**
+   * The number of structural features of the '<em>rOpen Class</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ROPEN_CLASS_FEATURE_COUNT = RCLASS_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.rNewClassImpl <em>rNew Class</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.myDsl.impl.rNewClassImpl
+   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrNewClass()
+   * @generated
+   */
+  int RNEW_CLASS = 3;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RNEW_CLASS__NAME = RCLASS__NAME;
+
+  /**
+   * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RNEW_CLASS__ATTRIBUTES = RCLASS__ATTRIBUTES;
+
+  /**
+   * The feature id for the '<em><b>Operations</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RNEW_CLASS__OPERATIONS = RCLASS__OPERATIONS;
+
+  /**
+   * The number of structural features of the '<em>rNew Class</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RNEW_CLASS_FEATURE_COUNT = RCLASS_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.rOperationImpl <em>rOperation</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -139,7 +231,7 @@ public interface MyDslPackage extends EPackage
    * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrOperation()
    * @generated
    */
-  int ROPERATION = 2;
+  int ROPERATION = 4;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -194,7 +286,7 @@ public interface MyDslPackage extends EPackage
    * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrParameters()
    * @generated
    */
-  int RPARAMETERS = 3;
+  int RPARAMETERS = 5;
 
   /**
    * The feature id for the '<em><b>Params</b></em>' containment reference list.
@@ -222,7 +314,7 @@ public interface MyDslPackage extends EPackage
    * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrVariable()
    * @generated
    */
-  int RVARIABLE = 4;
+  int RVARIABLE = 6;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -259,7 +351,7 @@ public interface MyDslPackage extends EPackage
    * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrAttribute()
    * @generated
    */
-  int RATTRIBUTE = 5;
+  int RATTRIBUTE = 7;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -352,6 +444,26 @@ public interface MyDslPackage extends EPackage
    * @generated
    */
   EReference getrClass_Operations();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.rOpenClass <em>rOpen Class</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>rOpen Class</em>'.
+   * @see org.xtext.example.mydsl.myDsl.rOpenClass
+   * @generated
+   */
+  EClass getrOpenClass();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.rNewClass <em>rNew Class</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>rNew Class</em>'.
+   * @see org.xtext.example.mydsl.myDsl.rNewClass
+   * @generated
+   */
+  EClass getrNewClass();
 
   /**
    * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.rOperation <em>rOperation</em>}'.
@@ -566,6 +678,26 @@ public interface MyDslPackage extends EPackage
      * @generated
      */
     EReference RCLASS__OPERATIONS = eINSTANCE.getrClass_Operations();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.rOpenClassImpl <em>rOpen Class</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.myDsl.impl.rOpenClassImpl
+     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrOpenClass()
+     * @generated
+     */
+    EClass ROPEN_CLASS = eINSTANCE.getrOpenClass();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.rNewClassImpl <em>rNew Class</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.myDsl.impl.rNewClassImpl
+     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrNewClass()
+     * @generated
+     */
+    EClass RNEW_CLASS = eINSTANCE.getrNewClass();
 
     /**
      * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.rOperationImpl <em>rOperation</em>}' class.

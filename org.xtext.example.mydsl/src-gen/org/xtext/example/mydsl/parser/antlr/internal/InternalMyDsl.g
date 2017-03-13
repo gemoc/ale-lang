@@ -263,19 +263,184 @@ rulerClass returns [EObject current=null]
 	leaveRule();
 }:
 	(
+		{
+			/* */
+		}
+		{
+			newCompositeNode(grammarAccess.getRClassAccess().getROpenClassParserRuleCall_0());
+		}
+		this_rOpenClass_0=rulerOpenClass
+		{
+			$current = $this_rOpenClass_0.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			/* */
+		}
+		{
+			newCompositeNode(grammarAccess.getRClassAccess().getRNewClassParserRuleCall_1());
+		}
+		this_rNewClass_1=rulerNewClass
+		{
+			$current = $this_rNewClass_1.current;
+			afterParserOrEnumRuleCall();
+		}
+	)
+;
+
+// Entry rule entryRulerOpenClass
+entryRulerOpenClass returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getROpenClassRule()); }
+	iv_rulerOpenClass=rulerOpenClass
+	{ $current=$iv_rulerOpenClass.current; }
+	EOF;
+
+// Rule rOpenClass
+rulerOpenClass returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0='open'
+		{
+			newLeafNode(otherlv_0, grammarAccess.getROpenClassAccess().getOpenKeyword_0());
+		}
+		otherlv_1='class'
+		{
+			newLeafNode(otherlv_1, grammarAccess.getROpenClassAccess().getClassKeyword_1());
+		}
+		(
+			(
+				lv_name_2_0=RULE_IDENT
+				{
+					newLeafNode(lv_name_2_0, grammarAccess.getROpenClassAccess().getNameIdentTerminalRuleCall_2_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getROpenClassRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"name",
+						lv_name_2_0,
+						"org.xtext.example.mydsl.MyDsl.Ident");
+				}
+			)
+		)
+		(
+			otherlv_3='extends'
+			{
+				newLeafNode(otherlv_3, grammarAccess.getROpenClassAccess().getExtendsKeyword_3_0());
+			}
+			{
+				/* */
+			}
+			{
+				newCompositeNode(grammarAccess.getROpenClassAccess().getRQualifiedParserRuleCall_3_1());
+			}
+			rulerQualified
+			{
+				afterParserOrEnumRuleCall();
+			}
+			(
+				otherlv_5=','
+				{
+					newLeafNode(otherlv_5, grammarAccess.getROpenClassAccess().getCommaKeyword_3_2_0());
+				}
+				{
+					/* */
+				}
+				{
+					newCompositeNode(grammarAccess.getROpenClassAccess().getRQualifiedParserRuleCall_3_2_1());
+				}
+				rulerQualified
+				{
+					afterParserOrEnumRuleCall();
+				}
+			)*
+		)?
+		otherlv_7='{'
+		{
+			newLeafNode(otherlv_7, grammarAccess.getROpenClassAccess().getLeftCurlyBracketKeyword_4());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getROpenClassAccess().getAttributesRAttributeParserRuleCall_5_0());
+				}
+				lv_attributes_8_0=rulerAttribute
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getROpenClassRule());
+					}
+					add(
+						$current,
+						"attributes",
+						lv_attributes_8_0,
+						"org.xtext.example.mydsl.MyDsl.rAttribute");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getROpenClassAccess().getOperationsROperationParserRuleCall_6_0());
+				}
+				lv_operations_9_0=rulerOperation
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getROpenClassRule());
+					}
+					add(
+						$current,
+						"operations",
+						lv_operations_9_0,
+						"org.xtext.example.mydsl.MyDsl.rOperation");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)*
+		otherlv_10='}'
+		{
+			newLeafNode(otherlv_10, grammarAccess.getROpenClassAccess().getRightCurlyBracketKeyword_7());
+		}
+	)
+;
+
+// Entry rule entryRulerNewClass
+entryRulerNewClass returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getRNewClassRule()); }
+	iv_rulerNewClass=rulerNewClass
+	{ $current=$iv_rulerNewClass.current; }
+	EOF;
+
+// Rule rNewClass
+rulerNewClass returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
 		otherlv_0='class'
 		{
-			newLeafNode(otherlv_0, grammarAccess.getRClassAccess().getClassKeyword_0());
+			newLeafNode(otherlv_0, grammarAccess.getRNewClassAccess().getClassKeyword_0());
 		}
 		(
 			(
 				lv_name_1_0=RULE_IDENT
 				{
-					newLeafNode(lv_name_1_0, grammarAccess.getRClassAccess().getNameIdentTerminalRuleCall_1_0());
+					newLeafNode(lv_name_1_0, grammarAccess.getRNewClassAccess().getNameIdentTerminalRuleCall_1_0());
 				}
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getRClassRule());
+						$current = createModelElement(grammarAccess.getRNewClassRule());
 					}
 					setWithLastConsumed(
 						$current,
@@ -285,56 +450,24 @@ rulerClass returns [EObject current=null]
 				}
 			)
 		)
-		(
-			otherlv_2='extends'
-			{
-				newLeafNode(otherlv_2, grammarAccess.getRClassAccess().getExtendsKeyword_2_0());
-			}
-			{
-				/* */
-			}
-			{
-				newCompositeNode(grammarAccess.getRClassAccess().getRQualifiedParserRuleCall_2_1());
-			}
-			rulerQualified
-			{
-				afterParserOrEnumRuleCall();
-			}
-			(
-				otherlv_4=','
-				{
-					newLeafNode(otherlv_4, grammarAccess.getRClassAccess().getCommaKeyword_2_2_0());
-				}
-				{
-					/* */
-				}
-				{
-					newCompositeNode(grammarAccess.getRClassAccess().getRQualifiedParserRuleCall_2_2_1());
-				}
-				rulerQualified
-				{
-					afterParserOrEnumRuleCall();
-				}
-			)*
-		)?
-		otherlv_6='{'
+		otherlv_2='{'
 		{
-			newLeafNode(otherlv_6, grammarAccess.getRClassAccess().getLeftCurlyBracketKeyword_3());
+			newLeafNode(otherlv_2, grammarAccess.getRNewClassAccess().getLeftCurlyBracketKeyword_2());
 		}
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getRClassAccess().getAttributesRAttributeParserRuleCall_4_0());
+					newCompositeNode(grammarAccess.getRNewClassAccess().getAttributesRAttributeParserRuleCall_3_0());
 				}
-				lv_attributes_7_0=rulerAttribute
+				lv_attributes_3_0=rulerAttribute
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getRClassRule());
+						$current = createModelElementForParent(grammarAccess.getRNewClassRule());
 					}
 					add(
 						$current,
 						"attributes",
-						lv_attributes_7_0,
+						lv_attributes_3_0,
 						"org.xtext.example.mydsl.MyDsl.rAttribute");
 					afterParserOrEnumRuleCall();
 				}
@@ -343,25 +476,25 @@ rulerClass returns [EObject current=null]
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getRClassAccess().getOperationsROperationParserRuleCall_5_0());
+					newCompositeNode(grammarAccess.getRNewClassAccess().getOperationsROperationParserRuleCall_4_0());
 				}
-				lv_operations_8_0=rulerOperation
+				lv_operations_4_0=rulerOperation
 				{
 					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getRClassRule());
+						$current = createModelElementForParent(grammarAccess.getRNewClassRule());
 					}
 					add(
 						$current,
 						"operations",
-						lv_operations_8_0,
+						lv_operations_4_0,
 						"org.xtext.example.mydsl.MyDsl.rOperation");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)*
-		otherlv_9='}'
+		otherlv_5='}'
 		{
-			newLeafNode(otherlv_9, grammarAccess.getRClassAccess().getRightCurlyBracketKeyword_6());
+			newLeafNode(otherlv_5, grammarAccess.getRNewClassAccess().getRightCurlyBracketKeyword_5());
 		}
 	)
 ;

@@ -12,6 +12,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
         eType="#//rOperation" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="rOpenClass" eSuperTypes="#//rClass"/>
+  <eClassifiers xsi:type="ecore:EClass" name="rNewClass" eSuperTypes="#//rClass"/>
   <eClassifiers xsi:type="ecore:EClass" name="rOperation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
