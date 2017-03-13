@@ -13,12 +13,16 @@ import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.impl.QueryBuilderEngine;
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EModelElement;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -39,13 +43,14 @@ import implementation.Implementation;
 import implementation.ImplementationFactory;
 import implementation.ImplementationPackage;
 import implementation.Method;
+import implementation.RuntimeClass;
 import implementation.Statement;
 import implementation.VariableAssignment;
 import implementation.VariableDeclaration;
 import implementation.While;
 
 /**
- * Helper to create parts of Implemenatation model & to resolve types.
+ * Helper to create parts of Implementation model & to resolve types.
  */
 public class ModelBuilder {
 	
@@ -252,6 +257,15 @@ public class ModelBuilder {
 		return cls;
 	}
 	
+	public RuntimeClass buildRuntimeClass(String name, List<VariableDeclaration> vars, List<Method> operations) {
+		RuntimeClass cls = factory.createRuntimeClass();
+		cls.setName(name);
+		cls.getMethods().addAll(operations);
+		cls.getAttributes().addAll(vars);
+		return cls;
+	}
+	
+	
 	public SequenceInExtensionLiteral buildIntSequence(String left, String right) {
 		
 		SequenceInExtensionLiteral seq = aqlFactory.createSequenceInExtensionLiteral();
@@ -280,6 +294,67 @@ public class ModelBuilder {
 		}
 		
 		return seq;
+	}
+	
+	public EPackage buildEPackage(String qualifiedName) {
+		EClass ePkgClass = EcorePackage.eINSTANCE.getEPackage();
+		EPackage newPkg = (EPackage) EcoreUtil.create(ePkgClass);
+		
+		String[] segments = qualifiedName.split("\\.");
+		newPkg.setName(segments[0]);
+		
+		int i = 1;
+		EPackage parent = newPkg;
+		while(i < segments.length) {
+			String segment = segments[i];
+			EPackage subPkg = (EPackage) EcoreUtil.create(ePkgClass);
+			subPkg.setName(segment);
+			parent.getESubpackages().add(subPkg);
+			parent = subPkg;
+		}
+		
+		return newPkg;
+	}
+	
+	public EClass buildEClass(RuntimeClass cls) {
+		EClass eClsClass = EcorePackage.eINSTANCE.getEClass();
+		EClass eRefClass = EcorePackage.eINSTANCE.getEReference();
+		EClass eAttClass = EcorePackage.eINSTANCE.getEAttribute();
+		EClass eOpClass = EcorePackage.eINSTANCE.getEOperation();
+		
+		EClass res = (EClass) EcoreUtil.create(eClsClass);
+		res.setName(cls.getName());
+
+		cls
+		.getAttributes()
+		.stream()
+		.forEach(attr -> {
+			String name = attr.getName();
+			EClassifier type = attr.getType();
+			
+			if(type instanceof EClass){
+				EReference newRef = (EReference) EcoreUtil.create(eRefClass);
+				newRef.setName(name);
+				newRef.setEType(type);
+				res.getEReferences().add(newRef);
+			}
+			else if(type instanceof EDataType) {
+				EAttribute newAttr = (EAttribute) EcoreUtil.create(eAttClass);
+				newAttr.setName(name);
+				newAttr.setEType(type);
+				res.getEAttributes().add(newAttr);
+			}
+		});
+		
+		cls
+		.getMethods()
+		.stream()
+		.forEach(mtd -> {
+			EOperation newOp = EcoreUtil.copy(mtd.getOperationDef());
+			res.getEOperations().add(newOp);
+		});
+		
+		return res;
 	}
 	
 	//Can return null
@@ -344,7 +419,7 @@ public class ModelBuilder {
 		}
 	}
 	
-	private String getQualifiedName(EClassifier cls) {
+	public static String getQualifiedName(EClassifier cls) {
 		
 		List<String> fullName = new ArrayList<String>();
 		

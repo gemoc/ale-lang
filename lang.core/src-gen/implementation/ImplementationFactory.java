@@ -40,6 +40,15 @@ public interface ImplementationFactory extends EFactory {
 	ExtendedClass createExtendedClass();
 
 	/**
+	 * Returns a new object of class '<em>Runtime Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Runtime Class</em>'.
+	 * @generated
+	 */
+	RuntimeClass createRuntimeClass();
+
+	/**
 	 * Returns a new object of class '<em>Behaviored</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

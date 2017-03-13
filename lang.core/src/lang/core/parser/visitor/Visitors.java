@@ -5,7 +5,9 @@ import implementation.Block;
 import implementation.ExpressionStatement;
 import implementation.ImplementationFactory;
 import implementation.ImplementationPackage;
+import implementation.Method;
 import implementation.ModelBehavior;
+import implementation.RuntimeClass;
 import implementation.Statement;
 import implementation.VariableAssignment;
 
@@ -26,6 +28,8 @@ import lang.core.parser.XtdAQLParser.RBlockContext;
 import lang.core.parser.XtdAQLParser.RClassContext;
 import lang.core.parser.XtdAQLParser.RForEachContext;
 import lang.core.parser.XtdAQLParser.RIfContext;
+import lang.core.parser.XtdAQLParser.RNewClassContext;
+import lang.core.parser.XtdAQLParser.ROpenClassContext;
 import lang.core.parser.XtdAQLParser.ROperationContext;
 import lang.core.parser.XtdAQLParser.RParametersContext;
 import lang.core.parser.XtdAQLParser.RRootContext;
@@ -401,18 +405,18 @@ public class Visitors {
 		}
 	}
 	
-	static class ClassVisitor extends XtdAQLBaseVisitor<ExtendedClass> {
+	static class OpenClassVisitor extends XtdAQLBaseVisitor<ExtendedClass> {
 		
 		ParseResult<ModelBehavior> parseRes;
 		Map<String,String> importedBehaviors;
 		
-		public ClassVisitor(ParseResult<ModelBehavior> parseRes, Map<String,String> importedBehaviors) {
+		public OpenClassVisitor(ParseResult<ModelBehavior> parseRes, Map<String,String> importedBehaviors) {
 			this.parseRes = parseRes;
 			this.importedBehaviors = importedBehaviors;
 		}
 		
 		@Override
-		public ExtendedClass visitRClass(RClassContext ctx) {
+		public ExtendedClass visitROpenClass(ROpenClassContext ctx) {
 			String name = ctx.name.getText();
 			AttributeVisitor subVisitor1 = new AttributeVisitor(parseRes);
 			List<VariableDeclaration> attributes = 
@@ -441,6 +445,42 @@ public class Visitors {
 			return res;
 		}
 		
+	}
+
+	static class NewClassVisitor extends XtdAQLBaseVisitor<RuntimeClass> {
+		
+		ParseResult<ModelBehavior> parseRes;
+		
+		public NewClassVisitor(ParseResult<ModelBehavior> parseRes) {
+			this.parseRes = parseRes;
+		}
+		
+		@Override
+		public RuntimeClass visitRNewClass(RNewClassContext ctx) {
+			String name = ctx.name.getText();
+			AttributeVisitor subVisitor1 = new AttributeVisitor(parseRes);
+			List<VariableDeclaration> attributes = 
+					ctx
+					.rAttribute()
+					.stream()
+					.map(attr -> (VariableDeclaration) subVisitor1.visitRAttribute(attr))
+					.collect(Collectors.toList());
+			OpVisitor subVisitor2 = new OpVisitor(parseRes);
+			List<Method> operations = 
+					ctx
+					.rOperation()
+					.stream()
+					.map(op -> subVisitor2.visit(op))
+					.filter(op -> op instanceof Method)
+					.map(op -> (Method) op)
+					.collect(Collectors.toList());
+			
+			RuntimeClass res = ModelBuilder.singleton.buildRuntimeClass(name,attributes,operations);
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			
+			return res;
+		}
 	}
 	
 	static class AttributeVisitor extends XtdAQLBaseVisitor<VariableDeclaration> {
@@ -510,12 +550,14 @@ public class Visitors {
 				importedBehaviors.put(imp.Ident().getText(), imp.rQualified().getText())
 			);
 			
-			ClassVisitor subVisitor = new ClassVisitor(parseRes,importedBehaviors);
+			OpenClassVisitor subVisitor1 = new OpenClassVisitor(parseRes,importedBehaviors);
 			res.getClassExtensions().addAll(
 					ctx
 					.rClass()
 					.stream()
-					.map(cls -> subVisitor.visit(cls))
+					.map(c -> c.rOpenClass())
+					.filter(c -> c != null)
+					.map(cls -> subVisitor1.visit(cls))
 					.collect(Collectors.toList())
 					);
 			ServiceVisitor serviceVisitor = new ServiceVisitor();
@@ -534,11 +576,39 @@ public class Visitors {
 		}
 	}
 	
+	/**
+	 * Build class extensions
+	 */
 	public static ParseResult<ModelBehavior> visit(RRootContext rootCtx) {
 		ParseResult<ModelBehavior> result = new ParseResult<ModelBehavior>();
 		result.setDiagnostic(new BasicDiagnostic());
 		ModelBehavior root = (new ModelBehaviorVisitor(result)).visit(rootCtx);
 		result.setRoot(root);
 		return result;
+	}
+	
+	/**
+	 * Build new classes
+	 */
+	public static ParseResult<ModelBehavior> preVisit(RRootContext ctx) {
+		ParseResult<ModelBehavior> parseRes = new ParseResult<ModelBehavior>();
+		
+		ImplementationFactory factory = (ImplementationFactory) ImplementationPackage.eINSTANCE.getEFactoryInstance();
+		ModelBehavior model = factory.createModelBehavior();
+		
+		model.setName(ctx.rQualified().getText());
+		
+		NewClassVisitor subVisitor = new NewClassVisitor(parseRes);
+		model.getClassDefinitions().addAll(
+				ctx
+				.rClass()
+				.stream()
+				.map(c -> c.rNewClass())
+				.filter(c -> c != null)
+				.map(cls -> subVisitor.visit(cls))
+				.collect(Collectors.toList())
+				);
+		parseRes.setRoot(model);
+		return parseRes;
 	}
 }

@@ -11,20 +11,28 @@ import org.eclipse.acceleo.query.ast.Call;
 import org.eclipse.acceleo.query.runtime.impl.ValidationServices;
 import org.eclipse.acceleo.query.runtime.IValidationResult;
 import java.util.List;
+import java.util.Optional;
+
 import org.eclipse.acceleo.query.validation.type.IType;
 import implementation.Method;
+import implementation.ModelBehavior;
+import implementation.RuntimeClass;
 import implementation.Implementation;
 import java.util.ArrayList;
+import java.util.Collection;
+
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.acceleo.query.validation.type.SequenceType;
 import lang.core.interpreter.DiagnosticLogger;
 import lang.core.interpreter.EvalEnvironment;
 import lang.core.interpreter.ImplementationEvaluator;
+import lang.core.parser.visitor.ModelBuilder;
 
 import java.util.Set;
 import java.util.LinkedHashSet;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import implementation.ExtendedClass;
 
@@ -99,8 +107,26 @@ public class EvalBodyService extends AbstractService {
 		}
 		else if(implem instanceof Method) {
 			//TODO: take care of qualified name & EClass not found
-			EClass containingClass = ((ExtendedClass)implem.eContainer()).getBaseClass();
-			result.add(new EClassifierType(queryEnvironment, containingClass));
+			if(implem.eContainer() instanceof ExtendedClass) {
+				EClass containingClass = ((ExtendedClass)implem.eContainer()).getBaseClass();
+				result.add(new EClassifierType(queryEnvironment, containingClass));
+			}
+			else if (implem.eContainer() instanceof RuntimeClass) {
+				RuntimeClass container = ((RuntimeClass)implem.eContainer());
+				String pkgName = ((ModelBehavior)container.eContainer()).getName();
+				String simpleName = container.getName();
+				String fullName = pkgName+"."+simpleName;
+				Collection<EClassifier> candidates = queryEnvironment.getEPackageProvider().getTypes(simpleName); //TODO: move to constructor
+				Optional<EClassifier> containingClass =
+					candidates
+					.stream()
+					.filter(cls -> ModelBuilder.getQualifiedName(cls).equals(fullName))
+					.findFirst();
+				if(containingClass.isPresent()) {
+					result.add(new EClassifierType(queryEnvironment, containingClass.get()));
+				}
+			}
+			
 			for (EParameter parameter : ((Method)implem).getOperationDef().getEParameters()) {
 				EClassifierType rawType = new EClassifierType(queryEnvironment, parameter.getEType());
 				if (parameter.isMany()) {

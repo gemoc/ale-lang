@@ -8,6 +8,7 @@
   <genPackages prefix="Implementation" disposableProviderFactory="true" ecorePackage="Implementation.ecore#/">
     <genClasses ecoreClass="Implementation.ecore#//ModelBehavior">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ModelBehavior/classExtensions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ModelBehavior/classDefinitions"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//ModelBehavior/services"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//ModelBehavior/name"/>
     </genClasses>
@@ -17,6 +18,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/attributes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/extends"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/children"/>
+    </genClasses>
+    <genClasses ecoreClass="Implementation.ecore#//RuntimeClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//RuntimeClass/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//RuntimeClass/attributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//RuntimeClass/methods"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//Behaviored">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Behaviored/body"/>
