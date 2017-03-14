@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.junit.Test;
 
-import fr.inria.diverse.objectalgebragenerator.popup.actions.GenerateAlgebra;
+import fr.inria.diverse.objectalgebragenerator.GenerateAlgebra;
 
 public class UnitTests {
 

@@ -1,6 +1,6 @@
-package fr.inria.diverse.objectalgebragenerator.popup.actions
+package fr.inria.diverse.objectalgebragenerator
 
-import fr.inria.diverse.objectalgebragenerator.popup.actions.Graph.GraphNode
+import fr.inria.diverse.objectalgebragenerator.Graph.GraphNode
 import java.util.Comparator
 import java.util.HashSet
 import java.util.List

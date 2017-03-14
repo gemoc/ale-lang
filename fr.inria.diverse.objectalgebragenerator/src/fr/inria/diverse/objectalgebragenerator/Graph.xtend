@@ -1,8 +1,8 @@
-package fr.inria.diverse.objectalgebragenerator.popup.actions
+package fr.inria.diverse.objectalgebragenerator
 
 import java.util.Set
 import org.eclipse.emf.ecore.EClass
-import fr.inria.diverse.objectalgebragenerator.popup.actions.Graph.GraphNode
+import fr.inria.diverse.objectalgebragenerator.Graph.GraphNode
 
 class Graph<E> {
 	static class GraphNode<E> {

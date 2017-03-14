@@ -3,7 +3,7 @@ package fr.inria.diverse.objectalgebragenerator.test;
 import org.junit.Assert;
 import org.junit.Test;
 
-import fr.inria.diverse.objectalgebragenerator.popup.actions.CharsSequence;
+import fr.inria.diverse.objectalgebragenerator.CharsSequence;
 
 public class CharsSequenceTest {
 

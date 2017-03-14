@@ -24,6 +24,8 @@ import org.eclipse.ui.IActionDelegate;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
+import fr.inria.diverse.objectalgebragenerator.GenerateAlgebra;
+
 public class GenerateObjectAlgebra implements IObjectActionDelegate {
 
 	private Shell shell;

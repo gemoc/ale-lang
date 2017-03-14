@@ -1,11 +1,7 @@
 package fr.inria.diverse.objectalgebragenerator.test;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
@@ -14,7 +10,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.junit.Test;
 
-import fr.inria.diverse.objectalgebragenerator.popup.actions.GenerateAlgebra;
+import fr.inria.diverse.objectalgebragenerator.GenerateAlgebra;
 
 public class UnitTests2 {
 

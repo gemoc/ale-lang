@@ -8,12 +8,12 @@ Bundle-Vendor: INRIA
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
- org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi;bundle-version="2.12.0",
  com.google.guava,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtend.lib;visibility:=reexport,
- org.eclipse.xtend.lib.macro
+ org.eclipse.xtend.lib.macro,
+ fr.inria.diverse.objectalgebragenerator;bundle-version="1.0.0";visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: fr.inria.diverse.objectalgebragenerator.popup.actions

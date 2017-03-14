@@ -1,4 +1,4 @@
-package fr.inria.diverse.objectalgebragenerator.popup.actions
+package fr.inria.diverse.objectalgebragenerator
 
 import java.util.List
 
