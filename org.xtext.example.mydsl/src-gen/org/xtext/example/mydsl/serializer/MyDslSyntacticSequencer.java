@@ -23,7 +23,7 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected MyDslGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q;
-	protected AbstractElementAlias match_rClass___ExtendsKeyword_2_0_RQualifiedParserRuleCall_2_1___CommaKeyword_2_2_0_RQualifiedParserRuleCall_2_2_1__a__q;
+	protected AbstractElementAlias match_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q;
 	protected AbstractElementAlias match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1;
 	protected AbstractElementAlias match_rOperation_RTagParserRuleCall_0_a;
 	protected AbstractElementAlias match_rRoot_RImportParserRuleCall_3_a;
@@ -35,7 +35,7 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (MyDslGrammarAccess) access;
 		match_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRAttributeAccess().getColonEqualsSignKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getRAttributeAccess().getExpressionParserRuleCall_2_1()));
-		match_rClass___ExtendsKeyword_2_0_RQualifiedParserRuleCall_2_1___CommaKeyword_2_2_0_RQualifiedParserRuleCall_2_2_1__a__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRClassAccess().getExtendsKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getRClassAccess().getRQualifiedParserRuleCall_2_1()), new GroupAlias(true, true, new TokenAlias(false, false, grammarAccess.getRClassAccess().getCommaKeyword_2_2_0()), new TokenAlias(false, false, grammarAccess.getRClassAccess().getRQualifiedParserRuleCall_2_2_1())));
+		match_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getExtendsKeyword_3_0()), new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getRQualifiedParserRuleCall_3_1()), new GroupAlias(true, true, new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getCommaKeyword_3_2_0()), new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getRQualifiedParserRuleCall_3_2_1())));
 		match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getROperationAccess().getDefKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getROperationAccess().getOverrideKeyword_1_1()));
 		match_rOperation_RTagParserRuleCall_0_a = new TokenAlias(true, true, grammarAccess.getROperationAccess().getRTagParserRuleCall_0());
 		match_rRoot_RImportParserRuleCall_3_a = new TokenAlias(true, true, grammarAccess.getRRootAccess().getRImportParserRuleCall_3());
@@ -118,8 +118,8 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
 			if (match_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q.equals(syntax))
 				emit_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_rClass___ExtendsKeyword_2_0_RQualifiedParserRuleCall_2_1___CommaKeyword_2_2_0_RQualifiedParserRuleCall_2_2_1__a__q.equals(syntax))
-				emit_rClass___ExtendsKeyword_2_0_RQualifiedParserRuleCall_2_1___CommaKeyword_2_2_0_RQualifiedParserRuleCall_2_2_1__a__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q.equals(syntax))
+				emit_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1.equals(syntax))
 				emit_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_rOperation_RTagParserRuleCall_0_a.equals(syntax))
@@ -156,7 +156,7 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     name=Ident (ambiguity) '{' attributes+=rAttribute
 	 *     name=Ident (ambiguity) '{' operations+=rOperation
 	 */
-	protected void emit_rClass___ExtendsKeyword_2_0_RQualifiedParserRuleCall_2_1___CommaKeyword_2_2_0_RQualifiedParserRuleCall_2_2_1__a__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

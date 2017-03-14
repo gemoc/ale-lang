@@ -16,7 +16,8 @@ import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequence
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
 import org.xtext.example.mydsl.myDsl.rAttribute;
-import org.xtext.example.mydsl.myDsl.rClass;
+import org.xtext.example.mydsl.myDsl.rNewClass;
+import org.xtext.example.mydsl.myDsl.rOpenClass;
 import org.xtext.example.mydsl.myDsl.rOperation;
 import org.xtext.example.mydsl.myDsl.rParameters;
 import org.xtext.example.mydsl.myDsl.rRoot;
@@ -40,8 +41,11 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case MyDslPackage.RATTRIBUTE:
 				sequence_rAttribute(context, (rAttribute) semanticObject); 
 				return; 
-			case MyDslPackage.RCLASS:
-				sequence_rClass(context, (rClass) semanticObject); 
+			case MyDslPackage.RNEW_CLASS:
+				sequence_rNewClass(context, (rNewClass) semanticObject); 
+				return; 
+			case MyDslPackage.ROPEN_CLASS:
+				sequence_rOpenClass(context, (rOpenClass) semanticObject); 
 				return; 
 			case MyDslPackage.ROPERATION:
 				sequence_rOperation(context, (rOperation) semanticObject); 
@@ -83,12 +87,26 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
-	 *     rClass returns rClass
+	 *     rClass returns rNewClass
+	 *     rNewClass returns rNewClass
 	 *
 	 * Constraint:
 	 *     (name=Ident attributes+=rAttribute* operations+=rOperation*)
 	 */
-	protected void sequence_rClass(ISerializationContext context, rClass semanticObject) {
+	protected void sequence_rNewClass(ISerializationContext context, rNewClass semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     rClass returns rOpenClass
+	 *     rOpenClass returns rOpenClass
+	 *
+	 * Constraint:
+	 *     (name=Ident attributes+=rAttribute* operations+=rOperation*)
+	 */
+	protected void sequence_rOpenClass(ISerializationContext context, rOpenClass semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

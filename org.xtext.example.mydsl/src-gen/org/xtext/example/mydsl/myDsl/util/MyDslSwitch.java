@@ -87,6 +87,22 @@ public class MyDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case MyDslPackage.ROPEN_CLASS:
+      {
+        rOpenClass rOpenClass = (rOpenClass)theEObject;
+        T result = caserOpenClass(rOpenClass);
+        if (result == null) result = caserClass(rOpenClass);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MyDslPackage.RNEW_CLASS:
+      {
+        rNewClass rNewClass = (rNewClass)theEObject;
+        T result = caserNewClass(rNewClass);
+        if (result == null) result = caserClass(rNewClass);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case MyDslPackage.ROPERATION:
       {
         rOperation rOperation = (rOperation)theEObject;
@@ -147,6 +163,38 @@ public class MyDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caserClass(rClass object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>rOpen Class</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>rOpen Class</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caserOpenClass(rOpenClass object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>rNew Class</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>rNew Class</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caserNewClass(rNewClass object)
   {
     return null;
   }

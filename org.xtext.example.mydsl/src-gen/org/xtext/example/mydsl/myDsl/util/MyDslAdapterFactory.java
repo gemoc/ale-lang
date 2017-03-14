@@ -86,6 +86,16 @@ public class MyDslAdapterFactory extends AdapterFactoryImpl
         return createrClassAdapter();
       }
       @Override
+      public Adapter caserOpenClass(rOpenClass object)
+      {
+        return createrOpenClassAdapter();
+      }
+      @Override
+      public Adapter caserNewClass(rNewClass object)
+      {
+        return createrNewClassAdapter();
+      }
+      @Override
       public Adapter caserOperation(rOperation object)
       {
         return createrOperationAdapter();
@@ -153,6 +163,36 @@ public class MyDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createrClassAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.rOpenClass <em>rOpen Class</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.myDsl.rOpenClass
+   * @generated
+   */
+  public Adapter createrOpenClassAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.rNewClass <em>rNew Class</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.myDsl.rNewClass
+   * @generated
+   */
+  public Adapter createrNewClassAdapter()
   {
     return null;
   }

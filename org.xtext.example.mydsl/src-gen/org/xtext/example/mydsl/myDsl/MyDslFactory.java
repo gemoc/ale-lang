@@ -42,6 +42,24 @@ public interface MyDslFactory extends EFactory
   rClass createrClass();
 
   /**
+   * Returns a new object of class '<em>rOpen Class</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>rOpen Class</em>'.
+   * @generated
+   */
+  rOpenClass createrOpenClass();
+
+  /**
+   * Returns a new object of class '<em>rNew Class</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>rNew Class</em>'.
+   * @generated
+   */
+  rNewClass createrNewClass();
+
+  /**
    * Returns a new object of class '<em>rOperation</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
