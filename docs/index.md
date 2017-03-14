@@ -1,10 +1,40 @@
+DSL file
+========
+
+It is a 'classpath' for language to define the location elements such as Ecore metamodels & behavior files.
+
+It is a standard Java properties file with special key/values:
+ * syntax=path/to/model.ecore,path/to/model2.ecore
+ * behavior=path/to/some.implem,path/to/another.implem
+
+Behavior file
+=============
+
+It defines a set of class extensions & runtime classes and has an identifier.
+
+```
+behavior some.unique.identifier
+
+open class FSM {
+	override exec() {
+		//Do stuff
+	}
+}
+
+class Variables {
+	//Store values here
+}
+```
+
 EClass extension
 ================
+
+Reopen an existing EClass to add new attributes & operation
 
 ## Attribute declaration
 
 ```
-class Square {
+open class Square {
 	int newAttribute; 
 }
 ```
@@ -12,7 +42,7 @@ class Square {
 ## EOperation implementation
 
 ```
-class Circle {
+open class Circle {
 	override int getSize(){
 		// The value of the special variable 'result'
 		// is returned at the end of the body
@@ -25,10 +55,38 @@ class Circle {
 ## Method declaration
 
 ```
-class Circle {
+open class Circle {
 	def void reduce(double arg){
 		self.radius := self.radius - arg;
 	}
+}
+```
+
+## Inherit EClass extension
+
+Redefine an operation from another behavior file
+
+```
+behavior fsm.composite.executable;
+
+import fsm.executable as simplefsm;
+
+open class CompositeState extends simplefsm.State {
+	override void exec() {
+		//Redefine the behavior here
+	}
+}
+```
+
+Runtime EClass
+==============
+
+Declare an EClass specific to the runtime.
+It only exists during the execution.
+
+```
+class Context {
+
 }
 ```
 
