@@ -36,9 +36,13 @@ logo.model
 ----------
  * Ecore model of the Logo language
 
-lodo.example
+logo.example
 ------------
  * Behavior of the Logo language
+
+logo.standalone
+---------------
+ * Example to show the usage of the interpreter
 
 org.xtext.example.mydsl
 -----------------------
