@@ -1,4 +1,6 @@
-class EClass {
+behavior test.attributes;
+
+open class EClass {
 	boolean newAttribute;
 	int initialValue := 0;
 }

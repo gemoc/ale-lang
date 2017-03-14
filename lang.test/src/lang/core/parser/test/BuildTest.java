@@ -68,6 +68,7 @@ public class BuildTest {
 		ModelBehavior root = res.getRoot();
 		
 		assertNotNull(root);
+		assertEquals("test.extendedclass",root.getName());
 		assertEquals(0, root.getServices().size());
 		assertEquals(1, root.getClassExtensions().size());
 		
@@ -84,6 +85,7 @@ public class BuildTest {
 		ModelBehavior root = res.getRoot();
 		
 		assertNotNull(root);
+		assertEquals("test.attributes",root.getName());
 		assertEquals(0, root.getServices().size());
 		assertEquals(1, root.getClassExtensions().size());
 		
@@ -111,6 +113,9 @@ public class BuildTest {
 		String fileContent = getFileContent("input/structure/defMethod.implem");
 		ParseResult<ModelBehavior> res = parser.parse(fileContent);
 		ModelBehavior root = res.getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.defmethod",root.getName());
 		
 		ExtendedClass xtdCls = root.getClassExtensions().get(0);
 		assertEquals(1, xtdCls.getMethods().size());
@@ -160,6 +165,9 @@ public class BuildTest {
 		ParseResult<ModelBehavior> res = parser.parse(fileContent);
 		ModelBehavior root = res.getRoot();
 		
+		assertNotNull(root);
+		assertEquals("test.defimpl",root.getName());
+		
 		ExtendedClass xtdCls = root.getClassExtensions().get(0);
 		assertEquals(1, xtdCls.getMethods().size());
 		assertEquals(EcorePackage.eINSTANCE.getEObject(), xtdCls.getBaseClass());
@@ -197,6 +205,9 @@ public class BuildTest {
 		String fileContent = getFileContent("input/structure/for.implem");
 		ParseResult<ModelBehavior> res = parser.parse(fileContent);
 		ModelBehavior root = res.getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.forloop",root.getName());
 		
 		ExtendedClass xtdCls = root.getClassExtensions().get(0);
 		assertEquals(1, xtdCls.getMethods().size());
@@ -302,6 +313,9 @@ public class BuildTest {
 		ParseResult<ModelBehavior> res = parser.parse(fileContent);
 		ModelBehavior root = res.getRoot();
 		
+		assertNotNull(root);
+		assertEquals("test.whileloop",root.getName());
+		
 		ExtendedClass xtdCls = root.getClassExtensions().get(0);
 		assertEquals(1, xtdCls.getMethods().size());
 		assertEquals(EcorePackage.eINSTANCE.getEPackage(), xtdCls.getBaseClass());
@@ -371,6 +385,9 @@ public class BuildTest {
 		String fileContent = getFileContent("input/structure/if.implem");
 		ParseResult<ModelBehavior> res = parser.parse(fileContent);
 		ModelBehavior root = res.getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.ifstmt",root.getName());
 		
 		ExtendedClass xtdCls = root.getClassExtensions().get(0);
 		assertEquals(1, xtdCls.getMethods().size());
@@ -472,6 +489,7 @@ public class BuildTest {
 		ModelBehavior root = res.getRoot();
 		assertEquals(Diagnostic.OK,res.getDiagnostic().getCode());
 		assertNotNull(root);
+		assertEquals("test.allfeatures",root.getName());
 	}
 	
 	private static String getFileContent(String implementionPath){
