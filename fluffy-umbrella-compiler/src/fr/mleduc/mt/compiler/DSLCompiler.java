@@ -1,6 +1,7 @@
 package fr.mleduc.mt.compiler;
 
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,6 +17,8 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.codegen.ecore.generator.Generator;
 import org.eclipse.emf.codegen.ecore.generator.GeneratorAdapterFactory;
 import org.eclipse.emf.codegen.ecore.genmodel.GenJDKLevel;
@@ -40,6 +43,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
+import fr.inria.diverse.objectalgebragenerator.GenerateAlgebra;
 import implementation.ExtendedClass;
 import implementation.Implementation;
 import implementation.ImplementationPackage;
@@ -89,7 +93,7 @@ public class DSLCompiler {
 		genModel.initialize(Collections.singleton(rootPackage));
 		genModel.setModelDirectory("/" + projectName + "/src");
 
-		// TODO: Update genmodel in order to avoir the regeneration of
+		// TODO: Update genmodel in order to avoid the regeneration of
 		// cross-references
 
 		final URI createURI = URI
@@ -212,7 +216,7 @@ public class DSLCompiler {
 	}
 
 	private void completeMethods(final EPackage languagePackage) {
-		this.root.getClassExtensions().stream().flatMap(ce -> ce.getMethods().stream()).forEach(behaviored -> {
+		this.getRoot().getClassExtensions().stream().flatMap(ce -> ce.getMethods().stream()).forEach(behaviored -> {
 			final ExtendedClass extendedClass = (ExtendedClass) behaviored.eContainer();
 
 			final String namespace = ""; // extendedClass.getSyntax().getName();
@@ -257,7 +261,7 @@ public class DSLCompiler {
 
 	public void completeFields(final EPackage languagePackage) {
 
-		this.root.getClassExtensions().stream().flatMap(ce -> ce.getAttributes().stream()).forEach(attribute -> {
+		this.getRoot().getClassExtensions().stream().flatMap(ce -> ce.getAttributes().stream()).forEach(attribute -> {
 			final ExtendedClass extendedClass = (ExtendedClass) attribute.eContainer();
 			final String namespace = ""; // extendedClass.getSyntax().getName();
 
@@ -277,7 +281,7 @@ public class DSLCompiler {
 
 	}
 
-	public void compile() throws IOException {
+	public void compile(IProject project) throws IOException {
 
 		final Properties properties = new Properties();
 		properties.load(this.dslProperty);
@@ -300,11 +304,12 @@ public class DSLCompiler {
 		final EPackage rootPackage = this.generateDynamicModel(projectName, resSet);
 		final GenModel genModel = this.saveGenModel(resSet, this.getRoot().getName(), rootPackage, projectName);
 		this.proceedToGeneration(genModel);
-		
-		
+
 		this.syntaxes.forEach(ePackage -> {
-			
+			this.generateAlgebra(ePackage, project);
 		});
+
+		this.generateAlgebra(rootPackage, project);
 
 	}
 
@@ -319,12 +324,11 @@ public class DSLCompiler {
 	 * @throws IOException
 	 */
 	private EPackage generateDynamicModel(final String projectName, final ResourceSet resSet) throws IOException {
-
 		final String behaviourName = this.getRoot().getName();
-
 		final Map<EClass, List<VariableDeclaration>> clazzList = new HashMap<>();
 
-		root.getClassExtensions().forEach(extendedClass -> {
+		final List<ExtendedClass> classExtensions = this.getRoot().getClassExtensions();
+		classExtensions.forEach(extendedClass -> {
 			final List<VariableDeclaration> attributes = extendedClass.getAttributes();
 			final EClass baseClass = extendedClass.getBaseClass();
 			clazzList.put(baseClass, attributes);
@@ -367,6 +371,23 @@ public class DSLCompiler {
 
 		return dynamicModelPackage;
 
+	}
+
+	private void generateAlgebra(final EPackage ePackage, final IProject project) {
+		final String fileContent = new GenerateAlgebra().processAlgebra(ePackage);
+		final IPath directoryAlgebra = project.getLocation().append("src").append(ePackage.getName()).append("algebra");
+		directoryAlgebra.toFile().mkdirs();
+		final IPath fileJavaAlgebra = directoryAlgebra
+				.append(ePackage.getName().substring(0, 1).toUpperCase() + ePackage.getName().substring(1) + "Algebra")
+				.addFileExtension("java");
+
+		try {
+			final FileWriter fileWriter = new FileWriter(fileJavaAlgebra.toFile());
+			fileWriter.write(fileContent);
+			fileWriter.close();
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

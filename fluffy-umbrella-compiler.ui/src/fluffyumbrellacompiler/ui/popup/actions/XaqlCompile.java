@@ -39,21 +39,12 @@ public class XaqlCompile implements IObjectActionDelegate {
 	public void run(final IAction action) {
 		try {
 			final InputStream contents = this.selectedIFile.getContents();
-
-			runCompile(contents);
-
+			new DSLCompiler(contents).compile(this.selectedIFile.getProject());
 		} catch (final CoreException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void runCompile(final InputStream contents) throws IOException {
-//		final String fileContent = new BufferedReader(new InputStreamReader(contents)).lines().parallel()
-//				.collect(Collectors.joining("\n"));
-
-		new DSLCompiler(contents).compile();
 	}
 
 	/**

@@ -42,10 +42,6 @@ class GenerateAlgebra {
 		
 		clusters.map[x | x.filter[z|!z.elem.abstract].head.elem.abstractType(allTypes)]
 	}
-	
-		def String processAlgebraMemo(EPackage ePackage) { 
-			return "";
-		}
 
 	def String processAlgebra(EPackage ePackage) {
 
@@ -59,39 +55,27 @@ class GenerateAlgebra {
 		val allMethods = graphCurrentPackage.nodes.sortBy[e|e.elem.name].filter[e|e.elem.EPackage.equals(ePackage)].filter [e|
 			!e.elem.abstract
 		]
-
-		
 		
 		val allDirectPackages = allMethods.allDirectPackages(ePackage) 
 
 		val all$Types = allConcretTypes.mapValues[e|e.filter[f|f.elem.EPackage.equals(ePackage)]].
 			filter[p1, p2|!p2.empty]
-			
-		val imports = newHashSet()
-		imports.addAll(allMethods.map[elem].map[e|'''«e.EPackage.name».«e.name»'''])
-		imports.addAll(all$Types.values.map[findRootType].map[e|'''«e.EPackage.name».«e.name»'''])
-		imports.addAll(allDirectPackages.map[e|'''«e.name».algebra.«e.toPackageName»'''])
 		
 		'''
 		package «ePackage.name».algebra;
 		
-		«FOR imported:imports.sort»
-		import «imported»;
-		«ENDFOR»
-		import java.util.Map;
-		
-		public interface «ePackage.toPackageName»«FOR x : allConcretTypes.keySet BEFORE '<' SEPARATOR ', ' AFTER '>'»«x»«ENDFOR»«FOR ePp : allDirectPackages.sortBy[name].map[x | (x -> buildConcretTypeForParents(x, allTypes))] BEFORE ' extends ' SEPARATOR ', '»«ePp.key.toPackageName»«FOR x : ePp.value BEFORE '<' SEPARATOR ', ' AFTER '>'»«x»«ENDFOR»«ENDFOR» {
+		public interface «ePackage.toPackageName»«FOR x : allConcretTypes.keySet BEFORE '<' SEPARATOR ', ' AFTER '>'»«x»«ENDFOR»«FOR ePp : allDirectPackages.sortBy[name].map[x | (x -> buildConcretTypeForParents(x, allTypes))] BEFORE ' extends ' SEPARATOR ', '»«ePp.key.name».algebra.«ePp.key.toPackageName»«FOR x : ePp.value BEFORE '<' SEPARATOR ', ' AFTER '>'»«x»«ENDFOR»«ENDFOR» {
 		
 			«FOR eClass : allMethods.map[elem]»
-				«eClass.abstractType(allTypes)» «eClass.name.toFirstLower»(final «eClass.name» «eClass.name.toFirstLower»);
+				«eClass.abstractType(allTypes)» «eClass.name.toFirstLower»(final «eClass.javaFullPath» «eClass.name.toFirstLower»);
 
 			«ENDFOR»
 			«FOR abstractTypes : all$Types.entrySet SEPARATOR '\n'»
 			«IF abstractTypes.value.getDirectPackages(ePackage).size > 0»@Override«ENDIF»			
-			public default «abstractTypes.key» $(final «abstractTypes.value.findRootType.name» «abstractTypes.value.findRootType.name.toFirstLower») {
+			public default «abstractTypes.key» $(final «abstractTypes.value.findRootType.javaFullPath» «abstractTypes.value.findRootType.name.toFirstLower») {
 				final «abstractTypes.key» ret;
-				«FOR type : abstractTypes.concretTypes(ePackage).map[elem].sortBy[name] BEFORE 'if' SEPARATOR ' else if' AFTER ''» («abstractTypes.value.findRootType.name.toFirstLower».eClass().getClassifierID() == AAAAAPackage.«type.name.toUpperCase») {
-					ret = this.«type.name.toFirstLower»((«type.name») «abstractTypes.value.findRootType.name.toFirstLower»);
+				«FOR type : abstractTypes.concretTypes(ePackage).map[elem].sortBy[name] BEFORE 'if' SEPARATOR ' else if' AFTER ''» («abstractTypes.value.findRootType.name.toFirstLower».eClass().getClassifierID() == «abstractTypes.value.findRootType.EPackage.name».«abstractTypes.value.findRootType.EPackage.name.toFirstUpper»Package.«type.name.toUpperSnake») {
+					ret = this.«type.name.toFirstLower»((«type.javaFullPath») «abstractTypes.value.findRootType.name.toFirstLower»);
 				}«ENDFOR» else {
 				«IF abstractTypes.value.getDirectPackages(ePackage).size > 0»
 					«abstractTypes.value.getDirectPackages(ePackage).toTryCatch(abstractTypes.value.findRootType.name.toFirstLower)»
@@ -148,7 +132,7 @@ class GenerateAlgebra {
 	private def String toTryCatch(Iterable<EPackage> packages, String typeVarName) {
 			'''
 			«IF packages.size == 1»
-				ret = «packages.head.toPackageName».super.$(«typeVarName»);
+				ret = «packages.head.name».algebra.«packages.head.toPackageName».super.$(«typeVarName»);
 			«ELSE»
 				try {
 					ret = «packages.head.toPackageName».super.$(«typeVarName»);
@@ -253,4 +237,10 @@ class GenerateAlgebra {
 	}
 
 	private def static toPackageName(EPackage ePackage) '''«ePackage.name.toClassName»Algebra'''
+	
+	private def static javaFullPath(EClass eClass) '''«eClass.EPackage.name».«eClass.name»'''
+	
+	private def static String toUpperSnake(String name) {
+		name.split("(?=\\p{Upper})").map[toUpperCase].join("_").replaceAll("([A-Z])_([A-Z])_", "$1$2")
+	}
 }

@@ -9,4 +9,7 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.scala-lang.scala-library,
  org.eclipse.emf.codegen.ecore,
  lang.core,
- lang
+ lang,
+ org.eclipse.core.resources,
+ fr.inria.diverse.objectalgebragenerator,
+ org.eclipse.equinox.registry
