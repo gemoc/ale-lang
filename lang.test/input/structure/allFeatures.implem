@@ -1,6 +1,8 @@
+behavior test.allfeatures;
+
 use lang.core.service.test;
 
-class EClass {
+open class EClass {
 	boolean newAttribute;
 	int initialValue := 0;
 	
@@ -10,14 +12,14 @@ class EClass {
 	}
 }
 
-class EObject {
+open class EObject {
 	override EClass eClass() {
 		self.log();
 		result := Ecore::EModelElement;
 	}
 }
 
-class EPackage {
+open class EPackage {
 	
 	@main
 	def void entryPoint(int arg) {

@@ -1,3 +1,5 @@
-class EClass {
+behavior test.extendedclass;
+
+open class EClass {
 
 }
