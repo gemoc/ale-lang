@@ -58,6 +58,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 		switch (eClass.getClassifierID()) {
 			case ImplementationPackage.MODEL_BEHAVIOR: return createModelBehavior();
 			case ImplementationPackage.EXTENDED_CLASS: return createExtendedClass();
+			case ImplementationPackage.RUNTIME_CLASS: return createRuntimeClass();
 			case ImplementationPackage.BEHAVIORED: return createBehaviored();
 			case ImplementationPackage.IMPLEMENTATION: return createImplementation();
 			case ImplementationPackage.METHOD: return createMethod();
@@ -98,6 +99,16 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	public ExtendedClass createExtendedClass() {
 		ExtendedClassImpl extendedClass = new ExtendedClassImpl();
 		return extendedClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RuntimeClass createRuntimeClass() {
+		RuntimeClassImpl runtimeClass = new RuntimeClassImpl();
+		return runtimeClass;
 	}
 
 	/**

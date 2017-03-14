@@ -3,20 +3,26 @@ package lang.core.interpreter;
 import implementation.Behaviored;
 import implementation.ExtendedClass;
 import implementation.ModelBehavior;
+import implementation.RuntimeClass;
 import lang.core.interpreter.services.DynamicFeatureAccessService;
 import lang.core.interpreter.services.EvalBodyService;
 import lang.core.interpreter.services.FactoryService;
 import lang.core.interpreter.services.LogService;
 import lang.core.interpreter.services.TrigoServices;
+import lang.core.parser.visitor.ModelBuilder;
 
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.impl.JavaMethodService;
 import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -120,9 +126,20 @@ public class EvalEnvironment {
 				.forEach(implemOp -> res.put(implemOp,(new EvalBodyService(implemOp,this,logger))));
 			});
 		
+		List<EvalBodyService> newClassOperations = new ArrayList<EvalBodyService>();
+		allImplemModels
+			.stream()
+			.forEach(implemModel -> {
+				implemModel
+				.getClassDefinitions()
+				.stream()
+				.flatMap(cls -> cls.getMethods().stream())
+				.forEach(implemOp -> newClassOperations.add(new EvalBodyService(implemOp,this,logger)));
+			});
+		
 		
 		/*
-		 * Set lookup priorities
+		 * Set lookup priorities for implementations
 		 */
 		List<ExtendedClass> allExtendedClasses = 
 			allImplemModels
@@ -137,13 +154,16 @@ public class EvalEnvironment {
 				 int prio = priorityMap.get(op.eContainer());
 				 res.get(op).setPriority(prio);
 			 });
-		 
-		return 
+		
+		List<EvalBodyService> allOpServices =
 			res
 			.entrySet()
 			.stream()
 			.map(entry -> (EvalBodyService) entry.getValue())
 			.collect(Collectors.toList());
+		allOpServices.addAll(newClassOperations);
+		
+		return allOpServices;
 	}
 	
 	private Map<ExtendedClass,Integer> getPriorities(List<ExtendedClass> allCls) {

@@ -29,7 +29,13 @@ rImport : 'import' rQualified 'as' Ident ';'
 rService : 'use' Ident ('.' Ident)* ';'
 ;
 
-rClass : 'class' name=rQualified ('extends' rQualified (',' rQualified)* )? '{' rAttribute* rOperation* '}'
+rClass : rOpenClass | rNewClass
+;
+
+rOpenClass : 'open' 'class' name=rQualified ('extends' rQualified (',' rQualified)* )? '{' rAttribute* rOperation* '}'
+;
+
+rNewClass : 'class' name=Ident '{' rAttribute* rOperation* '}'
 ; 
 
 rOperation : (rTag)* ('def' | 'override') type=rType name=Ident '(' rParameters? ')' rBlock

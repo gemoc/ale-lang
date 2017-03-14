@@ -147,11 +147,7 @@ public class LangInterpreter {
     	 * Parse behavior files
     	 */
     	List<ParseResult<ModelBehavior>> parsedSemantics =
-	    	dsl
-	    	.getAllSemantics()
-	    	.stream()
-	    	.map(behaviorFile -> (new AstBuilder(queryEnvironment)).parseFromFile(behaviorFile))
-	    	.collect(Collectors.toList());
+    			(new AstBuilder(queryEnvironment)).parseFromFiles(dsl.getAllSemantics());
     	
     	/*
     	 * Register services

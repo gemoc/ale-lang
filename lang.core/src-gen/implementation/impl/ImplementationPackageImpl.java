@@ -19,6 +19,7 @@ import implementation.ImplementationPackage;
 import implementation.Import;
 import implementation.Method;
 import implementation.ModelBehavior;
+import implementation.RuntimeClass;
 import implementation.Statement;
 import implementation.VariableAssignment;
 import implementation.VariableDeclaration;
@@ -54,6 +55,13 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * @generated
 	 */
 	private EClass extendedClassEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass runtimeClassEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -261,8 +269,17 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getModelBehavior_ClassDefinitions() {
+		return (EReference)modelBehaviorEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getModelBehavior_Services() {
-		return (EAttribute)modelBehaviorEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)modelBehaviorEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -271,7 +288,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * @generated
 	 */
 	public EAttribute getModelBehavior_Name() {
-		return (EAttribute)modelBehaviorEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)modelBehaviorEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -335,6 +352,42 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 */
 	public EReference getExtendedClass_Children() {
 		return (EReference)extendedClassEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRuntimeClass() {
+		return runtimeClassEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRuntimeClass_Name() {
+		return (EAttribute)runtimeClassEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRuntimeClass_Attributes() {
+		return (EReference)runtimeClassEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRuntimeClass_Methods() {
+		return (EReference)runtimeClassEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -799,6 +852,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		// Create classes and their features
 		modelBehaviorEClass = createEClass(MODEL_BEHAVIOR);
 		createEReference(modelBehaviorEClass, MODEL_BEHAVIOR__CLASS_EXTENSIONS);
+		createEReference(modelBehaviorEClass, MODEL_BEHAVIOR__CLASS_DEFINITIONS);
 		createEAttribute(modelBehaviorEClass, MODEL_BEHAVIOR__SERVICES);
 		createEAttribute(modelBehaviorEClass, MODEL_BEHAVIOR__NAME);
 		createEReference(modelBehaviorEClass, MODEL_BEHAVIOR__IMPORTS);
@@ -809,6 +863,11 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		createEReference(extendedClassEClass, EXTENDED_CLASS__ATTRIBUTES);
 		createEReference(extendedClassEClass, EXTENDED_CLASS__EXTENDS);
 		createEReference(extendedClassEClass, EXTENDED_CLASS__CHILDREN);
+
+		runtimeClassEClass = createEClass(RUNTIME_CLASS);
+		createEAttribute(runtimeClassEClass, RUNTIME_CLASS__NAME);
+		createEReference(runtimeClassEClass, RUNTIME_CLASS__ATTRIBUTES);
+		createEReference(runtimeClassEClass, RUNTIME_CLASS__METHODS);
 
 		behavioredEClass = createEClass(BEHAVIORED);
 		createEReference(behavioredEClass, BEHAVIORED__BODY);
@@ -927,6 +986,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		// Initialize classes, features, and operations; add parameters
 		initEClass(modelBehaviorEClass, ModelBehavior.class, "ModelBehavior", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getModelBehavior_ClassExtensions(), this.getExtendedClass(), null, "classExtensions", null, 0, -1, ModelBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelBehavior_ClassDefinitions(), this.getRuntimeClass(), null, "classDefinitions", null, 0, -1, ModelBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getModelBehavior_Services(), ecorePackage.getEString(), "services", null, 0, -1, ModelBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getModelBehavior_Name(), ecorePackage.getEString(), "name", "", 1, 1, ModelBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelBehavior_Imports(), this.getImport(), null, "imports", null, 0, -1, ModelBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -937,6 +997,11 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		initEReference(getExtendedClass_Attributes(), this.getVariableDeclaration(), null, "attributes", null, 0, -1, ExtendedClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExtendedClass_Extends(), this.getExtendedClass(), this.getExtendedClass_Children(), "extends", null, 0, -1, ExtendedClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExtendedClass_Children(), this.getExtendedClass(), this.getExtendedClass_Extends(), "children", null, 0, -1, ExtendedClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(runtimeClassEClass, RuntimeClass.class, "RuntimeClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRuntimeClass_Name(), ecorePackage.getEString(), "name", "", 1, 1, RuntimeClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRuntimeClass_Attributes(), this.getVariableDeclaration(), null, "attributes", null, 0, -1, RuntimeClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRuntimeClass_Methods(), this.getMethod(), null, "methods", null, 0, -1, RuntimeClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(behavioredEClass, Behaviored.class, "Behaviored", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBehaviored_Body(), this.getBlock(), null, "body", null, 1, 1, Behaviored.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

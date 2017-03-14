@@ -19,6 +19,8 @@ org\.xtext\.example\.mydsl\.ui/xtend-gen/
 
 fluffy-umbrella-compiler\.ui/bin/
 
+*.xtendbin
+
 *.log
 
 lang\.core/bin/
