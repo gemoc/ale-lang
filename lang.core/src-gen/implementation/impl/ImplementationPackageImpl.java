@@ -297,7 +297,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * @generated
 	 */
 	public EReference getModelBehavior_Imports() {
-		return (EReference)modelBehaviorEClass.getEStructuralFeatures().get(3);
+		return (EReference)modelBehaviorEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**

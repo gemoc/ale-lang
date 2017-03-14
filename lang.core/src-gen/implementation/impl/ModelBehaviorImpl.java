@@ -201,6 +201,8 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 		switch (featureID) {
 			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
 				return ((InternalEList<?>)getClassExtensions()).basicRemove(otherEnd, msgs);
+			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_DEFINITIONS:
+				return ((InternalEList<?>)getClassDefinitions()).basicRemove(otherEnd, msgs);
 			case ImplementationPackage.MODEL_BEHAVIOR__IMPORTS:
 				return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
 		}

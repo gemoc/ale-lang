@@ -110,7 +110,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_BEHAVIOR__IMPORTS = 3;
+	int MODEL_BEHAVIOR__IMPORTS = 4;
 
 	/**
 	 * The number of structural features of the '<em>Model Behavior</em>' class.
@@ -119,7 +119,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_BEHAVIOR_FEATURE_COUNT = 4;
+	int MODEL_BEHAVIOR_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Model Behavior</em>' class.
@@ -1066,7 +1066,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see implementation.impl.ImplementationPackageImpl#getImport()
 	 * @generated
 	 */
-	int IMPORT = 18;
+	int IMPORT = 19;
 
 	/**
 	 * The feature id for the '<em><b>Uri</b></em>' attribute.
