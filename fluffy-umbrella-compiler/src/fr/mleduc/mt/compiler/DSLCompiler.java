@@ -4,18 +4,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.emf.codegen.ecore.generator.Generator;
@@ -49,7 +47,6 @@ import implementation.Import;
 import implementation.Method;
 import implementation.ModelBehavior;
 import implementation.VariableDeclaration;
-import implementation.util.ImplementationSwitch;
 import lang.LangInterpreter;
 import lang.core.parser.AstBuilder;
 import lang.core.parser.visitor.ParseResult;
@@ -91,9 +88,9 @@ public class DSLCompiler {
 		genModel.getForeignModel().add(rootPackage.getNsURI());
 		genModel.initialize(Collections.singleton(rootPackage));
 		genModel.setModelDirectory("/" + projectName + "/src");
-		
-		
-		// TODO: Update genmodel in order to avoir the regeneration of cross-references
+
+		// TODO: Update genmodel in order to avoir the regeneration of
+		// cross-references
 
 		final URI createURI = URI
 				.createPlatformResourceURI("/" + projectName + "/src-gen/" + languageName + ".genmodel", true);
@@ -288,7 +285,7 @@ public class DSLCompiler {
 		final ResourceSetImpl resSet = new ResourceSetImpl();
 
 		this.syntaxes = Arrays.asList(((String) properties.get("syntax")).split(",")).stream()
-				.flatMap((String stx) -> load(stx, resSet).stream()).collect(Collectors.toList());
+				.flatMap((final String stx) -> load(stx, resSet).stream()).collect(Collectors.toList());
 
 		final String behavior = (String) properties.get("behavior");
 
@@ -303,23 +300,12 @@ public class DSLCompiler {
 		final EPackage rootPackage = this.generateDynamicModel(projectName, resSet);
 		final GenModel genModel = this.saveGenModel(resSet, this.getRoot().getName(), rootPackage, projectName);
 		this.proceedToGeneration(genModel);
+		
+		
+		this.syntaxes.forEach(ePackage -> {
+			
+		});
 
-		//
-		// final ModelBehavior language = this.getRoot();
-		//
-		// final ResourceSetImpl resSet = new ResourceSetImpl();
-		// // TODO: replace fsm by the language name (or project name)
-		// final EPackage languagePackage =
-		// this.initializeLanguageEcore(syntaxes, language.getName(), resSet,
-		// projectName);
-		//
-		// // TODO : alterate the language package with the semantical
-		// // constructions defined in the body
-		//
-		// GenModel languageGenerator = this.saveGenModel(resSet,
-		// language.getName(), languagePackage, "fsm");
-		//
-		// this.proceedToGeneration(languageGenerator);
 	}
 
 	/**

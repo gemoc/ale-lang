@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Object Algebra Generator
-Bundle-SymbolicName: fr.inria.diverse.objectalgebragenerator;singleton:=true
+Bundle-SymbolicName: fr.inria.diverse.objectalgebragenerator.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: fr.inria.diverse.objectalgebragenerator.Activator
 Bundle-Vendor: INRIA
