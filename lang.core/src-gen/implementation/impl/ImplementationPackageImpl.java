@@ -16,6 +16,7 @@ import implementation.If;
 import implementation.Implementation;
 import implementation.ImplementationFactory;
 import implementation.ImplementationPackage;
+import implementation.Import;
 import implementation.Method;
 import implementation.ModelBehavior;
 import implementation.Statement;
@@ -167,6 +168,13 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	private EClass expressionStatementEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass importEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -264,6 +272,15 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 */
 	public EAttribute getModelBehavior_Name() {
 		return (EAttribute)modelBehaviorEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getModelBehavior_Imports() {
+		return (EReference)modelBehaviorEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -730,6 +747,33 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getImport() {
+		return importEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getImport_Uri() {
+		return (EAttribute)importEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getImport_Name() {
+		return (EAttribute)importEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ImplementationFactory getImplementationFactory() {
 		return (ImplementationFactory)getEFactoryInstance();
 	}
@@ -757,6 +801,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		createEReference(modelBehaviorEClass, MODEL_BEHAVIOR__CLASS_EXTENSIONS);
 		createEAttribute(modelBehaviorEClass, MODEL_BEHAVIOR__SERVICES);
 		createEAttribute(modelBehaviorEClass, MODEL_BEHAVIOR__NAME);
+		createEReference(modelBehaviorEClass, MODEL_BEHAVIOR__IMPORTS);
 
 		extendedClassEClass = createEClass(EXTENDED_CLASS);
 		createEReference(extendedClassEClass, EXTENDED_CLASS__BASE_CLASS);
@@ -825,6 +870,10 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 
 		expressionStatementEClass = createEClass(EXPRESSION_STATEMENT);
 		createEReference(expressionStatementEClass, EXPRESSION_STATEMENT__EXPRESSION);
+
+		importEClass = createEClass(IMPORT);
+		createEAttribute(importEClass, IMPORT__URI);
+		createEAttribute(importEClass, IMPORT__NAME);
 	}
 
 	/**
@@ -880,6 +929,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		initEReference(getModelBehavior_ClassExtensions(), this.getExtendedClass(), null, "classExtensions", null, 0, -1, ModelBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getModelBehavior_Services(), ecorePackage.getEString(), "services", null, 0, -1, ModelBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getModelBehavior_Name(), ecorePackage.getEString(), "name", "", 1, 1, ModelBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelBehavior_Imports(), this.getImport(), null, "imports", null, 0, -1, ModelBehavior.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(extendedClassEClass, ExtendedClass.class, "ExtendedClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExtendedClass_BaseClass(), ecorePackage.getEClass(), null, "baseClass", null, 1, 1, ExtendedClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -948,6 +998,10 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 
 		initEClass(expressionStatementEClass, ExpressionStatement.class, "ExpressionStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExpressionStatement_Expression(), theAstPackage.getExpression(), null, "expression", null, 1, 1, ExpressionStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getImport_Uri(), theEcorePackage.getEString(), "uri", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getImport_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

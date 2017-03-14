@@ -95,13 +95,22 @@ public interface ImplementationPackage extends EPackage {
 	int MODEL_BEHAVIOR__NAME = 2;
 
 	/**
+	 * The feature id for the '<em><b>Imports</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_BEHAVIOR__IMPORTS = 3;
+
+	/**
 	 * The number of structural features of the '<em>Model Behavior</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_BEHAVIOR_FEATURE_COUNT = 3;
+	int MODEL_BEHAVIOR_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Model Behavior</em>' class.
@@ -986,6 +995,53 @@ public interface ImplementationPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link implementation.impl.ImportImpl <em>Import</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see implementation.impl.ImportImpl
+	 * @see implementation.impl.ImplementationPackageImpl#getImport()
+	 * @generated
+	 */
+	int IMPORT = 18;
+
+	/**
+	 * The feature id for the '<em><b>Uri</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT__URI = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT__NAME = 1;
+
+	/**
+	 * The number of structural features of the '<em>Import</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Import</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT_OPERATION_COUNT = 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link implementation.ModelBehavior <em>Model Behavior</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1027,6 +1083,17 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getModelBehavior_Name();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link implementation.ModelBehavior#getImports <em>Imports</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Imports</em>'.
+	 * @see implementation.ModelBehavior#getImports()
+	 * @see #getModelBehavior()
+	 * @generated
+	 */
+	EReference getModelBehavior_Imports();
 
 	/**
 	 * Returns the meta object for class '{@link implementation.ExtendedClass <em>Extended Class</em>}'.
@@ -1573,6 +1640,38 @@ public interface ImplementationPackage extends EPackage {
 	EReference getExpressionStatement_Expression();
 
 	/**
+	 * Returns the meta object for class '{@link implementation.Import <em>Import</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Import</em>'.
+	 * @see implementation.Import
+	 * @generated
+	 */
+	EClass getImport();
+
+	/**
+	 * Returns the meta object for the attribute '{@link implementation.Import#getUri <em>Uri</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Uri</em>'.
+	 * @see implementation.Import#getUri()
+	 * @see #getImport()
+	 * @generated
+	 */
+	EAttribute getImport_Uri();
+
+	/**
+	 * Returns the meta object for the attribute '{@link implementation.Import#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see implementation.Import#getName()
+	 * @see #getImport()
+	 * @generated
+	 */
+	EAttribute getImport_Name();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1628,6 +1727,14 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute MODEL_BEHAVIOR__NAME = eINSTANCE.getModelBehavior_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODEL_BEHAVIOR__IMPORTS = eINSTANCE.getModelBehavior_Imports();
 
 		/**
 		 * The meta object literal for the '{@link implementation.impl.ExtendedClassImpl <em>Extended Class</em>}' class.
@@ -2070,6 +2177,32 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EXPRESSION_STATEMENT__EXPRESSION = eINSTANCE.getExpressionStatement_Expression();
+
+		/**
+		 * The meta object literal for the '{@link implementation.impl.ImportImpl <em>Import</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see implementation.impl.ImportImpl
+		 * @see implementation.impl.ImplementationPackageImpl#getImport()
+		 * @generated
+		 */
+		EClass IMPORT = eINSTANCE.getImport();
+
+		/**
+		 * The meta object literal for the '<em><b>Uri</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IMPORT__URI = eINSTANCE.getImport_Uri();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IMPORT__NAME = eINSTANCE.getImport_Name();
 
 	}
 

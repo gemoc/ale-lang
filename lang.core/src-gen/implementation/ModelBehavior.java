@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link implementation.ModelBehavior#getClassExtensions <em>Class Extensions</em>}</li>
  *   <li>{@link implementation.ModelBehavior#getServices <em>Services</em>}</li>
  *   <li>{@link implementation.ModelBehavior#getName <em>Name</em>}</li>
+ *   <li>{@link implementation.ModelBehavior#getImports <em>Imports</em>}</li>
  * </ul>
  *
  * @see implementation.ImplementationPackage#getModelBehavior()
@@ -83,5 +84,21 @@ public interface ModelBehavior extends EObject {
 	 * @generated
 	 */
 	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Imports</b></em>' containment reference list.
+	 * The list contents are of type {@link implementation.Import}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Imports</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Imports</em>' containment reference list.
+	 * @see implementation.ImplementationPackage#getModelBehavior_Imports()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Import> getImports();
 
 } // ModelBehavior

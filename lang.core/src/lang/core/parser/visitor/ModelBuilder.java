@@ -340,7 +340,7 @@ public class ModelBuilder {
 			case "float" 	: return EcorePackage.eINSTANCE.getEFloat();
 			case "double" 	: return EcorePackage.eINSTANCE.getEDouble();
 			case "void"		: return null;
-			default			: return EcorePackage.eINSTANCE.getEClassifier();
+			default			: throw new RuntimeException("Unknow type");
 		}
 	}
 	

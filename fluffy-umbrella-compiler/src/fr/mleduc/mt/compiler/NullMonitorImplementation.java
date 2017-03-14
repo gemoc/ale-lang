@@ -7,12 +7,12 @@ final class NullMonitorImplementation implements Monitor {
 	/**
 	 * 
 	 */
-	private final Compiler NullMonitorImplementation;
+	private final DSLCompiler NullMonitorImplementation;
 
 	/**
 	 * @param compiler
 	 */
-	NullMonitorImplementation(Compiler compiler) {
+	NullMonitorImplementation(DSLCompiler compiler) {
 		NullMonitorImplementation = compiler;
 	}
 

@@ -1,11 +1,23 @@
 package fr.mleduc.mt.compiler;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.emf.codegen.ecore.generator.Generator;
 import org.eclipse.emf.codegen.ecore.generator.GeneratorAdapterFactory;
 import org.eclipse.emf.codegen.ecore.genmodel.GenJDKLevel;
@@ -19,9 +31,12 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
@@ -30,8 +45,11 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import implementation.ExtendedClass;
 import implementation.Implementation;
 import implementation.ImplementationPackage;
+import implementation.Import;
 import implementation.Method;
 import implementation.ModelBehavior;
+import implementation.VariableDeclaration;
+import implementation.util.ImplementationSwitch;
 import lang.LangInterpreter;
 import lang.core.parser.AstBuilder;
 import lang.core.parser.visitor.ParseResult;
@@ -44,13 +62,15 @@ import lang.core.parser.visitor.ParseResult;
  * @author mleduc
  *
  */
-public class Compiler {
+public class DSLCompiler {
 
-	private final String sourceCode;
+	private final InputStream dslProperty;
+	private String sourceCode;
 	private ModelBehavior root;
+	private List<EPackage> syntaxes;
 
-	public Compiler(final String sourceCode) {
-		this.sourceCode = sourceCode;
+	public DSLCompiler(final InputStream dslProperty) {
+		this.dslProperty = dslProperty;
 	}
 
 	public GenModel saveGenModel(final ResourceSetImpl resSet, final String languageName, final EPackage rootPackage,
@@ -71,6 +91,9 @@ public class Compiler {
 		genModel.getForeignModel().add(rootPackage.getNsURI());
 		genModel.initialize(Collections.singleton(rootPackage));
 		genModel.setModelDirectory("/" + projectName + "/src");
+		
+		
+		// TODO: Update genmodel in order to avoir the regeneration of cross-references
 
 		final URI createURI = URI
 				.createPlatformResourceURI("/" + projectName + "/src-gen/" + languageName + ".genmodel", true);
@@ -156,9 +179,9 @@ public class Compiler {
 		final ModelBehavior root = getRoot();
 		final Map<String, EPackage> syntaxes = new HashMap<>();
 
-//		final EList<ImportSyntax> importSyntaxes = root.getImportSyntaxes();
-//		importSyntaxes.forEach(
-//				object -> syntaxes.put(object.getName(), EPackage.Registry.INSTANCE.getEPackage(object.getUri())));
+		final EList<Import> importSyntaxes = root.getImports();
+		importSyntaxes.forEach(
+				object -> syntaxes.put(object.getName(), EPackage.Registry.INSTANCE.getEPackage(object.getUri())));
 
 		return syntaxes;
 	}
@@ -166,20 +189,38 @@ public class Compiler {
 	public ModelBehavior getRoot() {
 		if (this.root == null) {
 			final LangInterpreter interpreter = new LangInterpreter();
-			final ParseResult<ModelBehavior> parse = new AstBuilder(interpreter.getQueryEnvironment())
-					.parse(sourceCode);
+			final IQueryEnvironment queryEnvironment = interpreter.getQueryEnvironment();
+			this.syntaxes.stream().forEach(pkg -> {
+				// Register if not already there
+				final Collection<EPackage> matchingPkgs = queryEnvironment.getEPackageProvider()
+						.getEPackage(pkg.getName());
+				final Optional<EPackage> existingPkg = matchingPkgs.stream()
+						.filter(p -> p.getNsURI().equals(pkg.getNsURI())).findFirst();
+				if (!existingPkg.isPresent()) {
+					queryEnvironment.registerEPackage(pkg);
+				}
+			});
+			final ParseResult<ModelBehavior> parse = new AstBuilder(queryEnvironment).parse(sourceCode);
 			this.root = parse.getRoot();
 		}
 		return this.root;
 	}
 
-	private void completeMethods(EPackage languagePackage) {
+	private List<EPackage> load(final String ecoreURI, final ResourceSet rs) {
+		final URI uri = URI.createURI(ecoreURI);
+		final Resource res = rs.getResource(uri, true);
+
+		return res.getContents().stream().filter(o -> o instanceof EPackage).map(o -> (EPackage) o)
+				.collect(Collectors.toList());
+	}
+
+	private void completeMethods(final EPackage languagePackage) {
 		this.root.getClassExtensions().stream().flatMap(ce -> ce.getMethods().stream()).forEach(behaviored -> {
-			ExtendedClass extendedClass = (ExtendedClass) behaviored.eContainer();
+			final ExtendedClass extendedClass = (ExtendedClass) behaviored.eContainer();
 
-			String namespace = ""; //extendedClass.getSyntax().getName();
+			final String namespace = ""; // extendedClass.getSyntax().getName();
 
-			EList<EPackage> listPackages = languagePackage.getESubpackages();
+			final EList<EPackage> listPackages = languagePackage.getESubpackages();
 			final String target = languagePackage.getName() + namespace;
 
 			final EPackage namespacePackage = listPackages.stream().filter(p -> p.getName().equals(target)).findFirst()
@@ -193,23 +234,22 @@ public class Compiler {
 
 				// implementation = override
 				// in this case a EOperation already exists !
-				Implementation implementation = (Implementation) behaviored;
+				final Implementation implementation = (Implementation) behaviored;
 
-				EOperation eOperation = classToUpdate.getEOperations().stream()
+				final EOperation eOperation = classToUpdate.getEOperations().stream()
 						.filter(eop -> eop.getName().equals(implementation.getOperationRef().getName())).findAny()
 						.get();
 
-				EAnnotation createEAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
+				final EAnnotation createEAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 				createEAnnotation.setSource("http://www.eclipse.org/emf/2002/GenModel");
 				createEAnnotation.getDetails().put("body", "System.out.println()");
 				eOperation.getEAnnotations().add(createEAnnotation);
-		
 
 			} else {
 				// method
-				Method method = (Method) behaviored;
-				EOperation eOperation = EcoreUtil.copy(method.getOperationDef());
-				EAnnotation createEAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
+				final Method method = (Method) behaviored;
+				final EOperation eOperation = EcoreUtil.copy(method.getOperationDef());
+				final EAnnotation createEAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 				createEAnnotation.setSource("http://www.eclipse.org/emf/2002/GenModel");
 				createEAnnotation.getDetails().put("body", "System.out.println();");
 				eOperation.getEAnnotations().add(createEAnnotation);
@@ -228,8 +268,8 @@ public class Compiler {
 			final String target = languagePackage.getName() + namespace;
 			final EPackage namespacePackage = listPackages.stream().filter(p -> p.getName().equals(target)).findFirst()
 					.get();
-			
-			String targetClass = extendedClass.getBaseClass().getName();
+
+			final String targetClass = extendedClass.getBaseClass().getName();
 			final EClass classToUpdate = namespacePackage.eContents().stream().filter(e -> e instanceof EClass)
 					.map(e -> (EClass) e).filter(e -> e.getName().equals(targetClass)).findAny().get();
 			final EAttribute createEAttribute = EcoreFactory.eINSTANCE.createEAttribute();
@@ -240,22 +280,107 @@ public class Compiler {
 
 	}
 
-	public void compile(String projectName) {
-		final Map<String, EPackage> syntaxes = this.getListSyntaxes();
+	public void compile() throws IOException {
 
-		final ModelBehavior language = this.getRoot();
+		final Properties properties = new Properties();
+		properties.load(this.dslProperty);
 
 		final ResourceSetImpl resSet = new ResourceSetImpl();
-		// TODO: replace fsm by the language name (or project name)
-		final EPackage languagePackage = this.initializeLanguageEcore(syntaxes, language.getName(), resSet,
-				projectName);
 
-		// TODO : alterate the language package with the semantical
-		// constructions defined in the body
+		this.syntaxes = Arrays.asList(((String) properties.get("syntax")).split(",")).stream()
+				.flatMap((String stx) -> load(stx, resSet).stream()).collect(Collectors.toList());
 
-		GenModel languageGenerator = this.saveGenModel(resSet, language.getName(), languagePackage, "fsm");
+		final String behavior = (String) properties.get("behavior");
 
-		this.proceedToGeneration(languageGenerator);
+		final URI behaviorURI = URI.createURI(behavior);
+
+		final InputStream createInputStream = URIConverter.INSTANCE.createInputStream(behaviorURI);
+
+		this.sourceCode = new BufferedReader(new InputStreamReader(createInputStream)).lines().parallel()
+				.collect(Collectors.joining("\n"));
+
+		final String projectName = "fsm";
+		final EPackage rootPackage = this.generateDynamicModel(projectName, resSet);
+		final GenModel genModel = this.saveGenModel(resSet, this.getRoot().getName(), rootPackage, projectName);
+		this.proceedToGeneration(genModel);
+
+		//
+		// final ModelBehavior language = this.getRoot();
+		//
+		// final ResourceSetImpl resSet = new ResourceSetImpl();
+		// // TODO: replace fsm by the language name (or project name)
+		// final EPackage languagePackage =
+		// this.initializeLanguageEcore(syntaxes, language.getName(), resSet,
+		// projectName);
+		//
+		// // TODO : alterate the language package with the semantical
+		// // constructions defined in the body
+		//
+		// GenModel languageGenerator = this.saveGenModel(resSet,
+		// language.getName(), languagePackage, "fsm");
+		//
+		// this.proceedToGeneration(languageGenerator);
+	}
+
+	/**
+	 * Generates a ecore file from the dynamic data declared in the implemented
+	 * behavior
+	 * 
+	 * @param projectName
+	 * @param resSet
+	 * @return
+	 * 
+	 * @throws IOException
+	 */
+	private EPackage generateDynamicModel(final String projectName, final ResourceSet resSet) throws IOException {
+
+		final String behaviourName = this.getRoot().getName();
+
+		final Map<EClass, List<VariableDeclaration>> clazzList = new HashMap<>();
+
+		root.getClassExtensions().forEach(extendedClass -> {
+			final List<VariableDeclaration> attributes = extendedClass.getAttributes();
+			final EClass baseClass = extendedClass.getBaseClass();
+			clazzList.put(baseClass, attributes);
+		});
+
+		final EPackage dynamicModelPackage = EcoreFactory.eINSTANCE.createEPackage();
+		dynamicModelPackage.setName(behaviourName.replaceAll("\\.", ""));
+		dynamicModelPackage.setNsPrefix(behaviourName);
+		dynamicModelPackage.setNsURI("http://" + behaviourName);
+
+		clazzList.entrySet().stream().forEach(entry -> {
+			final EClass fromClazz = entry.getKey();
+			final EClass clazz = EcoreFactory.eINSTANCE.createEClass();
+			clazz.setName(fromClazz.getName());
+			clazz.getESuperTypes().add(fromClazz);
+
+			entry.getValue().stream().forEach((final VariableDeclaration variableDecl) -> {
+				final EReference ref = EcoreFactory.eINSTANCE.createEReference();
+				ref.setName(variableDecl.getName());
+				ref.setEType(variableDecl.getType());
+				// attr.setE
+
+				// TODO : solve why currentState has an error in modeling
+				// workbench
+
+				clazz.getEReferences().add(ref);
+			});
+
+			dynamicModelPackage.getEClassifiers().add(clazz);
+		});
+
+		final URI createUri = URI.createPlatformResourceURI("/" + projectName + "/src-gen/" + behaviourName + ".ecore",
+				true);
+
+		final Resource resource = resSet.createResource(createUri);
+
+		resource.getContents().add(dynamicModelPackage);
+
+		resource.save(null);
+
+		return dynamicModelPackage;
+
 	}
 
 }
