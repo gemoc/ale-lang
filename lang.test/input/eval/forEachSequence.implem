@@ -1,4 +1,5 @@
-class ClassA {
+behavior test.foreachseq;
+open class ClassA {
 	
 	@main
 	def String main() {

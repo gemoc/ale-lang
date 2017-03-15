@@ -1,4 +1,5 @@
-class ClassA {
+behavior test.localdynaattr;
+open class ClassA {
 	
 	String attrib := 'foo';
 	

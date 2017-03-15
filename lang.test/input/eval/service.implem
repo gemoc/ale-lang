@@ -1,6 +1,7 @@
+behavior test.services;
 use lang.core.interpreter.test.Service;
 
-class ClassA {
+open class ClassA {
 	
 	@main
 	def String main() {

@@ -11,6 +11,11 @@ public class Dsl {
 	List<String> allSyntaxes = new ArrayList<String>();
 	List<String> allSemantics = new ArrayList<String>();
 	
+	public Dsl(List<String> syntaxes, List<String> semantics) {
+		this.allSyntaxes.addAll(syntaxes);
+		this.allSemantics.addAll(semantics);
+	}
+	
 	public Dsl(String dslFile) {
 		
 		Properties dslProp = new Properties();

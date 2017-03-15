@@ -1,4 +1,6 @@
-class EPackage {
+behavior test.forloop;
+
+open class EPackage {
 	
 	@main
 	def void entryPoint(int arg) {

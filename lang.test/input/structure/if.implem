@@ -1,4 +1,6 @@
-class EPackage {
+behavior test.ifstmt;
+
+open class EPackage {
 	
 	@main
 	def void entryPoint(int arg) {

@@ -1,4 +1,5 @@
-class ClassA {
+behavior test.localcall;
+open class ClassA {
 	
 	@main
 	def int main() {

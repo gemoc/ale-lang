@@ -1,4 +1,5 @@
-class ClassA {
+behavior test.iftrue;
+open class ClassA {
 	
 	@main
 	def int main() {
