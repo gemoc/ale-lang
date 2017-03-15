@@ -12,4 +12,9 @@ Require-Bundle: org.eclipse.emf.ecore,
  lang,
  org.eclipse.core.resources,
  fr.inria.diverse.objectalgebragenerator,
- org.eclipse.equinox.registry
+ org.eclipse.equinox.registry,
+ com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro
+

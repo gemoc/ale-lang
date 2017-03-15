@@ -44,6 +44,7 @@ import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import fr.inria.diverse.objectalgebragenerator.GenerateAlgebra;
+import fr.mleduc.mt.compiler.operation.GenerateOperation;
 import implementation.ExtendedClass;
 import implementation.Implementation;
 import implementation.ImplementationPackage;
@@ -310,6 +311,12 @@ public class DSLCompiler {
 		});
 
 		this.generateAlgebra(rootPackage, project);
+		
+		this.getRoot().getClassExtensions().forEach(clazz -> {
+			new GenerateOperation().generate(clazz, project);
+		});
+		
+		
 
 	}
 
@@ -348,7 +355,8 @@ public class DSLCompiler {
 			entry.getValue().stream().forEach((final VariableDeclaration variableDecl) -> {
 				final EReference ref = EcoreFactory.eINSTANCE.createEReference();
 				ref.setName(variableDecl.getName());
-				ref.setEType(variableDecl.getType());
+				ref.setEType(variableDecl.getType().getEType());
+				ref.setEGenericType(variableDecl.getType().getEGenericType());
 				// attr.setE
 
 				// TODO : solve why currentState has an error in modeling

@@ -3,8 +3,7 @@
 package implementation;
 
 import org.eclipse.acceleo.query.ast.Expression;
-
-import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.ETypedElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -60,12 +59,12 @@ public interface VariableDeclaration extends Statement {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Type</em>' reference.
-	 * @see #setType(EClassifier)
+	 * @see #setType(ETypedElement)
 	 * @see implementation.ImplementationPackage#getVariableDeclaration_Type()
 	 * @model required="true"
 	 * @generated
 	 */
-	EClassifier getType();
+	ETypedElement getType();
 
 	/**
 	 * Sets the value of the '{@link implementation.VariableDeclaration#getType <em>Type</em>}' reference.
@@ -75,7 +74,7 @@ public interface VariableDeclaration extends Statement {
 	 * @see #getType()
 	 * @generated
 	 */
-	void setType(EClassifier value);
+	void setType(ETypedElement value);
 
 	/**
 	 * Returns the value of the '<em><b>Initial Value</b></em>' containment reference.

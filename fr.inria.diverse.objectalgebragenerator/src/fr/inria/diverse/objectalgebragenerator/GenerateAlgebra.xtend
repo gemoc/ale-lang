@@ -67,7 +67,9 @@ class GenerateAlgebra {
 		public interface «ePackage.toPackageName»«FOR x : allConcretTypes.keySet BEFORE '<' SEPARATOR ', ' AFTER '>'»«x»«ENDFOR»«FOR ePp : allDirectPackages.sortBy[name].map[x | (x -> buildConcretTypeForParents(x, allTypes))] BEFORE ' extends ' SEPARATOR ', '»«ePp.key.name».algebra.«ePp.key.toPackageName»«FOR x : ePp.value BEFORE '<' SEPARATOR ', ' AFTER '>'»«x»«ENDFOR»«ENDFOR» {
 		
 			«FOR eClass : allMethods.map[elem]»
-				«eClass.abstractType(allTypes)» «eClass.name.toFirstLower»(final «eClass.javaFullPath» «eClass.name.toFirstLower»);
+				default «eClass.abstractType(allTypes)» «eClass.name.toFirstLower»(final «eClass.javaFullPath» «eClass.name.toFirstLower») {
+					throw new UnsupportedOperationException();
+				}
 
 			«ENDFOR»
 			«FOR abstractTypes : all$Types.entrySet SEPARATOR '\n'»

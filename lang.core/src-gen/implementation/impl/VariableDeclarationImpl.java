@@ -11,7 +11,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -60,7 +60,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * @generated
 	 * @ordered
 	 */
-	protected EClassifier type;
+	protected ETypedElement type;
 
 	/**
 	 * The cached value of the '{@link #getInitialValue() <em>Initial Value</em>}' containment reference.
@@ -117,10 +117,10 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClassifier getType() {
+	public ETypedElement getType() {
 		if (type != null && type.eIsProxy()) {
 			InternalEObject oldType = (InternalEObject)type;
-			type = (EClassifier)eResolveProxy(oldType);
+			type = (ETypedElement)eResolveProxy(oldType);
 			if (type != oldType) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ImplementationPackage.VARIABLE_DECLARATION__TYPE, oldType, type));
@@ -134,7 +134,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClassifier basicGetType() {
+	public ETypedElement basicGetType() {
 		return type;
 	}
 
@@ -143,8 +143,8 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setType(EClassifier newType) {
-		EClassifier oldType = type;
+	public void setType(ETypedElement newType) {
+		ETypedElement oldType = type;
 		type = newType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.VARIABLE_DECLARATION__TYPE, oldType, type));
@@ -238,7 +238,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 				setName((String)newValue);
 				return;
 			case ImplementationPackage.VARIABLE_DECLARATION__TYPE:
-				setType((EClassifier)newValue);
+				setType((ETypedElement)newValue);
 				return;
 			case ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
 				setInitialValue((Expression)newValue);
@@ -259,7 +259,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 				setName(NAME_EDEFAULT);
 				return;
 			case ImplementationPackage.VARIABLE_DECLARATION__TYPE:
-				setType((EClassifier)null);
+				setType((ETypedElement)null);
 				return;
 			case ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
 				setInitialValue((Expression)null);
