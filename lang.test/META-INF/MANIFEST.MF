@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Test
-Bundle-SymbolicName: lang.test
+Bundle-SymbolicName: lang.tests
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.junit,
  lang.core,
