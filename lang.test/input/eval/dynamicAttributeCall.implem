@@ -1,4 +1,5 @@
-class ClassA {
+behavior test.dynaattrcall;
+open class ClassA {
 
 	ClassA toSelf;
 	

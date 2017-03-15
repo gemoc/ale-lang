@@ -1,4 +1,5 @@
-class ClassA {
+behavior test.selfdynaattrassign;
+open class ClassA {
 	
 	String attrib := 'foo';
 	

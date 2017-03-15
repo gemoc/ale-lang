@@ -1,4 +1,5 @@
-class ClassA {
+behavior test.reverseforeach;
+open class ClassA {
 	
 	@main
 	def String main() {

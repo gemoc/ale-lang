@@ -1,4 +1,5 @@
-class ClassA {
+behavior test.paramdynaattribassign;
+open class ClassA {
 	
 	String attrib := 'foo';
 	
