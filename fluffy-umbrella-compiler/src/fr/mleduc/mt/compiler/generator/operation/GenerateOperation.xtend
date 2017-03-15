@@ -1,4 +1,4 @@
-package fr.mleduc.mt.compiler.operation
+package fr.mleduc.mt.compiler.generator.operation
 
 import implementation.ExtendedClass
 import implementation.Implementation
@@ -8,14 +8,15 @@ import java.io.FileWriter
 import java.io.IOException
 import org.eclipse.core.resources.IProject
 import org.eclipse.emf.ecore.ETypedElement
+import org.eclipse.emf.ecore.EOperation
 
 class GenerateOperation {
 	
-	private def static dispatch getOperation(Implementation implementation) {
+	private def static dispatch EOperation getOperation(Implementation implementation) {
 		implementation.operationRef
 	}
 	
-	private def static dispatch getOperation(Method method) {
+	private def static dispatch EOperation getOperation(Method method) {
 		method.operationDef
 	}
 	
@@ -25,9 +26,8 @@ class GenerateOperation {
 		val fileContent = '''
 		package «behavior.name».algebra.operation;
 		
-		interface «clazzName» {
+		public interface «clazzName» {
 			«FOR operation: clazz.methods»
-«««			TODO: convert ecore types to java types
 				«IF operation.operation.EType == null»void«ELSE»«operation.operation.toJavaType»«ENDIF» «operation.operation.name»(«FOR param:operation.operation.EParameters SEPARATOR ', '»«param.toJavaType» «param.name»«ENDFOR»);
 
 			«ENDFOR»
@@ -49,7 +49,7 @@ class GenerateOperation {
 	}
 	
 	
-	def static toJavaType(ETypedElement opp) {
+	def static String toJavaType(ETypedElement opp) {
 		if(opp.EGenericType != null) {
 			val type = opp.EType
 			return '''«type.instanceClassName»«FOR t: opp.EGenericType.ETypeArguments BEFORE '<' SEPARATOR ', ' AFTER '>' »«t.EClassifier.instanceClassName»«ENDFOR»'''

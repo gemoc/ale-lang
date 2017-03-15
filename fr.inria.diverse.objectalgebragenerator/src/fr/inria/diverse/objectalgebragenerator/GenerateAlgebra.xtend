@@ -43,6 +43,33 @@ class GenerateAlgebra {
 		clusters.map[x | x.filter[z|!z.elem.abstract].head.elem.abstractType(allTypes)]
 	}
 
+	def String processConcreteAlgebra(EPackage ePackage) { 
+	
+		val graphCurrentPackage = buildGraph(ePackage)
+
+		val  clusters = calculateClusters(graphCurrentPackage)
+		val allTypes = buildAllTypes(clusters)
+		
+		val allConcretTypes = buildConcretTypes(allTypes)
+		
+		val all$Types = allConcretTypes.mapValues[e|e.filter[f|f.elem.EPackage.equals(ePackage)]].
+			filter[p1, p2|!p2.empty]
+	
+		'''
+		package «ePackage.name».algebra.impl;
+		
+		public interface «ePackage.name.toFirstUpper»AlgebraImpl extends «ePackage.name».algebra.«ePackage.name.toFirstUpper»Algebra«FOR x: all$Types.entrySet BEFORE '<' SEPARATOR ', ' AFTER '>'»«x.value.findRootType.operationFullPath(ePackage)»«ENDFOR» {
+			«FOR x: all$Types.entrySet»
+			@Override
+			default «ePackage.name».algebra.impl.operation.«ePackage.name.toFirstUpper»«x.value.findRootType.name.toFirstUpper»Operation «x.value.findRootType.name.toFirstLower»(final «x.value.findRootType.javaFullPath» «x.value.findRootType.name») {
+				return new «ePackage.name».algebra.impl.operation.«ePackage.name.toFirstUpper»«x.value.findRootType.name.toFirstUpper»Operation(«x.value.findRootType.name», this);
+			} 
+			«ENDFOR»
+		}
+		'''
+	}
+	
+
 	def String processAlgebra(EPackage ePackage) {
 
 		val graphCurrentPackage = buildGraph(ePackage)
@@ -241,6 +268,7 @@ class GenerateAlgebra {
 	private def static toPackageName(EPackage ePackage) '''«ePackage.name.toClassName»Algebra'''
 	
 	private def static javaFullPath(EClass eClass) '''«eClass.EPackage.name».«eClass.name»'''
+	private def static operationFullPath(EClass eClass, EPackage rootPackage) '''«rootPackage.name».algebra.operation.«rootPackage.name.toFirstUpper»«eClass.name»Operation'''
 	
 	private def static String toUpperSnake(String name) {
 		name.split("(?=\\p{Upper})").map[toUpperCase].join("_").replaceAll("([A-Z])_([A-Z])_", "$1$2")
