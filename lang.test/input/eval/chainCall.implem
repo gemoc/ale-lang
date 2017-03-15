@@ -1,4 +1,5 @@
-class ClassA {
+behavior test.chainCall;
+open class ClassA {
 	
 	@main
 	def ClassA main() {

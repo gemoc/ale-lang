@@ -1,4 +1,5 @@
-class ClassA {
+behavior test.selfattassign;
+open class ClassA {
 	
 	@main
 	def int main() {

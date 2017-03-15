@@ -1,4 +1,5 @@
-class ClassA {
+behavior test.chainattr;
+open class ClassA {
 	
 	@main
 	def ClassA main() {
