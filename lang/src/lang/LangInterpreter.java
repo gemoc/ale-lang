@@ -120,8 +120,10 @@ public class LangInterpreter {
         this.javaExtensions.addEPackageCallBack(ePackageCallBack);
 	}
     
-    public IEvaluationResult eval(String modelURI, List<Object> args, Dsl dsl) {
-    	
+    /**
+     * Setup the eval environment & parse semantic files
+     */
+    public List<ParseResult<ModelBehavior>> initialize(Dsl dsl) { //TODO: add an option to clear services & epackages before
     	/*
     	 * Register EPackages
     	 */
@@ -216,22 +218,23 @@ public class LangInterpreter {
 	    		});
     	});
     	
+    	return parsedSemantics;
+    }
+    
+    /**
+     * Entry point for an evaluation.
+     */
+    public IEvaluationResult eval(String modelURI, List<Object> args, Dsl dsl) {
+    	
+    	/*
+    	 * Parse semantic files
+    	 */
+    	List<ParseResult<ModelBehavior>> parsedSemantics = initialize(dsl);
     	
     	/*
     	 * Load input model
     	 */
-    	ResourceSet modelRs = new ResourceSetImpl();
-    	modelRs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
-    	queryEnvironment
-	    	.getEPackageProvider()
-	    	.getRegisteredEPackages()
-	    	.stream()
-	    	.forEach(pkg -> {
-	    		modelRs.getPackageRegistry().put(pkg.getNsURI(), pkg);
-	    	});
-    	URI uri = URI.createURI(modelURI);
-		Resource modelRes = modelRs.getResource(uri, true);
-		EObject caller = modelRes.getContents().get(0);
+		EObject caller = loadModel(modelURI).getContents().get(0);
 		
 		/*
 		 * Eval
@@ -242,11 +245,10 @@ public class LangInterpreter {
     
     
     /**
-     * Entry point for an evaluation.
      * Search in {@link dslFile}'s semantics
      * for the first operation tagged 'main' and apply it to {@link caller}
      */
-    private IEvaluationResult eval(EObject caller, List<Object> args, List<ParseResult<ModelBehavior>> parsedSemantics) {
+    public IEvaluationResult eval(EObject caller, List<Object> args, List<ParseResult<ModelBehavior>> parsedSemantics) {
     	
     	Optional<Behaviored> mainOp =
     		parsedSemantics
@@ -333,5 +335,23 @@ public class LangInterpreter {
 	    	.filter(o -> o instanceof EPackage)
 	    	.map(o -> (EPackage) o)
 	    	.collect(Collectors.toList());
+    }
+    
+    /**
+     * Return the resource resolved by this uri.
+     * Ensure to use EPackages registered in the eval environment
+     */
+    public Resource loadModel(String modelURI) {
+    	ResourceSet modelRs = new ResourceSetImpl();
+    	modelRs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
+    	queryEnvironment
+	    	.getEPackageProvider()
+	    	.getRegisteredEPackages()
+	    	.stream()
+	    	.forEach(pkg -> {
+	    		modelRs.getPackageRegistry().put(pkg.getNsURI(), pkg);
+	    	});
+    	URI uri = URI.createURI(modelURI);
+		return modelRs.getResource(uri, true);
     }
 }
