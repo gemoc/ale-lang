@@ -1,4 +1,5 @@
-class EClass {
+behavior test.typeattr;
+open class EClass {
 	int correct := 0;
 	String wrong := 0;
 }

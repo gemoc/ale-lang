@@ -1,4 +1,5 @@
-class EClass {
+behavior test.whilebool;
+open class EClass {
 	def void op(){
 		while('for ever'){
 		}

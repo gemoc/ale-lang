@@ -1,4 +1,5 @@
-class EClass {
+behavior test.assignres;
+open class EClass {
 	def void op(){
 		result := 2;
 	}

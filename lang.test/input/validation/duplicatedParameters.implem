@@ -1,4 +1,5 @@
-class EClass {
+behavior doubleparam;
+open class EClass {
 	def void op(int param, string param){
 	}
 }
