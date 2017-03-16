@@ -1,4 +1,5 @@
-class EClass {
+behavior test.assignfeat;
+open class EClass {
 	def void op(){
 		self.wrong := 'foobar';
 	}

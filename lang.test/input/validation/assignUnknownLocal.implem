@@ -1,4 +1,5 @@
-class EClass {
+behavior test.assignlocal;
+open class EClass {
 	def void op(){
 		wrong := 'foobar';
 	}
