@@ -22,11 +22,11 @@ class GenerateOperation {
 	
 	def generate(ExtendedClass clazz, IProject project) {
 		val behavior = clazz.eContainer as ModelBehavior
-		val clazzName = behavior.name.substring(0, 1).toUpperCase() + behavior.name.substring(1) + clazz.baseClass.name.toFirstUpper+"Operation";
+		val clazzName = behavior.name.toFirstUpper + clazz.baseClass.name.toFirstUpper+"Operation";
 		val fileContent = '''
 		package «behavior.name».algebra.operation;
 		
-		public interface «clazzName» {
+		public interface «clazzName» «FOR ext:clazz.extends BEFORE 'extends' SEPARATOR ', '»«ext.toJavaType»«ENDFOR» {
 			«FOR operation: clazz.methods»
 				«IF operation.operation.EType == null»void«ELSE»«operation.operation.toJavaType»«ENDIF» «operation.operation.name»(«FOR param:operation.operation.EParameters SEPARATOR ', '»«param.toJavaType» «param.name»«ENDFOR»);
 
@@ -56,5 +56,10 @@ class GenerateOperation {
 		} else {
 			return '''«opp.EType.instanceClassName»'''
 		}
+	}
+	
+	def static String toJavaType(ExtendedClass clazz) {
+		val behavior = clazz.eContainer as ModelBehavior
+		'''«behavior.name».algebra.operation.«behavior.name.toFirstUpper»«clazz.baseClass.name.toFirstUpper»Operation'''
 	}
 }

@@ -36,6 +36,8 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import fr.inria.diverse.objectalgebragenerator.GenerateAlgebra;
+import fr.inria.diverse.objectalgebragenerator.Graph;
+import fr.inria.diverse.objectalgebragenerator.Graph.GraphNode;
 import fr.mleduc.mt.compiler.generator.operation.GenerateOperation;
 import implementation.ExtendedClass;
 import implementation.ModelBehavior;
@@ -176,18 +178,33 @@ public class DSLCompiler {
 		this.getRoot().getClassExtensions().forEach(clazz -> {
 			new GenerateOperation().generate(clazz, project);
 		});
-		
+
 		this.generateConcreteAlgebra(rootPackage, project);
+
+		this.generateConcreteOperations(rootPackage, behavior, project);
 
 	}
 
-	private void generateConcreteAlgebra(EPackage ePackage, IProject project) {
-		final String fileContent = new GenerateAlgebra().processConcreteAlgebra(ePackage);
+	private void generateConcreteOperations(final EPackage rootPackage, final String behavior, final IProject project) {
+		Graph<EClass> res = new GenerateAlgebra().buildGraph(rootPackage);
+		res.nodes.forEach(entry -> {
+			generateConceteOperation(entry, project, rootPackage);
+		});
+
+	}
+
+	private void generateConceteOperation(GraphNode<EClass> entry, IProject project, EPackage ePackage) {
+		final String fileContent = new GenerateAlgebra().processConcreteOperation(entry, ePackage);
 		final IPath directoryAlgebra = project.getLocation().append("src").append(ePackage.getName()).append("algebra")
-				.append("impl");
+				.append("impl").append("operation");
 		directoryAlgebra.toFile().mkdirs();
-		final IPath fileJavaAlgebra = directoryAlgebra
-				.append(ePackage.getName().substring(0, 1).toUpperCase() + ePackage.getName().substring(1) + "AlgebraImpl")
+
+		EClass rootType = entry.elem;
+		String ePackageName = rootType.getEPackage().getName().substring(0, 1).toUpperCase()
+				+ rootType.getEPackage().getName().substring(1);
+		String rootTypeName = rootType.getName().substring(0, 1).toUpperCase() + rootType.getName().substring(1);
+		// String typeName = entry.getValue()
+		final IPath fileJavaAlgebra = directoryAlgebra.append(ePackageName + rootTypeName + "Operation")
 				.addFileExtension("java");
 
 		try {
@@ -197,7 +214,25 @@ public class DSLCompiler {
 		} catch (final IOException e) {
 			e.printStackTrace();
 		}
-		
+	}
+
+	private void generateConcreteAlgebra(EPackage ePackage, IProject project) {
+		final String fileContent = new GenerateAlgebra().processConcreteAlgebra(ePackage);
+		final IPath directoryAlgebra = project.getLocation().append("src").append(ePackage.getName()).append("algebra")
+				.append("impl");
+		directoryAlgebra.toFile().mkdirs();
+		final IPath fileJavaAlgebra = directoryAlgebra.append(
+				ePackage.getName().substring(0, 1).toUpperCase() + ePackage.getName().substring(1) + "AlgebraImpl")
+				.addFileExtension("java");
+
+		try {
+			final FileWriter fileWriter = new FileWriter(fileJavaAlgebra.toFile());
+			fileWriter.write(fileContent);
+			fileWriter.close();
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	/**
@@ -211,14 +246,17 @@ public class DSLCompiler {
 	 * @throws IOException
 	 */
 	private EPackage generateDynamicModel(final String projectName, final ResourceSet resSet) throws IOException {
-		final String behaviourName = this.getRoot().getName();
+		final ModelBehavior modelBehavior = this.getRoot();
+		final String behaviourName = modelBehavior.getName();
 		final Map<EClass, List<VariableDeclaration>> clazzList = new HashMap<>();
 
-		final List<ExtendedClass> classExtensions = this.getRoot().getClassExtensions();
+		final List<ExtendedClass> classExtensions = modelBehavior.getClassExtensions();
 		classExtensions.forEach(extendedClass -> {
-			final List<VariableDeclaration> attributes = extendedClass.getAttributes();
-			final EClass baseClass = extendedClass.getBaseClass();
-			clazzList.put(baseClass, attributes);
+			if (!extendedClass.getAttributes().isEmpty()) {
+				final List<VariableDeclaration> attributes = extendedClass.getAttributes();
+				final EClass baseClass = extendedClass.getBaseClass();
+				clazzList.put(baseClass, attributes);
+			}
 		});
 
 		final EPackage dynamicModelPackage = EcoreFactory.eINSTANCE.createEPackage();

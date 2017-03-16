@@ -21,8 +21,8 @@ class GenerateAlgebra {
 		ret
 	}
 	
-	private def Graph<EClass> buildGraph(EPackage ePackage) {
-		val graph1 = new Graph<EClass>();
+	public def Graph<EClass> buildGraph(EPackage ePackage) {
+		val graph1 = new Graph<EClass>()
 		visitPackages(newHashSet(), ePackage, graph1)
 		graph1	
 	}
@@ -42,31 +42,59 @@ class GenerateAlgebra {
 		
 		clusters.map[x | x.filter[z|!z.elem.abstract].head.elem.abstractType(allTypes)]
 	}
+	
+	
+	def calculateAllTypes(EPackage ePackage, boolean global) {
+		buildConcretTypes(buildAllTypes(calculateClusters(buildGraph(ePackage)))).mapValues[e|if(global) e else e.filter[f|f.elem.EPackage.equals(ePackage)]].
+			filter[p1, p2|!p2.empty]
+			
+		}
+		
+	def String processConcreteOperation(GraphNode<EClass> entry, EPackage epackage) {
+		val clazz = entry.elem
+		val all$TypesGlobal = calculateAllTypes(epackage, true) 
+		'''
+		package «epackage.name».algebra.impl.operation;
+		
+		public class «clazz.EPackage.name.toFirstUpper»«clazz.name.toFirstUpper»Operation implements «epackage.name».algebra.operation.«epackage.name.toFirstUpper + clazz.name.toFirstUpper+"Operation"» {
+			
+			private final «clazz.javaFullPath» self;
+			private final «epackage.name».algebra.«epackage.name.toFirstUpper»Algebra«FOR x: all$TypesGlobal.entrySet BEFORE '<' SEPARATOR ', ' AFTER '>'»? extends «x.value.findRootType.operationFullPath(epackage)»«ENDFOR» algebra;
+			
+			public «clazz.EPackage.name.toFirstUpper»«clazz.name.toFirstUpper»Operation(final «clazz.javaFullPath» self, final «epackage.name».algebra.«epackage.name.toFirstUpper»Algebra«FOR x: all$TypesGlobal.entrySet BEFORE '<' SEPARATOR ', ' AFTER '>'»? extends «x.value.findRootType.operationFullPath(epackage)»«ENDFOR» algebra) {
+				this.self = self;
+				this.algebra = algebra;
+			}
+		}
+		'''
+	
+	}
 
 	def String processConcreteAlgebra(EPackage ePackage) { 
 	
-		val graphCurrentPackage = buildGraph(ePackage)
-
-		val  clusters = calculateClusters(graphCurrentPackage)
-		val allTypes = buildAllTypes(clusters)
-		
-		val allConcretTypes = buildConcretTypes(allTypes)
-		
-		val all$Types = allConcretTypes.mapValues[e|e.filter[f|f.elem.EPackage.equals(ePackage)]].
-			filter[p1, p2|!p2.empty]
+		/*
+		 * Here we have to generate one method per class
+		 */
+	
+		val typez = buildGraph(ePackage) 
+		val all$TypesGlobal = calculateAllTypes(ePackage, true) 
 	
 		'''
 		package «ePackage.name».algebra.impl;
 		
-		public interface «ePackage.name.toFirstUpper»AlgebraImpl extends «ePackage.name».algebra.«ePackage.name.toFirstUpper»Algebra«FOR x: all$Types.entrySet BEFORE '<' SEPARATOR ', ' AFTER '>'»«x.value.findRootType.operationFullPath(ePackage)»«ENDFOR» {
-			«FOR x: all$Types.entrySet»
+		public interface «ePackage.name.toFirstUpper»AlgebraImpl extends «ePackage.name».algebra.«ePackage.name.toFirstUpper»Algebra«FOR x: all$TypesGlobal.values BEFORE '<' SEPARATOR ', ' AFTER '>'»«x.findRootType.operationFullPath(ePackage)»«ENDFOR» {
+			«FOR x: typez.nodes»
 			@Override
-			default «ePackage.name».algebra.impl.operation.«ePackage.name.toFirstUpper»«x.value.findRootType.name.toFirstUpper»Operation «x.value.findRootType.name.toFirstLower»(final «x.value.findRootType.javaFullPath» «x.value.findRootType.name») {
-				return new «ePackage.name».algebra.impl.operation.«ePackage.name.toFirstUpper»«x.value.findRootType.name.toFirstUpper»Operation(«x.value.findRootType.name», this);
+			default «ePackage.name».algebra.impl.operation.«x.elem.EPackage.name.toFirstUpper»«x.findRootType(all$TypesGlobal).name.toFirstUpper»Operation «x.findRootType(all$TypesGlobal).name.toFirstLower»(final «x.elem.javaFullPath» «x.elem.name») {
+				return new «ePackage.name».algebra.impl.operation.«x.elem.EPackage.name.toFirstUpper»«x.findRootType(all$TypesGlobal).name.toFirstUpper»Operation(«x.findRootType(all$TypesGlobal).name», this);
 			} 
 			«ENDFOR»
 		}
 		'''
+	}
+	
+	private def EClass findRootType(GraphNode<EClass> node, Map<String, Iterable<GraphNode<EClass>>> clusters) {
+		clusters.values.filter[i | i.exists[e | e.elem === node.elem]].head.findRootType
 	}
 	
 
@@ -85,8 +113,7 @@ class GenerateAlgebra {
 		
 		val allDirectPackages = allMethods.allDirectPackages(ePackage) 
 
-		val all$Types = allConcretTypes.mapValues[e|e.filter[f|f.elem.EPackage.equals(ePackage)]].
-			filter[p1, p2|!p2.empty]
+		val all$Types = calculateAllTypes(ePackage, false)
 		
 		'''
 		package «ePackage.name».algebra;
@@ -99,7 +126,7 @@ class GenerateAlgebra {
 				}
 
 			«ENDFOR»
-			«FOR abstractTypes : all$Types.entrySet SEPARATOR '\n'»
+			«FOR abstractTypes : all$Types.entrySet.filter[tmp | tmp.concretTypes(ePackage).size > 0] SEPARATOR '\n'»
 			«IF abstractTypes.value.getDirectPackages(ePackage).size > 0»@Override«ENDIF»			
 			public default «abstractTypes.key» $(final «abstractTypes.value.findRootType.javaFullPath» «abstractTypes.value.findRootType.name.toFirstLower») {
 				final «abstractTypes.key» ret;
@@ -180,7 +207,7 @@ class GenerateAlgebra {
 		entry.map[outgoing].flatten.map[e|e.elem.EPackage].filter[e|!e.equals(currentPackage)].toSet.sortBy[name]
 	}
 
-	private def EClass getFindRootType(Iterable<GraphNode<EClass>> nodes) {
+	public def static EClass getFindRootType(Iterable<GraphNode<EClass>> nodes) {
 		val roots = nodes.map[roots].flatten.toSet
 		if (roots.size >
 			1) {
@@ -235,7 +262,7 @@ class GenerateAlgebra {
 	}
 
 	private def void addParents(Graph<EClass> graph1, EClass e) {
-		println('''# Add class «e.name»''')
+		//println('''# Add class «e.name»''')
 		val node = graph1.addNode(e)
 		e.ESuperTypes.forEach [ f |
 			val node2 = graph1.addNode(f)

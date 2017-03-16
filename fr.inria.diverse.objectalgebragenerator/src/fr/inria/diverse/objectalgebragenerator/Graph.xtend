@@ -39,9 +39,9 @@ class Graph<E> {
 		}
 
 		override boolean equals(Object obj) {
-			println('''comparing ELEMENTS''')
+//			println('''comparing ELEMENTS''')
 			if (obj instanceof GraphNode) {
-				println('''comparing obj («obj.elem === elem») «obj.elem» TO «elem»''')
+//				println('''comparing obj («obj.elem === elem») «obj.elem» TO «elem»''')
 				obj.elem === elem
 			} else {
 				false

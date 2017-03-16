@@ -2,8 +2,11 @@
 ## Generate Abstract Operation
 - Defining inherited interfaces from imported semantics
 ## Generate concrete Operations
-- TODO
+- TODO -> generate methods in concete operations + aql to java
 
 ## Generate concrete algebra
 Requires the definition of the concrete operations.
-- Generate the concrete algebra with matching types.
+
+
+## Type system
+Define type system !

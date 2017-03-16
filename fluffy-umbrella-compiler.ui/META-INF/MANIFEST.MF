@@ -8,5 +8,6 @@ Require-Bundle: org.eclipse.ui,
  lang.core;bundle-version="1.0.0",
  fluffy-umbrella-compiler;bundle-version="1.0.0",
  org.eclipse.emf.codegen.ecore;bundle-version="2.12.0",
- org.eclipse.core.runtime;bundle-version="3.12.0"
+ org.eclipse.core.runtime;bundle-version="3.12.0",
+ fr.inria.diverse.objectalgebragenerator;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
