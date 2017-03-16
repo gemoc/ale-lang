@@ -1,7 +1,11 @@
 package lang.core.interpreter;
 
 import org.eclipse.acceleo.query.runtime.AcceleoQueryEvaluationException;
+import org.eclipse.acceleo.query.runtime.EvaluationResult;
+import org.eclipse.acceleo.query.runtime.IQueryEvaluationEngine;
+import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
@@ -12,6 +16,9 @@ import lang.core.interpreter.services.DynamicFeatureAccessService;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -148,4 +155,41 @@ public class DynamicFeatureRegistry {
 		
 		return extendedInstance;
 	}
+	
+    /**
+     * Initialize dynamic feature for each EObject of the model
+     */
+    public void dynamicModelConstructor(Set<EObject> model, IQueryEvaluationEngine aqlEngine) {
+		model.forEach(obj -> {
+			List<ExtendedClass> extensions = findExtensionFor(obj);
+			init(obj, extensions, aqlEngine);
+		});
+	}
+    
+    private List<ExtendedClass> findExtensionFor(EObject instance) {
+    	return 
+    		allImplemModels
+	    	.stream()
+	    	.flatMap(mb -> mb.getClassExtensions().stream())
+	    	.filter(xtdCls -> xtdCls.getBaseClass().isSuperTypeOf(instance.eClass()))
+	    	.collect(Collectors.toList());
+    }
+    
+    private void init(EObject instance, List<ExtendedClass> extensions, IQueryEvaluationEngine aqlEngine) {
+    	Map<String,Object> extendedInstance = getExtensionFeatures(instance);
+    	
+    	Map<String,Object> scope = new HashMap<String,Object>();
+    	scope.put("self", instance);
+    	
+    	extensions
+			.stream()
+			.flatMap(xtdCls -> xtdCls.getAttributes().stream())
+			.filter(attr -> attr.getInitialValue() != null)
+			.forEach(attr -> {
+				AstResult dummyAstResult = new AstResult(attr.getInitialValue(), new HashMap(), new HashMap(), new ArrayList(), new BasicDiagnostic());
+				EvaluationResult result = aqlEngine.eval(dummyAstResult, scope); //TODO: forward diagnotic
+				Object value = result.getResult();
+				extendedInstance.put(attr.getName(), value);
+			});
+    }
 }
