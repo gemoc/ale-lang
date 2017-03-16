@@ -77,6 +77,16 @@ public class EvalTest {
 	}
 	
 	@Test
+	public void testAccessCreateDynamicAttribute(){
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/createDynamicAttribute.implem"));
+		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals("foo",res.getValue());
+	}
+	
+	@Test
 	public void testAccessLocalDynamicAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/localDynamicAttribute.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);

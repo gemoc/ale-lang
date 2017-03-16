@@ -62,7 +62,7 @@ public class EvalEnvironment {
 			Method logMethod = LogService.class.getMethod("log",Object.class);
 			qryEnv.registerService(new JavaMethodService(logMethod, null));
 			Method createMethod = FactoryService.class.getMethod("create",EClass.class);
-			qryEnv.registerService(new JavaMethodService(createMethod, null));
+			qryEnv.registerService(new JavaMethodService(createMethod, new FactoryService(this)));
 			Method cosMethod = TrigoServices.class.getMethod("cosinus",Double.class);
 			qryEnv.registerService(new JavaMethodService(cosMethod, null));
 			Method sinMethod = TrigoServices.class.getMethod("sinus",Double.class);
