@@ -25,6 +25,7 @@ import org.eclipse.acceleo.query.validation.type.ICollectionType;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
@@ -617,7 +618,31 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					endPosition
 					));
 		}
-		else{
+		else {
+			Behaviored op = getContainingOperation(varAssign);
+			List<EParameter> params = new ArrayList<EParameter>();
+			if(op instanceof Implementation) {
+				params = ((Implementation)op).getOperationRef().getEParameters();
+			}
+			else if(op instanceof Method) {
+				params = ((Method)op).getOperationDef().getEParameters();
+			}
+			Optional<EParameter> matchingParam = 
+				params
+				.stream()
+				.filter(param -> param.getName().equals(varAssign.getName()))
+				.findFirst();
+			if(matchingParam.isPresent()){
+				int startPostion = model.getStartPositions().get(varAssign);
+				int endPosition = model.getEndPositions().get(varAssign);
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(PARAM_ASSIGN,varAssign.getName()),
+						startPostion,
+						endPosition
+						));
+			}
+			
 			Set<IType> currentTypes = declaringScope.get(varAssign.getName());
 			currentTypes.addAll(expValidation.getPossibleTypes(varAssign.getValue()));
 		}
@@ -801,5 +826,13 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			}
 		}
 		return null;
+	}
+	
+	private Behaviored getContainingOperation(VariableAssignment varAssign) {
+		EObject parent = varAssign.eContainer();
+		while(parent != null && !(parent instanceof Behaviored)){
+			parent = parent.eContainer();
+		}
+		return (Behaviored)parent;
 	}
 }
