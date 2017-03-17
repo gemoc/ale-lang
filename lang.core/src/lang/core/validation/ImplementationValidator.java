@@ -744,49 +744,54 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					endPosition
 					));
 		}
-		
-		Map<String, Set<IType>> lastScope = variableTypesStack.peek();
-		if(lastScope.get(varDecl.getName()) != null){
-			int startPostion = model.getStartPositions().get(varDecl);
-			int endPosition = model.getEndPositions().get(varDecl);
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(NAME_ALREADY_USED,varDecl.getName()),
-					startPostion,
-					endPosition
-					));
-		}
-		else if(expValidation != null){
-			lastScope.put(varDecl.getName(), expValidation.getPossibleTypes(varDecl.getInitialValue()));
-		}
 		else {
-			EClassifierType declaredType = new EClassifierType(qryEnv, varDecl.getType());
-			Set<IType> typeSet = new HashSet<IType>();
-			typeSet.add(declaredType);
-			lastScope.put(varDecl.getName(), typeSet);
+			Map<String, Set<IType>> lastScope = variableTypesStack.peek();
+			Map<String, Set<IType>> declaringScope = findScope(varDecl.getName());
+			if(declaringScope != null){
+				int startPostion = model.getStartPositions().get(varDecl);
+				int endPosition = model.getEndPositions().get(varDecl);
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(NAME_ALREADY_USED,varDecl.getName()),
+						startPostion,
+						endPosition
+						));
+			}
+			else if(expValidation != null){
+				lastScope.put(varDecl.getName(), expValidation.getPossibleTypes(varDecl.getInitialValue()));
+			}
+			else {
+				EClassifierType declaredType = new EClassifierType(qryEnv, varDecl.getType());
+				Set<IType> typeSet = new HashSet<IType>();
+				typeSet.add(declaredType);
+				lastScope.put(varDecl.getName(), typeSet);
+			}
 		}
 		
 		/*
 		 * Check assignment type
 		 */
+		Map<String, Set<IType>> lastScope = variableTypesStack.peek();
 		EClassifierType varType = new EClassifierType(qryEnv, varDecl.getType());
 		Set<IType> inferredTypes = lastScope.get(varDecl.getName());
-		Optional<IType> existResult = inferredTypes.stream().filter(t -> varType.isAssignableFrom(t)).findAny();
-		if(!existResult.isPresent()){
-			String inferredToString = 
-					inferredTypes
-					.stream()
-					.map(type -> type.toString())
-					.collect(Collectors.joining(",","[","]"));
-			
-			int startPostion = model.getStartPositions().get(varDecl);
-			int endPosition = model.getEndPositions().get(varDecl);
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(INCOMPATIBLE_TYPE,varDecl.getType().getName(),inferredToString),
-					startPostion,
-					endPosition
-					));
+		if(inferredTypes != null) {
+			Optional<IType> existResult = inferredTypes.stream().filter(t -> varType.isAssignableFrom(t)).findAny();
+			if(!existResult.isPresent()){
+				String inferredToString = 
+						inferredTypes
+						.stream()
+						.map(type -> type.toString())
+						.collect(Collectors.joining(",","[","]"));
+				
+				int startPostion = model.getStartPositions().get(varDecl);
+				int endPosition = model.getEndPositions().get(varDecl);
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(INCOMPATIBLE_TYPE,varDecl.getType().getName(),inferredToString),
+						startPostion,
+						endPosition
+						));
+			}
 		}
 		
 		return null;
