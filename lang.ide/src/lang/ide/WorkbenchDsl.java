@@ -7,7 +7,7 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.URI;
 
-import lang.Dsl;
+import lang.core.parser.Dsl;
 
 public class WorkbenchDsl extends Dsl {
 
