@@ -1,4 +1,5 @@
-class EClass {
+behavior test.attlocal;
+open class EClass {
 	int foo := 0;
 	def void op(String foo){
 		int foo := 5;

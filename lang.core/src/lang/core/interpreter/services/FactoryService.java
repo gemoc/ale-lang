@@ -4,12 +4,24 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import com.google.common.collect.Sets;
+
+import lang.core.interpreter.EvalEnvironment;
+
 /**
  * AQL service to create instance of EClass
  */
 public class FactoryService {
 	
-	public static EObject create(EClass cls) {
-		return EcoreUtil.create(cls);
-	}	
+	EvalEnvironment evalEnv;
+	
+	public FactoryService(EvalEnvironment evalEnv) {
+		this.evalEnv = evalEnv;
+	}
+	
+	public EObject create(EClass cls) {
+		EObject newInstance = EcoreUtil.create(cls);
+		evalEnv.initialize(Sets.newHashSet(newInstance));
+		return newInstance;
+	}
 }

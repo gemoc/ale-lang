@@ -25,6 +25,9 @@ import org.eclipse.acceleo.query.validation.type.ICollectionType;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
@@ -605,7 +608,27 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					));
 		}
 		else if(varAssign.getName().equals("result")){
-			//FIXME: check operation return type
+			Behaviored op = getContainingOperation(varAssign);
+			boolean isVoidOp = false;
+			if(op instanceof Implementation) {
+				EOperation eOp = ((Implementation)op).getOperationRef();
+				isVoidOp = eOp.getEType() == null && eOp.getEGenericType() == null;
+			}
+			else if(op instanceof Method) {
+				EOperation eOp = ((Method)op).getOperationDef();
+				isVoidOp = eOp.getEType() == null && eOp.getEGenericType() == null;
+			}
+			
+			if(isVoidOp) {
+				int startPostion = model.getStartPositions().get(varAssign);
+				int endPosition = model.getEndPositions().get(varAssign);
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(VOID_RESULT_ASSIGN,varAssign.getName()),
+						startPostion,
+						endPosition
+						));
+			}
 		}
 		else if(varAssign.getName().equals("self")){
 			int startPostion = model.getStartPositions().get(varAssign);
@@ -617,7 +640,31 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					endPosition
 					));
 		}
-		else{
+		else {
+			Behaviored op = getContainingOperation(varAssign);
+			List<EParameter> params = new ArrayList<EParameter>();
+			if(op instanceof Implementation) {
+				params = ((Implementation)op).getOperationRef().getEParameters();
+			}
+			else if(op instanceof Method) {
+				params = ((Method)op).getOperationDef().getEParameters();
+			}
+			Optional<EParameter> matchingParam = 
+				params
+				.stream()
+				.filter(param -> param.getName().equals(varAssign.getName()))
+				.findFirst();
+			if(matchingParam.isPresent()){
+				int startPostion = model.getStartPositions().get(varAssign);
+				int endPosition = model.getEndPositions().get(varAssign);
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(PARAM_ASSIGN,varAssign.getName()),
+						startPostion,
+						endPosition
+						));
+			}
+			
 			Set<IType> currentTypes = declaringScope.get(varAssign.getName());
 			currentTypes.addAll(expValidation.getPossibleTypes(varAssign.getValue()));
 		}
@@ -626,6 +673,39 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		 * Check assignment type
 		 */
 		//FIXME: look for declaration
+		if(varAssign.getName().equals("result")) {
+			Behaviored op = getContainingOperation(varAssign);
+			EClassifier returnType = null;
+			if(op instanceof Implementation) {
+				EOperation eOp = ((Implementation)op).getOperationRef();
+				returnType = eOp.getEType();
+			}
+			else if(op instanceof Method) {
+				EOperation eOp = ((Method)op).getOperationDef();
+				returnType = eOp.getEType();
+			}
+			
+			if(returnType != null) {
+				EClassifierType declaredType = new EClassifierType(qryEnv, returnType);
+				Set<IType> inferredTypes = expValidation.getPossibleTypes(varAssign.getValue());
+				Optional<IType> matchingType = inferredTypes.stream().filter(type -> declaredType.isAssignableFrom(type)).findAny();
+				if(!matchingType.isPresent()){
+					String types = 
+							inferredTypes
+							.stream()
+							.map(type -> type.toString())
+							.collect(Collectors.joining(",","[","]"));
+					int startPostion = model.getStartPositions().get(varAssign);
+					int endPosition = model.getEndPositions().get(varAssign);
+					msgs.add(new ValidationMessage(
+							ValidationMessageLevel.ERROR,
+							String.format(INCOMPATIBLE_TYPE,returnType.getName(),types),
+							startPostion,
+							endPosition
+							));
+				}
+			}
+		}
 		
 		return null;
 	}
@@ -664,49 +744,54 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					endPosition
 					));
 		}
-		
-		Map<String, Set<IType>> lastScope = variableTypesStack.peek();
-		if(lastScope.get(varDecl.getName()) != null){
-			int startPostion = model.getStartPositions().get(varDecl);
-			int endPosition = model.getEndPositions().get(varDecl);
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(NAME_ALREADY_USED,varDecl.getName()),
-					startPostion,
-					endPosition
-					));
-		}
-		else if(expValidation != null){
-			lastScope.put(varDecl.getName(), expValidation.getPossibleTypes(varDecl.getInitialValue()));
-		}
 		else {
-			EClassifierType declaredType = new EClassifierType(qryEnv, varDecl.getType().getEType());
-			Set<IType> typeSet = new HashSet<IType>();
-			typeSet.add(declaredType);
-			lastScope.put(varDecl.getName(), typeSet);
+			Map<String, Set<IType>> lastScope = variableTypesStack.peek();
+			Map<String, Set<IType>> declaringScope = findScope(varDecl.getName());
+			if(declaringScope != null){
+				int startPostion = model.getStartPositions().get(varDecl);
+				int endPosition = model.getEndPositions().get(varDecl);
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(NAME_ALREADY_USED,varDecl.getName()),
+						startPostion,
+						endPosition
+						));
+			}
+			else if(expValidation != null){
+				lastScope.put(varDecl.getName(), expValidation.getPossibleTypes(varDecl.getInitialValue()));
+			}
+			else {
+				EClassifierType declaredType = new EClassifierType(qryEnv, varDecl.getType());
+				Set<IType> typeSet = new HashSet<IType>();
+				typeSet.add(declaredType);
+				lastScope.put(varDecl.getName(), typeSet);
+			}
 		}
 		
 		/*
 		 * Check assignment type
 		 */
-		EClassifierType varType = new EClassifierType(qryEnv, varDecl.getType().getEType());
+		Map<String, Set<IType>> lastScope = variableTypesStack.peek();
+		EClassifierType varType = new EClassifierType(qryEnv, varDecl.getType());
 		Set<IType> inferredTypes = lastScope.get(varDecl.getName());
-		Optional<IType> existResult = inferredTypes.stream().filter(t -> varType.isAssignableFrom(t)).findAny();
-		if(!existResult.isPresent()){
-			String inferredToString = 
-					inferredTypes
-					.stream()
-					.map(type -> type.toString())
-					.collect(Collectors.joining(",","[","]"));
-			
-			int startPostion = model.getStartPositions().get(varDecl);
-			int endPosition = model.getEndPositions().get(varDecl);
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(INCOMPATIBLE_TYPE,varDecl.getType().getName(),inferredToString),
-					startPostion,
-					endPosition
-					));
+		if(inferredTypes != null) {
+			Optional<IType> existResult = inferredTypes.stream().filter(t -> varType.isAssignableFrom(t)).findAny();
+			if(!existResult.isPresent()){
+				String inferredToString = 
+						inferredTypes
+						.stream()
+						.map(type -> type.toString())
+						.collect(Collectors.joining(",","[","]"));
+				
+				int startPostion = model.getStartPositions().get(varDecl);
+				int endPosition = model.getEndPositions().get(varDecl);
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(INCOMPATIBLE_TYPE,varDecl.getType().getName(),inferredToString),
+						startPostion,
+						endPosition
+						));
+			}
 		}
 		
 		return null;
@@ -801,5 +886,13 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			}
 		}
 		return null;
+	}
+	
+	private Behaviored getContainingOperation(VariableAssignment varAssign) {
+		EObject parent = varAssign.eContainer();
+		while(parent != null && !(parent instanceof Behaviored)){
+			parent = parent.eContainer();
+		}
+		return (Behaviored)parent;
 	}
 }

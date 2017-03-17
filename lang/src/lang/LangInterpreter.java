@@ -1,18 +1,13 @@
 package lang;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Properties;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.acceleo.query.ast.AstPackage;
@@ -29,7 +24,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.sirius.common.tools.api.interpreter.ClassLoadingCallback;
 import org.eclipse.sirius.common.tools.api.interpreter.EPackageLoadingCallback;
@@ -234,7 +228,8 @@ public class LangInterpreter {
     	/*
     	 * Load input model
     	 */
-		EObject caller = loadModel(modelURI).getContents().get(0);
+    	Resource model = loadModel(modelURI);
+		EObject caller = model.getContents().get(0);
 		
 		/*
 		 * Eval
@@ -243,8 +238,7 @@ public class LangInterpreter {
 		
     }
     
-    
-    /**
+	/**
      * Search in {@link dslFile}'s semantics
      * for the first operation tagged 'main' and apply it to {@link caller}
      */
@@ -303,9 +297,45 @@ public class LangInterpreter {
 		    	.map(sem -> sem.getRoot())
 		    	.collect(Collectors.toList());
     	logger = new DiagnosticLogger(parsedSemantics);
+    	
     	EvalEnvironment env = new EvalEnvironment(queryEnvironment, allBehaviors, logger);
+    	List<Object> inputElems = new ArrayList<Object>();
+    	inputElems.add(caller);
+    	inputElems.addAll(args);
+    	initDynamicFeatures(inputElems,env);
+    	
     	ImplementationEngine engine = new ImplementationEngine(env);
     	return engine.eval(caller, operation, args);
+    }
+    
+    private void initDynamicFeatures(List<Object> inputElems, EvalEnvironment env) {
+    	
+    	Set<EObject> accessibleInputElements = new HashSet<EObject>();
+    	
+    	Set<Resource> allResources = 
+    		inputElems
+	    	.stream()
+	    	.filter(elem -> elem instanceof EObject)
+	    	.map(elem -> ((EObject)elem).eResource())
+	    	.filter(res -> res != null)
+	    	.collect(Collectors.toSet());
+    	
+    	//EObject from accessible resources
+    	allResources
+    		.forEach(res -> 
+    			res.getAllContents().forEachRemaining(e ->
+    				accessibleInputElements.add(e)
+    			)
+    		);
+    	
+    	//EObject outside a resource
+    	inputElems
+	    	.stream()
+	    	.filter(elem -> elem instanceof EObject)
+	    	.filter(elem -> ((EObject)elem).eResource() == null)
+	    	.forEach(elem -> accessibleInputElements.add((EObject)elem));
+    	
+    	env.initialize(accessibleInputElements);
     }
     
     private Optional<Behaviored> getMainOp(ModelBehavior implem) {

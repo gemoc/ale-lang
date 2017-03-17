@@ -1,0 +1,10 @@
+behavior test.createDynamicAttribute;
+open class ClassA {
+	
+	String attrib := 'foo';
+	
+	@main
+	def ClassA main() {
+		result := test::ClassA.create().attrib;
+	}
+}
