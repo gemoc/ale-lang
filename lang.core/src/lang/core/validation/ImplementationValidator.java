@@ -25,6 +25,7 @@ import org.eclipse.acceleo.query.validation.type.ICollectionType;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
@@ -672,6 +673,39 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		 * Check assignment type
 		 */
 		//FIXME: look for declaration
+		if(varAssign.getName().equals("result")) {
+			Behaviored op = getContainingOperation(varAssign);
+			EClassifier returnType = null;
+			if(op instanceof Implementation) {
+				EOperation eOp = ((Implementation)op).getOperationRef();
+				returnType = eOp.getEType();
+			}
+			else if(op instanceof Method) {
+				EOperation eOp = ((Method)op).getOperationDef();
+				returnType = eOp.getEType();
+			}
+			
+			if(returnType != null) {
+				EClassifierType declaredType = new EClassifierType(qryEnv, returnType);
+				Set<IType> inferredTypes = expValidation.getPossibleTypes(varAssign.getValue());
+				Optional<IType> matchingType = inferredTypes.stream().filter(type -> declaredType.isAssignableFrom(type)).findAny();
+				if(!matchingType.isPresent()){
+					String types = 
+							inferredTypes
+							.stream()
+							.map(type -> type.toString())
+							.collect(Collectors.joining(",","[","]"));
+					int startPostion = model.getStartPositions().get(varAssign);
+					int endPosition = model.getEndPositions().get(varAssign);
+					msgs.add(new ValidationMessage(
+							ValidationMessageLevel.ERROR,
+							String.format(INCOMPATIBLE_TYPE,returnType.getName(),types),
+							startPostion,
+							endPosition
+							));
+				}
+			}
+		}
 		
 		return null;
 	}

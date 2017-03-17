@@ -263,7 +263,7 @@ public class ValidatorTest {
 		
 		assertEquals(2, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 63, 74, "'result' is assigned in void operation", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 122, 133, "Expected [EString] but was [java.lang.Integer]", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 122, 133, "Expected EString but was [java.lang.Integer]", msg.get(1));
 	}
 	
 	@Test
