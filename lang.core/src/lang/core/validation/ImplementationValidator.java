@@ -26,6 +26,7 @@ import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
@@ -606,7 +607,27 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					));
 		}
 		else if(varAssign.getName().equals("result")){
-			//FIXME: check operation return type
+			Behaviored op = getContainingOperation(varAssign);
+			boolean isVoidOp = false;
+			if(op instanceof Implementation) {
+				EOperation eOp = ((Implementation)op).getOperationRef();
+				isVoidOp = eOp.getEType() == null && eOp.getEGenericType() == null;
+			}
+			else if(op instanceof Method) {
+				EOperation eOp = ((Method)op).getOperationDef();
+				isVoidOp = eOp.getEType() == null && eOp.getEGenericType() == null;
+			}
+			
+			if(isVoidOp) {
+				int startPostion = model.getStartPositions().get(varAssign);
+				int endPosition = model.getEndPositions().get(varAssign);
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(VOID_RESULT_ASSIGN,varAssign.getName()),
+						startPostion,
+						endPosition
+						));
+			}
 		}
 		else if(varAssign.getName().equals("self")){
 			int startPostion = model.getStartPositions().get(varAssign);
