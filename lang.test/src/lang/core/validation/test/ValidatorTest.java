@@ -132,7 +132,7 @@ public class ValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 91, 119, "The name localVar is already used", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 93, 110, "The name localVar is already used", msg.get(0));
 	}
 	
 	@Test
