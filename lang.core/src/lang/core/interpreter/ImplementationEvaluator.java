@@ -15,7 +15,6 @@ import implementation.If;
 import implementation.ExpressionStatement;
 import java.util.Map;
 import java.util.Stack;
-import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine;
 import org.eclipse.acceleo.query.runtime.IQueryEvaluationEngine;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;

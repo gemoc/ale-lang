@@ -1,36 +1,28 @@
 package lang.core.interpreter;
 
-import implementation.Behaviored;
-import implementation.ExtendedClass;
-import implementation.ModelBehavior;
-import implementation.RuntimeClass;
-import lang.core.interpreter.services.DynamicFeatureAccessService;
-import lang.core.interpreter.services.EvalBodyService;
-import lang.core.interpreter.services.FactoryService;
-import lang.core.interpreter.services.LogService;
-import lang.core.interpreter.services.TrigoServices;
-import lang.core.parser.visitor.ModelBuilder;
-
-import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
-import org.eclipse.acceleo.query.runtime.impl.JavaMethodService;
-import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.Stack;
 import java.util.stream.Collectors;
+
+import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
+import org.eclipse.acceleo.query.runtime.impl.JavaMethodService;
+import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+
+import implementation.Behaviored;
+import implementation.ExtendedClass;
+import implementation.ModelBehavior;
+import lang.core.interpreter.services.DynamicFeatureAccessService;
+import lang.core.interpreter.services.EvalBodyService;
+import lang.core.interpreter.services.FactoryService;
+import lang.core.interpreter.services.LogService;
+import lang.core.interpreter.services.TrigoServices;
 
 /**
  * This class is the context of an evaluation.
@@ -70,7 +62,7 @@ public class EvalEnvironment {
 			Method logMethod = LogService.class.getMethod("log",Object.class);
 			qryEnv.registerService(new JavaMethodService(logMethod, null));
 			Method createMethod = FactoryService.class.getMethod("create",EClass.class);
-			qryEnv.registerService(new JavaMethodService(createMethod, null));
+			qryEnv.registerService(new JavaMethodService(createMethod, new FactoryService(this)));
 			Method cosMethod = TrigoServices.class.getMethod("cosinus",Double.class);
 			qryEnv.registerService(new JavaMethodService(cosMethod, null));
 			Method sinMethod = TrigoServices.class.getMethod("sinus",Double.class);
@@ -204,4 +196,12 @@ public class EvalEnvironment {
 		}
 		return priority;
 	}
+	
+	/**
+	 * Set initial values for dynamic attributes 
+	 */
+	public void initialize(Set<EObject> model) {
+		this.dynamicFeatures.dynamicModelConstructor(model, new QueryEvaluationEngine(qryEnv));
+	}
+	
 }

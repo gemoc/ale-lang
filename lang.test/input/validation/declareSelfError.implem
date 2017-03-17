@@ -1,4 +1,5 @@
-class EClass {
+behavior test.declself;
+open class EClass {
 	int self := 5;
 	def int op(int self){
 		int self := 5;

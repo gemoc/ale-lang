@@ -1,4 +1,5 @@
-class EClass {
+behavior test.assignparam;
+open class EClass {
 	def void op(int param){
 		param := 11;
 	}
