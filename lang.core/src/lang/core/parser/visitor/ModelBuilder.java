@@ -311,6 +311,7 @@ public class ModelBuilder {
 			subPkg.setName(segment);
 			parent.getESubpackages().add(subPkg);
 			parent = subPkg;
+			i++;
 		}
 		
 		return newPkg;
