@@ -20,9 +20,10 @@ import org.junit.Test;
 
 import implementation.ImplementationPackage;
 import implementation.ModelBehavior;
-import lang.Dsl;
 import lang.LangInterpreter;
 import lang.core.parser.AstBuilder;
+import lang.core.parser.Dsl;
+import lang.core.parser.DslBuilder;
 import lang.core.parser.visitor.ParseResult;
 import lang.core.validation.ImplementationValidator;
 
@@ -41,7 +42,7 @@ public class ValidatorTest {
 	@Test
 	public void testAttributeDuplication(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/duplicatedAttrib.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -55,7 +56,7 @@ public class ValidatorTest {
 	@Test
 	public void testTypeErrorAttribute(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/typeErrorAttrib.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -69,7 +70,7 @@ public class ValidatorTest {
 	@Test
 	public void testParamDuplication(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/duplicatedParameters.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -83,7 +84,7 @@ public class ValidatorTest {
 	@Test
 	public void testLocalDuplication(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/duplicatedLocalVariable.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -97,7 +98,7 @@ public class ValidatorTest {
 	@Test
 	public void testTypeErrorLocal(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/typeErrorLocal.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -111,7 +112,7 @@ public class ValidatorTest {
 	@Test
 	public void testNoConflictAttribParamLocal(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/noConflictAttribParamLocal.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -124,7 +125,7 @@ public class ValidatorTest {
 	@Test
 	public void testScopeLocal(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/scopeLocalVariable.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -138,7 +139,7 @@ public class ValidatorTest {
 	@Test
 	public void testScopeTypeErrorLocal(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/scopeTypeErrorLocal.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -152,7 +153,7 @@ public class ValidatorTest {
 	@Test
 	public void testResultDeclarationError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareResultError.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -168,7 +169,7 @@ public class ValidatorTest {
 	@Test
 	public void testSelfDeclarationError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareSelfError.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -184,7 +185,7 @@ public class ValidatorTest {
 	@Test
 	public void testLocalAssignTypeError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignLocalTypeError.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -198,7 +199,7 @@ public class ValidatorTest {
 	@Test
 	public void testUnknownLocalAssign(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignUnknownLocal.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -212,7 +213,7 @@ public class ValidatorTest {
 	@Test
 	public void testAttributeAssignTypeError(){ //dynamic attribute
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignAttributeTypeError.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -226,7 +227,7 @@ public class ValidatorTest {
 	@Test
 	public void testFeatureAssignTypeError(){ //EStructural feature
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignFeatureTypeError.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -240,7 +241,7 @@ public class ValidatorTest {
 	@Test
 	public void testUnknownFeatureAssign(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignUnknownFeature.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -254,7 +255,7 @@ public class ValidatorTest {
 	@Test
 	public void testResultAssignTypeError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignResult.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -269,7 +270,7 @@ public class ValidatorTest {
 	@Test
 	public void testParamAssignError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignParamError.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -283,7 +284,7 @@ public class ValidatorTest {
 	@Test
 	public void testSelfAssignError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignSelfError.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -297,7 +298,7 @@ public class ValidatorTest {
 	@Test
 	public void testFeatureInsertTypeError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertTypeError.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -311,7 +312,7 @@ public class ValidatorTest {
 	@Test
 	public void testFeatureRemoveTypeError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveTypeError.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -325,7 +326,7 @@ public class ValidatorTest {
 	@Test
 	public void testForEachCollectionError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachCollectionError.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -339,7 +340,7 @@ public class ValidatorTest {
 	@Test
 	public void testIfBooleanError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/ifBooleanError.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -353,7 +354,7 @@ public class ValidatorTest {
 	@Test
 	public void testWhileBooelanError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/whileBooleanError.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
@@ -367,7 +368,7 @@ public class ValidatorTest {
 	@Test
 	public void testOperationDuplication(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/operationDuplication.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = interpreter.initialize(environment);
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());

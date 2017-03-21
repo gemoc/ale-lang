@@ -1,4 +1,4 @@
-package lang;
+package lang.core.parser;
 
 import java.io.FileInputStream;
 import java.io.IOException;

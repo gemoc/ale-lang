@@ -30,10 +30,10 @@ import implementation.ImplementationPackage;
 import implementation.ModelBehavior;
 import kmLogo.ASM.ASMPackage;
 import kmLogo.ASM.LogoProgram;
-import lang.Dsl;
 import lang.LangInterpreter;
 import lang.core.interpreter.DiagnosticLogger;
 import lang.core.interpreter.ImplementationEvaluator;
+import lang.core.parser.Dsl;
 import lang.core.parser.visitor.ParseResult;
 import vmlogo.VmlogoPackage;
 
