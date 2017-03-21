@@ -337,13 +337,13 @@ public class ModelBuilder {
 				EReference newRef = (EReference) EcoreUtil.create(eRefClass);
 				newRef.setName(name);
 				newRef.setEType(type);
-				res.getEReferences().add(newRef);
+				res.getEStructuralFeatures().add(newRef);
 			}
 			else if(type instanceof EDataType) {
 				EAttribute newAttr = (EAttribute) EcoreUtil.create(eAttClass);
 				newAttr.setName(name);
 				newAttr.setEType(type);
-				res.getEAttributes().add(newAttr);
+				res.getEStructuralFeatures().add(newAttr);
 			}
 		});
 		
