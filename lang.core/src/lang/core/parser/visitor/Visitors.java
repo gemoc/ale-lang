@@ -22,6 +22,9 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
 import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import lang.core.parser.XtdAQLBaseVisitor;
 import lang.core.parser.XtdAQLParser.RAssignContext;
@@ -569,6 +572,16 @@ public class Visitors {
 					.map(cls -> subVisitor1.visit(cls))
 					.collect(Collectors.toList())
 					);
+			NewClassVisitor subVisitor2 = new NewClassVisitor(parseRes);
+			res.getClassDefinitions().addAll(
+					ctx
+					.rClass()
+					.stream()
+					.map(c -> c.rNewClass())
+					.filter(c -> c != null)
+					.map(cls -> subVisitor2.visit(cls))
+					.collect(Collectors.toList())
+					);
 			ServiceVisitor serviceVisitor = new ServiceVisitor();
 			res.getServices().addAll(
 					ctx
@@ -597,27 +610,21 @@ public class Visitors {
 	}
 	
 	/**
-	 * Build new classes
+	 * Create new EClasses
 	 */
-	public static ParseResult<ModelBehavior> preVisit(RRootContext ctx) {
-		ParseResult<ModelBehavior> parseRes = new ParseResult<ModelBehavior>();
-		
-		ImplementationFactory factory = (ImplementationFactory) ImplementationPackage.eINSTANCE.getEFactoryInstance();
-		ModelBehavior model = factory.createModelBehavior();
-		
-		model.setName(ctx.rQualified().getText());
-		
-		NewClassVisitor subVisitor = new NewClassVisitor(parseRes);
-		model.getClassDefinitions().addAll(
-				ctx
-				.rClass()
-				.stream()
-				.map(c -> c.rNewClass())
-				.filter(c -> c != null)
-				.map(cls -> subVisitor.visit(cls))
-				.collect(Collectors.toList())
-				);
-		parseRes.setRoot(model);
-		return parseRes;
+	public static List<EClass> preVisit(RRootContext ctx) {
+		return
+			ctx
+			.rClass()
+			.stream()
+			.map(c -> c.rNewClass())
+			.filter(c -> c != null)
+			.map(cls -> {
+				EClass eClsClass = EcorePackage.eINSTANCE.getEClass();
+				EClass res = (EClass) EcoreUtil.create(eClsClass);
+				res.setName(cls.name.getText());
+				return res;
+			})
+			.collect(Collectors.toList());				
 	}
 }
