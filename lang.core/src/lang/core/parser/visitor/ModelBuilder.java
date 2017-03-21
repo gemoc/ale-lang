@@ -314,7 +314,7 @@ public class ModelBuilder {
 			i++;
 		}
 		
-		return newPkg;
+		return parent;
 	}
 	
 	public EClass buildEClass(RuntimeClass cls) {

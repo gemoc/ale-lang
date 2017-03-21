@@ -69,7 +69,12 @@ public class AstBuilder {
 				}
 				candidatePkg.getEClassifiers().addAll(newOnes);
 				allNewClasses.put(implemParse.rQualified().getText(),newOnes);
-				qryEnv.registerEPackage(candidatePkg);
+				
+				EPackage topPkg = candidatePkg;
+				while(topPkg.getESuperPackage() != null){
+					topPkg = topPkg.getESuperPackage();
+				}
+				qryEnv.registerEPackage(topPkg);
 			});
 		
 		/*
