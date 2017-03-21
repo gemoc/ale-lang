@@ -1,0 +1,17 @@
+behavior test.newclass;
+
+class NewRuntimeClass {
+	
+	String myName := 'New class';
+	
+	EClass toEClass;
+	
+	def EClass someOp() {
+		result := self.toEClass;
+	}
+	
+	@main
+	def NewRuntimeClass entryPoint(int arg) {
+		result := newclass::NewRuntimeClass.create();
+	}
+}
