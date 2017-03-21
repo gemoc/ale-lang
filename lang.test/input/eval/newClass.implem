@@ -1,0 +1,24 @@
+behavior test.newclass;
+
+open class ClassA {
+	
+	@main
+	def ClassA main() {
+		result := newclass::NewRuntimeClass.create();
+	}
+}
+
+class NewRuntimeClass {
+	
+	String myName := 'New class';
+	
+	EClass toEClass;
+	
+	def EClass someOp() {
+		result := self.toEClass;
+	}
+	
+	def NewRuntimeClass entryPoint(int arg) {
+		result := newclass::NewRuntimeClass.create();
+	}
+}

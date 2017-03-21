@@ -538,4 +538,17 @@ public class EvalTest {
 		
 		assertEquals("foobar:ClassA",res.getValue());
 	}
+	
+	@Test
+	public void testNewClass(){
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/newClass.implem"));
+		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertNotNull(res.getValue());
+		assertNotEquals(caller,res.getValue());
+		assertTrue(res.getValue() instanceof EObject);
+		assertEquals("NewRuntimeClass",((EObject)res.getValue()).eClass().getName());
+	}
 }

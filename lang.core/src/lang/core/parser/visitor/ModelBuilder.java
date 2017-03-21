@@ -310,9 +310,10 @@ public class ModelBuilder {
 			subPkg.setName(segment);
 			parent.getESubpackages().add(subPkg);
 			parent = subPkg;
+			i++;
 		}
-
-		return newPkg;
+		
+		return parent;
 	}
 
 	public EClass buildEClass(RuntimeClass cls) {
@@ -348,8 +349,45 @@ public class ModelBuilder {
 
 		return res;
 	}
+	
+	/**
+	 * Add new EOperation, EAttribute & EReference in {@link cls}, based on features defined in {@link clsDef} 
+	 */
+	public void updateEClass(EClass cls, RuntimeClass clsDef) {
+		EClass eRefClass = EcorePackage.eINSTANCE.getEReference();
+		EClass eAttClass = EcorePackage.eINSTANCE.getEAttribute();
 
-	// Can return null
+		clsDef
+		.getAttributes()
+		.stream()
+		.forEach(attr -> {
+			String name = attr.getName();
+			EClassifier type = attr.getType();
+			
+			if(type instanceof EClass){
+				EReference newRef = (EReference) EcoreUtil.create(eRefClass);
+				newRef.setName(name);
+				newRef.setEType(type);
+				cls.getEStructuralFeatures().add(newRef);
+			}
+			else if(type instanceof EDataType) {
+				EAttribute newAttr = (EAttribute) EcoreUtil.create(eAttClass);
+				newAttr.setName(name);
+				newAttr.setEType(type);
+				cls.getEStructuralFeatures().add(newAttr);
+			}
+		});
+		
+		clsDef
+		.getMethods()
+		.stream()
+		.forEach(mtd -> {
+			EOperation newOp = EcoreUtil.copy(mtd.getOperationDef());
+			cls.getEOperations().add(newOp);
+		});
+	}
+	
+	//Can return null
 	public Optional<EOperation> resolve(String className, String methodName, int nbArgs, String returnType) {
 		ETypedElement type = resolve(returnType);
 		// TODO: manage qualified name

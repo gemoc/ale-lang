@@ -9,6 +9,9 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.acceleo.query.ast.AstPackage;
 import org.eclipse.acceleo.query.ast.BooleanLiteral;
@@ -23,6 +26,8 @@ import org.eclipse.acceleo.query.parser.AstBuilderListener;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.Query;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.junit.Before;
@@ -38,6 +43,7 @@ import implementation.Implementation;
 import implementation.ImplementationPackage;
 import implementation.Method;
 import implementation.ModelBehavior;
+import implementation.RuntimeClass;
 import implementation.Statement;
 import implementation.VariableAssignment;
 import implementation.VariableDeclaration;
@@ -490,6 +496,67 @@ public class BuildTest {
 		assertEquals(Diagnostic.OK,res.getDiagnostic().getCode());
 		assertNotNull(root);
 		assertEquals("test.allfeatures",root.getName());
+	}
+	
+	@Test
+	public void testRuntimeClass() {
+		List<ParseResult<ModelBehavior>> res = parser.parseFromFiles(Arrays.asList("input/structure/newClass.implem"));
+		ModelBehavior root = res.get(0).getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.newclass",root.getName());
+		assertEquals(0, root.getServices().size());
+		assertEquals(0, root.getClassExtensions().size());
+		assertEquals(1, root.getClassDefinitions().size());
+		
+		RuntimeClass newCls = root.getClassDefinitions().get(0);
+		assertEquals("NewRuntimeClass", newCls.getName());
+		assertEquals(2, newCls.getAttributes().size());
+		
+		VariableDeclaration myName = newCls.getAttributes().get(0);
+		assertEquals("myName",myName.getName());
+		assertEquals(EcorePackage.eINSTANCE.getEString(), myName.getType());
+		assertNotNull(myName.getInitialValue());
+		VariableDeclaration toEClass = newCls.getAttributes().get(1);
+		assertEquals("toEClass",toEClass.getName());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(), toEClass.getType());
+		assertNull(toEClass.getInitialValue());
+		
+		assertEquals(2, newCls.getMethods().size());
+		Method someOp = newCls.getMethods().get(0);
+		assertEquals("someOp",someOp.getOperationDef().getName());
+		assertEquals(0,someOp.getOperationDef().getEParameters().size());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(),someOp.getOperationDef().getEType());
+		
+		
+		Collection<EClassifier> foundTypes = queryEnvironment.getEPackageProvider().getTypes("NewRuntimeClass");
+		assertEquals(1,foundTypes.size());
+		EClass runtimeClass = (EClass) foundTypes.iterator().next();
+		
+		Method entryPoint = newCls.getMethods().get(1);
+		assertEquals("entryPoint",entryPoint.getOperationDef().getName());
+		assertEquals(1,entryPoint.getOperationDef().getEParameters().size());
+		assertEquals(EcorePackage.eINSTANCE.getEInt(),entryPoint.getOperationDef().getEParameters().get(0).getEType());
+		assertEquals(runtimeClass,entryPoint.getOperationDef().getEType());
+		assertEquals(1,entryPoint.getTags().size());
+		assertEquals("main",entryPoint.getTags().get(0));
+		
+		//myName,toEClass, someOp, entryPoint
+		assertEquals("NewRuntimeClass", runtimeClass.getName());
+		assertEquals(1, runtimeClass.getEAttributes().size());
+		assertEquals("myName", runtimeClass.getEAttributes().get(0).getName());
+		assertEquals(EcorePackage.eINSTANCE.getEString(), runtimeClass.getEAttributes().get(0).getEType());
+		assertEquals(1, runtimeClass.getEReferences().size());
+		assertEquals("toEClass", runtimeClass.getEReferences().get(0).getName());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(), runtimeClass.getEReferences().get(0).getEType());
+		assertEquals(2, runtimeClass.getEOperations().size());
+		assertEquals("someOp",runtimeClass.getEOperations().get(0).getName());
+		assertEquals(0,runtimeClass.getEOperations().get(0).getEParameters().size());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(),runtimeClass.getEOperations().get(0).getEType());
+		assertEquals("entryPoint",runtimeClass.getEOperations().get(1).getName());
+		assertEquals(1,runtimeClass.getEOperations().get(1).getEParameters().size());
+		assertEquals(EcorePackage.eINSTANCE.getEInt(),runtimeClass.getEOperations().get(1).getEParameters().get(0).getEType());
+		assertEquals(runtimeClass,runtimeClass.getEOperations().get(1).getEType());
 	}
 	
 	private static String getFileContent(String implementionPath){
