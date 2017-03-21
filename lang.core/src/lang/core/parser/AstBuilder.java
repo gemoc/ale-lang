@@ -9,12 +9,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.antlr.v4.runtime.CommonTokenFactory;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.UnbufferedCharStream;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 
 import implementation.ModelBehavior;
@@ -47,25 +49,33 @@ public class AstBuilder {
 				parses.add(parseRes);
 				sourceFiles.put(parseRes,f);
 			});
-		Map<RRootContext,ParseResult<ModelBehavior>> preBuilds = new HashMap<RRootContext,ParseResult<ModelBehavior>>();
+		
 		/*
-		 * Build new classes
+		 * Create & declare new EClasses
 		 */
+		Map<String,List<EClass>> allNewClasses = new HashMap<String,List<EClass>>();
 		parses
 			.stream()
-			.forEach(p -> {
-				preBuilds.put(p, Visitors.preVisit(p));
+			.forEach(implemParse -> {
+				List<EClass> newOnes = Visitors.preVisit(implemParse);
+				
+				EPackage candidatePkg = null;
+				Collection<EPackage> pkgs = qryEnv.getEPackageProvider().getEPackage(implemParse.rQualified().getText());
+				if(pkgs != null && !pkgs.isEmpty()) {
+					candidatePkg = pkgs.iterator().next();
+				}
+				else {
+					candidatePkg = ModelBuilder.singleton.buildEPackage(implemParse.rQualified().getText());
+				}
+				candidatePkg.getEClassifiers().addAll(newOnes);
+				allNewClasses.put(implemParse.rQualified().getText(),newOnes);
+				
+				EPackage topPkg = candidatePkg;
+				while(topPkg.getESuperPackage() != null){
+					topPkg = topPkg.getESuperPackage();
+				}
+				qryEnv.registerEPackage(topPkg);
 			});
-		/*
-		 * Transform new classes to EClasses
-		 */
-		List<ModelBehavior> runtimeClasses =
-			preBuilds
-			.entrySet()
-			.stream()
-			.map(e -> e.getValue().getRoot())
-			.collect(Collectors.toList());
-		registerDynamicClasses(runtimeClasses);
 		
 		/*
 		 * Build class extensions
@@ -76,43 +86,31 @@ public class AstBuilder {
 			ParseResult<ModelBehavior> parseRes = Visitors.visit(p);
 			parseRes.setSourceFile(sourceFiles.get(p));
 			build.add(parseRes);
-			//Then merge with the pre-build
-			ParseResult<ModelBehavior> preBuild = preBuilds.get(p);
-			parseRes.getRoot().getClassDefinitions().addAll(preBuild.getRoot().getClassDefinitions());
-			parseRes.getStartPositions().putAll(preBuild.getStartPositions());
-			parseRes.getEndPositions().putAll(preBuild.getEndPositions());
+		});
+		
+		/*
+		 * Update declared EClass definitions
+		 */
+		build
+		.stream()
+		.map(m -> m.getRoot())
+		.filter(m -> m != null)
+		.forEach(implemModel -> {
+			List<EClass> newClasses = allNewClasses.get(implemModel.getName());
+			if(newClasses != null) {
+				implemModel
+				.getClassDefinitions()
+				.stream()
+				.forEach(clsDef -> {
+					Optional<EClass> cls = newClasses.stream().filter(c -> c.getName().equals(clsDef.getName())).findFirst();
+					if(cls.isPresent()){
+						ModelBuilder.singleton.updateEClass(cls.get(),clsDef);
+					}
+				});
+			}
 		});
 		
 		return build;
-	}
-	
-	/**
-	 * Register classes defined inside behaviors
-	 */
-	private void registerDynamicClasses(List<ModelBehavior> allImplemModels) {
-		allImplemModels
-		.stream()
-		.forEach(implemModel -> {
-			if(!implemModel.getClassDefinitions().isEmpty()){
-				EPackage candidatePkg = null;
-				Collection<EPackage> pkgs = qryEnv.getEPackageProvider().getEPackage(implemModel.getName());
-				if(pkgs != null && !pkgs.isEmpty()) {
-					candidatePkg = pkgs.iterator().next();
-				}
-				else {
-					candidatePkg = ModelBuilder.singleton.buildEPackage(implemModel.getName());
-				}
-				
-				final EPackage newPkg = candidatePkg;
-				implemModel
-					.getClassDefinitions()
-					.stream()
-					.forEach(cls -> {
-						newPkg.getEClassifiers().add(ModelBuilder.singleton.buildEClass(cls));
-					});
-				qryEnv.registerEPackage(candidatePkg);
-			}
-		});
 	}
 	
 	private RRootContext doParse(String file) {
