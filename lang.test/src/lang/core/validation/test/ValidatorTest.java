@@ -375,8 +375,9 @@ public class ValidatorTest {
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
-		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 80, "The name op is already used", msg.get(0));
+		assertEquals(2, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 80, "The operation op() is already declared", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 140, 168, "The operation mtd(EString) is already declared", msg.get(1));
 	}
 	
 	
