@@ -147,7 +147,7 @@ public class ValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 92, 109, "Expected EInt but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 92, 109, "Expected [EClassifier=EInt] but was [java.lang.String]", msg.get(0));
 	}
 	
 	@Test
@@ -193,7 +193,7 @@ public class ValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 113, 130, "Expected EInt but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 113, 130, "Expected [EClassifier=EInt] but was [java.lang.String]", msg.get(0));
 	}
 	
 	@Test
