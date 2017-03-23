@@ -677,15 +677,11 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 						endPosition
 						));
 			}
-			
-			Set<IType> currentTypes = declaringScope.get(varAssign.getName());
-			currentTypes.addAll(expValidation.getPossibleTypes(varAssign.getValue()));
 		}
 		
 		/*
 		 * Check assignment type
 		 */
-		//FIXME: look for declaration
 		if(varAssign.getName().equals("result")) {
 			Behaviored op = getContainingOperation(varAssign);
 			EClassifier returnType = null;
@@ -713,6 +709,44 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					msgs.add(new ValidationMessage(
 							ValidationMessageLevel.ERROR,
 							String.format(INCOMPATIBLE_TYPE,returnType.getName(),types),
+							startPostion,
+							endPosition
+							));
+				}
+			}
+		}
+		else if(declaringScope != null && !varAssign.getName().equals("self")){ //check type for declared variable
+			Set<IType> declaredTypes = declaringScope.get(varAssign.getName());
+			Set<IType> expectedTypes = expValidation.getPossibleTypes(varAssign.getValue());
+			if(declaredTypes != null && expectedTypes != null) {
+				Optional<IType> existResult = 
+					declaredTypes
+					.stream()
+					.filter(declType -> 
+						expectedTypes
+						.stream()
+						.filter(expectedType -> declType.isAssignableFrom(expectedType))
+						.findAny()
+						.isPresent()
+					)
+					.findAny();
+				if(!existResult.isPresent()){
+					String declaredToString = 
+							declaredTypes
+							.stream()
+							.map(type -> type.toString())
+							.collect(Collectors.joining(",","[","]"));
+					String expectedToString = 
+							expectedTypes
+							.stream()
+							.map(type -> type.toString())
+							.collect(Collectors.joining(",","[","]"));
+					
+					int startPostion = currentModel.getStartPositions().get(varAssign);
+					int endPosition = currentModel.getEndPositions().get(varAssign);
+					msgs.add(new ValidationMessage(
+							ValidationMessageLevel.ERROR,
+							String.format(INCOMPATIBLE_TYPE,declaredToString,expectedToString),
 							startPostion,
 							endPosition
 							));
