@@ -8,10 +8,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.acceleo.query.ast.AstPackage;
+import org.eclipse.acceleo.query.runtime.CrossReferenceProvider;
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
+import org.eclipse.acceleo.query.runtime.IService;
 import org.eclipse.acceleo.query.runtime.Query;
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
+import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
@@ -32,9 +35,12 @@ import implementation.ModelBehavior;
 import lang.core.interpreter.DiagnosticLogger;
 import lang.core.interpreter.EvalEnvironment;
 import lang.core.interpreter.ImplementationEngine;
+import lang.core.interpreter.services.EvalBodyService;
 import lang.core.parser.Dsl;
 import lang.core.parser.DslBuilder;
 import lang.core.parser.visitor.ParseResult;
+import lang.debug.DebugQueryEnvironment;
+import lang.debug.ILookupEngineListener;
 
 /**
  * This class is an interpreter for the 'Lang' Language.
@@ -88,7 +94,11 @@ public class LangInterpreter {
      * The environment is setup with default services & EPackages
      */
     public LangInterpreter() {
-        this.queryEnvironment = Query.newEnvironmentWithDefaultServices(null);
+    	this(false);
+    }
+    
+    public LangInterpreter(boolean isDebugMode) {
+        this.queryEnvironment = createQueryEnvironment(isDebugMode,null);
         queryEnvironment.registerEPackage(ImplementationPackage.eINSTANCE);
 		queryEnvironment.registerEPackage(AstPackage.eINSTANCE);
         this.ePackageCallBack = new EPackageLoadingCallback() {
@@ -107,6 +117,28 @@ public class LangInterpreter {
         this.javaExtensions.addClassLoadingCallBack(callback);
         this.javaExtensions.addEPackageCallBack(ePackageCallBack);
 	}
+    
+    private IQueryEnvironment createQueryEnvironment(boolean isDebug, CrossReferenceProvider xRefProvider) {
+    	if(isDebug) {
+    		DebugQueryEnvironment debugQryEnv = new DebugQueryEnvironment(Query.newEnvironmentWithDefaultServices(xRefProvider));
+    		debugQryEnv.registerListener(new ILookupEngineListener() {
+				@Override
+				public void preLookup(String name, IType[] argumentTypes) {
+					// Do nothing
+				}
+				@Override
+				public void postLookup(IService foundService) {
+					if(foundService instanceof EvalBodyService) {
+						System.out.println("Call : " + foundService.getLongSignature());
+					}
+				}
+			});
+    		return debugQryEnv;
+    	}
+    	else {
+    		return Query.newEnvironmentWithDefaultServices(xRefProvider);
+    	}
+    }
     
     /**
      * Entry point for an evaluation.
