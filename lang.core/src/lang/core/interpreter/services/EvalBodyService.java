@@ -146,7 +146,7 @@ public class EvalBodyService extends AbstractService {
 	
 	@Override
 	public String getShortSignature() {
-		List<IType> parameterTypes = getParameterTypes(null);
+		List<IType> parameterTypes = getParameterTypes(evalEnv.getQueryEnvironment());
 		return serviceShortSignature(parameterTypes.toArray());
 	}
 	
@@ -154,6 +154,10 @@ public class EvalBodyService extends AbstractService {
 	public String getLongSignature() {
 		String ePkgNsURI;
 		String eCLassName;
+		
+		if( implem.eContainer() instanceof RuntimeClass) {
+			return ((RuntimeClass)implem.eContainer()).getName() + " " + getShortSignature();
+		}
 		
 		EClass eContainingClass = ((ExtendedClass) implem.eContainer()).getBaseClass();
 		
