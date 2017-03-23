@@ -221,7 +221,7 @@ public class ValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 82, 101, "Expected EString but was [java.lang.Integer]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 82, 101, "Expected [EString] but was [java.lang.Integer]", msg.get(0));
 	}
 	
 	@Test

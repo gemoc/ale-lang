@@ -290,12 +290,24 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			if(type.getType() instanceof EClass){
 				EClass realType = (EClass) type.getType();
 				EStructuralFeature feature = realType.getEStructuralFeature(featAssign.getTargetFeature());
-				if(feature  != null){
+				
+				if(feature  != null){ //static features
 					EClassifierType featureType = new EClassifierType(qryEnv, feature.getEType());
 					featureTypes.add(featureType);
 				}
-				else {
-					//TODO: check dynamic attribute declaration
+				else { //runtime features
+					List<ExtendedClass> extensions = findExtensions(realType);
+					
+					Optional<VariableDeclaration> foundDynamicAttribute = //FIXME: take inheritance in account
+						extensions
+						.stream()
+						.flatMap(xtdCls -> xtdCls.getAttributes().stream())
+						.filter(field -> field.getName().equals(featAssign.getTargetFeature()))
+						.findFirst();
+					if(foundDynamicAttribute.isPresent()) {
+						EClassifierType featureType = new EClassifierType(qryEnv, foundDynamicAttribute.get().getType());
+						featureTypes.add(featureType);
+					}
 				}
 			}
 		}
@@ -892,6 +904,15 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			}
 		}
 		return null;
+	}
+	
+	private List<ExtendedClass> findExtensions(EClass realType) {
+		return 
+			allModels
+			.stream()
+			.flatMap(m -> m.getRoot().getClassExtensions().stream())
+			.filter(xtdCls -> xtdCls.getBaseClass().isSuperTypeOf(realType))
+			.collect(Collectors.toList());
 	}
 	
 	private Behaviored getContainingOperation(VariableAssignment varAssign) {
