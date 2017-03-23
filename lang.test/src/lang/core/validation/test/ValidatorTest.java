@@ -110,8 +110,8 @@ public class ValidatorTest {
 	}
 	
 	@Test
-	public void testNoConflictAttribParamLocal(){
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/noConflictAttribParamLocal.implem"));
+	public void testConflictAttribParamLocal(){
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/conflictAttribParamLocal.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -119,7 +119,7 @@ public class ValidatorTest {
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
-		assertEquals(0, msg.size());
+		assertEquals(1, msg.size());
 	}
 	
 	@Test
