@@ -43,10 +43,10 @@ public class ValidatorTest {
 	public void testAttributeDuplication(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/duplicatedAttrib.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -57,10 +57,10 @@ public class ValidatorTest {
 	public void testTypeErrorAttribute(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/typeErrorAttrib.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -71,10 +71,10 @@ public class ValidatorTest {
 	public void testParamDuplication(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/duplicatedParameters.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -85,10 +85,10 @@ public class ValidatorTest {
 	public void testLocalDuplication(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/duplicatedLocalVariable.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -99,10 +99,10 @@ public class ValidatorTest {
 	public void testTypeErrorLocal(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/typeErrorLocal.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -113,10 +113,10 @@ public class ValidatorTest {
 	public void testNoConflictAttribParamLocal(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/noConflictAttribParamLocal.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
@@ -126,10 +126,10 @@ public class ValidatorTest {
 	public void testScopeLocal(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/scopeLocalVariable.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -140,10 +140,10 @@ public class ValidatorTest {
 	public void testScopeTypeErrorLocal(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/scopeTypeErrorLocal.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -154,10 +154,10 @@ public class ValidatorTest {
 	public void testResultDeclarationError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareResultError.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(3, msg.size());
@@ -170,10 +170,10 @@ public class ValidatorTest {
 	public void testSelfDeclarationError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareSelfError.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(3, msg.size());
@@ -186,10 +186,10 @@ public class ValidatorTest {
 	public void testLocalAssignTypeError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignLocalTypeError.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -200,10 +200,10 @@ public class ValidatorTest {
 	public void testUnknownLocalAssign(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignUnknownLocal.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -214,10 +214,10 @@ public class ValidatorTest {
 	public void testAttributeAssignTypeError(){ //dynamic attribute
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignAttributeTypeError.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -228,10 +228,10 @@ public class ValidatorTest {
 	public void testFeatureAssignTypeError(){ //EStructural feature
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignFeatureTypeError.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -242,10 +242,10 @@ public class ValidatorTest {
 	public void testUnknownFeatureAssign(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignUnknownFeature.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -256,10 +256,10 @@ public class ValidatorTest {
 	public void testResultAssignTypeError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignResult.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(2, msg.size());
@@ -271,10 +271,10 @@ public class ValidatorTest {
 	public void testParamAssignError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignParamError.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -285,10 +285,10 @@ public class ValidatorTest {
 	public void testSelfAssignError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignSelfError.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -299,10 +299,10 @@ public class ValidatorTest {
 	public void testFeatureInsertTypeError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertTypeError.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -313,10 +313,10 @@ public class ValidatorTest {
 	public void testFeatureRemoveTypeError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveTypeError.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -327,10 +327,10 @@ public class ValidatorTest {
 	public void testForEachCollectionError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachCollectionError.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -341,10 +341,10 @@ public class ValidatorTest {
 	public void testIfBooleanError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/ifBooleanError.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -355,10 +355,10 @@ public class ValidatorTest {
 	public void testWhileBooelanError(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/whileBooleanError.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
@@ -369,10 +369,10 @@ public class ValidatorTest {
 	public void testOperationDuplication(){
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/operationDuplication.implem"));
 		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		ParseResult<ModelBehavior> modelBehavior = parsedSemantics.get(0);
+		
 		
 		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
-		validator.validate(modelBehavior);
+		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
