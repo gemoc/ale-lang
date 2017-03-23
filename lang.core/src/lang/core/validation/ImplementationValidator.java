@@ -63,6 +63,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 	public static final String VOID_RESULT_ASSIGN = "'result' is assigned in void operation";
 	public static final String PARAM_ASSIGN = "%s is a parameter and can't be assigned";
 	public static final String SELF_ASSIGN = "'self' can't be assigned";
+	public static final String OP_ALREADY_DECLARED = "The operation %s is already declared";
 	
 	List<ParseResult<ModelBehavior>> allModels;
 	ParseResult<ModelBehavior> currentModel;
@@ -154,6 +155,23 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 				}
 			}
 		}
+		
+		List<Behaviored> previousOp = new ArrayList<Behaviored>(); 
+		for (Behaviored operation : xtdClass.getMethods()) {
+			boolean isConflict = previousOp.stream().anyMatch(prevOp -> isMatching(operation, prevOp));
+			if(isConflict) {
+				int startPostion = currentModel.getStartPositions().get(operation);
+				int endPosition = currentModel.getEndPositions().get(operation);
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(OP_ALREADY_DECLARED,getSignature(operation)),
+						startPostion,
+						endPosition
+						));
+			}
+			previousOp.add(operation);
+		}
+		
 		
 		Set<IType> selfTypeSet = new HashSet<IType>();
 		EClassifierType selfType = new EClassifierType(qryEnv, xtdClass.getBaseClass());
@@ -955,5 +973,56 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			parent = parent.eContainer();
 		}
 		return (Behaviored)parent;
+	}
+	
+	private boolean isMatching(Behaviored op1, Behaviored op2) {
+		EOperation eOp1 = null;
+		EOperation eOp2 = null;
+		if(op1 instanceof Method){
+			eOp1 = ((Method)op1).getOperationDef();
+		}
+		else{
+			eOp1 = ((Implementation)op1).getOperationRef();
+		}
+		if(op2 instanceof Method){
+			eOp2 = ((Method)op2).getOperationDef();
+		}
+		else{
+			eOp2 = ((Implementation)op2).getOperationRef();
+		}
+		
+		boolean isMatchingName = eOp1.getName().equals(eOp2.getName());
+		boolean isMatchingArgsSize = (eOp1.getEParameters().size() == eOp2.getEParameters().size());
+		
+		if(!(isMatchingName && isMatchingArgsSize)){
+			return false;
+		}
+		
+		boolean areParamTypeMatching = true;
+		for(int i = 0; i <  eOp1.getEParameters().size(); i++) {
+			EParameter param1 = eOp1.getEParameters().get(i);
+			EParameter param2 = eOp2.getEParameters().get(i);
+			areParamTypeMatching = areParamTypeMatching && (param1.getEType().equals(param2.getEType()));
+		}
+		return isMatchingName && isMatchingArgsSize && areParamTypeMatching;
+	}
+	
+	private String getSignature(Behaviored op) {
+		EOperation eOp;
+		if(op instanceof Method){
+			eOp = ((Method)op).getOperationDef();
+		}
+		else{
+			eOp = ((Implementation)op).getOperationRef();
+		}
+		
+		String paramsToString = 
+			eOp
+			.getEParameters()
+			.stream()
+			.map(param -> param.getEType().getName())
+			.collect(Collectors.joining(",","(",")"));
+		
+		return eOp.getName() + paramsToString; 
 	}
 }
