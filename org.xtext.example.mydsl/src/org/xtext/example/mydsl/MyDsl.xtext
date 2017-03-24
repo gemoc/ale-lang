@@ -19,13 +19,13 @@ rService : 'use' Ident ('.' Ident)* ';'
 rClass : rOpenClass | rNewClass
 ;
 
-rOpenClass : 'open' 'class' name=Ident ('extends' rQualified (',' rQualified)* )? '{' attributes+=rAttribute* operations+=rOperation* '}'
+rOpenClass : 'open' 'class' name=rQualified ('extends' rQualified (',' rQualified)* )? '{' attributes+=rAttribute* operations+=rOperation* '}'
 ;
 
 rNewClass : 'class' name=Ident '{' attributes+=rAttribute* operations+=rOperation* '}'
 ;
 
-rOperation : rTag* ('def' | 'override') type=Ident name=Ident '(' paramList+=rParameters? ')' body=rBlock
+rOperation : rTag* ('def' | 'override') type=rType name=Ident '(' paramList+=rParameters? ')' body=rBlock
 ;
 
 rTag : '@'Ident
@@ -34,10 +34,10 @@ rTag : '@'Ident
 rParameters : params+=rVariable (',' params+=rVariable)*
 ;
 
-rVariable : type=Ident name=Ident
+rVariable : type=rType name=Ident
 ;
 
-rAttribute : type=Ident name=Ident (':=' expression)? ';'
+rAttribute : type=rType name=Ident (':=' expression)? ';'
 ;
 
 rStatement : rVarDecl 
@@ -48,7 +48,7 @@ rStatement : rVarDecl
 		| rExpression
 ;
 
-rVarDecl : Ident Ident (':=' expression)? ';'
+rVarDecl : rType Ident (':=' expression)? ';'
 ;
 
 rAssign : expression ':=' expression ';'
@@ -157,6 +157,9 @@ typeLiteral :   'String'
 
 classifierTypeRule :   Ident '::' Ident
 				     | Ident ':' 
+;
+
+rType: rQualified | typeLiteral
 ;
 
 rQualified : Ident ('.'Ident)*

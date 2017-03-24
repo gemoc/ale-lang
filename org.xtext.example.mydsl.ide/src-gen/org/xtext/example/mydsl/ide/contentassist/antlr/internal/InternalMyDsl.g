@@ -925,6 +925,31 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+// Entry rule entryRulerType
+entryRulerType
+:
+{ before(grammarAccess.getRTypeRule()); }
+	 rulerType
+{ after(grammarAccess.getRTypeRule()); } 
+	 EOF 
+;
+
+// Rule rType
+rulerType 
+	@init {
+		int stackSize = keepStackSize();
+	}
+	:
+	(
+		{ before(grammarAccess.getRTypeAccess().getAlternatives()); }
+		(rule__RType__Alternatives)
+		{ after(grammarAccess.getRTypeAccess().getAlternatives()); }
+	)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 // Entry rule entryRulerQualified
 entryRulerQualified
 :
@@ -1508,6 +1533,27 @@ rule__ClassifierTypeRule__Alternatives
 		{ before(grammarAccess.getClassifierTypeRuleAccess().getGroup_1()); }
 		(rule__ClassifierTypeRule__Group_1__0)
 		{ after(grammarAccess.getClassifierTypeRuleAccess().getGroup_1()); }
+	)
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__RType__Alternatives
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	(
+		{ before(grammarAccess.getRTypeAccess().getRQualifiedParserRuleCall_0()); }
+		rulerQualified
+		{ after(grammarAccess.getRTypeAccess().getRQualifiedParserRuleCall_0()); }
+	)
+	|
+	(
+		{ before(grammarAccess.getRTypeAccess().getTypeLiteralParserRuleCall_1()); }
+		ruletypeLiteral
+		{ after(grammarAccess.getRTypeAccess().getTypeLiteralParserRuleCall_1()); }
 	)
 ;
 finally {
@@ -3098,9 +3144,9 @@ rule__RVarDecl__Group__0__Impl
 	}
 :
 (
-	{ before(grammarAccess.getRVarDeclAccess().getIdentTerminalRuleCall_0()); }
-	RULE_IDENT
-	{ after(grammarAccess.getRVarDeclAccess().getIdentTerminalRuleCall_0()); }
+	{ before(grammarAccess.getRVarDeclAccess().getRTypeParserRuleCall_0()); }
+	rulerType
+	{ after(grammarAccess.getRVarDeclAccess().getRTypeParserRuleCall_0()); }
 )
 ;
 finally {
@@ -7070,9 +7116,9 @@ rule__ROpenClass__NameAssignment_2
 	}
 :
 	(
-		{ before(grammarAccess.getROpenClassAccess().getNameIdentTerminalRuleCall_2_0()); }
-		RULE_IDENT
-		{ after(grammarAccess.getROpenClassAccess().getNameIdentTerminalRuleCall_2_0()); }
+		{ before(grammarAccess.getROpenClassAccess().getNameRQualifiedParserRuleCall_2_0()); }
+		rulerQualified
+		{ after(grammarAccess.getROpenClassAccess().getNameRQualifiedParserRuleCall_2_0()); }
 	)
 ;
 finally {
@@ -7160,9 +7206,9 @@ rule__ROperation__TypeAssignment_2
 	}
 :
 	(
-		{ before(grammarAccess.getROperationAccess().getTypeIdentTerminalRuleCall_2_0()); }
-		RULE_IDENT
-		{ after(grammarAccess.getROperationAccess().getTypeIdentTerminalRuleCall_2_0()); }
+		{ before(grammarAccess.getROperationAccess().getTypeRTypeParserRuleCall_2_0()); }
+		rulerType
+		{ after(grammarAccess.getROperationAccess().getTypeRTypeParserRuleCall_2_0()); }
 	)
 ;
 finally {
@@ -7250,9 +7296,9 @@ rule__RVariable__TypeAssignment_0
 	}
 :
 	(
-		{ before(grammarAccess.getRVariableAccess().getTypeIdentTerminalRuleCall_0_0()); }
-		RULE_IDENT
-		{ after(grammarAccess.getRVariableAccess().getTypeIdentTerminalRuleCall_0_0()); }
+		{ before(grammarAccess.getRVariableAccess().getTypeRTypeParserRuleCall_0_0()); }
+		rulerType
+		{ after(grammarAccess.getRVariableAccess().getTypeRTypeParserRuleCall_0_0()); }
 	)
 ;
 finally {
@@ -7280,9 +7326,9 @@ rule__RAttribute__TypeAssignment_0
 	}
 :
 	(
-		{ before(grammarAccess.getRAttributeAccess().getTypeIdentTerminalRuleCall_0_0()); }
-		RULE_IDENT
-		{ after(grammarAccess.getRAttributeAccess().getTypeIdentTerminalRuleCall_0_0()); }
+		{ before(grammarAccess.getRAttributeAccess().getTypeRTypeParserRuleCall_0_0()); }
+		rulerType
+		{ after(grammarAccess.getRAttributeAccess().getTypeRTypeParserRuleCall_0_0()); }
 	)
 ;
 finally {
