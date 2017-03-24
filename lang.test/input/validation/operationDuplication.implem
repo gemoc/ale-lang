@@ -4,4 +4,8 @@ open class EClass {
 	}
 	def void op(){
 	}
+	
+	def void mtd(String arg) {}
+	def void mtd(int arg) {}
+	def void mtd(String param) {}
 }

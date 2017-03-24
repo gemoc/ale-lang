@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2017 Inria and Obeo.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Inria - initial API and implementation
+ *******************************************************************************/
 package lang.core.validation;
 
 import java.util.ArrayList;
@@ -63,8 +73,10 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 	public static final String VOID_RESULT_ASSIGN = "'result' is assigned in void operation";
 	public static final String PARAM_ASSIGN = "%s is a parameter and can't be assigned";
 	public static final String SELF_ASSIGN = "'self' can't be assigned";
+	public static final String OP_ALREADY_DECLARED = "The operation %s is already declared";
 	
-	ParseResult<ModelBehavior> model;
+	List<ParseResult<ModelBehavior>> allModels;
+	ParseResult<ModelBehavior> currentModel;
 	List<IValidationMessage> msgs;
 	Stack<Map<String, Set<IType>>> variableTypesStack;
 	
@@ -85,8 +97,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			 * Check name
 			 */
 			if(attrib.getName().equals("result")){
-				int startPostion = model.getStartPositions().get(attrib);
-				int endPosition = model.getEndPositions().get(attrib);
+				int startPostion = currentModel.getStartPositions().get(attrib);
+				int endPosition = currentModel.getEndPositions().get(attrib);
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
 						String.format(RESULT_RESERVED,attrib.getName()),
@@ -95,8 +107,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 						));
 			}
 			else if(attrib.getName().equals("self")){
-				int startPostion = model.getStartPositions().get(attrib);
-				int endPosition = model.getEndPositions().get(attrib);
+				int startPostion = currentModel.getStartPositions().get(attrib);
+				int endPosition = currentModel.getEndPositions().get(attrib);
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
 						String.format(SELF_RESERVED,attrib.getName()),
@@ -107,8 +119,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			
 			Set<IType> possibleTypes = attributeTypes.get(attrib.getName());
 			if(possibleTypes != null) {
-				int startPostion = model.getStartPositions().get(attrib);
-				int endPosition = model.getEndPositions().get(attrib);
+				int startPostion = currentModel.getStartPositions().get(attrib);
+				int endPosition = currentModel.getEndPositions().get(attrib);
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
 						String.format(NAME_ALREADY_USED,attrib.getName()),
@@ -142,8 +154,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 						.stream()
 						.map(type -> type.toString())
 						.collect(Collectors.joining(",","[","]"));
-					int startPostion = model.getStartPositions().get(attrib);
-					int endPosition = model.getEndPositions().get(attrib);
+					int startPostion = currentModel.getStartPositions().get(attrib);
+					int endPosition = currentModel.getEndPositions().get(attrib);
 					msgs.add(new ValidationMessage(
 							ValidationMessageLevel.ERROR,
 							String.format(INCOMPATIBLE_TYPE,attrib.getType().getName(),types),
@@ -153,6 +165,23 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 				}
 			}
 		}
+		
+		List<Behaviored> previousOp = new ArrayList<Behaviored>(); 
+		for (Behaviored operation : xtdClass.getMethods()) {
+			boolean isConflict = previousOp.stream().anyMatch(prevOp -> isMatching(operation, prevOp));
+			if(isConflict) {
+				int startPostion = currentModel.getStartPositions().get(operation);
+				int endPosition = currentModel.getEndPositions().get(operation);
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(OP_ALREADY_DECLARED,getSignature(operation)),
+						startPostion,
+						endPosition
+						));
+			}
+			previousOp.add(operation);
+		}
+		
 		
 		Set<IType> selfTypeSet = new HashSet<IType>();
 		EClassifierType selfType = new EClassifierType(qryEnv, xtdClass.getBaseClass());
@@ -208,8 +237,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		for (EParameter param : params) {
 			
 			if(param.getName().equals("result")){
-				int startPostion = model.getStartPositions().get(op);
-				int endPosition = model.getEndPositions().get(op);
+				int startPostion = currentModel.getStartPositions().get(op);
+				int endPosition = currentModel.getEndPositions().get(op);
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
 						String.format(RESULT_RESERVED,param.getName()),
@@ -218,8 +247,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 						));
 			}
 			else if(param.getName().equals("self")){
-				int startPostion = model.getStartPositions().get(op);
-				int endPosition = model.getEndPositions().get(op);
+				int startPostion = currentModel.getStartPositions().get(op);
+				int endPosition = currentModel.getEndPositions().get(op);
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
 						String.format(SELF_RESERVED,param.getName()),
@@ -230,8 +259,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			
 			Set<IType> possibleTypes = parameterTypes.get(param.getName());
 			if(possibleTypes != null) {
-				int startPostion = model.getStartPositions().get(op); //FIXME: need parameter bounds
-				int endPosition = model.getEndPositions().get(op);
+				int startPostion = currentModel.getStartPositions().get(op); //FIXME: need parameter bounds
+				int endPosition = currentModel.getEndPositions().get(op);
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
 						String.format(NAME_ALREADY_USED,param.getName()),
@@ -289,19 +318,31 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			if(type.getType() instanceof EClass){
 				EClass realType = (EClass) type.getType();
 				EStructuralFeature feature = realType.getEStructuralFeature(featAssign.getTargetFeature());
-				if(feature  != null){
+				
+				if(feature  != null){ //static features
 					EClassifierType featureType = new EClassifierType(qryEnv, feature.getEType());
 					featureTypes.add(featureType);
 				}
-				else {
-					//TODO: check dynamic attribute declaration
+				else { //runtime features
+					List<ExtendedClass> extensions = findExtensions(realType);
+					
+					Optional<VariableDeclaration> foundDynamicAttribute = //FIXME: take inheritance in account
+						extensions
+						.stream()
+						.flatMap(xtdCls -> xtdCls.getAttributes().stream())
+						.filter(field -> field.getName().equals(featAssign.getTargetFeature()))
+						.findFirst();
+					if(foundDynamicAttribute.isPresent()) {
+						EClassifierType featureType = new EClassifierType(qryEnv, foundDynamicAttribute.get().getType());
+						featureTypes.add(featureType);
+					}
 				}
 			}
 		}
 		
 		if(featureTypes.isEmpty()){
-			int startPostion = model.getStartPositions().get(featAssign);
-			int endPosition = model.getEndPositions().get(featAssign);
+			int startPostion = currentModel.getStartPositions().get(featAssign);
+			int endPosition = currentModel.getEndPositions().get(featAssign);
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(FEATURE_UNDEFINED,featAssign.getTargetFeature()),
@@ -341,8 +382,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 						.map(type -> type.getType().getName())
 						.collect(Collectors.joining(",","[","]"));
 				
-				int startPostion = model.getStartPositions().get(featAssign);
-				int endPosition = model.getEndPositions().get(featAssign);
+				int startPostion = currentModel.getStartPositions().get(featAssign);
+				int endPosition = currentModel.getEndPositions().get(featAssign);
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
 						String.format(INCOMPATIBLE_TYPE,featureToString,inferredToString),
@@ -407,8 +448,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					.map(type -> type.getType().getName())
 					.collect(Collectors.joining(",","[","]"));
 			
-			int startPostion = model.getStartPositions().get(featInsert);
-			int endPosition = model.getEndPositions().get(featInsert);
+			int startPostion = currentModel.getStartPositions().get(featInsert);
+			int endPosition = currentModel.getEndPositions().get(featInsert);
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(INCOMPATIBLE_TYPE,featureToString,inferredToString),
@@ -472,8 +513,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					.map(type -> type.getType().getName())
 					.collect(Collectors.joining(",","[","]"));
 			
-			int startPostion = model.getStartPositions().get(featRemove);
-			int endPosition = model.getEndPositions().get(featRemove);
+			int startPostion = currentModel.getStartPositions().get(featRemove);
+			int endPosition = currentModel.getEndPositions().get(featRemove);
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(INCOMPATIBLE_TYPE,featureToString,inferredToString),
@@ -514,8 +555,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					.stream()
 					.map(type -> type.toString())
 					.collect(Collectors.joining(",","[","]"));
-			int startPostion = model.getStartPositions().get(loop.getCollectionExpression());
-			int endPosition = model.getEndPositions().get(loop.getCollectionExpression());
+			int startPostion = currentModel.getStartPositions().get(loop.getCollectionExpression());
+			int endPosition = currentModel.getEndPositions().get(loop.getCollectionExpression());
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(COLLECTION_TYPE,inferredToString),
@@ -559,8 +600,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					.stream()
 					.map(type -> type.toString())
 					.collect(Collectors.joining(",","[","]"));
-			int startPostion = model.getStartPositions().get(ifStmt.getCondition());
-			int endPosition = model.getEndPositions().get(ifStmt.getCondition());
+			int startPostion = currentModel.getStartPositions().get(ifStmt.getCondition());
+			int endPosition = currentModel.getEndPositions().get(ifStmt.getCondition());
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(BOOLEAN_TYPE,inferredToString),
@@ -598,8 +639,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		 */
 		Map<String, Set<IType>> declaringScope = findScope(varAssign.getName());
 		if(declaringScope == null && !varAssign.getName().equals("result")){
-			int startPostion = model.getStartPositions().get(varAssign);
-			int endPosition = model.getEndPositions().get(varAssign);
+			int startPostion = currentModel.getStartPositions().get(varAssign);
+			int endPosition = currentModel.getEndPositions().get(varAssign);
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(VARIABLE_UNDEFINED,varAssign.getName()),
@@ -620,8 +661,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			}
 			
 			if(isVoidOp) {
-				int startPostion = model.getStartPositions().get(varAssign);
-				int endPosition = model.getEndPositions().get(varAssign);
+				int startPostion = currentModel.getStartPositions().get(varAssign);
+				int endPosition = currentModel.getEndPositions().get(varAssign);
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
 						String.format(VOID_RESULT_ASSIGN,varAssign.getName()),
@@ -631,8 +672,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			}
 		}
 		else if(varAssign.getName().equals("self")){
-			int startPostion = model.getStartPositions().get(varAssign);
-			int endPosition = model.getEndPositions().get(varAssign);
+			int startPostion = currentModel.getStartPositions().get(varAssign);
+			int endPosition = currentModel.getEndPositions().get(varAssign);
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(SELF_ASSIGN,varAssign.getName()),
@@ -655,8 +696,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 				.filter(param -> param.getName().equals(varAssign.getName()))
 				.findFirst();
 			if(matchingParam.isPresent()){
-				int startPostion = model.getStartPositions().get(varAssign);
-				int endPosition = model.getEndPositions().get(varAssign);
+				int startPostion = currentModel.getStartPositions().get(varAssign);
+				int endPosition = currentModel.getEndPositions().get(varAssign);
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
 						String.format(PARAM_ASSIGN,varAssign.getName()),
@@ -664,15 +705,11 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 						endPosition
 						));
 			}
-			
-			Set<IType> currentTypes = declaringScope.get(varAssign.getName());
-			currentTypes.addAll(expValidation.getPossibleTypes(varAssign.getValue()));
 		}
 		
 		/*
 		 * Check assignment type
 		 */
-		//FIXME: look for declaration
 		if(varAssign.getName().equals("result")) {
 			Behaviored op = getContainingOperation(varAssign);
 			EClassifier returnType = null;
@@ -695,11 +732,49 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 							.stream()
 							.map(type -> type.toString())
 							.collect(Collectors.joining(",","[","]"));
-					int startPostion = model.getStartPositions().get(varAssign);
-					int endPosition = model.getEndPositions().get(varAssign);
+					int startPostion = currentModel.getStartPositions().get(varAssign);
+					int endPosition = currentModel.getEndPositions().get(varAssign);
 					msgs.add(new ValidationMessage(
 							ValidationMessageLevel.ERROR,
 							String.format(INCOMPATIBLE_TYPE,returnType.getName(),types),
+							startPostion,
+							endPosition
+							));
+				}
+			}
+		}
+		else if(declaringScope != null && !varAssign.getName().equals("self")){ //check type for declared variable
+			Set<IType> declaredTypes = declaringScope.get(varAssign.getName());
+			Set<IType> expectedTypes = expValidation.getPossibleTypes(varAssign.getValue());
+			if(declaredTypes != null && expectedTypes != null) {
+				Optional<IType> existResult = 
+					declaredTypes
+					.stream()
+					.filter(declType -> 
+						expectedTypes
+						.stream()
+						.filter(expectedType -> declType.isAssignableFrom(expectedType))
+						.findAny()
+						.isPresent()
+					)
+					.findAny();
+				if(!existResult.isPresent()){
+					String declaredToString = 
+							declaredTypes
+							.stream()
+							.map(type -> type.toString())
+							.collect(Collectors.joining(",","[","]"));
+					String expectedToString = 
+							expectedTypes
+							.stream()
+							.map(type -> type.toString())
+							.collect(Collectors.joining(",","[","]"));
+					
+					int startPostion = currentModel.getStartPositions().get(varAssign);
+					int endPosition = currentModel.getEndPositions().get(varAssign);
+					msgs.add(new ValidationMessage(
+							ValidationMessageLevel.ERROR,
+							String.format(INCOMPATIBLE_TYPE,declaredToString,expectedToString),
 							startPostion,
 							endPosition
 							));
@@ -725,8 +800,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		 * Check name
 		 */
 		if(varDecl.getName().equals("result")){
-			int startPostion = model.getStartPositions().get(varDecl);
-			int endPosition = model.getEndPositions().get(varDecl);
+			int startPostion = currentModel.getStartPositions().get(varDecl);
+			int endPosition = currentModel.getEndPositions().get(varDecl);
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(RESULT_RESERVED,varDecl.getName()),
@@ -735,8 +810,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					));
 		}
 		else if(varDecl.getName().equals("self")){
-			int startPostion = model.getStartPositions().get(varDecl);
-			int endPosition = model.getEndPositions().get(varDecl);
+			int startPostion = currentModel.getStartPositions().get(varDecl);
+			int endPosition = currentModel.getEndPositions().get(varDecl);
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(SELF_RESERVED,varDecl.getName()),
@@ -748,8 +823,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			Map<String, Set<IType>> lastScope = variableTypesStack.peek();
 			Map<String, Set<IType>> declaringScope = findScope(varDecl.getName());
 			if(declaringScope != null){
-				int startPostion = model.getStartPositions().get(varDecl);
-				int endPosition = model.getEndPositions().get(varDecl);
+				int startPostion = currentModel.getStartPositions().get(varDecl);
+				int endPosition = currentModel.getEndPositions().get(varDecl);
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
 						String.format(NAME_ALREADY_USED,varDecl.getName()),
@@ -783,8 +858,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 						.map(type -> type.toString())
 						.collect(Collectors.joining(",","[","]"));
 				
-				int startPostion = model.getStartPositions().get(varDecl);
-				int endPosition = model.getEndPositions().get(varDecl);
+				int startPostion = currentModel.getStartPositions().get(varDecl);
+				int endPosition = currentModel.getEndPositions().get(varDecl);
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
 						String.format(INCOMPATIBLE_TYPE,varDecl.getType().getName(),inferredToString),
@@ -825,8 +900,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					.stream()
 					.map(type -> type.toString())
 					.collect(Collectors.joining(",","[","]"));
-			int startPostion = model.getStartPositions().get(loop.getCondition());
-			int endPosition = model.getEndPositions().get(loop.getCondition());
+			int startPostion = currentModel.getStartPositions().get(loop.getCondition());
+			int endPosition = currentModel.getEndPositions().get(loop.getCondition());
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(BOOLEAN_TYPE,inferredToString),
@@ -839,11 +914,16 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		return null;
 	}
 	
-	public void validate(ParseResult<ModelBehavior> root) {
-		this.model = root;
+	public void validate(List<ParseResult<ModelBehavior>> roots) {
+		
 		this.msgs = new ArrayList<IValidationMessage>();
-		this.variableTypesStack = new Stack<Map<String, Set<IType>>>();
-		doSwitch(model.getRoot());
+		this.allModels = roots;
+
+		roots.forEach(root -> {
+			this.currentModel = root;
+			this.variableTypesStack = new Stack<Map<String, Set<IType>>>();
+			doSwitch(currentModel.getRoot());
+		});
 	}
 	
 	public List<IValidationMessage> getMessages() {
@@ -857,8 +937,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		//Make an AstResult with positions from Implementation parser
 		AstResult fakeAst = new AstResult(
 				exp,
-				model.getStartPositions(),
-				model.getEndPositions(),
+				currentModel.getStartPositions(),
+				currentModel.getEndPositions(),
 				new ArrayList(),
 				new BasicDiagnostic()
 				);
@@ -888,11 +968,71 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		return null;
 	}
 	
+	private List<ExtendedClass> findExtensions(EClass realType) {
+		return 
+			allModels
+			.stream()
+			.flatMap(m -> m.getRoot().getClassExtensions().stream())
+			.filter(xtdCls -> xtdCls.getBaseClass().isSuperTypeOf(realType))
+			.collect(Collectors.toList());
+	}
+	
 	private Behaviored getContainingOperation(VariableAssignment varAssign) {
 		EObject parent = varAssign.eContainer();
 		while(parent != null && !(parent instanceof Behaviored)){
 			parent = parent.eContainer();
 		}
 		return (Behaviored)parent;
+	}
+	
+	private boolean isMatching(Behaviored op1, Behaviored op2) {
+		EOperation eOp1 = null;
+		EOperation eOp2 = null;
+		if(op1 instanceof Method){
+			eOp1 = ((Method)op1).getOperationDef();
+		}
+		else{
+			eOp1 = ((Implementation)op1).getOperationRef();
+		}
+		if(op2 instanceof Method){
+			eOp2 = ((Method)op2).getOperationDef();
+		}
+		else{
+			eOp2 = ((Implementation)op2).getOperationRef();
+		}
+		
+		boolean isMatchingName = eOp1.getName().equals(eOp2.getName());
+		boolean isMatchingArgsSize = (eOp1.getEParameters().size() == eOp2.getEParameters().size());
+		
+		if(!(isMatchingName && isMatchingArgsSize)){
+			return false;
+		}
+		
+		boolean areParamTypeMatching = true;
+		for(int i = 0; i <  eOp1.getEParameters().size(); i++) {
+			EParameter param1 = eOp1.getEParameters().get(i);
+			EParameter param2 = eOp2.getEParameters().get(i);
+			areParamTypeMatching = areParamTypeMatching && (param1.getEType().equals(param2.getEType()));
+		}
+		return isMatchingName && isMatchingArgsSize && areParamTypeMatching;
+	}
+	
+	private String getSignature(Behaviored op) {
+		EOperation eOp;
+		if(op instanceof Method){
+			eOp = ((Method)op).getOperationDef();
+		}
+		else{
+			eOp = ((Implementation)op).getOperationRef();
+		}
+		
+		String paramsToString = 
+			eOp
+			.getEParameters()
+			.stream()
+			.map(param -> param.getEType().getName())
+			.collect(Collectors.joining(",","(",")"));
+		
+		return eOp.getName() + paramsToString; 
 	}
 }

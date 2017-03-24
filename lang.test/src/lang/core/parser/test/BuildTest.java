@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2017 Inria and Obeo.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Inria - initial API and implementation
+ *******************************************************************************/
 package lang.core.parser.test;
 
 import static org.junit.Assert.assertEquals;
@@ -557,6 +567,37 @@ public class BuildTest {
 		assertEquals(1,runtimeClass.getEOperations().get(1).getEParameters().size());
 		assertEquals(EcorePackage.eINSTANCE.getEInt(),runtimeClass.getEOperations().get(1).getEParameters().get(0).getEType());
 		assertEquals(runtimeClass,runtimeClass.getEOperations().get(1).getEType());
+	}
+	
+	@Test
+	public void testExtends() {
+		List<ParseResult<ModelBehavior>> res = parser.parseFromFiles(Arrays.asList("input/structure/extends.implem","input/structure/extendedClass.implem"));
+		ModelBehavior root = res.get(1).getRoot();
+		ModelBehavior extendedRoot = res.get(0).getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.extendedclass",root.getName());
+		assertEquals(0, root.getServices().size());
+		assertEquals(1, root.getClassExtensions().size());
+		assertEquals(0, root.getClassDefinitions().size());
+		
+		ExtendedClass xtdCls = root.getClassExtensions().get(0);
+		assertEquals(0, xtdCls.getAttributes().size());
+		assertEquals(0, xtdCls.getMethods().size());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(), xtdCls.getBaseClass());
+		
+		assertNotNull(extendedRoot);
+		assertEquals("test.extendedextendedclass",extendedRoot.getName());
+		assertEquals(0, extendedRoot.getServices().size());
+		assertEquals(1, extendedRoot.getClassExtensions().size());
+		assertEquals(0, extendedRoot.getClassDefinitions().size());
+		
+		ExtendedClass xtdXtdCls = extendedRoot.getClassExtensions().get(0);
+		assertEquals(0, xtdXtdCls.getAttributes().size());
+		assertEquals(0, xtdXtdCls.getMethods().size());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(), xtdXtdCls.getBaseClass());
+		assertEquals(1,xtdXtdCls.getExtends().size());
+		assertEquals(xtdCls,xtdXtdCls.getExtends().get(0));
 	}
 	
 	private static String getFileContent(String implementionPath){
