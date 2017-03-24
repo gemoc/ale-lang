@@ -1,0 +1,10 @@
+behavior test.lookup.xtdinherits;
+
+import test.lookup.inherits as vanilla;
+
+open class A extends vanilla.A {
+
+	def String foo() {
+		result := 'a.foo2';
+	}
+}
