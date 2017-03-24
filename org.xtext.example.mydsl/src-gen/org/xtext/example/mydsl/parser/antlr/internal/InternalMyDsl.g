@@ -315,19 +315,20 @@ rulerOpenClass returns [EObject current=null]
 		}
 		(
 			(
-				lv_name_2_0=RULE_IDENT
 				{
-					newLeafNode(lv_name_2_0, grammarAccess.getROpenClassAccess().getNameIdentTerminalRuleCall_2_0());
+					newCompositeNode(grammarAccess.getROpenClassAccess().getNameRQualifiedParserRuleCall_2_0());
 				}
+				lv_name_2_0=rulerQualified
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getROpenClassRule());
+						$current = createModelElementForParent(grammarAccess.getROpenClassRule());
 					}
-					setWithLastConsumed(
+					set(
 						$current,
 						"name",
 						lv_name_2_0,
-						"org.xtext.example.mydsl.MyDsl.Ident");
+						"org.xtext.example.mydsl.MyDsl.rQualified");
+					afterParserOrEnumRuleCall();
 				}
 			)
 		)
@@ -540,19 +541,20 @@ rulerOperation returns [EObject current=null]
 		)
 		(
 			(
-				lv_type_3_0=RULE_IDENT
 				{
-					newLeafNode(lv_type_3_0, grammarAccess.getROperationAccess().getTypeIdentTerminalRuleCall_2_0());
+					newCompositeNode(grammarAccess.getROperationAccess().getTypeRTypeParserRuleCall_2_0());
 				}
+				lv_type_3_0=rulerType
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getROperationRule());
+						$current = createModelElementForParent(grammarAccess.getROperationRule());
 					}
-					setWithLastConsumed(
+					set(
 						$current,
 						"type",
 						lv_type_3_0,
-						"org.xtext.example.mydsl.MyDsl.Ident");
+						"org.xtext.example.mydsl.MyDsl.rType");
+					afterParserOrEnumRuleCall();
 				}
 			)
 		)
@@ -735,19 +737,20 @@ rulerVariable returns [EObject current=null]
 	(
 		(
 			(
-				lv_type_0_0=RULE_IDENT
 				{
-					newLeafNode(lv_type_0_0, grammarAccess.getRVariableAccess().getTypeIdentTerminalRuleCall_0_0());
+					newCompositeNode(grammarAccess.getRVariableAccess().getTypeRTypeParserRuleCall_0_0());
 				}
+				lv_type_0_0=rulerType
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getRVariableRule());
+						$current = createModelElementForParent(grammarAccess.getRVariableRule());
 					}
-					setWithLastConsumed(
+					set(
 						$current,
 						"type",
 						lv_type_0_0,
-						"org.xtext.example.mydsl.MyDsl.Ident");
+						"org.xtext.example.mydsl.MyDsl.rType");
+					afterParserOrEnumRuleCall();
 				}
 			)
 		)
@@ -790,19 +793,20 @@ rulerAttribute returns [EObject current=null]
 	(
 		(
 			(
-				lv_type_0_0=RULE_IDENT
 				{
-					newLeafNode(lv_type_0_0, grammarAccess.getRAttributeAccess().getTypeIdentTerminalRuleCall_0_0());
+					newCompositeNode(grammarAccess.getRAttributeAccess().getTypeRTypeParserRuleCall_0_0());
 				}
+				lv_type_0_0=rulerType
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getRAttributeRule());
+						$current = createModelElementForParent(grammarAccess.getRAttributeRule());
 					}
-					setWithLastConsumed(
+					set(
 						$current,
 						"type",
 						lv_type_0_0,
-						"org.xtext.example.mydsl.MyDsl.Ident");
+						"org.xtext.example.mydsl.MyDsl.rType");
+					afterParserOrEnumRuleCall();
 				}
 			)
 		)
@@ -947,12 +951,15 @@ rulerVarDecl returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken(
 	leaveRule();
 }:
 	(
-		this_Ident_0=RULE_IDENT
 		{
-			$current.merge(this_Ident_0);
+			newCompositeNode(grammarAccess.getRVarDeclAccess().getRTypeParserRuleCall_0());
+		}
+		this_rType_0=rulerType
+		{
+			$current.merge(this_rType_0);
 		}
 		{
-			newLeafNode(this_Ident_0, grammarAccess.getRVarDeclAccess().getIdentTerminalRuleCall_0());
+			afterParserOrEnumRuleCall();
 		}
 		this_Ident_1=RULE_IDENT
 		{
@@ -2677,6 +2684,46 @@ ruleclassifierTypeRule returns [AntlrDatatypeRuleToken current=new AntlrDatatype
 				newLeafNode(kw, grammarAccess.getClassifierTypeRuleAccess().getColonKeyword_1_1());
 			}
 		)
+	)
+;
+
+// Entry rule entryRulerType
+entryRulerType returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getRTypeRule()); }
+	iv_rulerType=rulerType
+	{ $current=$iv_rulerType.current.getText(); }
+	EOF;
+
+// Rule rType
+rulerType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		{
+			newCompositeNode(grammarAccess.getRTypeAccess().getRQualifiedParserRuleCall_0());
+		}
+		this_rQualified_0=rulerQualified
+		{
+			$current.merge(this_rQualified_0);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getRTypeAccess().getTypeLiteralParserRuleCall_1());
+		}
+		this_typeLiteral_1=ruletypeLiteral
+		{
+			$current.merge(this_typeLiteral_1);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
 	)
 ;
 
