@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2017 Inria and Obeo.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Inria - initial API and implementation
+ *******************************************************************************/
 package lang.core.parser;
 
 import java.io.IOException;
@@ -16,9 +26,11 @@ import org.antlr.v4.runtime.CommonTokenFactory;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.UnbufferedCharStream;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 
+import implementation.ExtendedClass;
 import implementation.ModelBehavior;
 import lang.core.parser.XtdAQLParser.RRootContext;
 import lang.core.parser.visitor.ModelBuilder;
@@ -109,6 +121,57 @@ public class AstBuilder {
 				});
 			}
 		});
+		
+		/*
+    	 * Resolve extends
+    	 */
+    	Map<String,List<ExtendedClass>> behaviorToClass = new HashMap<String,List<ExtendedClass>>();
+    	List<ExtendedClass> allExtensions = new ArrayList<ExtendedClass>();
+    	build
+    	.stream()
+    	.forEach(sem -> {
+    		ModelBehavior root = sem.getRoot();
+    		if(root != null) {
+    			List<ExtendedClass> xtdCls =  root.getClassExtensions().stream().collect(Collectors.toList());
+    			behaviorToClass.put(root.getName(), xtdCls);
+    			allExtensions.addAll(xtdCls);
+    		}
+    	});
+    	allExtensions
+    	.stream()
+    	.forEach(cls -> {
+    		List<EAnnotation> toResolve =
+				cls
+				.getEAnnotations()
+				.stream()
+				.filter(a -> a.getSource().equals(ModelBuilder.PARSER_SOURCE))
+				.filter(a -> a.getDetails().get(ModelBuilder.PARSER_EXTENDS_KEY) != null)
+				.collect(Collectors.toList());
+    		toResolve
+	    		.stream()
+	    		.forEach(annot -> {
+	    			String xtd = annot.getDetails().get(ModelBuilder.PARSER_EXTENDS_KEY);
+	    			if(Visitors.isQualified(xtd)) {
+	    				int lastDot = xtd.lastIndexOf(".");
+	    				if(lastDot < xtd.length()){
+	    					String qualifying = xtd.substring(0, lastDot);
+	    					String name = xtd.substring(lastDot+1);
+	    					List<ExtendedClass> candidates = behaviorToClass.get(qualifying);
+	    					if(candidates != null) {
+	    						Optional<ExtendedClass> searchRes =
+	    							candidates
+		    						.stream()
+		    						.filter(c -> c.getBaseClass().getName().equals(name))
+		    						.findFirst();
+	    						if(searchRes.isPresent()) {
+	    							cls.getExtends().add(searchRes.get());
+	    							cls.getEAnnotations().remove(annot);
+	    						}
+	    					}
+	    				}
+	    			}
+	    		});
+    	});
 		
 		return build;
 	}
