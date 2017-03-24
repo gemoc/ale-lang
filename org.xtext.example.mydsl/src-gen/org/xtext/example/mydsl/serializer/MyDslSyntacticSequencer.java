@@ -162,9 +162,9 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('extends' rQualified (',' rQualified)*)?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     name=Ident (ambiguity) '{' '}' (rule end)
-	 *     name=Ident (ambiguity) '{' attributes+=rAttribute
-	 *     name=Ident (ambiguity) '{' operations+=rOperation
+	 *     name=rQualified (ambiguity) '{' '}' (rule end)
+	 *     name=rQualified (ambiguity) '{' attributes+=rAttribute
+	 *     name=rQualified (ambiguity) '{' operations+=rOperation
 	 */
 	protected void emit_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -175,7 +175,7 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'def' | 'override'
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) rTag* (ambiguity) type=Ident
+	 *     (rule start) rTag* (ambiguity) type=rType
 	 */
 	protected void emit_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -186,7 +186,7 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     rTag*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) ('def' | 'override') type=Ident
+	 *     (rule start) (ambiguity) ('def' | 'override') type=rType
 	 */
 	protected void emit_rOperation_RTagParserRuleCall_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

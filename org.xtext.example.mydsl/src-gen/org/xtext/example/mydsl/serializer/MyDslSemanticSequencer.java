@@ -79,7 +79,7 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     rAttribute returns rAttribute
 	 *
 	 * Constraint:
-	 *     (type=Ident name=Ident)
+	 *     (type=rType name=Ident)
 	 */
 	protected void sequence_rAttribute(ISerializationContext context, rAttribute semanticObject) {
 		if (errorAcceptor != null) {
@@ -89,7 +89,7 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.RATTRIBUTE__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getRAttributeAccess().getTypeIdentTerminalRuleCall_0_0(), semanticObject.getType());
+		feeder.accept(grammarAccess.getRAttributeAccess().getTypeRTypeParserRuleCall_0_0(), semanticObject.getType());
 		feeder.accept(grammarAccess.getRAttributeAccess().getNameIdentTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.finish();
 	}
@@ -114,7 +114,7 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     rOpenClass returns rOpenClass
 	 *
 	 * Constraint:
-	 *     (name=Ident attributes+=rAttribute* operations+=rOperation*)
+	 *     (name=rQualified attributes+=rAttribute* operations+=rOperation*)
 	 */
 	protected void sequence_rOpenClass(ISerializationContext context, rOpenClass semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -126,7 +126,7 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     rOperation returns rOperation
 	 *
 	 * Constraint:
-	 *     (type=Ident name=Ident paramList+=rParameters? body=rBlock)
+	 *     (type=rType name=Ident paramList+=rParameters? body=rBlock)
 	 */
 	protected void sequence_rOperation(ISerializationContext context, rOperation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -162,7 +162,7 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     rVariable returns rVariable
 	 *
 	 * Constraint:
-	 *     (type=Ident name=Ident)
+	 *     (type=rType name=Ident)
 	 */
 	protected void sequence_rVariable(ISerializationContext context, rVariable semanticObject) {
 		if (errorAcceptor != null) {
@@ -172,7 +172,7 @@ public class MyDslSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.RVARIABLE__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getRVariableAccess().getTypeIdentTerminalRuleCall_0_0(), semanticObject.getType());
+		feeder.accept(grammarAccess.getRVariableAccess().getTypeRTypeParserRuleCall_0_0(), semanticObject.getType());
 		feeder.accept(grammarAccess.getRVariableAccess().getNameIdentTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.finish();
 	}
