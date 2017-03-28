@@ -21,15 +21,27 @@ import org.eclipse.acceleo.query.ast.AstPackage;
 import org.eclipse.acceleo.query.runtime.CrossReferenceProvider;
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
+import org.eclipse.acceleo.query.runtime.IRootEObjectProvider;
 import org.eclipse.acceleo.query.runtime.IService;
 import org.eclipse.acceleo.query.runtime.Query;
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
+import org.eclipse.acceleo.query.services.AnyServices;
+import org.eclipse.acceleo.query.services.BooleanServices;
+import org.eclipse.acceleo.query.services.CollectionServices;
+import org.eclipse.acceleo.query.services.ComparableServices;
+import org.eclipse.acceleo.query.services.EObjectServices;
+import org.eclipse.acceleo.query.services.NumberServices;
+import org.eclipse.acceleo.query.services.ResourceServices;
+import org.eclipse.acceleo.query.services.StringServices;
+import org.eclipse.acceleo.query.services.XPathServices;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -44,6 +56,7 @@ import implementation.ImplementationPackage;
 import implementation.ModelBehavior;
 import lang.core.interpreter.DiagnosticLogger;
 import lang.core.interpreter.EvalEnvironment;
+import lang.core.interpreter.ExtensionEnvironment;
 import lang.core.interpreter.ImplementationEngine;
 import lang.core.interpreter.services.EvalBodyService;
 import lang.core.parser.Dsl;
@@ -129,8 +142,12 @@ public class LangInterpreter {
 	}
     
     private IQueryEnvironment createQueryEnvironment(boolean isDebug, CrossReferenceProvider xRefProvider) {
+    	
+    	IQueryEnvironment newEnv = new ExtensionEnvironment();
+		populateEnvironmentWithDefaultServices(newEnv,xRefProvider,null);
+    	
     	if(isDebug) {
-    		DebugQueryEnvironment debugQryEnv = new DebugQueryEnvironment(Query.newEnvironmentWithDefaultServices(xRefProvider));
+    		DebugQueryEnvironment debugQryEnv = new DebugQueryEnvironment(newEnv);
     		debugQryEnv.registerListener(new ILookupEngineListener() {
 				@Override
 				public void preLookup(String name, IType[] argumentTypes) {
@@ -146,9 +163,37 @@ public class LangInterpreter {
     		return debugQryEnv;
     	}
     	else {
-    		return Query.newEnvironmentWithDefaultServices(xRefProvider);
+    		return newEnv;
     	}
     }
+    
+    /**
+     * @see org.eclipse.acceleo.query.runtime.Query
+     */
+	private void populateEnvironmentWithDefaultServices(IQueryEnvironment env, CrossReferenceProvider xRefProvider,
+			IRootEObjectProvider rootProvider) {
+		Set<IService> services = ServiceUtils.getServices(env, new AnyServices(env));
+		ServiceUtils.registerServices(env, services);
+		env.registerEPackage(EcorePackage.eINSTANCE);
+		env.registerCustomClassMapping(EcorePackage.eINSTANCE.getEStringToStringMapEntry(),
+				EStringToStringMapEntryImpl.class);
+		services = ServiceUtils.getServices(env, new EObjectServices(env, xRefProvider, rootProvider));
+		ServiceUtils.registerServices(env, services);
+		services = ServiceUtils.getServices(env, new XPathServices(env));
+		ServiceUtils.registerServices(env, services);
+		services = ServiceUtils.getServices(env, ComparableServices.class);
+		ServiceUtils.registerServices(env, services);
+		services = ServiceUtils.getServices(env, NumberServices.class);
+		ServiceUtils.registerServices(env, services);
+		services = ServiceUtils.getServices(env, StringServices.class);
+		ServiceUtils.registerServices(env, services);
+		services = ServiceUtils.getServices(env, BooleanServices.class);
+		ServiceUtils.registerServices(env, services);
+		services = ServiceUtils.getServices(env, CollectionServices.class);
+		ServiceUtils.registerServices(env, services);
+		services = ServiceUtils.getServices(env, ResourceServices.class);
+		ServiceUtils.registerServices(env, services);
+	}
     
     /**
      * Entry point for an evaluation.
@@ -322,4 +367,6 @@ public class LangInterpreter {
     	URI uri = URI.createURI(modelURI);
 		return modelRs.getResource(uri, true);
     }
+    
+    
 }
