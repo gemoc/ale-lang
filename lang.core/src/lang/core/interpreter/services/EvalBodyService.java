@@ -17,6 +17,7 @@ import implementation.Behaviored;
 import org.eclipse.acceleo.query.runtime.impl.AbstractService;
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
+import org.eclipse.acceleo.query.runtime.IService;
 import org.eclipse.acceleo.query.ast.Call;
 import org.eclipse.acceleo.query.runtime.impl.ValidationServices;
 import org.eclipse.acceleo.query.runtime.IValidationResult;
@@ -30,6 +31,7 @@ import implementation.RuntimeClass;
 import implementation.Implementation;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.emf.ecore.EParameter;
@@ -209,5 +211,24 @@ public class EvalBodyService extends AbstractService {
 	
 	public void setPriority(int newValue) {
 		priority = newValue;
+	}
+	
+	public boolean isLowerParameterTypes(IReadOnlyQueryEnvironment queryEnvironment,
+			IService service) {
+		final List<IType> paramTypes1 = getParameterTypes(queryEnvironment);
+		final List<IType> paramTypes2 = service.getParameterTypes(queryEnvironment);
+		boolean result = paramTypes1.size() == paramTypes2.size();
+
+		final Iterator<IType> it1 = paramTypes1.iterator();
+		final Iterator<IType> it2 = paramTypes2.iterator();
+		while (result && it1.hasNext()) {
+			IType paramType1 = it1.next();
+			IType paramType2 = it2.next();
+			if (paramType2.equals(paramType1) || !paramType2.isAssignableFrom(paramType1)) {
+				result = false;
+			}
+		}
+
+		return result;
 	}
 }
