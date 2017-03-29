@@ -5,5 +5,5 @@ Bundle-SymbolicName: logo.example
 Bundle-Version: 1.0.0.qualifier
 Export-Package: logo.example.service
 Require-Bundle: org.eclipse.emf.common,
- lang.core,
+ org.eclipse.acceleo.ale.core,
  logo.model

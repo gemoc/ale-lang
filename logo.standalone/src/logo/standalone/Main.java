@@ -21,6 +21,11 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import org.eclipse.acceleo.ale.LangInterpreter;
+import org.eclipse.acceleo.ale.core.interpreter.DiagnosticLogger;
+import org.eclipse.acceleo.ale.core.interpreter.ImplementationEvaluator;
+import org.eclipse.acceleo.ale.core.parser.Dsl;
+import org.eclipse.acceleo.ale.core.parser.visitor.ParseResult;
 import org.eclipse.acceleo.query.ast.AstPackage;
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
@@ -40,11 +45,6 @@ import implementation.ImplementationPackage;
 import implementation.ModelBehavior;
 import kmLogo.ASM.ASMPackage;
 import kmLogo.ASM.LogoProgram;
-import lang.LangInterpreter;
-import lang.core.interpreter.DiagnosticLogger;
-import lang.core.interpreter.ImplementationEvaluator;
-import lang.core.parser.Dsl;
-import lang.core.parser.visitor.ParseResult;
 import vmlogo.VmlogoPackage;
 
 public class Main {

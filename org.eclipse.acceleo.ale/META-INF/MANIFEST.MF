@@ -1,15 +1,13 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Standalone
-Bundle-SymbolicName: logo.standalone
+Bundle-Name: Ale
+Bundle-SymbolicName: org.eclipse.acceleo.ale
 Bundle-Version: 1.0.0.qualifier
-Export-Package: logo.standalone
+Export-Package: org.eclipse.acceleo.ale
 Require-Bundle: org.eclipse.acceleo.query,
  org.eclipse.emf.common,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.acceleo.ale.core,
- org.eclipse.acceleo.ale,
- logo.example,
- logo.model,
- org.eclipse.sirius.common
+ org.eclipse.sirius.common,
+ org.eclipse.core.resources

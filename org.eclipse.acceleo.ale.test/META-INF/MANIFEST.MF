@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: org.eclipse.acceleo.ale.tests
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.junit,
+ org.eclipse.acceleo.ale.core,
+ org.eclipse.acceleo.ale,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.emf.ecore,
+ org.eclipse.sirius.common
+Export-Package: org.eclipse.acceleo.ale.core.interpreter.test,
+ org.eclipse.acceleo.ale.core.parser.test,
+ org.eclipse.acceleo.ale.core.validation.test,
+ org.eclipse.acceleo.ale.test
