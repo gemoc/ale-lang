@@ -48,8 +48,8 @@ import org.eclipse.sirius.viewpoint.DView;
 import org.eclipse.sirius.viewpoint.description.RepresentationExtensionDescription;
 import org.eclipse.sirius.viewpoint.description.Viewpoint;
 
-import implementation.ImplementationPackage;
-import implementation.ModelBehavior;
+import org.eclipse.acceleo.ale.implementation.ImplementationPackage;
+import org.eclipse.acceleo.ale.implementation.ModelBehavior;
 
 public class MySessionListener implements SessionManagerListener{
 

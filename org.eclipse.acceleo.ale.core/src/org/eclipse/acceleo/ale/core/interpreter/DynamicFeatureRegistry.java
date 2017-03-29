@@ -20,9 +20,9 @@ import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import implementation.ExtendedClass;
-import implementation.ModelBehavior;
-import implementation.VariableDeclaration;
+import org.eclipse.acceleo.ale.implementation.ExtendedClass;
+import org.eclipse.acceleo.ale.implementation.ModelBehavior;
+import org.eclipse.acceleo.ale.implementation.VariableDeclaration;
 
 import java.util.Map;
 import java.util.Optional;

@@ -32,7 +32,7 @@ import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnosti
 import org.junit.Before;
 import org.junit.Test;
 
-import implementation.ModelBehavior;
+import org.eclipse.acceleo.ale.implementation.ModelBehavior;
 
 /**
  * This class test the execution of ModelBehavior

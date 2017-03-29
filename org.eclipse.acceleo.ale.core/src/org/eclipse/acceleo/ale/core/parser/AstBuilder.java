@@ -33,8 +33,8 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 
-import implementation.ExtendedClass;
-import implementation.ModelBehavior;
+import org.eclipse.acceleo.ale.implementation.ExtendedClass;
+import org.eclipse.acceleo.ale.implementation.ModelBehavior;
 import org.eclipse.acceleo.ale.core.parser.ALELexer;
 import org.eclipse.acceleo.ale.core.parser.ALEParser;
 import org.eclipse.acceleo.ale.core.parser.ALEParser.RRootContext;

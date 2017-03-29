@@ -16,7 +16,7 @@ import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
 import org.eclipse.emf.ecore.EObject;
 
-import implementation.Behaviored;
+import org.eclipse.acceleo.ale.implementation.Behaviored;
 
 public class ImplementationEngine {
 	

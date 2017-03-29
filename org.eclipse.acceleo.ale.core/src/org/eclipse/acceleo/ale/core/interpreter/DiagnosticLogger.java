@@ -22,7 +22,7 @@ import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 
-import implementation.ModelBehavior;
+import org.eclipse.acceleo.ale.implementation.ModelBehavior;
 
 public class DiagnosticLogger {
 	List<Diagnostic> log = new ArrayList<Diagnostic>();

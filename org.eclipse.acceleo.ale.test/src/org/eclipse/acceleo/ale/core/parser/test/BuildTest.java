@@ -45,21 +45,21 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.junit.Before;
 import org.junit.Test;
 
-import implementation.Behaviored;
-import implementation.Block;
-import implementation.ExpressionStatement;
-import implementation.ExtendedClass;
-import implementation.ForEach;
-import implementation.If;
-import implementation.Implementation;
-import implementation.ImplementationPackage;
-import implementation.Method;
-import implementation.ModelBehavior;
-import implementation.RuntimeClass;
-import implementation.Statement;
-import implementation.VariableAssignment;
-import implementation.VariableDeclaration;
-import implementation.While;
+import org.eclipse.acceleo.ale.implementation.Behaviored;
+import org.eclipse.acceleo.ale.implementation.Block;
+import org.eclipse.acceleo.ale.implementation.ExpressionStatement;
+import org.eclipse.acceleo.ale.implementation.ExtendedClass;
+import org.eclipse.acceleo.ale.implementation.ForEach;
+import org.eclipse.acceleo.ale.implementation.If;
+import org.eclipse.acceleo.ale.implementation.Implementation;
+import org.eclipse.acceleo.ale.implementation.ImplementationPackage;
+import org.eclipse.acceleo.ale.implementation.Method;
+import org.eclipse.acceleo.ale.implementation.ModelBehavior;
+import org.eclipse.acceleo.ale.implementation.RuntimeClass;
+import org.eclipse.acceleo.ale.implementation.Statement;
+import org.eclipse.acceleo.ale.implementation.VariableAssignment;
+import org.eclipse.acceleo.ale.implementation.VariableDeclaration;
+import org.eclipse.acceleo.ale.implementation.While;
 
 /**
  * This class checks the structure of the ModelBehavior produced by the parser
