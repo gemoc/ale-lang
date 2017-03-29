@@ -10,19 +10,19 @@
  *******************************************************************************/
 package org.eclipse.acceleo.ale.core.interpreter;
 
-import implementation.util.ImplementationSwitch;
-import implementation.Method;
-import implementation.Implementation;
-import implementation.Block;
-import implementation.VariableDeclaration;
-import implementation.FeatureAssignment;
-import implementation.FeatureInsert;
-import implementation.FeatureRemove;
-import implementation.FeaturePut;
-import implementation.ForEach;
-import implementation.While;
-import implementation.If;
-import implementation.ExpressionStatement;
+import org.eclipse.acceleo.ale.implementation.util.ImplementationSwitch;
+import org.eclipse.acceleo.ale.implementation.Method;
+import org.eclipse.acceleo.ale.implementation.Implementation;
+import org.eclipse.acceleo.ale.implementation.Block;
+import org.eclipse.acceleo.ale.implementation.VariableDeclaration;
+import org.eclipse.acceleo.ale.implementation.FeatureAssignment;
+import org.eclipse.acceleo.ale.implementation.FeatureInsert;
+import org.eclipse.acceleo.ale.implementation.FeatureRemove;
+import org.eclipse.acceleo.ale.implementation.FeaturePut;
+import org.eclipse.acceleo.ale.implementation.ForEach;
+import org.eclipse.acceleo.ale.implementation.While;
+import org.eclipse.acceleo.ale.implementation.If;
+import org.eclipse.acceleo.ale.implementation.ExpressionStatement;
 import java.util.Map;
 import java.util.Stack;
 import org.eclipse.acceleo.query.runtime.IQueryEvaluationEngine;
@@ -38,11 +38,11 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
-import implementation.Behaviored;
+import org.eclipse.acceleo.ale.implementation.Behaviored;
 import java.util.List;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
-import implementation.VariableAssignment;
+import org.eclipse.acceleo.ale.implementation.VariableAssignment;
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 

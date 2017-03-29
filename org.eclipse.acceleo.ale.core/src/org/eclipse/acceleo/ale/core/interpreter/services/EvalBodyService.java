@@ -13,7 +13,7 @@ package org.eclipse.acceleo.ale.core.interpreter.services;
 import org.eclipse.acceleo.query.runtime.impl.EOperationService;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EObject;
-import implementation.Behaviored;
+import org.eclipse.acceleo.ale.implementation.Behaviored;
 import org.eclipse.acceleo.query.runtime.impl.AbstractService;
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
@@ -29,10 +29,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.eclipse.acceleo.query.validation.type.IType;
-import implementation.Method;
-import implementation.ModelBehavior;
-import implementation.RuntimeClass;
-import implementation.Implementation;
+import org.eclipse.acceleo.ale.implementation.Method;
+import org.eclipse.acceleo.ale.implementation.ModelBehavior;
+import org.eclipse.acceleo.ale.implementation.RuntimeClass;
+import org.eclipse.acceleo.ale.implementation.Implementation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -46,7 +46,7 @@ import java.util.LinkedHashSet;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
-import implementation.ExtendedClass;
+import org.eclipse.acceleo.ale.implementation.ExtendedClass;
 
 import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
 

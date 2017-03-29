@@ -39,25 +39,25 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import com.google.common.collect.Lists;
 
-import implementation.Behaviored;
-import implementation.Block;
-import implementation.ExpressionStatement;
-import implementation.ExtendedClass;
-import implementation.FeatureAssignment;
-import implementation.FeatureInsert;
-import implementation.FeaturePut;
-import implementation.FeatureRemove;
-import implementation.ForEach;
-import implementation.If;
-import implementation.Implementation;
-import implementation.ImplementationFactory;
-import implementation.ImplementationPackage;
-import implementation.Method;
-import implementation.RuntimeClass;
-import implementation.Statement;
-import implementation.VariableAssignment;
-import implementation.VariableDeclaration;
-import implementation.While;
+import org.eclipse.acceleo.ale.implementation.Behaviored;
+import org.eclipse.acceleo.ale.implementation.Block;
+import org.eclipse.acceleo.ale.implementation.ExpressionStatement;
+import org.eclipse.acceleo.ale.implementation.ExtendedClass;
+import org.eclipse.acceleo.ale.implementation.FeatureAssignment;
+import org.eclipse.acceleo.ale.implementation.FeatureInsert;
+import org.eclipse.acceleo.ale.implementation.FeaturePut;
+import org.eclipse.acceleo.ale.implementation.FeatureRemove;
+import org.eclipse.acceleo.ale.implementation.ForEach;
+import org.eclipse.acceleo.ale.implementation.If;
+import org.eclipse.acceleo.ale.implementation.Implementation;
+import org.eclipse.acceleo.ale.implementation.ImplementationFactory;
+import org.eclipse.acceleo.ale.implementation.ImplementationPackage;
+import org.eclipse.acceleo.ale.implementation.Method;
+import org.eclipse.acceleo.ale.implementation.RuntimeClass;
+import org.eclipse.acceleo.ale.implementation.Statement;
+import org.eclipse.acceleo.ale.implementation.VariableAssignment;
+import org.eclipse.acceleo.ale.implementation.VariableDeclaration;
+import org.eclipse.acceleo.ale.implementation.While;
 
 /**
  * Helper to create parts of Implementation model & to resolve types.

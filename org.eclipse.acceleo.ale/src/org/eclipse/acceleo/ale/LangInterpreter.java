@@ -61,9 +61,9 @@ import org.eclipse.sirius.common.tools.api.interpreter.EPackageLoadingCallback;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 import org.eclipse.sirius.common.tools.api.interpreter.JavaExtensionsManager;
 
-import implementation.Behaviored;
-import implementation.ImplementationPackage;
-import implementation.ModelBehavior;
+import org.eclipse.acceleo.ale.implementation.Behaviored;
+import org.eclipse.acceleo.ale.implementation.ImplementationPackage;
+import org.eclipse.acceleo.ale.implementation.ModelBehavior;
 
 /**
  * This class is an interpreter for the 'Lang' Language.

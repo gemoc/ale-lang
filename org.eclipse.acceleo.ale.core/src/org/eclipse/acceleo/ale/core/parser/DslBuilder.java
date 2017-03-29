@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-import implementation.ModelBehavior;
+import org.eclipse.acceleo.ale.implementation.ModelBehavior;
 
 public class DslBuilder {
 	

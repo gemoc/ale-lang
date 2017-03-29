@@ -6,7 +6,8 @@
     usedGenPackages="../../org.eclipse.acceleo.query/model/ast.genmodel#//ast ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"
     operationReflection="true" importOrganizing="true">
   <foreignModel>Implementation.ecore</foreignModel>
-  <genPackages prefix="Implementation" disposableProviderFactory="true" ecorePackage="Implementation.ecore#/">
+  <genPackages prefix="Implementation" basePackage="org.eclipse.acceleo.ale" disposableProviderFactory="true"
+      ecorePackage="Implementation.ecore#/">
     <genClasses ecoreClass="Implementation.ecore#//ModelBehavior">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ModelBehavior/classExtensions"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ModelBehavior/classDefinitions"/>

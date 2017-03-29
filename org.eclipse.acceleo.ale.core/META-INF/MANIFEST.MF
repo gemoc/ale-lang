@@ -7,9 +7,9 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: implementation,
- implementation.impl,
- implementation.util,
+Export-Package: org.eclipse.acceleo.ale.implementation,
+ org.eclipse.acceleo.ale.implementation.impl,
+ org.eclipse.acceleo.ale.implementation.util,
  org.eclipse.acceleo.ale.core.interpreter,
  org.eclipse.acceleo.ale.core.interpreter.services,
  org.eclipse.acceleo.ale.core.parser,

@@ -34,8 +34,8 @@ import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnosti
 import org.junit.Before;
 import org.junit.Test;
 
-import implementation.ImplementationPackage;
-import implementation.ModelBehavior;
+import org.eclipse.acceleo.ale.implementation.ImplementationPackage;
+import org.eclipse.acceleo.ale.implementation.ModelBehavior;
 
 /**
  * This class checks the errors raised by the ModelBehavior validator

@@ -30,9 +30,9 @@ import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
-import implementation.Behaviored;
-import implementation.ExtendedClass;
-import implementation.ModelBehavior;
+import org.eclipse.acceleo.ale.implementation.Behaviored;
+import org.eclipse.acceleo.ale.implementation.ExtendedClass;
+import org.eclipse.acceleo.ale.implementation.ModelBehavior;
 
 /**
  * This class is the context of an evaluation.

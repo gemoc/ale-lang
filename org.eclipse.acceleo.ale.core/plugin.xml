@@ -21,7 +21,7 @@
       <!-- @generated Implementation -->
       <package
             uri="http://implementation/"
-            class="implementation.ImplementationPackage"
+            class="org.eclipse.acceleo.ale.implementation.ImplementationPackage"
             genModel="model/Implementation.genmodel"/>
    </extension>
 

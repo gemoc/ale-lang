@@ -77,13 +77,13 @@ import org.eclipse.acceleo.ale.rClass;
 import org.eclipse.acceleo.ale.rOperation;
 import org.eclipse.acceleo.ale.rRoot;
 
-import implementation.ExtendedClass;
-import implementation.Implementation;
-import implementation.ImplementationFactory;
-import implementation.ImplementationPackage;
-import implementation.Method;
-import implementation.ModelBehavior;
-import implementation.VariableDeclaration;
+import org.eclipse.acceleo.ale.implementation.ExtendedClass;
+import org.eclipse.acceleo.ale.implementation.Implementation;
+import org.eclipse.acceleo.ale.implementation.ImplementationFactory;
+import org.eclipse.acceleo.ale.implementation.ImplementationPackage;
+import org.eclipse.acceleo.ale.implementation.Method;
+import org.eclipse.acceleo.ale.implementation.ModelBehavior;
+import org.eclipse.acceleo.ale.implementation.VariableDeclaration;
 
 public class Services {
 	
