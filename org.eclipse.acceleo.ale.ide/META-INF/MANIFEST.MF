@@ -24,6 +24,6 @@ Require-Bundle: org.eclipse.acceleo.ale,
  org.eclipse.ui.workbench,
  org.eclipse.gmf.runtime.diagram.ui,
  org.eclipse.core.runtime,
- org.xtext.example.mydsl
+ org.eclipse.acceleo.ale.xtext
 Import-Package: org.eclipse.emf.common.util,
  org.eclipse.emf.ecore.resource.impl

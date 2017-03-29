@@ -72,10 +72,10 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.xtext.example.mydsl.myDsl.rAttribute;
-import org.xtext.example.mydsl.myDsl.rClass;
-import org.xtext.example.mydsl.myDsl.rOperation;
-import org.xtext.example.mydsl.myDsl.rRoot;
+import org.eclipse.acceleo.ale.rAttribute;
+import org.eclipse.acceleo.ale.rClass;
+import org.eclipse.acceleo.ale.rOperation;
+import org.eclipse.acceleo.ale.rRoot;
 
 import implementation.ExtendedClass;
 import implementation.Implementation;
