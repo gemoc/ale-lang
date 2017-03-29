@@ -1,0 +1,5 @@
+*.class
+bin/
+target/
+xtend-gen/
+
