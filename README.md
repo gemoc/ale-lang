@@ -1,3 +1,6 @@
+Action Language for EMF
+=======================
+
 This repository contains the implementation of a language to define behaviors on the top of Ecore models.
 
 Doc
