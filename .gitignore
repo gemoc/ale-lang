@@ -1,2 +1,7 @@
 *.xtendbin
 *.log
+*.class
+bin/
+target/
+xtend-gen/
+org\.eclipse\.ecoretools\.ale\.xtext\.ide/src-gen/
