@@ -64,10 +64,10 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.xtext.example.mydsl.myDsl.RClass;
+import org.xtext.example.mydsl.myDsl.RRoot;
 import org.xtext.example.mydsl.myDsl.rAttribute;
-import org.xtext.example.mydsl.myDsl.rClass;
 import org.xtext.example.mydsl.myDsl.rOperation;
-import org.xtext.example.mydsl.myDsl.rRoot;
 
 import implementation.ExtendedClass;
 import implementation.Implementation;
@@ -383,7 +383,7 @@ public class Services {
 					@Override
 					public void process(XtextResource state) throws Exception {
 						if(state.getContents().size() > 0) {
-							rRoot root = (rRoot) state.getContents().get(0);
+							RRoot root = (RRoot) state.getContents().get(0);
 							
 							String returnType = "void";
 							if(op.getEType() != null){
@@ -396,10 +396,10 @@ public class Services {
 							String opName = op.getName();
 							String template = "\toverride "+returnType+" "+opName+" "+parameters+" {\n\t\t/* Write your code here */\n\t}\n";
 							
-							EList<rClass> allXtdCls = root.getXtendedClasses();
-							Optional<rClass> search = allXtdCls.stream().filter(xtd -> xtd.getName().equals(op.getEContainingClass().getName())).findFirst();
+							EList<RClass> allXtdCls = root.getXtendedClasses();
+							Optional<RClass> search = allXtdCls.stream().filter(xtd -> xtd.getName().equals(op.getEContainingClass().getName())).findFirst();
 							
-							rClass xtdCls = null;
+							RClass xtdCls = null;
 							if(search.isPresent()){
 								xtdCls = search.get(); 
 								ICompositeNode node = NodeModelUtils.findActualNodeFor(xtdCls);
@@ -443,17 +443,17 @@ public class Services {
 					@Override
 					public void process(XtextResource state) throws Exception {
 						if(state.getContents().size() > 0) {
-							rRoot root = (rRoot) state.getContents().get(0);
+							RRoot root = (RRoot) state.getContents().get(0);
 							
 							String returnType = "int";
 							String parameters = "()";
 							String opName = "newMethod";
 							String template = "\tdef "+returnType+" "+opName+" "+parameters+" {\n\t\t/* Write your code here */\n\t\tresult := 0;\n\t}\n";
 							
-							EList<rClass> allXtdCls = root.getXtendedClasses();
-							Optional<rClass> search = allXtdCls.stream().filter(xtd -> xtd.getName().equals(cls.getName())).findFirst();
+							EList<RClass> allXtdCls = root.getXtendedClasses();
+							Optional<RClass> search = allXtdCls.stream().filter(xtd -> xtd.getName().equals(cls.getName())).findFirst();
 							
-							rClass xtdCls = null;
+							RClass xtdCls = null;
 							if(search.isPresent()){
 								xtdCls = search.get(); 
 								ICompositeNode node = NodeModelUtils.findActualNodeFor(xtdCls);
@@ -496,16 +496,16 @@ public class Services {
 					@Override
 					public void process(XtextResource state) throws Exception {
 						if(state.getContents().size() > 0) {
-							rRoot root = (rRoot) state.getContents().get(0);
+							RRoot root = (RRoot) state.getContents().get(0);
 							
 							String type = "int";
 							String attrName = "newFeature";
 							String template = "\n\t"+type+" "+attrName+";\n";
 							
-							EList<rClass> allXtdCls = root.getXtendedClasses();
-							Optional<rClass> search = allXtdCls.stream().filter(xtd -> xtd.getName().equals(cls.getName())).findFirst();
+							EList<RClass> allXtdCls = root.getXtendedClasses();
+							Optional<RClass> search = allXtdCls.stream().filter(xtd -> xtd.getName().equals(cls.getName())).findFirst();
 							
-							rClass xtdCls = null;
+							RClass xtdCls = null;
 							if(search.isPresent()){
 								xtdCls = search.get(); 
 								ICompositeNode node = NodeModelUtils.findActualNodeFor(xtdCls);

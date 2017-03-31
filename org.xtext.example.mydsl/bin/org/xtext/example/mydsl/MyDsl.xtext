@@ -7,7 +7,7 @@ generate myDsl "http://www.xtext.org/example/mydsl/MyDsl"
  * AQL++ grammar *
  *****************/
 
-rRoot : 'behavior' rQualified ';' rImport* rService* xtendedClasses+=rClass*
+rRoot returns RRoot: 'behavior' rQualified ';' rImport* rService* xtendedClasses+=rClass*
 ;
 
 rImport : 'import' rQualified 'as' Ident ';'
@@ -16,13 +16,15 @@ rImport : 'import' rQualified 'as' Ident ';'
 rService : 'use' Ident ('.' Ident)* ';'
 ;
 
-rClass : rOpenClass | rNewClass
+rClass returns RClass: 
+	{ROpenClass} openClass=rOpenClass | 
+	{RNewClass} newClass=rNewClass
 ;
 
-rOpenClass : 'open' 'class' name=rQualified ('extends' rQualified (',' rQualified)* )? '{' attributes+=rAttribute* operations+=rOperation* '}'
+rOpenClass returns ROpenClass: 'open' 'class' name=rQualified ('extends' rQualified (',' rQualified)* )? '{' attributes+=rAttribute* operations+=rOperation* '}'
 ;
 
-rNewClass : 'class' name=Ident '{' attributes+=rAttribute* operations+=rOperation* '}'
+rNewClass returns RNewClass: 'class' name=rQualified '{' attributes+=rAttribute* operations+=rOperation* '}'
 ;
 
 rOperation : rTag* ('def' | 'override') type=rType name=Ident '(' paramList+=rParameters? ')' body=rBlock
@@ -37,56 +39,58 @@ rParameters : params+=rVariable (',' params+=rVariable)*
 rVariable : type=rType name=Ident
 ;
 
-rAttribute : type=rType name=Ident (':=' expression)? ';'
+rAttribute : type=rType name=Ident (':=' expr=expression)? ';'
 ;
 
-rStatement : rVarDecl 
-		| rAssign
-		| rForEach
-		| rWhile
-		| rIf
-		| rExpression
+rStatement returns RStatement : 
+	{RValDecl} stmt=rVarDecl | 
+	{RAssign} stmt=rAssign | 
+	{RForEach} forEach=rForEach | 
+	{RWhile} while=rWhile | 
+	{RIf} if=rIf | 
+	{RExpression} expr=rExpression
 ;
 
 rVarDecl : rType Ident (':=' expression)? ';'
 ;
 
-rAssign : expression ':=' expression ';'
+rAssign returns RAssign: left=expression ':=' right=expression ';'
 ;
 
-rForEach : 'for' '(' Ident  'in' rCollection ')' rBlock
+rForEach returns RForEach: 'for' '(' Ident  'in' rCollection ')' block=rBlock
 ;
 
 rCollection : '[' INT '..' INT ']' | expression
 ;
 
-rBlock : '{' (rStatement (rStatement)*)? '}'
+rBlock : '{' (statement+=rStatement (statement+=rStatement)*)? '}'
 ;
 
-rIf : 'if' '(' expression ')' rBlock ('else' rBlock)?
+rIf returns RIf: 'if' '(' condition=expression ')' ifBlock=rBlock ('else' elseBlock=rBlock)?
 ;
 
-rWhile : 'while' '(' expression ')' rBlock
+rWhile returns RWhile : 'while' '(' expression ')' block=rBlock
 ;
 
-rExpression : expression ';'
+rExpression returns RExpression: expression ';'
 ;
 
 /***************
  * AQL grammar *
  ***************/
 
-expression :
-	nonLeftRecExpression recExpression?
+expression returns Expr:
+	leftPart=nonLeftRecExpression recpart=recExpression?
 ;
 
-recExpression :
-	(navigationSegment | MultOp expression | addOp expression | compOp expression | 'and' expression | 'or' expression | 'xor' expression | 'implies' expression) recExpression?
+recExpression returns RecExpression:
+	(navigationSegment | MultOp expression | addOp expression | compOp expression | 'and' expression | 'or' expression | 'xor' expression | 'implies' expression) recExp=recExpression?
 ;
 
-navigationSegment :     '.'Ident
-				      | '.' callExp
-				      | '->' callExp
+navigationSegment returns NavigationSegment:     
+	{FinalIdentSegment} '.'ident=Ident | 
+  	{FinalIdentCallSegment} '.' call=callExp | 
+  	{FinalCallExpSegment} '->' call=callExp
 ;    
 
 nonLeftRecExpression :
@@ -95,8 +99,8 @@ nonLeftRecExpression :
 		     | Ident
 		     | literal
 		     | '(' expression ')'
-		     | 'if' expression 'then' expression 'else' expression 'endif'
-		     | 'let' binding (',' binding)* 'in' expression
+		     | 'if' condition=expression 'then' ifBlock=expression 'else' elseBlock=expression 'endif'
+		     | 'let' bindings+=binding (',' bindings+=binding)* 'in' letExpr=expression
 ;
 
 binding : Ident (':' typeLiteral)? '=' expression
@@ -116,17 +120,14 @@ compOp :     '<='
 ;
 
 
-callExp :     collectionIterator '(' variableDefinition lambdaExpression ')'
+callExp :     collectionIterator '(' variableDefinition expression ')'
 			| Ident'(' expressionSequence ')'
-;
-
-lambdaExpression : expression
 ;
 
 collectionIterator : 'select' | 'reject' | 'collect' | 'any' | 'exists' | 'forAll' | 'isUnique' | 'one' | 'sortedBy' | 'closure'
 ;
 
-expressionSequence : (expression (',' expression)*)?
+expressionSequence : (seqExprs+=expression (',' seqExprs+=expression)*)?
 ;
 
 variableDefinition : Ident (':' typeLiteral)? '|'

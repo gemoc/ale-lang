@@ -6,7 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Export-Package: fr.mleduc.mt.compiler
 Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
- org.scala-lang.scala-library,
  org.eclipse.emf.codegen.ecore,
  lang.core,
  lang,

@@ -6,21 +6,25 @@
     complianceLevel="6.0" copyrightFields="false" runtimeVersion="2.12">
   <genPackages prefix="MyDsl" basePackage="org.xtext.example.mydsl" disposableProviderFactory="true"
       fileExtensions="mydsl" ecorePackage="MyDsl.ecore#/">
-    <genClasses ecoreClass="MyDsl.ecore#//rRoot">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//rRoot/xtendedClasses"/>
+    <genClasses ecoreClass="MyDsl.ecore#//RRoot">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RRoot/xtendedClasses"/>
     </genClasses>
-    <genClasses ecoreClass="MyDsl.ecore#//rClass">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//rClass/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//rClass/attributes"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//rClass/operations"/>
+    <genClasses ecoreClass="MyDsl.ecore#//RClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//RClass/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RClass/attributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RClass/operations"/>
     </genClasses>
-    <genClasses ecoreClass="MyDsl.ecore#//rOpenClass"/>
-    <genClasses ecoreClass="MyDsl.ecore#//rNewClass"/>
+    <genClasses ecoreClass="MyDsl.ecore#//ROpenClass">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//ROpenClass/openClass"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//RNewClass">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RNewClass/newClass"/>
+    </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//rOperation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//rOperation/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//rOperation/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//rOperation/paramList"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//rOperation/body"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//rOperation/body"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//rParameters">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//rParameters/params"/>
@@ -32,6 +36,68 @@
     <genClasses ecoreClass="MyDsl.ecore#//rAttribute">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//rAttribute/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//rAttribute/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//rAttribute/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//RStatement"/>
+    <genClasses ecoreClass="MyDsl.ecore#//rVarDecl"/>
+    <genClasses ecoreClass="MyDsl.ecore#//RAssign">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RAssign/stmt"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RAssign/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RAssign/right"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//RForEach">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RForEach/forEach"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//rCollection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//rCollection/block"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//rBlock">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//rBlock/statement"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//RIf">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RIf/if"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RIf/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RIf/ifBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RIf/elseBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//RWhile">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RWhile/while"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//RExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RExpression/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//Expr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Expr/leftPart"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Expr/recpart"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//RecExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RecExpression/recExp"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//NavigationSegment"/>
+    <genClasses ecoreClass="MyDsl.ecore#//nonLeftRecExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//nonLeftRecExpression/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//nonLeftRecExpression/ifBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//nonLeftRecExpression/elseBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//nonLeftRecExpression/bindings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//nonLeftRecExpression/letExpr"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//binding"/>
+    <genClasses ecoreClass="MyDsl.ecore#//callExp"/>
+    <genClasses ecoreClass="MyDsl.ecore#//expressionSequence">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//expressionSequence/seqExprs"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//literal"/>
+    <genClasses ecoreClass="MyDsl.ecore#//RValDecl">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//RValDecl/stmt"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//FinalIdentSegment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//FinalIdentSegment/ident"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//FinalIdentCallSegment">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//FinalIdentCallSegment/call"/>
+    </genClasses>
+    <genClasses ecoreClass="MyDsl.ecore#//FinalCallExpSegment">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//FinalCallExpSegment/call"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -333,7 +333,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 						.filter(field -> field.getName().equals(featAssign.getTargetFeature()))
 						.findFirst();
 					if(foundDynamicAttribute.isPresent()) {
-						EClassifierType featureType = new EClassifierType(qryEnv, foundDynamicAttribute.get().getType());
+						EClassifierType featureType = new EClassifierType(qryEnv, foundDynamicAttribute.get().getType().getEType());
 						featureTypes.add(featureType);
 					}
 				}
@@ -836,7 +836,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 				lastScope.put(varDecl.getName(), expValidation.getPossibleTypes(varDecl.getInitialValue()));
 			}
 			else {
-				EClassifierType declaredType = new EClassifierType(qryEnv, varDecl.getType());
+				EClassifierType declaredType = new EClassifierType(qryEnv, varDecl.getType().getEType());
 				Set<IType> typeSet = new HashSet<IType>();
 				typeSet.add(declaredType);
 				lastScope.put(varDecl.getName(), typeSet);
@@ -847,7 +847,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		 * Check assignment type
 		 */
 		Map<String, Set<IType>> lastScope = variableTypesStack.peek();
-		EClassifierType varType = new EClassifierType(qryEnv, varDecl.getType());
+		EClassifierType varType = new EClassifierType(qryEnv, varDecl.getType().getEType());
 		Set<IType> inferredTypes = lastScope.get(varDecl.getName());
 		if(inferredTypes != null) {
 			Optional<IType> existResult = inferredTypes.stream().filter(t -> varType.isAssignableFrom(t)).findAny();
