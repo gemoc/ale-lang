@@ -10,22 +10,22 @@ Doc
 Content description :
 =====================
 
-lang.core
+org.eclipse.ecoretools.ale.core
 ---------
  * parser
  * evaluation
  * validation
 
-lang
+org.eclipse.ecoretools.ale
 ----
  * interpreter
 
-lang.ide
+org.eclipse.ecoretools.ale.ide
 --------
  * Context menu 'Run model'
  * Basic EcoreTools'odesign extension
 
-lang.test
+org.eclipse.ecoretools.ale.test
 ---------
  * parser test
  * evaluation test
@@ -43,7 +43,7 @@ logo.standalone
 ---------------
  * Example to show the usage of the interpreter
 
-org.xtext.example.mydsl
+org.eclipse.ecoretools.ale.xtext
 -----------------------
  * Basic Xtext editor for behavior files
 
