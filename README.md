@@ -1,12 +1,11 @@
 # ale-lang
 Action Language for EMF
 
-This repository contains the implementation of a language to define behaviors on the top of Ecore models.
----
+Ale is a language to define behaviors on the top of Ecore models.
 
 Doc
 ===
-[Website](https://fcoulon.github.io/fluffy-umbrella/)
+[Website](http://gemoc.org/ale-lang/)
 
 Content description :
 =====================
