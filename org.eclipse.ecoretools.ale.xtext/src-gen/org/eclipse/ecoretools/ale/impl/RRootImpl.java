@@ -6,8 +6,8 @@ package org.eclipse.ecoretools.ale.impl;
 import java.util.Collection;
 
 import org.eclipse.ecoretools.ale.AlePackage;
-import org.eclipse.ecoretools.ale.rClass;
-import org.eclipse.ecoretools.ale.rRoot;
+import org.eclipse.ecoretools.ale.RClass;
+import org.eclipse.ecoretools.ale.RRoot;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -23,18 +23,18 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>rRoot</b></em>'.
+ * An implementation of the model object '<em><b>RRoot</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.ecoretools.ale.impl.rRootImpl#getXtendedClasses <em>Xtended Classes</em>}</li>
+ *   <li>{@link org.eclipse.ecoretools.ale.impl.RRootImpl#getXtendedClasses <em>Xtended Classes</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class rRootImpl extends MinimalEObjectImpl.Container implements rRoot
+public class RRootImpl extends MinimalEObjectImpl.Container implements RRoot
 {
   /**
    * The cached value of the '{@link #getXtendedClasses() <em>Xtended Classes</em>}' containment reference list.
@@ -44,14 +44,14 @@ public class rRootImpl extends MinimalEObjectImpl.Container implements rRoot
    * @generated
    * @ordered
    */
-  protected EList<rClass> xtendedClasses;
+  protected EList<RClass> xtendedClasses;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected rRootImpl()
+  protected RRootImpl()
   {
     super();
   }
@@ -72,11 +72,11 @@ public class rRootImpl extends MinimalEObjectImpl.Container implements rRoot
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<rClass> getXtendedClasses()
+  public EList<RClass> getXtendedClasses()
   {
     if (xtendedClasses == null)
     {
-      xtendedClasses = new EObjectContainmentEList<rClass>(rClass.class, this, AlePackage.RROOT__XTENDED_CLASSES);
+      xtendedClasses = new EObjectContainmentEList<RClass>(RClass.class, this, AlePackage.RROOT__XTENDED_CLASSES);
     }
     return xtendedClasses;
   }
@@ -126,7 +126,7 @@ public class rRootImpl extends MinimalEObjectImpl.Container implements rRoot
     {
       case AlePackage.RROOT__XTENDED_CLASSES:
         getXtendedClasses().clear();
-        getXtendedClasses().addAll((Collection<? extends rClass>)newValue);
+        getXtendedClasses().addAll((Collection<? extends RClass>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -165,4 +165,4 @@ public class rRootImpl extends MinimalEObjectImpl.Container implements rRoot
     return super.eIsSet(featureID);
   }
 
-} //rRootImpl
+} //RRootImpl

@@ -23,6 +23,24 @@ import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.impl.QueryBuilderEngine;
+import org.eclipse.ecoretools.ale.implementation.Behaviored;
+import org.eclipse.ecoretools.ale.implementation.Block;
+import org.eclipse.ecoretools.ale.implementation.ExpressionStatement;
+import org.eclipse.ecoretools.ale.implementation.ExtendedClass;
+import org.eclipse.ecoretools.ale.implementation.FeatureAssignment;
+import org.eclipse.ecoretools.ale.implementation.FeatureInsert;
+import org.eclipse.ecoretools.ale.implementation.FeaturePut;
+import org.eclipse.ecoretools.ale.implementation.FeatureRemove;
+import org.eclipse.ecoretools.ale.implementation.ForEach;
+import org.eclipse.ecoretools.ale.implementation.If;
+import org.eclipse.ecoretools.ale.implementation.Implementation;
+import org.eclipse.ecoretools.ale.implementation.ImplementationFactory;
+import org.eclipse.ecoretools.ale.implementation.Method;
+import org.eclipse.ecoretools.ale.implementation.RuntimeClass;
+import org.eclipse.ecoretools.ale.implementation.Statement;
+import org.eclipse.ecoretools.ale.implementation.VariableAssignment;
+import org.eclipse.ecoretools.ale.implementation.VariableDeclaration;
+import org.eclipse.ecoretools.ale.implementation.While;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -40,46 +58,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import com.google.common.collect.Lists;
 
-<<<<<<< HEAD:lang.core/src/lang/core/parser/visitor/ModelBuilder.java
-import implementation.Behaviored;
-import implementation.Block;
-import implementation.ExpressionStatement;
-import implementation.ExtendedClass;
-import implementation.FeatureAssignment;
-import implementation.FeatureInsert;
-import implementation.FeaturePut;
-import implementation.FeatureRemove;
-import implementation.ForEach;
-import implementation.If;
-import implementation.Implementation;
-import implementation.ImplementationFactory;
-import implementation.Method;
-import implementation.RuntimeClass;
-import implementation.Statement;
-import implementation.VariableAssignment;
-import implementation.VariableDeclaration;
-import implementation.While;
-=======
-import org.eclipse.ecoretools.ale.implementation.Behaviored;
-import org.eclipse.ecoretools.ale.implementation.Block;
-import org.eclipse.ecoretools.ale.implementation.ExpressionStatement;
-import org.eclipse.ecoretools.ale.implementation.ExtendedClass;
-import org.eclipse.ecoretools.ale.implementation.FeatureAssignment;
-import org.eclipse.ecoretools.ale.implementation.FeatureInsert;
-import org.eclipse.ecoretools.ale.implementation.FeaturePut;
-import org.eclipse.ecoretools.ale.implementation.FeatureRemove;
-import org.eclipse.ecoretools.ale.implementation.ForEach;
-import org.eclipse.ecoretools.ale.implementation.If;
-import org.eclipse.ecoretools.ale.implementation.Implementation;
-import org.eclipse.ecoretools.ale.implementation.ImplementationFactory;
-import org.eclipse.ecoretools.ale.implementation.ImplementationPackage;
-import org.eclipse.ecoretools.ale.implementation.Method;
-import org.eclipse.ecoretools.ale.implementation.RuntimeClass;
-import org.eclipse.ecoretools.ale.implementation.Statement;
-import org.eclipse.ecoretools.ale.implementation.VariableAssignment;
-import org.eclipse.ecoretools.ale.implementation.VariableDeclaration;
-import org.eclipse.ecoretools.ale.implementation.While;
->>>>>>> master:org.eclipse.ecoretools.ale.core/src/org/eclipse/ecoretools/ale/core/parser/visitor/ModelBuilder.java
 
 /**
  * Helper to create parts of Implementation model & to resolve types.

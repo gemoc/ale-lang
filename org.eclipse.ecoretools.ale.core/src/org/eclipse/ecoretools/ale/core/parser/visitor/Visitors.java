@@ -10,20 +10,6 @@
  *******************************************************************************/
 package org.eclipse.ecoretools.ale.core.parser.visitor;
 
-<<<<<<< HEAD:lang.core/src/lang/core/parser/visitor/Visitors.java
-=======
-import org.eclipse.ecoretools.ale.implementation.Behaviored;
-import org.eclipse.ecoretools.ale.implementation.Block;
-import org.eclipse.ecoretools.ale.implementation.ExpressionStatement;
-import org.eclipse.ecoretools.ale.implementation.ImplementationFactory;
-import org.eclipse.ecoretools.ale.implementation.ImplementationPackage;
-import org.eclipse.ecoretools.ale.implementation.Method;
-import org.eclipse.ecoretools.ale.implementation.ModelBehavior;
-import org.eclipse.ecoretools.ale.implementation.RuntimeClass;
-import org.eclipse.ecoretools.ale.implementation.Statement;
-import org.eclipse.ecoretools.ale.implementation.VariableAssignment;
-
->>>>>>> master:org.eclipse.ecoretools.ale.core/src/org/eclipse/ecoretools/ale/core/parser/visitor/Visitors.java
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,62 +20,17 @@ import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
-import org.eclipse.ecoretools.ale.core.parser.visitor.ModelBuilder.Parameter;
-import org.eclipse.emf.common.util.BasicDiagnostic;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-
-<<<<<<< HEAD:lang.core/src/lang/core/parser/visitor/Visitors.java
-import implementation.Behaviored;
-import implementation.Block;
-import implementation.ExpressionStatement;
-import implementation.ExtendedClass;
-import implementation.FeatureAssignment;
-import implementation.FeatureInsert;
-import implementation.FeaturePut;
-import implementation.FeatureRemove;
-import implementation.ForEach;
-import implementation.If;
-import implementation.ImplementationFactory;
-import implementation.ImplementationPackage;
-import implementation.Method;
-import implementation.ModelBehavior;
-import implementation.RuntimeClass;
-import implementation.Statement;
-import implementation.VariableAssignment;
-import implementation.VariableDeclaration;
-import implementation.While;
-import lang.core.parser.XtdAQLBaseVisitor;
-import lang.core.parser.XtdAQLParser.CallExpContext;
-import lang.core.parser.XtdAQLParser.CallOrApplyContext;
-import lang.core.parser.XtdAQLParser.ExpressionContext;
-import lang.core.parser.XtdAQLParser.FeatureContext;
-import lang.core.parser.XtdAQLParser.NavContext;
-import lang.core.parser.XtdAQLParser.NavigationSegmentContext;
-import lang.core.parser.XtdAQLParser.RAssignContext;
-import lang.core.parser.XtdAQLParser.RAttributeContext;
-import lang.core.parser.XtdAQLParser.RBlockContext;
-import lang.core.parser.XtdAQLParser.RExpressionContext;
-import lang.core.parser.XtdAQLParser.RForEachContext;
-import lang.core.parser.XtdAQLParser.RIfContext;
-import lang.core.parser.XtdAQLParser.RNewClassContext;
-import lang.core.parser.XtdAQLParser.ROpenClassContext;
-import lang.core.parser.XtdAQLParser.ROperationContext;
-import lang.core.parser.XtdAQLParser.RParametersContext;
-import lang.core.parser.XtdAQLParser.RRootContext;
-import lang.core.parser.XtdAQLParser.RServiceContext;
-import lang.core.parser.XtdAQLParser.RVarDeclContext;
-import lang.core.parser.XtdAQLParser.RVariableContext;
-import lang.core.parser.XtdAQLParser.RWhileContext;
-import lang.core.parser.XtdAQLParser.ServiceCallContext;
-import lang.core.parser.XtdAQLParser.VarRefContext;
-import lang.core.parser.visitor.ModelBuilder.Parameter;
-=======
 import org.eclipse.ecoretools.ale.core.parser.ALEBaseVisitor;
+import org.eclipse.ecoretools.ale.core.parser.ALEParser.CallExpContext;
+import org.eclipse.ecoretools.ale.core.parser.ALEParser.CallOrApplyContext;
+import org.eclipse.ecoretools.ale.core.parser.ALEParser.ExpressionContext;
+import org.eclipse.ecoretools.ale.core.parser.ALEParser.FeatureContext;
+import org.eclipse.ecoretools.ale.core.parser.ALEParser.NavContext;
+import org.eclipse.ecoretools.ale.core.parser.ALEParser.NavigationSegmentContext;
 import org.eclipse.ecoretools.ale.core.parser.ALEParser.RAssignContext;
+import org.eclipse.ecoretools.ale.core.parser.ALEParser.RAttributeContext;
 import org.eclipse.ecoretools.ale.core.parser.ALEParser.RBlockContext;
-import org.eclipse.ecoretools.ale.core.parser.ALEParser.RClassContext;
+import org.eclipse.ecoretools.ale.core.parser.ALEParser.RExpressionContext;
 import org.eclipse.ecoretools.ale.core.parser.ALEParser.RForEachContext;
 import org.eclipse.ecoretools.ale.core.parser.ALEParser.RIfContext;
 import org.eclipse.ecoretools.ale.core.parser.ALEParser.RNewClassContext;
@@ -98,8 +39,15 @@ import org.eclipse.ecoretools.ale.core.parser.ALEParser.ROperationContext;
 import org.eclipse.ecoretools.ale.core.parser.ALEParser.RParametersContext;
 import org.eclipse.ecoretools.ale.core.parser.ALEParser.RRootContext;
 import org.eclipse.ecoretools.ale.core.parser.ALEParser.RServiceContext;
+import org.eclipse.ecoretools.ale.core.parser.ALEParser.RVarDeclContext;
 import org.eclipse.ecoretools.ale.core.parser.ALEParser.RVariableContext;
 import org.eclipse.ecoretools.ale.core.parser.ALEParser.RWhileContext;
+import org.eclipse.ecoretools.ale.core.parser.ALEParser.ServiceCallContext;
+import org.eclipse.ecoretools.ale.core.parser.ALEParser.VarRefContext;
+import org.eclipse.ecoretools.ale.core.parser.visitor.ModelBuilder.Parameter;
+import org.eclipse.ecoretools.ale.implementation.Behaviored;
+import org.eclipse.ecoretools.ale.implementation.Block;
+import org.eclipse.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.ecoretools.ale.implementation.FeatureAssignment;
 import org.eclipse.ecoretools.ale.implementation.FeatureInsert;
@@ -107,20 +55,20 @@ import org.eclipse.ecoretools.ale.implementation.FeaturePut;
 import org.eclipse.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.ecoretools.ale.implementation.ForEach;
 import org.eclipse.ecoretools.ale.implementation.If;
+import org.eclipse.ecoretools.ale.implementation.ImplementationFactory;
+import org.eclipse.ecoretools.ale.implementation.ImplementationPackage;
+import org.eclipse.ecoretools.ale.implementation.Method;
+import org.eclipse.ecoretools.ale.implementation.ModelBehavior;
+import org.eclipse.ecoretools.ale.implementation.RuntimeClass;
+import org.eclipse.ecoretools.ale.implementation.Statement;
+import org.eclipse.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.ecoretools.ale.implementation.While;
-import org.eclipse.ecoretools.ale.core.parser.ALEParser.RAttributeContext;
-import org.eclipse.ecoretools.ale.core.parser.ALEParser.VarRefContext;
-import org.eclipse.ecoretools.ale.core.parser.ALEParser.NavContext;
-import org.eclipse.ecoretools.ale.core.parser.ALEParser.NavigationSegmentContext;
-import org.eclipse.ecoretools.ale.core.parser.ALEParser.FeatureContext;
-import org.eclipse.ecoretools.ale.core.parser.ALEParser.RExpressionContext;
-import org.eclipse.ecoretools.ale.core.parser.ALEParser.ServiceCallContext;
-import org.eclipse.ecoretools.ale.core.parser.ALEParser.CallExpContext;
-import org.eclipse.ecoretools.ale.core.parser.ALEParser.CallOrApplyContext;
-import org.eclipse.ecoretools.ale.core.parser.ALEParser.ExpressionContext;
-import org.eclipse.ecoretools.ale.core.parser.ALEParser.RVarDeclContext;
->>>>>>> master:org.eclipse.ecoretools.ale.core/src/org/eclipse/ecoretools/ale/core/parser/visitor/Visitors.java
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
 
 /**
  * Visits the result of the antlr parser to build the Implementation model.
@@ -163,15 +111,9 @@ public class Visitors {
 		}
 		return qname;
 	}
-<<<<<<< HEAD:lang.core/src/lang/core/parser/visitor/Visitors.java
 
-	static class BlockVisitor extends XtdAQLBaseVisitor<Block> {
-
-=======
-	
 	static class BlockVisitor extends ALEBaseVisitor<Block> {
 		
->>>>>>> master:org.eclipse.ecoretools.ale.core/src/org/eclipse/ecoretools/ale/core/parser/visitor/Visitors.java
 		ParseResult<ModelBehavior> parseRes;
 
 		public BlockVisitor(ParseResult<ModelBehavior> parseRes) {
@@ -189,15 +131,11 @@ public class Visitors {
 			return res;
 		}
 	}
-<<<<<<< HEAD:lang.core/src/lang/core/parser/visitor/Visitors.java
 
-	static class StatementVisitor extends XtdAQLBaseVisitor<Statement> {
-
-=======
 	
 	static class StatementVisitor extends ALEBaseVisitor<Statement> {
 		
->>>>>>> master:org.eclipse.ecoretools.ale.core/src/org/eclipse/ecoretools/ale/core/parser/visitor/Visitors.java
+
 		ParseResult<ModelBehavior> parseRes;
 
 		public StatementVisitor(ParseResult<ModelBehavior> parseRes) {
@@ -389,13 +327,9 @@ public class Visitors {
 		}
 	}
 
-<<<<<<< HEAD:lang.core/src/lang/core/parser/visitor/Visitors.java
-	static class OpVisitor extends XtdAQLBaseVisitor<Behaviored> {
 
-=======
 	static class OpVisitor extends ALEBaseVisitor<Behaviored> {
 		
->>>>>>> master:org.eclipse.ecoretools.ale.core/src/org/eclipse/ecoretools/ale/core/parser/visitor/Visitors.java
 		ParseResult<ModelBehavior> parseRes;
 
 		public OpVisitor(ParseResult<ModelBehavior> parseRes) {
@@ -444,15 +378,11 @@ public class Visitors {
 		}
 
 	}
-<<<<<<< HEAD:lang.core/src/lang/core/parser/visitor/Visitors.java
 
-	static class ParamVisitor extends XtdAQLBaseVisitor<List<Parameter>> {
-
-=======
 	
 	static class ParamVisitor extends ALEBaseVisitor<List<Parameter>> {
 		
->>>>>>> master:org.eclipse.ecoretools.ale.core/src/org/eclipse/ecoretools/ale/core/parser/visitor/Visitors.java
+
 		ParseResult<ModelBehavior> parseRes;
 
 		public ParamVisitor(ParseResult<ModelBehavior> parseRes) {
@@ -469,15 +399,11 @@ public class Visitors {
 			return res;
 		}
 	}
-<<<<<<< HEAD:lang.core/src/lang/core/parser/visitor/Visitors.java
 
-	static class VarVisitor extends XtdAQLBaseVisitor<Parameter> {
-
-=======
 	
 	static class VarVisitor extends ALEBaseVisitor<Parameter> {
 		
->>>>>>> master:org.eclipse.ecoretools.ale.core/src/org/eclipse/ecoretools/ale/core/parser/visitor/Visitors.java
+
 		ParseResult<ModelBehavior> parseRes;
 
 		public VarVisitor(ParseResult<ModelBehavior> parseRes) {
@@ -496,15 +422,10 @@ public class Visitors {
 			return res;
 		}
 	}
-<<<<<<< HEAD:lang.core/src/lang/core/parser/visitor/Visitors.java
 
-	static class OpenClassVisitor extends XtdAQLBaseVisitor<ExtendedClass> {
-
-=======
 	
 	static class OpenClassVisitor extends ALEBaseVisitor<ExtendedClass> {
 		
->>>>>>> master:org.eclipse.ecoretools.ale.core/src/org/eclipse/ecoretools/ale/core/parser/visitor/Visitors.java
 		ParseResult<ModelBehavior> parseRes;
 		Map<String, String> importedBehaviors;
 
@@ -533,13 +454,10 @@ public class Visitors {
 
 	}
 
-<<<<<<< HEAD:lang.core/src/lang/core/parser/visitor/Visitors.java
-	static class NewClassVisitor extends XtdAQLBaseVisitor<RuntimeClass> {
 
-=======
 	static class NewClassVisitor extends ALEBaseVisitor<RuntimeClass> {
 		
->>>>>>> master:org.eclipse.ecoretools.ale.core/src/org/eclipse/ecoretools/ale/core/parser/visitor/Visitors.java
+
 		ParseResult<ModelBehavior> parseRes;
 
 		public NewClassVisitor(ParseResult<ModelBehavior> parseRes) {
@@ -563,15 +481,11 @@ public class Visitors {
 			return res;
 		}
 	}
-<<<<<<< HEAD:lang.core/src/lang/core/parser/visitor/Visitors.java
 
-	static class AttributeVisitor extends XtdAQLBaseVisitor<VariableDeclaration> {
 
-=======
 	
 	static class AttributeVisitor extends ALEBaseVisitor<VariableDeclaration> {
 		
->>>>>>> master:org.eclipse.ecoretools.ale.core/src/org/eclipse/ecoretools/ale/core/parser/visitor/Visitors.java
 		ParseResult<ModelBehavior> parseRes;
 
 		public AttributeVisitor(ParseResult<ModelBehavior> parseRes) {
@@ -599,13 +513,9 @@ public class Visitors {
 			return res;
 		}
 	}
-<<<<<<< HEAD:lang.core/src/lang/core/parser/visitor/Visitors.java
 
-	static class ServiceVisitor extends XtdAQLBaseVisitor<String> {
-=======
-	
 	static class ServiceVisitor extends ALEBaseVisitor<String> {
->>>>>>> master:org.eclipse.ecoretools.ale.core/src/org/eclipse/ecoretools/ale/core/parser/visitor/Visitors.java
+
 		@Override
 		public String visitRService(RServiceContext ctx) {
 			String rawText = ctx.getText();
@@ -616,13 +526,9 @@ public class Visitors {
 		}
 	}
 
-<<<<<<< HEAD:lang.core/src/lang/core/parser/visitor/Visitors.java
-	static class ModelBehaviorVisitor extends XtdAQLBaseVisitor<ModelBehavior> {
 
-=======
 	static class ModelBehaviorVisitor extends ALEBaseVisitor<ModelBehavior> {
 		
->>>>>>> master:org.eclipse.ecoretools.ale.core/src/org/eclipse/ecoretools/ale/core/parser/visitor/Visitors.java
 		ParseResult<ModelBehavior> parseRes;
 
 		public ModelBehaviorVisitor(ParseResult<ModelBehavior> parseRes) {

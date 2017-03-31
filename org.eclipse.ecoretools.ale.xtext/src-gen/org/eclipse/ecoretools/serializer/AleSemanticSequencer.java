@@ -6,12 +6,25 @@ package org.eclipse.ecoretools.serializer;
 import com.google.inject.Inject;
 import java.util.Set;
 import org.eclipse.ecoretools.ale.AlePackage;
+import org.eclipse.ecoretools.ale.Expr;
+import org.eclipse.ecoretools.ale.FinalCallExpSegment;
+import org.eclipse.ecoretools.ale.FinalIdentCallSegment;
+import org.eclipse.ecoretools.ale.FinalIdentSegment;
+import org.eclipse.ecoretools.ale.RAssign;
+import org.eclipse.ecoretools.ale.RExpression;
+import org.eclipse.ecoretools.ale.RForEach;
+import org.eclipse.ecoretools.ale.RIf;
+import org.eclipse.ecoretools.ale.RNewClass;
+import org.eclipse.ecoretools.ale.ROpenClass;
+import org.eclipse.ecoretools.ale.RRoot;
+import org.eclipse.ecoretools.ale.RValDecl;
+import org.eclipse.ecoretools.ale.RWhile;
+import org.eclipse.ecoretools.ale.expressionSequence;
+import org.eclipse.ecoretools.ale.nonLeftRecExpression;
 import org.eclipse.ecoretools.ale.rAttribute;
-import org.eclipse.ecoretools.ale.rNewClass;
-import org.eclipse.ecoretools.ale.rOpenClass;
+import org.eclipse.ecoretools.ale.rBlock;
 import org.eclipse.ecoretools.ale.rOperation;
 import org.eclipse.ecoretools.ale.rParameters;
-import org.eclipse.ecoretools.ale.rRoot;
 import org.eclipse.ecoretools.ale.rVariable;
 import org.eclipse.ecoretools.services.AleGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
@@ -23,31 +36,6 @@ import org.eclipse.xtext.serializer.ISerializationContext;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/serializer/MyDslSemanticSequencer.java
-import org.xtext.example.mydsl.myDsl.Expr;
-import org.xtext.example.mydsl.myDsl.FinalCallExpSegment;
-import org.xtext.example.mydsl.myDsl.FinalIdentCallSegment;
-import org.xtext.example.mydsl.myDsl.FinalIdentSegment;
-import org.xtext.example.mydsl.myDsl.MyDslPackage;
-import org.xtext.example.mydsl.myDsl.RAssign;
-import org.xtext.example.mydsl.myDsl.RExpression;
-import org.xtext.example.mydsl.myDsl.RForEach;
-import org.xtext.example.mydsl.myDsl.RIf;
-import org.xtext.example.mydsl.myDsl.RNewClass;
-import org.xtext.example.mydsl.myDsl.ROpenClass;
-import org.xtext.example.mydsl.myDsl.RRoot;
-import org.xtext.example.mydsl.myDsl.RValDecl;
-import org.xtext.example.mydsl.myDsl.RWhile;
-import org.xtext.example.mydsl.myDsl.expressionSequence;
-import org.xtext.example.mydsl.myDsl.nonLeftRecExpression;
-import org.xtext.example.mydsl.myDsl.rAttribute;
-import org.xtext.example.mydsl.myDsl.rBlock;
-import org.xtext.example.mydsl.myDsl.rOperation;
-import org.xtext.example.mydsl.myDsl.rParameters;
-import org.xtext.example.mydsl.myDsl.rVariable;
-import org.xtext.example.mydsl.services.MyDslGrammarAccess;
-=======
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/serializer/AleSemanticSequencer.java
 
 @SuppressWarnings("all")
 public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
@@ -63,8 +51,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == AlePackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/serializer/MyDslSemanticSequencer.java
-			case MyDslPackage.EXPR:
+			case AlePackage.EXPR:
 				if (rule == grammarAccess.getRVarDeclRule()
 						|| rule == grammarAccess.getRCollectionRule()
 						|| rule == grammarAccess.getRExpressionRule()
@@ -88,7 +75,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
-			case MyDslPackage.FINAL_CALL_EXP_SEGMENT:
+			case AlePackage.FINAL_CALL_EXP_SEGMENT:
 				if (rule == grammarAccess.getNavigationSegmentRule()) {
 					sequence_navigationSegment(context, (FinalCallExpSegment) semanticObject); 
 					return; 
@@ -98,7 +85,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
-			case MyDslPackage.FINAL_IDENT_CALL_SEGMENT:
+			case AlePackage.FINAL_IDENT_CALL_SEGMENT:
 				if (rule == grammarAccess.getNavigationSegmentRule()) {
 					sequence_navigationSegment(context, (FinalIdentCallSegment) semanticObject); 
 					return; 
@@ -108,7 +95,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
-			case MyDslPackage.FINAL_IDENT_SEGMENT:
+			case AlePackage.FINAL_IDENT_SEGMENT:
 				if (rule == grammarAccess.getNavigationSegmentRule()) {
 					sequence_navigationSegment(context, (FinalIdentSegment) semanticObject); 
 					return; 
@@ -118,7 +105,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
-			case MyDslPackage.RASSIGN:
+			case AlePackage.RASSIGN:
 				if (rule == grammarAccess.getRAssignRule()) {
 					sequence_rAssign(context, (RAssign) semanticObject); 
 					return; 
@@ -128,10 +115,10 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
-			case MyDslPackage.REXPRESSION:
+			case AlePackage.REXPRESSION:
 				sequence_rStatement(context, (RExpression) semanticObject); 
 				return; 
-			case MyDslPackage.RFOR_EACH:
+			case AlePackage.RFOR_EACH:
 				if (rule == grammarAccess.getRForEachRule()) {
 					sequence_rForEach(context, (RForEach) semanticObject); 
 					return; 
@@ -141,7 +128,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
-			case MyDslPackage.RIF:
+			case AlePackage.RIF:
 				if (rule == grammarAccess.getRIfRule()) {
 					sequence_rIf(context, (RIf) semanticObject); 
 					return; 
@@ -151,7 +138,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
-			case MyDslPackage.RNEW_CLASS:
+			case AlePackage.RNEW_CLASS:
 				if (rule == grammarAccess.getRClassRule()) {
 					sequence_rClass(context, (RNewClass) semanticObject); 
 					return; 
@@ -161,7 +148,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
-			case MyDslPackage.ROPEN_CLASS:
+			case AlePackage.ROPEN_CLASS:
 				if (rule == grammarAccess.getRClassRule()) {
 					sequence_rClass(context, (ROpenClass) semanticObject); 
 					return; 
@@ -171,36 +158,26 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
-			case MyDslPackage.RROOT:
+			case AlePackage.RROOT:
 				sequence_rRoot(context, (RRoot) semanticObject); 
 				return; 
-			case MyDslPackage.RVAL_DECL:
+			case AlePackage.RVAL_DECL:
 				sequence_rStatement(context, (RValDecl) semanticObject); 
 				return; 
-			case MyDslPackage.RWHILE:
+			case AlePackage.RWHILE:
 				sequence_rStatement(context, (RWhile) semanticObject); 
 				return; 
-			case MyDslPackage.EXPRESSION_SEQUENCE:
+			case AlePackage.EXPRESSION_SEQUENCE:
 				sequence_expressionSequence(context, (expressionSequence) semanticObject); 
 				return; 
-			case MyDslPackage.NON_LEFT_REC_EXPRESSION:
+			case AlePackage.NON_LEFT_REC_EXPRESSION:
 				sequence_nonLeftRecExpression(context, (nonLeftRecExpression) semanticObject); 
 				return; 
-			case MyDslPackage.RATTRIBUTE:
-				sequence_rAttribute(context, (rAttribute) semanticObject); 
-				return; 
-			case MyDslPackage.RBLOCK:
-				sequence_rBlock(context, (rBlock) semanticObject); 
-=======
 			case AlePackage.RATTRIBUTE:
 				sequence_rAttribute(context, (rAttribute) semanticObject); 
 				return; 
-			case AlePackage.RNEW_CLASS:
-				sequence_rNewClass(context, (rNewClass) semanticObject); 
-				return; 
-			case AlePackage.ROPEN_CLASS:
-				sequence_rOpenClass(context, (rOpenClass) semanticObject); 
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/serializer/AleSemanticSequencer.java
+			case AlePackage.RBLOCK:
+				sequence_rBlock(context, (rBlock) semanticObject); 
 				return; 
 			case AlePackage.ROPERATION:
 				sequence_rOperation(context, (rOperation) semanticObject); 
@@ -208,14 +185,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case AlePackage.RPARAMETERS:
 				sequence_rParameters(context, (rParameters) semanticObject); 
 				return; 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/serializer/MyDslSemanticSequencer.java
-			case MyDslPackage.RVARIABLE:
-=======
-			case AlePackage.RROOT:
-				sequence_rRoot(context, (rRoot) semanticObject); 
-				return; 
 			case AlePackage.RVARIABLE:
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/serializer/AleSemanticSequencer.java
 				sequence_rVariable(context, (rVariable) semanticObject); 
 				return; 
 			}
@@ -301,8 +271,8 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_navigationSegment(ISerializationContext context, FinalCallExpSegment semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.FINAL_CALL_EXP_SEGMENT__CALL) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.FINAL_CALL_EXP_SEGMENT__CALL));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.FINAL_CALL_EXP_SEGMENT__CALL) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.FINAL_CALL_EXP_SEGMENT__CALL));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getNavigationSegmentAccess().getCallCallExpParserRuleCall_2_2_0(), semanticObject.getCall());
@@ -319,8 +289,8 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_navigationSegment(ISerializationContext context, FinalIdentCallSegment semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.FINAL_IDENT_CALL_SEGMENT__CALL) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.FINAL_IDENT_CALL_SEGMENT__CALL));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.FINAL_IDENT_CALL_SEGMENT__CALL) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.FINAL_IDENT_CALL_SEGMENT__CALL));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getNavigationSegmentAccess().getCallCallExpParserRuleCall_1_2_0(), semanticObject.getCall());
@@ -337,8 +307,8 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_navigationSegment(ISerializationContext context, FinalIdentSegment semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.FINAL_IDENT_SEGMENT__IDENT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.FINAL_IDENT_SEGMENT__IDENT));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.FINAL_IDENT_SEGMENT__IDENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.FINAL_IDENT_SEGMENT__IDENT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getNavigationSegmentAccess().getIdentIdentTerminalRuleCall_0_2_0(), semanticObject.getIdent());
@@ -403,10 +373,10 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_rAssign(ISerializationContext context, RAssign semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.RASSIGN__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.RASSIGN__LEFT));
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.RASSIGN__RIGHT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.RASSIGN__RIGHT));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.RASSIGN__LEFT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.RASSIGN__LEFT));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.RASSIGN__RIGHT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.RASSIGN__RIGHT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getRAssignAccess().getLeftExpressionParserRuleCall_0_0(), semanticObject.getLeft());
@@ -448,8 +418,8 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_rClass(ISerializationContext context, RNewClass semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.RNEW_CLASS__NEW_CLASS) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.RNEW_CLASS__NEW_CLASS));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.RNEW_CLASS__NEW_CLASS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.RNEW_CLASS__NEW_CLASS));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getRClassAccess().getNewClassRNewClassParserRuleCall_1_1_0(), semanticObject.getNewClass());
@@ -466,15 +436,8 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_rClass(ISerializationContext context, ROpenClass semanticObject) {
 		if (errorAcceptor != null) {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/serializer/MyDslSemanticSequencer.java
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.ROPEN_CLASS__OPEN_CLASS) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.ROPEN_CLASS__OPEN_CLASS));
-=======
-			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.RATTRIBUTE__TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.RATTRIBUTE__TYPE));
-			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.RATTRIBUTE__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.RATTRIBUTE__NAME));
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/serializer/AleSemanticSequencer.java
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.ROPEN_CLASS__OPEN_CLASS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.ROPEN_CLASS__OPEN_CLASS));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getRClassAccess().getOpenClassROpenClassParserRuleCall_0_1_0(), semanticObject.getOpenClass());
@@ -575,8 +538,8 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_rStatement(ISerializationContext context, RAssign semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.RASSIGN__STMT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.RASSIGN__STMT));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.RASSIGN__STMT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.RASSIGN__STMT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getRStatementAccess().getStmtRAssignParserRuleCall_1_1_0(), semanticObject.getStmt());
@@ -593,8 +556,8 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_rStatement(ISerializationContext context, RExpression semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.REXPRESSION__EXPR) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.REXPRESSION__EXPR));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.REXPRESSION__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.REXPRESSION__EXPR));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getRStatementAccess().getExprRExpressionParserRuleCall_5_1_0(), semanticObject.getExpr());
@@ -611,8 +574,8 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_rStatement(ISerializationContext context, RForEach semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.RFOR_EACH__FOR_EACH) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.RFOR_EACH__FOR_EACH));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.RFOR_EACH__FOR_EACH) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.RFOR_EACH__FOR_EACH));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getRStatementAccess().getForEachRForEachParserRuleCall_2_1_0(), semanticObject.getForEach());
@@ -629,8 +592,8 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_rStatement(ISerializationContext context, RIf semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.RIF__IF) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.RIF__IF));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.RIF__IF) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.RIF__IF));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getRStatementAccess().getIfRIfParserRuleCall_4_1_0(), semanticObject.getIf());
@@ -647,8 +610,8 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_rStatement(ISerializationContext context, RValDecl semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.RVAL_DECL__STMT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.RVAL_DECL__STMT));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.RVAL_DECL__STMT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.RVAL_DECL__STMT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getRStatementAccess().getStmtRVarDeclParserRuleCall_0_1_0(), semanticObject.getStmt());
@@ -665,8 +628,8 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_rStatement(ISerializationContext context, RWhile semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, MyDslPackage.Literals.RWHILE__WHILE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MyDslPackage.Literals.RWHILE__WHILE));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.RWHILE__WHILE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.RWHILE__WHILE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getRStatementAccess().getWhileRWhileParserRuleCall_3_1_0(), semanticObject.getWhile());

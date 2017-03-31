@@ -4,25 +4,25 @@
 package org.eclipse.ecoretools.ale.impl;
 
 import org.eclipse.ecoretools.ale.AlePackage;
-import org.eclipse.ecoretools.ale.rOpenClass;
+import org.eclipse.ecoretools.ale.literal;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>rOpen Class</b></em>'.
+ * An implementation of the model object '<em><b>literal</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class rOpenClassImpl extends rClassImpl implements rOpenClass
+public class literalImpl extends nonLeftRecExpressionImpl implements literal
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected rOpenClassImpl()
+  protected literalImpl()
   {
     super();
   }
@@ -35,7 +35,7 @@ public class rOpenClassImpl extends rClassImpl implements rOpenClass
   @Override
   protected EClass eStaticClass()
   {
-    return AlePackage.Literals.ROPEN_CLASS;
+    return AlePackage.Literals.LITERAL;
   }
 
-} //rOpenClassImpl
+} //literalImpl

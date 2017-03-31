@@ -6,21 +6,25 @@
     complianceLevel="6.0" copyrightFields="false" runtimeVersion="2.12">
   <genPackages prefix="Ale" basePackage="org.eclipse.ecoretools" disposableProviderFactory="true"
       fileExtensions="ale" ecorePackage="Ale.ecore#/">
-    <genClasses ecoreClass="Ale.ecore#//rRoot">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//rRoot/xtendedClasses"/>
+    <genClasses ecoreClass="Ale.ecore#//RRoot">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RRoot/xtendedClasses"/>
     </genClasses>
-    <genClasses ecoreClass="Ale.ecore#//rClass">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//rClass/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//rClass/attributes"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//rClass/operations"/>
+    <genClasses ecoreClass="Ale.ecore#//RClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//RClass/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RClass/attributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RClass/operations"/>
     </genClasses>
-    <genClasses ecoreClass="Ale.ecore#//rOpenClass"/>
-    <genClasses ecoreClass="Ale.ecore#//rNewClass"/>
+    <genClasses ecoreClass="Ale.ecore#//ROpenClass">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//ROpenClass/openClass"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//RNewClass">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RNewClass/newClass"/>
+    </genClasses>
     <genClasses ecoreClass="Ale.ecore#//rOperation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//rOperation/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//rOperation/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//rOperation/paramList"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//rOperation/body"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//rOperation/body"/>
     </genClasses>
     <genClasses ecoreClass="Ale.ecore#//rParameters">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//rParameters/params"/>
@@ -32,6 +36,68 @@
     <genClasses ecoreClass="Ale.ecore#//rAttribute">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//rAttribute/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//rAttribute/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//rAttribute/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//RStatement"/>
+    <genClasses ecoreClass="Ale.ecore#//rVarDecl"/>
+    <genClasses ecoreClass="Ale.ecore#//RAssign">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RAssign/stmt"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RAssign/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RAssign/right"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//RForEach">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RForEach/forEach"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//rCollection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//rCollection/block"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//rBlock">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//rBlock/statement"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//RIf">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RIf/if"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RIf/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RIf/ifBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RIf/elseBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//RWhile">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RWhile/while"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//RExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RExpression/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//Expr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//Expr/leftPart"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//Expr/recpart"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//RecExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RecExpression/recExp"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//NavigationSegment"/>
+    <genClasses ecoreClass="Ale.ecore#//nonLeftRecExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//nonLeftRecExpression/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//nonLeftRecExpression/ifBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//nonLeftRecExpression/elseBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//nonLeftRecExpression/bindings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//nonLeftRecExpression/letExpr"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//binding"/>
+    <genClasses ecoreClass="Ale.ecore#//callExp"/>
+    <genClasses ecoreClass="Ale.ecore#//expressionSequence">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//expressionSequence/seqExprs"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//literal"/>
+    <genClasses ecoreClass="Ale.ecore#//RValDecl">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//RValDecl/stmt"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//FinalIdentSegment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//FinalIdentSegment/ident"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//FinalIdentCallSegment">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//FinalIdentCallSegment/call"/>
+    </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//FinalCallExpSegment">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//FinalCallExpSegment/call"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

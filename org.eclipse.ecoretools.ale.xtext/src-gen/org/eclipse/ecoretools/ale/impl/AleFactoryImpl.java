@@ -65,46 +65,35 @@ public class AleFactoryImpl extends EFactoryImpl implements AleFactory
   {
     switch (eClass.getClassifierID())
     {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/impl/MyDslFactoryImpl.java
-      case MyDslPackage.RROOT: return createRRoot();
-      case MyDslPackage.RCLASS: return createRClass();
-      case MyDslPackage.ROPEN_CLASS: return createROpenClass();
-      case MyDslPackage.RNEW_CLASS: return createRNewClass();
-      case MyDslPackage.ROPERATION: return createrOperation();
-      case MyDslPackage.RPARAMETERS: return createrParameters();
-      case MyDslPackage.RVARIABLE: return createrVariable();
-      case MyDslPackage.RATTRIBUTE: return createrAttribute();
-      case MyDslPackage.RSTATEMENT: return createRStatement();
-      case MyDslPackage.RVAR_DECL: return createrVarDecl();
-      case MyDslPackage.RASSIGN: return createRAssign();
-      case MyDslPackage.RFOR_EACH: return createRForEach();
-      case MyDslPackage.RCOLLECTION: return createrCollection();
-      case MyDslPackage.RBLOCK: return createrBlock();
-      case MyDslPackage.RIF: return createRIf();
-      case MyDslPackage.RWHILE: return createRWhile();
-      case MyDslPackage.REXPRESSION: return createRExpression();
-      case MyDslPackage.EXPR: return createExpr();
-      case MyDslPackage.REC_EXPRESSION: return createRecExpression();
-      case MyDslPackage.NAVIGATION_SEGMENT: return createNavigationSegment();
-      case MyDslPackage.NON_LEFT_REC_EXPRESSION: return createnonLeftRecExpression();
-      case MyDslPackage.BINDING: return createbinding();
-      case MyDslPackage.CALL_EXP: return createcallExp();
-      case MyDslPackage.EXPRESSION_SEQUENCE: return createexpressionSequence();
-      case MyDslPackage.LITERAL: return createliteral();
-      case MyDslPackage.RVAL_DECL: return createRValDecl();
-      case MyDslPackage.FINAL_IDENT_SEGMENT: return createFinalIdentSegment();
-      case MyDslPackage.FINAL_IDENT_CALL_SEGMENT: return createFinalIdentCallSegment();
-      case MyDslPackage.FINAL_CALL_EXP_SEGMENT: return createFinalCallExpSegment();
-=======
-      case AlePackage.RROOT: return createrRoot();
-      case AlePackage.RCLASS: return createrClass();
-      case AlePackage.ROPEN_CLASS: return createrOpenClass();
-      case AlePackage.RNEW_CLASS: return createrNewClass();
+      case AlePackage.RROOT: return createRRoot();
+      case AlePackage.RCLASS: return createRClass();
+      case AlePackage.ROPEN_CLASS: return createROpenClass();
+      case AlePackage.RNEW_CLASS: return createRNewClass();
       case AlePackage.ROPERATION: return createrOperation();
       case AlePackage.RPARAMETERS: return createrParameters();
       case AlePackage.RVARIABLE: return createrVariable();
       case AlePackage.RATTRIBUTE: return createrAttribute();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/impl/AleFactoryImpl.java
+      case AlePackage.RSTATEMENT: return createRStatement();
+      case AlePackage.RVAR_DECL: return createrVarDecl();
+      case AlePackage.RASSIGN: return createRAssign();
+      case AlePackage.RFOR_EACH: return createRForEach();
+      case AlePackage.RCOLLECTION: return createrCollection();
+      case AlePackage.RBLOCK: return createrBlock();
+      case AlePackage.RIF: return createRIf();
+      case AlePackage.RWHILE: return createRWhile();
+      case AlePackage.REXPRESSION: return createRExpression();
+      case AlePackage.EXPR: return createExpr();
+      case AlePackage.REC_EXPRESSION: return createRecExpression();
+      case AlePackage.NAVIGATION_SEGMENT: return createNavigationSegment();
+      case AlePackage.NON_LEFT_REC_EXPRESSION: return createnonLeftRecExpression();
+      case AlePackage.BINDING: return createbinding();
+      case AlePackage.CALL_EXP: return createcallExp();
+      case AlePackage.EXPRESSION_SEQUENCE: return createexpressionSequence();
+      case AlePackage.LITERAL: return createliteral();
+      case AlePackage.RVAL_DECL: return createRValDecl();
+      case AlePackage.FINAL_IDENT_SEGMENT: return createFinalIdentSegment();
+      case AlePackage.FINAL_IDENT_CALL_SEGMENT: return createFinalIdentCallSegment();
+      case AlePackage.FINAL_CALL_EXP_SEGMENT: return createFinalCallExpSegment();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -203,7 +192,6 @@ public class AleFactoryImpl extends EFactoryImpl implements AleFactory
    * <!-- end-user-doc -->
    * @generated
    */
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/impl/MyDslFactoryImpl.java
   public RStatement createRStatement()
   {
     RStatementImpl rStatement = new RStatementImpl();
@@ -435,10 +423,7 @@ public class AleFactoryImpl extends EFactoryImpl implements AleFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public MyDslPackage getMyDslPackage()
-=======
   public AlePackage getAlePackage()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/impl/AleFactoryImpl.java
   {
     return (AlePackage)getEPackage();
   }

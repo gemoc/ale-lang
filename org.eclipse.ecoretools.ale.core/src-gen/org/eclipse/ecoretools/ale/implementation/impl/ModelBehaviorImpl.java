@@ -1,20 +1,12 @@
 /**
  */
-<<<<<<< HEAD:lang.core/src-gen/implementation/impl/ModelBehaviorImpl.java
-package implementation.impl;
-
-import implementation.ExtendedClass;
-import implementation.ImplementationPackage;
-import implementation.Import;
-import implementation.ModelBehavior;
-=======
 package org.eclipse.ecoretools.ale.implementation.impl;
->>>>>>> master:org.eclipse.ecoretools.ale.core/src-gen/org/eclipse/ecoretools/ale/implementation/impl/ModelBehaviorImpl.java
 
 import java.util.Collection;
 
 import org.eclipse.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.ecoretools.ale.implementation.ImplementationPackage;
+import org.eclipse.ecoretools.ale.implementation.Import;
 import org.eclipse.ecoretools.ale.implementation.ModelBehavior;
 import org.eclipse.ecoretools.ale.implementation.RuntimeClass;
 
@@ -41,18 +33,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
-<<<<<<< HEAD:lang.core/src-gen/implementation/impl/ModelBehaviorImpl.java
- *   <li>{@link implementation.impl.ModelBehaviorImpl#getClassExtensions <em>Class Extensions</em>}</li>
- *   <li>{@link implementation.impl.ModelBehaviorImpl#getClassDefinitions <em>Class Definitions</em>}</li>
- *   <li>{@link implementation.impl.ModelBehaviorImpl#getServices <em>Services</em>}</li>
- *   <li>{@link implementation.impl.ModelBehaviorImpl#getName <em>Name</em>}</li>
- *   <li>{@link implementation.impl.ModelBehaviorImpl#getImports <em>Imports</em>}</li>
-=======
  *   <li>{@link org.eclipse.ecoretools.ale.implementation.impl.ModelBehaviorImpl#getClassExtensions <em>Class Extensions</em>}</li>
  *   <li>{@link org.eclipse.ecoretools.ale.implementation.impl.ModelBehaviorImpl#getClassDefinitions <em>Class Definitions</em>}</li>
  *   <li>{@link org.eclipse.ecoretools.ale.implementation.impl.ModelBehaviorImpl#getServices <em>Services</em>}</li>
  *   <li>{@link org.eclipse.ecoretools.ale.implementation.impl.ModelBehaviorImpl#getName <em>Name</em>}</li>
->>>>>>> master:org.eclipse.ecoretools.ale.core/src-gen/org/eclipse/ecoretools/ale/implementation/impl/ModelBehaviorImpl.java
+ *   <li>{@link org.eclipse.ecoretools.ale.implementation.impl.ModelBehaviorImpl#getImports <em>Imports</em>}</li>
  * </ul>
  *
  * @generated

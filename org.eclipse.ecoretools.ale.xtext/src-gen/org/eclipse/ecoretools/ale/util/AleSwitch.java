@@ -131,21 +131,21 @@ public class AleSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.RSTATEMENT:
+      case AlePackage.RSTATEMENT:
       {
         RStatement rStatement = (RStatement)theEObject;
         T result = caseRStatement(rStatement);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.RVAR_DECL:
+      case AlePackage.RVAR_DECL:
       {
         rVarDecl rVarDecl = (rVarDecl)theEObject;
         T result = caserVarDecl(rVarDecl);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.RASSIGN:
+      case AlePackage.RASSIGN:
       {
         RAssign rAssign = (RAssign)theEObject;
         T result = caseRAssign(rAssign);
@@ -153,7 +153,7 @@ public class AleSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.RFOR_EACH:
+      case AlePackage.RFOR_EACH:
       {
         RForEach rForEach = (RForEach)theEObject;
         T result = caseRForEach(rForEach);
@@ -161,7 +161,7 @@ public class AleSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.RCOLLECTION:
+      case AlePackage.RCOLLECTION:
       {
         rCollection rCollection = (rCollection)theEObject;
         T result = caserCollection(rCollection);
@@ -170,14 +170,14 @@ public class AleSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.RBLOCK:
+      case AlePackage.RBLOCK:
       {
         rBlock rBlock = (rBlock)theEObject;
         T result = caserBlock(rBlock);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.RIF:
+      case AlePackage.RIF:
       {
         RIf rIf = (RIf)theEObject;
         T result = caseRIf(rIf);
@@ -185,7 +185,7 @@ public class AleSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.RWHILE:
+      case AlePackage.RWHILE:
       {
         RWhile rWhile = (RWhile)theEObject;
         T result = caseRWhile(rWhile);
@@ -193,7 +193,7 @@ public class AleSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.REXPRESSION:
+      case AlePackage.REXPRESSION:
       {
         RExpression rExpression = (RExpression)theEObject;
         T result = caseRExpression(rExpression);
@@ -201,7 +201,7 @@ public class AleSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.EXPR:
+      case AlePackage.EXPR:
       {
         Expr expr = (Expr)theEObject;
         T result = caseExpr(expr);
@@ -218,14 +218,14 @@ public class AleSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.REC_EXPRESSION:
+      case AlePackage.REC_EXPRESSION:
       {
         RecExpression recExpression = (RecExpression)theEObject;
         T result = caseRecExpression(recExpression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.NAVIGATION_SEGMENT:
+      case AlePackage.NAVIGATION_SEGMENT:
       {
         NavigationSegment navigationSegment = (NavigationSegment)theEObject;
         T result = caseNavigationSegment(navigationSegment);
@@ -233,28 +233,28 @@ public class AleSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.NON_LEFT_REC_EXPRESSION:
+      case AlePackage.NON_LEFT_REC_EXPRESSION:
       {
         nonLeftRecExpression nonLeftRecExpression = (nonLeftRecExpression)theEObject;
         T result = casenonLeftRecExpression(nonLeftRecExpression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.BINDING:
+      case AlePackage.BINDING:
       {
         binding binding = (binding)theEObject;
         T result = casebinding(binding);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.CALL_EXP:
+      case AlePackage.CALL_EXP:
       {
         callExp callExp = (callExp)theEObject;
         T result = casecallExp(callExp);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.EXPRESSION_SEQUENCE:
+      case AlePackage.EXPRESSION_SEQUENCE:
       {
         expressionSequence expressionSequence = (expressionSequence)theEObject;
         T result = caseexpressionSequence(expressionSequence);
@@ -264,7 +264,7 @@ public class AleSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.LITERAL:
+      case AlePackage.LITERAL:
       {
         literal literal = (literal)theEObject;
         T result = caseliteral(literal);
@@ -272,7 +272,7 @@ public class AleSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.RVAL_DECL:
+      case AlePackage.RVAL_DECL:
       {
         RValDecl rValDecl = (RValDecl)theEObject;
         T result = caseRValDecl(rValDecl);
@@ -280,7 +280,7 @@ public class AleSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.FINAL_IDENT_SEGMENT:
+      case AlePackage.FINAL_IDENT_SEGMENT:
       {
         FinalIdentSegment finalIdentSegment = (FinalIdentSegment)theEObject;
         T result = caseFinalIdentSegment(finalIdentSegment);
@@ -289,7 +289,7 @@ public class AleSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.FINAL_IDENT_CALL_SEGMENT:
+      case AlePackage.FINAL_IDENT_CALL_SEGMENT:
       {
         FinalIdentCallSegment finalIdentCallSegment = (FinalIdentCallSegment)theEObject;
         T result = caseFinalIdentCallSegment(finalIdentCallSegment);
@@ -298,7 +298,7 @@ public class AleSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case MyDslPackage.FINAL_CALL_EXP_SEGMENT:
+      case AlePackage.FINAL_CALL_EXP_SEGMENT:
       {
         FinalCallExpSegment finalCallExpSegment = (FinalCallExpSegment)theEObject;
         T result = caseFinalCallExpSegment(finalCallExpSegment);

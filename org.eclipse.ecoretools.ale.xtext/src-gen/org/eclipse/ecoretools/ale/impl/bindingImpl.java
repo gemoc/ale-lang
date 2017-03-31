@@ -4,25 +4,27 @@
 package org.eclipse.ecoretools.ale.impl;
 
 import org.eclipse.ecoretools.ale.AlePackage;
-import org.eclipse.ecoretools.ale.rNewClass;
+import org.eclipse.ecoretools.ale.binding;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>rNew Class</b></em>'.
+ * An implementation of the model object '<em><b>binding</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class rNewClassImpl extends rClassImpl implements rNewClass
+public class bindingImpl extends MinimalEObjectImpl.Container implements binding
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected rNewClassImpl()
+  protected bindingImpl()
   {
     super();
   }
@@ -35,7 +37,7 @@ public class rNewClassImpl extends rClassImpl implements rNewClass
   @Override
   protected EClass eStaticClass()
   {
-    return AlePackage.Literals.RNEW_CLASS;
+    return AlePackage.Literals.BINDING;
   }
 
-} //rNewClassImpl
+} //bindingImpl

@@ -6,6 +6,7 @@ package org.eclipse.ecoretools.ale.impl;
 import java.util.Collection;
 
 import org.eclipse.ecoretools.ale.AlePackage;
+import org.eclipse.ecoretools.ale.rBlock;
 import org.eclipse.ecoretools.ale.rOperation;
 import org.eclipse.ecoretools.ale.rParameters;
 
@@ -23,14 +24,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/impl/rOperationImpl.java
-import org.xtext.example.mydsl.myDsl.MyDslPackage;
-import org.xtext.example.mydsl.myDsl.rBlock;
-import org.xtext.example.mydsl.myDsl.rOperation;
-import org.xtext.example.mydsl.myDsl.rParameters;
-
-=======
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/impl/rOperationImpl.java
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>rOperation</b></em>'.
@@ -210,9 +203,8 @@ public class rOperationImpl extends MinimalEObjectImpl.Container implements rOpe
     rBlock oldBody = body;
     body = newBody;
     if (eNotificationRequired())
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/impl/rOperationImpl.java
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, MyDslPackage.ROPERATION__BODY, oldBody, newBody);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlePackage.ROPERATION__BODY, oldBody, newBody);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -229,17 +221,14 @@ public class rOperationImpl extends MinimalEObjectImpl.Container implements rOpe
     {
       NotificationChain msgs = null;
       if (body != null)
-        msgs = ((InternalEObject)body).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.ROPERATION__BODY, null, msgs);
+        msgs = ((InternalEObject)body).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlePackage.ROPERATION__BODY, null, msgs);
       if (newBody != null)
-        msgs = ((InternalEObject)newBody).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.ROPERATION__BODY, null, msgs);
+        msgs = ((InternalEObject)newBody).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlePackage.ROPERATION__BODY, null, msgs);
       msgs = basicSetBody(newBody, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.ROPERATION__BODY, newBody, newBody));
-=======
-      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.ROPERATION__BODY, oldBody, body));
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/impl/rOperationImpl.java
+      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.ROPERATION__BODY, newBody, newBody));
   }
 
   /**
@@ -254,7 +243,7 @@ public class rOperationImpl extends MinimalEObjectImpl.Container implements rOpe
     {
       case AlePackage.ROPERATION__PARAM_LIST:
         return ((InternalEList<?>)getParamList()).basicRemove(otherEnd, msgs);
-      case MyDslPackage.ROPERATION__BODY:
+      case AlePackage.ROPERATION__BODY:
         return basicSetBody(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -303,13 +292,8 @@ public class rOperationImpl extends MinimalEObjectImpl.Container implements rOpe
         getParamList().clear();
         getParamList().addAll((Collection<? extends rParameters>)newValue);
         return;
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/impl/rOperationImpl.java
-      case MyDslPackage.ROPERATION__BODY:
-        setBody((rBlock)newValue);
-=======
       case AlePackage.ROPERATION__BODY:
-        setBody((String)newValue);
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/impl/rOperationImpl.java
+        setBody((rBlock)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -334,13 +318,8 @@ public class rOperationImpl extends MinimalEObjectImpl.Container implements rOpe
       case AlePackage.ROPERATION__PARAM_LIST:
         getParamList().clear();
         return;
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/impl/rOperationImpl.java
-      case MyDslPackage.ROPERATION__BODY:
-        setBody((rBlock)null);
-=======
       case AlePackage.ROPERATION__BODY:
-        setBody(BODY_EDEFAULT);
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/impl/rOperationImpl.java
+        setBody((rBlock)null);
         return;
     }
     super.eUnset(featureID);
@@ -362,13 +341,8 @@ public class rOperationImpl extends MinimalEObjectImpl.Container implements rOpe
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AlePackage.ROPERATION__PARAM_LIST:
         return paramList != null && !paramList.isEmpty();
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/impl/rOperationImpl.java
-      case MyDslPackage.ROPERATION__BODY:
-        return body != null;
-=======
       case AlePackage.ROPERATION__BODY:
-        return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT.equals(body);
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/impl/rOperationImpl.java
+        return body != null;
     }
     return super.eIsSet(featureID);
   }

@@ -9,23 +9,23 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>rClass</b></em>'.
+ * A representation of the model object '<em><b>RClass</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.ecoretools.ale.rClass#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.ecoretools.ale.rClass#getAttributes <em>Attributes</em>}</li>
- *   <li>{@link org.eclipse.ecoretools.ale.rClass#getOperations <em>Operations</em>}</li>
+ *   <li>{@link org.eclipse.ecoretools.ale.RClass#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.ecoretools.ale.RClass#getAttributes <em>Attributes</em>}</li>
+ *   <li>{@link org.eclipse.ecoretools.ale.RClass#getOperations <em>Operations</em>}</li>
  * </ul>
  *
- * @see org.eclipse.ecoretools.ale.AlePackage#getrClass()
+ * @see org.eclipse.ecoretools.ale.AlePackage#getRClass()
  * @model
  * @generated
  */
-public interface rClass extends EObject
+public interface RClass extends EObject
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -37,14 +37,14 @@ public interface rClass extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
-   * @see org.eclipse.ecoretools.ale.AlePackage#getrClass_Name()
+   * @see org.eclipse.ecoretools.ale.AlePackage#getRClass_Name()
    * @model
    * @generated
    */
   String getName();
 
   /**
-   * Sets the value of the '{@link org.eclipse.ecoretools.ale.rClass#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.eclipse.ecoretools.ale.RClass#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Name</em>' attribute.
@@ -63,7 +63,7 @@ public interface rClass extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Attributes</em>' containment reference list.
-   * @see org.eclipse.ecoretools.ale.AlePackage#getrClass_Attributes()
+   * @see org.eclipse.ecoretools.ale.AlePackage#getRClass_Attributes()
    * @model containment="true"
    * @generated
    */
@@ -79,10 +79,10 @@ public interface rClass extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Operations</em>' containment reference list.
-   * @see org.eclipse.ecoretools.ale.AlePackage#getrClass_Operations()
+   * @see org.eclipse.ecoretools.ale.AlePackage#getRClass_Operations()
    * @model containment="true"
    * @generated
    */
   EList<rOperation> getOperations();
 
-} // rClass
+} // RClass

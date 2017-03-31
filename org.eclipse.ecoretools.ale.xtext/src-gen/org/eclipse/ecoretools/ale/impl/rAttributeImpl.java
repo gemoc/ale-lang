@@ -4,6 +4,7 @@
 package org.eclipse.ecoretools.ale.impl;
 
 import org.eclipse.ecoretools.ale.AlePackage;
+import org.eclipse.ecoretools.ale.Expr;
 import org.eclipse.ecoretools.ale.rAttribute;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -15,13 +16,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/impl/rAttributeImpl.java
-import org.xtext.example.mydsl.myDsl.Expr;
-import org.xtext.example.mydsl.myDsl.MyDslPackage;
-import org.xtext.example.mydsl.myDsl.rAttribute;
-
-=======
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/impl/rAttributeImpl.java
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>rAttribute</b></em>'.
@@ -30,14 +24,9 @@ import org.xtext.example.mydsl.myDsl.rAttribute;
  * The following features are implemented:
  * </p>
  * <ul>
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/impl/rAttributeImpl.java
- *   <li>{@link org.xtext.example.mydsl.myDsl.impl.rAttributeImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.impl.rAttributeImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.impl.rAttributeImpl#getExpr <em>Expr</em>}</li>
-=======
  *   <li>{@link org.eclipse.ecoretools.ale.impl.rAttributeImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.eclipse.ecoretools.ale.impl.rAttributeImpl#getName <em>Name</em>}</li>
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/impl/rAttributeImpl.java
+ *   <li>{@link org.eclipse.ecoretools.ale.impl.rAttributeImpl#getExpr <em>Expr</em>}</li>
  * </ul>
  *
  * @generated
@@ -182,7 +171,7 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
     expr = newExpr;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, MyDslPackage.RATTRIBUTE__EXPR, oldExpr, newExpr);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlePackage.RATTRIBUTE__EXPR, oldExpr, newExpr);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -199,14 +188,14 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
     {
       NotificationChain msgs = null;
       if (expr != null)
-        msgs = ((InternalEObject)expr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.RATTRIBUTE__EXPR, null, msgs);
+        msgs = ((InternalEObject)expr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlePackage.RATTRIBUTE__EXPR, null, msgs);
       if (newExpr != null)
-        msgs = ((InternalEObject)newExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.RATTRIBUTE__EXPR, null, msgs);
+        msgs = ((InternalEObject)newExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlePackage.RATTRIBUTE__EXPR, null, msgs);
       msgs = basicSetExpr(newExpr, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.RATTRIBUTE__EXPR, newExpr, newExpr));
+      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.RATTRIBUTE__EXPR, newExpr, newExpr));
   }
 
   /**
@@ -219,7 +208,7 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
   {
     switch (featureID)
     {
-      case MyDslPackage.RATTRIBUTE__EXPR:
+      case AlePackage.RATTRIBUTE__EXPR:
         return basicSetExpr(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -239,7 +228,7 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
         return getType();
       case AlePackage.RATTRIBUTE__NAME:
         return getName();
-      case MyDslPackage.RATTRIBUTE__EXPR:
+      case AlePackage.RATTRIBUTE__EXPR:
         return getExpr();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -261,7 +250,7 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
       case AlePackage.RATTRIBUTE__NAME:
         setName((String)newValue);
         return;
-      case MyDslPackage.RATTRIBUTE__EXPR:
+      case AlePackage.RATTRIBUTE__EXPR:
         setExpr((Expr)newValue);
         return;
     }
@@ -284,7 +273,7 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
       case AlePackage.RATTRIBUTE__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case MyDslPackage.RATTRIBUTE__EXPR:
+      case AlePackage.RATTRIBUTE__EXPR:
         setExpr((Expr)null);
         return;
     }
@@ -305,7 +294,7 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
         return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
       case AlePackage.RATTRIBUTE__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case MyDslPackage.RATTRIBUTE__EXPR:
+      case AlePackage.RATTRIBUTE__EXPR:
         return expr != null;
     }
     return super.eIsSet(featureID);

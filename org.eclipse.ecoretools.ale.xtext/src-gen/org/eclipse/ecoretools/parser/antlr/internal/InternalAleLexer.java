@@ -1544,13 +1544,8 @@ public class InternalAleLexer extends Lexer {
         try {
             int _type = RULE_MULTOP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            // InternalMyDsl.g:3069:13: ( ( '*' | '/' ) )
-            // InternalMyDsl.g:3069:15: ( '*' | '/' )
-=======
-            // InternalAle.g:2770:13: ( ( '*' | '/' ) )
-            // InternalAle.g:2770:15: ( '*' | '/' )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            // InternalAle.g:3069:13: ( ( '*' | '/' ) )
+            // InternalAle.g:3069:15: ( '*' | '/' )
             {
             if ( input.LA(1)=='*'||input.LA(1)=='/' ) {
                 input.consume();
@@ -1577,17 +1572,10 @@ public class InternalAleLexer extends Lexer {
         try {
             int _type = RULE_REAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            // InternalMyDsl.g:3071:11: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )+ )
-            // InternalMyDsl.g:3071:13: ( '0' .. '9' )+ '.' ( '0' .. '9' )+
+            // InternalAle.g:3071:11: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )+ )
+            // InternalAle.g:3071:13: ( '0' .. '9' )+ '.' ( '0' .. '9' )+
             {
-            // InternalMyDsl.g:3071:13: ( '0' .. '9' )+
-=======
-            // InternalAle.g:2772:11: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )+ )
-            // InternalAle.g:2772:13: ( '0' .. '9' )+ '.' ( '0' .. '9' )+
-            {
-            // InternalAle.g:2772:13: ( '0' .. '9' )+
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            // InternalAle.g:3071:13: ( '0' .. '9' )+
             int cnt1=0;
             loop1:
             do {
@@ -1601,11 +1589,7 @@ public class InternalAleLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            	    // InternalMyDsl.g:3071:14: '0' .. '9'
-=======
-            	    // InternalAle.g:2772:14: '0' .. '9'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            	    // InternalAle.g:3071:14: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1622,11 +1606,7 @@ public class InternalAleLexer extends Lexer {
             } while (true);
 
             match('.'); 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            // InternalMyDsl.g:3071:29: ( '0' .. '9' )+
-=======
-            // InternalAle.g:2772:29: ( '0' .. '9' )+
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            // InternalAle.g:3071:29: ( '0' .. '9' )+
             int cnt2=0;
             loop2:
             do {
@@ -1640,11 +1620,7 @@ public class InternalAleLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            	    // InternalMyDsl.g:3071:30: '0' .. '9'
-=======
-            	    // InternalAle.g:2772:30: '0' .. '9'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            	    // InternalAle.g:3071:30: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1676,13 +1652,8 @@ public class InternalAleLexer extends Lexer {
         try {
             int _type = RULE_IDENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            // InternalMyDsl.g:3073:12: ( ( RULE_LETTER | '_' ) ( RULE_LETTER | '0' .. '9' | '_' )* )
-            // InternalMyDsl.g:3073:14: ( RULE_LETTER | '_' ) ( RULE_LETTER | '0' .. '9' | '_' )*
-=======
-            // InternalAle.g:2774:12: ( ( RULE_LETTER | '_' ) ( RULE_LETTER | '0' .. '9' | '_' )* )
-            // InternalAle.g:2774:14: ( RULE_LETTER | '_' ) ( RULE_LETTER | '0' .. '9' | '_' )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            // InternalAle.g:3073:12: ( ( RULE_LETTER | '_' ) ( RULE_LETTER | '0' .. '9' | '_' )* )
+            // InternalAle.g:3073:14: ( RULE_LETTER | '_' ) ( RULE_LETTER | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1693,11 +1664,7 @@ public class InternalAleLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            // InternalMyDsl.g:3073:32: ( RULE_LETTER | '0' .. '9' | '_' )*
-=======
-            // InternalAle.g:2774:32: ( RULE_LETTER | '0' .. '9' | '_' )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            // InternalAle.g:3073:32: ( RULE_LETTER | '0' .. '9' | '_' )*
             loop3:
             do {
                 int alt3=2;
@@ -1744,13 +1711,8 @@ public class InternalAleLexer extends Lexer {
     // $ANTLR start "RULE_LETTER"
     public final void mRULE_LETTER() throws RecognitionException {
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            // InternalMyDsl.g:3075:22: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
-            // InternalMyDsl.g:3075:24: ( 'a' .. 'z' | 'A' .. 'Z' )
-=======
-            // InternalAle.g:2776:22: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
-            // InternalAle.g:2776:24: ( 'a' .. 'z' | 'A' .. 'Z' )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            // InternalAle.g:3075:22: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+            // InternalAle.g:3075:24: ( 'a' .. 'z' | 'A' .. 'Z' )
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -1775,17 +1737,10 @@ public class InternalAleLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            // InternalMyDsl.g:3077:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // InternalMyDsl.g:3077:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalAle.g:3077:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalAle.g:3077:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // InternalMyDsl.g:3077:11: ( '^' )?
-=======
-            // InternalAle.g:2778:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // InternalAle.g:2778:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
-            {
-            // InternalAle.g:2778:11: ( '^' )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            // InternalAle.g:3077:11: ( '^' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -1794,11 +1749,7 @@ public class InternalAleLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-                    // InternalMyDsl.g:3077:11: '^'
-=======
-                    // InternalAle.g:2778:11: '^'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+                    // InternalAle.g:3077:11: '^'
                     {
                     match('^'); 
 
@@ -1816,11 +1767,7 @@ public class InternalAleLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            // InternalMyDsl.g:3077:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
-=======
-            // InternalAle.g:2778:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            // InternalAle.g:3077:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop5:
             do {
                 int alt5=2;
@@ -1869,17 +1816,10 @@ public class InternalAleLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            // InternalMyDsl.g:3079:10: ( ( '0' .. '9' )+ )
-            // InternalMyDsl.g:3079:12: ( '0' .. '9' )+
+            // InternalAle.g:3079:10: ( ( '0' .. '9' )+ )
+            // InternalAle.g:3079:12: ( '0' .. '9' )+
             {
-            // InternalMyDsl.g:3079:12: ( '0' .. '9' )+
-=======
-            // InternalAle.g:2780:10: ( ( '0' .. '9' )+ )
-            // InternalAle.g:2780:12: ( '0' .. '9' )+
-            {
-            // InternalAle.g:2780:12: ( '0' .. '9' )+
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            // InternalAle.g:3079:12: ( '0' .. '9' )+
             int cnt6=0;
             loop6:
             do {
@@ -1893,11 +1833,7 @@ public class InternalAleLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            	    // InternalMyDsl.g:3079:13: '0' .. '9'
-=======
-            	    // InternalAle.g:2780:13: '0' .. '9'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            	    // InternalAle.g:3079:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1929,17 +1865,10 @@ public class InternalAleLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            // InternalMyDsl.g:3081:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // InternalMyDsl.g:3081:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalAle.g:3081:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // InternalAle.g:3081:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // InternalMyDsl.g:3081:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
-=======
-            // InternalAle.g:2782:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // InternalAle.g:2782:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
-            {
-            // InternalAle.g:2782:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            // InternalAle.g:3081:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -1957,17 +1886,10 @@ public class InternalAleLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-                    // InternalMyDsl.g:3081:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // InternalAle.g:3081:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // InternalMyDsl.g:3081:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
-=======
-                    // InternalAle.g:2782:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
-                    {
-                    match('\"'); 
-                    // InternalAle.g:2782:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+                    // InternalAle.g:3081:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop7:
                     do {
                         int alt7=3;
@@ -1983,11 +1905,7 @@ public class InternalAleLexer extends Lexer {
 
                         switch (alt7) {
                     	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-                    	    // InternalMyDsl.g:3081:21: '\\\\' .
-=======
-                    	    // InternalAle.g:2782:21: '\\\\' .
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+                    	    // InternalAle.g:3081:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1995,11 +1913,7 @@ public class InternalAleLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-                    	    // InternalMyDsl.g:3081:28: ~ ( ( '\\\\' | '\"' ) )
-=======
-                    	    // InternalAle.g:2782:28: ~ ( ( '\\\\' | '\"' ) )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+                    	    // InternalAle.g:3081:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2024,17 +1938,10 @@ public class InternalAleLexer extends Lexer {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-                    // InternalMyDsl.g:3081:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // InternalAle.g:3081:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // InternalMyDsl.g:3081:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
-=======
-                    // InternalAle.g:2782:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
-                    {
-                    match('\''); 
-                    // InternalAle.g:2782:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+                    // InternalAle.g:3081:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop8:
                     do {
                         int alt8=3;
@@ -2050,11 +1957,7 @@ public class InternalAleLexer extends Lexer {
 
                         switch (alt8) {
                     	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-                    	    // InternalMyDsl.g:3081:54: '\\\\' .
-=======
-                    	    // InternalAle.g:2782:54: '\\\\' .
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+                    	    // InternalAle.g:3081:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -2062,11 +1965,7 @@ public class InternalAleLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-                    	    // InternalMyDsl.g:3081:61: ~ ( ( '\\\\' | '\\'' ) )
-=======
-                    	    // InternalAle.g:2782:61: ~ ( ( '\\\\' | '\\'' ) )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+                    	    // InternalAle.g:3081:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2109,21 +2008,12 @@ public class InternalAleLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            // InternalMyDsl.g:3083:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // InternalMyDsl.g:3083:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // InternalAle.g:3083:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // InternalAle.g:3083:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // InternalMyDsl.g:3083:24: ( options {greedy=false; } : . )*
-=======
-            // InternalAle.g:2784:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // InternalAle.g:2784:19: '/*' ( options {greedy=false; } : . )* '*/'
-            {
-            match("/*"); 
-
-            // InternalAle.g:2784:24: ( options {greedy=false; } : . )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            // InternalAle.g:3083:24: ( options {greedy=false; } : . )*
             loop10:
             do {
                 int alt10=2;
@@ -2148,11 +2038,7 @@ public class InternalAleLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            	    // InternalMyDsl.g:3083:52: .
-=======
-            	    // InternalAle.g:2784:52: .
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            	    // InternalAle.g:3083:52: .
             	    {
             	    matchAny(); 
 
@@ -2182,21 +2068,12 @@ public class InternalAleLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            // InternalMyDsl.g:3085:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // InternalMyDsl.g:3085:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // InternalAle.g:3085:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // InternalAle.g:3085:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // InternalMyDsl.g:3085:24: (~ ( ( '\\n' | '\\r' ) ) )*
-=======
-            // InternalAle.g:2786:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // InternalAle.g:2786:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
-            {
-            match("//"); 
-
-            // InternalAle.g:2786:24: (~ ( ( '\\n' | '\\r' ) ) )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            // InternalAle.g:3085:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop11:
             do {
                 int alt11=2;
@@ -2209,11 +2086,7 @@ public class InternalAleLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            	    // InternalMyDsl.g:3085:24: ~ ( ( '\\n' | '\\r' ) )
-=======
-            	    // InternalAle.g:2786:24: ~ ( ( '\\n' | '\\r' ) )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            	    // InternalAle.g:3085:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2233,11 +2106,7 @@ public class InternalAleLexer extends Lexer {
                 }
             } while (true);
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            // InternalMyDsl.g:3085:40: ( ( '\\r' )? '\\n' )?
-=======
-            // InternalAle.g:2786:40: ( ( '\\r' )? '\\n' )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            // InternalAle.g:3085:40: ( ( '\\r' )? '\\n' )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -2246,15 +2115,9 @@ public class InternalAleLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-                    // InternalMyDsl.g:3085:41: ( '\\r' )? '\\n'
+                    // InternalAle.g:3085:41: ( '\\r' )? '\\n'
                     {
-                    // InternalMyDsl.g:3085:41: ( '\\r' )?
-=======
-                    // InternalAle.g:2786:41: ( '\\r' )? '\\n'
-                    {
-                    // InternalAle.g:2786:41: ( '\\r' )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+                    // InternalAle.g:3085:41: ( '\\r' )?
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
@@ -2263,11 +2126,7 @@ public class InternalAleLexer extends Lexer {
                     }
                     switch (alt12) {
                         case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-                            // InternalMyDsl.g:3085:41: '\\r'
-=======
-                            // InternalAle.g:2786:41: '\\r'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+                            // InternalAle.g:3085:41: '\\r'
                             {
                             match('\r'); 
 
@@ -2299,17 +2158,10 @@ public class InternalAleLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            // InternalMyDsl.g:3087:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // InternalMyDsl.g:3087:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalAle.g:3087:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // InternalAle.g:3087:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // InternalMyDsl.g:3087:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
-=======
-            // InternalAle.g:2788:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // InternalAle.g:2788:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
-            {
-            // InternalAle.g:2788:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            // InternalAle.g:3087:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt14=0;
             loop14:
             do {
@@ -2363,13 +2215,8 @@ public class InternalAleLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslLexer.java
-            // InternalMyDsl.g:3089:16: ( . )
-            // InternalMyDsl.g:3089:18: .
-=======
-            // InternalAle.g:2790:16: ( . )
-            // InternalAle.g:2790:18: .
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleLexer.java
+            // InternalAle.g:3089:16: ( . )
+            // InternalAle.g:3089:18: .
             {
             matchAny(); 
 

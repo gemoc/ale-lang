@@ -243,21 +243,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/util/MyDslAdapterFactory.java
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.RRoot <em>RRoot</em>}'.
-=======
-   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.rRoot <em>rRoot</em>}'.
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/util/AleAdapterFactory.java
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.RRoot <em>RRoot</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/util/MyDslAdapterFactory.java
-   * @see org.xtext.example.mydsl.myDsl.RRoot
-=======
-   * @see org.eclipse.ecoretools.ale.rRoot
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/util/AleAdapterFactory.java
+   * @see org.eclipse.ecoretools.ale.RRoot
    * @generated
    */
   public Adapter createRRootAdapter()
@@ -266,21 +258,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/util/MyDslAdapterFactory.java
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.RClass <em>RClass</em>}'.
-=======
-   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.rClass <em>rClass</em>}'.
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/util/AleAdapterFactory.java
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.RClass <em>RClass</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/util/MyDslAdapterFactory.java
-   * @see org.xtext.example.mydsl.myDsl.RClass
-=======
-   * @see org.eclipse.ecoretools.ale.rClass
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/util/AleAdapterFactory.java
+   * @see org.eclipse.ecoretools.ale.RClass
    * @generated
    */
   public Adapter createRClassAdapter()
@@ -289,21 +273,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/util/MyDslAdapterFactory.java
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.ROpenClass <em>ROpen Class</em>}'.
-=======
-   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.rOpenClass <em>rOpen Class</em>}'.
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/util/AleAdapterFactory.java
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.ROpenClass <em>ROpen Class</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/util/MyDslAdapterFactory.java
-   * @see org.xtext.example.mydsl.myDsl.ROpenClass
-=======
-   * @see org.eclipse.ecoretools.ale.rOpenClass
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/util/AleAdapterFactory.java
+   * @see org.eclipse.ecoretools.ale.ROpenClass
    * @generated
    */
   public Adapter createROpenClassAdapter()
@@ -312,21 +288,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/util/MyDslAdapterFactory.java
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.RNewClass <em>RNew Class</em>}'.
-=======
-   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.rNewClass <em>rNew Class</em>}'.
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/util/AleAdapterFactory.java
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.RNewClass <em>RNew Class</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/util/MyDslAdapterFactory.java
-   * @see org.xtext.example.mydsl.myDsl.RNewClass
-=======
-   * @see org.eclipse.ecoretools.ale.rNewClass
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/util/AleAdapterFactory.java
+   * @see org.eclipse.ecoretools.ale.RNewClass
    * @generated
    */
   public Adapter createRNewClassAdapter()
@@ -395,13 +363,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.RStatement <em>RStatement</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.RStatement <em>RStatement</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.RStatement
+   * @see org.eclipse.ecoretools.ale.RStatement
    * @generated
    */
   public Adapter createRStatementAdapter()
@@ -410,13 +378,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.rVarDecl <em>rVar Decl</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.rVarDecl <em>rVar Decl</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.rVarDecl
+   * @see org.eclipse.ecoretools.ale.rVarDecl
    * @generated
    */
   public Adapter createrVarDeclAdapter()
@@ -425,13 +393,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.RAssign <em>RAssign</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.RAssign <em>RAssign</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.RAssign
+   * @see org.eclipse.ecoretools.ale.RAssign
    * @generated
    */
   public Adapter createRAssignAdapter()
@@ -440,13 +408,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.RForEach <em>RFor Each</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.RForEach <em>RFor Each</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.RForEach
+   * @see org.eclipse.ecoretools.ale.RForEach
    * @generated
    */
   public Adapter createRForEachAdapter()
@@ -455,13 +423,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.rCollection <em>rCollection</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.rCollection <em>rCollection</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.rCollection
+   * @see org.eclipse.ecoretools.ale.rCollection
    * @generated
    */
   public Adapter createrCollectionAdapter()
@@ -470,13 +438,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.rBlock <em>rBlock</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.rBlock <em>rBlock</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.rBlock
+   * @see org.eclipse.ecoretools.ale.rBlock
    * @generated
    */
   public Adapter createrBlockAdapter()
@@ -485,13 +453,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.RIf <em>RIf</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.RIf <em>RIf</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.RIf
+   * @see org.eclipse.ecoretools.ale.RIf
    * @generated
    */
   public Adapter createRIfAdapter()
@@ -500,13 +468,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.RWhile <em>RWhile</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.RWhile <em>RWhile</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.RWhile
+   * @see org.eclipse.ecoretools.ale.RWhile
    * @generated
    */
   public Adapter createRWhileAdapter()
@@ -515,13 +483,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.RExpression <em>RExpression</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.RExpression <em>RExpression</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.RExpression
+   * @see org.eclipse.ecoretools.ale.RExpression
    * @generated
    */
   public Adapter createRExpressionAdapter()
@@ -530,13 +498,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.Expr <em>Expr</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.Expr <em>Expr</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.Expr
+   * @see org.eclipse.ecoretools.ale.Expr
    * @generated
    */
   public Adapter createExprAdapter()
@@ -545,13 +513,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.RecExpression <em>Rec Expression</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.RecExpression <em>Rec Expression</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.RecExpression
+   * @see org.eclipse.ecoretools.ale.RecExpression
    * @generated
    */
   public Adapter createRecExpressionAdapter()
@@ -560,13 +528,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.NavigationSegment <em>Navigation Segment</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.NavigationSegment <em>Navigation Segment</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.NavigationSegment
+   * @see org.eclipse.ecoretools.ale.NavigationSegment
    * @generated
    */
   public Adapter createNavigationSegmentAdapter()
@@ -575,13 +543,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.nonLeftRecExpression <em>non Left Rec Expression</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.nonLeftRecExpression <em>non Left Rec Expression</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.nonLeftRecExpression
+   * @see org.eclipse.ecoretools.ale.nonLeftRecExpression
    * @generated
    */
   public Adapter createnonLeftRecExpressionAdapter()
@@ -590,13 +558,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.binding <em>binding</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.binding <em>binding</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.binding
+   * @see org.eclipse.ecoretools.ale.binding
    * @generated
    */
   public Adapter createbindingAdapter()
@@ -605,13 +573,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.callExp <em>call Exp</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.callExp <em>call Exp</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.callExp
+   * @see org.eclipse.ecoretools.ale.callExp
    * @generated
    */
   public Adapter createcallExpAdapter()
@@ -620,13 +588,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.expressionSequence <em>expression Sequence</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.expressionSequence <em>expression Sequence</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.expressionSequence
+   * @see org.eclipse.ecoretools.ale.expressionSequence
    * @generated
    */
   public Adapter createexpressionSequenceAdapter()
@@ -635,13 +603,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.literal <em>literal</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.literal <em>literal</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.literal
+   * @see org.eclipse.ecoretools.ale.literal
    * @generated
    */
   public Adapter createliteralAdapter()
@@ -650,13 +618,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.RValDecl <em>RVal Decl</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.RValDecl <em>RVal Decl</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.RValDecl
+   * @see org.eclipse.ecoretools.ale.RValDecl
    * @generated
    */
   public Adapter createRValDeclAdapter()
@@ -665,13 +633,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.FinalIdentSegment <em>Final Ident Segment</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.FinalIdentSegment <em>Final Ident Segment</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.FinalIdentSegment
+   * @see org.eclipse.ecoretools.ale.FinalIdentSegment
    * @generated
    */
   public Adapter createFinalIdentSegmentAdapter()
@@ -680,13 +648,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.FinalIdentCallSegment <em>Final Ident Call Segment</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.FinalIdentCallSegment <em>Final Ident Call Segment</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.FinalIdentCallSegment
+   * @see org.eclipse.ecoretools.ale.FinalIdentCallSegment
    * @generated
    */
   public Adapter createFinalIdentCallSegmentAdapter()
@@ -695,13 +663,13 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.myDsl.FinalCallExpSegment <em>Final Call Exp Segment</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.FinalCallExpSegment <em>Final Call Exp Segment</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.xtext.example.mydsl.myDsl.FinalCallExpSegment
+   * @see org.eclipse.ecoretools.ale.FinalCallExpSegment
    * @generated
    */
   public Adapter createFinalCallExpSegmentAdapter()

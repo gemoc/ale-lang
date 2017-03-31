@@ -14,14 +14,9 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/rAttribute.java
- *   <li>{@link org.xtext.example.mydsl.myDsl.rAttribute#getType <em>Type</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.rAttribute#getName <em>Name</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.rAttribute#getExpr <em>Expr</em>}</li>
-=======
  *   <li>{@link org.eclipse.ecoretools.ale.rAttribute#getType <em>Type</em>}</li>
  *   <li>{@link org.eclipse.ecoretools.ale.rAttribute#getName <em>Name</em>}</li>
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/rAttribute.java
+ *   <li>{@link org.eclipse.ecoretools.ale.rAttribute#getExpr <em>Expr</em>}</li>
  * </ul>
  *
  * @see org.eclipse.ecoretools.ale.AlePackage#getrAttribute()
@@ -92,14 +87,14 @@ public interface rAttribute extends EObject
    * <!-- end-user-doc -->
    * @return the value of the '<em>Expr</em>' containment reference.
    * @see #setExpr(Expr)
-   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getrAttribute_Expr()
+   * @see org.eclipse.ecoretools.ale.AlePackage#getrAttribute_Expr()
    * @model containment="true"
    * @generated
    */
   Expr getExpr();
 
   /**
-   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.rAttribute#getExpr <em>Expr</em>}' containment reference.
+   * Sets the value of the '{@link org.eclipse.ecoretools.ale.rAttribute#getExpr <em>Expr</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Expr</em>' containment reference.

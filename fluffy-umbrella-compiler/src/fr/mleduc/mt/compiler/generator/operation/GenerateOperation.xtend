@@ -1,14 +1,14 @@
 package fr.mleduc.mt.compiler.generator.operation
 
-import implementation.ExtendedClass
-import implementation.Implementation
-import implementation.Method
-import implementation.ModelBehavior
 import java.io.FileWriter
 import java.io.IOException
 import org.eclipse.core.resources.IProject
-import org.eclipse.emf.ecore.ETypedElement
+import org.eclipse.ecoretools.ale.implementation.ExtendedClass
+import org.eclipse.ecoretools.ale.implementation.Implementation
+import org.eclipse.ecoretools.ale.implementation.Method
+import org.eclipse.ecoretools.ale.implementation.ModelBehavior
 import org.eclipse.emf.ecore.EOperation
+import org.eclipse.emf.ecore.ETypedElement
 
 class GenerateOperation {
 	

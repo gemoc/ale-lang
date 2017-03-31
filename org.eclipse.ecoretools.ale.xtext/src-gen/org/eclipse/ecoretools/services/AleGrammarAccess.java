@@ -35,15 +35,9 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cXtendedClassesRClassParserRuleCall_5_0 = (RuleCall)cXtendedClassesAssignment_5.eContents().get(0);
 		
 		/// *****************
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/services/MyDslGrammarAccess.java
-		// * AQL++ grammar *
+		// *  ALE grammar  *
 		// ***************** / rRoot RRoot:
 		//	'behavior' rQualified ';' rImport* rService* xtendedClasses+=rClass*
-=======
-		// *  ALE grammar  *
-		// ***************** / rRoot:
-		//	'behavior' rQualified ';' rImport* rService* xtendedClasses+=rClass*;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/services/AleGrammarAccess.java
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'behavior' rQualified ';' rImport* rService* xtendedClasses+=rClass*
@@ -1437,20 +1431,6 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 		//')'
 		public Keyword getRightParenthesisKeyword_1_3() { return cRightParenthesisKeyword_1_3; }
 	}
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/services/MyDslGrammarAccess.java
-=======
-	public class LambdaExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.ecoretools.Ale.lambdaExpression");
-		private final RuleCall cExpressionParserRuleCall = (RuleCall)rule.eContents().get(1);
-		
-		//lambdaExpression:
-		//	expression;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//expression
-		public RuleCall getExpressionParserRuleCall() { return cExpressionParserRuleCall; }
-	}
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/services/AleGrammarAccess.java
 	public class CollectionIteratorElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.ecoretools.Ale.collectionIterator");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -2001,15 +1981,9 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	/// *****************
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/services/MyDslGrammarAccess.java
-	// * AQL++ grammar *
+	// *  ALE grammar  *
 	// ***************** / rRoot RRoot:
 	//	'behavior' rQualified ';' rImport* rService* xtendedClasses+=rClass*
-=======
-	// *  ALE grammar  *
-	// ***************** / rRoot:
-	//	'behavior' rQualified ';' rImport* rService* xtendedClasses+=rClass*;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/services/AleGrammarAccess.java
 	public RRootElements getRRootAccess() {
 		return pRRoot;
 	}

@@ -288,7 +288,7 @@ rulerClass returns [EObject current=null]
 							$current,
 							"openClass",
 							lv_openClass_1_0,
-							"org.xtext.example.mydsl.MyDsl.rOpenClass");
+							"org.eclipse.ecoretools.Ale.rOpenClass");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -320,7 +320,7 @@ rulerClass returns [EObject current=null]
 							$current,
 							"newClass",
 							lv_newClass_3_0,
-							"org.xtext.example.mydsl.MyDsl.rNewClass");
+							"org.eclipse.ecoretools.Ale.rNewClass");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -487,12 +487,8 @@ rulerNewClass returns [EObject current=null]
 						$current,
 						"name",
 						lv_name_1_0,
-<<<<<<< HEAD:org.xtext.example.mydsl/bin/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDsl.g
-						"org.xtext.example.mydsl.MyDsl.rQualified");
+						"org.eclipse.ecoretools.Ale.rQualified");
 					afterParserOrEnumRuleCall();
-=======
-						"org.eclipse.ecoretools.Ale.Ident");
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAle.g
 				}
 			)
 		)
@@ -892,7 +888,7 @@ rulerAttribute returns [EObject current=null]
 							$current,
 							"expr",
 							lv_expr_3_0,
-							"org.xtext.example.mydsl.MyDsl.expression");
+							"org.eclipse.ecoretools.Ale.expression");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -946,7 +942,7 @@ rulerStatement returns [EObject current=null]
 							$current,
 							"stmt",
 							lv_stmt_1_0,
-							"org.xtext.example.mydsl.MyDsl.rVarDecl");
+							"org.eclipse.ecoretools.Ale.rVarDecl");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -978,7 +974,7 @@ rulerStatement returns [EObject current=null]
 							$current,
 							"stmt",
 							lv_stmt_3_0,
-							"org.xtext.example.mydsl.MyDsl.rAssign");
+							"org.eclipse.ecoretools.Ale.rAssign");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -1010,7 +1006,7 @@ rulerStatement returns [EObject current=null]
 							$current,
 							"forEach",
 							lv_forEach_5_0,
-							"org.xtext.example.mydsl.MyDsl.rForEach");
+							"org.eclipse.ecoretools.Ale.rForEach");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -1042,7 +1038,7 @@ rulerStatement returns [EObject current=null]
 							$current,
 							"while",
 							lv_while_7_0,
-							"org.xtext.example.mydsl.MyDsl.rWhile");
+							"org.eclipse.ecoretools.Ale.rWhile");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -1074,7 +1070,7 @@ rulerStatement returns [EObject current=null]
 							$current,
 							"if",
 							lv_if_9_0,
-							"org.xtext.example.mydsl.MyDsl.rIf");
+							"org.eclipse.ecoretools.Ale.rIf");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -1106,7 +1102,7 @@ rulerStatement returns [EObject current=null]
 							$current,
 							"expr",
 							lv_expr_11_0,
-							"org.xtext.example.mydsl.MyDsl.rExpression");
+							"org.eclipse.ecoretools.Ale.rExpression");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -1199,7 +1195,7 @@ rulerAssign returns [EObject current=null]
 						$current,
 						"left",
 						lv_left_0_0,
-						"org.xtext.example.mydsl.MyDsl.expression");
+						"org.eclipse.ecoretools.Ale.expression");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -1222,7 +1218,7 @@ rulerAssign returns [EObject current=null]
 						$current,
 						"right",
 						lv_right_2_0,
-						"org.xtext.example.mydsl.MyDsl.expression");
+						"org.eclipse.ecoretools.Ale.expression");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -1295,7 +1291,7 @@ rulerForEach returns [EObject current=null]
 						$current,
 						"block",
 						lv_block_6_0,
-						"org.xtext.example.mydsl.MyDsl.rBlock");
+						"org.eclipse.ecoretools.Ale.rBlock");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -1391,7 +1387,7 @@ rulerBlock returns [EObject current=null]
 							$current,
 							"statement",
 							lv_statement_1_0,
-							"org.xtext.example.mydsl.MyDsl.rStatement");
+							"org.eclipse.ecoretools.Ale.rStatement");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -1410,7 +1406,7 @@ rulerBlock returns [EObject current=null]
 							$current,
 							"statement",
 							lv_statement_2_0,
-							"org.xtext.example.mydsl.MyDsl.rStatement");
+							"org.eclipse.ecoretools.Ale.rStatement");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -1461,7 +1457,7 @@ rulerIf returns [EObject current=null]
 						$current,
 						"condition",
 						lv_condition_2_0,
-						"org.xtext.example.mydsl.MyDsl.expression");
+						"org.eclipse.ecoretools.Ale.expression");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -1484,7 +1480,7 @@ rulerIf returns [EObject current=null]
 						$current,
 						"ifBlock",
 						lv_ifBlock_4_0,
-						"org.xtext.example.mydsl.MyDsl.rBlock");
+						"org.eclipse.ecoretools.Ale.rBlock");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -1508,7 +1504,7 @@ rulerIf returns [EObject current=null]
 							$current,
 							"elseBlock",
 							lv_elseBlock_6_0,
-							"org.xtext.example.mydsl.MyDsl.rBlock");
+							"org.eclipse.ecoretools.Ale.rBlock");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -1570,7 +1566,7 @@ rulerWhile returns [EObject current=null]
 						$current,
 						"block",
 						lv_block_4_0,
-						"org.xtext.example.mydsl.MyDsl.rBlock");
+						"org.eclipse.ecoretools.Ale.rBlock");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -1642,7 +1638,7 @@ ruleexpression returns [EObject current=null]
 						$current,
 						"leftPart",
 						lv_leftPart_0_0,
-						"org.xtext.example.mydsl.MyDsl.nonLeftRecExpression");
+						"org.eclipse.ecoretools.Ale.nonLeftRecExpression");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -1661,7 +1657,7 @@ ruleexpression returns [EObject current=null]
 						$current,
 						"recpart",
 						lv_recpart_1_0,
-						"org.xtext.example.mydsl.MyDsl.recExpression");
+						"org.eclipse.ecoretools.Ale.recExpression");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -1850,7 +1846,7 @@ rulerecExpression returns [EObject current=null]
 						$current,
 						"recExp",
 						lv_recExp_15_0,
-						"org.xtext.example.mydsl.MyDsl.recExpression");
+						"org.eclipse.ecoretools.Ale.recExpression");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -1903,7 +1899,7 @@ rulenavigationSegment returns [EObject current=null]
 							$current,
 							"ident",
 							lv_ident_2_0,
-							"org.xtext.example.mydsl.MyDsl.Ident");
+							"org.eclipse.ecoretools.Ale.Ident");
 					}
 				)
 			)
@@ -1938,7 +1934,7 @@ rulenavigationSegment returns [EObject current=null]
 							$current,
 							"call",
 							lv_call_5_0,
-							"org.xtext.example.mydsl.MyDsl.callExp");
+							"org.eclipse.ecoretools.Ale.callExp");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -1974,7 +1970,7 @@ rulenavigationSegment returns [EObject current=null]
 							$current,
 							"call",
 							lv_call_8_0,
-							"org.xtext.example.mydsl.MyDsl.callExp");
+							"org.eclipse.ecoretools.Ale.callExp");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -2093,7 +2089,7 @@ rulenonLeftRecExpression returns [EObject current=null]
 							$current,
 							"condition",
 							lv_condition_10_0,
-							"org.xtext.example.mydsl.MyDsl.expression");
+							"org.eclipse.ecoretools.Ale.expression");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -2116,7 +2112,7 @@ rulenonLeftRecExpression returns [EObject current=null]
 							$current,
 							"ifBlock",
 							lv_ifBlock_12_0,
-							"org.xtext.example.mydsl.MyDsl.expression");
+							"org.eclipse.ecoretools.Ale.expression");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -2139,7 +2135,7 @@ rulenonLeftRecExpression returns [EObject current=null]
 							$current,
 							"elseBlock",
 							lv_elseBlock_14_0,
-							"org.xtext.example.mydsl.MyDsl.expression");
+							"org.eclipse.ecoretools.Ale.expression");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -2169,7 +2165,7 @@ rulenonLeftRecExpression returns [EObject current=null]
 							$current,
 							"bindings",
 							lv_bindings_17_0,
-							"org.xtext.example.mydsl.MyDsl.binding");
+							"org.eclipse.ecoretools.Ale.binding");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -2193,7 +2189,7 @@ rulenonLeftRecExpression returns [EObject current=null]
 								$current,
 								"bindings",
 								lv_bindings_19_0,
-								"org.xtext.example.mydsl.MyDsl.binding");
+								"org.eclipse.ecoretools.Ale.binding");
 							afterParserOrEnumRuleCall();
 						}
 					)
@@ -2217,7 +2213,7 @@ rulenonLeftRecExpression returns [EObject current=null]
 							$current,
 							"letExpr",
 							lv_letExpr_21_0,
-							"org.xtext.example.mydsl.MyDsl.expression");
+							"org.eclipse.ecoretools.Ale.expression");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -2570,7 +2566,7 @@ ruleexpressionSequence returns [EObject current=null]
 						$current,
 						"seqExprs",
 						lv_seqExprs_0_0,
-						"org.xtext.example.mydsl.MyDsl.expression");
+						"org.eclipse.ecoretools.Ale.expression");
 					afterParserOrEnumRuleCall();
 				}
 			)
@@ -2594,7 +2590,7 @@ ruleexpressionSequence returns [EObject current=null]
 							$current,
 							"seqExprs",
 							lv_seqExprs_2_0,
-							"org.xtext.example.mydsl.MyDsl.expression");
+							"org.eclipse.ecoretools.Ale.expression");
 						afterParserOrEnumRuleCall();
 					}
 				)

@@ -1059,12 +1059,11 @@ public interface ImplementationPackage extends EPackage {
 
 
 	/**
-<<<<<<< HEAD:lang.core/src-gen/implementation/ImplementationPackage.java
-	 * The meta object id for the '{@link implementation.impl.ImportImpl <em>Import</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.ecoretools.ale.implementation.impl.ImportImpl <em>Import</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see implementation.impl.ImportImpl
-	 * @see implementation.impl.ImplementationPackageImpl#getImport()
+	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImportImpl
+	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getImport()
 	 * @generated
 	 */
 	int IMPORT = 19;
@@ -1107,10 +1106,7 @@ public interface ImplementationPackage extends EPackage {
 
 
 	/**
-	 * Returns the meta object for class '{@link implementation.ModelBehavior <em>Model Behavior</em>}'.
-=======
 	 * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.implementation.ModelBehavior <em>Model Behavior</em>}'.
->>>>>>> master:org.eclipse.ecoretools.ale.core/src-gen/org/eclipse/ecoretools/ale/implementation/ImplementationPackage.java
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Model Behavior</em>'.
@@ -1164,22 +1160,18 @@ public interface ImplementationPackage extends EPackage {
 	EAttribute getModelBehavior_Name();
 
 	/**
-<<<<<<< HEAD:lang.core/src-gen/implementation/ImplementationPackage.java
-	 * Returns the meta object for the containment reference list '{@link implementation.ModelBehavior#getImports <em>Imports</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.implementation.ModelBehavior#getImports <em>Imports</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Imports</em>'.
-	 * @see implementation.ModelBehavior#getImports()
+	 * @see org.eclipse.ecoretools.ale.implementation.ModelBehavior#getImports()
 	 * @see #getModelBehavior()
 	 * @generated
 	 */
 	EReference getModelBehavior_Imports();
 
 	/**
-	 * Returns the meta object for class '{@link implementation.ExtendedClass <em>Extended Class</em>}'.
-=======
 	 * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.implementation.ExtendedClass <em>Extended Class</em>}'.
->>>>>>> master:org.eclipse.ecoretools.ale.core/src-gen/org/eclipse/ecoretools/ale/implementation/ImplementationPackage.java
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Extended Class</em>'.
@@ -1766,32 +1758,32 @@ public interface ImplementationPackage extends EPackage {
 	EReference getExpressionStatement_Expression();
 
 	/**
-	 * Returns the meta object for class '{@link implementation.Import <em>Import</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.implementation.Import <em>Import</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Import</em>'.
-	 * @see implementation.Import
+	 * @see org.eclipse.ecoretools.ale.implementation.Import
 	 * @generated
 	 */
 	EClass getImport();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.Import#getUri <em>Uri</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.implementation.Import#getUri <em>Uri</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Uri</em>'.
-	 * @see implementation.Import#getUri()
+	 * @see org.eclipse.ecoretools.ale.implementation.Import#getUri()
 	 * @see #getImport()
 	 * @generated
 	 */
 	EAttribute getImport_Uri();
 
 	/**
-	 * Returns the meta object for the attribute '{@link implementation.Import#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.implementation.Import#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see implementation.Import#getName()
+	 * @see org.eclipse.ecoretools.ale.implementation.Import#getName()
 	 * @see #getImport()
 	 * @generated
 	 */
@@ -1863,7 +1855,6 @@ public interface ImplementationPackage extends EPackage {
 		EAttribute MODEL_BEHAVIOR__NAME = eINSTANCE.getModelBehavior_Name();
 
 		/**
-<<<<<<< HEAD:lang.core/src-gen/implementation/ImplementationPackage.java
 		 * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1872,10 +1863,7 @@ public interface ImplementationPackage extends EPackage {
 		EReference MODEL_BEHAVIOR__IMPORTS = eINSTANCE.getModelBehavior_Imports();
 
 		/**
-		 * The meta object literal for the '{@link implementation.impl.ExtendedClassImpl <em>Extended Class</em>}' class.
-=======
 		 * The meta object literal for the '{@link org.eclipse.ecoretools.ale.implementation.impl.ExtendedClassImpl <em>Extended Class</em>}' class.
->>>>>>> master:org.eclipse.ecoretools.ale.core/src-gen/org/eclipse/ecoretools/ale/implementation/ImplementationPackage.java
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @see org.eclipse.ecoretools.ale.implementation.impl.ExtendedClassImpl
@@ -2351,11 +2339,11 @@ public interface ImplementationPackage extends EPackage {
 		EReference EXPRESSION_STATEMENT__EXPRESSION = eINSTANCE.getExpressionStatement_Expression();
 
 		/**
-		 * The meta object literal for the '{@link implementation.impl.ImportImpl <em>Import</em>}' class.
+		 * The meta object literal for the '{@link org.eclipse.ecoretools.ale.implementation.impl.ImportImpl <em>Import</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see implementation.impl.ImportImpl
-		 * @see implementation.impl.ImplementationPackageImpl#getImport()
+		 * @see org.eclipse.ecoretools.ale.implementation.impl.ImportImpl
+		 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getImport()
 		 * @generated
 		 */
 		EClass IMPORT = eINSTANCE.getImport();

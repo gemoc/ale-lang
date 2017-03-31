@@ -21,16 +21,11 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 @SuppressWarnings("all")
 public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/serializer/MyDslSyntacticSequencer.java
-	protected MyDslGrammarAccess grammarAccess;
+	protected AleGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_binding___ColonKeyword_1_0_TypeLiteralParserRuleCall_1_1__q;
 	protected AbstractElementAlias match_literal_FalseKeyword_4_or_INTTerminalRuleCall_1_or_NullKeyword_5_or_RealTerminalRuleCall_2_or_STRINGTerminalRuleCall_0_or_TrueKeyword_3_or_TypeLiteralParserRuleCall_10_or___IdentTerminalRuleCall_8_0_ColonColonKeyword_8_1_IdentTerminalRuleCall_8_2_ColonColonKeyword_8_3_IdentTerminalRuleCall_8_4___or___IdentTerminalRuleCall_9_0_ColonColonKeyword_9_1_IdentTerminalRuleCall_9_2_ColonKeyword_9_3__;
 	protected AbstractElementAlias match_literal_OrderedSetKeyword_7_0_or_SequenceKeyword_6_0;
 	protected AbstractElementAlias match_nonLeftRecExpression_HyphenMinusKeyword_1_0_or_LeftParenthesisKeyword_4_0_or_NotKeyword_0_0;
-=======
-	protected AleGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/serializer/AleSyntacticSequencer.java
 	protected AbstractElementAlias match_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q;
 	protected AbstractElementAlias match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1;
 	protected AbstractElementAlias match_rOperation_RTagParserRuleCall_0_a;
@@ -42,16 +37,11 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/serializer/MyDslSyntacticSequencer.java
-		grammarAccess = (MyDslGrammarAccess) access;
+		grammarAccess = (AleGrammarAccess) access;
 		match_binding___ColonKeyword_1_0_TypeLiteralParserRuleCall_1_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getBindingAccess().getColonKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getBindingAccess().getTypeLiteralParserRuleCall_1_1()));
 		match_literal_FalseKeyword_4_or_INTTerminalRuleCall_1_or_NullKeyword_5_or_RealTerminalRuleCall_2_or_STRINGTerminalRuleCall_0_or_TrueKeyword_3_or_TypeLiteralParserRuleCall_10_or___IdentTerminalRuleCall_8_0_ColonColonKeyword_8_1_IdentTerminalRuleCall_8_2_ColonColonKeyword_8_3_IdentTerminalRuleCall_8_4___or___IdentTerminalRuleCall_9_0_ColonColonKeyword_9_1_IdentTerminalRuleCall_9_2_ColonKeyword_9_3__ = new AlternativeAlias(false, false, new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getLiteralAccess().getIdentTerminalRuleCall_8_0()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getColonColonKeyword_8_1()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getIdentTerminalRuleCall_8_2()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getColonColonKeyword_8_3()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getIdentTerminalRuleCall_8_4())), new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getLiteralAccess().getIdentTerminalRuleCall_9_0()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getColonColonKeyword_9_1()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getIdentTerminalRuleCall_9_2()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getColonKeyword_9_3())), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getFalseKeyword_4()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getINTTerminalRuleCall_1()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getNullKeyword_5()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getRealTerminalRuleCall_2()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getSTRINGTerminalRuleCall_0()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getTrueKeyword_3()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getTypeLiteralParserRuleCall_10()));
 		match_literal_OrderedSetKeyword_7_0_or_SequenceKeyword_6_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getLiteralAccess().getOrderedSetKeyword_7_0()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getSequenceKeyword_6_0()));
 		match_nonLeftRecExpression_HyphenMinusKeyword_1_0_or_LeftParenthesisKeyword_4_0_or_NotKeyword_0_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getNonLeftRecExpressionAccess().getHyphenMinusKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getNonLeftRecExpressionAccess().getLeftParenthesisKeyword_4_0()), new TokenAlias(false, false, grammarAccess.getNonLeftRecExpressionAccess().getNotKeyword_0_0()));
-=======
-		grammarAccess = (AleGrammarAccess) access;
-		match_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRAttributeAccess().getColonEqualsSignKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getRAttributeAccess().getExpressionParserRuleCall_2_1()));
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/serializer/AleSyntacticSequencer.java
 		match_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getExtendsKeyword_3_0()), new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getRQualifiedParserRuleCall_3_1()), new GroupAlias(true, true, new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getCommaKeyword_3_2_0()), new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getRQualifiedParserRuleCall_3_2_1())));
 		match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getROperationAccess().getDefKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getROperationAccess().getOverrideKeyword_1_1()));
 		match_rOperation_RTagParserRuleCall_0_a = new TokenAlias(true, true, grammarAccess.getROperationAccess().getRTagParserRuleCall_0());

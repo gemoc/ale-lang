@@ -1,33 +1,6 @@
 /**
  */
-<<<<<<< HEAD:lang.core/src-gen/implementation/impl/ImplementationPackageImpl.java
-package implementation.impl;
-
-import implementation.Assignment;
-import implementation.Behaviored;
-import implementation.Block;
-import implementation.ExpressionStatement;
-import implementation.ExtendedClass;
-import implementation.FeatureAssignment;
-import implementation.FeatureInsert;
-import implementation.FeaturePut;
-import implementation.FeatureRemove;
-import implementation.ForEach;
-import implementation.If;
-import implementation.Implementation;
-import implementation.ImplementationFactory;
-import implementation.ImplementationPackage;
-import implementation.Import;
-import implementation.Method;
-import implementation.ModelBehavior;
-import implementation.RuntimeClass;
-import implementation.Statement;
-import implementation.VariableAssignment;
-import implementation.VariableDeclaration;
-import implementation.While;
-=======
 package org.eclipse.ecoretools.ale.implementation.impl;
->>>>>>> master:org.eclipse.ecoretools.ale.core/src-gen/org/eclipse/ecoretools/ale/implementation/impl/ImplementationPackageImpl.java
 
 import org.eclipse.acceleo.query.ast.AstPackage;
 
@@ -45,6 +18,7 @@ import org.eclipse.ecoretools.ale.implementation.If;
 import org.eclipse.ecoretools.ale.implementation.Implementation;
 import org.eclipse.ecoretools.ale.implementation.ImplementationFactory;
 import org.eclipse.ecoretools.ale.implementation.ImplementationPackage;
+import org.eclipse.ecoretools.ale.implementation.Import;
 import org.eclipse.ecoretools.ale.implementation.Method;
 import org.eclipse.ecoretools.ale.implementation.ModelBehavior;
 import org.eclipse.ecoretools.ale.implementation.RuntimeClass;

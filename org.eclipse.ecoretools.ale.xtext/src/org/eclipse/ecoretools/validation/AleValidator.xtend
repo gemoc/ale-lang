@@ -3,33 +3,24 @@
  */
 package org.eclipse.ecoretools.validation
 
+import org.eclipse.ecoretools.ale.FinalCallExpSegment
+import org.eclipse.ecoretools.ale.FinalIdentCallSegment
+import org.eclipse.ecoretools.ale.FinalIdentSegment
+import org.eclipse.ecoretools.ale.RClass
+import org.eclipse.ecoretools.ale.RRoot
 import org.eclipse.xtext.validation.Check
-import org.xtext.example.mydsl.myDsl.FinalCallExpSegment
-import org.xtext.example.mydsl.myDsl.FinalIdentCallSegment
-import org.xtext.example.mydsl.myDsl.FinalIdentSegment
-import org.xtext.example.mydsl.myDsl.MyDslPackage
-import org.xtext.example.mydsl.myDsl.RRoot
-import org.xtext.example.mydsl.myDsl.RClass
-import org.xtext.example.mydsl.myDsl.ROpenClass
+import org.eclipse.ecoretools.ale.AlePackage
 
 /**
  * This class contains custom validation rules. 
  * 
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
-<<<<<<< HEAD:org.xtext.example.mydsl/src/org/xtext/example/mydsl/validation/MyDslValidator.xtend
-class MyDslValidator extends AbstractMyDslValidator {
 
-	public static val INVALID_NAME = 'invalidName'
-	public static val DUPLICATE_CLASS_NAME = 'duplicateClassName'
-	public static val DUPLICATE_OPERATION_NAME = 'duplicateOperationName'
-
-=======
 class AleValidator extends AbstractAleValidator {
 	
 //	public static val INVALID_NAME = 'invalidName'
 //
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src/org/eclipse/ecoretools/validation/AleValidator.xtend
 //	@Check
 //	def checkGreetingStartsWithCapital(Greeting greeting) {
 //		if (!Character.isUpperCase(greeting.name.charAt(0))) {
@@ -78,6 +69,11 @@ class AleValidator extends AbstractAleValidator {
 //	def typecheckNavigationSegment(NavigationSegment ns) {
 //		println('''navigation segment «ns»''')
 //	}
+	
+	int DUPLICATE_CLASS_NAME = 1
+	
+	int DUPLICATE_OPERATION_NAME = 2
+	
 	@Check
 	def typecheckFinalIdentSegment(FinalIdentSegment finalIdentSegment) {
 		println('''FinalIdentSegment «finalIdentSegment.ident»''')
@@ -98,7 +94,7 @@ class AleValidator extends AbstractAleValidator {
 		val duplicateClasses = root.xtendedClasses.groupBy[name].filter[p1, p2|p2.size > 1]
 		if (!duplicateClasses.empty) {
 			duplicateClasses.values.flatten.forEach [
-				error('Duplicated class name', it, MyDslPackage.Literals.RCLASS__NAME, DUPLICATE_CLASS_NAME)
+				error('Duplicated class name', it, AlePackage.Literals.RCLASS__NAME, DUPLICATE_CLASS_NAME)
 			]
 		}
 	}
@@ -109,7 +105,7 @@ class AleValidator extends AbstractAleValidator {
 		val duplicateOperations = openClass.operations.groupBy[name].filter[p1, p2|p2.size > 1]
 		if (!duplicateOperations.empty) {
 			duplicateOperations.values.flatten.forEach [
-				error('Duplicate operation name', it, MyDslPackage.Literals.ROPERATION__NAME, DUPLICATE_OPERATION_NAME)
+				error('Duplicate operation name', it, AlePackage.Literals.ROPERATION__NAME, DUPLICATE_OPERATION_NAME)
 			]
 		}
 	}

@@ -9,25 +9,25 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>rRoot</b></em>'.
+ * A representation of the model object '<em><b>RRoot</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.ecoretools.ale.rRoot#getXtendedClasses <em>Xtended Classes</em>}</li>
+ *   <li>{@link org.eclipse.ecoretools.ale.RRoot#getXtendedClasses <em>Xtended Classes</em>}</li>
  * </ul>
  *
- * @see org.eclipse.ecoretools.ale.AlePackage#getrRoot()
+ * @see org.eclipse.ecoretools.ale.AlePackage#getRRoot()
  * @model
  * @generated
  */
-public interface rRoot extends EObject
+public interface RRoot extends EObject
 {
   /**
    * Returns the value of the '<em><b>Xtended Classes</b></em>' containment reference list.
-   * The list contents are of type {@link org.eclipse.ecoretools.ale.rClass}.
+   * The list contents are of type {@link org.eclipse.ecoretools.ale.RClass}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Xtended Classes</em>' containment reference list isn't clear,
@@ -35,10 +35,10 @@ public interface rRoot extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Xtended Classes</em>' containment reference list.
-   * @see org.eclipse.ecoretools.ale.AlePackage#getrRoot_XtendedClasses()
+   * @see org.eclipse.ecoretools.ale.AlePackage#getRRoot_XtendedClasses()
    * @model containment="true"
    * @generated
    */
-  EList<rClass> getXtendedClasses();
+  EList<RClass> getXtendedClasses();
 
-} // rRoot
+} // RRoot

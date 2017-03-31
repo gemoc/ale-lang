@@ -734,11 +734,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerClass"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:258:1: rulerClass returns [EObject current=null] : ( ( () ( (lv_openClass_1_0= rulerOpenClass ) ) ) | ( () ( (lv_newClass_3_0= rulerNewClass ) ) ) ) ;
-=======
-    // InternalAle.g:258:1: rulerClass returns [EObject current=null] : (this_rOpenClass_0= rulerOpenClass | this_rNewClass_1= rulerNewClass ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:258:1: rulerClass returns [EObject current=null] : ( ( () ( (lv_openClass_1_0= rulerOpenClass ) ) ) | ( () ( (lv_newClass_3_0= rulerNewClass ) ) ) ) ;
     public final EObject rulerClass() throws RecognitionException {
         EObject current = null;
 
@@ -751,17 +747,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:264:2: ( ( ( () ( (lv_openClass_1_0= rulerOpenClass ) ) ) | ( () ( (lv_newClass_3_0= rulerNewClass ) ) ) ) )
-            // InternalMyDsl.g:265:2: ( ( () ( (lv_openClass_1_0= rulerOpenClass ) ) ) | ( () ( (lv_newClass_3_0= rulerNewClass ) ) ) )
+            // InternalAle.g:264:2: ( ( ( () ( (lv_openClass_1_0= rulerOpenClass ) ) ) | ( () ( (lv_newClass_3_0= rulerNewClass ) ) ) ) )
+            // InternalAle.g:265:2: ( ( () ( (lv_openClass_1_0= rulerOpenClass ) ) ) | ( () ( (lv_newClass_3_0= rulerNewClass ) ) ) )
             {
-            // InternalMyDsl.g:265:2: ( ( () ( (lv_openClass_1_0= rulerOpenClass ) ) ) | ( () ( (lv_newClass_3_0= rulerNewClass ) ) ) )
-=======
-            // InternalAle.g:264:2: ( (this_rOpenClass_0= rulerOpenClass | this_rNewClass_1= rulerNewClass ) )
-            // InternalAle.g:265:2: (this_rOpenClass_0= rulerOpenClass | this_rNewClass_1= rulerNewClass )
-            {
-            // InternalAle.g:265:2: (this_rOpenClass_0= rulerOpenClass | this_rNewClass_1= rulerNewClass )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:265:2: ( ( () ( (lv_openClass_1_0= rulerOpenClass ) ) ) | ( () ( (lv_newClass_3_0= rulerNewClass ) ) ) )
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -780,17 +769,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt5) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:266:3: ( () ( (lv_openClass_1_0= rulerOpenClass ) ) )
+                    // InternalAle.g:266:3: ( () ( (lv_openClass_1_0= rulerOpenClass ) ) )
                     {
-                    // InternalMyDsl.g:266:3: ( () ( (lv_openClass_1_0= rulerOpenClass ) ) )
-                    // InternalMyDsl.g:267:4: () ( (lv_openClass_1_0= rulerOpenClass ) )
+                    // InternalAle.g:266:3: ( () ( (lv_openClass_1_0= rulerOpenClass ) ) )
+                    // InternalAle.g:267:4: () ( (lv_openClass_1_0= rulerOpenClass ) )
                     {
-                    // InternalMyDsl.g:267:4: ()
-                    // InternalMyDsl.g:268:5: 
-=======
-                    // InternalAle.g:266:3: this_rOpenClass_0= rulerOpenClass
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:267:4: ()
+                    // InternalAle.g:268:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -807,11 +792,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalMyDsl.g:277:4: ( (lv_openClass_1_0= rulerOpenClass ) )
-                    // InternalMyDsl.g:278:5: (lv_openClass_1_0= rulerOpenClass )
+                    // InternalAle.g:277:4: ( (lv_openClass_1_0= rulerOpenClass ) )
+                    // InternalAle.g:278:5: (lv_openClass_1_0= rulerOpenClass )
                     {
-                    // InternalMyDsl.g:278:5: (lv_openClass_1_0= rulerOpenClass )
-                    // InternalMyDsl.g:279:6: lv_openClass_1_0= rulerOpenClass
+                    // InternalAle.g:278:5: (lv_openClass_1_0= rulerOpenClass )
+                    // InternalAle.g:279:6: lv_openClass_1_0= rulerOpenClass
                     {
                     if ( state.backtracking==0 ) {
 
@@ -832,7 +817,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"openClass",
                       							lv_openClass_1_0,
-                      							"org.xtext.example.mydsl.MyDsl.rOpenClass");
+                      							"org.eclipse.ecoretools.Ale.rOpenClass");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -849,17 +834,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:298:3: ( () ( (lv_newClass_3_0= rulerNewClass ) ) )
+                    // InternalAle.g:298:3: ( () ( (lv_newClass_3_0= rulerNewClass ) ) )
                     {
-                    // InternalMyDsl.g:298:3: ( () ( (lv_newClass_3_0= rulerNewClass ) ) )
-                    // InternalMyDsl.g:299:4: () ( (lv_newClass_3_0= rulerNewClass ) )
+                    // InternalAle.g:298:3: ( () ( (lv_newClass_3_0= rulerNewClass ) ) )
+                    // InternalAle.g:299:4: () ( (lv_newClass_3_0= rulerNewClass ) )
                     {
-                    // InternalMyDsl.g:299:4: ()
-                    // InternalMyDsl.g:300:5: 
-=======
-                    // InternalAle.g:278:3: this_rNewClass_1= rulerNewClass
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:299:4: ()
+                    // InternalAle.g:300:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -876,11 +857,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalMyDsl.g:309:4: ( (lv_newClass_3_0= rulerNewClass ) )
-                    // InternalMyDsl.g:310:5: (lv_newClass_3_0= rulerNewClass )
+                    // InternalAle.g:309:4: ( (lv_newClass_3_0= rulerNewClass ) )
+                    // InternalAle.g:310:5: (lv_newClass_3_0= rulerNewClass )
                     {
-                    // InternalMyDsl.g:310:5: (lv_newClass_3_0= rulerNewClass )
-                    // InternalMyDsl.g:311:6: lv_newClass_3_0= rulerNewClass
+                    // InternalAle.g:310:5: (lv_newClass_3_0= rulerNewClass )
+                    // InternalAle.g:311:6: lv_newClass_3_0= rulerNewClass
                     {
                     if ( state.backtracking==0 ) {
 
@@ -901,7 +882,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"newClass",
                       							lv_newClass_3_0,
-                      							"org.xtext.example.mydsl.MyDsl.rNewClass");
+                      							"org.eclipse.ecoretools.Ale.rNewClass");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -942,11 +923,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerOpenClass"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:333:1: entryRulerOpenClass returns [EObject current=null] : iv_rulerOpenClass= rulerOpenClass EOF ;
-=======
-    // InternalAle.g:293:1: entryRulerOpenClass returns [EObject current=null] : iv_rulerOpenClass= rulerOpenClass EOF ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:333:1: entryRulerOpenClass returns [EObject current=null] : iv_rulerOpenClass= rulerOpenClass EOF ;
     public final EObject entryRulerOpenClass() throws RecognitionException {
         EObject current = null;
 
@@ -954,13 +931,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:333:51: (iv_rulerOpenClass= rulerOpenClass EOF )
-            // InternalMyDsl.g:334:2: iv_rulerOpenClass= rulerOpenClass EOF
-=======
-            // InternalAle.g:293:51: (iv_rulerOpenClass= rulerOpenClass EOF )
-            // InternalAle.g:294:2: iv_rulerOpenClass= rulerOpenClass EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:333:51: (iv_rulerOpenClass= rulerOpenClass EOF )
+            // InternalAle.g:334:2: iv_rulerOpenClass= rulerOpenClass EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getROpenClassRule()); 
@@ -991,11 +963,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerOpenClass"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:340:1: rulerOpenClass returns [EObject current=null] : (otherlv_0= 'open' otherlv_1= 'class' ( (lv_name_2_0= rulerQualified ) ) (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )? otherlv_7= '{' ( (lv_attributes_8_0= rulerAttribute ) )* ( (lv_operations_9_0= rulerOperation ) )* otherlv_10= '}' ) ;
-=======
-    // InternalAle.g:300:1: rulerOpenClass returns [EObject current=null] : (otherlv_0= 'open' otherlv_1= 'class' ( (lv_name_2_0= rulerQualified ) ) (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )? otherlv_7= '{' ( (lv_attributes_8_0= rulerAttribute ) )* ( (lv_operations_9_0= rulerOperation ) )* otherlv_10= '}' ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:340:1: rulerOpenClass returns [EObject current=null] : (otherlv_0= 'open' otherlv_1= 'class' ( (lv_name_2_0= rulerQualified ) ) (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )? otherlv_7= '{' ( (lv_attributes_8_0= rulerAttribute ) )* ( (lv_operations_9_0= rulerOperation ) )* otherlv_10= '}' ) ;
     public final EObject rulerOpenClass() throws RecognitionException {
         EObject current = null;
 
@@ -1016,19 +984,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:346:2: ( (otherlv_0= 'open' otherlv_1= 'class' ( (lv_name_2_0= rulerQualified ) ) (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )? otherlv_7= '{' ( (lv_attributes_8_0= rulerAttribute ) )* ( (lv_operations_9_0= rulerOperation ) )* otherlv_10= '}' ) )
-            // InternalMyDsl.g:347:2: (otherlv_0= 'open' otherlv_1= 'class' ( (lv_name_2_0= rulerQualified ) ) (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )? otherlv_7= '{' ( (lv_attributes_8_0= rulerAttribute ) )* ( (lv_operations_9_0= rulerOperation ) )* otherlv_10= '}' )
+            // InternalAle.g:346:2: ( (otherlv_0= 'open' otherlv_1= 'class' ( (lv_name_2_0= rulerQualified ) ) (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )? otherlv_7= '{' ( (lv_attributes_8_0= rulerAttribute ) )* ( (lv_operations_9_0= rulerOperation ) )* otherlv_10= '}' ) )
+            // InternalAle.g:347:2: (otherlv_0= 'open' otherlv_1= 'class' ( (lv_name_2_0= rulerQualified ) ) (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )? otherlv_7= '{' ( (lv_attributes_8_0= rulerAttribute ) )* ( (lv_operations_9_0= rulerOperation ) )* otherlv_10= '}' )
             {
-            // InternalMyDsl.g:347:2: (otherlv_0= 'open' otherlv_1= 'class' ( (lv_name_2_0= rulerQualified ) ) (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )? otherlv_7= '{' ( (lv_attributes_8_0= rulerAttribute ) )* ( (lv_operations_9_0= rulerOperation ) )* otherlv_10= '}' )
-            // InternalMyDsl.g:348:3: otherlv_0= 'open' otherlv_1= 'class' ( (lv_name_2_0= rulerQualified ) ) (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )? otherlv_7= '{' ( (lv_attributes_8_0= rulerAttribute ) )* ( (lv_operations_9_0= rulerOperation ) )* otherlv_10= '}'
-=======
-            // InternalAle.g:306:2: ( (otherlv_0= 'open' otherlv_1= 'class' ( (lv_name_2_0= rulerQualified ) ) (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )? otherlv_7= '{' ( (lv_attributes_8_0= rulerAttribute ) )* ( (lv_operations_9_0= rulerOperation ) )* otherlv_10= '}' ) )
-            // InternalAle.g:307:2: (otherlv_0= 'open' otherlv_1= 'class' ( (lv_name_2_0= rulerQualified ) ) (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )? otherlv_7= '{' ( (lv_attributes_8_0= rulerAttribute ) )* ( (lv_operations_9_0= rulerOperation ) )* otherlv_10= '}' )
-            {
-            // InternalAle.g:307:2: (otherlv_0= 'open' otherlv_1= 'class' ( (lv_name_2_0= rulerQualified ) ) (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )? otherlv_7= '{' ( (lv_attributes_8_0= rulerAttribute ) )* ( (lv_operations_9_0= rulerOperation ) )* otherlv_10= '}' )
-            // InternalAle.g:308:3: otherlv_0= 'open' otherlv_1= 'class' ( (lv_name_2_0= rulerQualified ) ) (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )? otherlv_7= '{' ( (lv_attributes_8_0= rulerAttribute ) )* ( (lv_operations_9_0= rulerOperation ) )* otherlv_10= '}'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:347:2: (otherlv_0= 'open' otherlv_1= 'class' ( (lv_name_2_0= rulerQualified ) ) (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )? otherlv_7= '{' ( (lv_attributes_8_0= rulerAttribute ) )* ( (lv_operations_9_0= rulerOperation ) )* otherlv_10= '}' )
+            // InternalAle.g:348:3: otherlv_0= 'open' otherlv_1= 'class' ( (lv_name_2_0= rulerQualified ) ) (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )? otherlv_7= '{' ( (lv_attributes_8_0= rulerAttribute ) )* ( (lv_operations_9_0= rulerOperation ) )* otherlv_10= '}'
             {
             otherlv_0=(Token)match(input,21,FOLLOW_10); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -1042,19 +1002,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_1, grammarAccess.getROpenClassAccess().getClassKeyword_1());
               		
             }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:356:3: ( (lv_name_2_0= rulerQualified ) )
-            // InternalMyDsl.g:357:4: (lv_name_2_0= rulerQualified )
+            // InternalAle.g:356:3: ( (lv_name_2_0= rulerQualified ) )
+            // InternalAle.g:357:4: (lv_name_2_0= rulerQualified )
             {
-            // InternalMyDsl.g:357:4: (lv_name_2_0= rulerQualified )
-            // InternalMyDsl.g:358:5: lv_name_2_0= rulerQualified
-=======
-            // InternalAle.g:316:3: ( (lv_name_2_0= rulerQualified ) )
-            // InternalAle.g:317:4: (lv_name_2_0= rulerQualified )
-            {
-            // InternalAle.g:317:4: (lv_name_2_0= rulerQualified )
-            // InternalAle.g:318:5: lv_name_2_0= rulerQualified
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:357:4: (lv_name_2_0= rulerQualified )
+            // InternalAle.g:358:5: lv_name_2_0= rulerQualified
             {
             if ( state.backtracking==0 ) {
 
@@ -1085,11 +1037,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
             }
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:375:3: (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )?
-=======
-            // InternalAle.g:335:3: (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:375:3: (otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )* )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -1098,11 +1046,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt7) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:376:4: otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )*
-=======
-                    // InternalAle.g:336:4: otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:376:4: otherlv_3= 'extends' rulerQualified (otherlv_5= ',' rulerQualified )*
                     {
                     otherlv_3=(Token)match(input,23,FOLLOW_3); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -1130,11 +1074,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       				afterParserOrEnumRuleCall();
                       			
                     }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:390:4: (otherlv_5= ',' rulerQualified )*
-=======
-                    // InternalAle.g:350:4: (otherlv_5= ',' rulerQualified )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:390:4: (otherlv_5= ',' rulerQualified )*
                     loop6:
                     do {
                         int alt6=2;
@@ -1147,11 +1087,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                         switch (alt6) {
                     	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    	    // InternalMyDsl.g:391:5: otherlv_5= ',' rulerQualified
-=======
-                    	    // InternalAle.g:351:5: otherlv_5= ',' rulerQualified
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    	    // InternalAle.g:391:5: otherlv_5= ',' rulerQualified
                     	    {
                     	    otherlv_5=(Token)match(input,24,FOLLOW_3); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
@@ -1200,11 +1136,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_7, grammarAccess.getROpenClassAccess().getLeftCurlyBracketKeyword_4());
               		
             }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:411:3: ( (lv_attributes_8_0= rulerAttribute ) )*
-=======
-            // InternalAle.g:371:3: ( (lv_attributes_8_0= rulerAttribute ) )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:411:3: ( (lv_attributes_8_0= rulerAttribute ) )*
             loop8:
             do {
                 int alt8=2;
@@ -1217,17 +1149,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                 switch (alt8) {
             	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            	    // InternalMyDsl.g:412:4: (lv_attributes_8_0= rulerAttribute )
+            	    // InternalAle.g:412:4: (lv_attributes_8_0= rulerAttribute )
             	    {
-            	    // InternalMyDsl.g:412:4: (lv_attributes_8_0= rulerAttribute )
-            	    // InternalMyDsl.g:413:5: lv_attributes_8_0= rulerAttribute
-=======
-            	    // InternalAle.g:372:4: (lv_attributes_8_0= rulerAttribute )
-            	    {
-            	    // InternalAle.g:372:4: (lv_attributes_8_0= rulerAttribute )
-            	    // InternalAle.g:373:5: lv_attributes_8_0= rulerAttribute
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            	    // InternalAle.g:412:4: (lv_attributes_8_0= rulerAttribute )
+            	    // InternalAle.g:413:5: lv_attributes_8_0= rulerAttribute
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -1264,11 +1189,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:430:3: ( (lv_operations_9_0= rulerOperation ) )*
-=======
-            // InternalAle.g:390:3: ( (lv_operations_9_0= rulerOperation ) )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:430:3: ( (lv_operations_9_0= rulerOperation ) )*
             loop9:
             do {
                 int alt9=2;
@@ -1281,17 +1202,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                 switch (alt9) {
             	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            	    // InternalMyDsl.g:431:4: (lv_operations_9_0= rulerOperation )
+            	    // InternalAle.g:431:4: (lv_operations_9_0= rulerOperation )
             	    {
-            	    // InternalMyDsl.g:431:4: (lv_operations_9_0= rulerOperation )
-            	    // InternalMyDsl.g:432:5: lv_operations_9_0= rulerOperation
-=======
-            	    // InternalAle.g:391:4: (lv_operations_9_0= rulerOperation )
-            	    {
-            	    // InternalAle.g:391:4: (lv_operations_9_0= rulerOperation )
-            	    // InternalAle.g:392:5: lv_operations_9_0= rulerOperation
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            	    // InternalAle.g:431:4: (lv_operations_9_0= rulerOperation )
+            	    // InternalAle.g:432:5: lv_operations_9_0= rulerOperation
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -1359,11 +1273,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerNewClass"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:457:1: entryRulerNewClass returns [EObject current=null] : iv_rulerNewClass= rulerNewClass EOF ;
-=======
-    // InternalAle.g:417:1: entryRulerNewClass returns [EObject current=null] : iv_rulerNewClass= rulerNewClass EOF ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:457:1: entryRulerNewClass returns [EObject current=null] : iv_rulerNewClass= rulerNewClass EOF ;
     public final EObject entryRulerNewClass() throws RecognitionException {
         EObject current = null;
 
@@ -1371,13 +1281,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:457:50: (iv_rulerNewClass= rulerNewClass EOF )
-            // InternalMyDsl.g:458:2: iv_rulerNewClass= rulerNewClass EOF
-=======
-            // InternalAle.g:417:50: (iv_rulerNewClass= rulerNewClass EOF )
-            // InternalAle.g:418:2: iv_rulerNewClass= rulerNewClass EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:457:50: (iv_rulerNewClass= rulerNewClass EOF )
+            // InternalAle.g:458:2: iv_rulerNewClass= rulerNewClass EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRNewClassRule()); 
@@ -1408,11 +1313,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerNewClass"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:464:1: rulerNewClass returns [EObject current=null] : (otherlv_0= 'class' ( (lv_name_1_0= rulerQualified ) ) otherlv_2= '{' ( (lv_attributes_3_0= rulerAttribute ) )* ( (lv_operations_4_0= rulerOperation ) )* otherlv_5= '}' ) ;
-=======
-    // InternalAle.g:424:1: rulerNewClass returns [EObject current=null] : (otherlv_0= 'class' ( (lv_name_1_0= RULE_IDENT ) ) otherlv_2= '{' ( (lv_attributes_3_0= rulerAttribute ) )* ( (lv_operations_4_0= rulerOperation ) )* otherlv_5= '}' ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:464:1: rulerNewClass returns [EObject current=null] : (otherlv_0= 'class' ( (lv_name_1_0= rulerQualified ) ) otherlv_2= '{' ( (lv_attributes_3_0= rulerAttribute ) )* ( (lv_operations_4_0= rulerOperation ) )* otherlv_5= '}' ) ;
     public final EObject rulerNewClass() throws RecognitionException {
         EObject current = null;
 
@@ -1430,19 +1331,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:470:2: ( (otherlv_0= 'class' ( (lv_name_1_0= rulerQualified ) ) otherlv_2= '{' ( (lv_attributes_3_0= rulerAttribute ) )* ( (lv_operations_4_0= rulerOperation ) )* otherlv_5= '}' ) )
-            // InternalMyDsl.g:471:2: (otherlv_0= 'class' ( (lv_name_1_0= rulerQualified ) ) otherlv_2= '{' ( (lv_attributes_3_0= rulerAttribute ) )* ( (lv_operations_4_0= rulerOperation ) )* otherlv_5= '}' )
+            // InternalAle.g:470:2: ( (otherlv_0= 'class' ( (lv_name_1_0= rulerQualified ) ) otherlv_2= '{' ( (lv_attributes_3_0= rulerAttribute ) )* ( (lv_operations_4_0= rulerOperation ) )* otherlv_5= '}' ) )
+            // InternalAle.g:471:2: (otherlv_0= 'class' ( (lv_name_1_0= rulerQualified ) ) otherlv_2= '{' ( (lv_attributes_3_0= rulerAttribute ) )* ( (lv_operations_4_0= rulerOperation ) )* otherlv_5= '}' )
             {
-            // InternalMyDsl.g:471:2: (otherlv_0= 'class' ( (lv_name_1_0= rulerQualified ) ) otherlv_2= '{' ( (lv_attributes_3_0= rulerAttribute ) )* ( (lv_operations_4_0= rulerOperation ) )* otherlv_5= '}' )
-            // InternalMyDsl.g:472:3: otherlv_0= 'class' ( (lv_name_1_0= rulerQualified ) ) otherlv_2= '{' ( (lv_attributes_3_0= rulerAttribute ) )* ( (lv_operations_4_0= rulerOperation ) )* otherlv_5= '}'
-=======
-            // InternalAle.g:430:2: ( (otherlv_0= 'class' ( (lv_name_1_0= RULE_IDENT ) ) otherlv_2= '{' ( (lv_attributes_3_0= rulerAttribute ) )* ( (lv_operations_4_0= rulerOperation ) )* otherlv_5= '}' ) )
-            // InternalAle.g:431:2: (otherlv_0= 'class' ( (lv_name_1_0= RULE_IDENT ) ) otherlv_2= '{' ( (lv_attributes_3_0= rulerAttribute ) )* ( (lv_operations_4_0= rulerOperation ) )* otherlv_5= '}' )
-            {
-            // InternalAle.g:431:2: (otherlv_0= 'class' ( (lv_name_1_0= RULE_IDENT ) ) otherlv_2= '{' ( (lv_attributes_3_0= rulerAttribute ) )* ( (lv_operations_4_0= rulerOperation ) )* otherlv_5= '}' )
-            // InternalAle.g:432:3: otherlv_0= 'class' ( (lv_name_1_0= RULE_IDENT ) ) otherlv_2= '{' ( (lv_attributes_3_0= rulerAttribute ) )* ( (lv_operations_4_0= rulerOperation ) )* otherlv_5= '}'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:471:2: (otherlv_0= 'class' ( (lv_name_1_0= rulerQualified ) ) otherlv_2= '{' ( (lv_attributes_3_0= rulerAttribute ) )* ( (lv_operations_4_0= rulerOperation ) )* otherlv_5= '}' )
+            // InternalAle.g:472:3: otherlv_0= 'class' ( (lv_name_1_0= rulerQualified ) ) otherlv_2= '{' ( (lv_attributes_3_0= rulerAttribute ) )* ( (lv_operations_4_0= rulerOperation ) )* otherlv_5= '}'
             {
             otherlv_0=(Token)match(input,22,FOLLOW_3); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -1450,19 +1343,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_0, grammarAccess.getRNewClassAccess().getClassKeyword_0());
               		
             }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:476:3: ( (lv_name_1_0= rulerQualified ) )
-            // InternalMyDsl.g:477:4: (lv_name_1_0= rulerQualified )
+            // InternalAle.g:476:3: ( (lv_name_1_0= rulerQualified ) )
+            // InternalAle.g:477:4: (lv_name_1_0= rulerQualified )
             {
-            // InternalMyDsl.g:477:4: (lv_name_1_0= rulerQualified )
-            // InternalMyDsl.g:478:5: lv_name_1_0= rulerQualified
-=======
-            // InternalAle.g:436:3: ( (lv_name_1_0= RULE_IDENT ) )
-            // InternalAle.g:437:4: (lv_name_1_0= RULE_IDENT )
-            {
-            // InternalAle.g:437:4: (lv_name_1_0= RULE_IDENT )
-            // InternalAle.g:438:5: lv_name_1_0= RULE_IDENT
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:477:4: (lv_name_1_0= rulerQualified )
+            // InternalAle.g:478:5: lv_name_1_0= rulerQualified
             {
             if ( state.backtracking==0 ) {
 
@@ -1483,12 +1368,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               						current,
               						"name",
               						lv_name_1_0,
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-              						"org.xtext.example.mydsl.MyDsl.rQualified");
+              						"org.eclipse.ecoretools.Ale.rQualified");
               					afterParserOrEnumRuleCall();
-=======
-              						"org.eclipse.ecoretools.Ale.Ident");
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
               				
             }
 
@@ -1503,11 +1384,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_2, grammarAccess.getRNewClassAccess().getLeftCurlyBracketKeyword_2());
               		
             }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:499:3: ( (lv_attributes_3_0= rulerAttribute ) )*
-=======
-            // InternalAle.g:458:3: ( (lv_attributes_3_0= rulerAttribute ) )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:499:3: ( (lv_attributes_3_0= rulerAttribute ) )*
             loop10:
             do {
                 int alt10=2;
@@ -1520,17 +1397,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                 switch (alt10) {
             	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            	    // InternalMyDsl.g:500:4: (lv_attributes_3_0= rulerAttribute )
+            	    // InternalAle.g:500:4: (lv_attributes_3_0= rulerAttribute )
             	    {
-            	    // InternalMyDsl.g:500:4: (lv_attributes_3_0= rulerAttribute )
-            	    // InternalMyDsl.g:501:5: lv_attributes_3_0= rulerAttribute
-=======
-            	    // InternalAle.g:459:4: (lv_attributes_3_0= rulerAttribute )
-            	    {
-            	    // InternalAle.g:459:4: (lv_attributes_3_0= rulerAttribute )
-            	    // InternalAle.g:460:5: lv_attributes_3_0= rulerAttribute
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            	    // InternalAle.g:500:4: (lv_attributes_3_0= rulerAttribute )
+            	    // InternalAle.g:501:5: lv_attributes_3_0= rulerAttribute
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -1567,11 +1437,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:518:3: ( (lv_operations_4_0= rulerOperation ) )*
-=======
-            // InternalAle.g:477:3: ( (lv_operations_4_0= rulerOperation ) )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:518:3: ( (lv_operations_4_0= rulerOperation ) )*
             loop11:
             do {
                 int alt11=2;
@@ -1584,17 +1450,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                 switch (alt11) {
             	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            	    // InternalMyDsl.g:519:4: (lv_operations_4_0= rulerOperation )
+            	    // InternalAle.g:519:4: (lv_operations_4_0= rulerOperation )
             	    {
-            	    // InternalMyDsl.g:519:4: (lv_operations_4_0= rulerOperation )
-            	    // InternalMyDsl.g:520:5: lv_operations_4_0= rulerOperation
-=======
-            	    // InternalAle.g:478:4: (lv_operations_4_0= rulerOperation )
-            	    {
-            	    // InternalAle.g:478:4: (lv_operations_4_0= rulerOperation )
-            	    // InternalAle.g:479:5: lv_operations_4_0= rulerOperation
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            	    // InternalAle.g:519:4: (lv_operations_4_0= rulerOperation )
+            	    // InternalAle.g:520:5: lv_operations_4_0= rulerOperation
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -1662,11 +1521,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerOperation"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:545:1: entryRulerOperation returns [EObject current=null] : iv_rulerOperation= rulerOperation EOF ;
-=======
-    // InternalAle.g:504:1: entryRulerOperation returns [EObject current=null] : iv_rulerOperation= rulerOperation EOF ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:545:1: entryRulerOperation returns [EObject current=null] : iv_rulerOperation= rulerOperation EOF ;
     public final EObject entryRulerOperation() throws RecognitionException {
         EObject current = null;
 
@@ -1674,13 +1529,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:545:51: (iv_rulerOperation= rulerOperation EOF )
-            // InternalMyDsl.g:546:2: iv_rulerOperation= rulerOperation EOF
-=======
-            // InternalAle.g:504:51: (iv_rulerOperation= rulerOperation EOF )
-            // InternalAle.g:505:2: iv_rulerOperation= rulerOperation EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:545:51: (iv_rulerOperation= rulerOperation EOF )
+            // InternalAle.g:546:2: iv_rulerOperation= rulerOperation EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getROperationRule()); 
@@ -1711,11 +1561,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerOperation"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:552:1: rulerOperation returns [EObject current=null] : ( ( rulerTag )* (otherlv_1= 'def' | otherlv_2= 'override' ) ( (lv_type_3_0= rulerType ) ) ( (lv_name_4_0= RULE_IDENT ) ) otherlv_5= '(' ( (lv_paramList_6_0= rulerParameters ) )? otherlv_7= ')' ( (lv_body_8_0= rulerBlock ) ) ) ;
-=======
-    // InternalAle.g:511:1: rulerOperation returns [EObject current=null] : ( ( rulerTag )* (otherlv_1= 'def' | otherlv_2= 'override' ) ( (lv_type_3_0= rulerType ) ) ( (lv_name_4_0= RULE_IDENT ) ) otherlv_5= '(' ( (lv_paramList_6_0= rulerParameters ) )? otherlv_7= ')' ( (lv_body_8_0= rulerBlock ) ) ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:552:1: rulerOperation returns [EObject current=null] : ( ( rulerTag )* (otherlv_1= 'def' | otherlv_2= 'override' ) ( (lv_type_3_0= rulerType ) ) ( (lv_name_4_0= RULE_IDENT ) ) otherlv_5= '(' ( (lv_paramList_6_0= rulerParameters ) )? otherlv_7= ')' ( (lv_body_8_0= rulerBlock ) ) ) ;
     public final EObject rulerOperation() throws RecognitionException {
         EObject current = null;
 
@@ -1735,23 +1581,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:558:2: ( ( ( rulerTag )* (otherlv_1= 'def' | otherlv_2= 'override' ) ( (lv_type_3_0= rulerType ) ) ( (lv_name_4_0= RULE_IDENT ) ) otherlv_5= '(' ( (lv_paramList_6_0= rulerParameters ) )? otherlv_7= ')' ( (lv_body_8_0= rulerBlock ) ) ) )
-            // InternalMyDsl.g:559:2: ( ( rulerTag )* (otherlv_1= 'def' | otherlv_2= 'override' ) ( (lv_type_3_0= rulerType ) ) ( (lv_name_4_0= RULE_IDENT ) ) otherlv_5= '(' ( (lv_paramList_6_0= rulerParameters ) )? otherlv_7= ')' ( (lv_body_8_0= rulerBlock ) ) )
+            // InternalAle.g:558:2: ( ( ( rulerTag )* (otherlv_1= 'def' | otherlv_2= 'override' ) ( (lv_type_3_0= rulerType ) ) ( (lv_name_4_0= RULE_IDENT ) ) otherlv_5= '(' ( (lv_paramList_6_0= rulerParameters ) )? otherlv_7= ')' ( (lv_body_8_0= rulerBlock ) ) ) )
+            // InternalAle.g:559:2: ( ( rulerTag )* (otherlv_1= 'def' | otherlv_2= 'override' ) ( (lv_type_3_0= rulerType ) ) ( (lv_name_4_0= RULE_IDENT ) ) otherlv_5= '(' ( (lv_paramList_6_0= rulerParameters ) )? otherlv_7= ')' ( (lv_body_8_0= rulerBlock ) ) )
             {
-            // InternalMyDsl.g:559:2: ( ( rulerTag )* (otherlv_1= 'def' | otherlv_2= 'override' ) ( (lv_type_3_0= rulerType ) ) ( (lv_name_4_0= RULE_IDENT ) ) otherlv_5= '(' ( (lv_paramList_6_0= rulerParameters ) )? otherlv_7= ')' ( (lv_body_8_0= rulerBlock ) ) )
-            // InternalMyDsl.g:560:3: ( rulerTag )* (otherlv_1= 'def' | otherlv_2= 'override' ) ( (lv_type_3_0= rulerType ) ) ( (lv_name_4_0= RULE_IDENT ) ) otherlv_5= '(' ( (lv_paramList_6_0= rulerParameters ) )? otherlv_7= ')' ( (lv_body_8_0= rulerBlock ) )
+            // InternalAle.g:559:2: ( ( rulerTag )* (otherlv_1= 'def' | otherlv_2= 'override' ) ( (lv_type_3_0= rulerType ) ) ( (lv_name_4_0= RULE_IDENT ) ) otherlv_5= '(' ( (lv_paramList_6_0= rulerParameters ) )? otherlv_7= ')' ( (lv_body_8_0= rulerBlock ) ) )
+            // InternalAle.g:560:3: ( rulerTag )* (otherlv_1= 'def' | otherlv_2= 'override' ) ( (lv_type_3_0= rulerType ) ) ( (lv_name_4_0= RULE_IDENT ) ) otherlv_5= '(' ( (lv_paramList_6_0= rulerParameters ) )? otherlv_7= ')' ( (lv_body_8_0= rulerBlock ) )
             {
-            // InternalMyDsl.g:560:3: ( rulerTag )*
-=======
-            // InternalAle.g:517:2: ( ( ( rulerTag )* (otherlv_1= 'def' | otherlv_2= 'override' ) ( (lv_type_3_0= rulerType ) ) ( (lv_name_4_0= RULE_IDENT ) ) otherlv_5= '(' ( (lv_paramList_6_0= rulerParameters ) )? otherlv_7= ')' ( (lv_body_8_0= rulerBlock ) ) ) )
-            // InternalAle.g:518:2: ( ( rulerTag )* (otherlv_1= 'def' | otherlv_2= 'override' ) ( (lv_type_3_0= rulerType ) ) ( (lv_name_4_0= RULE_IDENT ) ) otherlv_5= '(' ( (lv_paramList_6_0= rulerParameters ) )? otherlv_7= ')' ( (lv_body_8_0= rulerBlock ) ) )
-            {
-            // InternalAle.g:518:2: ( ( rulerTag )* (otherlv_1= 'def' | otherlv_2= 'override' ) ( (lv_type_3_0= rulerType ) ) ( (lv_name_4_0= RULE_IDENT ) ) otherlv_5= '(' ( (lv_paramList_6_0= rulerParameters ) )? otherlv_7= ')' ( (lv_body_8_0= rulerBlock ) ) )
-            // InternalAle.g:519:3: ( rulerTag )* (otherlv_1= 'def' | otherlv_2= 'override' ) ( (lv_type_3_0= rulerType ) ) ( (lv_name_4_0= RULE_IDENT ) ) otherlv_5= '(' ( (lv_paramList_6_0= rulerParameters ) )? otherlv_7= ')' ( (lv_body_8_0= rulerBlock ) )
-            {
-            // InternalAle.g:519:3: ( rulerTag )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:560:3: ( rulerTag )*
             loop12:
             do {
                 int alt12=2;
@@ -1764,11 +1600,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                 switch (alt12) {
             	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            	    // InternalMyDsl.g:561:4: rulerTag
-=======
-            	    // InternalAle.g:520:4: rulerTag
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            	    // InternalAle.g:561:4: rulerTag
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -1799,11 +1631,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:572:3: (otherlv_1= 'def' | otherlv_2= 'override' )
-=======
-            // InternalAle.g:531:3: (otherlv_1= 'def' | otherlv_2= 'override' )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:572:3: (otherlv_1= 'def' | otherlv_2= 'override' )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -1822,11 +1650,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt13) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:573:4: otherlv_1= 'def'
-=======
-                    // InternalAle.g:532:4: otherlv_1= 'def'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:573:4: otherlv_1= 'def'
                     {
                     otherlv_1=(Token)match(input,27,FOLLOW_17); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -1838,11 +1662,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:578:4: otherlv_2= 'override'
-=======
-                    // InternalAle.g:537:4: otherlv_2= 'override'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:578:4: otherlv_2= 'override'
                     {
                     otherlv_2=(Token)match(input,28,FOLLOW_17); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -1856,19 +1676,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
             }
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:583:3: ( (lv_type_3_0= rulerType ) )
-            // InternalMyDsl.g:584:4: (lv_type_3_0= rulerType )
+            // InternalAle.g:583:3: ( (lv_type_3_0= rulerType ) )
+            // InternalAle.g:584:4: (lv_type_3_0= rulerType )
             {
-            // InternalMyDsl.g:584:4: (lv_type_3_0= rulerType )
-            // InternalMyDsl.g:585:5: lv_type_3_0= rulerType
-=======
-            // InternalAle.g:542:3: ( (lv_type_3_0= rulerType ) )
-            // InternalAle.g:543:4: (lv_type_3_0= rulerType )
-            {
-            // InternalAle.g:543:4: (lv_type_3_0= rulerType )
-            // InternalAle.g:544:5: lv_type_3_0= rulerType
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:584:4: (lv_type_3_0= rulerType )
+            // InternalAle.g:585:5: lv_type_3_0= rulerType
             {
             if ( state.backtracking==0 ) {
 
@@ -1899,19 +1711,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
             }
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:602:3: ( (lv_name_4_0= RULE_IDENT ) )
-            // InternalMyDsl.g:603:4: (lv_name_4_0= RULE_IDENT )
+            // InternalAle.g:602:3: ( (lv_name_4_0= RULE_IDENT ) )
+            // InternalAle.g:603:4: (lv_name_4_0= RULE_IDENT )
             {
-            // InternalMyDsl.g:603:4: (lv_name_4_0= RULE_IDENT )
-            // InternalMyDsl.g:604:5: lv_name_4_0= RULE_IDENT
-=======
-            // InternalAle.g:561:3: ( (lv_name_4_0= RULE_IDENT ) )
-            // InternalAle.g:562:4: (lv_name_4_0= RULE_IDENT )
-            {
-            // InternalAle.g:562:4: (lv_name_4_0= RULE_IDENT )
-            // InternalAle.g:563:5: lv_name_4_0= RULE_IDENT
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:603:4: (lv_name_4_0= RULE_IDENT )
+            // InternalAle.g:604:5: lv_name_4_0= RULE_IDENT
             {
             lv_name_4_0=(Token)match(input,RULE_IDENT,FOLLOW_18); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -1943,11 +1747,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_5, grammarAccess.getROperationAccess().getLeftParenthesisKeyword_4());
               		
             }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:624:3: ( (lv_paramList_6_0= rulerParameters ) )?
-=======
-            // InternalAle.g:583:3: ( (lv_paramList_6_0= rulerParameters ) )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:624:3: ( (lv_paramList_6_0= rulerParameters ) )?
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1956,17 +1756,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt14) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:625:4: (lv_paramList_6_0= rulerParameters )
+                    // InternalAle.g:625:4: (lv_paramList_6_0= rulerParameters )
                     {
-                    // InternalMyDsl.g:625:4: (lv_paramList_6_0= rulerParameters )
-                    // InternalMyDsl.g:626:5: lv_paramList_6_0= rulerParameters
-=======
-                    // InternalAle.g:584:4: (lv_paramList_6_0= rulerParameters )
-                    {
-                    // InternalAle.g:584:4: (lv_paramList_6_0= rulerParameters )
-                    // InternalAle.g:585:5: lv_paramList_6_0= rulerParameters
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:625:4: (lv_paramList_6_0= rulerParameters )
+                    // InternalAle.g:626:5: lv_paramList_6_0= rulerParameters
                     {
                     if ( state.backtracking==0 ) {
 
@@ -2006,19 +1799,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_7, grammarAccess.getROperationAccess().getRightParenthesisKeyword_6());
               		
             }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:647:3: ( (lv_body_8_0= rulerBlock ) )
-            // InternalMyDsl.g:648:4: (lv_body_8_0= rulerBlock )
+            // InternalAle.g:647:3: ( (lv_body_8_0= rulerBlock ) )
+            // InternalAle.g:648:4: (lv_body_8_0= rulerBlock )
             {
-            // InternalMyDsl.g:648:4: (lv_body_8_0= rulerBlock )
-            // InternalMyDsl.g:649:5: lv_body_8_0= rulerBlock
-=======
-            // InternalAle.g:606:3: ( (lv_body_8_0= rulerBlock ) )
-            // InternalAle.g:607:4: (lv_body_8_0= rulerBlock )
-            {
-            // InternalAle.g:607:4: (lv_body_8_0= rulerBlock )
-            // InternalAle.g:608:5: lv_body_8_0= rulerBlock
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:648:4: (lv_body_8_0= rulerBlock )
+            // InternalAle.g:649:5: lv_body_8_0= rulerBlock
             {
             if ( state.backtracking==0 ) {
 
@@ -2074,11 +1859,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerTag"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:670:1: entryRulerTag returns [String current=null] : iv_rulerTag= rulerTag EOF ;
-=======
-    // InternalAle.g:629:1: entryRulerTag returns [String current=null] : iv_rulerTag= rulerTag EOF ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:670:1: entryRulerTag returns [String current=null] : iv_rulerTag= rulerTag EOF ;
     public final String entryRulerTag() throws RecognitionException {
         String current = null;
 
@@ -2086,13 +1867,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:670:44: (iv_rulerTag= rulerTag EOF )
-            // InternalMyDsl.g:671:2: iv_rulerTag= rulerTag EOF
-=======
-            // InternalAle.g:629:44: (iv_rulerTag= rulerTag EOF )
-            // InternalAle.g:630:2: iv_rulerTag= rulerTag EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:670:44: (iv_rulerTag= rulerTag EOF )
+            // InternalAle.g:671:2: iv_rulerTag= rulerTag EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRTagRule()); 
@@ -2123,11 +1899,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerTag"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:677:1: rulerTag returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '@' this_Ident_1= RULE_IDENT ) ;
-=======
-    // InternalAle.g:636:1: rulerTag returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '@' this_Ident_1= RULE_IDENT ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:677:1: rulerTag returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '@' this_Ident_1= RULE_IDENT ) ;
     public final AntlrDatatypeRuleToken rulerTag() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -2138,19 +1910,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:683:2: ( (kw= '@' this_Ident_1= RULE_IDENT ) )
-            // InternalMyDsl.g:684:2: (kw= '@' this_Ident_1= RULE_IDENT )
+            // InternalAle.g:683:2: ( (kw= '@' this_Ident_1= RULE_IDENT ) )
+            // InternalAle.g:684:2: (kw= '@' this_Ident_1= RULE_IDENT )
             {
-            // InternalMyDsl.g:684:2: (kw= '@' this_Ident_1= RULE_IDENT )
-            // InternalMyDsl.g:685:3: kw= '@' this_Ident_1= RULE_IDENT
-=======
-            // InternalAle.g:642:2: ( (kw= '@' this_Ident_1= RULE_IDENT ) )
-            // InternalAle.g:643:2: (kw= '@' this_Ident_1= RULE_IDENT )
-            {
-            // InternalAle.g:643:2: (kw= '@' this_Ident_1= RULE_IDENT )
-            // InternalAle.g:644:3: kw= '@' this_Ident_1= RULE_IDENT
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:684:2: (kw= '@' this_Ident_1= RULE_IDENT )
+            // InternalAle.g:685:3: kw= '@' this_Ident_1= RULE_IDENT
             {
             kw=(Token)match(input,31,FOLLOW_3); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -2195,11 +1959,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerParameters"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:701:1: entryRulerParameters returns [EObject current=null] : iv_rulerParameters= rulerParameters EOF ;
-=======
-    // InternalAle.g:660:1: entryRulerParameters returns [EObject current=null] : iv_rulerParameters= rulerParameters EOF ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:701:1: entryRulerParameters returns [EObject current=null] : iv_rulerParameters= rulerParameters EOF ;
     public final EObject entryRulerParameters() throws RecognitionException {
         EObject current = null;
 
@@ -2207,13 +1967,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:701:52: (iv_rulerParameters= rulerParameters EOF )
-            // InternalMyDsl.g:702:2: iv_rulerParameters= rulerParameters EOF
-=======
-            // InternalAle.g:660:52: (iv_rulerParameters= rulerParameters EOF )
-            // InternalAle.g:661:2: iv_rulerParameters= rulerParameters EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:701:52: (iv_rulerParameters= rulerParameters EOF )
+            // InternalAle.g:702:2: iv_rulerParameters= rulerParameters EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRParametersRule()); 
@@ -2244,11 +1999,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerParameters"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:708:1: rulerParameters returns [EObject current=null] : ( ( (lv_params_0_0= rulerVariable ) ) (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )* ) ;
-=======
-    // InternalAle.g:667:1: rulerParameters returns [EObject current=null] : ( ( (lv_params_0_0= rulerVariable ) ) (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )* ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:708:1: rulerParameters returns [EObject current=null] : ( ( (lv_params_0_0= rulerVariable ) ) (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )* ) ;
     public final EObject rulerParameters() throws RecognitionException {
         EObject current = null;
 
@@ -2262,31 +2013,17 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:714:2: ( ( ( (lv_params_0_0= rulerVariable ) ) (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )* ) )
-            // InternalMyDsl.g:715:2: ( ( (lv_params_0_0= rulerVariable ) ) (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )* )
+            // InternalAle.g:714:2: ( ( ( (lv_params_0_0= rulerVariable ) ) (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )* ) )
+            // InternalAle.g:715:2: ( ( (lv_params_0_0= rulerVariable ) ) (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )* )
             {
-            // InternalMyDsl.g:715:2: ( ( (lv_params_0_0= rulerVariable ) ) (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )* )
-            // InternalMyDsl.g:716:3: ( (lv_params_0_0= rulerVariable ) ) (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )*
+            // InternalAle.g:715:2: ( ( (lv_params_0_0= rulerVariable ) ) (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )* )
+            // InternalAle.g:716:3: ( (lv_params_0_0= rulerVariable ) ) (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )*
             {
-            // InternalMyDsl.g:716:3: ( (lv_params_0_0= rulerVariable ) )
-            // InternalMyDsl.g:717:4: (lv_params_0_0= rulerVariable )
+            // InternalAle.g:716:3: ( (lv_params_0_0= rulerVariable ) )
+            // InternalAle.g:717:4: (lv_params_0_0= rulerVariable )
             {
-            // InternalMyDsl.g:717:4: (lv_params_0_0= rulerVariable )
-            // InternalMyDsl.g:718:5: lv_params_0_0= rulerVariable
-=======
-            // InternalAle.g:673:2: ( ( ( (lv_params_0_0= rulerVariable ) ) (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )* ) )
-            // InternalAle.g:674:2: ( ( (lv_params_0_0= rulerVariable ) ) (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )* )
-            {
-            // InternalAle.g:674:2: ( ( (lv_params_0_0= rulerVariable ) ) (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )* )
-            // InternalAle.g:675:3: ( (lv_params_0_0= rulerVariable ) ) (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )*
-            {
-            // InternalAle.g:675:3: ( (lv_params_0_0= rulerVariable ) )
-            // InternalAle.g:676:4: (lv_params_0_0= rulerVariable )
-            {
-            // InternalAle.g:676:4: (lv_params_0_0= rulerVariable )
-            // InternalAle.g:677:5: lv_params_0_0= rulerVariable
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:717:4: (lv_params_0_0= rulerVariable )
+            // InternalAle.g:718:5: lv_params_0_0= rulerVariable
             {
             if ( state.backtracking==0 ) {
 
@@ -2317,11 +2054,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
             }
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:735:3: (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )*
-=======
-            // InternalAle.g:694:3: (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:735:3: (otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) ) )*
             loop15:
             do {
                 int alt15=2;
@@ -2334,11 +2067,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                 switch (alt15) {
             	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            	    // InternalMyDsl.g:736:4: otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) )
-=======
-            	    // InternalAle.g:695:4: otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            	    // InternalAle.g:736:4: otherlv_1= ',' ( (lv_params_2_0= rulerVariable ) )
             	    {
             	    otherlv_1=(Token)match(input,24,FOLLOW_17); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
@@ -2346,19 +2075,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             	      				newLeafNode(otherlv_1, grammarAccess.getRParametersAccess().getCommaKeyword_1_0());
             	      			
             	    }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            	    // InternalMyDsl.g:740:4: ( (lv_params_2_0= rulerVariable ) )
-            	    // InternalMyDsl.g:741:5: (lv_params_2_0= rulerVariable )
+            	    // InternalAle.g:740:4: ( (lv_params_2_0= rulerVariable ) )
+            	    // InternalAle.g:741:5: (lv_params_2_0= rulerVariable )
             	    {
-            	    // InternalMyDsl.g:741:5: (lv_params_2_0= rulerVariable )
-            	    // InternalMyDsl.g:742:6: lv_params_2_0= rulerVariable
-=======
-            	    // InternalAle.g:699:4: ( (lv_params_2_0= rulerVariable ) )
-            	    // InternalAle.g:700:5: (lv_params_2_0= rulerVariable )
-            	    {
-            	    // InternalAle.g:700:5: (lv_params_2_0= rulerVariable )
-            	    // InternalAle.g:701:6: lv_params_2_0= rulerVariable
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            	    // InternalAle.g:741:5: (lv_params_2_0= rulerVariable )
+            	    // InternalAle.g:742:6: lv_params_2_0= rulerVariable
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -2423,11 +2144,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerVariable"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:764:1: entryRulerVariable returns [EObject current=null] : iv_rulerVariable= rulerVariable EOF ;
-=======
-    // InternalAle.g:723:1: entryRulerVariable returns [EObject current=null] : iv_rulerVariable= rulerVariable EOF ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:764:1: entryRulerVariable returns [EObject current=null] : iv_rulerVariable= rulerVariable EOF ;
     public final EObject entryRulerVariable() throws RecognitionException {
         EObject current = null;
 
@@ -2435,13 +2152,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:764:50: (iv_rulerVariable= rulerVariable EOF )
-            // InternalMyDsl.g:765:2: iv_rulerVariable= rulerVariable EOF
-=======
-            // InternalAle.g:723:50: (iv_rulerVariable= rulerVariable EOF )
-            // InternalAle.g:724:2: iv_rulerVariable= rulerVariable EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:764:50: (iv_rulerVariable= rulerVariable EOF )
+            // InternalAle.g:765:2: iv_rulerVariable= rulerVariable EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRVariableRule()); 
@@ -2472,11 +2184,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerVariable"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:771:1: rulerVariable returns [EObject current=null] : ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) ) ;
-=======
-    // InternalAle.g:730:1: rulerVariable returns [EObject current=null] : ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:771:1: rulerVariable returns [EObject current=null] : ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) ) ;
     public final EObject rulerVariable() throws RecognitionException {
         EObject current = null;
 
@@ -2488,31 +2196,17 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:777:2: ( ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) ) )
-            // InternalMyDsl.g:778:2: ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) )
+            // InternalAle.g:777:2: ( ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) ) )
+            // InternalAle.g:778:2: ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) )
             {
-            // InternalMyDsl.g:778:2: ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) )
-            // InternalMyDsl.g:779:3: ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) )
+            // InternalAle.g:778:2: ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) )
+            // InternalAle.g:779:3: ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) )
             {
-            // InternalMyDsl.g:779:3: ( (lv_type_0_0= rulerType ) )
-            // InternalMyDsl.g:780:4: (lv_type_0_0= rulerType )
+            // InternalAle.g:779:3: ( (lv_type_0_0= rulerType ) )
+            // InternalAle.g:780:4: (lv_type_0_0= rulerType )
             {
-            // InternalMyDsl.g:780:4: (lv_type_0_0= rulerType )
-            // InternalMyDsl.g:781:5: lv_type_0_0= rulerType
-=======
-            // InternalAle.g:736:2: ( ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) ) )
-            // InternalAle.g:737:2: ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) )
-            {
-            // InternalAle.g:737:2: ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) )
-            // InternalAle.g:738:3: ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) )
-            {
-            // InternalAle.g:738:3: ( (lv_type_0_0= rulerType ) )
-            // InternalAle.g:739:4: (lv_type_0_0= rulerType )
-            {
-            // InternalAle.g:739:4: (lv_type_0_0= rulerType )
-            // InternalAle.g:740:5: lv_type_0_0= rulerType
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:780:4: (lv_type_0_0= rulerType )
+            // InternalAle.g:781:5: lv_type_0_0= rulerType
             {
             if ( state.backtracking==0 ) {
 
@@ -2543,19 +2237,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
             }
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:798:3: ( (lv_name_1_0= RULE_IDENT ) )
-            // InternalMyDsl.g:799:4: (lv_name_1_0= RULE_IDENT )
+            // InternalAle.g:798:3: ( (lv_name_1_0= RULE_IDENT ) )
+            // InternalAle.g:799:4: (lv_name_1_0= RULE_IDENT )
             {
-            // InternalMyDsl.g:799:4: (lv_name_1_0= RULE_IDENT )
-            // InternalMyDsl.g:800:5: lv_name_1_0= RULE_IDENT
-=======
-            // InternalAle.g:757:3: ( (lv_name_1_0= RULE_IDENT ) )
-            // InternalAle.g:758:4: (lv_name_1_0= RULE_IDENT )
-            {
-            // InternalAle.g:758:4: (lv_name_1_0= RULE_IDENT )
-            // InternalAle.g:759:5: lv_name_1_0= RULE_IDENT
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:799:4: (lv_name_1_0= RULE_IDENT )
+            // InternalAle.g:800:5: lv_name_1_0= RULE_IDENT
             {
             lv_name_1_0=(Token)match(input,RULE_IDENT,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -2606,11 +2292,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerAttribute"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:820:1: entryRulerAttribute returns [EObject current=null] : iv_rulerAttribute= rulerAttribute EOF ;
-=======
-    // InternalAle.g:779:1: entryRulerAttribute returns [EObject current=null] : iv_rulerAttribute= rulerAttribute EOF ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:820:1: entryRulerAttribute returns [EObject current=null] : iv_rulerAttribute= rulerAttribute EOF ;
     public final EObject entryRulerAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -2618,13 +2300,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:820:51: (iv_rulerAttribute= rulerAttribute EOF )
-            // InternalMyDsl.g:821:2: iv_rulerAttribute= rulerAttribute EOF
-=======
-            // InternalAle.g:779:51: (iv_rulerAttribute= rulerAttribute EOF )
-            // InternalAle.g:780:2: iv_rulerAttribute= rulerAttribute EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:820:51: (iv_rulerAttribute= rulerAttribute EOF )
+            // InternalAle.g:821:2: iv_rulerAttribute= rulerAttribute EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRAttributeRule()); 
@@ -2655,11 +2332,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerAttribute"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:827:1: rulerAttribute returns [EObject current=null] : ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) (otherlv_2= ':=' ( (lv_expr_3_0= ruleexpression ) ) )? otherlv_4= ';' ) ;
-=======
-    // InternalAle.g:786:1: rulerAttribute returns [EObject current=null] : ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) (otherlv_2= ':=' ruleexpression )? otherlv_4= ';' ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:827:1: rulerAttribute returns [EObject current=null] : ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) (otherlv_2= ':=' ( (lv_expr_3_0= ruleexpression ) ) )? otherlv_4= ';' ) ;
     public final EObject rulerAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -2675,31 +2348,17 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:833:2: ( ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) (otherlv_2= ':=' ( (lv_expr_3_0= ruleexpression ) ) )? otherlv_4= ';' ) )
-            // InternalMyDsl.g:834:2: ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) (otherlv_2= ':=' ( (lv_expr_3_0= ruleexpression ) ) )? otherlv_4= ';' )
+            // InternalAle.g:833:2: ( ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) (otherlv_2= ':=' ( (lv_expr_3_0= ruleexpression ) ) )? otherlv_4= ';' ) )
+            // InternalAle.g:834:2: ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) (otherlv_2= ':=' ( (lv_expr_3_0= ruleexpression ) ) )? otherlv_4= ';' )
             {
-            // InternalMyDsl.g:834:2: ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) (otherlv_2= ':=' ( (lv_expr_3_0= ruleexpression ) ) )? otherlv_4= ';' )
-            // InternalMyDsl.g:835:3: ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) (otherlv_2= ':=' ( (lv_expr_3_0= ruleexpression ) ) )? otherlv_4= ';'
+            // InternalAle.g:834:2: ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) (otherlv_2= ':=' ( (lv_expr_3_0= ruleexpression ) ) )? otherlv_4= ';' )
+            // InternalAle.g:835:3: ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) (otherlv_2= ':=' ( (lv_expr_3_0= ruleexpression ) ) )? otherlv_4= ';'
             {
-            // InternalMyDsl.g:835:3: ( (lv_type_0_0= rulerType ) )
-            // InternalMyDsl.g:836:4: (lv_type_0_0= rulerType )
+            // InternalAle.g:835:3: ( (lv_type_0_0= rulerType ) )
+            // InternalAle.g:836:4: (lv_type_0_0= rulerType )
             {
-            // InternalMyDsl.g:836:4: (lv_type_0_0= rulerType )
-            // InternalMyDsl.g:837:5: lv_type_0_0= rulerType
-=======
-            // InternalAle.g:792:2: ( ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) (otherlv_2= ':=' ruleexpression )? otherlv_4= ';' ) )
-            // InternalAle.g:793:2: ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) (otherlv_2= ':=' ruleexpression )? otherlv_4= ';' )
-            {
-            // InternalAle.g:793:2: ( ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) (otherlv_2= ':=' ruleexpression )? otherlv_4= ';' )
-            // InternalAle.g:794:3: ( (lv_type_0_0= rulerType ) ) ( (lv_name_1_0= RULE_IDENT ) ) (otherlv_2= ':=' ruleexpression )? otherlv_4= ';'
-            {
-            // InternalAle.g:794:3: ( (lv_type_0_0= rulerType ) )
-            // InternalAle.g:795:4: (lv_type_0_0= rulerType )
-            {
-            // InternalAle.g:795:4: (lv_type_0_0= rulerType )
-            // InternalAle.g:796:5: lv_type_0_0= rulerType
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:836:4: (lv_type_0_0= rulerType )
+            // InternalAle.g:837:5: lv_type_0_0= rulerType
             {
             if ( state.backtracking==0 ) {
 
@@ -2730,19 +2389,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
             }
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:854:3: ( (lv_name_1_0= RULE_IDENT ) )
-            // InternalMyDsl.g:855:4: (lv_name_1_0= RULE_IDENT )
+            // InternalAle.g:854:3: ( (lv_name_1_0= RULE_IDENT ) )
+            // InternalAle.g:855:4: (lv_name_1_0= RULE_IDENT )
             {
-            // InternalMyDsl.g:855:4: (lv_name_1_0= RULE_IDENT )
-            // InternalMyDsl.g:856:5: lv_name_1_0= RULE_IDENT
-=======
-            // InternalAle.g:813:3: ( (lv_name_1_0= RULE_IDENT ) )
-            // InternalAle.g:814:4: (lv_name_1_0= RULE_IDENT )
-            {
-            // InternalAle.g:814:4: (lv_name_1_0= RULE_IDENT )
-            // InternalAle.g:815:5: lv_name_1_0= RULE_IDENT
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:855:4: (lv_name_1_0= RULE_IDENT )
+            // InternalAle.g:856:5: lv_name_1_0= RULE_IDENT
             {
             lv_name_1_0=(Token)match(input,RULE_IDENT,FOLLOW_22); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -2768,11 +2419,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
             }
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:872:3: (otherlv_2= ':=' ( (lv_expr_3_0= ruleexpression ) ) )?
-=======
-            // InternalAle.g:831:3: (otherlv_2= ':=' ruleexpression )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:872:3: (otherlv_2= ':=' ( (lv_expr_3_0= ruleexpression ) ) )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -2781,11 +2428,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt16) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:873:4: otherlv_2= ':=' ( (lv_expr_3_0= ruleexpression ) )
-=======
-                    // InternalAle.g:832:4: otherlv_2= ':=' ruleexpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:873:4: otherlv_2= ':=' ( (lv_expr_3_0= ruleexpression ) )
                     {
                     otherlv_2=(Token)match(input,32,FOLLOW_23); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -2793,11 +2436,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       				newLeafNode(otherlv_2, grammarAccess.getRAttributeAccess().getColonEqualsSignKeyword_2_0());
                       			
                     }
-                    // InternalMyDsl.g:877:4: ( (lv_expr_3_0= ruleexpression ) )
-                    // InternalMyDsl.g:878:5: (lv_expr_3_0= ruleexpression )
+                    // InternalAle.g:877:4: ( (lv_expr_3_0= ruleexpression ) )
+                    // InternalAle.g:878:5: (lv_expr_3_0= ruleexpression )
                     {
-                    // InternalMyDsl.g:878:5: (lv_expr_3_0= ruleexpression )
-                    // InternalMyDsl.g:879:6: lv_expr_3_0= ruleexpression
+                    // InternalAle.g:878:5: (lv_expr_3_0= ruleexpression )
+                    // InternalAle.g:879:6: lv_expr_3_0= ruleexpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -2818,7 +2461,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"expr",
                       							lv_expr_3_0,
-                      							"org.xtext.example.mydsl.MyDsl.expression");
+                      							"org.eclipse.ecoretools.Ale.expression");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -2865,27 +2508,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerStatement"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:905:1: entryRulerStatement returns [EObject current=null] : iv_rulerStatement= rulerStatement EOF ;
+    // InternalAle.g:905:1: entryRulerStatement returns [EObject current=null] : iv_rulerStatement= rulerStatement EOF ;
     public final EObject entryRulerStatement() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:855:1: entryRulerStatement returns [String current=null] : iv_rulerStatement= rulerStatement EOF ;
-    public final String entryRulerStatement() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_rulerStatement = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:905:51: (iv_rulerStatement= rulerStatement EOF )
-            // InternalMyDsl.g:906:2: iv_rulerStatement= rulerStatement EOF
-=======
-            // InternalAle.g:855:50: (iv_rulerStatement= rulerStatement EOF )
-            // InternalAle.g:856:2: iv_rulerStatement= rulerStatement EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:905:51: (iv_rulerStatement= rulerStatement EOF )
+            // InternalAle.g:906:2: iv_rulerStatement= rulerStatement EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRStatementRule()); 
@@ -2916,15 +2548,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerStatement"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:912:1: rulerStatement returns [EObject current=null] : ( ( () ( (lv_stmt_1_0= rulerVarDecl ) ) ) | ( () ( (lv_stmt_3_0= rulerAssign ) ) ) | ( () ( (lv_forEach_5_0= rulerForEach ) ) ) | ( () ( (lv_while_7_0= rulerWhile ) ) ) | ( () ( (lv_if_9_0= rulerIf ) ) ) | ( () ( (lv_expr_11_0= rulerExpression ) ) ) ) ;
+    // InternalAle.g:912:1: rulerStatement returns [EObject current=null] : ( ( () ( (lv_stmt_1_0= rulerVarDecl ) ) ) | ( () ( (lv_stmt_3_0= rulerAssign ) ) ) | ( () ( (lv_forEach_5_0= rulerForEach ) ) ) | ( () ( (lv_while_7_0= rulerWhile ) ) ) | ( () ( (lv_if_9_0= rulerIf ) ) ) | ( () ( (lv_expr_11_0= rulerExpression ) ) ) ) ;
     public final EObject rulerStatement() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:862:1: rulerStatement returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_rVarDecl_0= rulerVarDecl | this_rAssign_1= rulerAssign | this_rForEach_2= rulerForEach | this_rWhile_3= rulerWhile | this_rIf_4= rulerIf | this_rExpression_5= rulerExpression ) ;
-    public final AntlrDatatypeRuleToken rulerStatement() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject lv_stmt_1_0 = null;
 
@@ -2943,32 +2569,21 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:918:2: ( ( ( () ( (lv_stmt_1_0= rulerVarDecl ) ) ) | ( () ( (lv_stmt_3_0= rulerAssign ) ) ) | ( () ( (lv_forEach_5_0= rulerForEach ) ) ) | ( () ( (lv_while_7_0= rulerWhile ) ) ) | ( () ( (lv_if_9_0= rulerIf ) ) ) | ( () ( (lv_expr_11_0= rulerExpression ) ) ) ) )
-            // InternalMyDsl.g:919:2: ( ( () ( (lv_stmt_1_0= rulerVarDecl ) ) ) | ( () ( (lv_stmt_3_0= rulerAssign ) ) ) | ( () ( (lv_forEach_5_0= rulerForEach ) ) ) | ( () ( (lv_while_7_0= rulerWhile ) ) ) | ( () ( (lv_if_9_0= rulerIf ) ) ) | ( () ( (lv_expr_11_0= rulerExpression ) ) ) )
+            // InternalAle.g:918:2: ( ( ( () ( (lv_stmt_1_0= rulerVarDecl ) ) ) | ( () ( (lv_stmt_3_0= rulerAssign ) ) ) | ( () ( (lv_forEach_5_0= rulerForEach ) ) ) | ( () ( (lv_while_7_0= rulerWhile ) ) ) | ( () ( (lv_if_9_0= rulerIf ) ) ) | ( () ( (lv_expr_11_0= rulerExpression ) ) ) ) )
+            // InternalAle.g:919:2: ( ( () ( (lv_stmt_1_0= rulerVarDecl ) ) ) | ( () ( (lv_stmt_3_0= rulerAssign ) ) ) | ( () ( (lv_forEach_5_0= rulerForEach ) ) ) | ( () ( (lv_while_7_0= rulerWhile ) ) ) | ( () ( (lv_if_9_0= rulerIf ) ) ) | ( () ( (lv_expr_11_0= rulerExpression ) ) ) )
             {
-            // InternalMyDsl.g:919:2: ( ( () ( (lv_stmt_1_0= rulerVarDecl ) ) ) | ( () ( (lv_stmt_3_0= rulerAssign ) ) ) | ( () ( (lv_forEach_5_0= rulerForEach ) ) ) | ( () ( (lv_while_7_0= rulerWhile ) ) ) | ( () ( (lv_if_9_0= rulerIf ) ) ) | ( () ( (lv_expr_11_0= rulerExpression ) ) ) )
-=======
-            // InternalAle.g:868:2: ( (this_rVarDecl_0= rulerVarDecl | this_rAssign_1= rulerAssign | this_rForEach_2= rulerForEach | this_rWhile_3= rulerWhile | this_rIf_4= rulerIf | this_rExpression_5= rulerExpression ) )
-            // InternalAle.g:869:2: (this_rVarDecl_0= rulerVarDecl | this_rAssign_1= rulerAssign | this_rForEach_2= rulerForEach | this_rWhile_3= rulerWhile | this_rIf_4= rulerIf | this_rExpression_5= rulerExpression )
-            {
-            // InternalAle.g:869:2: (this_rVarDecl_0= rulerVarDecl | this_rAssign_1= rulerAssign | this_rForEach_2= rulerForEach | this_rWhile_3= rulerWhile | this_rIf_4= rulerIf | this_rExpression_5= rulerExpression )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:919:2: ( ( () ( (lv_stmt_1_0= rulerVarDecl ) ) ) | ( () ( (lv_stmt_3_0= rulerAssign ) ) ) | ( () ( (lv_forEach_5_0= rulerForEach ) ) ) | ( () ( (lv_while_7_0= rulerWhile ) ) ) | ( () ( (lv_if_9_0= rulerIf ) ) ) | ( () ( (lv_expr_11_0= rulerExpression ) ) ) )
             int alt17=6;
             alt17 = dfa17.predict(input);
             switch (alt17) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:920:3: ( () ( (lv_stmt_1_0= rulerVarDecl ) ) )
+                    // InternalAle.g:920:3: ( () ( (lv_stmt_1_0= rulerVarDecl ) ) )
                     {
-                    // InternalMyDsl.g:920:3: ( () ( (lv_stmt_1_0= rulerVarDecl ) ) )
-                    // InternalMyDsl.g:921:4: () ( (lv_stmt_1_0= rulerVarDecl ) )
+                    // InternalAle.g:920:3: ( () ( (lv_stmt_1_0= rulerVarDecl ) ) )
+                    // InternalAle.g:921:4: () ( (lv_stmt_1_0= rulerVarDecl ) )
                     {
-                    // InternalMyDsl.g:921:4: ()
-                    // InternalMyDsl.g:922:5: 
-=======
-                    // InternalAle.g:870:3: this_rVarDecl_0= rulerVarDecl
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:921:4: ()
+                    // InternalAle.g:922:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -2985,11 +2600,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalMyDsl.g:931:4: ( (lv_stmt_1_0= rulerVarDecl ) )
-                    // InternalMyDsl.g:932:5: (lv_stmt_1_0= rulerVarDecl )
+                    // InternalAle.g:931:4: ( (lv_stmt_1_0= rulerVarDecl ) )
+                    // InternalAle.g:932:5: (lv_stmt_1_0= rulerVarDecl )
                     {
-                    // InternalMyDsl.g:932:5: (lv_stmt_1_0= rulerVarDecl )
-                    // InternalMyDsl.g:933:6: lv_stmt_1_0= rulerVarDecl
+                    // InternalAle.g:932:5: (lv_stmt_1_0= rulerVarDecl )
+                    // InternalAle.g:933:6: lv_stmt_1_0= rulerVarDecl
                     {
                     if ( state.backtracking==0 ) {
 
@@ -3010,7 +2625,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"stmt",
                       							lv_stmt_1_0,
-                      							"org.xtext.example.mydsl.MyDsl.rVarDecl");
+                      							"org.eclipse.ecoretools.Ale.rVarDecl");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -3027,17 +2642,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:952:3: ( () ( (lv_stmt_3_0= rulerAssign ) ) )
+                    // InternalAle.g:952:3: ( () ( (lv_stmt_3_0= rulerAssign ) ) )
                     {
-                    // InternalMyDsl.g:952:3: ( () ( (lv_stmt_3_0= rulerAssign ) ) )
-                    // InternalMyDsl.g:953:4: () ( (lv_stmt_3_0= rulerAssign ) )
+                    // InternalAle.g:952:3: ( () ( (lv_stmt_3_0= rulerAssign ) ) )
+                    // InternalAle.g:953:4: () ( (lv_stmt_3_0= rulerAssign ) )
                     {
-                    // InternalMyDsl.g:953:4: ()
-                    // InternalMyDsl.g:954:5: 
-=======
-                    // InternalAle.g:881:3: this_rAssign_1= rulerAssign
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:953:4: ()
+                    // InternalAle.g:954:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -3054,11 +2665,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalMyDsl.g:963:4: ( (lv_stmt_3_0= rulerAssign ) )
-                    // InternalMyDsl.g:964:5: (lv_stmt_3_0= rulerAssign )
+                    // InternalAle.g:963:4: ( (lv_stmt_3_0= rulerAssign ) )
+                    // InternalAle.g:964:5: (lv_stmt_3_0= rulerAssign )
                     {
-                    // InternalMyDsl.g:964:5: (lv_stmt_3_0= rulerAssign )
-                    // InternalMyDsl.g:965:6: lv_stmt_3_0= rulerAssign
+                    // InternalAle.g:964:5: (lv_stmt_3_0= rulerAssign )
+                    // InternalAle.g:965:6: lv_stmt_3_0= rulerAssign
                     {
                     if ( state.backtracking==0 ) {
 
@@ -3079,7 +2690,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"stmt",
                       							lv_stmt_3_0,
-                      							"org.xtext.example.mydsl.MyDsl.rAssign");
+                      							"org.eclipse.ecoretools.Ale.rAssign");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -3096,17 +2707,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:984:3: ( () ( (lv_forEach_5_0= rulerForEach ) ) )
+                    // InternalAle.g:984:3: ( () ( (lv_forEach_5_0= rulerForEach ) ) )
                     {
-                    // InternalMyDsl.g:984:3: ( () ( (lv_forEach_5_0= rulerForEach ) ) )
-                    // InternalMyDsl.g:985:4: () ( (lv_forEach_5_0= rulerForEach ) )
+                    // InternalAle.g:984:3: ( () ( (lv_forEach_5_0= rulerForEach ) ) )
+                    // InternalAle.g:985:4: () ( (lv_forEach_5_0= rulerForEach ) )
                     {
-                    // InternalMyDsl.g:985:4: ()
-                    // InternalMyDsl.g:986:5: 
-=======
-                    // InternalAle.g:892:3: this_rForEach_2= rulerForEach
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:985:4: ()
+                    // InternalAle.g:986:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -3123,11 +2730,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalMyDsl.g:995:4: ( (lv_forEach_5_0= rulerForEach ) )
-                    // InternalMyDsl.g:996:5: (lv_forEach_5_0= rulerForEach )
+                    // InternalAle.g:995:4: ( (lv_forEach_5_0= rulerForEach ) )
+                    // InternalAle.g:996:5: (lv_forEach_5_0= rulerForEach )
                     {
-                    // InternalMyDsl.g:996:5: (lv_forEach_5_0= rulerForEach )
-                    // InternalMyDsl.g:997:6: lv_forEach_5_0= rulerForEach
+                    // InternalAle.g:996:5: (lv_forEach_5_0= rulerForEach )
+                    // InternalAle.g:997:6: lv_forEach_5_0= rulerForEach
                     {
                     if ( state.backtracking==0 ) {
 
@@ -3148,7 +2755,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"forEach",
                       							lv_forEach_5_0,
-                      							"org.xtext.example.mydsl.MyDsl.rForEach");
+                      							"org.eclipse.ecoretools.Ale.rForEach");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -3165,17 +2772,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1016:3: ( () ( (lv_while_7_0= rulerWhile ) ) )
+                    // InternalAle.g:1016:3: ( () ( (lv_while_7_0= rulerWhile ) ) )
                     {
-                    // InternalMyDsl.g:1016:3: ( () ( (lv_while_7_0= rulerWhile ) ) )
-                    // InternalMyDsl.g:1017:4: () ( (lv_while_7_0= rulerWhile ) )
+                    // InternalAle.g:1016:3: ( () ( (lv_while_7_0= rulerWhile ) ) )
+                    // InternalAle.g:1017:4: () ( (lv_while_7_0= rulerWhile ) )
                     {
-                    // InternalMyDsl.g:1017:4: ()
-                    // InternalMyDsl.g:1018:5: 
-=======
-                    // InternalAle.g:903:3: this_rWhile_3= rulerWhile
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1017:4: ()
+                    // InternalAle.g:1018:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -3192,11 +2795,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalMyDsl.g:1027:4: ( (lv_while_7_0= rulerWhile ) )
-                    // InternalMyDsl.g:1028:5: (lv_while_7_0= rulerWhile )
+                    // InternalAle.g:1027:4: ( (lv_while_7_0= rulerWhile ) )
+                    // InternalAle.g:1028:5: (lv_while_7_0= rulerWhile )
                     {
-                    // InternalMyDsl.g:1028:5: (lv_while_7_0= rulerWhile )
-                    // InternalMyDsl.g:1029:6: lv_while_7_0= rulerWhile
+                    // InternalAle.g:1028:5: (lv_while_7_0= rulerWhile )
+                    // InternalAle.g:1029:6: lv_while_7_0= rulerWhile
                     {
                     if ( state.backtracking==0 ) {
 
@@ -3217,7 +2820,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"while",
                       							lv_while_7_0,
-                      							"org.xtext.example.mydsl.MyDsl.rWhile");
+                      							"org.eclipse.ecoretools.Ale.rWhile");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -3234,17 +2837,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1048:3: ( () ( (lv_if_9_0= rulerIf ) ) )
+                    // InternalAle.g:1048:3: ( () ( (lv_if_9_0= rulerIf ) ) )
                     {
-                    // InternalMyDsl.g:1048:3: ( () ( (lv_if_9_0= rulerIf ) ) )
-                    // InternalMyDsl.g:1049:4: () ( (lv_if_9_0= rulerIf ) )
+                    // InternalAle.g:1048:3: ( () ( (lv_if_9_0= rulerIf ) ) )
+                    // InternalAle.g:1049:4: () ( (lv_if_9_0= rulerIf ) )
                     {
-                    // InternalMyDsl.g:1049:4: ()
-                    // InternalMyDsl.g:1050:5: 
-=======
-                    // InternalAle.g:914:3: this_rIf_4= rulerIf
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1049:4: ()
+                    // InternalAle.g:1050:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -3261,11 +2860,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalMyDsl.g:1059:4: ( (lv_if_9_0= rulerIf ) )
-                    // InternalMyDsl.g:1060:5: (lv_if_9_0= rulerIf )
+                    // InternalAle.g:1059:4: ( (lv_if_9_0= rulerIf ) )
+                    // InternalAle.g:1060:5: (lv_if_9_0= rulerIf )
                     {
-                    // InternalMyDsl.g:1060:5: (lv_if_9_0= rulerIf )
-                    // InternalMyDsl.g:1061:6: lv_if_9_0= rulerIf
+                    // InternalAle.g:1060:5: (lv_if_9_0= rulerIf )
+                    // InternalAle.g:1061:6: lv_if_9_0= rulerIf
                     {
                     if ( state.backtracking==0 ) {
 
@@ -3286,7 +2885,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"if",
                       							lv_if_9_0,
-                      							"org.xtext.example.mydsl.MyDsl.rIf");
+                      							"org.eclipse.ecoretools.Ale.rIf");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -3303,17 +2902,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1080:3: ( () ( (lv_expr_11_0= rulerExpression ) ) )
+                    // InternalAle.g:1080:3: ( () ( (lv_expr_11_0= rulerExpression ) ) )
                     {
-                    // InternalMyDsl.g:1080:3: ( () ( (lv_expr_11_0= rulerExpression ) ) )
-                    // InternalMyDsl.g:1081:4: () ( (lv_expr_11_0= rulerExpression ) )
+                    // InternalAle.g:1080:3: ( () ( (lv_expr_11_0= rulerExpression ) ) )
+                    // InternalAle.g:1081:4: () ( (lv_expr_11_0= rulerExpression ) )
                     {
-                    // InternalMyDsl.g:1081:4: ()
-                    // InternalMyDsl.g:1082:5: 
-=======
-                    // InternalAle.g:925:3: this_rExpression_5= rulerExpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1081:4: ()
+                    // InternalAle.g:1082:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -3330,11 +2925,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalMyDsl.g:1091:4: ( (lv_expr_11_0= rulerExpression ) )
-                    // InternalMyDsl.g:1092:5: (lv_expr_11_0= rulerExpression )
+                    // InternalAle.g:1091:4: ( (lv_expr_11_0= rulerExpression ) )
+                    // InternalAle.g:1092:5: (lv_expr_11_0= rulerExpression )
                     {
-                    // InternalMyDsl.g:1092:5: (lv_expr_11_0= rulerExpression )
-                    // InternalMyDsl.g:1093:6: lv_expr_11_0= rulerExpression
+                    // InternalAle.g:1092:5: (lv_expr_11_0= rulerExpression )
+                    // InternalAle.g:1093:6: lv_expr_11_0= rulerExpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -3355,7 +2950,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"expr",
                       							lv_expr_11_0,
-                      							"org.xtext.example.mydsl.MyDsl.rExpression");
+                      							"org.eclipse.ecoretools.Ale.rExpression");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -3396,27 +2991,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerVarDecl"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1115:1: entryRulerVarDecl returns [EObject current=null] : iv_rulerVarDecl= rulerVarDecl EOF ;
+    // InternalAle.g:1115:1: entryRulerVarDecl returns [EObject current=null] : iv_rulerVarDecl= rulerVarDecl EOF ;
     public final EObject entryRulerVarDecl() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:939:1: entryRulerVarDecl returns [String current=null] : iv_rulerVarDecl= rulerVarDecl EOF ;
-    public final String entryRulerVarDecl() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_rulerVarDecl = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1115:49: (iv_rulerVarDecl= rulerVarDecl EOF )
-            // InternalMyDsl.g:1116:2: iv_rulerVarDecl= rulerVarDecl EOF
-=======
-            // InternalAle.g:939:48: (iv_rulerVarDecl= rulerVarDecl EOF )
-            // InternalAle.g:940:2: iv_rulerVarDecl= rulerVarDecl EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1115:49: (iv_rulerVarDecl= rulerVarDecl EOF )
+            // InternalAle.g:1116:2: iv_rulerVarDecl= rulerVarDecl EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRVarDeclRule()); 
@@ -3447,15 +3031,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerVarDecl"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1122:1: rulerVarDecl returns [EObject current=null] : ( rulerType this_Ident_1= RULE_IDENT (otherlv_2= ':=' this_expression_3= ruleexpression )? otherlv_4= ';' ) ;
+    // InternalAle.g:1122:1: rulerVarDecl returns [EObject current=null] : ( rulerType this_Ident_1= RULE_IDENT (otherlv_2= ':=' this_expression_3= ruleexpression )? otherlv_4= ';' ) ;
     public final EObject rulerVarDecl() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:946:1: rulerVarDecl returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_rType_0= rulerType this_Ident_1= RULE_IDENT (kw= ':=' this_expression_3= ruleexpression )? kw= ';' ) ;
-    public final AntlrDatatypeRuleToken rulerVarDecl() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         Token this_Ident_1=null;
         Token otherlv_2=null;
@@ -3467,19 +3045,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1128:2: ( ( rulerType this_Ident_1= RULE_IDENT (otherlv_2= ':=' this_expression_3= ruleexpression )? otherlv_4= ';' ) )
-            // InternalMyDsl.g:1129:2: ( rulerType this_Ident_1= RULE_IDENT (otherlv_2= ':=' this_expression_3= ruleexpression )? otherlv_4= ';' )
+            // InternalAle.g:1128:2: ( ( rulerType this_Ident_1= RULE_IDENT (otherlv_2= ':=' this_expression_3= ruleexpression )? otherlv_4= ';' ) )
+            // InternalAle.g:1129:2: ( rulerType this_Ident_1= RULE_IDENT (otherlv_2= ':=' this_expression_3= ruleexpression )? otherlv_4= ';' )
             {
-            // InternalMyDsl.g:1129:2: ( rulerType this_Ident_1= RULE_IDENT (otherlv_2= ':=' this_expression_3= ruleexpression )? otherlv_4= ';' )
-            // InternalMyDsl.g:1130:3: rulerType this_Ident_1= RULE_IDENT (otherlv_2= ':=' this_expression_3= ruleexpression )? otherlv_4= ';'
-=======
-            // InternalAle.g:952:2: ( (this_rType_0= rulerType this_Ident_1= RULE_IDENT (kw= ':=' this_expression_3= ruleexpression )? kw= ';' ) )
-            // InternalAle.g:953:2: (this_rType_0= rulerType this_Ident_1= RULE_IDENT (kw= ':=' this_expression_3= ruleexpression )? kw= ';' )
-            {
-            // InternalAle.g:953:2: (this_rType_0= rulerType this_Ident_1= RULE_IDENT (kw= ':=' this_expression_3= ruleexpression )? kw= ';' )
-            // InternalAle.g:954:3: this_rType_0= rulerType this_Ident_1= RULE_IDENT (kw= ':=' this_expression_3= ruleexpression )? kw= ';'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1129:2: ( rulerType this_Ident_1= RULE_IDENT (otherlv_2= ':=' this_expression_3= ruleexpression )? otherlv_4= ';' )
+            // InternalAle.g:1130:3: rulerType this_Ident_1= RULE_IDENT (otherlv_2= ':=' this_expression_3= ruleexpression )? otherlv_4= ';'
             {
             if ( state.backtracking==0 ) {
 
@@ -3507,11 +3077,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(this_Ident_1, grammarAccess.getRVarDeclAccess().getIdentTerminalRuleCall_1());
               		
             }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1144:3: (otherlv_2= ':=' this_expression_3= ruleexpression )?
-=======
-            // InternalAle.g:971:3: (kw= ':=' this_expression_3= ruleexpression )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1144:3: (otherlv_2= ':=' this_expression_3= ruleexpression )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -3520,11 +3086,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt18) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1145:4: otherlv_2= ':=' this_expression_3= ruleexpression
-=======
-                    // InternalAle.g:972:4: kw= ':=' this_expression_3= ruleexpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1145:4: otherlv_2= ':=' this_expression_3= ruleexpression
                     {
                     otherlv_2=(Token)match(input,32,FOLLOW_23); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -3590,27 +3152,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerAssign"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1169:1: entryRulerAssign returns [EObject current=null] : iv_rulerAssign= rulerAssign EOF ;
+    // InternalAle.g:1169:1: entryRulerAssign returns [EObject current=null] : iv_rulerAssign= rulerAssign EOF ;
     public final EObject entryRulerAssign() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:997:1: entryRulerAssign returns [String current=null] : iv_rulerAssign= rulerAssign EOF ;
-    public final String entryRulerAssign() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_rulerAssign = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1169:48: (iv_rulerAssign= rulerAssign EOF )
-            // InternalMyDsl.g:1170:2: iv_rulerAssign= rulerAssign EOF
-=======
-            // InternalAle.g:997:47: (iv_rulerAssign= rulerAssign EOF )
-            // InternalAle.g:998:2: iv_rulerAssign= rulerAssign EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1169:48: (iv_rulerAssign= rulerAssign EOF )
+            // InternalAle.g:1170:2: iv_rulerAssign= rulerAssign EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRAssignRule()); 
@@ -3641,15 +3192,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerAssign"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1176:1: rulerAssign returns [EObject current=null] : ( ( (lv_left_0_0= ruleexpression ) ) otherlv_1= ':=' ( (lv_right_2_0= ruleexpression ) ) otherlv_3= ';' ) ;
+    // InternalAle.g:1176:1: rulerAssign returns [EObject current=null] : ( ( (lv_left_0_0= ruleexpression ) ) otherlv_1= ':=' ( (lv_right_2_0= ruleexpression ) ) otherlv_3= ';' ) ;
     public final EObject rulerAssign() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1004:1: rulerAssign returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_expression_0= ruleexpression kw= ':=' this_expression_2= ruleexpression kw= ';' ) ;
-    public final AntlrDatatypeRuleToken rulerAssign() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         Token otherlv_1=null;
         Token otherlv_3=null;
@@ -3662,25 +3207,17 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1182:2: ( ( ( (lv_left_0_0= ruleexpression ) ) otherlv_1= ':=' ( (lv_right_2_0= ruleexpression ) ) otherlv_3= ';' ) )
-            // InternalMyDsl.g:1183:2: ( ( (lv_left_0_0= ruleexpression ) ) otherlv_1= ':=' ( (lv_right_2_0= ruleexpression ) ) otherlv_3= ';' )
+            // InternalAle.g:1182:2: ( ( ( (lv_left_0_0= ruleexpression ) ) otherlv_1= ':=' ( (lv_right_2_0= ruleexpression ) ) otherlv_3= ';' ) )
+            // InternalAle.g:1183:2: ( ( (lv_left_0_0= ruleexpression ) ) otherlv_1= ':=' ( (lv_right_2_0= ruleexpression ) ) otherlv_3= ';' )
             {
-            // InternalMyDsl.g:1183:2: ( ( (lv_left_0_0= ruleexpression ) ) otherlv_1= ':=' ( (lv_right_2_0= ruleexpression ) ) otherlv_3= ';' )
-            // InternalMyDsl.g:1184:3: ( (lv_left_0_0= ruleexpression ) ) otherlv_1= ':=' ( (lv_right_2_0= ruleexpression ) ) otherlv_3= ';'
+            // InternalAle.g:1183:2: ( ( (lv_left_0_0= ruleexpression ) ) otherlv_1= ':=' ( (lv_right_2_0= ruleexpression ) ) otherlv_3= ';' )
+            // InternalAle.g:1184:3: ( (lv_left_0_0= ruleexpression ) ) otherlv_1= ':=' ( (lv_right_2_0= ruleexpression ) ) otherlv_3= ';'
             {
-            // InternalMyDsl.g:1184:3: ( (lv_left_0_0= ruleexpression ) )
-            // InternalMyDsl.g:1185:4: (lv_left_0_0= ruleexpression )
+            // InternalAle.g:1184:3: ( (lv_left_0_0= ruleexpression ) )
+            // InternalAle.g:1185:4: (lv_left_0_0= ruleexpression )
             {
-            // InternalMyDsl.g:1185:4: (lv_left_0_0= ruleexpression )
-            // InternalMyDsl.g:1186:5: lv_left_0_0= ruleexpression
-=======
-            // InternalAle.g:1010:2: ( (this_expression_0= ruleexpression kw= ':=' this_expression_2= ruleexpression kw= ';' ) )
-            // InternalAle.g:1011:2: (this_expression_0= ruleexpression kw= ':=' this_expression_2= ruleexpression kw= ';' )
-            {
-            // InternalAle.g:1011:2: (this_expression_0= ruleexpression kw= ':=' this_expression_2= ruleexpression kw= ';' )
-            // InternalAle.g:1012:3: this_expression_0= ruleexpression kw= ':=' this_expression_2= ruleexpression kw= ';'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1185:4: (lv_left_0_0= ruleexpression )
+            // InternalAle.g:1186:5: lv_left_0_0= ruleexpression
             {
             if ( state.backtracking==0 ) {
 
@@ -3701,7 +3238,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               						current,
               						"left",
               						lv_left_0_0,
-              						"org.xtext.example.mydsl.MyDsl.expression");
+              						"org.eclipse.ecoretools.Ale.expression");
               					afterParserOrEnumRuleCall();
               				
             }
@@ -3717,11 +3254,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_1, grammarAccess.getRAssignAccess().getColonEqualsSignKeyword_1());
               		
             }
-            // InternalMyDsl.g:1207:3: ( (lv_right_2_0= ruleexpression ) )
-            // InternalMyDsl.g:1208:4: (lv_right_2_0= ruleexpression )
+            // InternalAle.g:1207:3: ( (lv_right_2_0= ruleexpression ) )
+            // InternalAle.g:1208:4: (lv_right_2_0= ruleexpression )
             {
-            // InternalMyDsl.g:1208:4: (lv_right_2_0= ruleexpression )
-            // InternalMyDsl.g:1209:5: lv_right_2_0= ruleexpression
+            // InternalAle.g:1208:4: (lv_right_2_0= ruleexpression )
+            // InternalAle.g:1209:5: lv_right_2_0= ruleexpression
             {
             if ( state.backtracking==0 ) {
 
@@ -3742,7 +3279,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               						current,
               						"right",
               						lv_right_2_0,
-              						"org.xtext.example.mydsl.MyDsl.expression");
+              						"org.eclipse.ecoretools.Ale.expression");
               					afterParserOrEnumRuleCall();
               				
             }
@@ -3783,27 +3320,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerForEach"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1234:1: entryRulerForEach returns [EObject current=null] : iv_rulerForEach= rulerForEach EOF ;
+    // InternalAle.g:1234:1: entryRulerForEach returns [EObject current=null] : iv_rulerForEach= rulerForEach EOF ;
     public final EObject entryRulerForEach() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1046:1: entryRulerForEach returns [String current=null] : iv_rulerForEach= rulerForEach EOF ;
-    public final String entryRulerForEach() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_rulerForEach = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1234:49: (iv_rulerForEach= rulerForEach EOF )
-            // InternalMyDsl.g:1235:2: iv_rulerForEach= rulerForEach EOF
-=======
-            // InternalAle.g:1046:48: (iv_rulerForEach= rulerForEach EOF )
-            // InternalAle.g:1047:2: iv_rulerForEach= rulerForEach EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1234:49: (iv_rulerForEach= rulerForEach EOF )
+            // InternalAle.g:1235:2: iv_rulerForEach= rulerForEach EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRForEachRule()); 
@@ -3834,15 +3360,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerForEach"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1241:1: rulerForEach returns [EObject current=null] : (otherlv_0= 'for' otherlv_1= '(' this_Ident_2= RULE_IDENT otherlv_3= 'in' this_rCollection_4= rulerCollection otherlv_5= ')' ( (lv_block_6_0= rulerBlock ) ) ) ;
+    // InternalAle.g:1241:1: rulerForEach returns [EObject current=null] : (otherlv_0= 'for' otherlv_1= '(' this_Ident_2= RULE_IDENT otherlv_3= 'in' this_rCollection_4= rulerCollection otherlv_5= ')' ( (lv_block_6_0= rulerBlock ) ) ) ;
     public final EObject rulerForEach() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1053:1: rulerForEach returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'for' kw= '(' this_Ident_2= RULE_IDENT kw= 'in' this_rCollection_4= rulerCollection kw= ')' this_rBlock_6= rulerBlock ) ;
-    public final AntlrDatatypeRuleToken rulerForEach() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         Token otherlv_0=null;
         Token otherlv_1=null;
@@ -3858,19 +3378,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1247:2: ( (otherlv_0= 'for' otherlv_1= '(' this_Ident_2= RULE_IDENT otherlv_3= 'in' this_rCollection_4= rulerCollection otherlv_5= ')' ( (lv_block_6_0= rulerBlock ) ) ) )
-            // InternalMyDsl.g:1248:2: (otherlv_0= 'for' otherlv_1= '(' this_Ident_2= RULE_IDENT otherlv_3= 'in' this_rCollection_4= rulerCollection otherlv_5= ')' ( (lv_block_6_0= rulerBlock ) ) )
+            // InternalAle.g:1247:2: ( (otherlv_0= 'for' otherlv_1= '(' this_Ident_2= RULE_IDENT otherlv_3= 'in' this_rCollection_4= rulerCollection otherlv_5= ')' ( (lv_block_6_0= rulerBlock ) ) ) )
+            // InternalAle.g:1248:2: (otherlv_0= 'for' otherlv_1= '(' this_Ident_2= RULE_IDENT otherlv_3= 'in' this_rCollection_4= rulerCollection otherlv_5= ')' ( (lv_block_6_0= rulerBlock ) ) )
             {
-            // InternalMyDsl.g:1248:2: (otherlv_0= 'for' otherlv_1= '(' this_Ident_2= RULE_IDENT otherlv_3= 'in' this_rCollection_4= rulerCollection otherlv_5= ')' ( (lv_block_6_0= rulerBlock ) ) )
-            // InternalMyDsl.g:1249:3: otherlv_0= 'for' otherlv_1= '(' this_Ident_2= RULE_IDENT otherlv_3= 'in' this_rCollection_4= rulerCollection otherlv_5= ')' ( (lv_block_6_0= rulerBlock ) )
-=======
-            // InternalAle.g:1059:2: ( (kw= 'for' kw= '(' this_Ident_2= RULE_IDENT kw= 'in' this_rCollection_4= rulerCollection kw= ')' this_rBlock_6= rulerBlock ) )
-            // InternalAle.g:1060:2: (kw= 'for' kw= '(' this_Ident_2= RULE_IDENT kw= 'in' this_rCollection_4= rulerCollection kw= ')' this_rBlock_6= rulerBlock )
-            {
-            // InternalAle.g:1060:2: (kw= 'for' kw= '(' this_Ident_2= RULE_IDENT kw= 'in' this_rCollection_4= rulerCollection kw= ')' this_rBlock_6= rulerBlock )
-            // InternalAle.g:1061:3: kw= 'for' kw= '(' this_Ident_2= RULE_IDENT kw= 'in' this_rCollection_4= rulerCollection kw= ')' this_rBlock_6= rulerBlock
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1248:2: (otherlv_0= 'for' otherlv_1= '(' this_Ident_2= RULE_IDENT otherlv_3= 'in' this_rCollection_4= rulerCollection otherlv_5= ')' ( (lv_block_6_0= rulerBlock ) ) )
+            // InternalAle.g:1249:3: otherlv_0= 'for' otherlv_1= '(' this_Ident_2= RULE_IDENT otherlv_3= 'in' this_rCollection_4= rulerCollection otherlv_5= ')' ( (lv_block_6_0= rulerBlock ) )
             {
             otherlv_0=(Token)match(input,33,FOLLOW_18); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -3923,11 +3435,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_5, grammarAccess.getRForEachAccess().getRightParenthesisKeyword_5());
               		
             }
-            // InternalMyDsl.g:1280:3: ( (lv_block_6_0= rulerBlock ) )
-            // InternalMyDsl.g:1281:4: (lv_block_6_0= rulerBlock )
+            // InternalAle.g:1280:3: ( (lv_block_6_0= rulerBlock ) )
+            // InternalAle.g:1281:4: (lv_block_6_0= rulerBlock )
             {
-            // InternalMyDsl.g:1281:4: (lv_block_6_0= rulerBlock )
-            // InternalMyDsl.g:1282:5: lv_block_6_0= rulerBlock
+            // InternalAle.g:1281:4: (lv_block_6_0= rulerBlock )
+            // InternalAle.g:1282:5: lv_block_6_0= rulerBlock
             {
             if ( state.backtracking==0 ) {
 
@@ -3948,7 +3460,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               						current,
               						"block",
               						lv_block_6_0,
-              						"org.xtext.example.mydsl.MyDsl.rBlock");
+              						"org.eclipse.ecoretools.Ale.rBlock");
               					afterParserOrEnumRuleCall();
               				
             }
@@ -3983,27 +3495,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerCollection"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1303:1: entryRulerCollection returns [EObject current=null] : iv_rulerCollection= rulerCollection EOF ;
+    // InternalAle.g:1303:1: entryRulerCollection returns [EObject current=null] : iv_rulerCollection= rulerCollection EOF ;
     public final EObject entryRulerCollection() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1112:1: entryRulerCollection returns [String current=null] : iv_rulerCollection= rulerCollection EOF ;
-    public final String entryRulerCollection() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_rulerCollection = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1303:52: (iv_rulerCollection= rulerCollection EOF )
-            // InternalMyDsl.g:1304:2: iv_rulerCollection= rulerCollection EOF
-=======
-            // InternalAle.g:1112:51: (iv_rulerCollection= rulerCollection EOF )
-            // InternalAle.g:1113:2: iv_rulerCollection= rulerCollection EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1303:52: (iv_rulerCollection= rulerCollection EOF )
+            // InternalAle.g:1304:2: iv_rulerCollection= rulerCollection EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRCollectionRule()); 
@@ -4034,15 +3535,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerCollection"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1310:1: rulerCollection returns [EObject current=null] : ( (otherlv_0= '[' this_INT_1= RULE_INT otherlv_2= '..' this_INT_3= RULE_INT otherlv_4= ']' ) | this_expression_5= ruleexpression ) ;
+    // InternalAle.g:1310:1: rulerCollection returns [EObject current=null] : ( (otherlv_0= '[' this_INT_1= RULE_INT otherlv_2= '..' this_INT_3= RULE_INT otherlv_4= ']' ) | this_expression_5= ruleexpression ) ;
     public final EObject rulerCollection() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1119:1: rulerCollection returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (kw= '[' this_INT_1= RULE_INT kw= '..' this_INT_3= RULE_INT kw= ']' ) | this_expression_5= ruleexpression ) ;
-    public final AntlrDatatypeRuleToken rulerCollection() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         Token otherlv_0=null;
         Token this_INT_1=null;
@@ -4056,17 +3551,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1316:2: ( ( (otherlv_0= '[' this_INT_1= RULE_INT otherlv_2= '..' this_INT_3= RULE_INT otherlv_4= ']' ) | this_expression_5= ruleexpression ) )
-            // InternalMyDsl.g:1317:2: ( (otherlv_0= '[' this_INT_1= RULE_INT otherlv_2= '..' this_INT_3= RULE_INT otherlv_4= ']' ) | this_expression_5= ruleexpression )
+            // InternalAle.g:1316:2: ( ( (otherlv_0= '[' this_INT_1= RULE_INT otherlv_2= '..' this_INT_3= RULE_INT otherlv_4= ']' ) | this_expression_5= ruleexpression ) )
+            // InternalAle.g:1317:2: ( (otherlv_0= '[' this_INT_1= RULE_INT otherlv_2= '..' this_INT_3= RULE_INT otherlv_4= ']' ) | this_expression_5= ruleexpression )
             {
-            // InternalMyDsl.g:1317:2: ( (otherlv_0= '[' this_INT_1= RULE_INT otherlv_2= '..' this_INT_3= RULE_INT otherlv_4= ']' ) | this_expression_5= ruleexpression )
-=======
-            // InternalAle.g:1125:2: ( ( (kw= '[' this_INT_1= RULE_INT kw= '..' this_INT_3= RULE_INT kw= ']' ) | this_expression_5= ruleexpression ) )
-            // InternalAle.g:1126:2: ( (kw= '[' this_INT_1= RULE_INT kw= '..' this_INT_3= RULE_INT kw= ']' ) | this_expression_5= ruleexpression )
-            {
-            // InternalAle.g:1126:2: ( (kw= '[' this_INT_1= RULE_INT kw= '..' this_INT_3= RULE_INT kw= ']' ) | this_expression_5= ruleexpression )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1317:2: ( (otherlv_0= '[' this_INT_1= RULE_INT otherlv_2= '..' this_INT_3= RULE_INT otherlv_4= ']' ) | this_expression_5= ruleexpression )
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -4085,17 +3573,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt19) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1318:3: (otherlv_0= '[' this_INT_1= RULE_INT otherlv_2= '..' this_INT_3= RULE_INT otherlv_4= ']' )
+                    // InternalAle.g:1318:3: (otherlv_0= '[' this_INT_1= RULE_INT otherlv_2= '..' this_INT_3= RULE_INT otherlv_4= ']' )
                     {
-                    // InternalMyDsl.g:1318:3: (otherlv_0= '[' this_INT_1= RULE_INT otherlv_2= '..' this_INT_3= RULE_INT otherlv_4= ']' )
-                    // InternalMyDsl.g:1319:4: otherlv_0= '[' this_INT_1= RULE_INT otherlv_2= '..' this_INT_3= RULE_INT otherlv_4= ']'
-=======
-                    // InternalAle.g:1127:3: (kw= '[' this_INT_1= RULE_INT kw= '..' this_INT_3= RULE_INT kw= ']' )
-                    {
-                    // InternalAle.g:1127:3: (kw= '[' this_INT_1= RULE_INT kw= '..' this_INT_3= RULE_INT kw= ']' )
-                    // InternalAle.g:1128:4: kw= '[' this_INT_1= RULE_INT kw= '..' this_INT_3= RULE_INT kw= ']'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1318:3: (otherlv_0= '[' this_INT_1= RULE_INT otherlv_2= '..' this_INT_3= RULE_INT otherlv_4= ']' )
+                    // InternalAle.g:1319:4: otherlv_0= '[' this_INT_1= RULE_INT otherlv_2= '..' this_INT_3= RULE_INT otherlv_4= ']'
                     {
                     otherlv_0=(Token)match(input,35,FOLLOW_27); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -4134,11 +3615,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1341:3: this_expression_5= ruleexpression
-=======
-                    // InternalAle.g:1159:3: this_expression_5= ruleexpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1341:3: this_expression_5= ruleexpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -4189,27 +3666,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerBlock"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1356:1: entryRulerBlock returns [EObject current=null] : iv_rulerBlock= rulerBlock EOF ;
+    // InternalAle.g:1356:1: entryRulerBlock returns [EObject current=null] : iv_rulerBlock= rulerBlock EOF ;
     public final EObject entryRulerBlock() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1173:1: entryRulerBlock returns [String current=null] : iv_rulerBlock= rulerBlock EOF ;
-    public final String entryRulerBlock() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_rulerBlock = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1356:47: (iv_rulerBlock= rulerBlock EOF )
-            // InternalMyDsl.g:1357:2: iv_rulerBlock= rulerBlock EOF
-=======
-            // InternalAle.g:1173:46: (iv_rulerBlock= rulerBlock EOF )
-            // InternalAle.g:1174:2: iv_rulerBlock= rulerBlock EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1356:47: (iv_rulerBlock= rulerBlock EOF )
+            // InternalAle.g:1357:2: iv_rulerBlock= rulerBlock EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRBlockRule()); 
@@ -4240,15 +3706,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerBlock"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1363:1: rulerBlock returns [EObject current=null] : (otherlv_0= '{' ( ( (lv_statement_1_0= rulerStatement ) ) ( (lv_statement_2_0= rulerStatement ) )* )? otherlv_3= '}' ) ;
+    // InternalAle.g:1363:1: rulerBlock returns [EObject current=null] : (otherlv_0= '{' ( ( (lv_statement_1_0= rulerStatement ) ) ( (lv_statement_2_0= rulerStatement ) )* )? otherlv_3= '}' ) ;
     public final EObject rulerBlock() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1180:1: rulerBlock returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '{' (this_rStatement_1= rulerStatement (this_rStatement_2= rulerStatement )* )? kw= '}' ) ;
-    public final AntlrDatatypeRuleToken rulerBlock() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         Token otherlv_0=null;
         Token otherlv_3=null;
@@ -4261,19 +3721,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1369:2: ( (otherlv_0= '{' ( ( (lv_statement_1_0= rulerStatement ) ) ( (lv_statement_2_0= rulerStatement ) )* )? otherlv_3= '}' ) )
-            // InternalMyDsl.g:1370:2: (otherlv_0= '{' ( ( (lv_statement_1_0= rulerStatement ) ) ( (lv_statement_2_0= rulerStatement ) )* )? otherlv_3= '}' )
+            // InternalAle.g:1369:2: ( (otherlv_0= '{' ( ( (lv_statement_1_0= rulerStatement ) ) ( (lv_statement_2_0= rulerStatement ) )* )? otherlv_3= '}' ) )
+            // InternalAle.g:1370:2: (otherlv_0= '{' ( ( (lv_statement_1_0= rulerStatement ) ) ( (lv_statement_2_0= rulerStatement ) )* )? otherlv_3= '}' )
             {
-            // InternalMyDsl.g:1370:2: (otherlv_0= '{' ( ( (lv_statement_1_0= rulerStatement ) ) ( (lv_statement_2_0= rulerStatement ) )* )? otherlv_3= '}' )
-            // InternalMyDsl.g:1371:3: otherlv_0= '{' ( ( (lv_statement_1_0= rulerStatement ) ) ( (lv_statement_2_0= rulerStatement ) )* )? otherlv_3= '}'
-=======
-            // InternalAle.g:1186:2: ( (kw= '{' (this_rStatement_1= rulerStatement (this_rStatement_2= rulerStatement )* )? kw= '}' ) )
-            // InternalAle.g:1187:2: (kw= '{' (this_rStatement_1= rulerStatement (this_rStatement_2= rulerStatement )* )? kw= '}' )
-            {
-            // InternalAle.g:1187:2: (kw= '{' (this_rStatement_1= rulerStatement (this_rStatement_2= rulerStatement )* )? kw= '}' )
-            // InternalAle.g:1188:3: kw= '{' (this_rStatement_1= rulerStatement (this_rStatement_2= rulerStatement )* )? kw= '}'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1370:2: (otherlv_0= '{' ( ( (lv_statement_1_0= rulerStatement ) ) ( (lv_statement_2_0= rulerStatement ) )* )? otherlv_3= '}' )
+            // InternalAle.g:1371:3: otherlv_0= '{' ( ( (lv_statement_1_0= rulerStatement ) ) ( (lv_statement_2_0= rulerStatement ) )* )? otherlv_3= '}'
             {
             otherlv_0=(Token)match(input,25,FOLLOW_30); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -4281,11 +3733,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_0, grammarAccess.getRBlockAccess().getLeftCurlyBracketKeyword_0());
               		
             }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1375:3: ( ( (lv_statement_1_0= rulerStatement ) ) ( (lv_statement_2_0= rulerStatement ) )* )?
-=======
-            // InternalAle.g:1193:3: (this_rStatement_1= rulerStatement (this_rStatement_2= rulerStatement )* )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1375:3: ( ( (lv_statement_1_0= rulerStatement ) ) ( (lv_statement_2_0= rulerStatement ) )* )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -4294,17 +3742,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt21) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1376:4: ( (lv_statement_1_0= rulerStatement ) ) ( (lv_statement_2_0= rulerStatement ) )*
+                    // InternalAle.g:1376:4: ( (lv_statement_1_0= rulerStatement ) ) ( (lv_statement_2_0= rulerStatement ) )*
                     {
-                    // InternalMyDsl.g:1376:4: ( (lv_statement_1_0= rulerStatement ) )
-                    // InternalMyDsl.g:1377:5: (lv_statement_1_0= rulerStatement )
+                    // InternalAle.g:1376:4: ( (lv_statement_1_0= rulerStatement ) )
+                    // InternalAle.g:1377:5: (lv_statement_1_0= rulerStatement )
                     {
-                    // InternalMyDsl.g:1377:5: (lv_statement_1_0= rulerStatement )
-                    // InternalMyDsl.g:1378:6: lv_statement_1_0= rulerStatement
-=======
-                    // InternalAle.g:1194:4: this_rStatement_1= rulerStatement (this_rStatement_2= rulerStatement )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1377:5: (lv_statement_1_0= rulerStatement )
+                    // InternalAle.g:1378:6: lv_statement_1_0= rulerStatement
                     {
                     if ( state.backtracking==0 ) {
 
@@ -4325,21 +3769,17 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"statement",
                       							lv_statement_1_0,
-                      							"org.xtext.example.mydsl.MyDsl.rStatement");
+                      							"org.eclipse.ecoretools.Ale.rStatement");
                       						afterParserOrEnumRuleCall();
                       					
                     }
 
                     }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
 
 
                     }
 
-                    // InternalMyDsl.g:1395:4: ( (lv_statement_2_0= rulerStatement ) )*
-=======
-                    // InternalAle.g:1204:4: (this_rStatement_2= rulerStatement )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1395:4: ( (lv_statement_2_0= rulerStatement ) )*
                     loop20:
                     do {
                         int alt20=2;
@@ -4352,14 +3792,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                         switch (alt20) {
                     	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    	    // InternalMyDsl.g:1396:5: (lv_statement_2_0= rulerStatement )
+                    	    // InternalAle.g:1396:5: (lv_statement_2_0= rulerStatement )
                     	    {
-                    	    // InternalMyDsl.g:1396:5: (lv_statement_2_0= rulerStatement )
-                    	    // InternalMyDsl.g:1397:6: lv_statement_2_0= rulerStatement
-=======
-                    	    // InternalAle.g:1205:5: this_rStatement_2= rulerStatement
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    	    // InternalAle.g:1396:5: (lv_statement_2_0= rulerStatement )
+                    	    // InternalAle.g:1397:6: lv_statement_2_0= rulerStatement
                     	    {
                     	    if ( state.backtracking==0 ) {
 
@@ -4380,7 +3816,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     	      							current,
                     	      							"statement",
                     	      							lv_statement_2_0,
-                    	      							"org.xtext.example.mydsl.MyDsl.rStatement");
+                    	      							"org.eclipse.ecoretools.Ale.rStatement");
                     	      						afterParserOrEnumRuleCall();
                     	      					
                     	    }
@@ -4433,27 +3869,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerIf"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1423:1: entryRulerIf returns [EObject current=null] : iv_rulerIf= rulerIf EOF ;
+    // InternalAle.g:1423:1: entryRulerIf returns [EObject current=null] : iv_rulerIf= rulerIf EOF ;
     public final EObject entryRulerIf() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1226:1: entryRulerIf returns [String current=null] : iv_rulerIf= rulerIf EOF ;
-    public final String entryRulerIf() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_rulerIf = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1423:44: (iv_rulerIf= rulerIf EOF )
-            // InternalMyDsl.g:1424:2: iv_rulerIf= rulerIf EOF
-=======
-            // InternalAle.g:1226:43: (iv_rulerIf= rulerIf EOF )
-            // InternalAle.g:1227:2: iv_rulerIf= rulerIf EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1423:44: (iv_rulerIf= rulerIf EOF )
+            // InternalAle.g:1424:2: iv_rulerIf= rulerIf EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRIfRule()); 
@@ -4484,15 +3909,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerIf"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1430:1: rulerIf returns [EObject current=null] : (otherlv_0= 'if' otherlv_1= '(' ( (lv_condition_2_0= ruleexpression ) ) otherlv_3= ')' ( (lv_ifBlock_4_0= rulerBlock ) ) (otherlv_5= 'else' ( (lv_elseBlock_6_0= rulerBlock ) ) )? ) ;
+    // InternalAle.g:1430:1: rulerIf returns [EObject current=null] : (otherlv_0= 'if' otherlv_1= '(' ( (lv_condition_2_0= ruleexpression ) ) otherlv_3= ')' ( (lv_ifBlock_4_0= rulerBlock ) ) (otherlv_5= 'else' ( (lv_elseBlock_6_0= rulerBlock ) ) )? ) ;
     public final EObject rulerIf() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1233:1: rulerIf returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'if' kw= '(' this_expression_2= ruleexpression kw= ')' this_rBlock_4= rulerBlock (kw= 'else' this_rBlock_6= rulerBlock )? ) ;
-    public final AntlrDatatypeRuleToken rulerIf() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         Token otherlv_0=null;
         Token otherlv_1=null;
@@ -4509,19 +3928,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1436:2: ( (otherlv_0= 'if' otherlv_1= '(' ( (lv_condition_2_0= ruleexpression ) ) otherlv_3= ')' ( (lv_ifBlock_4_0= rulerBlock ) ) (otherlv_5= 'else' ( (lv_elseBlock_6_0= rulerBlock ) ) )? ) )
-            // InternalMyDsl.g:1437:2: (otherlv_0= 'if' otherlv_1= '(' ( (lv_condition_2_0= ruleexpression ) ) otherlv_3= ')' ( (lv_ifBlock_4_0= rulerBlock ) ) (otherlv_5= 'else' ( (lv_elseBlock_6_0= rulerBlock ) ) )? )
+            // InternalAle.g:1436:2: ( (otherlv_0= 'if' otherlv_1= '(' ( (lv_condition_2_0= ruleexpression ) ) otherlv_3= ')' ( (lv_ifBlock_4_0= rulerBlock ) ) (otherlv_5= 'else' ( (lv_elseBlock_6_0= rulerBlock ) ) )? ) )
+            // InternalAle.g:1437:2: (otherlv_0= 'if' otherlv_1= '(' ( (lv_condition_2_0= ruleexpression ) ) otherlv_3= ')' ( (lv_ifBlock_4_0= rulerBlock ) ) (otherlv_5= 'else' ( (lv_elseBlock_6_0= rulerBlock ) ) )? )
             {
-            // InternalMyDsl.g:1437:2: (otherlv_0= 'if' otherlv_1= '(' ( (lv_condition_2_0= ruleexpression ) ) otherlv_3= ')' ( (lv_ifBlock_4_0= rulerBlock ) ) (otherlv_5= 'else' ( (lv_elseBlock_6_0= rulerBlock ) ) )? )
-            // InternalMyDsl.g:1438:3: otherlv_0= 'if' otherlv_1= '(' ( (lv_condition_2_0= ruleexpression ) ) otherlv_3= ')' ( (lv_ifBlock_4_0= rulerBlock ) ) (otherlv_5= 'else' ( (lv_elseBlock_6_0= rulerBlock ) ) )?
-=======
-            // InternalAle.g:1239:2: ( (kw= 'if' kw= '(' this_expression_2= ruleexpression kw= ')' this_rBlock_4= rulerBlock (kw= 'else' this_rBlock_6= rulerBlock )? ) )
-            // InternalAle.g:1240:2: (kw= 'if' kw= '(' this_expression_2= ruleexpression kw= ')' this_rBlock_4= rulerBlock (kw= 'else' this_rBlock_6= rulerBlock )? )
-            {
-            // InternalAle.g:1240:2: (kw= 'if' kw= '(' this_expression_2= ruleexpression kw= ')' this_rBlock_4= rulerBlock (kw= 'else' this_rBlock_6= rulerBlock )? )
-            // InternalAle.g:1241:3: kw= 'if' kw= '(' this_expression_2= ruleexpression kw= ')' this_rBlock_4= rulerBlock (kw= 'else' this_rBlock_6= rulerBlock )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1437:2: (otherlv_0= 'if' otherlv_1= '(' ( (lv_condition_2_0= ruleexpression ) ) otherlv_3= ')' ( (lv_ifBlock_4_0= rulerBlock ) ) (otherlv_5= 'else' ( (lv_elseBlock_6_0= rulerBlock ) ) )? )
+            // InternalAle.g:1438:3: otherlv_0= 'if' otherlv_1= '(' ( (lv_condition_2_0= ruleexpression ) ) otherlv_3= ')' ( (lv_ifBlock_4_0= rulerBlock ) ) (otherlv_5= 'else' ( (lv_elseBlock_6_0= rulerBlock ) ) )?
             {
             otherlv_0=(Token)match(input,38,FOLLOW_18); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -4535,11 +3946,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_1, grammarAccess.getRIfAccess().getLeftParenthesisKeyword_1());
               		
             }
-            // InternalMyDsl.g:1446:3: ( (lv_condition_2_0= ruleexpression ) )
-            // InternalMyDsl.g:1447:4: (lv_condition_2_0= ruleexpression )
+            // InternalAle.g:1446:3: ( (lv_condition_2_0= ruleexpression ) )
+            // InternalAle.g:1447:4: (lv_condition_2_0= ruleexpression )
             {
-            // InternalMyDsl.g:1447:4: (lv_condition_2_0= ruleexpression )
-            // InternalMyDsl.g:1448:5: lv_condition_2_0= ruleexpression
+            // InternalAle.g:1447:4: (lv_condition_2_0= ruleexpression )
+            // InternalAle.g:1448:5: lv_condition_2_0= ruleexpression
             {
             if ( state.backtracking==0 ) {
 
@@ -4560,7 +3971,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               						current,
               						"condition",
               						lv_condition_2_0,
-              						"org.xtext.example.mydsl.MyDsl.expression");
+              						"org.eclipse.ecoretools.Ale.expression");
               					afterParserOrEnumRuleCall();
               				
             }
@@ -4576,11 +3987,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_3, grammarAccess.getRIfAccess().getRightParenthesisKeyword_3());
               		
             }
-            // InternalMyDsl.g:1469:3: ( (lv_ifBlock_4_0= rulerBlock ) )
-            // InternalMyDsl.g:1470:4: (lv_ifBlock_4_0= rulerBlock )
+            // InternalAle.g:1469:3: ( (lv_ifBlock_4_0= rulerBlock ) )
+            // InternalAle.g:1470:4: (lv_ifBlock_4_0= rulerBlock )
             {
-            // InternalMyDsl.g:1470:4: (lv_ifBlock_4_0= rulerBlock )
-            // InternalMyDsl.g:1471:5: lv_ifBlock_4_0= rulerBlock
+            // InternalAle.g:1470:4: (lv_ifBlock_4_0= rulerBlock )
+            // InternalAle.g:1471:5: lv_ifBlock_4_0= rulerBlock
             {
             if ( state.backtracking==0 ) {
 
@@ -4601,21 +4012,17 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               						current,
               						"ifBlock",
               						lv_ifBlock_4_0,
-              						"org.xtext.example.mydsl.MyDsl.rBlock");
+              						"org.eclipse.ecoretools.Ale.rBlock");
               					afterParserOrEnumRuleCall();
               				
             }
 
             }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
 
 
             }
 
-            // InternalMyDsl.g:1488:3: (otherlv_5= 'else' ( (lv_elseBlock_6_0= rulerBlock ) ) )?
-=======
-            // InternalAle.g:1276:3: (kw= 'else' this_rBlock_6= rulerBlock )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1488:3: (otherlv_5= 'else' ( (lv_elseBlock_6_0= rulerBlock ) ) )?
             int alt22=2;
             int LA22_0 = input.LA(1);
 
@@ -4624,11 +4031,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt22) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1489:4: otherlv_5= 'else' ( (lv_elseBlock_6_0= rulerBlock ) )
-=======
-                    // InternalAle.g:1277:4: kw= 'else' this_rBlock_6= rulerBlock
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1489:4: otherlv_5= 'else' ( (lv_elseBlock_6_0= rulerBlock ) )
                     {
                     otherlv_5=(Token)match(input,39,FOLLOW_15); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -4636,11 +4039,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       				newLeafNode(otherlv_5, grammarAccess.getRIfAccess().getElseKeyword_5_0());
                       			
                     }
-                    // InternalMyDsl.g:1493:4: ( (lv_elseBlock_6_0= rulerBlock ) )
-                    // InternalMyDsl.g:1494:5: (lv_elseBlock_6_0= rulerBlock )
+                    // InternalAle.g:1493:4: ( (lv_elseBlock_6_0= rulerBlock ) )
+                    // InternalAle.g:1494:5: (lv_elseBlock_6_0= rulerBlock )
                     {
-                    // InternalMyDsl.g:1494:5: (lv_elseBlock_6_0= rulerBlock )
-                    // InternalMyDsl.g:1495:6: lv_elseBlock_6_0= rulerBlock
+                    // InternalAle.g:1494:5: (lv_elseBlock_6_0= rulerBlock )
+                    // InternalAle.g:1495:6: lv_elseBlock_6_0= rulerBlock
                     {
                     if ( state.backtracking==0 ) {
 
@@ -4661,7 +4064,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"elseBlock",
                       							lv_elseBlock_6_0,
-                      							"org.xtext.example.mydsl.MyDsl.rBlock");
+                      							"org.eclipse.ecoretools.Ale.rBlock");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -4702,27 +4105,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerWhile"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1517:1: entryRulerWhile returns [EObject current=null] : iv_rulerWhile= rulerWhile EOF ;
+    // InternalAle.g:1517:1: entryRulerWhile returns [EObject current=null] : iv_rulerWhile= rulerWhile EOF ;
     public final EObject entryRulerWhile() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1297:1: entryRulerWhile returns [String current=null] : iv_rulerWhile= rulerWhile EOF ;
-    public final String entryRulerWhile() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_rulerWhile = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1517:47: (iv_rulerWhile= rulerWhile EOF )
-            // InternalMyDsl.g:1518:2: iv_rulerWhile= rulerWhile EOF
-=======
-            // InternalAle.g:1297:46: (iv_rulerWhile= rulerWhile EOF )
-            // InternalAle.g:1298:2: iv_rulerWhile= rulerWhile EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1517:47: (iv_rulerWhile= rulerWhile EOF )
+            // InternalAle.g:1518:2: iv_rulerWhile= rulerWhile EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRWhileRule()); 
@@ -4753,15 +4145,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerWhile"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1524:1: rulerWhile returns [EObject current=null] : (otherlv_0= 'while' otherlv_1= '(' this_expression_2= ruleexpression otherlv_3= ')' ( (lv_block_4_0= rulerBlock ) ) ) ;
+    // InternalAle.g:1524:1: rulerWhile returns [EObject current=null] : (otherlv_0= 'while' otherlv_1= '(' this_expression_2= ruleexpression otherlv_3= ')' ( (lv_block_4_0= rulerBlock ) ) ) ;
     public final EObject rulerWhile() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1304:1: rulerWhile returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'while' kw= '(' this_expression_2= ruleexpression kw= ')' this_rBlock_4= rulerBlock ) ;
-    public final AntlrDatatypeRuleToken rulerWhile() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         Token otherlv_0=null;
         Token otherlv_1=null;
@@ -4775,19 +4161,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1530:2: ( (otherlv_0= 'while' otherlv_1= '(' this_expression_2= ruleexpression otherlv_3= ')' ( (lv_block_4_0= rulerBlock ) ) ) )
-            // InternalMyDsl.g:1531:2: (otherlv_0= 'while' otherlv_1= '(' this_expression_2= ruleexpression otherlv_3= ')' ( (lv_block_4_0= rulerBlock ) ) )
+            // InternalAle.g:1530:2: ( (otherlv_0= 'while' otherlv_1= '(' this_expression_2= ruleexpression otherlv_3= ')' ( (lv_block_4_0= rulerBlock ) ) ) )
+            // InternalAle.g:1531:2: (otherlv_0= 'while' otherlv_1= '(' this_expression_2= ruleexpression otherlv_3= ')' ( (lv_block_4_0= rulerBlock ) ) )
             {
-            // InternalMyDsl.g:1531:2: (otherlv_0= 'while' otherlv_1= '(' this_expression_2= ruleexpression otherlv_3= ')' ( (lv_block_4_0= rulerBlock ) ) )
-            // InternalMyDsl.g:1532:3: otherlv_0= 'while' otherlv_1= '(' this_expression_2= ruleexpression otherlv_3= ')' ( (lv_block_4_0= rulerBlock ) )
-=======
-            // InternalAle.g:1310:2: ( (kw= 'while' kw= '(' this_expression_2= ruleexpression kw= ')' this_rBlock_4= rulerBlock ) )
-            // InternalAle.g:1311:2: (kw= 'while' kw= '(' this_expression_2= ruleexpression kw= ')' this_rBlock_4= rulerBlock )
-            {
-            // InternalAle.g:1311:2: (kw= 'while' kw= '(' this_expression_2= ruleexpression kw= ')' this_rBlock_4= rulerBlock )
-            // InternalAle.g:1312:3: kw= 'while' kw= '(' this_expression_2= ruleexpression kw= ')' this_rBlock_4= rulerBlock
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1531:2: (otherlv_0= 'while' otherlv_1= '(' this_expression_2= ruleexpression otherlv_3= ')' ( (lv_block_4_0= rulerBlock ) ) )
+            // InternalAle.g:1532:3: otherlv_0= 'while' otherlv_1= '(' this_expression_2= ruleexpression otherlv_3= ')' ( (lv_block_4_0= rulerBlock ) )
             {
             otherlv_0=(Token)match(input,40,FOLLOW_18); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -4828,11 +4206,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_3, grammarAccess.getRWhileAccess().getRightParenthesisKeyword_3());
               		
             }
-            // InternalMyDsl.g:1555:3: ( (lv_block_4_0= rulerBlock ) )
-            // InternalMyDsl.g:1556:4: (lv_block_4_0= rulerBlock )
+            // InternalAle.g:1555:3: ( (lv_block_4_0= rulerBlock ) )
+            // InternalAle.g:1556:4: (lv_block_4_0= rulerBlock )
             {
-            // InternalMyDsl.g:1556:4: (lv_block_4_0= rulerBlock )
-            // InternalMyDsl.g:1557:5: lv_block_4_0= rulerBlock
+            // InternalAle.g:1556:4: (lv_block_4_0= rulerBlock )
+            // InternalAle.g:1557:5: lv_block_4_0= rulerBlock
             {
             if ( state.backtracking==0 ) {
 
@@ -4853,7 +4231,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               						current,
               						"block",
               						lv_block_4_0,
-              						"org.xtext.example.mydsl.MyDsl.rBlock");
+              						"org.eclipse.ecoretools.Ale.rBlock");
               					afterParserOrEnumRuleCall();
               				
             }
@@ -4888,27 +4266,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerExpression"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1578:1: entryRulerExpression returns [EObject current=null] : iv_rulerExpression= rulerExpression EOF ;
+    // InternalAle.g:1578:1: entryRulerExpression returns [EObject current=null] : iv_rulerExpression= rulerExpression EOF ;
     public final EObject entryRulerExpression() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1351:1: entryRulerExpression returns [String current=null] : iv_rulerExpression= rulerExpression EOF ;
-    public final String entryRulerExpression() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_rulerExpression = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1578:52: (iv_rulerExpression= rulerExpression EOF )
-            // InternalMyDsl.g:1579:2: iv_rulerExpression= rulerExpression EOF
-=======
-            // InternalAle.g:1351:51: (iv_rulerExpression= rulerExpression EOF )
-            // InternalAle.g:1352:2: iv_rulerExpression= rulerExpression EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1578:52: (iv_rulerExpression= rulerExpression EOF )
+            // InternalAle.g:1579:2: iv_rulerExpression= rulerExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRExpressionRule()); 
@@ -4939,15 +4306,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerExpression"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1585:1: rulerExpression returns [EObject current=null] : (this_expression_0= ruleexpression otherlv_1= ';' ) ;
+    // InternalAle.g:1585:1: rulerExpression returns [EObject current=null] : (this_expression_0= ruleexpression otherlv_1= ';' ) ;
     public final EObject rulerExpression() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1358:1: rulerExpression returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_expression_0= ruleexpression kw= ';' ) ;
-    public final AntlrDatatypeRuleToken rulerExpression() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         Token otherlv_1=null;
         EObject this_expression_0 = null;
@@ -4957,19 +4318,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1591:2: ( (this_expression_0= ruleexpression otherlv_1= ';' ) )
-            // InternalMyDsl.g:1592:2: (this_expression_0= ruleexpression otherlv_1= ';' )
+            // InternalAle.g:1591:2: ( (this_expression_0= ruleexpression otherlv_1= ';' ) )
+            // InternalAle.g:1592:2: (this_expression_0= ruleexpression otherlv_1= ';' )
             {
-            // InternalMyDsl.g:1592:2: (this_expression_0= ruleexpression otherlv_1= ';' )
-            // InternalMyDsl.g:1593:3: this_expression_0= ruleexpression otherlv_1= ';'
-=======
-            // InternalAle.g:1364:2: ( (this_expression_0= ruleexpression kw= ';' ) )
-            // InternalAle.g:1365:2: (this_expression_0= ruleexpression kw= ';' )
-            {
-            // InternalAle.g:1365:2: (this_expression_0= ruleexpression kw= ';' )
-            // InternalAle.g:1366:3: this_expression_0= ruleexpression kw= ';'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1592:2: (this_expression_0= ruleexpression otherlv_1= ';' )
+            // InternalAle.g:1593:3: this_expression_0= ruleexpression otherlv_1= ';'
             {
             if ( state.backtracking==0 ) {
 
@@ -5023,27 +4376,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleexpression"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1612:1: entryRuleexpression returns [EObject current=null] : iv_ruleexpression= ruleexpression EOF ;
+    // InternalAle.g:1612:1: entryRuleexpression returns [EObject current=null] : iv_ruleexpression= ruleexpression EOF ;
     public final EObject entryRuleexpression() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1385:1: entryRuleexpression returns [String current=null] : iv_ruleexpression= ruleexpression EOF ;
-    public final String entryRuleexpression() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_ruleexpression = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1612:51: (iv_ruleexpression= ruleexpression EOF )
-            // InternalMyDsl.g:1613:2: iv_ruleexpression= ruleexpression EOF
-=======
-            // InternalAle.g:1385:50: (iv_ruleexpression= ruleexpression EOF )
-            // InternalAle.g:1386:2: iv_ruleexpression= ruleexpression EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1612:51: (iv_ruleexpression= ruleexpression EOF )
+            // InternalAle.g:1613:2: iv_ruleexpression= ruleexpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExpressionRule()); 
@@ -5074,15 +4416,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleexpression"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1619:1: ruleexpression returns [EObject current=null] : ( ( (lv_leftPart_0_0= rulenonLeftRecExpression ) ) ( (lv_recpart_1_0= rulerecExpression ) )? ) ;
+    // InternalAle.g:1619:1: ruleexpression returns [EObject current=null] : ( ( (lv_leftPart_0_0= rulenonLeftRecExpression ) ) ( (lv_recpart_1_0= rulerecExpression ) )? ) ;
     public final EObject ruleexpression() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1392:1: ruleexpression returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_nonLeftRecExpression_0= rulenonLeftRecExpression (this_recExpression_1= rulerecExpression )? ) ;
-    public final AntlrDatatypeRuleToken ruleexpression() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject lv_leftPart_0_0 = null;
 
@@ -5093,25 +4429,17 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1625:2: ( ( ( (lv_leftPart_0_0= rulenonLeftRecExpression ) ) ( (lv_recpart_1_0= rulerecExpression ) )? ) )
-            // InternalMyDsl.g:1626:2: ( ( (lv_leftPart_0_0= rulenonLeftRecExpression ) ) ( (lv_recpart_1_0= rulerecExpression ) )? )
+            // InternalAle.g:1625:2: ( ( ( (lv_leftPart_0_0= rulenonLeftRecExpression ) ) ( (lv_recpart_1_0= rulerecExpression ) )? ) )
+            // InternalAle.g:1626:2: ( ( (lv_leftPart_0_0= rulenonLeftRecExpression ) ) ( (lv_recpart_1_0= rulerecExpression ) )? )
             {
-            // InternalMyDsl.g:1626:2: ( ( (lv_leftPart_0_0= rulenonLeftRecExpression ) ) ( (lv_recpart_1_0= rulerecExpression ) )? )
-            // InternalMyDsl.g:1627:3: ( (lv_leftPart_0_0= rulenonLeftRecExpression ) ) ( (lv_recpart_1_0= rulerecExpression ) )?
+            // InternalAle.g:1626:2: ( ( (lv_leftPart_0_0= rulenonLeftRecExpression ) ) ( (lv_recpart_1_0= rulerecExpression ) )? )
+            // InternalAle.g:1627:3: ( (lv_leftPart_0_0= rulenonLeftRecExpression ) ) ( (lv_recpart_1_0= rulerecExpression ) )?
             {
-            // InternalMyDsl.g:1627:3: ( (lv_leftPart_0_0= rulenonLeftRecExpression ) )
-            // InternalMyDsl.g:1628:4: (lv_leftPart_0_0= rulenonLeftRecExpression )
+            // InternalAle.g:1627:3: ( (lv_leftPart_0_0= rulenonLeftRecExpression ) )
+            // InternalAle.g:1628:4: (lv_leftPart_0_0= rulenonLeftRecExpression )
             {
-            // InternalMyDsl.g:1628:4: (lv_leftPart_0_0= rulenonLeftRecExpression )
-            // InternalMyDsl.g:1629:5: lv_leftPart_0_0= rulenonLeftRecExpression
-=======
-            // InternalAle.g:1398:2: ( (this_nonLeftRecExpression_0= rulenonLeftRecExpression (this_recExpression_1= rulerecExpression )? ) )
-            // InternalAle.g:1399:2: (this_nonLeftRecExpression_0= rulenonLeftRecExpression (this_recExpression_1= rulerecExpression )? )
-            {
-            // InternalAle.g:1399:2: (this_nonLeftRecExpression_0= rulenonLeftRecExpression (this_recExpression_1= rulerecExpression )? )
-            // InternalAle.g:1400:3: this_nonLeftRecExpression_0= rulenonLeftRecExpression (this_recExpression_1= rulerecExpression )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1628:4: (lv_leftPart_0_0= rulenonLeftRecExpression )
+            // InternalAle.g:1629:5: lv_leftPart_0_0= rulenonLeftRecExpression
             {
             if ( state.backtracking==0 ) {
 
@@ -5132,33 +4460,25 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               						current,
               						"leftPart",
               						lv_leftPart_0_0,
-              						"org.xtext.example.mydsl.MyDsl.nonLeftRecExpression");
+              						"org.eclipse.ecoretools.Ale.nonLeftRecExpression");
               					afterParserOrEnumRuleCall();
               				
             }
 
             }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
 
 
             }
 
-            // InternalMyDsl.g:1646:3: ( (lv_recpart_1_0= rulerecExpression ) )?
-=======
-            // InternalAle.g:1410:3: (this_recExpression_1= rulerecExpression )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1646:3: ( (lv_recpart_1_0= rulerecExpression ) )?
             int alt23=2;
             alt23 = dfa23.predict(input);
             switch (alt23) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1647:4: (lv_recpart_1_0= rulerecExpression )
+                    // InternalAle.g:1647:4: (lv_recpart_1_0= rulerecExpression )
                     {
-                    // InternalMyDsl.g:1647:4: (lv_recpart_1_0= rulerecExpression )
-                    // InternalMyDsl.g:1648:5: lv_recpart_1_0= rulerecExpression
-=======
-                    // InternalAle.g:1411:4: this_recExpression_1= rulerecExpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1647:4: (lv_recpart_1_0= rulerecExpression )
+                    // InternalAle.g:1648:5: lv_recpart_1_0= rulerecExpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -5179,7 +4499,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       						current,
                       						"recpart",
                       						lv_recpart_1_0,
-                      						"org.xtext.example.mydsl.MyDsl.recExpression");
+                      						"org.eclipse.ecoretools.Ale.recExpression");
                       					afterParserOrEnumRuleCall();
                       				
                     }
@@ -5217,27 +4537,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerecExpression"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1669:1: entryRulerecExpression returns [EObject current=null] : iv_rulerecExpression= rulerecExpression EOF ;
+    // InternalAle.g:1669:1: entryRulerecExpression returns [EObject current=null] : iv_rulerecExpression= rulerecExpression EOF ;
     public final EObject entryRulerecExpression() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1426:1: entryRulerecExpression returns [String current=null] : iv_rulerecExpression= rulerecExpression EOF ;
-    public final String entryRulerecExpression() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_rulerecExpression = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1669:54: (iv_rulerecExpression= rulerecExpression EOF )
-            // InternalMyDsl.g:1670:2: iv_rulerecExpression= rulerecExpression EOF
-=======
-            // InternalAle.g:1426:53: (iv_rulerecExpression= rulerecExpression EOF )
-            // InternalAle.g:1427:2: iv_rulerecExpression= rulerecExpression EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1669:54: (iv_rulerecExpression= rulerecExpression EOF )
+            // InternalAle.g:1670:2: iv_rulerecExpression= rulerecExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRecExpressionRule()); 
@@ -5268,15 +4577,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerecExpression"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1676:1: rulerecExpression returns [EObject current=null] : ( (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | ( ruleaddOp this_expression_4= ruleexpression ) | ( rulecompOp this_expression_6= ruleexpression ) | (otherlv_7= 'and' this_expression_8= ruleexpression ) | (otherlv_9= 'or' this_expression_10= ruleexpression ) | (otherlv_11= 'xor' this_expression_12= ruleexpression ) | (otherlv_13= 'implies' this_expression_14= ruleexpression ) ) ( (lv_recExp_15_0= rulerecExpression ) )? ) ;
+    // InternalAle.g:1676:1: rulerecExpression returns [EObject current=null] : ( (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | ( ruleaddOp this_expression_4= ruleexpression ) | ( rulecompOp this_expression_6= ruleexpression ) | (otherlv_7= 'and' this_expression_8= ruleexpression ) | (otherlv_9= 'or' this_expression_10= ruleexpression ) | (otherlv_11= 'xor' this_expression_12= ruleexpression ) | (otherlv_13= 'implies' this_expression_14= ruleexpression ) ) ( (lv_recExp_15_0= rulerecExpression ) )? ) ;
     public final EObject rulerecExpression() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1433:1: rulerecExpression returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | (this_addOp_3= ruleaddOp this_expression_4= ruleexpression ) | (this_compOp_5= rulecompOp this_expression_6= ruleexpression ) | (kw= 'and' this_expression_8= ruleexpression ) | (kw= 'or' this_expression_10= ruleexpression ) | (kw= 'xor' this_expression_12= ruleexpression ) | (kw= 'implies' this_expression_14= ruleexpression ) ) (this_recExpression_15= rulerecExpression )? ) ;
-    public final AntlrDatatypeRuleToken rulerecExpression() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         Token this_MultOp_1=null;
         Token otherlv_7=null;
@@ -5306,23 +4609,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1682:2: ( ( (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | ( ruleaddOp this_expression_4= ruleexpression ) | ( rulecompOp this_expression_6= ruleexpression ) | (otherlv_7= 'and' this_expression_8= ruleexpression ) | (otherlv_9= 'or' this_expression_10= ruleexpression ) | (otherlv_11= 'xor' this_expression_12= ruleexpression ) | (otherlv_13= 'implies' this_expression_14= ruleexpression ) ) ( (lv_recExp_15_0= rulerecExpression ) )? ) )
-            // InternalMyDsl.g:1683:2: ( (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | ( ruleaddOp this_expression_4= ruleexpression ) | ( rulecompOp this_expression_6= ruleexpression ) | (otherlv_7= 'and' this_expression_8= ruleexpression ) | (otherlv_9= 'or' this_expression_10= ruleexpression ) | (otherlv_11= 'xor' this_expression_12= ruleexpression ) | (otherlv_13= 'implies' this_expression_14= ruleexpression ) ) ( (lv_recExp_15_0= rulerecExpression ) )? )
+            // InternalAle.g:1682:2: ( ( (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | ( ruleaddOp this_expression_4= ruleexpression ) | ( rulecompOp this_expression_6= ruleexpression ) | (otherlv_7= 'and' this_expression_8= ruleexpression ) | (otherlv_9= 'or' this_expression_10= ruleexpression ) | (otherlv_11= 'xor' this_expression_12= ruleexpression ) | (otherlv_13= 'implies' this_expression_14= ruleexpression ) ) ( (lv_recExp_15_0= rulerecExpression ) )? ) )
+            // InternalAle.g:1683:2: ( (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | ( ruleaddOp this_expression_4= ruleexpression ) | ( rulecompOp this_expression_6= ruleexpression ) | (otherlv_7= 'and' this_expression_8= ruleexpression ) | (otherlv_9= 'or' this_expression_10= ruleexpression ) | (otherlv_11= 'xor' this_expression_12= ruleexpression ) | (otherlv_13= 'implies' this_expression_14= ruleexpression ) ) ( (lv_recExp_15_0= rulerecExpression ) )? )
             {
-            // InternalMyDsl.g:1683:2: ( (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | ( ruleaddOp this_expression_4= ruleexpression ) | ( rulecompOp this_expression_6= ruleexpression ) | (otherlv_7= 'and' this_expression_8= ruleexpression ) | (otherlv_9= 'or' this_expression_10= ruleexpression ) | (otherlv_11= 'xor' this_expression_12= ruleexpression ) | (otherlv_13= 'implies' this_expression_14= ruleexpression ) ) ( (lv_recExp_15_0= rulerecExpression ) )? )
-            // InternalMyDsl.g:1684:3: (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | ( ruleaddOp this_expression_4= ruleexpression ) | ( rulecompOp this_expression_6= ruleexpression ) | (otherlv_7= 'and' this_expression_8= ruleexpression ) | (otherlv_9= 'or' this_expression_10= ruleexpression ) | (otherlv_11= 'xor' this_expression_12= ruleexpression ) | (otherlv_13= 'implies' this_expression_14= ruleexpression ) ) ( (lv_recExp_15_0= rulerecExpression ) )?
+            // InternalAle.g:1683:2: ( (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | ( ruleaddOp this_expression_4= ruleexpression ) | ( rulecompOp this_expression_6= ruleexpression ) | (otherlv_7= 'and' this_expression_8= ruleexpression ) | (otherlv_9= 'or' this_expression_10= ruleexpression ) | (otherlv_11= 'xor' this_expression_12= ruleexpression ) | (otherlv_13= 'implies' this_expression_14= ruleexpression ) ) ( (lv_recExp_15_0= rulerecExpression ) )? )
+            // InternalAle.g:1684:3: (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | ( ruleaddOp this_expression_4= ruleexpression ) | ( rulecompOp this_expression_6= ruleexpression ) | (otherlv_7= 'and' this_expression_8= ruleexpression ) | (otherlv_9= 'or' this_expression_10= ruleexpression ) | (otherlv_11= 'xor' this_expression_12= ruleexpression ) | (otherlv_13= 'implies' this_expression_14= ruleexpression ) ) ( (lv_recExp_15_0= rulerecExpression ) )?
             {
-            // InternalMyDsl.g:1684:3: (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | ( ruleaddOp this_expression_4= ruleexpression ) | ( rulecompOp this_expression_6= ruleexpression ) | (otherlv_7= 'and' this_expression_8= ruleexpression ) | (otherlv_9= 'or' this_expression_10= ruleexpression ) | (otherlv_11= 'xor' this_expression_12= ruleexpression ) | (otherlv_13= 'implies' this_expression_14= ruleexpression ) )
-=======
-            // InternalAle.g:1439:2: ( ( (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | (this_addOp_3= ruleaddOp this_expression_4= ruleexpression ) | (this_compOp_5= rulecompOp this_expression_6= ruleexpression ) | (kw= 'and' this_expression_8= ruleexpression ) | (kw= 'or' this_expression_10= ruleexpression ) | (kw= 'xor' this_expression_12= ruleexpression ) | (kw= 'implies' this_expression_14= ruleexpression ) ) (this_recExpression_15= rulerecExpression )? ) )
-            // InternalAle.g:1440:2: ( (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | (this_addOp_3= ruleaddOp this_expression_4= ruleexpression ) | (this_compOp_5= rulecompOp this_expression_6= ruleexpression ) | (kw= 'and' this_expression_8= ruleexpression ) | (kw= 'or' this_expression_10= ruleexpression ) | (kw= 'xor' this_expression_12= ruleexpression ) | (kw= 'implies' this_expression_14= ruleexpression ) ) (this_recExpression_15= rulerecExpression )? )
-            {
-            // InternalAle.g:1440:2: ( (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | (this_addOp_3= ruleaddOp this_expression_4= ruleexpression ) | (this_compOp_5= rulecompOp this_expression_6= ruleexpression ) | (kw= 'and' this_expression_8= ruleexpression ) | (kw= 'or' this_expression_10= ruleexpression ) | (kw= 'xor' this_expression_12= ruleexpression ) | (kw= 'implies' this_expression_14= ruleexpression ) ) (this_recExpression_15= rulerecExpression )? )
-            // InternalAle.g:1441:3: (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | (this_addOp_3= ruleaddOp this_expression_4= ruleexpression ) | (this_compOp_5= rulecompOp this_expression_6= ruleexpression ) | (kw= 'and' this_expression_8= ruleexpression ) | (kw= 'or' this_expression_10= ruleexpression ) | (kw= 'xor' this_expression_12= ruleexpression ) | (kw= 'implies' this_expression_14= ruleexpression ) ) (this_recExpression_15= rulerecExpression )?
-            {
-            // InternalAle.g:1441:3: (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | (this_addOp_3= ruleaddOp this_expression_4= ruleexpression ) | (this_compOp_5= rulecompOp this_expression_6= ruleexpression ) | (kw= 'and' this_expression_8= ruleexpression ) | (kw= 'or' this_expression_10= ruleexpression ) | (kw= 'xor' this_expression_12= ruleexpression ) | (kw= 'implies' this_expression_14= ruleexpression ) )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1684:3: (this_navigationSegment_0= rulenavigationSegment | (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression ) | ( ruleaddOp this_expression_4= ruleexpression ) | ( rulecompOp this_expression_6= ruleexpression ) | (otherlv_7= 'and' this_expression_8= ruleexpression ) | (otherlv_9= 'or' this_expression_10= ruleexpression ) | (otherlv_11= 'xor' this_expression_12= ruleexpression ) | (otherlv_13= 'implies' this_expression_14= ruleexpression ) )
             int alt24=8;
             switch ( input.LA(1) ) {
             case 20:
@@ -5384,11 +4677,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
             switch (alt24) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1685:4: this_navigationSegment_0= rulenavigationSegment
-=======
-                    // InternalAle.g:1442:4: this_navigationSegment_0= rulenavigationSegment
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1685:4: this_navigationSegment_0= rulenavigationSegment
                     {
                     if ( state.backtracking==0 ) {
 
@@ -5415,17 +4704,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1697:4: (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression )
+                    // InternalAle.g:1697:4: (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression )
                     {
-                    // InternalMyDsl.g:1697:4: (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression )
-                    // InternalMyDsl.g:1698:5: this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression
-=======
-                    // InternalAle.g:1453:4: (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression )
-                    {
-                    // InternalAle.g:1453:4: (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression )
-                    // InternalAle.g:1454:5: this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1697:4: (this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression )
+                    // InternalAle.g:1698:5: this_MultOp_1= RULE_MULTOP this_expression_2= ruleexpression
                     {
                     this_MultOp_1=(Token)match(input,RULE_MULTOP,FOLLOW_23); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -5461,17 +4743,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1715:4: ( ruleaddOp this_expression_4= ruleexpression )
+                    // InternalAle.g:1715:4: ( ruleaddOp this_expression_4= ruleexpression )
                     {
-                    // InternalMyDsl.g:1715:4: ( ruleaddOp this_expression_4= ruleexpression )
-                    // InternalMyDsl.g:1716:5: ruleaddOp this_expression_4= ruleexpression
-=======
-                    // InternalAle.g:1473:4: (this_addOp_3= ruleaddOp this_expression_4= ruleexpression )
-                    {
-                    // InternalAle.g:1473:4: (this_addOp_3= ruleaddOp this_expression_4= ruleexpression )
-                    // InternalAle.g:1474:5: this_addOp_3= ruleaddOp this_expression_4= ruleexpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1715:4: ( ruleaddOp this_expression_4= ruleexpression )
+                    // InternalAle.g:1716:5: ruleaddOp this_expression_4= ruleexpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -5521,17 +4796,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1739:4: ( rulecompOp this_expression_6= ruleexpression )
+                    // InternalAle.g:1739:4: ( rulecompOp this_expression_6= ruleexpression )
                     {
-                    // InternalMyDsl.g:1739:4: ( rulecompOp this_expression_6= ruleexpression )
-                    // InternalMyDsl.g:1740:5: rulecompOp this_expression_6= ruleexpression
-=======
-                    // InternalAle.g:1496:4: (this_compOp_5= rulecompOp this_expression_6= ruleexpression )
-                    {
-                    // InternalAle.g:1496:4: (this_compOp_5= rulecompOp this_expression_6= ruleexpression )
-                    // InternalAle.g:1497:5: this_compOp_5= rulecompOp this_expression_6= ruleexpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1739:4: ( rulecompOp this_expression_6= ruleexpression )
+                    // InternalAle.g:1740:5: rulecompOp this_expression_6= ruleexpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -5581,17 +4849,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1763:4: (otherlv_7= 'and' this_expression_8= ruleexpression )
+                    // InternalAle.g:1763:4: (otherlv_7= 'and' this_expression_8= ruleexpression )
                     {
-                    // InternalMyDsl.g:1763:4: (otherlv_7= 'and' this_expression_8= ruleexpression )
-                    // InternalMyDsl.g:1764:5: otherlv_7= 'and' this_expression_8= ruleexpression
-=======
-                    // InternalAle.g:1519:4: (kw= 'and' this_expression_8= ruleexpression )
-                    {
-                    // InternalAle.g:1519:4: (kw= 'and' this_expression_8= ruleexpression )
-                    // InternalAle.g:1520:5: kw= 'and' this_expression_8= ruleexpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1763:4: (otherlv_7= 'and' this_expression_8= ruleexpression )
+                    // InternalAle.g:1764:5: otherlv_7= 'and' this_expression_8= ruleexpression
                     {
                     otherlv_7=(Token)match(input,41,FOLLOW_23); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -5627,17 +4888,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1781:4: (otherlv_9= 'or' this_expression_10= ruleexpression )
+                    // InternalAle.g:1781:4: (otherlv_9= 'or' this_expression_10= ruleexpression )
                     {
-                    // InternalMyDsl.g:1781:4: (otherlv_9= 'or' this_expression_10= ruleexpression )
-                    // InternalMyDsl.g:1782:5: otherlv_9= 'or' this_expression_10= ruleexpression
-=======
-                    // InternalAle.g:1537:4: (kw= 'or' this_expression_10= ruleexpression )
-                    {
-                    // InternalAle.g:1537:4: (kw= 'or' this_expression_10= ruleexpression )
-                    // InternalAle.g:1538:5: kw= 'or' this_expression_10= ruleexpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1781:4: (otherlv_9= 'or' this_expression_10= ruleexpression )
+                    // InternalAle.g:1782:5: otherlv_9= 'or' this_expression_10= ruleexpression
                     {
                     otherlv_9=(Token)match(input,42,FOLLOW_23); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -5673,17 +4927,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1799:4: (otherlv_11= 'xor' this_expression_12= ruleexpression )
+                    // InternalAle.g:1799:4: (otherlv_11= 'xor' this_expression_12= ruleexpression )
                     {
-                    // InternalMyDsl.g:1799:4: (otherlv_11= 'xor' this_expression_12= ruleexpression )
-                    // InternalMyDsl.g:1800:5: otherlv_11= 'xor' this_expression_12= ruleexpression
-=======
-                    // InternalAle.g:1555:4: (kw= 'xor' this_expression_12= ruleexpression )
-                    {
-                    // InternalAle.g:1555:4: (kw= 'xor' this_expression_12= ruleexpression )
-                    // InternalAle.g:1556:5: kw= 'xor' this_expression_12= ruleexpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1799:4: (otherlv_11= 'xor' this_expression_12= ruleexpression )
+                    // InternalAle.g:1800:5: otherlv_11= 'xor' this_expression_12= ruleexpression
                     {
                     otherlv_11=(Token)match(input,43,FOLLOW_23); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -5719,17 +4966,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1817:4: (otherlv_13= 'implies' this_expression_14= ruleexpression )
+                    // InternalAle.g:1817:4: (otherlv_13= 'implies' this_expression_14= ruleexpression )
                     {
-                    // InternalMyDsl.g:1817:4: (otherlv_13= 'implies' this_expression_14= ruleexpression )
-                    // InternalMyDsl.g:1818:5: otherlv_13= 'implies' this_expression_14= ruleexpression
-=======
-                    // InternalAle.g:1573:4: (kw= 'implies' this_expression_14= ruleexpression )
-                    {
-                    // InternalAle.g:1573:4: (kw= 'implies' this_expression_14= ruleexpression )
-                    // InternalAle.g:1574:5: kw= 'implies' this_expression_14= ruleexpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1817:4: (otherlv_13= 'implies' this_expression_14= ruleexpression )
+                    // InternalAle.g:1818:5: otherlv_13= 'implies' this_expression_14= ruleexpression
                     {
                     otherlv_13=(Token)match(input,44,FOLLOW_23); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -5767,23 +5007,15 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
             }
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1835:3: ( (lv_recExp_15_0= rulerecExpression ) )?
-=======
-            // InternalAle.g:1591:3: (this_recExpression_15= rulerecExpression )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1835:3: ( (lv_recExp_15_0= rulerecExpression ) )?
             int alt25=2;
             alt25 = dfa25.predict(input);
             switch (alt25) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1836:4: (lv_recExp_15_0= rulerecExpression )
+                    // InternalAle.g:1836:4: (lv_recExp_15_0= rulerecExpression )
                     {
-                    // InternalMyDsl.g:1836:4: (lv_recExp_15_0= rulerecExpression )
-                    // InternalMyDsl.g:1837:5: lv_recExp_15_0= rulerecExpression
-=======
-                    // InternalAle.g:1592:4: this_recExpression_15= rulerecExpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1836:4: (lv_recExp_15_0= rulerecExpression )
+                    // InternalAle.g:1837:5: lv_recExp_15_0= rulerecExpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -5804,7 +5036,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       						current,
                       						"recExp",
                       						lv_recExp_15_0,
-                      						"org.xtext.example.mydsl.MyDsl.recExpression");
+                      						"org.eclipse.ecoretools.Ale.recExpression");
                       					afterParserOrEnumRuleCall();
                       				
                     }
@@ -5842,27 +5074,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulenavigationSegment"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1858:1: entryRulenavigationSegment returns [EObject current=null] : iv_rulenavigationSegment= rulenavigationSegment EOF ;
+    // InternalAle.g:1858:1: entryRulenavigationSegment returns [EObject current=null] : iv_rulenavigationSegment= rulenavigationSegment EOF ;
     public final EObject entryRulenavigationSegment() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1607:1: entryRulenavigationSegment returns [String current=null] : iv_rulenavigationSegment= rulenavigationSegment EOF ;
-    public final String entryRulenavigationSegment() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_rulenavigationSegment = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1858:58: (iv_rulenavigationSegment= rulenavigationSegment EOF )
-            // InternalMyDsl.g:1859:2: iv_rulenavigationSegment= rulenavigationSegment EOF
-=======
-            // InternalAle.g:1607:57: (iv_rulenavigationSegment= rulenavigationSegment EOF )
-            // InternalAle.g:1608:2: iv_rulenavigationSegment= rulenavigationSegment EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1858:58: (iv_rulenavigationSegment= rulenavigationSegment EOF )
+            // InternalAle.g:1859:2: iv_rulenavigationSegment= rulenavigationSegment EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getNavigationSegmentRule()); 
@@ -5893,15 +5114,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulenavigationSegment"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1865:1: rulenavigationSegment returns [EObject current=null] : ( ( () otherlv_1= '.' ( (lv_ident_2_0= RULE_IDENT ) ) ) | ( () otherlv_4= '.' ( (lv_call_5_0= rulecallExp ) ) ) | ( () otherlv_7= '->' ( (lv_call_8_0= rulecallExp ) ) ) ) ;
+    // InternalAle.g:1865:1: rulenavigationSegment returns [EObject current=null] : ( ( () otherlv_1= '.' ( (lv_ident_2_0= RULE_IDENT ) ) ) | ( () otherlv_4= '.' ( (lv_call_5_0= rulecallExp ) ) ) | ( () otherlv_7= '->' ( (lv_call_8_0= rulecallExp ) ) ) ) ;
     public final EObject rulenavigationSegment() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1614:1: rulenavigationSegment returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (kw= '.' this_Ident_1= RULE_IDENT ) | (kw= '.' this_callExp_3= rulecallExp ) | (kw= '->' this_callExp_5= rulecallExp ) ) ;
-    public final AntlrDatatypeRuleToken rulenavigationSegment() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         Token otherlv_1=null;
         Token lv_ident_2_0=null;
@@ -5916,17 +5131,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1871:2: ( ( ( () otherlv_1= '.' ( (lv_ident_2_0= RULE_IDENT ) ) ) | ( () otherlv_4= '.' ( (lv_call_5_0= rulecallExp ) ) ) | ( () otherlv_7= '->' ( (lv_call_8_0= rulecallExp ) ) ) ) )
-            // InternalMyDsl.g:1872:2: ( ( () otherlv_1= '.' ( (lv_ident_2_0= RULE_IDENT ) ) ) | ( () otherlv_4= '.' ( (lv_call_5_0= rulecallExp ) ) ) | ( () otherlv_7= '->' ( (lv_call_8_0= rulecallExp ) ) ) )
+            // InternalAle.g:1871:2: ( ( ( () otherlv_1= '.' ( (lv_ident_2_0= RULE_IDENT ) ) ) | ( () otherlv_4= '.' ( (lv_call_5_0= rulecallExp ) ) ) | ( () otherlv_7= '->' ( (lv_call_8_0= rulecallExp ) ) ) ) )
+            // InternalAle.g:1872:2: ( ( () otherlv_1= '.' ( (lv_ident_2_0= RULE_IDENT ) ) ) | ( () otherlv_4= '.' ( (lv_call_5_0= rulecallExp ) ) ) | ( () otherlv_7= '->' ( (lv_call_8_0= rulecallExp ) ) ) )
             {
-            // InternalMyDsl.g:1872:2: ( ( () otherlv_1= '.' ( (lv_ident_2_0= RULE_IDENT ) ) ) | ( () otherlv_4= '.' ( (lv_call_5_0= rulecallExp ) ) ) | ( () otherlv_7= '->' ( (lv_call_8_0= rulecallExp ) ) ) )
-=======
-            // InternalAle.g:1620:2: ( ( (kw= '.' this_Ident_1= RULE_IDENT ) | (kw= '.' this_callExp_3= rulecallExp ) | (kw= '->' this_callExp_5= rulecallExp ) ) )
-            // InternalAle.g:1621:2: ( (kw= '.' this_Ident_1= RULE_IDENT ) | (kw= '.' this_callExp_3= rulecallExp ) | (kw= '->' this_callExp_5= rulecallExp ) )
-            {
-            // InternalAle.g:1621:2: ( (kw= '.' this_Ident_1= RULE_IDENT ) | (kw= '.' this_callExp_3= rulecallExp ) | (kw= '->' this_callExp_5= rulecallExp ) )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1872:2: ( ( () otherlv_1= '.' ( (lv_ident_2_0= RULE_IDENT ) ) ) | ( () otherlv_4= '.' ( (lv_call_5_0= rulecallExp ) ) ) | ( () otherlv_7= '->' ( (lv_call_8_0= rulecallExp ) ) ) )
             int alt26=3;
             int LA26_0 = input.LA(1);
 
@@ -5973,20 +5181,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt26) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1873:3: ( () otherlv_1= '.' ( (lv_ident_2_0= RULE_IDENT ) ) )
+                    // InternalAle.g:1873:3: ( () otherlv_1= '.' ( (lv_ident_2_0= RULE_IDENT ) ) )
                     {
-                    // InternalMyDsl.g:1873:3: ( () otherlv_1= '.' ( (lv_ident_2_0= RULE_IDENT ) ) )
-                    // InternalMyDsl.g:1874:4: () otherlv_1= '.' ( (lv_ident_2_0= RULE_IDENT ) )
+                    // InternalAle.g:1873:3: ( () otherlv_1= '.' ( (lv_ident_2_0= RULE_IDENT ) ) )
+                    // InternalAle.g:1874:4: () otherlv_1= '.' ( (lv_ident_2_0= RULE_IDENT ) )
                     {
-                    // InternalMyDsl.g:1874:4: ()
-                    // InternalMyDsl.g:1875:5: 
-=======
-                    // InternalAle.g:1622:3: (kw= '.' this_Ident_1= RULE_IDENT )
-                    {
-                    // InternalAle.g:1622:3: (kw= '.' this_Ident_1= RULE_IDENT )
-                    // InternalAle.g:1623:4: kw= '.' this_Ident_1= RULE_IDENT
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1874:4: ()
+                    // InternalAle.g:1875:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6009,11 +5210,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       				newLeafNode(otherlv_1, grammarAccess.getNavigationSegmentAccess().getFullStopKeyword_0_1());
                       			
                     }
-                    // InternalMyDsl.g:1888:4: ( (lv_ident_2_0= RULE_IDENT ) )
-                    // InternalMyDsl.g:1889:5: (lv_ident_2_0= RULE_IDENT )
+                    // InternalAle.g:1888:4: ( (lv_ident_2_0= RULE_IDENT ) )
+                    // InternalAle.g:1889:5: (lv_ident_2_0= RULE_IDENT )
                     {
-                    // InternalMyDsl.g:1889:5: (lv_ident_2_0= RULE_IDENT )
-                    // InternalMyDsl.g:1890:6: lv_ident_2_0= RULE_IDENT
+                    // InternalAle.g:1889:5: (lv_ident_2_0= RULE_IDENT )
+                    // InternalAle.g:1890:6: lv_ident_2_0= RULE_IDENT
                     {
                     lv_ident_2_0=(Token)match(input,RULE_IDENT,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -6030,7 +5231,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"ident",
                       							lv_ident_2_0,
-                      							"org.xtext.example.mydsl.MyDsl.Ident");
+                      							"org.eclipse.ecoretools.Ale.Ident");
                       					
                     }
 
@@ -6046,20 +5247,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1908:3: ( () otherlv_4= '.' ( (lv_call_5_0= rulecallExp ) ) )
+                    // InternalAle.g:1908:3: ( () otherlv_4= '.' ( (lv_call_5_0= rulecallExp ) ) )
                     {
-                    // InternalMyDsl.g:1908:3: ( () otherlv_4= '.' ( (lv_call_5_0= rulecallExp ) ) )
-                    // InternalMyDsl.g:1909:4: () otherlv_4= '.' ( (lv_call_5_0= rulecallExp ) )
+                    // InternalAle.g:1908:3: ( () otherlv_4= '.' ( (lv_call_5_0= rulecallExp ) ) )
+                    // InternalAle.g:1909:4: () otherlv_4= '.' ( (lv_call_5_0= rulecallExp ) )
                     {
-                    // InternalMyDsl.g:1909:4: ()
-                    // InternalMyDsl.g:1910:5: 
-=======
-                    // InternalAle.g:1637:3: (kw= '.' this_callExp_3= rulecallExp )
-                    {
-                    // InternalAle.g:1637:3: (kw= '.' this_callExp_3= rulecallExp )
-                    // InternalAle.g:1638:4: kw= '.' this_callExp_3= rulecallExp
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1909:4: ()
+                    // InternalAle.g:1910:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6082,11 +5276,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       				newLeafNode(otherlv_4, grammarAccess.getNavigationSegmentAccess().getFullStopKeyword_1_1());
                       			
                     }
-                    // InternalMyDsl.g:1923:4: ( (lv_call_5_0= rulecallExp ) )
-                    // InternalMyDsl.g:1924:5: (lv_call_5_0= rulecallExp )
+                    // InternalAle.g:1923:4: ( (lv_call_5_0= rulecallExp ) )
+                    // InternalAle.g:1924:5: (lv_call_5_0= rulecallExp )
                     {
-                    // InternalMyDsl.g:1924:5: (lv_call_5_0= rulecallExp )
-                    // InternalMyDsl.g:1925:6: lv_call_5_0= rulecallExp
+                    // InternalAle.g:1924:5: (lv_call_5_0= rulecallExp )
+                    // InternalAle.g:1925:6: lv_call_5_0= rulecallExp
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6107,7 +5301,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"call",
                       							lv_call_5_0,
-                      							"org.xtext.example.mydsl.MyDsl.callExp");
+                      							"org.eclipse.ecoretools.Ale.callExp");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -6124,20 +5318,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1944:3: ( () otherlv_7= '->' ( (lv_call_8_0= rulecallExp ) ) )
+                    // InternalAle.g:1944:3: ( () otherlv_7= '->' ( (lv_call_8_0= rulecallExp ) ) )
                     {
-                    // InternalMyDsl.g:1944:3: ( () otherlv_7= '->' ( (lv_call_8_0= rulecallExp ) ) )
-                    // InternalMyDsl.g:1945:4: () otherlv_7= '->' ( (lv_call_8_0= rulecallExp ) )
+                    // InternalAle.g:1944:3: ( () otherlv_7= '->' ( (lv_call_8_0= rulecallExp ) ) )
+                    // InternalAle.g:1945:4: () otherlv_7= '->' ( (lv_call_8_0= rulecallExp ) )
                     {
-                    // InternalMyDsl.g:1945:4: ()
-                    // InternalMyDsl.g:1946:5: 
-=======
-                    // InternalAle.g:1655:3: (kw= '->' this_callExp_5= rulecallExp )
-                    {
-                    // InternalAle.g:1655:3: (kw= '->' this_callExp_5= rulecallExp )
-                    // InternalAle.g:1656:4: kw= '->' this_callExp_5= rulecallExp
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1945:4: ()
+                    // InternalAle.g:1946:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6160,11 +5347,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       				newLeafNode(otherlv_7, grammarAccess.getNavigationSegmentAccess().getHyphenMinusGreaterThanSignKeyword_2_1());
                       			
                     }
-                    // InternalMyDsl.g:1959:4: ( (lv_call_8_0= rulecallExp ) )
-                    // InternalMyDsl.g:1960:5: (lv_call_8_0= rulecallExp )
+                    // InternalAle.g:1959:4: ( (lv_call_8_0= rulecallExp ) )
+                    // InternalAle.g:1960:5: (lv_call_8_0= rulecallExp )
                     {
-                    // InternalMyDsl.g:1960:5: (lv_call_8_0= rulecallExp )
-                    // InternalMyDsl.g:1961:6: lv_call_8_0= rulecallExp
+                    // InternalAle.g:1960:5: (lv_call_8_0= rulecallExp )
+                    // InternalAle.g:1961:6: lv_call_8_0= rulecallExp
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6185,7 +5372,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"call",
                       							lv_call_8_0,
-                      							"org.xtext.example.mydsl.MyDsl.callExp");
+                      							"org.eclipse.ecoretools.Ale.callExp");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -6226,27 +5413,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulenonLeftRecExpression"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1983:1: entryRulenonLeftRecExpression returns [EObject current=null] : iv_rulenonLeftRecExpression= rulenonLeftRecExpression EOF ;
+    // InternalAle.g:1983:1: entryRulenonLeftRecExpression returns [EObject current=null] : iv_rulenonLeftRecExpression= rulenonLeftRecExpression EOF ;
     public final EObject entryRulenonLeftRecExpression() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1676:1: entryRulenonLeftRecExpression returns [String current=null] : iv_rulenonLeftRecExpression= rulenonLeftRecExpression EOF ;
-    public final String entryRulenonLeftRecExpression() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_rulenonLeftRecExpression = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1983:61: (iv_rulenonLeftRecExpression= rulenonLeftRecExpression EOF )
-            // InternalMyDsl.g:1984:2: iv_rulenonLeftRecExpression= rulenonLeftRecExpression EOF
-=======
-            // InternalAle.g:1676:60: (iv_rulenonLeftRecExpression= rulenonLeftRecExpression EOF )
-            // InternalAle.g:1677:2: iv_rulenonLeftRecExpression= rulenonLeftRecExpression EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1983:61: (iv_rulenonLeftRecExpression= rulenonLeftRecExpression EOF )
+            // InternalAle.g:1984:2: iv_rulenonLeftRecExpression= rulenonLeftRecExpression EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getNonLeftRecExpressionRule()); 
@@ -6277,15 +5453,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulenonLeftRecExpression"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:1990:1: rulenonLeftRecExpression returns [EObject current=null] : ( (otherlv_0= 'not' this_expression_1= ruleexpression ) | (otherlv_2= '-' this_expression_3= ruleexpression ) | this_Ident_4= RULE_IDENT | this_literal_5= ruleliteral | (otherlv_6= '(' this_expression_7= ruleexpression otherlv_8= ')' ) | (otherlv_9= 'if' ( (lv_condition_10_0= ruleexpression ) ) otherlv_11= 'then' ( (lv_ifBlock_12_0= ruleexpression ) ) otherlv_13= 'else' ( (lv_elseBlock_14_0= ruleexpression ) ) otherlv_15= 'endif' ) | (otherlv_16= 'let' ( (lv_bindings_17_0= rulebinding ) ) (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )* otherlv_20= 'in' ( (lv_letExpr_21_0= ruleexpression ) ) ) ) ;
+    // InternalAle.g:1990:1: rulenonLeftRecExpression returns [EObject current=null] : ( (otherlv_0= 'not' this_expression_1= ruleexpression ) | (otherlv_2= '-' this_expression_3= ruleexpression ) | this_Ident_4= RULE_IDENT | this_literal_5= ruleliteral | (otherlv_6= '(' this_expression_7= ruleexpression otherlv_8= ')' ) | (otherlv_9= 'if' ( (lv_condition_10_0= ruleexpression ) ) otherlv_11= 'then' ( (lv_ifBlock_12_0= ruleexpression ) ) otherlv_13= 'else' ( (lv_elseBlock_14_0= ruleexpression ) ) otherlv_15= 'endif' ) | (otherlv_16= 'let' ( (lv_bindings_17_0= rulebinding ) ) (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )* otherlv_20= 'in' ( (lv_letExpr_21_0= ruleexpression ) ) ) ) ;
     public final EObject rulenonLeftRecExpression() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1683:1: rulenonLeftRecExpression returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (kw= 'not' this_expression_1= ruleexpression ) | (kw= '-' this_expression_3= ruleexpression ) | this_Ident_4= RULE_IDENT | this_literal_5= ruleliteral | (kw= '(' this_expression_7= ruleexpression kw= ')' ) | (kw= 'if' this_expression_10= ruleexpression kw= 'then' this_expression_12= ruleexpression kw= 'else' this_expression_14= ruleexpression kw= 'endif' ) | (kw= 'let' this_binding_17= rulebinding (kw= ',' this_binding_19= rulebinding )* kw= 'in' this_expression_21= ruleexpression ) ) ;
-    public final AntlrDatatypeRuleToken rulenonLeftRecExpression() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         Token otherlv_0=null;
         Token otherlv_2=null;
@@ -6324,17 +5494,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:1996:2: ( ( (otherlv_0= 'not' this_expression_1= ruleexpression ) | (otherlv_2= '-' this_expression_3= ruleexpression ) | this_Ident_4= RULE_IDENT | this_literal_5= ruleliteral | (otherlv_6= '(' this_expression_7= ruleexpression otherlv_8= ')' ) | (otherlv_9= 'if' ( (lv_condition_10_0= ruleexpression ) ) otherlv_11= 'then' ( (lv_ifBlock_12_0= ruleexpression ) ) otherlv_13= 'else' ( (lv_elseBlock_14_0= ruleexpression ) ) otherlv_15= 'endif' ) | (otherlv_16= 'let' ( (lv_bindings_17_0= rulebinding ) ) (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )* otherlv_20= 'in' ( (lv_letExpr_21_0= ruleexpression ) ) ) ) )
-            // InternalMyDsl.g:1997:2: ( (otherlv_0= 'not' this_expression_1= ruleexpression ) | (otherlv_2= '-' this_expression_3= ruleexpression ) | this_Ident_4= RULE_IDENT | this_literal_5= ruleliteral | (otherlv_6= '(' this_expression_7= ruleexpression otherlv_8= ')' ) | (otherlv_9= 'if' ( (lv_condition_10_0= ruleexpression ) ) otherlv_11= 'then' ( (lv_ifBlock_12_0= ruleexpression ) ) otherlv_13= 'else' ( (lv_elseBlock_14_0= ruleexpression ) ) otherlv_15= 'endif' ) | (otherlv_16= 'let' ( (lv_bindings_17_0= rulebinding ) ) (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )* otherlv_20= 'in' ( (lv_letExpr_21_0= ruleexpression ) ) ) )
+            // InternalAle.g:1996:2: ( ( (otherlv_0= 'not' this_expression_1= ruleexpression ) | (otherlv_2= '-' this_expression_3= ruleexpression ) | this_Ident_4= RULE_IDENT | this_literal_5= ruleliteral | (otherlv_6= '(' this_expression_7= ruleexpression otherlv_8= ')' ) | (otherlv_9= 'if' ( (lv_condition_10_0= ruleexpression ) ) otherlv_11= 'then' ( (lv_ifBlock_12_0= ruleexpression ) ) otherlv_13= 'else' ( (lv_elseBlock_14_0= ruleexpression ) ) otherlv_15= 'endif' ) | (otherlv_16= 'let' ( (lv_bindings_17_0= rulebinding ) ) (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )* otherlv_20= 'in' ( (lv_letExpr_21_0= ruleexpression ) ) ) ) )
+            // InternalAle.g:1997:2: ( (otherlv_0= 'not' this_expression_1= ruleexpression ) | (otherlv_2= '-' this_expression_3= ruleexpression ) | this_Ident_4= RULE_IDENT | this_literal_5= ruleliteral | (otherlv_6= '(' this_expression_7= ruleexpression otherlv_8= ')' ) | (otherlv_9= 'if' ( (lv_condition_10_0= ruleexpression ) ) otherlv_11= 'then' ( (lv_ifBlock_12_0= ruleexpression ) ) otherlv_13= 'else' ( (lv_elseBlock_14_0= ruleexpression ) ) otherlv_15= 'endif' ) | (otherlv_16= 'let' ( (lv_bindings_17_0= rulebinding ) ) (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )* otherlv_20= 'in' ( (lv_letExpr_21_0= ruleexpression ) ) ) )
             {
-            // InternalMyDsl.g:1997:2: ( (otherlv_0= 'not' this_expression_1= ruleexpression ) | (otherlv_2= '-' this_expression_3= ruleexpression ) | this_Ident_4= RULE_IDENT | this_literal_5= ruleliteral | (otherlv_6= '(' this_expression_7= ruleexpression otherlv_8= ')' ) | (otherlv_9= 'if' ( (lv_condition_10_0= ruleexpression ) ) otherlv_11= 'then' ( (lv_ifBlock_12_0= ruleexpression ) ) otherlv_13= 'else' ( (lv_elseBlock_14_0= ruleexpression ) ) otherlv_15= 'endif' ) | (otherlv_16= 'let' ( (lv_bindings_17_0= rulebinding ) ) (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )* otherlv_20= 'in' ( (lv_letExpr_21_0= ruleexpression ) ) ) )
-=======
-            // InternalAle.g:1689:2: ( ( (kw= 'not' this_expression_1= ruleexpression ) | (kw= '-' this_expression_3= ruleexpression ) | this_Ident_4= RULE_IDENT | this_literal_5= ruleliteral | (kw= '(' this_expression_7= ruleexpression kw= ')' ) | (kw= 'if' this_expression_10= ruleexpression kw= 'then' this_expression_12= ruleexpression kw= 'else' this_expression_14= ruleexpression kw= 'endif' ) | (kw= 'let' this_binding_17= rulebinding (kw= ',' this_binding_19= rulebinding )* kw= 'in' this_expression_21= ruleexpression ) ) )
-            // InternalAle.g:1690:2: ( (kw= 'not' this_expression_1= ruleexpression ) | (kw= '-' this_expression_3= ruleexpression ) | this_Ident_4= RULE_IDENT | this_literal_5= ruleliteral | (kw= '(' this_expression_7= ruleexpression kw= ')' ) | (kw= 'if' this_expression_10= ruleexpression kw= 'then' this_expression_12= ruleexpression kw= 'else' this_expression_14= ruleexpression kw= 'endif' ) | (kw= 'let' this_binding_17= rulebinding (kw= ',' this_binding_19= rulebinding )* kw= 'in' this_expression_21= ruleexpression ) )
-            {
-            // InternalAle.g:1690:2: ( (kw= 'not' this_expression_1= ruleexpression ) | (kw= '-' this_expression_3= ruleexpression ) | this_Ident_4= RULE_IDENT | this_literal_5= ruleliteral | (kw= '(' this_expression_7= ruleexpression kw= ')' ) | (kw= 'if' this_expression_10= ruleexpression kw= 'then' this_expression_12= ruleexpression kw= 'else' this_expression_14= ruleexpression kw= 'endif' ) | (kw= 'let' this_binding_17= rulebinding (kw= ',' this_binding_19= rulebinding )* kw= 'in' this_expression_21= ruleexpression ) )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:1997:2: ( (otherlv_0= 'not' this_expression_1= ruleexpression ) | (otherlv_2= '-' this_expression_3= ruleexpression ) | this_Ident_4= RULE_IDENT | this_literal_5= ruleliteral | (otherlv_6= '(' this_expression_7= ruleexpression otherlv_8= ')' ) | (otherlv_9= 'if' ( (lv_condition_10_0= ruleexpression ) ) otherlv_11= 'then' ( (lv_ifBlock_12_0= ruleexpression ) ) otherlv_13= 'else' ( (lv_elseBlock_14_0= ruleexpression ) ) otherlv_15= 'endif' ) | (otherlv_16= 'let' ( (lv_bindings_17_0= rulebinding ) ) (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )* otherlv_20= 'in' ( (lv_letExpr_21_0= ruleexpression ) ) ) )
             int alt28=7;
             switch ( input.LA(1) ) {
             case 46:
@@ -6410,17 +5573,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
             switch (alt28) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:1998:3: (otherlv_0= 'not' this_expression_1= ruleexpression )
+                    // InternalAle.g:1998:3: (otherlv_0= 'not' this_expression_1= ruleexpression )
                     {
-                    // InternalMyDsl.g:1998:3: (otherlv_0= 'not' this_expression_1= ruleexpression )
-                    // InternalMyDsl.g:1999:4: otherlv_0= 'not' this_expression_1= ruleexpression
-=======
-                    // InternalAle.g:1691:3: (kw= 'not' this_expression_1= ruleexpression )
-                    {
-                    // InternalAle.g:1691:3: (kw= 'not' this_expression_1= ruleexpression )
-                    // InternalAle.g:1692:4: kw= 'not' this_expression_1= ruleexpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:1998:3: (otherlv_0= 'not' this_expression_1= ruleexpression )
+                    // InternalAle.g:1999:4: otherlv_0= 'not' this_expression_1= ruleexpression
                     {
                     otherlv_0=(Token)match(input,46,FOLLOW_23); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -6456,17 +5612,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2016:3: (otherlv_2= '-' this_expression_3= ruleexpression )
+                    // InternalAle.g:2016:3: (otherlv_2= '-' this_expression_3= ruleexpression )
                     {
-                    // InternalMyDsl.g:2016:3: (otherlv_2= '-' this_expression_3= ruleexpression )
-                    // InternalMyDsl.g:2017:4: otherlv_2= '-' this_expression_3= ruleexpression
-=======
-                    // InternalAle.g:1709:3: (kw= '-' this_expression_3= ruleexpression )
-                    {
-                    // InternalAle.g:1709:3: (kw= '-' this_expression_3= ruleexpression )
-                    // InternalAle.g:1710:4: kw= '-' this_expression_3= ruleexpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2016:3: (otherlv_2= '-' this_expression_3= ruleexpression )
+                    // InternalAle.g:2017:4: otherlv_2= '-' this_expression_3= ruleexpression
                     {
                     otherlv_2=(Token)match(input,47,FOLLOW_23); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -6502,11 +5651,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2034:3: this_Ident_4= RULE_IDENT
-=======
-                    // InternalAle.g:1727:3: this_Ident_4= RULE_IDENT
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2034:3: this_Ident_4= RULE_IDENT
                     {
                     this_Ident_4=(Token)match(input,RULE_IDENT,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -6518,11 +5663,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2039:3: this_literal_5= ruleliteral
-=======
-                    // InternalAle.g:1735:3: this_literal_5= ruleliteral
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2039:3: this_literal_5= ruleliteral
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6549,17 +5690,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2051:3: (otherlv_6= '(' this_expression_7= ruleexpression otherlv_8= ')' )
+                    // InternalAle.g:2051:3: (otherlv_6= '(' this_expression_7= ruleexpression otherlv_8= ')' )
                     {
-                    // InternalMyDsl.g:2051:3: (otherlv_6= '(' this_expression_7= ruleexpression otherlv_8= ')' )
-                    // InternalMyDsl.g:2052:4: otherlv_6= '(' this_expression_7= ruleexpression otherlv_8= ')'
-=======
-                    // InternalAle.g:1746:3: (kw= '(' this_expression_7= ruleexpression kw= ')' )
-                    {
-                    // InternalAle.g:1746:3: (kw= '(' this_expression_7= ruleexpression kw= ')' )
-                    // InternalAle.g:1747:4: kw= '(' this_expression_7= ruleexpression kw= ')'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2051:3: (otherlv_6= '(' this_expression_7= ruleexpression otherlv_8= ')' )
+                    // InternalAle.g:2052:4: otherlv_6= '(' this_expression_7= ruleexpression otherlv_8= ')'
                     {
                     otherlv_6=(Token)match(input,29,FOLLOW_23); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -6601,17 +5735,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2073:3: (otherlv_9= 'if' ( (lv_condition_10_0= ruleexpression ) ) otherlv_11= 'then' ( (lv_ifBlock_12_0= ruleexpression ) ) otherlv_13= 'else' ( (lv_elseBlock_14_0= ruleexpression ) ) otherlv_15= 'endif' )
+                    // InternalAle.g:2073:3: (otherlv_9= 'if' ( (lv_condition_10_0= ruleexpression ) ) otherlv_11= 'then' ( (lv_ifBlock_12_0= ruleexpression ) ) otherlv_13= 'else' ( (lv_elseBlock_14_0= ruleexpression ) ) otherlv_15= 'endif' )
                     {
-                    // InternalMyDsl.g:2073:3: (otherlv_9= 'if' ( (lv_condition_10_0= ruleexpression ) ) otherlv_11= 'then' ( (lv_ifBlock_12_0= ruleexpression ) ) otherlv_13= 'else' ( (lv_elseBlock_14_0= ruleexpression ) ) otherlv_15= 'endif' )
-                    // InternalMyDsl.g:2074:4: otherlv_9= 'if' ( (lv_condition_10_0= ruleexpression ) ) otherlv_11= 'then' ( (lv_ifBlock_12_0= ruleexpression ) ) otherlv_13= 'else' ( (lv_elseBlock_14_0= ruleexpression ) ) otherlv_15= 'endif'
-=======
-                    // InternalAle.g:1769:3: (kw= 'if' this_expression_10= ruleexpression kw= 'then' this_expression_12= ruleexpression kw= 'else' this_expression_14= ruleexpression kw= 'endif' )
-                    {
-                    // InternalAle.g:1769:3: (kw= 'if' this_expression_10= ruleexpression kw= 'then' this_expression_12= ruleexpression kw= 'else' this_expression_14= ruleexpression kw= 'endif' )
-                    // InternalAle.g:1770:4: kw= 'if' this_expression_10= ruleexpression kw= 'then' this_expression_12= ruleexpression kw= 'else' this_expression_14= ruleexpression kw= 'endif'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2073:3: (otherlv_9= 'if' ( (lv_condition_10_0= ruleexpression ) ) otherlv_11= 'then' ( (lv_ifBlock_12_0= ruleexpression ) ) otherlv_13= 'else' ( (lv_elseBlock_14_0= ruleexpression ) ) otherlv_15= 'endif' )
+                    // InternalAle.g:2074:4: otherlv_9= 'if' ( (lv_condition_10_0= ruleexpression ) ) otherlv_11= 'then' ( (lv_ifBlock_12_0= ruleexpression ) ) otherlv_13= 'else' ( (lv_elseBlock_14_0= ruleexpression ) ) otherlv_15= 'endif'
                     {
                     otherlv_9=(Token)match(input,38,FOLLOW_23); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -6619,11 +5746,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       				newLeafNode(otherlv_9, grammarAccess.getNonLeftRecExpressionAccess().getIfKeyword_5_0());
                       			
                     }
-                    // InternalMyDsl.g:2078:4: ( (lv_condition_10_0= ruleexpression ) )
-                    // InternalMyDsl.g:2079:5: (lv_condition_10_0= ruleexpression )
+                    // InternalAle.g:2078:4: ( (lv_condition_10_0= ruleexpression ) )
+                    // InternalAle.g:2079:5: (lv_condition_10_0= ruleexpression )
                     {
-                    // InternalMyDsl.g:2079:5: (lv_condition_10_0= ruleexpression )
-                    // InternalMyDsl.g:2080:6: lv_condition_10_0= ruleexpression
+                    // InternalAle.g:2079:5: (lv_condition_10_0= ruleexpression )
+                    // InternalAle.g:2080:6: lv_condition_10_0= ruleexpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6644,7 +5771,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"condition",
                       							lv_condition_10_0,
-                      							"org.xtext.example.mydsl.MyDsl.expression");
+                      							"org.eclipse.ecoretools.Ale.expression");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -6660,11 +5787,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       				newLeafNode(otherlv_11, grammarAccess.getNonLeftRecExpressionAccess().getThenKeyword_5_2());
                       			
                     }
-                    // InternalMyDsl.g:2101:4: ( (lv_ifBlock_12_0= ruleexpression ) )
-                    // InternalMyDsl.g:2102:5: (lv_ifBlock_12_0= ruleexpression )
+                    // InternalAle.g:2101:4: ( (lv_ifBlock_12_0= ruleexpression ) )
+                    // InternalAle.g:2102:5: (lv_ifBlock_12_0= ruleexpression )
                     {
-                    // InternalMyDsl.g:2102:5: (lv_ifBlock_12_0= ruleexpression )
-                    // InternalMyDsl.g:2103:6: lv_ifBlock_12_0= ruleexpression
+                    // InternalAle.g:2102:5: (lv_ifBlock_12_0= ruleexpression )
+                    // InternalAle.g:2103:6: lv_ifBlock_12_0= ruleexpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6685,7 +5812,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"ifBlock",
                       							lv_ifBlock_12_0,
-                      							"org.xtext.example.mydsl.MyDsl.expression");
+                      							"org.eclipse.ecoretools.Ale.expression");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -6701,11 +5828,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       				newLeafNode(otherlv_13, grammarAccess.getNonLeftRecExpressionAccess().getElseKeyword_5_4());
                       			
                     }
-                    // InternalMyDsl.g:2124:4: ( (lv_elseBlock_14_0= ruleexpression ) )
-                    // InternalMyDsl.g:2125:5: (lv_elseBlock_14_0= ruleexpression )
+                    // InternalAle.g:2124:4: ( (lv_elseBlock_14_0= ruleexpression ) )
+                    // InternalAle.g:2125:5: (lv_elseBlock_14_0= ruleexpression )
                     {
-                    // InternalMyDsl.g:2125:5: (lv_elseBlock_14_0= ruleexpression )
-                    // InternalMyDsl.g:2126:6: lv_elseBlock_14_0= ruleexpression
+                    // InternalAle.g:2125:5: (lv_elseBlock_14_0= ruleexpression )
+                    // InternalAle.g:2126:6: lv_elseBlock_14_0= ruleexpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6726,7 +5853,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"elseBlock",
                       							lv_elseBlock_14_0,
-                      							"org.xtext.example.mydsl.MyDsl.expression");
+                      							"org.eclipse.ecoretools.Ale.expression");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -6749,17 +5876,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2149:3: (otherlv_16= 'let' ( (lv_bindings_17_0= rulebinding ) ) (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )* otherlv_20= 'in' ( (lv_letExpr_21_0= ruleexpression ) ) )
+                    // InternalAle.g:2149:3: (otherlv_16= 'let' ( (lv_bindings_17_0= rulebinding ) ) (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )* otherlv_20= 'in' ( (lv_letExpr_21_0= ruleexpression ) ) )
                     {
-                    // InternalMyDsl.g:2149:3: (otherlv_16= 'let' ( (lv_bindings_17_0= rulebinding ) ) (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )* otherlv_20= 'in' ( (lv_letExpr_21_0= ruleexpression ) ) )
-                    // InternalMyDsl.g:2150:4: otherlv_16= 'let' ( (lv_bindings_17_0= rulebinding ) ) (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )* otherlv_20= 'in' ( (lv_letExpr_21_0= ruleexpression ) )
-=======
-                    // InternalAle.g:1822:3: (kw= 'let' this_binding_17= rulebinding (kw= ',' this_binding_19= rulebinding )* kw= 'in' this_expression_21= ruleexpression )
-                    {
-                    // InternalAle.g:1822:3: (kw= 'let' this_binding_17= rulebinding (kw= ',' this_binding_19= rulebinding )* kw= 'in' this_expression_21= ruleexpression )
-                    // InternalAle.g:1823:4: kw= 'let' this_binding_17= rulebinding (kw= ',' this_binding_19= rulebinding )* kw= 'in' this_expression_21= ruleexpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2149:3: (otherlv_16= 'let' ( (lv_bindings_17_0= rulebinding ) ) (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )* otherlv_20= 'in' ( (lv_letExpr_21_0= ruleexpression ) ) )
+                    // InternalAle.g:2150:4: otherlv_16= 'let' ( (lv_bindings_17_0= rulebinding ) ) (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )* otherlv_20= 'in' ( (lv_letExpr_21_0= ruleexpression ) )
                     {
                     otherlv_16=(Token)match(input,50,FOLLOW_3); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -6767,11 +5887,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       				newLeafNode(otherlv_16, grammarAccess.getNonLeftRecExpressionAccess().getLetKeyword_6_0());
                       			
                     }
-                    // InternalMyDsl.g:2154:4: ( (lv_bindings_17_0= rulebinding ) )
-                    // InternalMyDsl.g:2155:5: (lv_bindings_17_0= rulebinding )
+                    // InternalAle.g:2154:4: ( (lv_bindings_17_0= rulebinding ) )
+                    // InternalAle.g:2155:5: (lv_bindings_17_0= rulebinding )
                     {
-                    // InternalMyDsl.g:2155:5: (lv_bindings_17_0= rulebinding )
-                    // InternalMyDsl.g:2156:6: lv_bindings_17_0= rulebinding
+                    // InternalAle.g:2155:5: (lv_bindings_17_0= rulebinding )
+                    // InternalAle.g:2156:6: lv_bindings_17_0= rulebinding
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6792,21 +5912,17 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"bindings",
                       							lv_bindings_17_0,
-                      							"org.xtext.example.mydsl.MyDsl.binding");
+                      							"org.eclipse.ecoretools.Ale.binding");
                       						afterParserOrEnumRuleCall();
                       					
                     }
 
                     }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
 
 
                     }
 
-                    // InternalMyDsl.g:2173:4: (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )*
-=======
-                    // InternalAle.g:1838:4: (kw= ',' this_binding_19= rulebinding )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2173:4: (otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) ) )*
                     loop27:
                     do {
                         int alt27=2;
@@ -6819,11 +5935,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                         switch (alt27) {
                     	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    	    // InternalMyDsl.g:2174:5: otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) )
-=======
-                    	    // InternalAle.g:1839:5: kw= ',' this_binding_19= rulebinding
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    	    // InternalAle.g:2174:5: otherlv_18= ',' ( (lv_bindings_19_0= rulebinding ) )
                     	    {
                     	    otherlv_18=(Token)match(input,24,FOLLOW_3); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
@@ -6831,11 +5943,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     	      					newLeafNode(otherlv_18, grammarAccess.getNonLeftRecExpressionAccess().getCommaKeyword_6_2_0());
                     	      				
                     	    }
-                    	    // InternalMyDsl.g:2178:5: ( (lv_bindings_19_0= rulebinding ) )
-                    	    // InternalMyDsl.g:2179:6: (lv_bindings_19_0= rulebinding )
+                    	    // InternalAle.g:2178:5: ( (lv_bindings_19_0= rulebinding ) )
+                    	    // InternalAle.g:2179:6: (lv_bindings_19_0= rulebinding )
                     	    {
-                    	    // InternalMyDsl.g:2179:6: (lv_bindings_19_0= rulebinding )
-                    	    // InternalMyDsl.g:2180:7: lv_bindings_19_0= rulebinding
+                    	    // InternalAle.g:2179:6: (lv_bindings_19_0= rulebinding )
+                    	    // InternalAle.g:2180:7: lv_bindings_19_0= rulebinding
                     	    {
                     	    if ( state.backtracking==0 ) {
 
@@ -6856,7 +5968,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     	      								current,
                     	      								"bindings",
                     	      								lv_bindings_19_0,
-                    	      								"org.xtext.example.mydsl.MyDsl.binding");
+                    	      								"org.eclipse.ecoretools.Ale.binding");
                     	      							afterParserOrEnumRuleCall();
                     	      						
                     	    }
@@ -6881,11 +5993,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       				newLeafNode(otherlv_20, grammarAccess.getNonLeftRecExpressionAccess().getInKeyword_6_3());
                       			
                     }
-                    // InternalMyDsl.g:2202:4: ( (lv_letExpr_21_0= ruleexpression ) )
-                    // InternalMyDsl.g:2203:5: (lv_letExpr_21_0= ruleexpression )
+                    // InternalAle.g:2202:4: ( (lv_letExpr_21_0= ruleexpression ) )
+                    // InternalAle.g:2203:5: (lv_letExpr_21_0= ruleexpression )
                     {
-                    // InternalMyDsl.g:2203:5: (lv_letExpr_21_0= ruleexpression )
-                    // InternalMyDsl.g:2204:6: lv_letExpr_21_0= ruleexpression
+                    // InternalAle.g:2203:5: (lv_letExpr_21_0= ruleexpression )
+                    // InternalAle.g:2204:6: lv_letExpr_21_0= ruleexpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6906,7 +6018,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"letExpr",
                       							lv_letExpr_21_0,
-                      							"org.xtext.example.mydsl.MyDsl.expression");
+                      							"org.eclipse.ecoretools.Ale.expression");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -6947,27 +6059,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulebinding"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2226:1: entryRulebinding returns [EObject current=null] : iv_rulebinding= rulebinding EOF ;
+    // InternalAle.g:2226:1: entryRulebinding returns [EObject current=null] : iv_rulebinding= rulebinding EOF ;
     public final EObject entryRulebinding() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1875:1: entryRulebinding returns [String current=null] : iv_rulebinding= rulebinding EOF ;
-    public final String entryRulebinding() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_rulebinding = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2226:48: (iv_rulebinding= rulebinding EOF )
-            // InternalMyDsl.g:2227:2: iv_rulebinding= rulebinding EOF
-=======
-            // InternalAle.g:1875:47: (iv_rulebinding= rulebinding EOF )
-            // InternalAle.g:1876:2: iv_rulebinding= rulebinding EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2226:48: (iv_rulebinding= rulebinding EOF )
+            // InternalAle.g:2227:2: iv_rulebinding= rulebinding EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getBindingRule()); 
@@ -6998,15 +6099,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulebinding"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2233:1: rulebinding returns [EObject current=null] : (this_Ident_0= RULE_IDENT (otherlv_1= ':' ruletypeLiteral )? otherlv_3= '=' this_expression_4= ruleexpression ) ;
+    // InternalAle.g:2233:1: rulebinding returns [EObject current=null] : (this_Ident_0= RULE_IDENT (otherlv_1= ':' ruletypeLiteral )? otherlv_3= '=' this_expression_4= ruleexpression ) ;
     public final EObject rulebinding() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:1882:1: rulebinding returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '=' this_expression_4= ruleexpression ) ;
-    public final AntlrDatatypeRuleToken rulebinding() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         Token this_Ident_0=null;
         Token otherlv_1=null;
@@ -7018,19 +6113,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2239:2: ( (this_Ident_0= RULE_IDENT (otherlv_1= ':' ruletypeLiteral )? otherlv_3= '=' this_expression_4= ruleexpression ) )
-            // InternalMyDsl.g:2240:2: (this_Ident_0= RULE_IDENT (otherlv_1= ':' ruletypeLiteral )? otherlv_3= '=' this_expression_4= ruleexpression )
+            // InternalAle.g:2239:2: ( (this_Ident_0= RULE_IDENT (otherlv_1= ':' ruletypeLiteral )? otherlv_3= '=' this_expression_4= ruleexpression ) )
+            // InternalAle.g:2240:2: (this_Ident_0= RULE_IDENT (otherlv_1= ':' ruletypeLiteral )? otherlv_3= '=' this_expression_4= ruleexpression )
             {
-            // InternalMyDsl.g:2240:2: (this_Ident_0= RULE_IDENT (otherlv_1= ':' ruletypeLiteral )? otherlv_3= '=' this_expression_4= ruleexpression )
-            // InternalMyDsl.g:2241:3: this_Ident_0= RULE_IDENT (otherlv_1= ':' ruletypeLiteral )? otherlv_3= '=' this_expression_4= ruleexpression
-=======
-            // InternalAle.g:1888:2: ( (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '=' this_expression_4= ruleexpression ) )
-            // InternalAle.g:1889:2: (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '=' this_expression_4= ruleexpression )
-            {
-            // InternalAle.g:1889:2: (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '=' this_expression_4= ruleexpression )
-            // InternalAle.g:1890:3: this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '=' this_expression_4= ruleexpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2240:2: (this_Ident_0= RULE_IDENT (otherlv_1= ':' ruletypeLiteral )? otherlv_3= '=' this_expression_4= ruleexpression )
+            // InternalAle.g:2241:3: this_Ident_0= RULE_IDENT (otherlv_1= ':' ruletypeLiteral )? otherlv_3= '=' this_expression_4= ruleexpression
             {
             this_Ident_0=(Token)match(input,RULE_IDENT,FOLLOW_38); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -7038,11 +6125,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(this_Ident_0, grammarAccess.getBindingAccess().getIdentTerminalRuleCall_0());
               		
             }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2245:3: (otherlv_1= ':' ruletypeLiteral )?
-=======
-            // InternalAle.g:1897:3: (kw= ':' this_typeLiteral_2= ruletypeLiteral )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2245:3: (otherlv_1= ':' ruletypeLiteral )?
             int alt29=2;
             int LA29_0 = input.LA(1);
 
@@ -7051,11 +6134,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt29) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2246:4: otherlv_1= ':' ruletypeLiteral
-=======
-                    // InternalAle.g:1898:4: kw= ':' this_typeLiteral_2= ruletypeLiteral
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2246:4: otherlv_1= ':' ruletypeLiteral
                     {
                     otherlv_1=(Token)match(input,51,FOLLOW_17); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -7141,11 +6220,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleaddOp"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2280:1: entryRuleaddOp returns [String current=null] : iv_ruleaddOp= ruleaddOp EOF ;
-=======
-    // InternalAle.g:1933:1: entryRuleaddOp returns [String current=null] : iv_ruleaddOp= ruleaddOp EOF ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:2280:1: entryRuleaddOp returns [String current=null] : iv_ruleaddOp= ruleaddOp EOF ;
     public final String entryRuleaddOp() throws RecognitionException {
         String current = null;
 
@@ -7153,13 +6228,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2280:45: (iv_ruleaddOp= ruleaddOp EOF )
-            // InternalMyDsl.g:2281:2: iv_ruleaddOp= ruleaddOp EOF
-=======
-            // InternalAle.g:1933:45: (iv_ruleaddOp= ruleaddOp EOF )
-            // InternalAle.g:1934:2: iv_ruleaddOp= ruleaddOp EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2280:45: (iv_ruleaddOp= ruleaddOp EOF )
+            // InternalAle.g:2281:2: iv_ruleaddOp= ruleaddOp EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAddOpRule()); 
@@ -7190,11 +6260,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleaddOp"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2287:1: ruleaddOp returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '+' | kw= '-' ) ;
-=======
-    // InternalAle.g:1940:1: ruleaddOp returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '+' | kw= '-' ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:2287:1: ruleaddOp returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '+' | kw= '-' ) ;
     public final AntlrDatatypeRuleToken ruleaddOp() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -7204,17 +6270,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2293:2: ( (kw= '+' | kw= '-' ) )
-            // InternalMyDsl.g:2294:2: (kw= '+' | kw= '-' )
+            // InternalAle.g:2293:2: ( (kw= '+' | kw= '-' ) )
+            // InternalAle.g:2294:2: (kw= '+' | kw= '-' )
             {
-            // InternalMyDsl.g:2294:2: (kw= '+' | kw= '-' )
-=======
-            // InternalAle.g:1946:2: ( (kw= '+' | kw= '-' ) )
-            // InternalAle.g:1947:2: (kw= '+' | kw= '-' )
-            {
-            // InternalAle.g:1947:2: (kw= '+' | kw= '-' )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2294:2: (kw= '+' | kw= '-' )
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -7233,11 +6292,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt30) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2295:3: kw= '+'
-=======
-                    // InternalAle.g:1948:3: kw= '+'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2295:3: kw= '+'
                     {
                     kw=(Token)match(input,53,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -7250,11 +6305,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2301:3: kw= '-'
-=======
-                    // InternalAle.g:1954:3: kw= '-'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2301:3: kw= '-'
                     {
                     kw=(Token)match(input,47,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -7291,11 +6342,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulecompOp"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2310:1: entryRulecompOp returns [String current=null] : iv_rulecompOp= rulecompOp EOF ;
-=======
-    // InternalAle.g:1963:1: entryRulecompOp returns [String current=null] : iv_rulecompOp= rulecompOp EOF ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:2310:1: entryRulecompOp returns [String current=null] : iv_rulecompOp= rulecompOp EOF ;
     public final String entryRulecompOp() throws RecognitionException {
         String current = null;
 
@@ -7303,13 +6350,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2310:46: (iv_rulecompOp= rulecompOp EOF )
-            // InternalMyDsl.g:2311:2: iv_rulecompOp= rulecompOp EOF
-=======
-            // InternalAle.g:1963:46: (iv_rulecompOp= rulecompOp EOF )
-            // InternalAle.g:1964:2: iv_rulecompOp= rulecompOp EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2310:46: (iv_rulecompOp= rulecompOp EOF )
+            // InternalAle.g:2311:2: iv_rulecompOp= rulecompOp EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getCompOpRule()); 
@@ -7340,11 +6382,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulecompOp"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2317:1: rulecompOp returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '<=' | kw= '>=' | kw= '!=' | kw= '<>' | kw= '=' | kw= '==' | kw= '<' | kw= '>' ) ;
-=======
-    // InternalAle.g:1970:1: rulecompOp returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '<=' | kw= '>=' | kw= '!=' | kw= '<>' | kw= '=' | kw= '==' | kw= '<' | kw= '>' ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:2317:1: rulecompOp returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= '<=' | kw= '>=' | kw= '!=' | kw= '<>' | kw= '=' | kw= '==' | kw= '<' | kw= '>' ) ;
     public final AntlrDatatypeRuleToken rulecompOp() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -7354,17 +6392,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2323:2: ( (kw= '<=' | kw= '>=' | kw= '!=' | kw= '<>' | kw= '=' | kw= '==' | kw= '<' | kw= '>' ) )
-            // InternalMyDsl.g:2324:2: (kw= '<=' | kw= '>=' | kw= '!=' | kw= '<>' | kw= '=' | kw= '==' | kw= '<' | kw= '>' )
+            // InternalAle.g:2323:2: ( (kw= '<=' | kw= '>=' | kw= '!=' | kw= '<>' | kw= '=' | kw= '==' | kw= '<' | kw= '>' ) )
+            // InternalAle.g:2324:2: (kw= '<=' | kw= '>=' | kw= '!=' | kw= '<>' | kw= '=' | kw= '==' | kw= '<' | kw= '>' )
             {
-            // InternalMyDsl.g:2324:2: (kw= '<=' | kw= '>=' | kw= '!=' | kw= '<>' | kw= '=' | kw= '==' | kw= '<' | kw= '>' )
-=======
-            // InternalAle.g:1976:2: ( (kw= '<=' | kw= '>=' | kw= '!=' | kw= '<>' | kw= '=' | kw= '==' | kw= '<' | kw= '>' ) )
-            // InternalAle.g:1977:2: (kw= '<=' | kw= '>=' | kw= '!=' | kw= '<>' | kw= '=' | kw= '==' | kw= '<' | kw= '>' )
-            {
-            // InternalAle.g:1977:2: (kw= '<=' | kw= '>=' | kw= '!=' | kw= '<>' | kw= '=' | kw= '==' | kw= '<' | kw= '>' )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2324:2: (kw= '<=' | kw= '>=' | kw= '!=' | kw= '<>' | kw= '=' | kw= '==' | kw= '<' | kw= '>' )
             int alt31=8;
             switch ( input.LA(1) ) {
             case 54:
@@ -7417,11 +6448,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
             switch (alt31) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2325:3: kw= '<='
-=======
-                    // InternalAle.g:1978:3: kw= '<='
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2325:3: kw= '<='
                     {
                     kw=(Token)match(input,54,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -7434,11 +6461,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2331:3: kw= '>='
-=======
-                    // InternalAle.g:1984:3: kw= '>='
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2331:3: kw= '>='
                     {
                     kw=(Token)match(input,55,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -7451,11 +6474,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2337:3: kw= '!='
-=======
-                    // InternalAle.g:1990:3: kw= '!='
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2337:3: kw= '!='
                     {
                     kw=(Token)match(input,56,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -7468,11 +6487,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2343:3: kw= '<>'
-=======
-                    // InternalAle.g:1996:3: kw= '<>'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2343:3: kw= '<>'
                     {
                     kw=(Token)match(input,57,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -7485,11 +6500,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2349:3: kw= '='
-=======
-                    // InternalAle.g:2002:3: kw= '='
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2349:3: kw= '='
                     {
                     kw=(Token)match(input,52,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -7502,11 +6513,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2355:3: kw= '=='
-=======
-                    // InternalAle.g:2008:3: kw= '=='
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2355:3: kw= '=='
                     {
                     kw=(Token)match(input,58,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -7519,11 +6526,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2361:3: kw= '<'
-=======
-                    // InternalAle.g:2014:3: kw= '<'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2361:3: kw= '<'
                     {
                     kw=(Token)match(input,59,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -7536,11 +6539,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2367:3: kw= '>'
-=======
-                    // InternalAle.g:2020:3: kw= '>'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2367:3: kw= '>'
                     {
                     kw=(Token)match(input,60,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -7577,27 +6576,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulecallExp"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2376:1: entryRulecallExp returns [EObject current=null] : iv_rulecallExp= rulecallExp EOF ;
+    // InternalAle.g:2376:1: entryRulecallExp returns [EObject current=null] : iv_rulecallExp= rulecallExp EOF ;
     public final EObject entryRulecallExp() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:2029:1: entryRulecallExp returns [String current=null] : iv_rulecallExp= rulecallExp EOF ;
-    public final String entryRulecallExp() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_rulecallExp = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2376:48: (iv_rulecallExp= rulecallExp EOF )
-            // InternalMyDsl.g:2377:2: iv_rulecallExp= rulecallExp EOF
-=======
-            // InternalAle.g:2029:47: (iv_rulecallExp= rulecallExp EOF )
-            // InternalAle.g:2030:2: iv_rulecallExp= rulecallExp EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2376:48: (iv_rulecallExp= rulecallExp EOF )
+            // InternalAle.g:2377:2: iv_rulecallExp= rulecallExp EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getCallExpRule()); 
@@ -7628,15 +6616,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulecallExp"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2383:1: rulecallExp returns [EObject current=null] : ( ( rulecollectionIterator otherlv_1= '(' rulevariableDefinition this_expression_3= ruleexpression otherlv_4= ')' ) | (this_Ident_5= RULE_IDENT otherlv_6= '(' this_expressionSequence_7= ruleexpressionSequence otherlv_8= ')' ) ) ;
+    // InternalAle.g:2383:1: rulecallExp returns [EObject current=null] : ( ( rulecollectionIterator otherlv_1= '(' rulevariableDefinition this_expression_3= ruleexpression otherlv_4= ')' ) | (this_Ident_5= RULE_IDENT otherlv_6= '(' this_expressionSequence_7= ruleexpressionSequence otherlv_8= ')' ) ) ;
     public final EObject rulecallExp() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:2036:1: rulecallExp returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_collectionIterator_0= rulecollectionIterator kw= '(' this_variableDefinition_2= rulevariableDefinition this_lambdaExpression_3= rulelambdaExpression kw= ')' ) | (this_Ident_5= RULE_IDENT kw= '(' this_expressionSequence_7= ruleexpressionSequence kw= ')' ) ) ;
-    public final AntlrDatatypeRuleToken rulecallExp() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         Token otherlv_1=null;
         Token otherlv_4=null;
@@ -7652,17 +6634,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2389:2: ( ( ( rulecollectionIterator otherlv_1= '(' rulevariableDefinition this_expression_3= ruleexpression otherlv_4= ')' ) | (this_Ident_5= RULE_IDENT otherlv_6= '(' this_expressionSequence_7= ruleexpressionSequence otherlv_8= ')' ) ) )
-            // InternalMyDsl.g:2390:2: ( ( rulecollectionIterator otherlv_1= '(' rulevariableDefinition this_expression_3= ruleexpression otherlv_4= ')' ) | (this_Ident_5= RULE_IDENT otherlv_6= '(' this_expressionSequence_7= ruleexpressionSequence otherlv_8= ')' ) )
+            // InternalAle.g:2389:2: ( ( ( rulecollectionIterator otherlv_1= '(' rulevariableDefinition this_expression_3= ruleexpression otherlv_4= ')' ) | (this_Ident_5= RULE_IDENT otherlv_6= '(' this_expressionSequence_7= ruleexpressionSequence otherlv_8= ')' ) ) )
+            // InternalAle.g:2390:2: ( ( rulecollectionIterator otherlv_1= '(' rulevariableDefinition this_expression_3= ruleexpression otherlv_4= ')' ) | (this_Ident_5= RULE_IDENT otherlv_6= '(' this_expressionSequence_7= ruleexpressionSequence otherlv_8= ')' ) )
             {
-            // InternalMyDsl.g:2390:2: ( ( rulecollectionIterator otherlv_1= '(' rulevariableDefinition this_expression_3= ruleexpression otherlv_4= ')' ) | (this_Ident_5= RULE_IDENT otherlv_6= '(' this_expressionSequence_7= ruleexpressionSequence otherlv_8= ')' ) )
-=======
-            // InternalAle.g:2042:2: ( ( (this_collectionIterator_0= rulecollectionIterator kw= '(' this_variableDefinition_2= rulevariableDefinition this_lambdaExpression_3= rulelambdaExpression kw= ')' ) | (this_Ident_5= RULE_IDENT kw= '(' this_expressionSequence_7= ruleexpressionSequence kw= ')' ) ) )
-            // InternalAle.g:2043:2: ( (this_collectionIterator_0= rulecollectionIterator kw= '(' this_variableDefinition_2= rulevariableDefinition this_lambdaExpression_3= rulelambdaExpression kw= ')' ) | (this_Ident_5= RULE_IDENT kw= '(' this_expressionSequence_7= ruleexpressionSequence kw= ')' ) )
-            {
-            // InternalAle.g:2043:2: ( (this_collectionIterator_0= rulecollectionIterator kw= '(' this_variableDefinition_2= rulevariableDefinition this_lambdaExpression_3= rulelambdaExpression kw= ')' ) | (this_Ident_5= RULE_IDENT kw= '(' this_expressionSequence_7= ruleexpressionSequence kw= ')' ) )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2390:2: ( ( rulecollectionIterator otherlv_1= '(' rulevariableDefinition this_expression_3= ruleexpression otherlv_4= ')' ) | (this_Ident_5= RULE_IDENT otherlv_6= '(' this_expressionSequence_7= ruleexpressionSequence otherlv_8= ')' ) )
             int alt32=2;
             int LA32_0 = input.LA(1);
 
@@ -7681,17 +6656,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt32) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2391:3: ( rulecollectionIterator otherlv_1= '(' rulevariableDefinition this_expression_3= ruleexpression otherlv_4= ')' )
+                    // InternalAle.g:2391:3: ( rulecollectionIterator otherlv_1= '(' rulevariableDefinition this_expression_3= ruleexpression otherlv_4= ')' )
                     {
-                    // InternalMyDsl.g:2391:3: ( rulecollectionIterator otherlv_1= '(' rulevariableDefinition this_expression_3= ruleexpression otherlv_4= ')' )
-                    // InternalMyDsl.g:2392:4: rulecollectionIterator otherlv_1= '(' rulevariableDefinition this_expression_3= ruleexpression otherlv_4= ')'
-=======
-                    // InternalAle.g:2044:3: (this_collectionIterator_0= rulecollectionIterator kw= '(' this_variableDefinition_2= rulevariableDefinition this_lambdaExpression_3= rulelambdaExpression kw= ')' )
-                    {
-                    // InternalAle.g:2044:3: (this_collectionIterator_0= rulecollectionIterator kw= '(' this_variableDefinition_2= rulevariableDefinition this_lambdaExpression_3= rulelambdaExpression kw= ')' )
-                    // InternalAle.g:2045:4: this_collectionIterator_0= rulecollectionIterator kw= '(' this_variableDefinition_2= rulevariableDefinition this_lambdaExpression_3= rulelambdaExpression kw= ')'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2391:3: ( rulecollectionIterator otherlv_1= '(' rulevariableDefinition this_expression_3= ruleexpression otherlv_4= ')' )
+                    // InternalAle.g:2392:4: rulecollectionIterator otherlv_1= '(' rulevariableDefinition this_expression_3= ruleexpression otherlv_4= ')'
                     {
                     if ( state.backtracking==0 ) {
 
@@ -7773,17 +6741,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2433:3: (this_Ident_5= RULE_IDENT otherlv_6= '(' this_expressionSequence_7= ruleexpressionSequence otherlv_8= ')' )
+                    // InternalAle.g:2433:3: (this_Ident_5= RULE_IDENT otherlv_6= '(' this_expressionSequence_7= ruleexpressionSequence otherlv_8= ')' )
                     {
-                    // InternalMyDsl.g:2433:3: (this_Ident_5= RULE_IDENT otherlv_6= '(' this_expressionSequence_7= ruleexpressionSequence otherlv_8= ')' )
-                    // InternalMyDsl.g:2434:4: this_Ident_5= RULE_IDENT otherlv_6= '(' this_expressionSequence_7= ruleexpressionSequence otherlv_8= ')'
-=======
-                    // InternalAle.g:2087:3: (this_Ident_5= RULE_IDENT kw= '(' this_expressionSequence_7= ruleexpressionSequence kw= ')' )
-                    {
-                    // InternalAle.g:2087:3: (this_Ident_5= RULE_IDENT kw= '(' this_expressionSequence_7= ruleexpressionSequence kw= ')' )
-                    // InternalAle.g:2088:4: this_Ident_5= RULE_IDENT kw= '(' this_expressionSequence_7= ruleexpressionSequence kw= ')'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2433:3: (this_Ident_5= RULE_IDENT otherlv_6= '(' this_expressionSequence_7= ruleexpressionSequence otherlv_8= ')' )
+                    // InternalAle.g:2434:4: this_Ident_5= RULE_IDENT otherlv_6= '(' this_expressionSequence_7= ruleexpressionSequence otherlv_8= ')'
                     {
                     this_Ident_5=(Token)match(input,RULE_IDENT,FOLLOW_18); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -7854,109 +6815,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
     // $ANTLR end "rulecallExp"
 
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
     // $ANTLR start "entryRulecollectionIterator"
-    // InternalMyDsl.g:2462:1: entryRulecollectionIterator returns [String current=null] : iv_rulecollectionIterator= rulecollectionIterator EOF ;
-=======
-    // $ANTLR start "entryRulelambdaExpression"
-    // InternalAle.g:2120:1: entryRulelambdaExpression returns [String current=null] : iv_rulelambdaExpression= rulelambdaExpression EOF ;
-    public final String entryRulelambdaExpression() throws RecognitionException {
-        String current = null;
-
-        AntlrDatatypeRuleToken iv_rulelambdaExpression = null;
-
-
-        try {
-            // InternalAle.g:2120:56: (iv_rulelambdaExpression= rulelambdaExpression EOF )
-            // InternalAle.g:2121:2: iv_rulelambdaExpression= rulelambdaExpression EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getLambdaExpressionRule()); 
-            }
-            pushFollow(FOLLOW_1);
-            iv_rulelambdaExpression=rulelambdaExpression();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_rulelambdaExpression.getText(); 
-            }
-            match(input,EOF,FOLLOW_2); if (state.failed) return current;
-
-            }
-
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRulelambdaExpression"
-
-
-    // $ANTLR start "rulelambdaExpression"
-    // InternalAle.g:2127:1: rulelambdaExpression returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_expression_0= ruleexpression ;
-    public final AntlrDatatypeRuleToken rulelambdaExpression() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
-
-        AntlrDatatypeRuleToken this_expression_0 = null;
-
-
-
-        	enterRule();
-
-        try {
-            // InternalAle.g:2133:2: (this_expression_0= ruleexpression )
-            // InternalAle.g:2134:2: this_expression_0= ruleexpression
-            {
-            if ( state.backtracking==0 ) {
-
-              		newCompositeNode(grammarAccess.getLambdaExpressionAccess().getExpressionParserRuleCall());
-              	
-            }
-            pushFollow(FOLLOW_2);
-            this_expression_0=ruleexpression();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              		current.merge(this_expression_0);
-              	
-            }
-            if ( state.backtracking==0 ) {
-
-              		afterParserOrEnumRuleCall();
-              	
-            }
-
-            }
-
-            if ( state.backtracking==0 ) {
-
-              	leaveRule();
-
-            }
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "rulelambdaExpression"
-
-
-    // $ANTLR start "entryRulecollectionIterator"
-    // InternalAle.g:2147:1: entryRulecollectionIterator returns [String current=null] : iv_rulecollectionIterator= rulecollectionIterator EOF ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:2462:1: entryRulecollectionIterator returns [String current=null] : iv_rulecollectionIterator= rulecollectionIterator EOF ;
     public final String entryRulecollectionIterator() throws RecognitionException {
         String current = null;
 
@@ -7964,13 +6824,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2462:58: (iv_rulecollectionIterator= rulecollectionIterator EOF )
-            // InternalMyDsl.g:2463:2: iv_rulecollectionIterator= rulecollectionIterator EOF
-=======
-            // InternalAle.g:2147:58: (iv_rulecollectionIterator= rulecollectionIterator EOF )
-            // InternalAle.g:2148:2: iv_rulecollectionIterator= rulecollectionIterator EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2462:58: (iv_rulecollectionIterator= rulecollectionIterator EOF )
+            // InternalAle.g:2463:2: iv_rulecollectionIterator= rulecollectionIterator EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getCollectionIteratorRule()); 
@@ -8001,11 +6856,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulecollectionIterator"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2469:1: rulecollectionIterator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'select' | kw= 'reject' | kw= 'collect' | kw= 'any' | kw= 'exists' | kw= 'forAll' | kw= 'isUnique' | kw= 'one' | kw= 'sortedBy' | kw= 'closure' ) ;
-=======
-    // InternalAle.g:2154:1: rulecollectionIterator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'select' | kw= 'reject' | kw= 'collect' | kw= 'any' | kw= 'exists' | kw= 'forAll' | kw= 'isUnique' | kw= 'one' | kw= 'sortedBy' | kw= 'closure' ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:2469:1: rulecollectionIterator returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'select' | kw= 'reject' | kw= 'collect' | kw= 'any' | kw= 'exists' | kw= 'forAll' | kw= 'isUnique' | kw= 'one' | kw= 'sortedBy' | kw= 'closure' ) ;
     public final AntlrDatatypeRuleToken rulecollectionIterator() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -8015,17 +6866,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2475:2: ( (kw= 'select' | kw= 'reject' | kw= 'collect' | kw= 'any' | kw= 'exists' | kw= 'forAll' | kw= 'isUnique' | kw= 'one' | kw= 'sortedBy' | kw= 'closure' ) )
-            // InternalMyDsl.g:2476:2: (kw= 'select' | kw= 'reject' | kw= 'collect' | kw= 'any' | kw= 'exists' | kw= 'forAll' | kw= 'isUnique' | kw= 'one' | kw= 'sortedBy' | kw= 'closure' )
+            // InternalAle.g:2475:2: ( (kw= 'select' | kw= 'reject' | kw= 'collect' | kw= 'any' | kw= 'exists' | kw= 'forAll' | kw= 'isUnique' | kw= 'one' | kw= 'sortedBy' | kw= 'closure' ) )
+            // InternalAle.g:2476:2: (kw= 'select' | kw= 'reject' | kw= 'collect' | kw= 'any' | kw= 'exists' | kw= 'forAll' | kw= 'isUnique' | kw= 'one' | kw= 'sortedBy' | kw= 'closure' )
             {
-            // InternalMyDsl.g:2476:2: (kw= 'select' | kw= 'reject' | kw= 'collect' | kw= 'any' | kw= 'exists' | kw= 'forAll' | kw= 'isUnique' | kw= 'one' | kw= 'sortedBy' | kw= 'closure' )
-=======
-            // InternalAle.g:2160:2: ( (kw= 'select' | kw= 'reject' | kw= 'collect' | kw= 'any' | kw= 'exists' | kw= 'forAll' | kw= 'isUnique' | kw= 'one' | kw= 'sortedBy' | kw= 'closure' ) )
-            // InternalAle.g:2161:2: (kw= 'select' | kw= 'reject' | kw= 'collect' | kw= 'any' | kw= 'exists' | kw= 'forAll' | kw= 'isUnique' | kw= 'one' | kw= 'sortedBy' | kw= 'closure' )
-            {
-            // InternalAle.g:2161:2: (kw= 'select' | kw= 'reject' | kw= 'collect' | kw= 'any' | kw= 'exists' | kw= 'forAll' | kw= 'isUnique' | kw= 'one' | kw= 'sortedBy' | kw= 'closure' )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2476:2: (kw= 'select' | kw= 'reject' | kw= 'collect' | kw= 'any' | kw= 'exists' | kw= 'forAll' | kw= 'isUnique' | kw= 'one' | kw= 'sortedBy' | kw= 'closure' )
             int alt33=10;
             switch ( input.LA(1) ) {
             case 61:
@@ -8088,11 +6932,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
             switch (alt33) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2477:3: kw= 'select'
-=======
-                    // InternalAle.g:2162:3: kw= 'select'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2477:3: kw= 'select'
                     {
                     kw=(Token)match(input,61,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8105,11 +6945,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2483:3: kw= 'reject'
-=======
-                    // InternalAle.g:2168:3: kw= 'reject'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2483:3: kw= 'reject'
                     {
                     kw=(Token)match(input,62,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8122,11 +6958,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2489:3: kw= 'collect'
-=======
-                    // InternalAle.g:2174:3: kw= 'collect'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2489:3: kw= 'collect'
                     {
                     kw=(Token)match(input,63,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8139,11 +6971,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2495:3: kw= 'any'
-=======
-                    // InternalAle.g:2180:3: kw= 'any'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2495:3: kw= 'any'
                     {
                     kw=(Token)match(input,64,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8156,11 +6984,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2501:3: kw= 'exists'
-=======
-                    // InternalAle.g:2186:3: kw= 'exists'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2501:3: kw= 'exists'
                     {
                     kw=(Token)match(input,65,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8173,11 +6997,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2507:3: kw= 'forAll'
-=======
-                    // InternalAle.g:2192:3: kw= 'forAll'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2507:3: kw= 'forAll'
                     {
                     kw=(Token)match(input,66,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8190,11 +7010,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2513:3: kw= 'isUnique'
-=======
-                    // InternalAle.g:2198:3: kw= 'isUnique'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2513:3: kw= 'isUnique'
                     {
                     kw=(Token)match(input,67,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8207,11 +7023,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2519:3: kw= 'one'
-=======
-                    // InternalAle.g:2204:3: kw= 'one'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2519:3: kw= 'one'
                     {
                     kw=(Token)match(input,68,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8224,11 +7036,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 9 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2525:3: kw= 'sortedBy'
-=======
-                    // InternalAle.g:2210:3: kw= 'sortedBy'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2525:3: kw= 'sortedBy'
                     {
                     kw=(Token)match(input,69,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8241,11 +7049,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 10 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2531:3: kw= 'closure'
-=======
-                    // InternalAle.g:2216:3: kw= 'closure'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2531:3: kw= 'closure'
                     {
                     kw=(Token)match(input,70,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8282,27 +7086,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleexpressionSequence"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2540:1: entryRuleexpressionSequence returns [EObject current=null] : iv_ruleexpressionSequence= ruleexpressionSequence EOF ;
+    // InternalAle.g:2540:1: entryRuleexpressionSequence returns [EObject current=null] : iv_ruleexpressionSequence= ruleexpressionSequence EOF ;
     public final EObject entryRuleexpressionSequence() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:2225:1: entryRuleexpressionSequence returns [String current=null] : iv_ruleexpressionSequence= ruleexpressionSequence EOF ;
-    public final String entryRuleexpressionSequence() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_ruleexpressionSequence = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2540:59: (iv_ruleexpressionSequence= ruleexpressionSequence EOF )
-            // InternalMyDsl.g:2541:2: iv_ruleexpressionSequence= ruleexpressionSequence EOF
-=======
-            // InternalAle.g:2225:58: (iv_ruleexpressionSequence= ruleexpressionSequence EOF )
-            // InternalAle.g:2226:2: iv_ruleexpressionSequence= ruleexpressionSequence EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2540:59: (iv_ruleexpressionSequence= ruleexpressionSequence EOF )
+            // InternalAle.g:2541:2: iv_ruleexpressionSequence= ruleexpressionSequence EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getExpressionSequenceRule()); 
@@ -8333,15 +7126,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleexpressionSequence"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2547:1: ruleexpressionSequence returns [EObject current=null] : ( ( (lv_seqExprs_0_0= ruleexpression ) ) (otherlv_1= ',' ( (lv_seqExprs_2_0= ruleexpression ) ) )* )? ;
+    // InternalAle.g:2547:1: ruleexpressionSequence returns [EObject current=null] : ( ( (lv_seqExprs_0_0= ruleexpression ) ) (otherlv_1= ',' ( (lv_seqExprs_2_0= ruleexpression ) ) )* )? ;
     public final EObject ruleexpressionSequence() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:2232:1: ruleexpressionSequence returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_expression_0= ruleexpression (kw= ',' this_expression_2= ruleexpression )* )? ;
-    public final AntlrDatatypeRuleToken ruleexpressionSequence() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         Token otherlv_1=null;
         EObject lv_seqExprs_0_0 = null;
@@ -8353,17 +7140,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2553:2: ( ( ( (lv_seqExprs_0_0= ruleexpression ) ) (otherlv_1= ',' ( (lv_seqExprs_2_0= ruleexpression ) ) )* )? )
-            // InternalMyDsl.g:2554:2: ( ( (lv_seqExprs_0_0= ruleexpression ) ) (otherlv_1= ',' ( (lv_seqExprs_2_0= ruleexpression ) ) )* )?
+            // InternalAle.g:2553:2: ( ( ( (lv_seqExprs_0_0= ruleexpression ) ) (otherlv_1= ',' ( (lv_seqExprs_2_0= ruleexpression ) ) )* )? )
+            // InternalAle.g:2554:2: ( ( (lv_seqExprs_0_0= ruleexpression ) ) (otherlv_1= ',' ( (lv_seqExprs_2_0= ruleexpression ) ) )* )?
             {
-            // InternalMyDsl.g:2554:2: ( ( (lv_seqExprs_0_0= ruleexpression ) ) (otherlv_1= ',' ( (lv_seqExprs_2_0= ruleexpression ) ) )* )?
-=======
-            // InternalAle.g:2238:2: ( (this_expression_0= ruleexpression (kw= ',' this_expression_2= ruleexpression )* )? )
-            // InternalAle.g:2239:2: (this_expression_0= ruleexpression (kw= ',' this_expression_2= ruleexpression )* )?
-            {
-            // InternalAle.g:2239:2: (this_expression_0= ruleexpression (kw= ',' this_expression_2= ruleexpression )* )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2554:2: ( ( (lv_seqExprs_0_0= ruleexpression ) ) (otherlv_1= ',' ( (lv_seqExprs_2_0= ruleexpression ) ) )* )?
             int alt35=2;
             int LA35_0 = input.LA(1);
 
@@ -8372,17 +7152,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt35) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2555:3: ( (lv_seqExprs_0_0= ruleexpression ) ) (otherlv_1= ',' ( (lv_seqExprs_2_0= ruleexpression ) ) )*
+                    // InternalAle.g:2555:3: ( (lv_seqExprs_0_0= ruleexpression ) ) (otherlv_1= ',' ( (lv_seqExprs_2_0= ruleexpression ) ) )*
                     {
-                    // InternalMyDsl.g:2555:3: ( (lv_seqExprs_0_0= ruleexpression ) )
-                    // InternalMyDsl.g:2556:4: (lv_seqExprs_0_0= ruleexpression )
+                    // InternalAle.g:2555:3: ( (lv_seqExprs_0_0= ruleexpression ) )
+                    // InternalAle.g:2556:4: (lv_seqExprs_0_0= ruleexpression )
                     {
-                    // InternalMyDsl.g:2556:4: (lv_seqExprs_0_0= ruleexpression )
-                    // InternalMyDsl.g:2557:5: lv_seqExprs_0_0= ruleexpression
-=======
-                    // InternalAle.g:2240:3: this_expression_0= ruleexpression (kw= ',' this_expression_2= ruleexpression )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2556:4: (lv_seqExprs_0_0= ruleexpression )
+                    // InternalAle.g:2557:5: lv_seqExprs_0_0= ruleexpression
                     {
                     if ( state.backtracking==0 ) {
 
@@ -8403,21 +7179,17 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       						current,
                       						"seqExprs",
                       						lv_seqExprs_0_0,
-                      						"org.xtext.example.mydsl.MyDsl.expression");
+                      						"org.eclipse.ecoretools.Ale.expression");
                       					afterParserOrEnumRuleCall();
                       				
                     }
 
                     }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
 
 
                     }
 
-                    // InternalMyDsl.g:2574:3: (otherlv_1= ',' ( (lv_seqExprs_2_0= ruleexpression ) ) )*
-=======
-                    // InternalAle.g:2250:3: (kw= ',' this_expression_2= ruleexpression )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2574:3: (otherlv_1= ',' ( (lv_seqExprs_2_0= ruleexpression ) ) )*
                     loop34:
                     do {
                         int alt34=2;
@@ -8430,11 +7202,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                         switch (alt34) {
                     	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    	    // InternalMyDsl.g:2575:4: otherlv_1= ',' ( (lv_seqExprs_2_0= ruleexpression ) )
-=======
-                    	    // InternalAle.g:2251:4: kw= ',' this_expression_2= ruleexpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    	    // InternalAle.g:2575:4: otherlv_1= ',' ( (lv_seqExprs_2_0= ruleexpression ) )
                     	    {
                     	    otherlv_1=(Token)match(input,24,FOLLOW_23); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
@@ -8442,11 +7210,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     	      				newLeafNode(otherlv_1, grammarAccess.getExpressionSequenceAccess().getCommaKeyword_1_0());
                     	      			
                     	    }
-                    	    // InternalMyDsl.g:2579:4: ( (lv_seqExprs_2_0= ruleexpression ) )
-                    	    // InternalMyDsl.g:2580:5: (lv_seqExprs_2_0= ruleexpression )
+                    	    // InternalAle.g:2579:4: ( (lv_seqExprs_2_0= ruleexpression ) )
+                    	    // InternalAle.g:2580:5: (lv_seqExprs_2_0= ruleexpression )
                     	    {
-                    	    // InternalMyDsl.g:2580:5: (lv_seqExprs_2_0= ruleexpression )
-                    	    // InternalMyDsl.g:2581:6: lv_seqExprs_2_0= ruleexpression
+                    	    // InternalAle.g:2580:5: (lv_seqExprs_2_0= ruleexpression )
+                    	    // InternalAle.g:2581:6: lv_seqExprs_2_0= ruleexpression
                     	    {
                     	    if ( state.backtracking==0 ) {
 
@@ -8467,7 +7235,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     	      							current,
                     	      							"seqExprs",
                     	      							lv_seqExprs_2_0,
-                    	      							"org.xtext.example.mydsl.MyDsl.expression");
+                    	      							"org.eclipse.ecoretools.Ale.expression");
                     	      						afterParserOrEnumRuleCall();
                     	      					
                     	    }
@@ -8514,11 +7282,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulevariableDefinition"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2603:1: entryRulevariableDefinition returns [String current=null] : iv_rulevariableDefinition= rulevariableDefinition EOF ;
-=======
-    // InternalAle.g:2271:1: entryRulevariableDefinition returns [String current=null] : iv_rulevariableDefinition= rulevariableDefinition EOF ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:2603:1: entryRulevariableDefinition returns [String current=null] : iv_rulevariableDefinition= rulevariableDefinition EOF ;
     public final String entryRulevariableDefinition() throws RecognitionException {
         String current = null;
 
@@ -8526,13 +7290,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2603:58: (iv_rulevariableDefinition= rulevariableDefinition EOF )
-            // InternalMyDsl.g:2604:2: iv_rulevariableDefinition= rulevariableDefinition EOF
-=======
-            // InternalAle.g:2271:58: (iv_rulevariableDefinition= rulevariableDefinition EOF )
-            // InternalAle.g:2272:2: iv_rulevariableDefinition= rulevariableDefinition EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2603:58: (iv_rulevariableDefinition= rulevariableDefinition EOF )
+            // InternalAle.g:2604:2: iv_rulevariableDefinition= rulevariableDefinition EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getVariableDefinitionRule()); 
@@ -8563,11 +7322,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulevariableDefinition"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2610:1: rulevariableDefinition returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '|' ) ;
-=======
-    // InternalAle.g:2278:1: rulevariableDefinition returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '|' ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:2610:1: rulevariableDefinition returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '|' ) ;
     public final AntlrDatatypeRuleToken rulevariableDefinition() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -8580,19 +7335,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2616:2: ( (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '|' ) )
-            // InternalMyDsl.g:2617:2: (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '|' )
+            // InternalAle.g:2616:2: ( (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '|' ) )
+            // InternalAle.g:2617:2: (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '|' )
             {
-            // InternalMyDsl.g:2617:2: (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '|' )
-            // InternalMyDsl.g:2618:3: this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '|'
-=======
-            // InternalAle.g:2284:2: ( (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '|' ) )
-            // InternalAle.g:2285:2: (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '|' )
-            {
-            // InternalAle.g:2285:2: (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '|' )
-            // InternalAle.g:2286:3: this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '|'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2617:2: (this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '|' )
+            // InternalAle.g:2618:3: this_Ident_0= RULE_IDENT (kw= ':' this_typeLiteral_2= ruletypeLiteral )? kw= '|'
             {
             this_Ident_0=(Token)match(input,RULE_IDENT,FOLLOW_41); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -8605,11 +7352,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(this_Ident_0, grammarAccess.getVariableDefinitionAccess().getIdentTerminalRuleCall_0());
               		
             }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2625:3: (kw= ':' this_typeLiteral_2= ruletypeLiteral )?
-=======
-            // InternalAle.g:2293:3: (kw= ':' this_typeLiteral_2= ruletypeLiteral )?
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2625:3: (kw= ':' this_typeLiteral_2= ruletypeLiteral )?
             int alt36=2;
             int LA36_0 = input.LA(1);
 
@@ -8618,11 +7361,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt36) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2626:4: kw= ':' this_typeLiteral_2= ruletypeLiteral
-=======
-                    // InternalAle.g:2294:4: kw= ':' this_typeLiteral_2= ruletypeLiteral
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2626:4: kw= ':' this_typeLiteral_2= ruletypeLiteral
                     {
                     kw=(Token)match(input,51,FOLLOW_17); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8689,27 +7428,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleliteral"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2651:1: entryRuleliteral returns [EObject current=null] : iv_ruleliteral= ruleliteral EOF ;
+    // InternalAle.g:2651:1: entryRuleliteral returns [EObject current=null] : iv_ruleliteral= ruleliteral EOF ;
     public final EObject entryRuleliteral() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:2319:1: entryRuleliteral returns [String current=null] : iv_ruleliteral= ruleliteral EOF ;
-    public final String entryRuleliteral() throws RecognitionException {
-        String current = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         EObject iv_ruleliteral = null;
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2651:48: (iv_ruleliteral= ruleliteral EOF )
-            // InternalMyDsl.g:2652:2: iv_ruleliteral= ruleliteral EOF
-=======
-            // InternalAle.g:2319:47: (iv_ruleliteral= ruleliteral EOF )
-            // InternalAle.g:2320:2: iv_ruleliteral= ruleliteral EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2651:48: (iv_ruleliteral= ruleliteral EOF )
+            // InternalAle.g:2652:2: iv_ruleliteral= ruleliteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getLiteralRule()); 
@@ -8740,15 +7468,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleliteral"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2658:1: ruleliteral returns [EObject current=null] : (this_STRING_0= RULE_STRING | this_INT_1= RULE_INT | this_Real_2= RULE_REAL | otherlv_3= 'true' | otherlv_4= 'false' | otherlv_5= 'null' | (otherlv_6= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence otherlv_8= '}' ) | (otherlv_9= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence otherlv_11= '}' ) | (this_Ident_12= RULE_IDENT otherlv_13= '::' this_Ident_14= RULE_IDENT otherlv_15= '::' this_Ident_16= RULE_IDENT ) | (this_Ident_17= RULE_IDENT otherlv_18= '::' this_Ident_19= RULE_IDENT otherlv_20= ':' ) | ruletypeLiteral ) ;
+    // InternalAle.g:2658:1: ruleliteral returns [EObject current=null] : (this_STRING_0= RULE_STRING | this_INT_1= RULE_INT | this_Real_2= RULE_REAL | otherlv_3= 'true' | otherlv_4= 'false' | otherlv_5= 'null' | (otherlv_6= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence otherlv_8= '}' ) | (otherlv_9= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence otherlv_11= '}' ) | (this_Ident_12= RULE_IDENT otherlv_13= '::' this_Ident_14= RULE_IDENT otherlv_15= '::' this_Ident_16= RULE_IDENT ) | (this_Ident_17= RULE_IDENT otherlv_18= '::' this_Ident_19= RULE_IDENT otherlv_20= ':' ) | ruletypeLiteral ) ;
     public final EObject ruleliteral() throws RecognitionException {
         EObject current = null;
-=======
-    // InternalAle.g:2326:1: ruleliteral returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_STRING_0= RULE_STRING | this_INT_1= RULE_INT | this_Real_2= RULE_REAL | kw= 'true' | kw= 'false' | kw= 'null' | (kw= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence kw= '}' ) | (kw= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence kw= '}' ) | (this_Ident_12= RULE_IDENT kw= '::' this_Ident_14= RULE_IDENT kw= '::' this_Ident_16= RULE_IDENT ) | (this_Ident_17= RULE_IDENT kw= '::' this_Ident_19= RULE_IDENT kw= ':' ) | this_typeLiteral_21= ruletypeLiteral ) ;
-    public final AntlrDatatypeRuleToken ruleliteral() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         Token this_STRING_0=null;
         Token this_INT_1=null;
@@ -8778,26 +7500,15 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2664:2: ( (this_STRING_0= RULE_STRING | this_INT_1= RULE_INT | this_Real_2= RULE_REAL | otherlv_3= 'true' | otherlv_4= 'false' | otherlv_5= 'null' | (otherlv_6= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence otherlv_8= '}' ) | (otherlv_9= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence otherlv_11= '}' ) | (this_Ident_12= RULE_IDENT otherlv_13= '::' this_Ident_14= RULE_IDENT otherlv_15= '::' this_Ident_16= RULE_IDENT ) | (this_Ident_17= RULE_IDENT otherlv_18= '::' this_Ident_19= RULE_IDENT otherlv_20= ':' ) | ruletypeLiteral ) )
-            // InternalMyDsl.g:2665:2: (this_STRING_0= RULE_STRING | this_INT_1= RULE_INT | this_Real_2= RULE_REAL | otherlv_3= 'true' | otherlv_4= 'false' | otherlv_5= 'null' | (otherlv_6= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence otherlv_8= '}' ) | (otherlv_9= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence otherlv_11= '}' ) | (this_Ident_12= RULE_IDENT otherlv_13= '::' this_Ident_14= RULE_IDENT otherlv_15= '::' this_Ident_16= RULE_IDENT ) | (this_Ident_17= RULE_IDENT otherlv_18= '::' this_Ident_19= RULE_IDENT otherlv_20= ':' ) | ruletypeLiteral )
+            // InternalAle.g:2664:2: ( (this_STRING_0= RULE_STRING | this_INT_1= RULE_INT | this_Real_2= RULE_REAL | otherlv_3= 'true' | otherlv_4= 'false' | otherlv_5= 'null' | (otherlv_6= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence otherlv_8= '}' ) | (otherlv_9= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence otherlv_11= '}' ) | (this_Ident_12= RULE_IDENT otherlv_13= '::' this_Ident_14= RULE_IDENT otherlv_15= '::' this_Ident_16= RULE_IDENT ) | (this_Ident_17= RULE_IDENT otherlv_18= '::' this_Ident_19= RULE_IDENT otherlv_20= ':' ) | ruletypeLiteral ) )
+            // InternalAle.g:2665:2: (this_STRING_0= RULE_STRING | this_INT_1= RULE_INT | this_Real_2= RULE_REAL | otherlv_3= 'true' | otherlv_4= 'false' | otherlv_5= 'null' | (otherlv_6= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence otherlv_8= '}' ) | (otherlv_9= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence otherlv_11= '}' ) | (this_Ident_12= RULE_IDENT otherlv_13= '::' this_Ident_14= RULE_IDENT otherlv_15= '::' this_Ident_16= RULE_IDENT ) | (this_Ident_17= RULE_IDENT otherlv_18= '::' this_Ident_19= RULE_IDENT otherlv_20= ':' ) | ruletypeLiteral )
             {
-            // InternalMyDsl.g:2665:2: (this_STRING_0= RULE_STRING | this_INT_1= RULE_INT | this_Real_2= RULE_REAL | otherlv_3= 'true' | otherlv_4= 'false' | otherlv_5= 'null' | (otherlv_6= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence otherlv_8= '}' ) | (otherlv_9= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence otherlv_11= '}' ) | (this_Ident_12= RULE_IDENT otherlv_13= '::' this_Ident_14= RULE_IDENT otherlv_15= '::' this_Ident_16= RULE_IDENT ) | (this_Ident_17= RULE_IDENT otherlv_18= '::' this_Ident_19= RULE_IDENT otherlv_20= ':' ) | ruletypeLiteral )
-=======
-            // InternalAle.g:2332:2: ( (this_STRING_0= RULE_STRING | this_INT_1= RULE_INT | this_Real_2= RULE_REAL | kw= 'true' | kw= 'false' | kw= 'null' | (kw= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence kw= '}' ) | (kw= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence kw= '}' ) | (this_Ident_12= RULE_IDENT kw= '::' this_Ident_14= RULE_IDENT kw= '::' this_Ident_16= RULE_IDENT ) | (this_Ident_17= RULE_IDENT kw= '::' this_Ident_19= RULE_IDENT kw= ':' ) | this_typeLiteral_21= ruletypeLiteral ) )
-            // InternalAle.g:2333:2: (this_STRING_0= RULE_STRING | this_INT_1= RULE_INT | this_Real_2= RULE_REAL | kw= 'true' | kw= 'false' | kw= 'null' | (kw= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence kw= '}' ) | (kw= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence kw= '}' ) | (this_Ident_12= RULE_IDENT kw= '::' this_Ident_14= RULE_IDENT kw= '::' this_Ident_16= RULE_IDENT ) | (this_Ident_17= RULE_IDENT kw= '::' this_Ident_19= RULE_IDENT kw= ':' ) | this_typeLiteral_21= ruletypeLiteral )
-            {
-            // InternalAle.g:2333:2: (this_STRING_0= RULE_STRING | this_INT_1= RULE_INT | this_Real_2= RULE_REAL | kw= 'true' | kw= 'false' | kw= 'null' | (kw= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence kw= '}' ) | (kw= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence kw= '}' ) | (this_Ident_12= RULE_IDENT kw= '::' this_Ident_14= RULE_IDENT kw= '::' this_Ident_16= RULE_IDENT ) | (this_Ident_17= RULE_IDENT kw= '::' this_Ident_19= RULE_IDENT kw= ':' ) | this_typeLiteral_21= ruletypeLiteral )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2665:2: (this_STRING_0= RULE_STRING | this_INT_1= RULE_INT | this_Real_2= RULE_REAL | otherlv_3= 'true' | otherlv_4= 'false' | otherlv_5= 'null' | (otherlv_6= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence otherlv_8= '}' ) | (otherlv_9= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence otherlv_11= '}' ) | (this_Ident_12= RULE_IDENT otherlv_13= '::' this_Ident_14= RULE_IDENT otherlv_15= '::' this_Ident_16= RULE_IDENT ) | (this_Ident_17= RULE_IDENT otherlv_18= '::' this_Ident_19= RULE_IDENT otherlv_20= ':' ) | ruletypeLiteral )
             int alt37=11;
             alt37 = dfa37.predict(input);
             switch (alt37) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2666:3: this_STRING_0= RULE_STRING
-=======
-                    // InternalAle.g:2334:3: this_STRING_0= RULE_STRING
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2666:3: this_STRING_0= RULE_STRING
                     {
                     this_STRING_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8809,11 +7520,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2671:3: this_INT_1= RULE_INT
-=======
-                    // InternalAle.g:2342:3: this_INT_1= RULE_INT
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2671:3: this_INT_1= RULE_INT
                     {
                     this_INT_1=(Token)match(input,RULE_INT,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8825,11 +7532,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2676:3: this_Real_2= RULE_REAL
-=======
-                    // InternalAle.g:2350:3: this_Real_2= RULE_REAL
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2676:3: this_Real_2= RULE_REAL
                     {
                     this_Real_2=(Token)match(input,RULE_REAL,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8841,11 +7544,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2681:3: otherlv_3= 'true'
-=======
-                    // InternalAle.g:2358:3: kw= 'true'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2681:3: otherlv_3= 'true'
                     {
                     otherlv_3=(Token)match(input,72,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8857,11 +7556,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2686:3: otherlv_4= 'false'
-=======
-                    // InternalAle.g:2364:3: kw= 'false'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2686:3: otherlv_4= 'false'
                     {
                     otherlv_4=(Token)match(input,73,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8873,11 +7568,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2691:3: otherlv_5= 'null'
-=======
-                    // InternalAle.g:2370:3: kw= 'null'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2691:3: otherlv_5= 'null'
                     {
                     otherlv_5=(Token)match(input,74,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8889,17 +7580,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2696:3: (otherlv_6= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence otherlv_8= '}' )
+                    // InternalAle.g:2696:3: (otherlv_6= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence otherlv_8= '}' )
                     {
-                    // InternalMyDsl.g:2696:3: (otherlv_6= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence otherlv_8= '}' )
-                    // InternalMyDsl.g:2697:4: otherlv_6= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence otherlv_8= '}'
-=======
-                    // InternalAle.g:2376:3: (kw= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence kw= '}' )
-                    {
-                    // InternalAle.g:2376:3: (kw= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence kw= '}' )
-                    // InternalAle.g:2377:4: kw= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence kw= '}'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2696:3: (otherlv_6= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence otherlv_8= '}' )
+                    // InternalAle.g:2697:4: otherlv_6= 'Sequence{' this_expressionSequence_7= ruleexpressionSequence otherlv_8= '}'
                     {
                     otherlv_6=(Token)match(input,75,FOLLOW_43); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8941,17 +7625,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2718:3: (otherlv_9= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence otherlv_11= '}' )
+                    // InternalAle.g:2718:3: (otherlv_9= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence otherlv_11= '}' )
                     {
-                    // InternalMyDsl.g:2718:3: (otherlv_9= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence otherlv_11= '}' )
-                    // InternalMyDsl.g:2719:4: otherlv_9= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence otherlv_11= '}'
-=======
-                    // InternalAle.g:2399:3: (kw= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence kw= '}' )
-                    {
-                    // InternalAle.g:2399:3: (kw= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence kw= '}' )
-                    // InternalAle.g:2400:4: kw= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence kw= '}'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2718:3: (otherlv_9= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence otherlv_11= '}' )
+                    // InternalAle.g:2719:4: otherlv_9= 'OrderedSet{' this_expressionSequence_10= ruleexpressionSequence otherlv_11= '}'
                     {
                     otherlv_9=(Token)match(input,76,FOLLOW_43); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -8993,17 +7670,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 9 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2740:3: (this_Ident_12= RULE_IDENT otherlv_13= '::' this_Ident_14= RULE_IDENT otherlv_15= '::' this_Ident_16= RULE_IDENT )
+                    // InternalAle.g:2740:3: (this_Ident_12= RULE_IDENT otherlv_13= '::' this_Ident_14= RULE_IDENT otherlv_15= '::' this_Ident_16= RULE_IDENT )
                     {
-                    // InternalMyDsl.g:2740:3: (this_Ident_12= RULE_IDENT otherlv_13= '::' this_Ident_14= RULE_IDENT otherlv_15= '::' this_Ident_16= RULE_IDENT )
-                    // InternalMyDsl.g:2741:4: this_Ident_12= RULE_IDENT otherlv_13= '::' this_Ident_14= RULE_IDENT otherlv_15= '::' this_Ident_16= RULE_IDENT
-=======
-                    // InternalAle.g:2422:3: (this_Ident_12= RULE_IDENT kw= '::' this_Ident_14= RULE_IDENT kw= '::' this_Ident_16= RULE_IDENT )
-                    {
-                    // InternalAle.g:2422:3: (this_Ident_12= RULE_IDENT kw= '::' this_Ident_14= RULE_IDENT kw= '::' this_Ident_16= RULE_IDENT )
-                    // InternalAle.g:2423:4: this_Ident_12= RULE_IDENT kw= '::' this_Ident_14= RULE_IDENT kw= '::' this_Ident_16= RULE_IDENT
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2740:3: (this_Ident_12= RULE_IDENT otherlv_13= '::' this_Ident_14= RULE_IDENT otherlv_15= '::' this_Ident_16= RULE_IDENT )
+                    // InternalAle.g:2741:4: this_Ident_12= RULE_IDENT otherlv_13= '::' this_Ident_14= RULE_IDENT otherlv_15= '::' this_Ident_16= RULE_IDENT
                     {
                     this_Ident_12=(Token)match(input,RULE_IDENT,FOLLOW_45); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -9042,17 +7712,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 10 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2763:3: (this_Ident_17= RULE_IDENT otherlv_18= '::' this_Ident_19= RULE_IDENT otherlv_20= ':' )
+                    // InternalAle.g:2763:3: (this_Ident_17= RULE_IDENT otherlv_18= '::' this_Ident_19= RULE_IDENT otherlv_20= ':' )
                     {
-                    // InternalMyDsl.g:2763:3: (this_Ident_17= RULE_IDENT otherlv_18= '::' this_Ident_19= RULE_IDENT otherlv_20= ':' )
-                    // InternalMyDsl.g:2764:4: this_Ident_17= RULE_IDENT otherlv_18= '::' this_Ident_19= RULE_IDENT otherlv_20= ':'
-=======
-                    // InternalAle.g:2456:3: (this_Ident_17= RULE_IDENT kw= '::' this_Ident_19= RULE_IDENT kw= ':' )
-                    {
-                    // InternalAle.g:2456:3: (this_Ident_17= RULE_IDENT kw= '::' this_Ident_19= RULE_IDENT kw= ':' )
-                    // InternalAle.g:2457:4: this_Ident_17= RULE_IDENT kw= '::' this_Ident_19= RULE_IDENT kw= ':'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2763:3: (this_Ident_17= RULE_IDENT otherlv_18= '::' this_Ident_19= RULE_IDENT otherlv_20= ':' )
+                    // InternalAle.g:2764:4: this_Ident_17= RULE_IDENT otherlv_18= '::' this_Ident_19= RULE_IDENT otherlv_20= ':'
                     {
                     this_Ident_17=(Token)match(input,RULE_IDENT,FOLLOW_45); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -9085,11 +7748,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 11 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2782:3: ruletypeLiteral
-=======
-                    // InternalAle.g:2483:3: this_typeLiteral_21= ruletypeLiteral
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2782:3: ruletypeLiteral
                     {
                     if ( state.backtracking==0 ) {
 
@@ -9139,11 +7798,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuletypeLiteral"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2796:1: entryRuletypeLiteral returns [String current=null] : iv_ruletypeLiteral= ruletypeLiteral EOF ;
-=======
-    // InternalAle.g:2497:1: entryRuletypeLiteral returns [String current=null] : iv_ruletypeLiteral= ruletypeLiteral EOF ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:2796:1: entryRuletypeLiteral returns [String current=null] : iv_ruletypeLiteral= ruletypeLiteral EOF ;
     public final String entryRuletypeLiteral() throws RecognitionException {
         String current = null;
 
@@ -9151,13 +7806,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2796:51: (iv_ruletypeLiteral= ruletypeLiteral EOF )
-            // InternalMyDsl.g:2797:2: iv_ruletypeLiteral= ruletypeLiteral EOF
-=======
-            // InternalAle.g:2497:51: (iv_ruletypeLiteral= ruletypeLiteral EOF )
-            // InternalAle.g:2498:2: iv_ruletypeLiteral= ruletypeLiteral EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2796:51: (iv_ruletypeLiteral= ruletypeLiteral EOF )
+            // InternalAle.g:2797:2: iv_ruletypeLiteral= ruletypeLiteral EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getTypeLiteralRule()); 
@@ -9188,11 +7838,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruletypeLiteral"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2803:1: ruletypeLiteral returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'String' | kw= 'Integer' | kw= 'Real' | kw= 'Boolean' | (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' ) | (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' ) | this_classifierTypeRule_10= ruleclassifierTypeRule | (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' ) ) ;
-=======
-    // InternalAle.g:2504:1: ruletypeLiteral returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'String' | kw= 'Integer' | kw= 'Real' | kw= 'Boolean' | (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' ) | (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' ) | this_classifierTypeRule_10= ruleclassifierTypeRule | (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' ) ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:2803:1: ruletypeLiteral returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'String' | kw= 'Integer' | kw= 'Real' | kw= 'Boolean' | (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' ) | (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' ) | this_classifierTypeRule_10= ruleclassifierTypeRule | (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' ) ) ;
     public final AntlrDatatypeRuleToken ruletypeLiteral() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -9212,17 +7858,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2809:2: ( (kw= 'String' | kw= 'Integer' | kw= 'Real' | kw= 'Boolean' | (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' ) | (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' ) | this_classifierTypeRule_10= ruleclassifierTypeRule | (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' ) ) )
-            // InternalMyDsl.g:2810:2: (kw= 'String' | kw= 'Integer' | kw= 'Real' | kw= 'Boolean' | (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' ) | (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' ) | this_classifierTypeRule_10= ruleclassifierTypeRule | (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' ) )
+            // InternalAle.g:2809:2: ( (kw= 'String' | kw= 'Integer' | kw= 'Real' | kw= 'Boolean' | (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' ) | (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' ) | this_classifierTypeRule_10= ruleclassifierTypeRule | (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' ) ) )
+            // InternalAle.g:2810:2: (kw= 'String' | kw= 'Integer' | kw= 'Real' | kw= 'Boolean' | (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' ) | (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' ) | this_classifierTypeRule_10= ruleclassifierTypeRule | (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' ) )
             {
-            // InternalMyDsl.g:2810:2: (kw= 'String' | kw= 'Integer' | kw= 'Real' | kw= 'Boolean' | (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' ) | (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' ) | this_classifierTypeRule_10= ruleclassifierTypeRule | (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' ) )
-=======
-            // InternalAle.g:2510:2: ( (kw= 'String' | kw= 'Integer' | kw= 'Real' | kw= 'Boolean' | (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' ) | (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' ) | this_classifierTypeRule_10= ruleclassifierTypeRule | (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' ) ) )
-            // InternalAle.g:2511:2: (kw= 'String' | kw= 'Integer' | kw= 'Real' | kw= 'Boolean' | (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' ) | (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' ) | this_classifierTypeRule_10= ruleclassifierTypeRule | (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' ) )
-            {
-            // InternalAle.g:2511:2: (kw= 'String' | kw= 'Integer' | kw= 'Real' | kw= 'Boolean' | (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' ) | (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' ) | this_classifierTypeRule_10= ruleclassifierTypeRule | (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' ) )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2810:2: (kw= 'String' | kw= 'Integer' | kw= 'Real' | kw= 'Boolean' | (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' ) | (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' ) | this_classifierTypeRule_10= ruleclassifierTypeRule | (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' ) )
             int alt39=8;
             switch ( input.LA(1) ) {
             case 78:
@@ -9275,11 +7914,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
             switch (alt39) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2811:3: kw= 'String'
-=======
-                    // InternalAle.g:2512:3: kw= 'String'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2811:3: kw= 'String'
                     {
                     kw=(Token)match(input,78,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -9292,11 +7927,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2817:3: kw= 'Integer'
-=======
-                    // InternalAle.g:2518:3: kw= 'Integer'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2817:3: kw= 'Integer'
                     {
                     kw=(Token)match(input,79,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -9309,11 +7940,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2823:3: kw= 'Real'
-=======
-                    // InternalAle.g:2524:3: kw= 'Real'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2823:3: kw= 'Real'
                     {
                     kw=(Token)match(input,80,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -9326,11 +7953,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2829:3: kw= 'Boolean'
-=======
-                    // InternalAle.g:2530:3: kw= 'Boolean'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2829:3: kw= 'Boolean'
                     {
                     kw=(Token)match(input,81,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -9343,17 +7966,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2835:3: (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' )
+                    // InternalAle.g:2835:3: (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' )
                     {
-                    // InternalMyDsl.g:2835:3: (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' )
-                    // InternalMyDsl.g:2836:4: kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')'
-=======
-                    // InternalAle.g:2536:3: (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' )
-                    {
-                    // InternalAle.g:2536:3: (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' )
-                    // InternalAle.g:2537:4: kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2835:3: (kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')' )
+                    // InternalAle.g:2836:4: kw= 'Sequence(' this_typeLiteral_5= ruletypeLiteral kw= ')'
                     {
                     kw=(Token)match(input,82,FOLLOW_17); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -9396,17 +8012,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2858:3: (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' )
+                    // InternalAle.g:2858:3: (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' )
                     {
-                    // InternalMyDsl.g:2858:3: (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' )
-                    // InternalMyDsl.g:2859:4: kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')'
-=======
-                    // InternalAle.g:2559:3: (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' )
-                    {
-                    // InternalAle.g:2559:3: (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' )
-                    // InternalAle.g:2560:4: kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2858:3: (kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')' )
+                    // InternalAle.g:2859:4: kw= 'OrderedSet(' this_typeLiteral_8= ruletypeLiteral kw= ')'
                     {
                     kw=(Token)match(input,83,FOLLOW_17); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -9449,11 +8058,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 7 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2881:3: this_classifierTypeRule_10= ruleclassifierTypeRule
-=======
-                    // InternalAle.g:2582:3: this_classifierTypeRule_10= ruleclassifierTypeRule
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2881:3: this_classifierTypeRule_10= ruleclassifierTypeRule
                     {
                     if ( state.backtracking==0 ) {
 
@@ -9479,17 +8084,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 8 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2892:3: (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' )
+                    // InternalAle.g:2892:3: (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' )
                     {
-                    // InternalMyDsl.g:2892:3: (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' )
-                    // InternalMyDsl.g:2893:4: kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}'
-=======
-                    // InternalAle.g:2593:3: (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' )
-                    {
-                    // InternalAle.g:2593:3: (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' )
-                    // InternalAle.g:2594:4: kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2892:3: (kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}' )
+                    // InternalAle.g:2893:4: kw= '{' this_classifierTypeRule_12= ruleclassifierTypeRule (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )* kw= '}'
                     {
                     kw=(Token)match(input,25,FOLLOW_3); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -9518,11 +8116,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       				afterParserOrEnumRuleCall();
                       			
                     }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2908:4: (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )*
-=======
-                    // InternalAle.g:2609:4: (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2908:4: (kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule )*
                     loop38:
                     do {
                         int alt38=2;
@@ -9535,11 +8129,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                         switch (alt38) {
                     	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    	    // InternalMyDsl.g:2909:5: kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule
-=======
-                    	    // InternalAle.g:2610:5: kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    	    // InternalAle.g:2909:5: kw= '|' this_classifierTypeRule_14= ruleclassifierTypeRule
                     	    {
                     	    kw=(Token)match(input,71,FOLLOW_3); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
@@ -9615,11 +8205,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleclassifierTypeRule"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2935:1: entryRuleclassifierTypeRule returns [String current=null] : iv_ruleclassifierTypeRule= ruleclassifierTypeRule EOF ;
-=======
-    // InternalAle.g:2636:1: entryRuleclassifierTypeRule returns [String current=null] : iv_ruleclassifierTypeRule= ruleclassifierTypeRule EOF ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:2935:1: entryRuleclassifierTypeRule returns [String current=null] : iv_ruleclassifierTypeRule= ruleclassifierTypeRule EOF ;
     public final String entryRuleclassifierTypeRule() throws RecognitionException {
         String current = null;
 
@@ -9627,13 +8213,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2935:58: (iv_ruleclassifierTypeRule= ruleclassifierTypeRule EOF )
-            // InternalMyDsl.g:2936:2: iv_ruleclassifierTypeRule= ruleclassifierTypeRule EOF
-=======
-            // InternalAle.g:2636:58: (iv_ruleclassifierTypeRule= ruleclassifierTypeRule EOF )
-            // InternalAle.g:2637:2: iv_ruleclassifierTypeRule= ruleclassifierTypeRule EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2935:58: (iv_ruleclassifierTypeRule= ruleclassifierTypeRule EOF )
+            // InternalAle.g:2936:2: iv_ruleclassifierTypeRule= ruleclassifierTypeRule EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getClassifierTypeRuleRule()); 
@@ -9664,11 +8245,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleclassifierTypeRule"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2942:1: ruleclassifierTypeRule returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT ) | (this_Ident_3= RULE_IDENT kw= ':' ) ) ;
-=======
-    // InternalAle.g:2643:1: ruleclassifierTypeRule returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT ) | (this_Ident_3= RULE_IDENT kw= ':' ) ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:2942:1: ruleclassifierTypeRule returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT ) | (this_Ident_3= RULE_IDENT kw= ':' ) ) ;
     public final AntlrDatatypeRuleToken ruleclassifierTypeRule() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -9681,17 +8258,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2948:2: ( ( (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT ) | (this_Ident_3= RULE_IDENT kw= ':' ) ) )
-            // InternalMyDsl.g:2949:2: ( (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT ) | (this_Ident_3= RULE_IDENT kw= ':' ) )
+            // InternalAle.g:2948:2: ( ( (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT ) | (this_Ident_3= RULE_IDENT kw= ':' ) ) )
+            // InternalAle.g:2949:2: ( (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT ) | (this_Ident_3= RULE_IDENT kw= ':' ) )
             {
-            // InternalMyDsl.g:2949:2: ( (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT ) | (this_Ident_3= RULE_IDENT kw= ':' ) )
-=======
-            // InternalAle.g:2649:2: ( ( (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT ) | (this_Ident_3= RULE_IDENT kw= ':' ) ) )
-            // InternalAle.g:2650:2: ( (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT ) | (this_Ident_3= RULE_IDENT kw= ':' ) )
-            {
-            // InternalAle.g:2650:2: ( (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT ) | (this_Ident_3= RULE_IDENT kw= ':' ) )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2949:2: ( (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT ) | (this_Ident_3= RULE_IDENT kw= ':' ) )
             int alt40=2;
             int LA40_0 = input.LA(1);
 
@@ -9721,17 +8291,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt40) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2950:3: (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT )
+                    // InternalAle.g:2950:3: (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT )
                     {
-                    // InternalMyDsl.g:2950:3: (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT )
-                    // InternalMyDsl.g:2951:4: this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT
-=======
-                    // InternalAle.g:2651:3: (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT )
-                    {
-                    // InternalAle.g:2651:3: (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT )
-                    // InternalAle.g:2652:4: this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2950:3: (this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT )
+                    // InternalAle.g:2951:4: this_Ident_0= RULE_IDENT kw= '::' this_Ident_2= RULE_IDENT
                     {
                     this_Ident_0=(Token)match(input,RULE_IDENT,FOLLOW_45); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -9769,17 +8332,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:2972:3: (this_Ident_3= RULE_IDENT kw= ':' )
+                    // InternalAle.g:2972:3: (this_Ident_3= RULE_IDENT kw= ':' )
                     {
-                    // InternalMyDsl.g:2972:3: (this_Ident_3= RULE_IDENT kw= ':' )
-                    // InternalMyDsl.g:2973:4: this_Ident_3= RULE_IDENT kw= ':'
-=======
-                    // InternalAle.g:2673:3: (this_Ident_3= RULE_IDENT kw= ':' )
-                    {
-                    // InternalAle.g:2673:3: (this_Ident_3= RULE_IDENT kw= ':' )
-                    // InternalAle.g:2674:4: this_Ident_3= RULE_IDENT kw= ':'
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:2972:3: (this_Ident_3= RULE_IDENT kw= ':' )
+                    // InternalAle.g:2973:4: this_Ident_3= RULE_IDENT kw= ':'
                     {
                     this_Ident_3=(Token)match(input,RULE_IDENT,FOLLOW_46); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -9830,11 +8386,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerType"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2990:1: entryRulerType returns [String current=null] : iv_rulerType= rulerType EOF ;
-=======
-    // InternalAle.g:2691:1: entryRulerType returns [String current=null] : iv_rulerType= rulerType EOF ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:2990:1: entryRulerType returns [String current=null] : iv_rulerType= rulerType EOF ;
     public final String entryRulerType() throws RecognitionException {
         String current = null;
 
@@ -9842,13 +8394,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:2990:45: (iv_rulerType= rulerType EOF )
-            // InternalMyDsl.g:2991:2: iv_rulerType= rulerType EOF
-=======
-            // InternalAle.g:2691:45: (iv_rulerType= rulerType EOF )
-            // InternalAle.g:2692:2: iv_rulerType= rulerType EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:2990:45: (iv_rulerType= rulerType EOF )
+            // InternalAle.g:2991:2: iv_rulerType= rulerType EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRTypeRule()); 
@@ -9879,11 +8426,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerType"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:2997:1: rulerType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_rQualified_0= rulerQualified | this_typeLiteral_1= ruletypeLiteral ) ;
-=======
-    // InternalAle.g:2698:1: rulerType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_rQualified_0= rulerQualified | this_typeLiteral_1= ruletypeLiteral ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:2997:1: rulerType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_rQualified_0= rulerQualified | this_typeLiteral_1= ruletypeLiteral ) ;
     public final AntlrDatatypeRuleToken rulerType() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -9896,17 +8439,10 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:3003:2: ( (this_rQualified_0= rulerQualified | this_typeLiteral_1= ruletypeLiteral ) )
-            // InternalMyDsl.g:3004:2: (this_rQualified_0= rulerQualified | this_typeLiteral_1= ruletypeLiteral )
+            // InternalAle.g:3003:2: ( (this_rQualified_0= rulerQualified | this_typeLiteral_1= ruletypeLiteral ) )
+            // InternalAle.g:3004:2: (this_rQualified_0= rulerQualified | this_typeLiteral_1= ruletypeLiteral )
             {
-            // InternalMyDsl.g:3004:2: (this_rQualified_0= rulerQualified | this_typeLiteral_1= ruletypeLiteral )
-=======
-            // InternalAle.g:2704:2: ( (this_rQualified_0= rulerQualified | this_typeLiteral_1= ruletypeLiteral ) )
-            // InternalAle.g:2705:2: (this_rQualified_0= rulerQualified | this_typeLiteral_1= ruletypeLiteral )
-            {
-            // InternalAle.g:2705:2: (this_rQualified_0= rulerQualified | this_typeLiteral_1= ruletypeLiteral )
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:3004:2: (this_rQualified_0= rulerQualified | this_typeLiteral_1= ruletypeLiteral )
             int alt41=2;
             int LA41_0 = input.LA(1);
 
@@ -9939,11 +8475,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt41) {
                 case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:3005:3: this_rQualified_0= rulerQualified
-=======
-                    // InternalAle.g:2706:3: this_rQualified_0= rulerQualified
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:3005:3: this_rQualified_0= rulerQualified
                     {
                     if ( state.backtracking==0 ) {
 
@@ -9969,11 +8501,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-                    // InternalMyDsl.g:3016:3: this_typeLiteral_1= ruletypeLiteral
-=======
-                    // InternalAle.g:2717:3: this_typeLiteral_1= ruletypeLiteral
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+                    // InternalAle.g:3016:3: this_typeLiteral_1= ruletypeLiteral
                     {
                     if ( state.backtracking==0 ) {
 
@@ -10023,11 +8551,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulerQualified"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:3030:1: entryRulerQualified returns [String current=null] : iv_rulerQualified= rulerQualified EOF ;
-=======
-    // InternalAle.g:2731:1: entryRulerQualified returns [String current=null] : iv_rulerQualified= rulerQualified EOF ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:3030:1: entryRulerQualified returns [String current=null] : iv_rulerQualified= rulerQualified EOF ;
     public final String entryRulerQualified() throws RecognitionException {
         String current = null;
 
@@ -10035,13 +8559,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:3030:50: (iv_rulerQualified= rulerQualified EOF )
-            // InternalMyDsl.g:3031:2: iv_rulerQualified= rulerQualified EOF
-=======
-            // InternalAle.g:2731:50: (iv_rulerQualified= rulerQualified EOF )
-            // InternalAle.g:2732:2: iv_rulerQualified= rulerQualified EOF
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:3030:50: (iv_rulerQualified= rulerQualified EOF )
+            // InternalAle.g:3031:2: iv_rulerQualified= rulerQualified EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRQualifiedRule()); 
@@ -10072,11 +8591,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerQualified"
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // InternalMyDsl.g:3037:1: rulerQualified returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* ) ;
-=======
-    // InternalAle.g:2738:1: rulerQualified returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* ) ;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+    // InternalAle.g:3037:1: rulerQualified returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* ) ;
     public final AntlrDatatypeRuleToken rulerQualified() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -10088,19 +8603,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:3043:2: ( (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* ) )
-            // InternalMyDsl.g:3044:2: (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* )
+            // InternalAle.g:3043:2: ( (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* ) )
+            // InternalAle.g:3044:2: (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* )
             {
-            // InternalMyDsl.g:3044:2: (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* )
-            // InternalMyDsl.g:3045:3: this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )*
-=======
-            // InternalAle.g:2744:2: ( (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* ) )
-            // InternalAle.g:2745:2: (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* )
-            {
-            // InternalAle.g:2745:2: (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* )
-            // InternalAle.g:2746:3: this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:3044:2: (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* )
+            // InternalAle.g:3045:3: this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )*
             {
             this_Ident_0=(Token)match(input,RULE_IDENT,FOLLOW_48); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -10113,11 +8620,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(this_Ident_0, grammarAccess.getRQualifiedAccess().getIdentTerminalRuleCall_0());
               		
             }
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            // InternalMyDsl.g:3052:3: (kw= '.' this_Ident_2= RULE_IDENT )*
-=======
-            // InternalAle.g:2753:3: (kw= '.' this_Ident_2= RULE_IDENT )*
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            // InternalAle.g:3052:3: (kw= '.' this_Ident_2= RULE_IDENT )*
             loop42:
             do {
                 int alt42=2;
@@ -10130,11 +8633,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                 switch (alt42) {
             	case 1 :
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-            	    // InternalMyDsl.g:3053:4: kw= '.' this_Ident_2= RULE_IDENT
-=======
-            	    // InternalAle.g:2754:4: kw= '.' this_Ident_2= RULE_IDENT
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+            	    // InternalAle.g:3053:4: kw= '.' this_Ident_2= RULE_IDENT
             	    {
             	    kw=(Token)match(input,20,FOLLOW_3); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
@@ -10186,20 +8685,19 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
     }
     // $ANTLR end "rulerQualified"
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // $ANTLR start synpred17_InternalMyDsl
-    public final void synpred17_InternalMyDsl_fragment() throws RecognitionException {   
+    // $ANTLR start synpred17_InternalAle
+    public final void synpred17_InternalAle_fragment() throws RecognitionException {   
         EObject lv_stmt_1_0 = null;
 
 
-        // InternalMyDsl.g:920:3: ( ( () ( (lv_stmt_1_0= rulerVarDecl ) ) ) )
-        // InternalMyDsl.g:920:3: ( () ( (lv_stmt_1_0= rulerVarDecl ) ) )
+        // InternalAle.g:920:3: ( ( () ( (lv_stmt_1_0= rulerVarDecl ) ) ) )
+        // InternalAle.g:920:3: ( () ( (lv_stmt_1_0= rulerVarDecl ) ) )
         {
-        // InternalMyDsl.g:920:3: ( () ( (lv_stmt_1_0= rulerVarDecl ) ) )
-        // InternalMyDsl.g:921:4: () ( (lv_stmt_1_0= rulerVarDecl ) )
+        // InternalAle.g:920:3: ( () ( (lv_stmt_1_0= rulerVarDecl ) ) )
+        // InternalAle.g:921:4: () ( (lv_stmt_1_0= rulerVarDecl ) )
         {
-        // InternalMyDsl.g:921:4: ()
-        // InternalMyDsl.g:922:5: 
+        // InternalAle.g:921:4: ()
+        // InternalAle.g:922:5: 
         {
         if ( state.backtracking==0 ) {
 
@@ -10209,11 +8707,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
         }
 
-        // InternalMyDsl.g:931:4: ( (lv_stmt_1_0= rulerVarDecl ) )
-        // InternalMyDsl.g:932:5: (lv_stmt_1_0= rulerVarDecl )
+        // InternalAle.g:931:4: ( (lv_stmt_1_0= rulerVarDecl ) )
+        // InternalAle.g:932:5: (lv_stmt_1_0= rulerVarDecl )
         {
-        // InternalMyDsl.g:932:5: (lv_stmt_1_0= rulerVarDecl )
-        // InternalMyDsl.g:933:6: lv_stmt_1_0= rulerVarDecl
+        // InternalAle.g:932:5: (lv_stmt_1_0= rulerVarDecl )
+        // InternalAle.g:933:6: lv_stmt_1_0= rulerVarDecl
         {
         if ( state.backtracking==0 ) {
 
@@ -10228,21 +8726,9 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
         }
 
-=======
-    // $ANTLR start synpred17_InternalAle
-    public final void synpred17_InternalAle_fragment() throws RecognitionException {   
-        AntlrDatatypeRuleToken this_rVarDecl_0 = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         }
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-=======
-        // InternalAle.g:870:3: (this_rVarDecl_0= rulerVarDecl )
-        // InternalAle.g:870:3: this_rVarDecl_0= rulerVarDecl
-        {
-        if ( state.backtracking==0 ) {
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         }
 
@@ -10251,27 +8737,21 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
     }
     // $ANTLR end synpred17_InternalAle
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // $ANTLR start synpred18_InternalMyDsl
-    public final void synpred18_InternalMyDsl_fragment() throws RecognitionException {   
+    // $ANTLR start synpred18_InternalAle
+    public final void synpred18_InternalAle_fragment() throws RecognitionException {   
         EObject lv_stmt_3_0 = null;
 
 
-        // InternalMyDsl.g:952:3: ( ( () ( (lv_stmt_3_0= rulerAssign ) ) ) )
-        // InternalMyDsl.g:952:3: ( () ( (lv_stmt_3_0= rulerAssign ) ) )
+        // InternalAle.g:952:3: ( ( () ( (lv_stmt_3_0= rulerAssign ) ) ) )
+        // InternalAle.g:952:3: ( () ( (lv_stmt_3_0= rulerAssign ) ) )
         {
-        // InternalMyDsl.g:952:3: ( () ( (lv_stmt_3_0= rulerAssign ) ) )
-        // InternalMyDsl.g:953:4: () ( (lv_stmt_3_0= rulerAssign ) )
+        // InternalAle.g:952:3: ( () ( (lv_stmt_3_0= rulerAssign ) ) )
+        // InternalAle.g:953:4: () ( (lv_stmt_3_0= rulerAssign ) )
         {
-        // InternalMyDsl.g:953:4: ()
-        // InternalMyDsl.g:954:5: 
+        // InternalAle.g:953:4: ()
+        // InternalAle.g:954:5: 
         {
         if ( state.backtracking==0 ) {
-=======
-    // $ANTLR start synpred18_InternalAle
-    public final void synpred18_InternalAle_fragment() throws RecognitionException {   
-        AntlrDatatypeRuleToken this_rAssign_1 = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
           					/* */
           				
@@ -10279,16 +8759,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
         }
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-        // InternalMyDsl.g:963:4: ( (lv_stmt_3_0= rulerAssign ) )
-        // InternalMyDsl.g:964:5: (lv_stmt_3_0= rulerAssign )
+        // InternalAle.g:963:4: ( (lv_stmt_3_0= rulerAssign ) )
+        // InternalAle.g:964:5: (lv_stmt_3_0= rulerAssign )
         {
-        // InternalMyDsl.g:964:5: (lv_stmt_3_0= rulerAssign )
-        // InternalMyDsl.g:965:6: lv_stmt_3_0= rulerAssign
-=======
-        // InternalAle.g:881:3: (this_rAssign_1= rulerAssign )
-        // InternalAle.g:881:3: this_rAssign_1= rulerAssign
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+        // InternalAle.g:964:5: (lv_stmt_3_0= rulerAssign )
+        // InternalAle.g:965:6: lv_stmt_3_0= rulerAssign
         {
         if ( state.backtracking==0 ) {
 
@@ -10314,44 +8789,33 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
     }
     // $ANTLR end synpred18_InternalAle
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // $ANTLR start synpred21_InternalMyDsl
-    public final void synpred21_InternalMyDsl_fragment() throws RecognitionException {   
+    // $ANTLR start synpred21_InternalAle
+    public final void synpred21_InternalAle_fragment() throws RecognitionException {   
         EObject lv_if_9_0 = null;
 
 
-        // InternalMyDsl.g:1048:3: ( ( () ( (lv_if_9_0= rulerIf ) ) ) )
-        // InternalMyDsl.g:1048:3: ( () ( (lv_if_9_0= rulerIf ) ) )
+        // InternalAle.g:1048:3: ( ( () ( (lv_if_9_0= rulerIf ) ) ) )
+        // InternalAle.g:1048:3: ( () ( (lv_if_9_0= rulerIf ) ) )
         {
-        // InternalMyDsl.g:1048:3: ( () ( (lv_if_9_0= rulerIf ) ) )
-        // InternalMyDsl.g:1049:4: () ( (lv_if_9_0= rulerIf ) )
+        // InternalAle.g:1048:3: ( () ( (lv_if_9_0= rulerIf ) ) )
+        // InternalAle.g:1049:4: () ( (lv_if_9_0= rulerIf ) )
         {
-        // InternalMyDsl.g:1049:4: ()
-        // InternalMyDsl.g:1050:5: 
+        // InternalAle.g:1049:4: ()
+        // InternalAle.g:1050:5: 
         {
         if ( state.backtracking==0 ) {
 
           					/* */
           				
         }
-=======
-    // $ANTLR start synpred21_InternalAle
-    public final void synpred21_InternalAle_fragment() throws RecognitionException {   
-        AntlrDatatypeRuleToken this_rIf_4 = null;
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
 
         }
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-        // InternalMyDsl.g:1059:4: ( (lv_if_9_0= rulerIf ) )
-        // InternalMyDsl.g:1060:5: (lv_if_9_0= rulerIf )
+        // InternalAle.g:1059:4: ( (lv_if_9_0= rulerIf ) )
+        // InternalAle.g:1060:5: (lv_if_9_0= rulerIf )
         {
-        // InternalMyDsl.g:1060:5: (lv_if_9_0= rulerIf )
-        // InternalMyDsl.g:1061:6: lv_if_9_0= rulerIf
-=======
-        // InternalAle.g:914:3: (this_rIf_4= rulerIf )
-        // InternalAle.g:914:3: this_rIf_4= rulerIf
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+        // InternalAle.g:1060:5: (lv_if_9_0= rulerIf )
+        // InternalAle.g:1061:6: lv_if_9_0= rulerIf
         {
         if ( state.backtracking==0 ) {
 
@@ -10377,26 +8841,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
     }
     // $ANTLR end synpred21_InternalAle
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // $ANTLR start synpred27_InternalMyDsl
-    public final void synpred27_InternalMyDsl_fragment() throws RecognitionException {   
+    // $ANTLR start synpred27_InternalAle
+    public final void synpred27_InternalAle_fragment() throws RecognitionException {   
         EObject lv_recpart_1_0 = null;
 
 
-        // InternalMyDsl.g:1647:4: ( (lv_recpart_1_0= rulerecExpression ) )
-        // InternalMyDsl.g:1647:4: (lv_recpart_1_0= rulerecExpression )
+        // InternalAle.g:1647:4: ( (lv_recpart_1_0= rulerecExpression ) )
+        // InternalAle.g:1647:4: (lv_recpart_1_0= rulerecExpression )
         {
-        // InternalMyDsl.g:1647:4: (lv_recpart_1_0= rulerecExpression )
-        // InternalMyDsl.g:1648:5: lv_recpart_1_0= rulerecExpression
-=======
-    // $ANTLR start synpred27_InternalAle
-    public final void synpred27_InternalAle_fragment() throws RecognitionException {   
-        AntlrDatatypeRuleToken this_recExpression_1 = null;
-
-
-        // InternalAle.g:1411:4: (this_recExpression_1= rulerecExpression )
-        // InternalAle.g:1411:4: this_recExpression_1= rulerecExpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+        // InternalAle.g:1647:4: (lv_recpart_1_0= rulerecExpression )
+        // InternalAle.g:1648:5: lv_recpart_1_0= rulerecExpression
         {
         if ( state.backtracking==0 ) {
 
@@ -10416,26 +8870,16 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
     }
     // $ANTLR end synpred27_InternalAle
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/parser/antlr/internal/InternalMyDslParser.java
-    // $ANTLR start synpred35_InternalMyDsl
-    public final void synpred35_InternalMyDsl_fragment() throws RecognitionException {   
+    // $ANTLR start synpred35_InternalAle
+    public final void synpred35_InternalAle_fragment() throws RecognitionException {   
         EObject lv_recExp_15_0 = null;
 
 
-        // InternalMyDsl.g:1836:4: ( (lv_recExp_15_0= rulerecExpression ) )
-        // InternalMyDsl.g:1836:4: (lv_recExp_15_0= rulerecExpression )
+        // InternalAle.g:1836:4: ( (lv_recExp_15_0= rulerecExpression ) )
+        // InternalAle.g:1836:4: (lv_recExp_15_0= rulerecExpression )
         {
-        // InternalMyDsl.g:1836:4: (lv_recExp_15_0= rulerecExpression )
-        // InternalMyDsl.g:1837:5: lv_recExp_15_0= rulerecExpression
-=======
-    // $ANTLR start synpred35_InternalAle
-    public final void synpred35_InternalAle_fragment() throws RecognitionException {   
-        AntlrDatatypeRuleToken this_recExpression_15 = null;
-
-
-        // InternalAle.g:1592:4: (this_recExpression_15= rulerecExpression )
-        // InternalAle.g:1592:4: this_recExpression_15= rulerecExpression
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/parser/antlr/internal/InternalAleParser.java
+        // InternalAle.g:1836:4: (lv_recExp_15_0= rulerecExpression )
+        // InternalAle.g:1837:5: lv_recExp_15_0= rulerecExpression
         {
         if ( state.backtracking==0 ) {
 

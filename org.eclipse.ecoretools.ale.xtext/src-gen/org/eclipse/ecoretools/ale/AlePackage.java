@@ -58,19 +58,11 @@ public interface AlePackage extends EPackage
   AlePackage eINSTANCE = org.eclipse.ecoretools.ale.impl.AlePackageImpl.init();
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.RRootImpl <em>RRoot</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.RRootImpl <em>RRoot</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.RRootImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRRoot()
-=======
-   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.rRootImpl <em>rRoot</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.eclipse.ecoretools.ale.impl.rRootImpl
-   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrRoot()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
+   * @see org.eclipse.ecoretools.ale.impl.RRootImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRRoot()
    * @generated
    */
   int RROOT = 0;
@@ -94,19 +86,11 @@ public interface AlePackage extends EPackage
   int RROOT_FEATURE_COUNT = 1;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.RClassImpl <em>RClass</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.RClassImpl <em>RClass</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.RClassImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRClass()
-=======
-   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.rClassImpl <em>rClass</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.eclipse.ecoretools.ale.impl.rClassImpl
-   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrClass()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
+   * @see org.eclipse.ecoretools.ale.impl.RClassImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRClass()
    * @generated
    */
   int RCLASS = 1;
@@ -148,19 +132,11 @@ public interface AlePackage extends EPackage
   int RCLASS_FEATURE_COUNT = 3;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.ROpenClassImpl <em>ROpen Class</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.ROpenClassImpl <em>ROpen Class</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.ROpenClassImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getROpenClass()
-=======
-   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.rOpenClassImpl <em>rOpen Class</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.eclipse.ecoretools.ale.impl.rOpenClassImpl
-   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrOpenClass()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
+   * @see org.eclipse.ecoretools.ale.impl.ROpenClassImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getROpenClass()
    * @generated
    */
   int ROPEN_CLASS = 2;
@@ -202,7 +178,6 @@ public interface AlePackage extends EPackage
   int ROPEN_CLASS__OPEN_CLASS = RCLASS_FEATURE_COUNT + 0;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The number of structural features of the '<em>ROpen Class</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -212,18 +187,11 @@ public interface AlePackage extends EPackage
   int ROPEN_CLASS_FEATURE_COUNT = RCLASS_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.RNewClassImpl <em>RNew Class</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.RNewClassImpl <em>RNew Class</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.RNewClassImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRNewClass()
-=======
-   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.rNewClassImpl <em>rNew Class</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.eclipse.ecoretools.ale.impl.rNewClassImpl
-   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrNewClass()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
+   * @see org.eclipse.ecoretools.ale.impl.RNewClassImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRNewClass()
    * @generated
    */
   int RNEW_CLASS = 3;
@@ -440,386 +408,205 @@ public interface AlePackage extends EPackage
   int RATTRIBUTE_FEATURE_COUNT = 3;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.RStatementImpl <em>RStatement</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.RStatementImpl <em>RStatement</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.RStatementImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRStatement()
+   * @see org.eclipse.ecoretools.ale.impl.RStatementImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRStatement()
    * @generated
    */
   int RSTATEMENT = 8;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The number of structural features of the '<em>RStatement</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-=======
-   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.rRoot <em>rRoot</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rRoot</em>'.
-   * @see org.eclipse.ecoretools.ale.rRoot
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
    * @generated
    * @ordered
    */
   int RSTATEMENT_FEATURE_COUNT = 0;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.rVarDeclImpl <em>rVar Decl</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.rVarDeclImpl <em>rVar Decl</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.rVarDeclImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrVarDecl()
-=======
-   * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.rRoot#getXtendedClasses <em>Xtended Classes</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Xtended Classes</em>'.
-   * @see org.eclipse.ecoretools.ale.rRoot#getXtendedClasses()
-   * @see #getrRoot()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
+   * @see org.eclipse.ecoretools.ale.impl.rVarDeclImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrVarDecl()
    * @generated
    */
   int RVAR_DECL = 9;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The number of structural features of the '<em>rVar Decl</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-=======
-   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.rClass <em>rClass</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rClass</em>'.
-   * @see org.eclipse.ecoretools.ale.rClass
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
    * @generated
    * @ordered
    */
   int RVAR_DECL_FEATURE_COUNT = 0;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.RAssignImpl <em>RAssign</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.RAssignImpl <em>RAssign</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.RAssignImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRAssign()
-=======
-   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rClass#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.eclipse.ecoretools.ale.rClass#getName()
-   * @see #getrClass()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
+   * @see org.eclipse.ecoretools.ale.impl.RAssignImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRAssign()
    * @generated
    */
   int RASSIGN = 10;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The feature id for the '<em><b>Stmt</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-=======
-   * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.rClass#getAttributes <em>Attributes</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Attributes</em>'.
-   * @see org.eclipse.ecoretools.ale.rClass#getAttributes()
-   * @see #getrClass()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
    * @generated
    * @ordered
    */
   int RASSIGN__STMT = RSTATEMENT_FEATURE_COUNT + 0;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The feature id for the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-=======
-   * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.rClass#getOperations <em>Operations</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Operations</em>'.
-   * @see org.eclipse.ecoretools.ale.rClass#getOperations()
-   * @see #getrClass()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
    * @generated
    * @ordered
    */
   int RASSIGN__LEFT = RSTATEMENT_FEATURE_COUNT + 1;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The feature id for the '<em><b>Right</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-=======
-   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.rOpenClass <em>rOpen Class</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rOpen Class</em>'.
-   * @see org.eclipse.ecoretools.ale.rOpenClass
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
    * @generated
    * @ordered
    */
   int RASSIGN__RIGHT = RSTATEMENT_FEATURE_COUNT + 2;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The number of structural features of the '<em>RAssign</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-=======
-   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.rNewClass <em>rNew Class</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rNew Class</em>'.
-   * @see org.eclipse.ecoretools.ale.rNewClass
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
    * @generated
    * @ordered
    */
   int RASSIGN_FEATURE_COUNT = RSTATEMENT_FEATURE_COUNT + 3;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.RForEachImpl <em>RFor Each</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.RForEachImpl <em>RFor Each</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.RForEachImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRForEach()
-=======
-   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.rOperation <em>rOperation</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rOperation</em>'.
-   * @see org.eclipse.ecoretools.ale.rOperation
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
+   * @see org.eclipse.ecoretools.ale.impl.RForEachImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRForEach()
    * @generated
    */
   int RFOR_EACH = 11;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The feature id for the '<em><b>For Each</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-=======
-   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rOperation#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Type</em>'.
-   * @see org.eclipse.ecoretools.ale.rOperation#getType()
-   * @see #getrOperation()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
    * @generated
    * @ordered
    */
   int RFOR_EACH__FOR_EACH = RSTATEMENT_FEATURE_COUNT + 0;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The number of structural features of the '<em>RFor Each</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-=======
-   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rOperation#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.eclipse.ecoretools.ale.rOperation#getName()
-   * @see #getrOperation()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
    * @generated
    * @ordered
    */
   int RFOR_EACH_FEATURE_COUNT = RSTATEMENT_FEATURE_COUNT + 1;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.rCollectionImpl <em>rCollection</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.rCollectionImpl <em>rCollection</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.rCollectionImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrCollection()
-=======
-   * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.rOperation#getParamList <em>Param List</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Param List</em>'.
-   * @see org.eclipse.ecoretools.ale.rOperation#getParamList()
-   * @see #getrOperation()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
+   * @see org.eclipse.ecoretools.ale.impl.rCollectionImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrCollection()
    * @generated
    */
   int RCOLLECTION = 12;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The feature id for the '<em><b>For Each</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-=======
-   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rOperation#getBody <em>Body</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Body</em>'.
-   * @see org.eclipse.ecoretools.ale.rOperation#getBody()
-   * @see #getrOperation()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
    * @generated
    * @ordered
    */
   int RCOLLECTION__FOR_EACH = RFOR_EACH__FOR_EACH;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The feature id for the '<em><b>Block</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-=======
-   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.rParameters <em>rParameters</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rParameters</em>'.
-   * @see org.eclipse.ecoretools.ale.rParameters
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
    * @generated
    * @ordered
    */
   int RCOLLECTION__BLOCK = RFOR_EACH_FEATURE_COUNT + 0;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The number of structural features of the '<em>rCollection</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-=======
-   * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.rParameters#getParams <em>Params</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Params</em>'.
-   * @see org.eclipse.ecoretools.ale.rParameters#getParams()
-   * @see #getrParameters()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
    * @generated
    * @ordered
    */
   int RCOLLECTION_FEATURE_COUNT = RFOR_EACH_FEATURE_COUNT + 1;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.rBlockImpl <em>rBlock</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.rBlockImpl <em>rBlock</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.rBlockImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrBlock()
-=======
-   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.rVariable <em>rVariable</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rVariable</em>'.
-   * @see org.eclipse.ecoretools.ale.rVariable
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
+   * @see org.eclipse.ecoretools.ale.impl.rBlockImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrBlock()
    * @generated
    */
   int RBLOCK = 13;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The feature id for the '<em><b>Statement</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-=======
-   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rVariable#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Type</em>'.
-   * @see org.eclipse.ecoretools.ale.rVariable#getType()
-   * @see #getrVariable()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
    * @generated
    * @ordered
    */
   int RBLOCK__STATEMENT = 0;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The number of structural features of the '<em>rBlock</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-=======
-   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rVariable#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.eclipse.ecoretools.ale.rVariable#getName()
-   * @see #getrVariable()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
    * @generated
    * @ordered
    */
   int RBLOCK_FEATURE_COUNT = 1;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.RIfImpl <em>RIf</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.RIfImpl <em>RIf</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.RIfImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRIf()
-=======
-   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.rAttribute <em>rAttribute</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rAttribute</em>'.
-   * @see org.eclipse.ecoretools.ale.rAttribute
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
+   * @see org.eclipse.ecoretools.ale.impl.RIfImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRIf()
    * @generated
    */
   int RIF = 14;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The feature id for the '<em><b>If</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-=======
-   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rAttribute#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Type</em>'.
-   * @see org.eclipse.ecoretools.ale.rAttribute#getType()
-   * @see #getrAttribute()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
    * @generated
    * @ordered
    */
   int RIF__IF = RSTATEMENT_FEATURE_COUNT + 0;
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
    * The feature id for the '<em><b>Condition</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-=======
-   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rAttribute#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.eclipse.ecoretools.ale.rAttribute#getName()
-   * @see #getrAttribute()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
    * @generated
    * @ordered
    */
@@ -832,11 +619,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
   int RIF__IF_BLOCK = RSTATEMENT_FEATURE_COUNT + 2;
-=======
-  AleFactory getAleFactory();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
 
   /**
    * The feature id for the '<em><b>Else Block</b></em>' containment reference.
@@ -845,21 +628,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
   int RIF__ELSE_BLOCK = RSTATEMENT_FEATURE_COUNT + 3;
-=======
-  interface Literals
-  {
-    /**
-     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.rRootImpl <em>rRoot</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.ecoretools.ale.impl.rRootImpl
-     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrRoot()
-     * @generated
-     */
-    EClass RROOT = eINSTANCE.getrRoot();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
 
   /**
    * The number of structural features of the '<em>RIf</em>' class.
@@ -870,27 +639,15 @@ public interface AlePackage extends EPackage
    */
   int RIF_FEATURE_COUNT = RSTATEMENT_FEATURE_COUNT + 4;
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.RWhileImpl <em>RWhile</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.RWhileImpl <em>RWhile</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.RWhileImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRWhile()
+   * @see org.eclipse.ecoretools.ale.impl.RWhileImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRWhile()
    * @generated
    */
   int RWHILE = 15;
-=======
-    /**
-     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.rClassImpl <em>rClass</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.ecoretools.ale.impl.rClassImpl
-     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrClass()
-     * @generated
-     */
-    EClass RCLASS = eINSTANCE.getrClass();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
 
   /**
    * The feature id for the '<em><b>While</b></em>' containment reference.
@@ -911,16 +668,15 @@ public interface AlePackage extends EPackage
   int RWHILE_FEATURE_COUNT = RSTATEMENT_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.RExpressionImpl <em>RExpression</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.RExpressionImpl <em>RExpression</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.RExpressionImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRExpression()
+   * @see org.eclipse.ecoretools.ale.impl.RExpressionImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRExpression()
    * @generated
    */
   int REXPRESSION = 16;
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
   /**
    * The feature id for the '<em><b>Expr</b></em>' containment reference.
    * <!-- begin-user-doc -->
@@ -940,45 +696,14 @@ public interface AlePackage extends EPackage
   int REXPRESSION_FEATURE_COUNT = RSTATEMENT_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.ExprImpl <em>Expr</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.ExprImpl <em>Expr</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.ExprImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getExpr()
+   * @see org.eclipse.ecoretools.ale.impl.ExprImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getExpr()
    * @generated
    */
   int EXPR = 17;
-=======
-    /**
-     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.rOpenClassImpl <em>rOpen Class</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.ecoretools.ale.impl.rOpenClassImpl
-     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrOpenClass()
-     * @generated
-     */
-    EClass ROPEN_CLASS = eINSTANCE.getrOpenClass();
-
-    /**
-     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.rNewClassImpl <em>rNew Class</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.ecoretools.ale.impl.rNewClassImpl
-     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrNewClass()
-     * @generated
-     */
-    EClass RNEW_CLASS = eINSTANCE.getrNewClass();
-
-    /**
-     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.rOperationImpl <em>rOperation</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.ecoretools.ale.impl.rOperationImpl
-     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrOperation()
-     * @generated
-     */
-    EClass ROPERATION = eINSTANCE.getrOperation();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
 
   /**
    * The feature id for the '<em><b>For Each</b></em>' containment reference.
@@ -1098,11 +823,11 @@ public interface AlePackage extends EPackage
   int EXPR_FEATURE_COUNT = RVAR_DECL_FEATURE_COUNT + 12;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.RecExpressionImpl <em>Rec Expression</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.RecExpressionImpl <em>Rec Expression</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.RecExpressionImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRecExpression()
+   * @see org.eclipse.ecoretools.ale.impl.RecExpressionImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRecExpression()
    * @generated
    */
   int REC_EXPRESSION = 18;
@@ -1126,11 +851,11 @@ public interface AlePackage extends EPackage
   int REC_EXPRESSION_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.NavigationSegmentImpl <em>Navigation Segment</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.NavigationSegmentImpl <em>Navigation Segment</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.NavigationSegmentImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getNavigationSegment()
+   * @see org.eclipse.ecoretools.ale.impl.NavigationSegmentImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getNavigationSegment()
    * @generated
    */
   int NAVIGATION_SEGMENT = 19;
@@ -1154,11 +879,11 @@ public interface AlePackage extends EPackage
   int NAVIGATION_SEGMENT_FEATURE_COUNT = REC_EXPRESSION_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.nonLeftRecExpressionImpl <em>non Left Rec Expression</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.nonLeftRecExpressionImpl <em>non Left Rec Expression</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.nonLeftRecExpressionImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getnonLeftRecExpression()
+   * @see org.eclipse.ecoretools.ale.impl.nonLeftRecExpressionImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getnonLeftRecExpression()
    * @generated
    */
   int NON_LEFT_REC_EXPRESSION = 20;
@@ -1218,11 +943,11 @@ public interface AlePackage extends EPackage
   int NON_LEFT_REC_EXPRESSION_FEATURE_COUNT = 5;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.bindingImpl <em>binding</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.bindingImpl <em>binding</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.bindingImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getbinding()
+   * @see org.eclipse.ecoretools.ale.impl.bindingImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getbinding()
    * @generated
    */
   int BINDING = 21;
@@ -1237,11 +962,11 @@ public interface AlePackage extends EPackage
   int BINDING_FEATURE_COUNT = 0;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.callExpImpl <em>call Exp</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.callExpImpl <em>call Exp</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.callExpImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getcallExp()
+   * @see org.eclipse.ecoretools.ale.impl.callExpImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getcallExp()
    * @generated
    */
   int CALL_EXP = 22;
@@ -1256,11 +981,11 @@ public interface AlePackage extends EPackage
   int CALL_EXP_FEATURE_COUNT = 0;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.expressionSequenceImpl <em>expression Sequence</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.expressionSequenceImpl <em>expression Sequence</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.expressionSequenceImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getexpressionSequence()
+   * @see org.eclipse.ecoretools.ale.impl.expressionSequenceImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getexpressionSequence()
    * @generated
    */
   int EXPRESSION_SEQUENCE = 23;
@@ -1329,11 +1054,11 @@ public interface AlePackage extends EPackage
   int EXPRESSION_SEQUENCE_FEATURE_COUNT = CALL_EXP_FEATURE_COUNT + 6;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.literalImpl <em>literal</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.literalImpl <em>literal</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.literalImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getliteral()
+   * @see org.eclipse.ecoretools.ale.impl.literalImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getliteral()
    * @generated
    */
   int LITERAL = 24;
@@ -1393,11 +1118,11 @@ public interface AlePackage extends EPackage
   int LITERAL_FEATURE_COUNT = NON_LEFT_REC_EXPRESSION_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.RValDeclImpl <em>RVal Decl</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.RValDeclImpl <em>RVal Decl</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.RValDeclImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRValDecl()
+   * @see org.eclipse.ecoretools.ale.impl.RValDeclImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRValDecl()
    * @generated
    */
   int RVAL_DECL = 25;
@@ -1421,11 +1146,11 @@ public interface AlePackage extends EPackage
   int RVAL_DECL_FEATURE_COUNT = RSTATEMENT_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.FinalIdentSegmentImpl <em>Final Ident Segment</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.FinalIdentSegmentImpl <em>Final Ident Segment</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.FinalIdentSegmentImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getFinalIdentSegment()
+   * @see org.eclipse.ecoretools.ale.impl.FinalIdentSegmentImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getFinalIdentSegment()
    * @generated
    */
   int FINAL_IDENT_SEGMENT = 26;
@@ -1458,11 +1183,11 @@ public interface AlePackage extends EPackage
   int FINAL_IDENT_SEGMENT_FEATURE_COUNT = NAVIGATION_SEGMENT_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.FinalIdentCallSegmentImpl <em>Final Ident Call Segment</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.FinalIdentCallSegmentImpl <em>Final Ident Call Segment</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.FinalIdentCallSegmentImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getFinalIdentCallSegment()
+   * @see org.eclipse.ecoretools.ale.impl.FinalIdentCallSegmentImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getFinalIdentCallSegment()
    * @generated
    */
   int FINAL_IDENT_CALL_SEGMENT = 27;
@@ -1495,11 +1220,11 @@ public interface AlePackage extends EPackage
   int FINAL_IDENT_CALL_SEGMENT_FEATURE_COUNT = NAVIGATION_SEGMENT_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.xtext.example.mydsl.myDsl.impl.FinalCallExpSegmentImpl <em>Final Call Exp Segment</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.FinalCallExpSegmentImpl <em>Final Call Exp Segment</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.xtext.example.mydsl.myDsl.impl.FinalCallExpSegmentImpl
-   * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getFinalCallExpSegment()
+   * @see org.eclipse.ecoretools.ale.impl.FinalCallExpSegmentImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getFinalCallExpSegment()
    * @generated
    */
   int FINAL_CALL_EXP_SEGMENT = 28;
@@ -1533,741 +1258,741 @@ public interface AlePackage extends EPackage
 
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.RRoot <em>RRoot</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.RRoot <em>RRoot</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>RRoot</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RRoot
+   * @see org.eclipse.ecoretools.ale.RRoot
    * @generated
    */
   EClass getRRoot();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.xtext.example.mydsl.myDsl.RRoot#getXtendedClasses <em>Xtended Classes</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.RRoot#getXtendedClasses <em>Xtended Classes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Xtended Classes</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RRoot#getXtendedClasses()
+   * @see org.eclipse.ecoretools.ale.RRoot#getXtendedClasses()
    * @see #getRRoot()
    * @generated
    */
   EReference getRRoot_XtendedClasses();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.RClass <em>RClass</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.RClass <em>RClass</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>RClass</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RClass
+   * @see org.eclipse.ecoretools.ale.RClass
    * @generated
    */
   EClass getRClass();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.RClass#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.RClass#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RClass#getName()
+   * @see org.eclipse.ecoretools.ale.RClass#getName()
    * @see #getRClass()
    * @generated
    */
   EAttribute getRClass_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.xtext.example.mydsl.myDsl.RClass#getAttributes <em>Attributes</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.RClass#getAttributes <em>Attributes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Attributes</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RClass#getAttributes()
+   * @see org.eclipse.ecoretools.ale.RClass#getAttributes()
    * @see #getRClass()
    * @generated
    */
   EReference getRClass_Attributes();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.xtext.example.mydsl.myDsl.RClass#getOperations <em>Operations</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.RClass#getOperations <em>Operations</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Operations</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RClass#getOperations()
+   * @see org.eclipse.ecoretools.ale.RClass#getOperations()
    * @see #getRClass()
    * @generated
    */
   EReference getRClass_Operations();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.ROpenClass <em>ROpen Class</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.ROpenClass <em>ROpen Class</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>ROpen Class</em>'.
-   * @see org.xtext.example.mydsl.myDsl.ROpenClass
+   * @see org.eclipse.ecoretools.ale.ROpenClass
    * @generated
    */
   EClass getROpenClass();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.ROpenClass#getOpenClass <em>Open Class</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.ROpenClass#getOpenClass <em>Open Class</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Open Class</em>'.
-   * @see org.xtext.example.mydsl.myDsl.ROpenClass#getOpenClass()
+   * @see org.eclipse.ecoretools.ale.ROpenClass#getOpenClass()
    * @see #getROpenClass()
    * @generated
    */
   EReference getROpenClass_OpenClass();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.RNewClass <em>RNew Class</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.RNewClass <em>RNew Class</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>RNew Class</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RNewClass
+   * @see org.eclipse.ecoretools.ale.RNewClass
    * @generated
    */
   EClass getRNewClass();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.RNewClass#getNewClass <em>New Class</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.RNewClass#getNewClass <em>New Class</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>New Class</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RNewClass#getNewClass()
+   * @see org.eclipse.ecoretools.ale.RNewClass#getNewClass()
    * @see #getRNewClass()
    * @generated
    */
   EReference getRNewClass_NewClass();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.rOperation <em>rOperation</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.rOperation <em>rOperation</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>rOperation</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rOperation
+   * @see org.eclipse.ecoretools.ale.rOperation
    * @generated
    */
   EClass getrOperation();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.rOperation#getType <em>Type</em>}'.
+   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rOperation#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Type</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rOperation#getType()
+   * @see org.eclipse.ecoretools.ale.rOperation#getType()
    * @see #getrOperation()
    * @generated
    */
   EAttribute getrOperation_Type();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.rOperation#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rOperation#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rOperation#getName()
+   * @see org.eclipse.ecoretools.ale.rOperation#getName()
    * @see #getrOperation()
    * @generated
    */
   EAttribute getrOperation_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.xtext.example.mydsl.myDsl.rOperation#getParamList <em>Param List</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.rOperation#getParamList <em>Param List</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Param List</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rOperation#getParamList()
+   * @see org.eclipse.ecoretools.ale.rOperation#getParamList()
    * @see #getrOperation()
    * @generated
    */
   EReference getrOperation_ParamList();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.rOperation#getBody <em>Body</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.rOperation#getBody <em>Body</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Body</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rOperation#getBody()
+   * @see org.eclipse.ecoretools.ale.rOperation#getBody()
    * @see #getrOperation()
    * @generated
    */
   EReference getrOperation_Body();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.rParameters <em>rParameters</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.rParameters <em>rParameters</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>rParameters</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rParameters
+   * @see org.eclipse.ecoretools.ale.rParameters
    * @generated
    */
   EClass getrParameters();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.xtext.example.mydsl.myDsl.rParameters#getParams <em>Params</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.rParameters#getParams <em>Params</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Params</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rParameters#getParams()
+   * @see org.eclipse.ecoretools.ale.rParameters#getParams()
    * @see #getrParameters()
    * @generated
    */
   EReference getrParameters_Params();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.rVariable <em>rVariable</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.rVariable <em>rVariable</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>rVariable</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rVariable
+   * @see org.eclipse.ecoretools.ale.rVariable
    * @generated
    */
   EClass getrVariable();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.rVariable#getType <em>Type</em>}'.
+   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rVariable#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Type</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rVariable#getType()
+   * @see org.eclipse.ecoretools.ale.rVariable#getType()
    * @see #getrVariable()
    * @generated
    */
   EAttribute getrVariable_Type();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.rVariable#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rVariable#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rVariable#getName()
+   * @see org.eclipse.ecoretools.ale.rVariable#getName()
    * @see #getrVariable()
    * @generated
    */
   EAttribute getrVariable_Name();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.rAttribute <em>rAttribute</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.rAttribute <em>rAttribute</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>rAttribute</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rAttribute
+   * @see org.eclipse.ecoretools.ale.rAttribute
    * @generated
    */
   EClass getrAttribute();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.rAttribute#getType <em>Type</em>}'.
+   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rAttribute#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Type</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rAttribute#getType()
+   * @see org.eclipse.ecoretools.ale.rAttribute#getType()
    * @see #getrAttribute()
    * @generated
    */
   EAttribute getrAttribute_Type();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.rAttribute#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rAttribute#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rAttribute#getName()
+   * @see org.eclipse.ecoretools.ale.rAttribute#getName()
    * @see #getrAttribute()
    * @generated
    */
   EAttribute getrAttribute_Name();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.rAttribute#getExpr <em>Expr</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.rAttribute#getExpr <em>Expr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Expr</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rAttribute#getExpr()
+   * @see org.eclipse.ecoretools.ale.rAttribute#getExpr()
    * @see #getrAttribute()
    * @generated
    */
   EReference getrAttribute_Expr();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.RStatement <em>RStatement</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.RStatement <em>RStatement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>RStatement</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RStatement
+   * @see org.eclipse.ecoretools.ale.RStatement
    * @generated
    */
   EClass getRStatement();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.rVarDecl <em>rVar Decl</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.rVarDecl <em>rVar Decl</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>rVar Decl</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rVarDecl
+   * @see org.eclipse.ecoretools.ale.rVarDecl
    * @generated
    */
   EClass getrVarDecl();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.RAssign <em>RAssign</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.RAssign <em>RAssign</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>RAssign</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RAssign
+   * @see org.eclipse.ecoretools.ale.RAssign
    * @generated
    */
   EClass getRAssign();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.RAssign#getStmt <em>Stmt</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.RAssign#getStmt <em>Stmt</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Stmt</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RAssign#getStmt()
+   * @see org.eclipse.ecoretools.ale.RAssign#getStmt()
    * @see #getRAssign()
    * @generated
    */
   EReference getRAssign_Stmt();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.RAssign#getLeft <em>Left</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.RAssign#getLeft <em>Left</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RAssign#getLeft()
+   * @see org.eclipse.ecoretools.ale.RAssign#getLeft()
    * @see #getRAssign()
    * @generated
    */
   EReference getRAssign_Left();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.RAssign#getRight <em>Right</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.RAssign#getRight <em>Right</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RAssign#getRight()
+   * @see org.eclipse.ecoretools.ale.RAssign#getRight()
    * @see #getRAssign()
    * @generated
    */
   EReference getRAssign_Right();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.RForEach <em>RFor Each</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.RForEach <em>RFor Each</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>RFor Each</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RForEach
+   * @see org.eclipse.ecoretools.ale.RForEach
    * @generated
    */
   EClass getRForEach();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.RForEach#getForEach <em>For Each</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.RForEach#getForEach <em>For Each</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>For Each</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RForEach#getForEach()
+   * @see org.eclipse.ecoretools.ale.RForEach#getForEach()
    * @see #getRForEach()
    * @generated
    */
   EReference getRForEach_ForEach();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.rCollection <em>rCollection</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.rCollection <em>rCollection</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>rCollection</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rCollection
+   * @see org.eclipse.ecoretools.ale.rCollection
    * @generated
    */
   EClass getrCollection();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.rCollection#getBlock <em>Block</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.rCollection#getBlock <em>Block</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Block</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rCollection#getBlock()
+   * @see org.eclipse.ecoretools.ale.rCollection#getBlock()
    * @see #getrCollection()
    * @generated
    */
   EReference getrCollection_Block();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.rBlock <em>rBlock</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.rBlock <em>rBlock</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>rBlock</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rBlock
+   * @see org.eclipse.ecoretools.ale.rBlock
    * @generated
    */
   EClass getrBlock();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.xtext.example.mydsl.myDsl.rBlock#getStatement <em>Statement</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.rBlock#getStatement <em>Statement</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Statement</em>'.
-   * @see org.xtext.example.mydsl.myDsl.rBlock#getStatement()
+   * @see org.eclipse.ecoretools.ale.rBlock#getStatement()
    * @see #getrBlock()
    * @generated
    */
   EReference getrBlock_Statement();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.RIf <em>RIf</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.RIf <em>RIf</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>RIf</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RIf
+   * @see org.eclipse.ecoretools.ale.RIf
    * @generated
    */
   EClass getRIf();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.RIf#getIf <em>If</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.RIf#getIf <em>If</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>If</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RIf#getIf()
+   * @see org.eclipse.ecoretools.ale.RIf#getIf()
    * @see #getRIf()
    * @generated
    */
   EReference getRIf_If();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.RIf#getCondition <em>Condition</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.RIf#getCondition <em>Condition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Condition</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RIf#getCondition()
+   * @see org.eclipse.ecoretools.ale.RIf#getCondition()
    * @see #getRIf()
    * @generated
    */
   EReference getRIf_Condition();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.RIf#getIfBlock <em>If Block</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.RIf#getIfBlock <em>If Block</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>If Block</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RIf#getIfBlock()
+   * @see org.eclipse.ecoretools.ale.RIf#getIfBlock()
    * @see #getRIf()
    * @generated
    */
   EReference getRIf_IfBlock();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.RIf#getElseBlock <em>Else Block</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.RIf#getElseBlock <em>Else Block</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Else Block</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RIf#getElseBlock()
+   * @see org.eclipse.ecoretools.ale.RIf#getElseBlock()
    * @see #getRIf()
    * @generated
    */
   EReference getRIf_ElseBlock();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.RWhile <em>RWhile</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.RWhile <em>RWhile</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>RWhile</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RWhile
+   * @see org.eclipse.ecoretools.ale.RWhile
    * @generated
    */
   EClass getRWhile();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.RWhile#getWhile <em>While</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.RWhile#getWhile <em>While</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>While</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RWhile#getWhile()
+   * @see org.eclipse.ecoretools.ale.RWhile#getWhile()
    * @see #getRWhile()
    * @generated
    */
   EReference getRWhile_While();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.RExpression <em>RExpression</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.RExpression <em>RExpression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>RExpression</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RExpression
+   * @see org.eclipse.ecoretools.ale.RExpression
    * @generated
    */
   EClass getRExpression();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.RExpression#getExpr <em>Expr</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.RExpression#getExpr <em>Expr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Expr</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RExpression#getExpr()
+   * @see org.eclipse.ecoretools.ale.RExpression#getExpr()
    * @see #getRExpression()
    * @generated
    */
   EReference getRExpression_Expr();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.Expr <em>Expr</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.Expr <em>Expr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>Expr</em>'.
-   * @see org.xtext.example.mydsl.myDsl.Expr
+   * @see org.eclipse.ecoretools.ale.Expr
    * @generated
    */
   EClass getExpr();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.Expr#getLeftPart <em>Left Part</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.Expr#getLeftPart <em>Left Part</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Left Part</em>'.
-   * @see org.xtext.example.mydsl.myDsl.Expr#getLeftPart()
+   * @see org.eclipse.ecoretools.ale.Expr#getLeftPart()
    * @see #getExpr()
    * @generated
    */
   EReference getExpr_LeftPart();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.Expr#getRecpart <em>Recpart</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.Expr#getRecpart <em>Recpart</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Recpart</em>'.
-   * @see org.xtext.example.mydsl.myDsl.Expr#getRecpart()
+   * @see org.eclipse.ecoretools.ale.Expr#getRecpart()
    * @see #getExpr()
    * @generated
    */
   EReference getExpr_Recpart();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.RecExpression <em>Rec Expression</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.RecExpression <em>Rec Expression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>Rec Expression</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RecExpression
+   * @see org.eclipse.ecoretools.ale.RecExpression
    * @generated
    */
   EClass getRecExpression();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.RecExpression#getRecExp <em>Rec Exp</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.RecExpression#getRecExp <em>Rec Exp</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Rec Exp</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RecExpression#getRecExp()
+   * @see org.eclipse.ecoretools.ale.RecExpression#getRecExp()
    * @see #getRecExpression()
    * @generated
    */
   EReference getRecExpression_RecExp();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.NavigationSegment <em>Navigation Segment</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.NavigationSegment <em>Navigation Segment</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>Navigation Segment</em>'.
-   * @see org.xtext.example.mydsl.myDsl.NavigationSegment
+   * @see org.eclipse.ecoretools.ale.NavigationSegment
    * @generated
    */
   EClass getNavigationSegment();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.nonLeftRecExpression <em>non Left Rec Expression</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.nonLeftRecExpression <em>non Left Rec Expression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>non Left Rec Expression</em>'.
-   * @see org.xtext.example.mydsl.myDsl.nonLeftRecExpression
+   * @see org.eclipse.ecoretools.ale.nonLeftRecExpression
    * @generated
    */
   EClass getnonLeftRecExpression();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.nonLeftRecExpression#getCondition <em>Condition</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.nonLeftRecExpression#getCondition <em>Condition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Condition</em>'.
-   * @see org.xtext.example.mydsl.myDsl.nonLeftRecExpression#getCondition()
+   * @see org.eclipse.ecoretools.ale.nonLeftRecExpression#getCondition()
    * @see #getnonLeftRecExpression()
    * @generated
    */
   EReference getnonLeftRecExpression_Condition();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.nonLeftRecExpression#getIfBlock <em>If Block</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.nonLeftRecExpression#getIfBlock <em>If Block</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>If Block</em>'.
-   * @see org.xtext.example.mydsl.myDsl.nonLeftRecExpression#getIfBlock()
+   * @see org.eclipse.ecoretools.ale.nonLeftRecExpression#getIfBlock()
    * @see #getnonLeftRecExpression()
    * @generated
    */
   EReference getnonLeftRecExpression_IfBlock();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.nonLeftRecExpression#getElseBlock <em>Else Block</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.nonLeftRecExpression#getElseBlock <em>Else Block</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Else Block</em>'.
-   * @see org.xtext.example.mydsl.myDsl.nonLeftRecExpression#getElseBlock()
+   * @see org.eclipse.ecoretools.ale.nonLeftRecExpression#getElseBlock()
    * @see #getnonLeftRecExpression()
    * @generated
    */
   EReference getnonLeftRecExpression_ElseBlock();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.xtext.example.mydsl.myDsl.nonLeftRecExpression#getBindings <em>Bindings</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.nonLeftRecExpression#getBindings <em>Bindings</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Bindings</em>'.
-   * @see org.xtext.example.mydsl.myDsl.nonLeftRecExpression#getBindings()
+   * @see org.eclipse.ecoretools.ale.nonLeftRecExpression#getBindings()
    * @see #getnonLeftRecExpression()
    * @generated
    */
   EReference getnonLeftRecExpression_Bindings();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.nonLeftRecExpression#getLetExpr <em>Let Expr</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.nonLeftRecExpression#getLetExpr <em>Let Expr</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Let Expr</em>'.
-   * @see org.xtext.example.mydsl.myDsl.nonLeftRecExpression#getLetExpr()
+   * @see org.eclipse.ecoretools.ale.nonLeftRecExpression#getLetExpr()
    * @see #getnonLeftRecExpression()
    * @generated
    */
   EReference getnonLeftRecExpression_LetExpr();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.binding <em>binding</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.binding <em>binding</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>binding</em>'.
-   * @see org.xtext.example.mydsl.myDsl.binding
+   * @see org.eclipse.ecoretools.ale.binding
    * @generated
    */
   EClass getbinding();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.callExp <em>call Exp</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.callExp <em>call Exp</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>call Exp</em>'.
-   * @see org.xtext.example.mydsl.myDsl.callExp
+   * @see org.eclipse.ecoretools.ale.callExp
    * @generated
    */
   EClass getcallExp();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.expressionSequence <em>expression Sequence</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.expressionSequence <em>expression Sequence</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>expression Sequence</em>'.
-   * @see org.xtext.example.mydsl.myDsl.expressionSequence
+   * @see org.eclipse.ecoretools.ale.expressionSequence
    * @generated
    */
   EClass getexpressionSequence();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.xtext.example.mydsl.myDsl.expressionSequence#getSeqExprs <em>Seq Exprs</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.expressionSequence#getSeqExprs <em>Seq Exprs</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Seq Exprs</em>'.
-   * @see org.xtext.example.mydsl.myDsl.expressionSequence#getSeqExprs()
+   * @see org.eclipse.ecoretools.ale.expressionSequence#getSeqExprs()
    * @see #getexpressionSequence()
    * @generated
    */
   EReference getexpressionSequence_SeqExprs();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.literal <em>literal</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.literal <em>literal</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>literal</em>'.
-   * @see org.xtext.example.mydsl.myDsl.literal
+   * @see org.eclipse.ecoretools.ale.literal
    * @generated
    */
   EClass getliteral();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.RValDecl <em>RVal Decl</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.RValDecl <em>RVal Decl</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>RVal Decl</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RValDecl
+   * @see org.eclipse.ecoretools.ale.RValDecl
    * @generated
    */
   EClass getRValDecl();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.RValDecl#getStmt <em>Stmt</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.RValDecl#getStmt <em>Stmt</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Stmt</em>'.
-   * @see org.xtext.example.mydsl.myDsl.RValDecl#getStmt()
+   * @see org.eclipse.ecoretools.ale.RValDecl#getStmt()
    * @see #getRValDecl()
    * @generated
    */
   EReference getRValDecl_Stmt();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.FinalIdentSegment <em>Final Ident Segment</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.FinalIdentSegment <em>Final Ident Segment</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>Final Ident Segment</em>'.
-   * @see org.xtext.example.mydsl.myDsl.FinalIdentSegment
+   * @see org.eclipse.ecoretools.ale.FinalIdentSegment
    * @generated
    */
   EClass getFinalIdentSegment();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.myDsl.FinalIdentSegment#getIdent <em>Ident</em>}'.
+   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.FinalIdentSegment#getIdent <em>Ident</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Ident</em>'.
-   * @see org.xtext.example.mydsl.myDsl.FinalIdentSegment#getIdent()
+   * @see org.eclipse.ecoretools.ale.FinalIdentSegment#getIdent()
    * @see #getFinalIdentSegment()
    * @generated
    */
   EAttribute getFinalIdentSegment_Ident();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.FinalIdentCallSegment <em>Final Ident Call Segment</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.FinalIdentCallSegment <em>Final Ident Call Segment</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>Final Ident Call Segment</em>'.
-   * @see org.xtext.example.mydsl.myDsl.FinalIdentCallSegment
+   * @see org.eclipse.ecoretools.ale.FinalIdentCallSegment
    * @generated
    */
   EClass getFinalIdentCallSegment();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.FinalIdentCallSegment#getCall <em>Call</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.FinalIdentCallSegment#getCall <em>Call</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Call</em>'.
-   * @see org.xtext.example.mydsl.myDsl.FinalIdentCallSegment#getCall()
+   * @see org.eclipse.ecoretools.ale.FinalIdentCallSegment#getCall()
    * @see #getFinalIdentCallSegment()
    * @generated
    */
   EReference getFinalIdentCallSegment_Call();
 
   /**
-   * Returns the meta object for class '{@link org.xtext.example.mydsl.myDsl.FinalCallExpSegment <em>Final Call Exp Segment</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.FinalCallExpSegment <em>Final Call Exp Segment</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for class '<em>Final Call Exp Segment</em>'.
-   * @see org.xtext.example.mydsl.myDsl.FinalCallExpSegment
+   * @see org.eclipse.ecoretools.ale.FinalCallExpSegment
    * @generated
    */
   EClass getFinalCallExpSegment();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.myDsl.FinalCallExpSegment#getCall <em>Call</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.FinalCallExpSegment#getCall <em>Call</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Call</em>'.
-   * @see org.xtext.example.mydsl.myDsl.FinalCallExpSegment#getCall()
+   * @see org.eclipse.ecoretools.ale.FinalCallExpSegment#getCall()
    * @see #getFinalCallExpSegment()
    * @generated
    */
@@ -2280,7 +2005,7 @@ public interface AlePackage extends EPackage
    * @return the factory that creates the instances of the model.
    * @generated
    */
-  MyDslFactory getMyDslFactory();
+  AleFactory getAleFactory();
 
   /**
    * <!-- begin-user-doc -->
@@ -2297,11 +2022,11 @@ public interface AlePackage extends EPackage
   interface Literals
   {
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.RRootImpl <em>RRoot</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.RRootImpl <em>RRoot</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.RRootImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRRoot()
+     * @see org.eclipse.ecoretools.ale.impl.RRootImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRRoot()
      * @generated
      */
     EClass RROOT = eINSTANCE.getRRoot();
@@ -2315,11 +2040,11 @@ public interface AlePackage extends EPackage
     EReference RROOT__XTENDED_CLASSES = eINSTANCE.getRRoot_XtendedClasses();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.RClassImpl <em>RClass</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.RClassImpl <em>RClass</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.RClassImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRClass()
+     * @see org.eclipse.ecoretools.ale.impl.RClassImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRClass()
      * @generated
      */
     EClass RCLASS = eINSTANCE.getRClass();
@@ -2349,11 +2074,11 @@ public interface AlePackage extends EPackage
     EReference RCLASS__OPERATIONS = eINSTANCE.getRClass_Operations();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.ROpenClassImpl <em>ROpen Class</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.ROpenClassImpl <em>ROpen Class</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.ROpenClassImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getROpenClass()
+     * @see org.eclipse.ecoretools.ale.impl.ROpenClassImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getROpenClass()
      * @generated
      */
     EClass ROPEN_CLASS = eINSTANCE.getROpenClass();
@@ -2367,11 +2092,11 @@ public interface AlePackage extends EPackage
     EReference ROPEN_CLASS__OPEN_CLASS = eINSTANCE.getROpenClass_OpenClass();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.RNewClassImpl <em>RNew Class</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.RNewClassImpl <em>RNew Class</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.RNewClassImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRNewClass()
+     * @see org.eclipse.ecoretools.ale.impl.RNewClassImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRNewClass()
      * @generated
      */
     EClass RNEW_CLASS = eINSTANCE.getRNewClass();
@@ -2385,11 +2110,11 @@ public interface AlePackage extends EPackage
     EReference RNEW_CLASS__NEW_CLASS = eINSTANCE.getRNewClass_NewClass();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.rOperationImpl <em>rOperation</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.rOperationImpl <em>rOperation</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.rOperationImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrOperation()
+     * @see org.eclipse.ecoretools.ale.impl.rOperationImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrOperation()
      * @generated
      */
     EClass ROPERATION = eINSTANCE.getrOperation();
@@ -2427,11 +2152,11 @@ public interface AlePackage extends EPackage
     EReference ROPERATION__BODY = eINSTANCE.getrOperation_Body();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.rParametersImpl <em>rParameters</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.rParametersImpl <em>rParameters</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.rParametersImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrParameters()
+     * @see org.eclipse.ecoretools.ale.impl.rParametersImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrParameters()
      * @generated
      */
     EClass RPARAMETERS = eINSTANCE.getrParameters();
@@ -2445,11 +2170,11 @@ public interface AlePackage extends EPackage
     EReference RPARAMETERS__PARAMS = eINSTANCE.getrParameters_Params();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.rVariableImpl <em>rVariable</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.rVariableImpl <em>rVariable</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.rVariableImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrVariable()
+     * @see org.eclipse.ecoretools.ale.impl.rVariableImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrVariable()
      * @generated
      */
     EClass RVARIABLE = eINSTANCE.getrVariable();
@@ -2471,11 +2196,11 @@ public interface AlePackage extends EPackage
     EAttribute RVARIABLE__NAME = eINSTANCE.getrVariable_Name();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.rAttributeImpl <em>rAttribute</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.rAttributeImpl <em>rAttribute</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.rAttributeImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrAttribute()
+     * @see org.eclipse.ecoretools.ale.impl.rAttributeImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrAttribute()
      * @generated
      */
     EClass RATTRIBUTE = eINSTANCE.getrAttribute();
@@ -2505,47 +2230,31 @@ public interface AlePackage extends EPackage
     EReference RATTRIBUTE__EXPR = eINSTANCE.getrAttribute_Expr();
 
     /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.RStatementImpl <em>RStatement</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.RStatementImpl <em>RStatement</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.RStatementImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRStatement()
-=======
-     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.rParametersImpl <em>rParameters</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.ecoretools.ale.impl.rParametersImpl
-     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrParameters()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
+     * @see org.eclipse.ecoretools.ale.impl.RStatementImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRStatement()
      * @generated
      */
     EClass RSTATEMENT = eINSTANCE.getRStatement();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.rVarDeclImpl <em>rVar Decl</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.rVarDeclImpl <em>rVar Decl</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.rVarDeclImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrVarDecl()
+     * @see org.eclipse.ecoretools.ale.impl.rVarDeclImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrVarDecl()
      * @generated
      */
     EClass RVAR_DECL = eINSTANCE.getrVarDecl();
 
     /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.RAssignImpl <em>RAssign</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.RAssignImpl <em>RAssign</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.RAssignImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRAssign()
-=======
-     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.rVariableImpl <em>rVariable</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.ecoretools.ale.impl.rVariableImpl
-     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrVariable()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
+     * @see org.eclipse.ecoretools.ale.impl.RAssignImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRAssign()
      * @generated
      */
     EClass RASSIGN = eINSTANCE.getRAssign();
@@ -2567,27 +2276,19 @@ public interface AlePackage extends EPackage
     EReference RASSIGN__LEFT = eINSTANCE.getRAssign_Left();
 
     /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/MyDslPackage.java
      * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-=======
-     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.rAttributeImpl <em>rAttribute</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.ecoretools.ale.impl.rAttributeImpl
-     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrAttribute()
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/AlePackage.java
      * @generated
      */
     EReference RASSIGN__RIGHT = eINSTANCE.getRAssign_Right();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.RForEachImpl <em>RFor Each</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.RForEachImpl <em>RFor Each</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.RForEachImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRForEach()
+     * @see org.eclipse.ecoretools.ale.impl.RForEachImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRForEach()
      * @generated
      */
     EClass RFOR_EACH = eINSTANCE.getRForEach();
@@ -2601,11 +2302,11 @@ public interface AlePackage extends EPackage
     EReference RFOR_EACH__FOR_EACH = eINSTANCE.getRForEach_ForEach();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.rCollectionImpl <em>rCollection</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.rCollectionImpl <em>rCollection</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.rCollectionImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrCollection()
+     * @see org.eclipse.ecoretools.ale.impl.rCollectionImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrCollection()
      * @generated
      */
     EClass RCOLLECTION = eINSTANCE.getrCollection();
@@ -2619,11 +2320,11 @@ public interface AlePackage extends EPackage
     EReference RCOLLECTION__BLOCK = eINSTANCE.getrCollection_Block();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.rBlockImpl <em>rBlock</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.rBlockImpl <em>rBlock</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.rBlockImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getrBlock()
+     * @see org.eclipse.ecoretools.ale.impl.rBlockImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getrBlock()
      * @generated
      */
     EClass RBLOCK = eINSTANCE.getrBlock();
@@ -2637,11 +2338,11 @@ public interface AlePackage extends EPackage
     EReference RBLOCK__STATEMENT = eINSTANCE.getrBlock_Statement();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.RIfImpl <em>RIf</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.RIfImpl <em>RIf</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.RIfImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRIf()
+     * @see org.eclipse.ecoretools.ale.impl.RIfImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRIf()
      * @generated
      */
     EClass RIF = eINSTANCE.getRIf();
@@ -2679,11 +2380,11 @@ public interface AlePackage extends EPackage
     EReference RIF__ELSE_BLOCK = eINSTANCE.getRIf_ElseBlock();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.RWhileImpl <em>RWhile</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.RWhileImpl <em>RWhile</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.RWhileImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRWhile()
+     * @see org.eclipse.ecoretools.ale.impl.RWhileImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRWhile()
      * @generated
      */
     EClass RWHILE = eINSTANCE.getRWhile();
@@ -2697,11 +2398,11 @@ public interface AlePackage extends EPackage
     EReference RWHILE__WHILE = eINSTANCE.getRWhile_While();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.RExpressionImpl <em>RExpression</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.RExpressionImpl <em>RExpression</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.RExpressionImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRExpression()
+     * @see org.eclipse.ecoretools.ale.impl.RExpressionImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRExpression()
      * @generated
      */
     EClass REXPRESSION = eINSTANCE.getRExpression();
@@ -2715,11 +2416,11 @@ public interface AlePackage extends EPackage
     EReference REXPRESSION__EXPR = eINSTANCE.getRExpression_Expr();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.ExprImpl <em>Expr</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.ExprImpl <em>Expr</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.ExprImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getExpr()
+     * @see org.eclipse.ecoretools.ale.impl.ExprImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getExpr()
      * @generated
      */
     EClass EXPR = eINSTANCE.getExpr();
@@ -2741,11 +2442,11 @@ public interface AlePackage extends EPackage
     EReference EXPR__RECPART = eINSTANCE.getExpr_Recpart();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.RecExpressionImpl <em>Rec Expression</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.RecExpressionImpl <em>Rec Expression</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.RecExpressionImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRecExpression()
+     * @see org.eclipse.ecoretools.ale.impl.RecExpressionImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRecExpression()
      * @generated
      */
     EClass REC_EXPRESSION = eINSTANCE.getRecExpression();
@@ -2759,21 +2460,21 @@ public interface AlePackage extends EPackage
     EReference REC_EXPRESSION__REC_EXP = eINSTANCE.getRecExpression_RecExp();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.NavigationSegmentImpl <em>Navigation Segment</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.NavigationSegmentImpl <em>Navigation Segment</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.NavigationSegmentImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getNavigationSegment()
+     * @see org.eclipse.ecoretools.ale.impl.NavigationSegmentImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getNavigationSegment()
      * @generated
      */
     EClass NAVIGATION_SEGMENT = eINSTANCE.getNavigationSegment();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.nonLeftRecExpressionImpl <em>non Left Rec Expression</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.nonLeftRecExpressionImpl <em>non Left Rec Expression</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.nonLeftRecExpressionImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getnonLeftRecExpression()
+     * @see org.eclipse.ecoretools.ale.impl.nonLeftRecExpressionImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getnonLeftRecExpression()
      * @generated
      */
     EClass NON_LEFT_REC_EXPRESSION = eINSTANCE.getnonLeftRecExpression();
@@ -2819,31 +2520,31 @@ public interface AlePackage extends EPackage
     EReference NON_LEFT_REC_EXPRESSION__LET_EXPR = eINSTANCE.getnonLeftRecExpression_LetExpr();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.bindingImpl <em>binding</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.bindingImpl <em>binding</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.bindingImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getbinding()
+     * @see org.eclipse.ecoretools.ale.impl.bindingImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getbinding()
      * @generated
      */
     EClass BINDING = eINSTANCE.getbinding();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.callExpImpl <em>call Exp</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.callExpImpl <em>call Exp</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.callExpImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getcallExp()
+     * @see org.eclipse.ecoretools.ale.impl.callExpImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getcallExp()
      * @generated
      */
     EClass CALL_EXP = eINSTANCE.getcallExp();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.expressionSequenceImpl <em>expression Sequence</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.expressionSequenceImpl <em>expression Sequence</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.expressionSequenceImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getexpressionSequence()
+     * @see org.eclipse.ecoretools.ale.impl.expressionSequenceImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getexpressionSequence()
      * @generated
      */
     EClass EXPRESSION_SEQUENCE = eINSTANCE.getexpressionSequence();
@@ -2857,21 +2558,21 @@ public interface AlePackage extends EPackage
     EReference EXPRESSION_SEQUENCE__SEQ_EXPRS = eINSTANCE.getexpressionSequence_SeqExprs();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.literalImpl <em>literal</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.literalImpl <em>literal</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.literalImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getliteral()
+     * @see org.eclipse.ecoretools.ale.impl.literalImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getliteral()
      * @generated
      */
     EClass LITERAL = eINSTANCE.getliteral();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.RValDeclImpl <em>RVal Decl</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.RValDeclImpl <em>RVal Decl</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.RValDeclImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getRValDecl()
+     * @see org.eclipse.ecoretools.ale.impl.RValDeclImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRValDecl()
      * @generated
      */
     EClass RVAL_DECL = eINSTANCE.getRValDecl();
@@ -2885,11 +2586,11 @@ public interface AlePackage extends EPackage
     EReference RVAL_DECL__STMT = eINSTANCE.getRValDecl_Stmt();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.FinalIdentSegmentImpl <em>Final Ident Segment</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.FinalIdentSegmentImpl <em>Final Ident Segment</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.FinalIdentSegmentImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getFinalIdentSegment()
+     * @see org.eclipse.ecoretools.ale.impl.FinalIdentSegmentImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getFinalIdentSegment()
      * @generated
      */
     EClass FINAL_IDENT_SEGMENT = eINSTANCE.getFinalIdentSegment();
@@ -2903,11 +2604,11 @@ public interface AlePackage extends EPackage
     EAttribute FINAL_IDENT_SEGMENT__IDENT = eINSTANCE.getFinalIdentSegment_Ident();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.FinalIdentCallSegmentImpl <em>Final Ident Call Segment</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.FinalIdentCallSegmentImpl <em>Final Ident Call Segment</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.FinalIdentCallSegmentImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getFinalIdentCallSegment()
+     * @see org.eclipse.ecoretools.ale.impl.FinalIdentCallSegmentImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getFinalIdentCallSegment()
      * @generated
      */
     EClass FINAL_IDENT_CALL_SEGMENT = eINSTANCE.getFinalIdentCallSegment();
@@ -2921,11 +2622,11 @@ public interface AlePackage extends EPackage
     EReference FINAL_IDENT_CALL_SEGMENT__CALL = eINSTANCE.getFinalIdentCallSegment_Call();
 
     /**
-     * The meta object literal for the '{@link org.xtext.example.mydsl.myDsl.impl.FinalCallExpSegmentImpl <em>Final Call Exp Segment</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.FinalCallExpSegmentImpl <em>Final Call Exp Segment</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.xtext.example.mydsl.myDsl.impl.FinalCallExpSegmentImpl
-     * @see org.xtext.example.mydsl.myDsl.impl.MyDslPackageImpl#getFinalCallExpSegment()
+     * @see org.eclipse.ecoretools.ale.impl.FinalCallExpSegmentImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getFinalCallExpSegment()
      * @generated
      */
     EClass FINAL_CALL_EXP_SEGMENT = eINSTANCE.getFinalCallExpSegment();

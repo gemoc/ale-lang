@@ -35,8 +35,18 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.ecoretools.ale.rAttribute;
+import org.eclipse.ecoretools.ale.RClass;
+import org.eclipse.ecoretools.ale.rOperation;
+import org.eclipse.ecoretools.ale.RRoot;
 import org.eclipse.ecoretools.ale.core.parser.AstBuilder;
 import org.eclipse.ecoretools.ale.core.parser.visitor.ParseResult;
+import org.eclipse.ecoretools.ale.implementation.ExtendedClass;
+import org.eclipse.ecoretools.ale.implementation.Implementation;
+import org.eclipse.ecoretools.ale.implementation.ImplementationPackage;
+import org.eclipse.ecoretools.ale.implementation.Method;
+import org.eclipse.ecoretools.ale.implementation.ModelBehavior;
+import org.eclipse.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -66,36 +76,7 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-<<<<<<< HEAD:lang.ide/src/lang/ide/services/Services.java
-import org.xtext.example.mydsl.myDsl.RClass;
-import org.xtext.example.mydsl.myDsl.RRoot;
-import org.xtext.example.mydsl.myDsl.rAttribute;
-import org.xtext.example.mydsl.myDsl.rOperation;
-=======
-import org.eclipse.ecoretools.ale.rAttribute;
-import org.eclipse.ecoretools.ale.rClass;
-import org.eclipse.ecoretools.ale.rOperation;
-import org.eclipse.ecoretools.ale.rRoot;
->>>>>>> master:org.eclipse.ecoretools.ale.ide/src/org/eclipse/ecoretools/ale/ide/services/Services.java
 
-<<<<<<< HEAD:lang.ide/src/lang/ide/services/Services.java
-import implementation.ExtendedClass;
-import implementation.Implementation;
-import implementation.ImplementationPackage;
-import implementation.Method;
-import implementation.ModelBehavior;
-import implementation.VariableDeclaration;
-import lang.core.parser.AstBuilder;
-import lang.core.parser.visitor.ParseResult;
-=======
-import org.eclipse.ecoretools.ale.implementation.ExtendedClass;
-import org.eclipse.ecoretools.ale.implementation.Implementation;
-import org.eclipse.ecoretools.ale.implementation.ImplementationFactory;
-import org.eclipse.ecoretools.ale.implementation.ImplementationPackage;
-import org.eclipse.ecoretools.ale.implementation.Method;
-import org.eclipse.ecoretools.ale.implementation.ModelBehavior;
-import org.eclipse.ecoretools.ale.implementation.VariableDeclaration;
->>>>>>> master:org.eclipse.ecoretools.ale.ide/src/org/eclipse/ecoretools/ale/ide/services/Services.java
 
 public class Services {
 	

@@ -15,18 +15,11 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
-<<<<<<< HEAD:lang.core/src-gen/implementation/ModelBehavior.java
- *   <li>{@link implementation.ModelBehavior#getClassExtensions <em>Class Extensions</em>}</li>
- *   <li>{@link implementation.ModelBehavior#getClassDefinitions <em>Class Definitions</em>}</li>
- *   <li>{@link implementation.ModelBehavior#getServices <em>Services</em>}</li>
- *   <li>{@link implementation.ModelBehavior#getName <em>Name</em>}</li>
- *   <li>{@link implementation.ModelBehavior#getImports <em>Imports</em>}</li>
-=======
  *   <li>{@link org.eclipse.ecoretools.ale.implementation.ModelBehavior#getClassExtensions <em>Class Extensions</em>}</li>
  *   <li>{@link org.eclipse.ecoretools.ale.implementation.ModelBehavior#getClassDefinitions <em>Class Definitions</em>}</li>
  *   <li>{@link org.eclipse.ecoretools.ale.implementation.ModelBehavior#getServices <em>Services</em>}</li>
  *   <li>{@link org.eclipse.ecoretools.ale.implementation.ModelBehavior#getName <em>Name</em>}</li>
->>>>>>> master:org.eclipse.ecoretools.ale.core/src-gen/org/eclipse/ecoretools/ale/implementation/ModelBehavior.java
+ *   <li>{@link org.eclipse.ecoretools.ale.implementation.ModelBehavior#getImports <em>Imports</em>}</li>
  * </ul>
  *
  * @see org.eclipse.ecoretools.ale.implementation.ImplementationPackage#getModelBehavior()
@@ -111,7 +104,7 @@ public interface ModelBehavior extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Imports</b></em>' containment reference list.
-	 * The list contents are of type {@link implementation.Import}.
+	 * The list contents are of type {@link org.eclipse.ecoretools.ale.implementation.Import}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Imports</em>' containment reference list isn't clear,
@@ -119,7 +112,7 @@ public interface ModelBehavior extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Imports</em>' containment reference list.
-	 * @see implementation.ImplementationPackage#getModelBehavior_Imports()
+	 * @see org.eclipse.ecoretools.ale.implementation.ImplementationPackage#getModelBehavior_Imports()
 	 * @model containment="true"
 	 * @generated
 	 */

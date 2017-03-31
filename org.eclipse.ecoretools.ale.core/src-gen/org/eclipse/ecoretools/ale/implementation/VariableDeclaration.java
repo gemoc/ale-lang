@@ -59,13 +59,8 @@ public interface VariableDeclaration extends Statement {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Type</em>' reference.
-<<<<<<< HEAD:lang.core/src-gen/implementation/VariableDeclaration.java
 	 * @see #setType(ETypedElement)
-	 * @see implementation.ImplementationPackage#getVariableDeclaration_Type()
-=======
-	 * @see #setType(EClassifier)
 	 * @see org.eclipse.ecoretools.ale.implementation.ImplementationPackage#getVariableDeclaration_Type()
->>>>>>> master:org.eclipse.ecoretools.ale.core/src-gen/org/eclipse/ecoretools/ale/implementation/VariableDeclaration.java
 	 * @model required="true"
 	 * @generated
 	 */

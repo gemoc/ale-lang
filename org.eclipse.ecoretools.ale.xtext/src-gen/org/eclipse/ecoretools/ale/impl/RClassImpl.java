@@ -6,8 +6,8 @@ package org.eclipse.ecoretools.ale.impl;
 import java.util.Collection;
 
 import org.eclipse.ecoretools.ale.AlePackage;
+import org.eclipse.ecoretools.ale.RClass;
 import org.eclipse.ecoretools.ale.rAttribute;
-import org.eclipse.ecoretools.ale.rClass;
 import org.eclipse.ecoretools.ale.rOperation;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -26,20 +26,20 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>rClass</b></em>'.
+ * An implementation of the model object '<em><b>RClass</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.ecoretools.ale.impl.rClassImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.ecoretools.ale.impl.rClassImpl#getAttributes <em>Attributes</em>}</li>
- *   <li>{@link org.eclipse.ecoretools.ale.impl.rClassImpl#getOperations <em>Operations</em>}</li>
+ *   <li>{@link org.eclipse.ecoretools.ale.impl.RClassImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.ecoretools.ale.impl.RClassImpl#getAttributes <em>Attributes</em>}</li>
+ *   <li>{@link org.eclipse.ecoretools.ale.impl.RClassImpl#getOperations <em>Operations</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class rClassImpl extends MinimalEObjectImpl.Container implements rClass
+public class RClassImpl extends MinimalEObjectImpl.Container implements RClass
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -86,7 +86,7 @@ public class rClassImpl extends MinimalEObjectImpl.Container implements rClass
    * <!-- end-user-doc -->
    * @generated
    */
-  protected rClassImpl()
+  protected RClassImpl()
   {
     super();
   }
@@ -277,4 +277,4 @@ public class rClassImpl extends MinimalEObjectImpl.Container implements rClass
     return result.toString();
   }
 
-} //rClassImpl
+} //RClassImpl

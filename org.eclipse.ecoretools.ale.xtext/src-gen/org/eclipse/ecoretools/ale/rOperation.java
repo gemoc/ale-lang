@@ -104,27 +104,16 @@ public interface rOperation extends EObject
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/rOperation.java
    * @return the value of the '<em>Body</em>' containment reference.
    * @see #setBody(rBlock)
-   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getrOperation_Body()
-   * @model containment="true"
-=======
-   * @return the value of the '<em>Body</em>' attribute.
-   * @see #setBody(String)
    * @see org.eclipse.ecoretools.ale.AlePackage#getrOperation_Body()
-   * @model
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/rOperation.java
+   * @model containment="true"
    * @generated
    */
   rBlock getBody();
 
   /**
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/rOperation.java
-   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.rOperation#getBody <em>Body</em>}' containment reference.
-=======
-   * Sets the value of the '{@link org.eclipse.ecoretools.ale.rOperation#getBody <em>Body</em>}' attribute.
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/rOperation.java
+   * Sets the value of the '{@link org.eclipse.ecoretools.ale.rOperation#getBody <em>Body</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Body</em>' containment reference.

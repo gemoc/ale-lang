@@ -5,13 +5,34 @@ package org.eclipse.ecoretools.ale.impl;
 
 import org.eclipse.ecoretools.ale.AleFactory;
 import org.eclipse.ecoretools.ale.AlePackage;
+import org.eclipse.ecoretools.ale.Expr;
+import org.eclipse.ecoretools.ale.FinalCallExpSegment;
+import org.eclipse.ecoretools.ale.FinalIdentCallSegment;
+import org.eclipse.ecoretools.ale.FinalIdentSegment;
+import org.eclipse.ecoretools.ale.NavigationSegment;
+import org.eclipse.ecoretools.ale.RAssign;
+import org.eclipse.ecoretools.ale.RClass;
+import org.eclipse.ecoretools.ale.RExpression;
+import org.eclipse.ecoretools.ale.RForEach;
+import org.eclipse.ecoretools.ale.RIf;
+import org.eclipse.ecoretools.ale.RNewClass;
+import org.eclipse.ecoretools.ale.ROpenClass;
+import org.eclipse.ecoretools.ale.RRoot;
+import org.eclipse.ecoretools.ale.RStatement;
+import org.eclipse.ecoretools.ale.RValDecl;
+import org.eclipse.ecoretools.ale.RWhile;
+import org.eclipse.ecoretools.ale.RecExpression;
+import org.eclipse.ecoretools.ale.binding;
+import org.eclipse.ecoretools.ale.callExp;
+import org.eclipse.ecoretools.ale.expressionSequence;
+import org.eclipse.ecoretools.ale.literal;
+import org.eclipse.ecoretools.ale.nonLeftRecExpression;
 import org.eclipse.ecoretools.ale.rAttribute;
-import org.eclipse.ecoretools.ale.rClass;
-import org.eclipse.ecoretools.ale.rNewClass;
-import org.eclipse.ecoretools.ale.rOpenClass;
+import org.eclipse.ecoretools.ale.rBlock;
+import org.eclipse.ecoretools.ale.rCollection;
 import org.eclipse.ecoretools.ale.rOperation;
 import org.eclipse.ecoretools.ale.rParameters;
-import org.eclipse.ecoretools.ale.rRoot;
+import org.eclipse.ecoretools.ale.rVarDecl;
 import org.eclipse.ecoretools.ale.rVariable;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -21,41 +42,6 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/impl/MyDslPackageImpl.java
-import org.xtext.example.mydsl.myDsl.Expr;
-import org.xtext.example.mydsl.myDsl.FinalCallExpSegment;
-import org.xtext.example.mydsl.myDsl.FinalIdentCallSegment;
-import org.xtext.example.mydsl.myDsl.FinalIdentSegment;
-import org.xtext.example.mydsl.myDsl.MyDslFactory;
-import org.xtext.example.mydsl.myDsl.MyDslPackage;
-import org.xtext.example.mydsl.myDsl.NavigationSegment;
-import org.xtext.example.mydsl.myDsl.RAssign;
-import org.xtext.example.mydsl.myDsl.RClass;
-import org.xtext.example.mydsl.myDsl.RExpression;
-import org.xtext.example.mydsl.myDsl.RForEach;
-import org.xtext.example.mydsl.myDsl.RIf;
-import org.xtext.example.mydsl.myDsl.RNewClass;
-import org.xtext.example.mydsl.myDsl.ROpenClass;
-import org.xtext.example.mydsl.myDsl.RRoot;
-import org.xtext.example.mydsl.myDsl.RStatement;
-import org.xtext.example.mydsl.myDsl.RValDecl;
-import org.xtext.example.mydsl.myDsl.RWhile;
-import org.xtext.example.mydsl.myDsl.RecExpression;
-import org.xtext.example.mydsl.myDsl.binding;
-import org.xtext.example.mydsl.myDsl.callExp;
-import org.xtext.example.mydsl.myDsl.expressionSequence;
-import org.xtext.example.mydsl.myDsl.literal;
-import org.xtext.example.mydsl.myDsl.nonLeftRecExpression;
-import org.xtext.example.mydsl.myDsl.rAttribute;
-import org.xtext.example.mydsl.myDsl.rBlock;
-import org.xtext.example.mydsl.myDsl.rCollection;
-import org.xtext.example.mydsl.myDsl.rOperation;
-import org.xtext.example.mydsl.myDsl.rParameters;
-import org.xtext.example.mydsl.myDsl.rVarDecl;
-import org.xtext.example.mydsl.myDsl.rVariable;
-
-=======
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/impl/AlePackageImpl.java
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Package</b>.
@@ -565,15 +551,9 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
-<<<<<<< HEAD:org.xtext.example.mydsl/src-gen/org/xtext/example/mydsl/myDsl/impl/MyDslPackageImpl.java
   public EReference getrAttribute_Expr()
   {
     return (EReference)rAttributeEClass.getEStructuralFeatures().get(2);
-=======
-  public AleFactory getAleFactory()
-  {
-    return (AleFactory)getEFactoryInstance();
->>>>>>> master:org.eclipse.ecoretools.ale.xtext/src-gen/org/eclipse/ecoretools/ale/impl/AlePackageImpl.java
   }
 
   /**
@@ -1041,9 +1021,9 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public MyDslFactory getMyDslFactory()
+  public AleFactory getAleFactory()
   {
-    return (MyDslFactory)getEFactoryInstance();
+    return (AleFactory)getEFactoryInstance();
   }
 
   /**
