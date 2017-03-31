@@ -24,6 +24,11 @@ import java.util.Set;
 import org.eclipse.acceleo.query.ast.AstPackage;
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
+import org.eclipse.ecoretools.ale.LangInterpreter;
+import org.eclipse.ecoretools.ale.core.interpreter.DiagnosticLogger;
+import org.eclipse.ecoretools.ale.core.interpreter.ImplementationEvaluator;
+import org.eclipse.ecoretools.ale.core.parser.Dsl;
+import org.eclipse.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
@@ -35,16 +40,11 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 
-import implementation.Behaviored;
-import implementation.ImplementationPackage;
-import implementation.ModelBehavior;
+import org.eclipse.ecoretools.ale.implementation.Behaviored;
+import org.eclipse.ecoretools.ale.implementation.ImplementationPackage;
+import org.eclipse.ecoretools.ale.implementation.ModelBehavior;
 import kmLogo.ASM.ASMPackage;
 import kmLogo.ASM.LogoProgram;
-import lang.LangInterpreter;
-import lang.core.interpreter.DiagnosticLogger;
-import lang.core.interpreter.ImplementationEvaluator;
-import lang.core.parser.Dsl;
-import lang.core.parser.visitor.ParseResult;
 import vmlogo.VmlogoPackage;
 
 public class Main {
