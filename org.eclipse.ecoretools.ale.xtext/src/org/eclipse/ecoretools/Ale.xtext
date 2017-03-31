@@ -1,0 +1,178 @@
+grammar org.eclipse.ecoretools.Ale with org.eclipse.xtext.common.Terminals
+
+generate ale "http://www.eclipse.org/ecoretools/Ale"
+
+
+/*****************
+ *  ALE grammar  *
+ *****************/
+
+rRoot : 'behavior' rQualified ';' rImport* rService* xtendedClasses+=rClass*
+;
+
+rImport : 'import' rQualified 'as' Ident ';'
+;
+
+rService : 'use' Ident ('.' Ident)* ';'
+;
+
+rClass : rOpenClass | rNewClass
+;
+
+rOpenClass : 'open' 'class' name=rQualified ('extends' rQualified (',' rQualified)* )? '{' attributes+=rAttribute* operations+=rOperation* '}'
+;
+
+rNewClass : 'class' name=Ident '{' attributes+=rAttribute* operations+=rOperation* '}'
+;
+
+rOperation : rTag* ('def' | 'override') type=rType name=Ident '(' paramList+=rParameters? ')' body=rBlock
+;
+
+rTag : '@'Ident
+;
+
+rParameters : params+=rVariable (',' params+=rVariable)*
+;
+
+rVariable : type=rType name=Ident
+;
+
+rAttribute : type=rType name=Ident (':=' expression)? ';'
+;
+
+rStatement : rVarDecl 
+		| rAssign
+		| rForEach
+		| rWhile
+		| rIf
+		| rExpression
+;
+
+rVarDecl : rType Ident (':=' expression)? ';'
+;
+
+rAssign : expression ':=' expression ';'
+;
+
+rForEach : 'for' '(' Ident  'in' rCollection ')' rBlock
+;
+
+rCollection : '[' INT '..' INT ']' | expression
+;
+
+rBlock : '{' (rStatement (rStatement)*)? '}'
+;
+
+rIf : 'if' '(' expression ')' rBlock ('else' rBlock)?
+;
+
+rWhile : 'while' '(' expression ')' rBlock
+;
+
+rExpression : expression ';'
+;
+
+/***************
+ * AQL grammar *
+ ***************/
+
+expression :
+	nonLeftRecExpression recExpression?
+;
+
+recExpression :
+	(navigationSegment | MultOp expression | addOp expression | compOp expression | 'and' expression | 'or' expression | 'xor' expression | 'implies' expression) recExpression?
+;
+
+navigationSegment :     '.'Ident
+				      | '.' callExp
+				      | '->' callExp
+;    
+
+nonLeftRecExpression :
+              'not' expression
+		     | '-' expression
+		     | Ident
+		     | literal
+		     | '(' expression ')'
+		     | 'if' expression 'then' expression 'else' expression 'endif'
+		     | 'let' binding (',' binding)* 'in' expression
+;
+
+binding : Ident (':' typeLiteral)? '=' expression
+;
+
+addOp: '+' | '-'
+;
+
+compOp :     '<='
+	    	|'>='
+	  		|'!='
+	  		|'<>'
+	  		|'='
+	  		|'=='
+	 		|'<'
+	  		|'>'
+;
+
+
+callExp :     collectionIterator '(' variableDefinition lambdaExpression ')'
+			| Ident'(' expressionSequence ')'
+;
+
+lambdaExpression : expression
+;
+
+collectionIterator : 'select' | 'reject' | 'collect' | 'any' | 'exists' | 'forAll' | 'isUnique' | 'one' | 'sortedBy' | 'closure'
+;
+
+expressionSequence : (expression (',' expression)*)?
+;
+
+variableDefinition : Ident (':' typeLiteral)? '|'
+;
+
+literal :    STRING
+		   | INT
+		   | Real
+		   |'true'
+		   |'false'
+		   |'null'
+		   |'Sequence{' expressionSequence '}'
+		   |'OrderedSet{' expressionSequence '}'
+		   | Ident '::' Ident '::' Ident
+		   | Ident '::' Ident ':'
+		   | typeLiteral
+;
+
+typeLiteral :   'String'
+		      | 'Integer'
+		      | 'Real'
+		      | 'Boolean'
+		      | 'Sequence(' typeLiteral')'
+		      | 'OrderedSet(' typeLiteral')'
+		      | classifierTypeRule
+		      | '{' classifierTypeRule ('|' classifierTypeRule)* '}'
+;
+
+classifierTypeRule :   Ident '::' Ident
+				     | Ident ':' 
+;
+
+rType: rQualified | typeLiteral
+;
+
+rQualified : Ident ('.'Ident)*
+;
+
+terminal MultOp : '*' | '/'
+;
+
+terminal Real : ('0'..'9')+'.'('0'..'9')+
+;
+
+terminal Ident : (Letter | '_') (Letter | '0'..'9' | '_')*
+;
+
+terminal Letter : ('a'..'z'|'A'..'Z')
+;
