@@ -28,13 +28,16 @@ import org.antlr.v4.runtime.UnbufferedCharStream;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RRootContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ModelBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.Visitors;
+import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
-import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 /**
@@ -116,6 +119,10 @@ public class AstBuilder {
 				.forEach(clsDef -> {
 					Optional<EClass> cls = newClasses.stream().filter(c -> c.getName().equals(clsDef.getName())).findFirst();
 					if(cls.isPresent()){
+						/*
+						 * cls is a copy of clsDef.fragment since it
+						 * can't be contains by clsDef & qryEnv in the same time
+						 */
 						ModelBuilder.singleton.updateEClass(cls.get(),clsDef);
 					}
 				});
@@ -171,6 +178,52 @@ public class AstBuilder {
 	    				}
 	    			}
 	    		});
+    	});
+    	
+    	/*
+    	 * Resolve opposites
+    	 */
+    	List<Attribute> allAttributes = new ArrayList<Attribute>();
+    	build
+    	.stream()
+    	.forEach(sem -> {
+    		ModelUnit root = sem.getRoot();
+    		if(root != null) {
+    			root.getClassExtensions().stream().forEach(cls -> {
+    				allAttributes.addAll(cls.getAttributes());
+    			});
+    			root.getClassDefinitions().stream().forEach(cls -> {
+    				allAttributes.addAll(cls.getAttributes());
+    			});
+    		}
+    	});
+    	allAttributes
+    	.stream()
+    	.filter(attr -> attr.getEAnnotation(ModelBuilder.PARSER_SOURCE) != null)
+    	.forEach(attr -> {
+    		EAnnotation annot = attr.getEAnnotation(ModelBuilder.PARSER_SOURCE);
+    		String opposite = annot.getDetails().get(ModelBuilder.PARSER_OPPOSITE_KEY);
+    		EClassifier oppositeType = attr.getFeatureRef().getEType();
+    		if(oppositeType instanceof EClass) {
+    			EClass oppositeClass = (EClass) oppositeType;
+    			EStructuralFeature oppositeFeature = oppositeClass.getEStructuralFeature(opposite);
+    			if(oppositeFeature == null) {
+    				Optional<Attribute> candidate = allExtensions
+						.stream()
+						.filter(xtd -> xtd.getBaseClass() == oppositeType)
+						.flatMap(xtd -> xtd.getAttributes().stream())
+						.filter(a -> a.getFeatureRef().getName().equals(opposite))
+						.findFirst();
+    				if(candidate.isPresent()){
+    					oppositeFeature = candidate.get().getFeatureRef();
+    				}
+    			}
+    			
+    			if(oppositeFeature instanceof EReference) {
+    				((EReference)attr.getFeatureRef()).setEOpposite((EReference) oppositeFeature);
+    				attr.getEAnnotations().remove(annot);
+    			}
+    		}
     	});
 		
 		return build;

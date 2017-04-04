@@ -69,7 +69,15 @@ rParameters : rVariable (',' rVariable)*
 rVariable : type=rType Ident
 ;
 
-rAttribute : type=rType Ident (':=' expression)? ';'
+rAttribute : modifier=('contains' | 'unique')? bounds=rCardinality? opposite=rOpposite? type=rType Ident (':=' expression)? ';'
+;
+
+rCardinality :
+	Integer '..' (Integer | MultOp)
+;
+
+rOpposite :
+	'opposite 'Ident
 ;
 
 /*

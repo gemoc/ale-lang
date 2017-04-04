@@ -510,6 +510,7 @@ public class Visitors {
 					.collect(Collectors.toList());
 			
 			RuntimeClass res = ModelBuilder.singleton.buildRuntimeClass(name,attributes,operations);
+			res.setFragment(fragment);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
 			
@@ -537,12 +538,46 @@ public class Visitors {
 			String typeName = ctx.type.getText();
 			
 			String name = ctx.Ident().getText();
+			
+			boolean isUnique = false;
+			boolean isContainment = false;
+			if(ctx.modifier != null) {
+				if(ctx.modifier.getText().equals("contains")) {
+					isContainment = true;
+					isUnique = true;
+				}
+				else if(ctx.modifier.getText().equals("unique")) {
+					isUnique = true;
+				}
+			}
+			
+			int lowerBound = 0;
+			int upperBound = 1;
+			if(ctx.bounds != null) {
+				lowerBound = Integer.decode(ctx.bounds.Integer().get(0).getText());
+				if(ctx.bounds.Integer().size() > 1){
+					upperBound = Integer.decode(ctx.bounds.Integer().get(1).getText());
+				}
+				else if(ctx.bounds.MultOp() != null && ctx.bounds.MultOp().getText().equals("*")){
+					upperBound = -1;
+				}
+			}
+			
+			String opposite = null;
+			if(ctx.opposite != null) {
+				opposite = ctx.opposite.Ident().getText();
+			}
 					
 			Attribute res = ModelBuilder.singleton.buildAttribute(
 					fragment,
 					name,
 					initialValue,
-					typeName);
+					typeName,
+					lowerBound,
+					upperBound,
+					isContainment,
+					isUnique,
+					opposite);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
 			if(res.getInitialValue() != null){

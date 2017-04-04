@@ -1,0 +1,11 @@
+behavior test.oppattributes;
+
+open class EClass {
+	opposite toEClass
+		NewClass toNewClass;
+}
+
+class NewClass {
+	opposite toNewClass
+		EClass toEClass;
+}

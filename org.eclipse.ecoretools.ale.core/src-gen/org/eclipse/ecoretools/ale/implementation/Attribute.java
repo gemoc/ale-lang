@@ -4,7 +4,7 @@ package org.eclipse.ecoretools.ale.implementation;
 
 import org.eclipse.acceleo.query.ast.Expression;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * @model
  * @generated
  */
-public interface Attribute extends EObject {
+public interface Attribute extends EModelElement {
 	/**
 	 * Returns the value of the '<em><b>Feature Ref</b></em>' reference.
 	 * <!-- begin-user-doc -->

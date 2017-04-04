@@ -42,7 +42,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="fragment" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Attribute">
+  <eClassifiers xsi:type="ecore:EClass" name="Attribute" eSuperTypes="../../org.eclipse.emf.ecore/model/Ecore.ecore#//EModelElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureRef" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EStructuralFeature"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="initialValue" eType="ecore:EClass ../../org.eclipse.acceleo.query/model/ast.ecore#//Expression"
