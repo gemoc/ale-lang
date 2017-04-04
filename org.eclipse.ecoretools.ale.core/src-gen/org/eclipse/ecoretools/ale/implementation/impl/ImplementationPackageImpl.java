@@ -960,6 +960,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		extendedClassEClass.getESuperTypes().add(theEcorePackage.getEModelElement());
 		extendedClassEClass.getESuperTypes().add(this.getBehavioredClass());
 		runtimeClassEClass.getESuperTypes().add(this.getBehavioredClass());
+		attributeEClass.getESuperTypes().add(theEcorePackage.getEModelElement());
 		blockEClass.getESuperTypes().add(this.getStatement());
 		variableDeclarationEClass.getESuperTypes().add(this.getStatement());
 		assignmentEClass.getESuperTypes().add(this.getStatement());

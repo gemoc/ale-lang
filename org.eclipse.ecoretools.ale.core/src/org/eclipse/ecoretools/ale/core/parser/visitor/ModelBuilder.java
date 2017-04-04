@@ -67,6 +67,7 @@ public class ModelBuilder {
 	public static ModelBuilder singleton;
 	public static final String PARSER_SOURCE = "http://org/eclipse/ecoretools/ale/parser/metadata";
 	public static final String PARSER_EXTENDS_KEY = "extends";
+	public static final String PARSER_OPPOSITE_KEY = "opposite";
 	
 	
 	public static ModelBuilder createSingleton(IQueryEnvironment qryEnv) {
@@ -153,7 +154,7 @@ public class ModelBuilder {
 		return new Parameter(name, resolve(type));
 	}
 	
-	public Attribute buildAttribute(EClass fragment, String name, String exp, String type) {
+	public Attribute buildAttribute(EClass fragment, String name, String exp, String type, int lowerBound, int upperBound, boolean isContainment, boolean isUnique, String opposite) {
 		Attribute attribute = implemFactory.createAttribute();
 		EStructuralFeature feature;
 		
@@ -161,6 +162,7 @@ public class ModelBuilder {
 		EClassifier featureType = resolve(type);
 		if(featureType instanceof EClass) {
 			feature = ecoreFactory.createEReference();
+			((EReference)feature).setContainment(isContainment);
 		}
 		else {
 			feature = ecoreFactory.createEAttribute();
@@ -174,7 +176,18 @@ public class ModelBuilder {
 			attribute.setInitialValue(builder.build(exp).getAst());
 		}
 		
+		if(opposite != null) {
+			EAnnotation annot = ecoreFactory.createEAnnotation();
+			annot.setSource(PARSER_SOURCE);
+			annot.getDetails().put(PARSER_OPPOSITE_KEY, opposite);
+			attribute.getEAnnotations().add(annot);
+		}
+		
 		fragment.getEStructuralFeatures().add(feature);
+		
+		feature.setLowerBound(lowerBound);
+		feature.setUpperBound(upperBound);
+		feature.setUnique(isUnique);
 		
 		return attribute;
 	}
@@ -376,6 +389,7 @@ public class ModelBuilder {
 			String name = attr.getFeatureRef().getName();
 			EStructuralFeature featureCopy = EcoreUtil.copy(attr.getFeatureRef());
 			cls.getEStructuralFeatures().add(featureCopy);
+			attr.setFeatureRef(featureCopy);
 			
 		});
 		
@@ -385,6 +399,7 @@ public class ModelBuilder {
 		.forEach(mtd -> {
 			EOperation newOp = EcoreUtil.copy(mtd.getOperationRef());
 			cls.getEOperations().add(newOp);
+			mtd.setOperationRef(newOp);
 		});
 	}
 	

@@ -109,6 +109,7 @@ public class ImplementationSwitch<T> extends Switch<T> {
 			case ImplementationPackage.ATTRIBUTE: {
 				Attribute attribute = (Attribute)theEObject;
 				T result = caseAttribute(attribute);
+				if (result == null) result = caseEModelElement(attribute);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

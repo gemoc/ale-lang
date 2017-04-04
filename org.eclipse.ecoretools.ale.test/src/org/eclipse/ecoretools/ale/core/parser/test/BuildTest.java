@@ -41,6 +41,8 @@ import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.junit.Before;
 import org.junit.Test;
@@ -596,6 +598,97 @@ public class BuildTest {
 		assertEquals(EcorePackage.eINSTANCE.getEClass(), xtdXtdCls.getBaseClass());
 		assertEquals(1,xtdXtdCls.getExtends().size());
 		assertEquals(xtdCls,xtdXtdCls.getExtends().get(0));
+	}
+	
+	@Test
+	public void testContains() {
+		List<ParseResult<ModelUnit>> res = parser.parseFromFiles(Arrays.asList("input/structure/contains.implem"));
+		ModelUnit root = res.get(0).getRoot();
+		ModelUnit extendedRoot = res.get(0).getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.containsattributes",root.getName());
+		assertEquals(0, root.getServices().size());
+		assertEquals(1, root.getClassExtensions().size());
+		assertEquals(0, root.getClassDefinitions().size());
+		
+		ExtendedClass xtdCls = root.getClassExtensions().get(0);
+		assertEquals(1, xtdCls.getAttributes().size());
+		assertEquals(0, xtdCls.getMethods().size());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(), xtdCls.getBaseClass());
+		
+		
+		assertEquals(1, xtdCls.getAttributes().size());
+		
+		EReference toEClass = (EReference) xtdCls.getAttributes().get(0).getFeatureRef();
+		
+		assertEquals("toEClass", toEClass.getName());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(), toEClass.getEType());
+		assertEquals(1,toEClass.getLowerBound());
+		assertEquals(-1,toEClass.getUpperBound());
+		assertTrue(toEClass.isContainment());
+	}
+	
+	@Test
+	public void testUnique() {
+		List<ParseResult<ModelUnit>> res = parser.parseFromFiles(Arrays.asList("input/structure/unique.implem"));
+		ModelUnit root = res.get(0).getRoot();
+		ModelUnit extendedRoot = res.get(0).getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.uniqueattributes",root.getName());
+		assertEquals(0, root.getServices().size());
+		assertEquals(1, root.getClassExtensions().size());
+		assertEquals(0, root.getClassDefinitions().size());
+		
+		ExtendedClass xtdCls = root.getClassExtensions().get(0);
+		assertEquals(1, xtdCls.getAttributes().size());
+		assertEquals(0, xtdCls.getMethods().size());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(), xtdCls.getBaseClass());
+		
+		
+		assertEquals(1, xtdCls.getAttributes().size());
+		
+		EReference toEClass = (EReference) xtdCls.getAttributes().get(0).getFeatureRef();
+		
+		assertEquals("toEClass", toEClass.getName());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(), toEClass.getEType());
+		assertTrue(toEClass.isUnique());
+	}
+	
+	@Test
+	public void testOpposite() {
+		List<ParseResult<ModelUnit>> res = parser.parseFromFiles(Arrays.asList("input/structure/opposite.implem"));
+		ModelUnit root = res.get(0).getRoot();
+		ModelUnit extendedRoot = res.get(0).getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.oppattributes",root.getName());
+		assertEquals(0, root.getServices().size());
+		assertEquals(1, root.getClassExtensions().size());
+		assertEquals(1, root.getClassDefinitions().size());
+		
+		ExtendedClass xtdCls = root.getClassExtensions().get(0);
+		assertEquals(1, xtdCls.getAttributes().size());
+		assertEquals(0, xtdCls.getMethods().size());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(), xtdCls.getBaseClass());
+		
+		RuntimeClass newCls = root.getClassDefinitions().get(0);
+		assertEquals(1, newCls.getAttributes().size());
+		assertEquals(0, newCls.getMethods().size());
+		assertNotNull(newCls.getFragment());
+		assertEquals("NewClass",newCls.getFragment().getName());
+		
+		assertEquals(1, xtdCls.getAttributes().size());
+		assertEquals(1, newCls.getAttributes().size());
+		
+		EReference toNewClass = (EReference) xtdCls.getAttributes().get(0).getFeatureRef();
+		EReference toEClass = (EReference) newCls.getAttributes().get(0).getFeatureRef();
+		
+		assertEquals("toNewClass", toNewClass.getName());
+		assertEquals("toEClass", toEClass.getName());
+		assertEquals(toNewClass.getEOpposite(), toEClass);
+		assertEquals(toEClass.getEOpposite(), toNewClass);
 	}
 	
 	private static String getFileContent(String implementionPath){

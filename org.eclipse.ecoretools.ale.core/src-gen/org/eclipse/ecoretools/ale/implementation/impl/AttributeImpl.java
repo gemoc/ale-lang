@@ -14,8 +14,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.EModelElementImpl;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *
  * @generated
  */
-public class AttributeImpl extends MinimalEObjectImpl.Container implements Attribute {
+public class AttributeImpl extends EModelElementImpl implements Attribute {
 	/**
 	 * The cached value of the '{@link #getFeatureRef() <em>Feature Ref</em>}' reference.
 	 * <!-- begin-user-doc -->

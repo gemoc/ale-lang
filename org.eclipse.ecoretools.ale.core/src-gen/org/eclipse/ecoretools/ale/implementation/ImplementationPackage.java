@@ -470,13 +470,22 @@ public interface ImplementationPackage extends EPackage {
 	int ATTRIBUTE = 6;
 
 	/**
+	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE__EANNOTATIONS = EcorePackage.EMODEL_ELEMENT__EANNOTATIONS;
+
+	/**
 	 * The feature id for the '<em><b>Feature Ref</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE__FEATURE_REF = 0;
+	int ATTRIBUTE__FEATURE_REF = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
@@ -485,7 +494,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE__INITIAL_VALUE = 1;
+	int ATTRIBUTE__INITIAL_VALUE = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Attribute</em>' class.
@@ -494,7 +503,16 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_FEATURE_COUNT = 2;
+	int ATTRIBUTE_FEATURE_COUNT = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The operation id for the '<em>Get EAnnotation</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE___GET_EANNOTATION__STRING = EcorePackage.EMODEL_ELEMENT___GET_EANNOTATION__STRING;
 
 	/**
 	 * The number of operations of the '<em>Attribute</em>' class.
@@ -503,7 +521,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ATTRIBUTE_OPERATION_COUNT = 0;
+	int ATTRIBUTE_OPERATION_COUNT = EcorePackage.EMODEL_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ecoretools.ale.implementation.impl.StatementImpl <em>Statement</em>}' class.
