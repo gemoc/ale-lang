@@ -75,9 +75,9 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 			case ImplementationPackage.MODEL_BEHAVIOR: return createModelBehavior();
 			case ImplementationPackage.EXTENDED_CLASS: return createExtendedClass();
 			case ImplementationPackage.RUNTIME_CLASS: return createRuntimeClass();
-			case ImplementationPackage.BEHAVIORED: return createBehaviored();
-			case ImplementationPackage.IMPLEMENTATION: return createImplementation();
 			case ImplementationPackage.METHOD: return createMethod();
+			case ImplementationPackage.MODEL_UNIT: return createModelUnit();
+			case ImplementationPackage.ATTRIBUTE: return createAttribute();
 			case ImplementationPackage.BLOCK: return createBlock();
 			case ImplementationPackage.STATEMENT: return createStatement();
 			case ImplementationPackage.VARIABLE_DECLARATION: return createVariableDeclaration();
@@ -131,29 +131,29 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Behaviored createBehaviored() {
-		BehavioredImpl behaviored = new BehavioredImpl();
-		return behaviored;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Implementation createImplementation() {
-		ImplementationImpl implementation = new ImplementationImpl();
-		return implementation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Method createMethod() {
 		MethodImpl method = new MethodImpl();
 		return method;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ModelUnit createModelUnit() {
+		ModelUnitImpl modelUnit = new ModelUnitImpl();
+		return modelUnit;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Attribute createAttribute() {
+		AttributeImpl attribute = new AttributeImpl();
+		return attribute;
 	}
 
 	/**

@@ -22,12 +22,13 @@ import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
+import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 public class DiagnosticLogger {
 	List<Diagnostic> log = new ArrayList<Diagnostic>();
-	List<ParseResult<ModelBehavior>> parseResults;
+	List<ParseResult<ModelUnit>> parseResults;
 	
-	public DiagnosticLogger(List<ParseResult<ModelBehavior>> parseResults) {
+	public DiagnosticLogger(List<ParseResult<ModelUnit>> parseResults) {
 		this.parseResults = parseResults;
 	}
 	
@@ -63,7 +64,7 @@ public class DiagnosticLogger {
 	
 	private void printError(Expression expr, String errorMsg) {
 		
-		for(ParseResult<ModelBehavior> p : parseResults) {
+		for(ParseResult<ModelUnit> p : parseResults) {
 			Integer startPos = p.getStartPositions().get(expr);
 			if(startPos != null) {
 				String file = p.getSourceFile();

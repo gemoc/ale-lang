@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
-import java.lang.reflect.Method;
+//import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,9 +29,10 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.FactoryService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.LogService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.TrigoServices;
-import org.eclipse.emf.ecoretools.ale.implementation.Behaviored;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
+import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
+import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 /**
  * This class is the context of an evaluation.
@@ -47,7 +48,7 @@ public class EvalEnvironment {
 	/**
 	 * Contains declarations of dynamics attributes & operations bodies
 	 */
-	List<ModelBehavior> allImplemModels;
+	List<ModelUnit> allImplemModels;
 	
 	/**
 	 * Store dynamics attributes
@@ -59,7 +60,7 @@ public class EvalEnvironment {
 	 */
 	DiagnosticLogger logger;
 	
-	public EvalEnvironment (IQueryEnvironment qryEnv, List<ModelBehavior> allImplem, DiagnosticLogger logger) {
+	public EvalEnvironment (IQueryEnvironment qryEnv, List<ModelUnit> allImplem, DiagnosticLogger logger) {
 		this.qryEnv = qryEnv;
 		this.logger = logger;
 		createDefaultServices();
@@ -68,15 +69,15 @@ public class EvalEnvironment {
 	
 	public void createDefaultServices() {
 		try {
-			Method logMethod = LogService.class.getMethod("log",Object.class);
+			java.lang.reflect.Method logMethod = LogService.class.getMethod("log",Object.class);
 			qryEnv.registerService(new JavaMethodService(logMethod, null));
-			Method createMethod = FactoryService.class.getMethod("create",EClass.class);
+			java.lang.reflect.Method createMethod = FactoryService.class.getMethod("create",EClass.class);
 			qryEnv.registerService(new JavaMethodService(createMethod, new FactoryService(this)));
-			Method cosMethod = TrigoServices.class.getMethod("cosinus",Double.class);
+			java.lang.reflect.Method cosMethod = TrigoServices.class.getMethod("cosinus",Double.class);
 			qryEnv.registerService(new JavaMethodService(cosMethod, null));
-			Method sinMethod = TrigoServices.class.getMethod("sinus",Double.class);
+			java.lang.reflect.Method sinMethod = TrigoServices.class.getMethod("sinus",Double.class);
 			qryEnv.registerService(new JavaMethodService(sinMethod, null));
-			Method tanMethod = TrigoServices.class.getMethod("tan",Double.class);
+			java.lang.reflect.Method tanMethod = TrigoServices.class.getMethod("tan",Double.class);
 			qryEnv.registerService(new JavaMethodService(tanMethod, null));
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
@@ -88,13 +89,13 @@ public class EvalEnvironment {
 	/**
 	 * Register services to access dynamic features and evaluate operations
 	 */
-	public void registerImplem(List<ModelBehavior> allImplemModels) {
+	public void registerImplem(List<ModelUnit> allImplemModels) {
 		this.allImplemModels = allImplemModels;
 		this.dynamicFeatures = new DynamicFeatureRegistry(allImplemModels);
 		createServices(allImplemModels)
 			.stream()
 			.forEach(opService -> qryEnv.registerService(opService));
-		Method featureAccessMethod;
+		java.lang.reflect.Method featureAccessMethod;
 		try {
 			featureAccessMethod = DynamicFeatureRegistry.class.getMethod("aqlFeatureAccess",EObject.class,String.class);
 			qryEnv.registerService(new DynamicFeatureAccessService(featureAccessMethod, dynamicFeatures));
@@ -111,8 +112,8 @@ public class EvalEnvironment {
 		return dynamicFeatures;
 	}
 	
-	private List<EvalBodyService> createServices(List<ModelBehavior> allImplemModels) {
-		Map<Behaviored, EvalBodyService> res = new HashMap<Behaviored, EvalBodyService>();
+	private List<EvalBodyService> createServices(List<ModelUnit> allImplemModels) {
+		Map<Method, EvalBodyService> res = new HashMap<Method, EvalBodyService>();
 		
 		/*
 		 * Create services

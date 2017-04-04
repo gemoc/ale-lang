@@ -20,7 +20,7 @@ import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
-import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
+import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +37,7 @@ public class LookupTest {
 	@Test
 	public void testInherits() {
 		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inherits.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/A.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -47,7 +47,7 @@ public class LookupTest {
 	@Test
 	public void testExtends() {
 		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inherits.implem","input/lookup/extends.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/A.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		

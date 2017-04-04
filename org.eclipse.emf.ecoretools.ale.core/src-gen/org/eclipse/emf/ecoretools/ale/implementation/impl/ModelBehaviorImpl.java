@@ -24,14 +24,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
-import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
+import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 /**
  * <!-- begin-user-doc -->
@@ -41,10 +39,8 @@ import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ModelBehaviorImpl#getClassExtensions <em>Class Extensions</em>}</li>
- *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ModelBehaviorImpl#getClassDefinitions <em>Class Definitions</em>}</li>
- *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ModelBehaviorImpl#getServices <em>Services</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ModelBehaviorImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ModelBehaviorImpl#getUnits <em>Units</em>}</li>
  * </ul>
  *
  * @generated
@@ -56,36 +52,6 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	 * @generated
 	 */
 	public static final String copyright = " Copyright (c) 2017 Inria and Obeo.\n All rights reserved. This program and the accompanying materials\n are made available under the terms of the Eclipse Public License v1.0\n which accompanies this distribution, and is available at\n http://www.eclipse.org/legal/epl-v10.html\n\n Contributors:\n     Inria - initial API and implementation\n";
-
-	/**
-	 * The cached value of the '{@link #getClassExtensions() <em>Class Extensions</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getClassExtensions()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<ExtendedClass> classExtensions;
-
-	/**
-	 * The cached value of the '{@link #getClassDefinitions() <em>Class Definitions</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getClassDefinitions()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<RuntimeClass> classDefinitions;
-
-	/**
-	 * The cached value of the '{@link #getServices() <em>Services</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getServices()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<String> services;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -108,6 +74,16 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	protected String name = NAME_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getUnits() <em>Units</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUnits()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ModelUnit> units;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -124,42 +100,6 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	@Override
 	protected EClass eStaticClass() {
 		return ImplementationPackage.Literals.MODEL_BEHAVIOR;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<ExtendedClass> getClassExtensions() {
-		if (classExtensions == null) {
-			classExtensions = new EObjectContainmentEList<ExtendedClass>(ExtendedClass.class, this, ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS);
-		}
-		return classExtensions;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<RuntimeClass> getClassDefinitions() {
-		if (classDefinitions == null) {
-			classDefinitions = new EObjectContainmentEList<RuntimeClass>(RuntimeClass.class, this, ImplementationPackage.MODEL_BEHAVIOR__CLASS_DEFINITIONS);
-		}
-		return classDefinitions;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<String> getServices() {
-		if (services == null) {
-			services = new EDataTypeUniqueEList<String>(String.class, this, ImplementationPackage.MODEL_BEHAVIOR__SERVICES);
-		}
-		return services;
 	}
 
 	/**
@@ -188,13 +128,23 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<ModelUnit> getUnits() {
+		if (units == null) {
+			units = new EObjectContainmentEList<ModelUnit>(ModelUnit.class, this, ImplementationPackage.MODEL_BEHAVIOR__UNITS);
+		}
+		return units;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
-				return ((InternalEList<?>)getClassExtensions()).basicRemove(otherEnd, msgs);
-			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_DEFINITIONS:
-				return ((InternalEList<?>)getClassDefinitions()).basicRemove(otherEnd, msgs);
+			case ImplementationPackage.MODEL_BEHAVIOR__UNITS:
+				return ((InternalEList<?>)getUnits()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -207,14 +157,10 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
-				return getClassExtensions();
-			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_DEFINITIONS:
-				return getClassDefinitions();
-			case ImplementationPackage.MODEL_BEHAVIOR__SERVICES:
-				return getServices();
 			case ImplementationPackage.MODEL_BEHAVIOR__NAME:
 				return getName();
+			case ImplementationPackage.MODEL_BEHAVIOR__UNITS:
+				return getUnits();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -228,20 +174,12 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
-				getClassExtensions().clear();
-				getClassExtensions().addAll((Collection<? extends ExtendedClass>)newValue);
-				return;
-			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_DEFINITIONS:
-				getClassDefinitions().clear();
-				getClassDefinitions().addAll((Collection<? extends RuntimeClass>)newValue);
-				return;
-			case ImplementationPackage.MODEL_BEHAVIOR__SERVICES:
-				getServices().clear();
-				getServices().addAll((Collection<? extends String>)newValue);
-				return;
 			case ImplementationPackage.MODEL_BEHAVIOR__NAME:
 				setName((String)newValue);
+				return;
+			case ImplementationPackage.MODEL_BEHAVIOR__UNITS:
+				getUnits().clear();
+				getUnits().addAll((Collection<? extends ModelUnit>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -255,17 +193,11 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
-				getClassExtensions().clear();
-				return;
-			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_DEFINITIONS:
-				getClassDefinitions().clear();
-				return;
-			case ImplementationPackage.MODEL_BEHAVIOR__SERVICES:
-				getServices().clear();
-				return;
 			case ImplementationPackage.MODEL_BEHAVIOR__NAME:
 				setName(NAME_EDEFAULT);
+				return;
+			case ImplementationPackage.MODEL_BEHAVIOR__UNITS:
+				getUnits().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -279,14 +211,10 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_EXTENSIONS:
-				return classExtensions != null && !classExtensions.isEmpty();
-			case ImplementationPackage.MODEL_BEHAVIOR__CLASS_DEFINITIONS:
-				return classDefinitions != null && !classDefinitions.isEmpty();
-			case ImplementationPackage.MODEL_BEHAVIOR__SERVICES:
-				return services != null && !services.isEmpty();
 			case ImplementationPackage.MODEL_BEHAVIOR__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case ImplementationPackage.MODEL_BEHAVIOR__UNITS:
+				return units != null && !units.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -301,9 +229,7 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (services: ");
-		result.append(services);
-		result.append(", name: ");
+		result.append(" (name: ");
 		result.append(name);
 		result.append(')');
 		return result.toString();

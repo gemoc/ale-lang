@@ -27,8 +27,10 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.DynamicFeatureAccessService;
+import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
+import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 
 /**
@@ -36,11 +38,11 @@ import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
  */
 public class DynamicFeatureRegistry {
 	
-	List<ModelBehavior> allImplemModels;
+	List<ModelUnit> allImplemModels;
 	
 	Map<EObject,Map<String,Object>> extendedObjects; //instance -> (featureName -> value)
 	
-	public DynamicFeatureRegistry (List<ModelBehavior> allImplemModels){
+	public DynamicFeatureRegistry (List<ModelUnit> allImplemModels){
 		this.allImplemModels = allImplemModels;
 		extendedObjects = new HashMap<EObject,Map<String,Object>>();
 	}
@@ -102,12 +104,12 @@ public class DynamicFeatureRegistry {
 			throw new AcceleoQueryEvaluationException(message);
 		}
 		
-		Optional<VariableDeclaration> featureDeclaration = 
+		Optional<Attribute> featureDeclaration = 
 				xtdClass
 				.get()
 				.getAttributes()
 				.stream()
-				.filter(attr -> attr.getName().equals(featureName))
+				.filter(attr -> attr.getFeatureRef().getName().equals(featureName))
 				.findFirst();
 		
 		if(!featureDeclaration.isPresent()){
@@ -136,12 +138,12 @@ public class DynamicFeatureRegistry {
 					.findFirst();
 			
 			if(xtdClass.isPresent()){
-				Optional<VariableDeclaration> featureDeclaration = 
+				Optional<Attribute> featureDeclaration = 
 						xtdClass
 						.get()
 						.getAttributes()
 						.stream()
-						.filter(attr -> attr.getName().equals(featureName))
+						.filter(attr -> attr.getFeatureRef().getName().equals(featureName))
 						.findFirst();
 				
 				if(featureDeclaration.isPresent()){
@@ -198,7 +200,7 @@ public class DynamicFeatureRegistry {
 				AstResult dummyAstResult = new AstResult(attr.getInitialValue(), new HashMap(), new HashMap(), new ArrayList(), new BasicDiagnostic());
 				EvaluationResult result = aqlEngine.eval(dummyAstResult, scope); //TODO: forward diagnotic
 				Object value = result.getResult();
-				extendedInstance.put(attr.getName(), value);
+				extendedInstance.put(attr.getFeatureRef().getName(), value);
 			});
     }
 }

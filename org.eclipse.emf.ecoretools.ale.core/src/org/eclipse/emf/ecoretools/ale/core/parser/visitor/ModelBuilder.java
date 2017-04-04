@@ -22,18 +22,16 @@ import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.impl.QueryBuilderEngine;
 import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
-import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecoretools.ale.implementation.Behaviored;
+import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
@@ -43,7 +41,6 @@ import org.eclipse.emf.ecoretools.ale.implementation.FeaturePut;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
-import org.eclipse.emf.ecoretools.ale.implementation.Implementation;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationFactory;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
@@ -91,7 +88,7 @@ public class ModelBuilder {
 	IQueryEnvironment qryEnv;
 	QueryBuilderEngine builder;
 	
-	ImplementationFactory factory;
+	ImplementationFactory implemFactory;
 	EcoreFactory ecoreFactory;
 	AstFactory aqlFactory;
 	
@@ -100,11 +97,11 @@ public class ModelBuilder {
 		builder = new QueryBuilderEngine(qryEnv);
 		
 		ecoreFactory = (EcoreFactory) qryEnv.getEPackageProvider().getEPackage("ecore").iterator().next().getEFactoryInstance();
-		factory = (ImplementationFactory) qryEnv.getEPackageProvider().getEPackage("implementation").iterator().next().getEFactoryInstance();
+		implemFactory = (ImplementationFactory) qryEnv.getEPackageProvider().getEPackage("implementation").iterator().next().getEFactoryInstance();
 		aqlFactory = (AstFactory) qryEnv.getEPackageProvider().getEPackage("ast").iterator().next().getEFactoryInstance();
 	}
 	
-	public Method buildMethod(String name, List<Parameter> params, String returnType, Block body, List<String> tags) {
+	public Method buildMethod(EClass fragment, String name, List<Parameter> params, String returnType, Block body, List<String> tags) {
 		EOperation operation = ecoreFactory.createEOperation();
 		operation.setName(name);
 		
@@ -117,29 +114,29 @@ public class ModelBuilder {
 		
 		EClassifier type = resolve(returnType);
 		operation.setEType(type);
+		fragment.getEOperations().add(operation);
 		
-		Method newMethod = factory.createMethod();
-		newMethod.setOperationDef(operation);
+		return buildMethod(name,params,returnType,body,tags,operation);
+	}
+	
+	public Method buildMethod(String name, List<Parameter> params, String returnType, Block body, List<String> tags, EOperation operation) {
+		Method newMethod = implemFactory.createMethod();
+		newMethod.setOperationRef(operation);
 		newMethod.setBody(body);
 		newMethod.getTags().addAll(tags);
 		
 		return newMethod;
 	}
 	
-	public Implementation buildImplementation(String containingClass, String name, List<Parameter> params, String returnType, Block body, List<String> tags) {
+	public Method buildImplementation(String containingClass, String name, List<Parameter> params, String returnType, Block body, List<String> tags) {
 		Optional<EOperation> existingOperation = resolve(containingClass, name, params.size(), returnType);
 		
 		if(!existingOperation.isPresent()){
 			//TODO: error
+			return null;
 		}
 		
-		Implementation implem = factory.createImplementation();
-		
-		implem.setOperationRef(existingOperation.get());
-		implem.setBody(body);
-		implem.getTags().addAll(tags);
-		
-		return implem;
+		return buildMethod(name,params,returnType,body,tags,existingOperation.get());
 	}
 	
 	
@@ -148,8 +145,34 @@ public class ModelBuilder {
 		return new Parameter(name, resolve(type));
 	}
 	
+	public Attribute buildAttribute(EClass fragment, String name, String exp, String type) {
+		Attribute attribute = implemFactory.createAttribute();
+		EStructuralFeature feature;
+		
+		
+		EClassifier featureType = resolve(type);
+		if(featureType instanceof EClass) {
+			feature = ecoreFactory.createEReference();
+		}
+		else {
+			feature = ecoreFactory.createEAttribute();
+		}
+		
+		feature.setName(name);
+		feature.setEType(featureType);
+		attribute.setFeatureRef(feature);
+		
+		if(exp != null){
+			attribute.setInitialValue(builder.build(exp).getAst());
+		}
+		
+		fragment.getEStructuralFeatures().add(feature);
+		
+		return attribute;
+	}
+	
 	public VariableDeclaration buildVariableDecl(String name, String exp, String type) {
-		VariableDeclaration varDecl = factory. createVariableDeclaration();
+		VariableDeclaration varDecl = implemFactory. createVariableDeclaration();
 		varDecl.setName(name);
 		if(exp != null){
 			varDecl.setInitialValue(builder.build(exp).getAst());
@@ -159,14 +182,14 @@ public class ModelBuilder {
 	}
 	
 	public VariableAssignment buildVariableAssignement(String name, String exp) {
-		VariableAssignment varAssign = factory. createVariableAssignment();
+		VariableAssignment varAssign = implemFactory. createVariableAssignment();
 		varAssign.setName(name);
 		varAssign.setValue(builder.build(exp).getAst());
 		return varAssign; 
 	}
 	
 	public If buildIf(String condition, Block thenBlock, Block elseBlock) {
-		If ifStmt = factory.createIf();
+		If ifStmt = implemFactory.createIf();
 		ifStmt.setCondition(builder.build(condition).getAst());
 		ifStmt.setThen(thenBlock);
 		ifStmt.setElse(elseBlock);
@@ -174,19 +197,19 @@ public class ModelBuilder {
 	}
 	
 	public Block buildBlock(List<Statement> statements) {
-		Block block = factory.createBlock();
+		Block block = implemFactory.createBlock();
 		block.getStatements().addAll(statements);
 		return block;
 	}
 	
 	public ExpressionStatement buildExpressionStatement(String value) {
-		ExpressionStatement exp = factory.createExpressionStatement();
+		ExpressionStatement exp = implemFactory.createExpressionStatement();
 		exp.setExpression(builder.build(value).getAst());
 		return exp;
 	}
 	
 	public ForEach buildForEach(String variable, String expression, Block body) {
-		ForEach loop = factory.createForEach();
+		ForEach loop = implemFactory.createForEach();
 		loop.setVariable(variable);
 		loop.setCollectionExpression(builder.build(expression).getAst());
 		loop.setBody(body);
@@ -194,7 +217,7 @@ public class ModelBuilder {
 	}
 	
 	public ForEach buildForEach(String variable, SequenceInExtensionLiteral expression, Block body) {
-		ForEach loop = factory.createForEach();
+		ForEach loop = implemFactory.createForEach();
 		loop.setVariable(variable);
 		loop.setCollectionExpression(expression);
 		loop.setBody(body);
@@ -202,14 +225,14 @@ public class ModelBuilder {
 	}
 	
 	public While buildWhile(String expression, Block body) {
-		While loop = factory.createWhile();
+		While loop = implemFactory.createWhile();
 		loop.setCondition(builder.build(expression).getAst());
 		loop.setBody(body);
 		return loop;
 	}
 	
 	public FeatureAssignment buildFeatureAssign(String target, String feature, String valueExp) {
-		FeatureAssignment featSetting = factory.createFeatureAssignment();
+		FeatureAssignment featSetting = implemFactory.createFeatureAssignment();
 		featSetting.setTarget(builder.build(target).getAst());
 		featSetting.setTargetFeature(feature);
 		featSetting.setValue(builder.build(valueExp).getAst());
@@ -217,7 +240,7 @@ public class ModelBuilder {
 	}
 	
 	public FeatureInsert buildFeatureInsert(String target, String feature, String valueExp) {
-		FeatureInsert featSetting = factory.createFeatureInsert();
+		FeatureInsert featSetting = implemFactory.createFeatureInsert();
 		featSetting.setTarget(builder.build(target).getAst());
 		featSetting.setTargetFeature(feature);
 		featSetting.setValue(builder.build(valueExp).getAst());
@@ -225,7 +248,7 @@ public class ModelBuilder {
 	}
 	
 	public FeatureRemove buildFeatureRemove(String target, String feature, String valueExp) {
-		FeatureRemove featSetting = factory.createFeatureRemove();
+		FeatureRemove featSetting = implemFactory.createFeatureRemove();
 		featSetting.setTarget(builder.build(target).getAst());
 		featSetting.setTargetFeature(feature);
 		featSetting.setValue(builder.build(valueExp).getAst());
@@ -233,7 +256,7 @@ public class ModelBuilder {
 	}
 	
 	public FeaturePut buildFeaturePut(String target, String feature, String keyExp, String valueExp) {
-		FeaturePut featSetting = factory.createFeaturePut();
+		FeaturePut featSetting = implemFactory.createFeaturePut();
 		featSetting.setTarget(builder.build(target).getAst());
 		featSetting.setTargetFeature(feature);
 		featSetting.setKey(builder.build(keyExp).getAst());
@@ -241,13 +264,13 @@ public class ModelBuilder {
 		return featSetting;
 	}
 	
-	public ExtendedClass buildExtendedClass(String baseCls, List<VariableDeclaration> vars, List<Behaviored> operations, List<String> extendedCls) {
-		ExtendedClass cls = factory.createExtendedClass();
+	public ExtendedClass buildExtendedClass(String baseCls, List<Attribute> attributes, List<Method> operations, List<String> extendedCls) {
+		ExtendedClass cls = implemFactory.createExtendedClass();
 		EClassifier resolvedType = resolve(baseCls);
 		if(resolvedType instanceof EClass)
 			cls.setBaseClass((EClass)resolvedType);
 		cls.getMethods().addAll(operations);
-		cls.getAttributes().addAll(vars);
+		cls.getAttributes().addAll(attributes);
 		
 		//Add metadata for ID to be resolved
 		extendedCls
@@ -262,11 +285,11 @@ public class ModelBuilder {
 		return cls;
 	}
 	
-	public RuntimeClass buildRuntimeClass(String name, List<VariableDeclaration> vars, List<Method> operations) {
-		RuntimeClass cls = factory.createRuntimeClass();
+	public RuntimeClass buildRuntimeClass(String name, List<Attribute> attributes, List<Method> operations) {
+		RuntimeClass cls = implemFactory.createRuntimeClass();
 		cls.setName(name);
 		cls.getMethods().addAll(operations);
-		cls.getAttributes().addAll(vars);
+		cls.getAttributes().addAll(attributes);
 		return cls;
 	}
 	
@@ -322,46 +345,13 @@ public class ModelBuilder {
 		return parent;
 	}
 	
-	public EClass buildEClass(RuntimeClass cls) {
+	public EClass buildEClass(String name) {
 		EClass eClsClass = EcorePackage.eINSTANCE.getEClass();
-		EClass eRefClass = EcorePackage.eINSTANCE.getEReference();
-		EClass eAttClass = EcorePackage.eINSTANCE.getEAttribute();
-		EClass eOpClass = EcorePackage.eINSTANCE.getEOperation();
-		
-		EClass res = (EClass) EcoreUtil.create(eClsClass);
-		res.setName(cls.getName());
-
-		cls
-		.getAttributes()
-		.stream()
-		.forEach(attr -> {
-			String name = attr.getName();
-			EClassifier type = attr.getType();
-			
-			if(type instanceof EClass){
-				EReference newRef = (EReference) EcoreUtil.create(eRefClass);
-				newRef.setName(name);
-				newRef.setEType(type);
-				res.getEStructuralFeatures().add(newRef);
-			}
-			else if(type instanceof EDataType) {
-				EAttribute newAttr = (EAttribute) EcoreUtil.create(eAttClass);
-				newAttr.setName(name);
-				newAttr.setEType(type);
-				res.getEStructuralFeatures().add(newAttr);
-			}
-		});
-		
-		cls
-		.getMethods()
-		.stream()
-		.forEach(mtd -> {
-			EOperation newOp = EcoreUtil.copy(mtd.getOperationDef());
-			res.getEOperations().add(newOp);
-		});
-		
-		return res;
+		EClass cls = (EClass) EcoreUtil.create(eClsClass);
+		cls.setName(name);
+		return cls;
 	}
+	
 	
 	/**
 	 * Add new EOperation, EAttribute & EReference in {@link cls}, based on features defined in {@link clsDef} 
@@ -374,28 +364,18 @@ public class ModelBuilder {
 		.getAttributes()
 		.stream()
 		.forEach(attr -> {
-			String name = attr.getName();
-			EClassifier type = attr.getType();
 			
-			if(type instanceof EClass){
-				EReference newRef = (EReference) EcoreUtil.create(eRefClass);
-				newRef.setName(name);
-				newRef.setEType(type);
-				cls.getEStructuralFeatures().add(newRef);
-			}
-			else if(type instanceof EDataType) {
-				EAttribute newAttr = (EAttribute) EcoreUtil.create(eAttClass);
-				newAttr.setName(name);
-				newAttr.setEType(type);
-				cls.getEStructuralFeatures().add(newAttr);
-			}
+			String name = attr.getFeatureRef().getName();
+			EStructuralFeature featureCopy = EcoreUtil.copy(attr.getFeatureRef());
+			cls.getEStructuralFeatures().add(featureCopy);
+			
 		});
 		
 		clsDef
 		.getMethods()
 		.stream()
 		.forEach(mtd -> {
-			EOperation newOp = EcoreUtil.copy(mtd.getOperationDef());
+			EOperation newOp = EcoreUtil.copy(mtd.getOperationRef());
 			cls.getEOperations().add(newOp);
 		});
 	}

@@ -49,7 +49,7 @@ import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RWhileContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.ServiceCallContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.VarRefContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ModelBuilder.Parameter;
-import org.eclipse.emf.ecoretools.ale.implementation.Behaviored;
+import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
@@ -63,6 +63,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.ImplementationFactory;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
+import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Statement;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
@@ -113,9 +114,9 @@ public class Visitors {
 	
 	static class BlockVisitor extends ALEBaseVisitor<Block> {
 		
-		ParseResult<ModelBehavior> parseRes;
+		ParseResult<ModelUnit> parseRes;
 		
-		public BlockVisitor(ParseResult<ModelBehavior> parseRes) {
+		public BlockVisitor(ParseResult<ModelUnit> parseRes) {
 			this.parseRes = parseRes;
 		}
 		
@@ -138,9 +139,9 @@ public class Visitors {
 	
 	static class StatementVisitor extends ALEBaseVisitor<Statement> {
 		
-		ParseResult<ModelBehavior> parseRes;
+		ParseResult<ModelUnit> parseRes;
 		
-		public StatementVisitor(ParseResult<ModelBehavior> parseRes) {
+		public StatementVisitor(ParseResult<ModelUnit> parseRes) {
 			this.parseRes = parseRes;
 		}
 		
@@ -315,16 +316,18 @@ public class Visitors {
 		}
 	}
 
-	static class OpVisitor extends ALEBaseVisitor<Behaviored> {
+	static class OpVisitor extends ALEBaseVisitor<Method> {
 		
-		ParseResult<ModelBehavior> parseRes;
+		ParseResult<ModelUnit> parseRes;
+		EClass fragment;
 		
-		public OpVisitor(ParseResult<ModelBehavior> parseRes) {
+		public OpVisitor(ParseResult<ModelUnit> parseRes, EClass fragment) {
 			this.parseRes = parseRes;
+			this.fragment = fragment;
 		}
 		
 		@Override
-		public Behaviored visitROperation(ROperationContext ctx) {
+		public Method visitROperation(ROperationContext ctx) {
 			String keyword = 
 				ctx
 				.children
@@ -361,16 +364,16 @@ public class Visitors {
 				.map(t -> t.Ident().getText())
 				.collect(Collectors.toList());
 			
-			Behaviored res = null;
+			Method res = null;
 			if(keyword.equals("def")) {
-				res = ModelBuilder.singleton.buildMethod(operationName, parameters, returnType, body, tags);
+				res = ModelBuilder.singleton.buildMethod(fragment, operationName, parameters, returnType, body, tags);
 			}
 			else if(keyword.equals("override")) {
 				res = ModelBuilder.singleton.buildImplementation(className, operationName, parameters, returnType, body, tags);
 			}
 			else {
 				//TODO: error: should not happen
-				res = ModelBuilder.singleton.buildMethod(operationName, parameters, returnType, body, tags);
+				res = ModelBuilder.singleton.buildMethod(fragment, operationName, parameters, returnType, body, tags);
 			}
 			
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
@@ -382,9 +385,9 @@ public class Visitors {
 	
 	static class ParamVisitor extends ALEBaseVisitor<List<Parameter>> {
 		
-		ParseResult<ModelBehavior> parseRes;
+		ParseResult<ModelUnit> parseRes;
 		
-		public ParamVisitor(ParseResult<ModelBehavior> parseRes) {
+		public ParamVisitor(ParseResult<ModelUnit> parseRes) {
 			this.parseRes = parseRes;
 		}
 		
@@ -405,9 +408,9 @@ public class Visitors {
 	
 	static class VarVisitor extends ALEBaseVisitor<Parameter> {
 		
-		ParseResult<ModelBehavior> parseRes;
+		ParseResult<ModelUnit> parseRes;
 		
-		public VarVisitor(ParseResult<ModelBehavior> parseRes) {
+		public VarVisitor(ParseResult<ModelUnit> parseRes) {
 			this.parseRes = parseRes;
 		}
 		
@@ -426,10 +429,10 @@ public class Visitors {
 	
 	static class OpenClassVisitor extends ALEBaseVisitor<ExtendedClass> {
 		
-		ParseResult<ModelBehavior> parseRes;
+		ParseResult<ModelUnit> parseRes;
 		Map<String,String> importedBehaviors;
 		
-		public OpenClassVisitor(ParseResult<ModelBehavior> parseRes, Map<String,String> importedBehaviors) {
+		public OpenClassVisitor(ParseResult<ModelUnit> parseRes, Map<String,String> importedBehaviors) {
 			this.parseRes = parseRes;
 			this.importedBehaviors = importedBehaviors;
 		}
@@ -437,15 +440,21 @@ public class Visitors {
 		@Override
 		public ExtendedClass visitROpenClass(ROpenClassContext ctx) {
 			String name = ctx.name.getText();
-			AttributeVisitor subVisitor1 = new AttributeVisitor(parseRes);
-			List<VariableDeclaration> attributes = 
+			
+			EClass fragment = null;
+			if(!ctx.rAttribute().isEmpty() || !ctx.rOperation().isEmpty()){
+				fragment = ModelBuilder.singleton.buildEClass(name);
+			}
+			
+			AttributeVisitor subVisitor1 = new AttributeVisitor(parseRes,fragment);
+			List<Attribute> attributes = 
 					ctx
 					.rAttribute()
 					.stream()
-					.map(attr -> (VariableDeclaration) subVisitor1.visitRAttribute(attr))
+					.map(attr -> (Attribute) subVisitor1.visitRAttribute(attr))
 					.collect(Collectors.toList());
-			OpVisitor subVisitor2 = new OpVisitor(parseRes);
-			List<Behaviored> operations = 
+			OpVisitor subVisitor2 = new OpVisitor(parseRes,fragment);
+			List<Method> operations = 
 					ctx
 					.rOperation()
 					.stream()
@@ -468,23 +477,29 @@ public class Visitors {
 
 	static class NewClassVisitor extends ALEBaseVisitor<RuntimeClass> {
 		
-		ParseResult<ModelBehavior> parseRes;
+		ParseResult<ModelUnit> parseRes;
 		
-		public NewClassVisitor(ParseResult<ModelBehavior> parseRes) {
+		public NewClassVisitor(ParseResult<ModelUnit> parseRes) {
 			this.parseRes = parseRes;
 		}
 		
 		@Override
 		public RuntimeClass visitRNewClass(RNewClassContext ctx) {
 			String name = ctx.name.getText();
-			AttributeVisitor subVisitor1 = new AttributeVisitor(parseRes);
-			List<VariableDeclaration> attributes = 
+			
+			EClass fragment = null;
+			if(!ctx.rAttribute().isEmpty() || !ctx.rOperation().isEmpty()){
+				fragment = ModelBuilder.singleton.buildEClass(name);
+			}
+			
+			AttributeVisitor subVisitor1 = new AttributeVisitor(parseRes,fragment);
+			List<Attribute> attributes = 
 					ctx
 					.rAttribute()
 					.stream()
-					.map(attr -> (VariableDeclaration) subVisitor1.visitRAttribute(attr))
+					.map(attr -> (Attribute) subVisitor1.visitRAttribute(attr))
 					.collect(Collectors.toList());
-			OpVisitor subVisitor2 = new OpVisitor(parseRes);
+			OpVisitor subVisitor2 = new OpVisitor(parseRes,fragment);
 			List<Method> operations = 
 					ctx
 					.rOperation()
@@ -502,16 +517,18 @@ public class Visitors {
 		}
 	}
 	
-	static class AttributeVisitor extends ALEBaseVisitor<VariableDeclaration> {
+	static class AttributeVisitor extends ALEBaseVisitor<Attribute> {
 		
-		ParseResult<ModelBehavior> parseRes;
+		ParseResult<ModelUnit> parseRes;
+		EClass fragment;
 		
-		public AttributeVisitor(ParseResult<ModelBehavior> parseRes) {
+		public AttributeVisitor(ParseResult<ModelUnit> parseRes, EClass fragment) {
 			this.parseRes = parseRes;
+			this.fragment = fragment;
 		}
 		
 		@Override
-		public VariableDeclaration visitRAttribute(RAttributeContext ctx) {
+		public Attribute visitRAttribute(RAttributeContext ctx) {
 			String initialValue = null;
 			if(ctx.expression() != null) {
 				initialValue = safeGetText(ctx.expression());
@@ -521,7 +538,8 @@ public class Visitors {
 			
 			String name = ctx.Ident().getText();
 					
-			VariableDeclaration res = ModelBuilder.singleton.buildVariableDecl(
+			Attribute res = ModelBuilder.singleton.buildAttribute(
+					fragment,
 					name,
 					initialValue,
 					typeName);
@@ -546,18 +564,18 @@ public class Visitors {
 		}
 	}
 
-	static class ModelBehaviorVisitor extends ALEBaseVisitor<ModelBehavior> {
+	static class ModelUnitVisitor extends ALEBaseVisitor<ModelUnit> {
 		
-		ParseResult<ModelBehavior> parseRes;
+		ParseResult<ModelUnit> parseRes;
 		
-		public ModelBehaviorVisitor(ParseResult<ModelBehavior> parseRes) {
+		public ModelUnitVisitor(ParseResult<ModelUnit> parseRes) {
 			this.parseRes = parseRes;
 		}
 		
 		@Override
-		public ModelBehavior visitRRoot(RRootContext ctx) {
+		public ModelUnit visitRRoot(RRootContext ctx) {
 			ImplementationFactory factory = (ImplementationFactory) ImplementationPackage.eINSTANCE.getEFactoryInstance();
-			ModelBehavior res = factory.createModelBehavior();
+			ModelUnit res = factory.createModelUnit();
 			
 			res.setName(ctx.rQualified().getText());
 			
@@ -608,10 +626,10 @@ public class Visitors {
 	/**
 	 * Build class extensions
 	 */
-	public static ParseResult<ModelBehavior> visit(RRootContext rootCtx) {
-		ParseResult<ModelBehavior> result = new ParseResult<ModelBehavior>();
+	public static ParseResult<ModelUnit> visit(RRootContext rootCtx) {
+		ParseResult<ModelUnit> result = new ParseResult<ModelUnit>();
 		result.setDiagnostic(new BasicDiagnostic());
-		ModelBehavior root = (new ModelBehaviorVisitor(result)).visit(rootCtx);
+		ModelUnit root = (new ModelUnitVisitor(result)).visit(rootCtx);
 		result.setRoot(root);
 		return result;
 	}

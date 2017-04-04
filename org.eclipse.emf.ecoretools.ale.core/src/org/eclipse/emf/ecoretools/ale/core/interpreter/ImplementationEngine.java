@@ -15,7 +15,7 @@ import java.util.List;
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecoretools.ale.implementation.Behaviored;
+import org.eclipse.emf.ecoretools.ale.implementation.Method;
 
 public class ImplementationEngine {
 	
@@ -25,7 +25,7 @@ public class ImplementationEngine {
 		this.implemEnv = evalEnv;
 	}
 	
-	public EvaluationResult eval(EObject target, Behaviored mainOp, List<Object> args) {
+	public EvaluationResult eval(EObject target, Method mainOp, List<Object> args) {
 		ImplementationEvaluator evaluator = new ImplementationEvaluator(new QueryEvaluationEngine(implemEnv.getQueryEnvironment()), implemEnv.getFeatureAccess());
 		return evaluator.eval(target,mainOp,args);
 	}

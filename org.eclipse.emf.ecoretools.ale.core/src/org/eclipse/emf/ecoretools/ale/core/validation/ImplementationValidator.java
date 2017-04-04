@@ -41,7 +41,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
-import org.eclipse.emf.ecoretools.ale.implementation.Behaviored;
+import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
@@ -50,7 +50,6 @@ import org.eclipse.emf.ecoretools.ale.implementation.FeatureInsert;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
-import org.eclipse.emf.ecoretools.ale.implementation.Implementation;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
 import org.eclipse.emf.ecoretools.ale.implementation.Statement;
@@ -58,6 +57,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
 import org.eclipse.emf.ecoretools.ale.implementation.util.ImplementationSwitch;
+import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 public class ImplementationValidator extends ImplementationSwitch<Object> {
 	
@@ -74,8 +74,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 	public static final String SELF_ASSIGN = "'self' can't be assigned";
 	public static final String OP_ALREADY_DECLARED = "The operation %s is already declared";
 	
-	List<ParseResult<ModelBehavior>> allModels;
-	ParseResult<ModelBehavior> currentModel;
+	List<ParseResult<ModelUnit>> allModels;
+	ParseResult<ModelUnit> currentModel;
 	List<IValidationMessage> msgs;
 	Stack<Map<String, Set<IType>>> variableTypesStack;
 	
@@ -91,47 +91,47 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 	public Object caseExtendedClass(ExtendedClass xtdClass) {
 		
 		Map<String,Set<IType>> attributeTypes = new HashMap<String,Set<IType>>();
-		for(VariableDeclaration attrib : xtdClass.getAttributes()) {
+		for(Attribute attrib : xtdClass.getAttributes()) {
 			/*
 			 * Check name
 			 */
-			if(attrib.getName().equals("result")){
+			if(attrib.getFeatureRef().getName().equals("result")){
 				int startPostion = currentModel.getStartPositions().get(attrib);
 				int endPosition = currentModel.getEndPositions().get(attrib);
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
-						String.format(RESULT_RESERVED,attrib.getName()),
+						String.format(RESULT_RESERVED,attrib.getFeatureRef().getName()),
 						startPostion,
 						endPosition
 						));
 			}
-			else if(attrib.getName().equals("self")){
+			else if(attrib.getFeatureRef().getName().equals("self")){
 				int startPostion = currentModel.getStartPositions().get(attrib);
 				int endPosition = currentModel.getEndPositions().get(attrib);
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
-						String.format(SELF_RESERVED,attrib.getName()),
+						String.format(SELF_RESERVED,attrib.getFeatureRef().getName()),
 						startPostion,
 						endPosition
 						));
 			}
 			
-			Set<IType> possibleTypes = attributeTypes.get(attrib.getName());
+			Set<IType> possibleTypes = attributeTypes.get(attrib.getFeatureRef().getName());
 			if(possibleTypes != null) {
 				int startPostion = currentModel.getStartPositions().get(attrib);
 				int endPosition = currentModel.getEndPositions().get(attrib);
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
-						String.format(NAME_ALREADY_USED,attrib.getName()),
+						String.format(NAME_ALREADY_USED,attrib.getFeatureRef().getName()),
 						startPostion,
 						endPosition
 						));
 			}
 			else {
-				EClassifierType declaredType = new EClassifierType(qryEnv, attrib.getType());
+				EClassifierType declaredType = new EClassifierType(qryEnv, attrib.getFeatureRef().getEType());
 				Set<IType> typeSet = new HashSet<IType>();
 				typeSet.add(declaredType);
-				attributeTypes.put(attrib.getName(), typeSet);
+				attributeTypes.put(attrib.getFeatureRef().getName(), typeSet);
 			}
 			
 			if(attrib.getInitialValue() != null){
@@ -145,7 +145,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 				 * Check assignment type
 				 */
 				Set<IType> inferredTypes = expValidation.getPossibleTypes(attrib.getInitialValue());
-				EClassifierType declaredType = new EClassifierType(qryEnv, attrib.getType());
+				EClassifierType declaredType = new EClassifierType(qryEnv, attrib.getFeatureRef().getEType());
 				Optional<IType> existResult = inferredTypes.stream().filter(type -> declaredType.isAssignableFrom(type)).findAny();
 				if(!existResult.isPresent()){
 					String types = 
@@ -157,7 +157,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					int endPosition = currentModel.getEndPositions().get(attrib);
 					msgs.add(new ValidationMessage(
 							ValidationMessageLevel.ERROR,
-							String.format(INCOMPATIBLE_TYPE,attrib.getType().getName(),types),
+							String.format(INCOMPATIBLE_TYPE,attrib.getFeatureRef().getEType().getName(),types),
 							startPostion,
 							endPosition
 							));
@@ -165,8 +165,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			}
 		}
 		
-		List<Behaviored> previousOp = new ArrayList<Behaviored>(); 
-		for (Behaviored operation : xtdClass.getMethods()) {
+		List<Method> previousOp = new ArrayList<Method>(); 
+		for (Method operation : xtdClass.getMethods()) {
 			boolean isConflict = previousOp.stream().anyMatch(prevOp -> isMatching(operation, prevOp));
 			if(isConflict) {
 				int startPostion = currentModel.getStartPositions().get(operation);
@@ -210,7 +210,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			);
 		
 		variableTypesStack.push(attributeTypes);
-		for (Behaviored operation : xtdClass.getMethods()) {
+		for (Method operation : xtdClass.getMethods()) {
 			doSwitch(operation);
 		}
 		variableTypesStack.pop();
@@ -220,17 +220,11 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 	
 	@Override
 	public Object caseMethod(Method mtd) {
-		validateBehaviored(mtd,mtd.getOperationDef().getEParameters());
+		validateBehaviored(mtd,mtd.getOperationRef().getEParameters());
 		return null;
 	}
 	
-	@Override
-	public Object caseImplementation(Implementation impl) {
-		validateBehaviored(impl,impl.getOperationRef().getEParameters());
-		return null;
-	}
-	
-	private void validateBehaviored(Behaviored op, List<EParameter> params){
+	private void validateBehaviored(Method op, List<EParameter> params){
 		Map<String,Set<IType>> parameterTypes = new HashMap<String,Set<IType>>();
 		
 		for (EParameter param : params) {
@@ -325,14 +319,14 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 				else { //runtime features
 					List<ExtendedClass> extensions = findExtensions(realType);
 					
-					Optional<VariableDeclaration> foundDynamicAttribute = //FIXME: take inheritance in account
+					Optional<Attribute> foundDynamicAttribute = //FIXME: take inheritance in account
 						extensions
 						.stream()
 						.flatMap(xtdCls -> xtdCls.getAttributes().stream())
-						.filter(field -> field.getName().equals(featAssign.getTargetFeature()))
+						.filter(field -> field.getFeatureRef().getName().equals(featAssign.getTargetFeature()))
 						.findFirst();
 					if(foundDynamicAttribute.isPresent()) {
-						EClassifierType featureType = new EClassifierType(qryEnv, foundDynamicAttribute.get().getType());
+						EClassifierType featureType = new EClassifierType(qryEnv, foundDynamicAttribute.get().getFeatureRef().getEType());
 						featureTypes.add(featureType);
 					}
 				}
@@ -618,9 +612,17 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 	}
 	
 	@Override
-	public Object caseModelBehavior(ModelBehavior root) {
+	public Object caseModelUnit(ModelUnit root) {
 		for(ExtendedClass xtdClass : root.getClassExtensions()){
 			doSwitch(xtdClass);
+		}
+		return null;
+	}
+	
+	@Override
+	public Object caseModelBehavior(ModelBehavior root) {
+		for(ModelUnit unit : root.getUnits()){
+			doSwitch(unit);
 		}
 		return null;
 	}
@@ -648,16 +650,9 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					));
 		}
 		else if(varAssign.getName().equals("result")){
-			Behaviored op = getContainingOperation(varAssign);
-			boolean isVoidOp = false;
-			if(op instanceof Implementation) {
-				EOperation eOp = ((Implementation)op).getOperationRef();
-				isVoidOp = eOp.getEType() == null && eOp.getEGenericType() == null;
-			}
-			else if(op instanceof Method) {
-				EOperation eOp = ((Method)op).getOperationDef();
-				isVoidOp = eOp.getEType() == null && eOp.getEGenericType() == null;
-			}
+			Method op = getContainingOperation(varAssign);
+			EOperation eOp = ((Method)op).getOperationRef();
+			boolean isVoidOp = isVoidOp = eOp.getEType() == null && eOp.getEGenericType() == null;
 			
 			if(isVoidOp) {
 				int startPostion = currentModel.getStartPositions().get(varAssign);
@@ -681,14 +676,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 					));
 		}
 		else {
-			Behaviored op = getContainingOperation(varAssign);
-			List<EParameter> params = new ArrayList<EParameter>();
-			if(op instanceof Implementation) {
-				params = ((Implementation)op).getOperationRef().getEParameters();
-			}
-			else if(op instanceof Method) {
-				params = ((Method)op).getOperationDef().getEParameters();
-			}
+			Method op = getContainingOperation(varAssign);
+			List<EParameter> params = op.getOperationRef().getEParameters();
 			Optional<EParameter> matchingParam = 
 				params
 				.stream()
@@ -710,16 +699,9 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		 * Check assignment type
 		 */
 		if(varAssign.getName().equals("result")) {
-			Behaviored op = getContainingOperation(varAssign);
-			EClassifier returnType = null;
-			if(op instanceof Implementation) {
-				EOperation eOp = ((Implementation)op).getOperationRef();
-				returnType = eOp.getEType();
-			}
-			else if(op instanceof Method) {
-				EOperation eOp = ((Method)op).getOperationDef();
-				returnType = eOp.getEType();
-			}
+			Method op = getContainingOperation(varAssign);
+			EOperation eOp = op.getOperationRef();
+			EClassifier returnType = eOp.getEType();
 			
 			if(returnType != null) {
 				EClassifierType declaredType = new EClassifierType(qryEnv, returnType);
@@ -913,7 +895,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		return null;
 	}
 	
-	public void validate(List<ParseResult<ModelBehavior>> roots) {
+	public void validate(List<ParseResult<ModelUnit>> roots) {
 		
 		this.msgs = new ArrayList<IValidationMessage>();
 		this.allModels = roots;
@@ -976,29 +958,17 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 			.collect(Collectors.toList());
 	}
 	
-	private Behaviored getContainingOperation(VariableAssignment varAssign) {
+	private Method getContainingOperation(VariableAssignment varAssign) {
 		EObject parent = varAssign.eContainer();
-		while(parent != null && !(parent instanceof Behaviored)){
+		while(parent != null && !(parent instanceof Method)){
 			parent = parent.eContainer();
 		}
-		return (Behaviored)parent;
+		return (Method)parent;
 	}
 	
-	private boolean isMatching(Behaviored op1, Behaviored op2) {
-		EOperation eOp1 = null;
-		EOperation eOp2 = null;
-		if(op1 instanceof Method){
-			eOp1 = ((Method)op1).getOperationDef();
-		}
-		else{
-			eOp1 = ((Implementation)op1).getOperationRef();
-		}
-		if(op2 instanceof Method){
-			eOp2 = ((Method)op2).getOperationDef();
-		}
-		else{
-			eOp2 = ((Implementation)op2).getOperationRef();
-		}
+	private boolean isMatching(Method op1, Method op2) {
+		EOperation eOp1 = op1.getOperationRef();
+		EOperation eOp2 = op2.getOperationRef();;
 		
 		boolean isMatchingName = eOp1.getName().equals(eOp2.getName());
 		boolean isMatchingArgsSize = (eOp1.getEParameters().size() == eOp2.getEParameters().size());
@@ -1016,14 +986,8 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		return isMatchingName && isMatchingArgsSize && areParamTypeMatching;
 	}
 	
-	private String getSignature(Behaviored op) {
-		EOperation eOp;
-		if(op instanceof Method){
-			eOp = ((Method)op).getOperationDef();
-		}
-		else{
-			eOp = ((Implementation)op).getOperationRef();
-		}
+	private String getSignature(Method op) {
+		EOperation eOp = ((Method)op).getOperationRef();
 		
 		String paramsToString = 
 			eOp

@@ -35,6 +35,7 @@ import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.Visitors;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
+import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 /**
  * This class parse ".implem" file and produce model intance of Implementation metamodel
@@ -48,8 +49,8 @@ public class AstBuilder {
 		ModelBuilder.createSingleton(qryEnv);
 	}
 	
-	public List<ParseResult<ModelBehavior>> parseFromFiles(List<String> files) {
-		List<ParseResult<ModelBehavior>> build = new ArrayList<ParseResult<ModelBehavior>>();
+	public List<ParseResult<ModelUnit>> parseFromFiles(List<String> files) {
+		List<ParseResult<ModelUnit>> build = new ArrayList<ParseResult<ModelUnit>>();
 		
 		List<RRootContext> parses = new ArrayList<RRootContext>();
 		Map<RRootContext,String> sourceFiles = new HashMap<RRootContext,String>(); 
@@ -94,7 +95,7 @@ public class AstBuilder {
 		parses
 		.stream()
 		.forEach(p -> {
-			ParseResult<ModelBehavior> parseRes = Visitors.visit(p);
+			ParseResult<ModelUnit> parseRes = Visitors.visit(p);
 			parseRes.setSourceFile(sourceFiles.get(p));
 			build.add(parseRes);
 		});
@@ -129,7 +130,7 @@ public class AstBuilder {
     	build
     	.stream()
     	.forEach(sem -> {
-    		ModelBehavior root = sem.getRoot();
+    		ModelUnit root = sem.getRoot();
     		if(root != null) {
     			List<ExtendedClass> xtdCls =  root.getClassExtensions().stream().collect(Collectors.toList());
     			behaviorToClass.put(root.getName(), xtdCls);
@@ -185,7 +186,7 @@ public class AstBuilder {
 		return  parser.rRoot();
 	}
 	
-	public ParseResult<ModelBehavior> parse(String program) {
+	public ParseResult<ModelUnit> parse(String program) {
 		UnbufferedCharStream input = new UnbufferedCharStream(new StringReader(program), program.length());
 		ALELexer lexer = new ALELexer(input);
 		lexer.setTokenFactory(new CommonTokenFactory(true));
@@ -196,8 +197,8 @@ public class AstBuilder {
 		return Visitors.visit(rootCtx);
 	}
 	
-	public ParseResult<ModelBehavior> parseFromFile(String filePath) {
-		ParseResult<ModelBehavior> parseRes = parse(getFileContent(filePath));
+	public ParseResult<ModelUnit> parseFromFile(String filePath) {
+		ParseResult<ModelUnit> parseRes = parse(getFileContent(filePath));
 		parseRes.setSourceFile(filePath);
 		return parseRes;
 	}

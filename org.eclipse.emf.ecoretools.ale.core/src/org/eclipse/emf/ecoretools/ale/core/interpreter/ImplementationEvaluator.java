@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -29,7 +30,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecoretools.ale.implementation.Behaviored;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
@@ -38,7 +38,6 @@ import org.eclipse.emf.ecoretools.ale.implementation.FeaturePut;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
-import org.eclipse.emf.ecoretools.ale.implementation.Implementation;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
@@ -64,18 +63,14 @@ public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 		this.dynamicFeatureAccess = dynamicFeatureAccess;
 	}
 	
-	public EvaluationResult eval(EObject target, Behaviored operation, List<Object> parameters) {
+	public EvaluationResult eval(EObject target, Method operation, List<Object> parameters) {
 		variablesStack = new Stack();
 		//Init variables
 		Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("self", target);
 		variables.put("result", null);
 		
-		EOperation opDefinition = null; 
-		if(operation instanceof Implementation)
-			opDefinition = ((Implementation)operation).getOperationRef();
-		else if (operation instanceof Method)
-			opDefinition = ((Method)operation).getOperationDef();
+		EOperation opDefinition = operation.getOperationRef();
 		
 		for(int i = 0; i < opDefinition.getEParameters().size(); i++) {
 			EParameter param = opDefinition.getEParameters().get(i);
