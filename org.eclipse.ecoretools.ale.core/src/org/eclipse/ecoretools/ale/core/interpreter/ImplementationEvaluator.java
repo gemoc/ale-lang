@@ -10,9 +10,7 @@
  *******************************************************************************/
 package org.eclipse.ecoretools.ale.core.interpreter;
 
-import org.eclipse.ecoretools.ale.implementation.util.ImplementationSwitch;
 import org.eclipse.ecoretools.ale.implementation.Method;
-import org.eclipse.ecoretools.ale.implementation.Implementation;
 import org.eclipse.ecoretools.ale.implementation.Block;
 import org.eclipse.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.ecoretools.ale.implementation.FeatureAssignment;
@@ -21,8 +19,10 @@ import org.eclipse.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.ecoretools.ale.implementation.FeaturePut;
 import org.eclipse.ecoretools.ale.implementation.ForEach;
 import org.eclipse.ecoretools.ale.implementation.While;
+import org.eclipse.ecoretools.ale.implementation.util.ImplementationSwitch;
 import org.eclipse.ecoretools.ale.implementation.If;
 import org.eclipse.ecoretools.ale.implementation.ExpressionStatement;
+import org.eclipse.ecoretools.ale.implementation.VariableAssignment;
 import java.util.Map;
 import java.util.Stack;
 import org.eclipse.acceleo.query.runtime.IQueryEvaluationEngine;
@@ -38,11 +38,9 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
-import org.eclipse.ecoretools.ale.implementation.Behaviored;
 import java.util.List;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 
@@ -65,18 +63,14 @@ public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 		this.dynamicFeatureAccess = dynamicFeatureAccess;
 	}
 	
-	public EvaluationResult eval(EObject target, Behaviored operation, List<Object> parameters) {
+	public EvaluationResult eval(EObject target, Method operation, List<Object> parameters) {
 		variablesStack = new Stack();
 		//Init variables
 		Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("self", target);
 		variables.put("result", null);
 		
-		EOperation opDefinition = null; 
-		if(operation instanceof Implementation)
-			opDefinition = ((Implementation)operation).getOperationRef();
-		else if (operation instanceof Method)
-			opDefinition = ((Method)operation).getOperationDef();
+		EOperation opDefinition = operation.getOperationRef();
 		
 		for(int i = 0; i < opDefinition.getEParameters().size(); i++) {
 			EParameter param = opDefinition.getEParameters().get(i);

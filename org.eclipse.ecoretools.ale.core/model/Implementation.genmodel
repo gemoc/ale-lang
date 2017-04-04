@@ -9,32 +9,35 @@
   <genPackages prefix="Implementation" basePackage="org.eclipse.ecoretools.ale" disposableProviderFactory="true"
       ecorePackage="Implementation.ecore#/">
     <genClasses ecoreClass="Implementation.ecore#//ModelBehavior">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ModelBehavior/classExtensions"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ModelBehavior/classDefinitions"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//ModelBehavior/services"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//ModelBehavior/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ModelBehavior/units"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//ExtendedClass">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/baseClass"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/methods"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/attributes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/extends"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExtendedClass/children"/>
     </genClasses>
-    <genClasses ecoreClass="Implementation.ecore#//RuntimeClass">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//RuntimeClass/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//RuntimeClass/attributes"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//RuntimeClass/methods"/>
-    </genClasses>
-    <genClasses ecoreClass="Implementation.ecore#//Behaviored">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Behaviored/body"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//Behaviored/tags"/>
-    </genClasses>
-    <genClasses ecoreClass="Implementation.ecore#//Implementation">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//Implementation/operationRef"/>
-    </genClasses>
+    <genClasses ecoreClass="Implementation.ecore#//RuntimeClass"/>
     <genClasses ecoreClass="Implementation.ecore#//Method">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Method/operationDef"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//Method/operationRef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Method/body"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//Method/tags"/>
+    </genClasses>
+    <genClasses ecoreClass="Implementation.ecore#//ModelUnit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//ModelUnit/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//ModelUnit/services"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ModelUnit/classExtensions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ModelUnit/classDefinitions"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="Implementation.ecore#//BehavioredClass">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//BehavioredClass/methods"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//BehavioredClass/attributes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//BehavioredClass/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//BehavioredClass/fragment"/>
+    </genClasses>
+    <genClasses ecoreClass="Implementation.ecore#//Attribute">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//Attribute/featureRef"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//Attribute/initialValue"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//Block">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Block/statements"/>

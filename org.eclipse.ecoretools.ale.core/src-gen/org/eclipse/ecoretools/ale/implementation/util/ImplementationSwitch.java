@@ -77,32 +77,38 @@ public class ImplementationSwitch<T> extends Switch<T> {
 				ExtendedClass extendedClass = (ExtendedClass)theEObject;
 				T result = caseExtendedClass(extendedClass);
 				if (result == null) result = caseEModelElement(extendedClass);
+				if (result == null) result = caseBehavioredClass(extendedClass);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ImplementationPackage.RUNTIME_CLASS: {
 				RuntimeClass runtimeClass = (RuntimeClass)theEObject;
 				T result = caseRuntimeClass(runtimeClass);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ImplementationPackage.BEHAVIORED: {
-				Behaviored behaviored = (Behaviored)theEObject;
-				T result = caseBehaviored(behaviored);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ImplementationPackage.IMPLEMENTATION: {
-				Implementation implementation = (Implementation)theEObject;
-				T result = caseImplementation(implementation);
-				if (result == null) result = caseBehaviored(implementation);
+				if (result == null) result = caseBehavioredClass(runtimeClass);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ImplementationPackage.METHOD: {
 				Method method = (Method)theEObject;
 				T result = caseMethod(method);
-				if (result == null) result = caseBehaviored(method);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ImplementationPackage.MODEL_UNIT: {
+				ModelUnit modelUnit = (ModelUnit)theEObject;
+				T result = caseModelUnit(modelUnit);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ImplementationPackage.BEHAVIORED_CLASS: {
+				BehavioredClass behavioredClass = (BehavioredClass)theEObject;
+				T result = caseBehavioredClass(behavioredClass);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ImplementationPackage.ATTRIBUTE: {
+				Attribute attribute = (Attribute)theEObject;
+				T result = caseAttribute(attribute);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -250,36 +256,6 @@ public class ImplementationSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Behaviored</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Behaviored</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseBehaviored(Behaviored object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Implementation</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Implementation</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseImplementation(Implementation object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Method</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -291,6 +267,51 @@ public class ImplementationSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseMethod(Method object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Model Unit</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Model Unit</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseModelUnit(ModelUnit object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Behaviored Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Behaviored Class</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBehavioredClass(BehavioredClass object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Attribute</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Attribute</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAttribute(Attribute object) {
 		return null;
 	}
 

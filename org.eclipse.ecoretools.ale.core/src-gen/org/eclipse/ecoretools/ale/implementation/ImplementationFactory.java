@@ -49,24 +49,6 @@ public interface ImplementationFactory extends EFactory {
 	RuntimeClass createRuntimeClass();
 
 	/**
-	 * Returns a new object of class '<em>Behaviored</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Behaviored</em>'.
-	 * @generated
-	 */
-	Behaviored createBehaviored();
-
-	/**
-	 * Returns a new object of class '<em>Implementation</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Implementation</em>'.
-	 * @generated
-	 */
-	Implementation createImplementation();
-
-	/**
 	 * Returns a new object of class '<em>Method</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -74,6 +56,24 @@ public interface ImplementationFactory extends EFactory {
 	 * @generated
 	 */
 	Method createMethod();
+
+	/**
+	 * Returns a new object of class '<em>Model Unit</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Model Unit</em>'.
+	 * @generated
+	 */
+	ModelUnit createModelUnit();
+
+	/**
+	 * Returns a new object of class '<em>Attribute</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Attribute</em>'.
+	 * @generated
+	 */
+	Attribute createAttribute();
 
 	/**
 	 * Returns a new object of class '<em>Block</em>'.

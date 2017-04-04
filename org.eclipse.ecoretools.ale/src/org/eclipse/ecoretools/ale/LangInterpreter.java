@@ -61,9 +61,10 @@ import org.eclipse.sirius.common.tools.api.interpreter.EPackageLoadingCallback;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 import org.eclipse.sirius.common.tools.api.interpreter.JavaExtensionsManager;
 
-import org.eclipse.ecoretools.ale.implementation.Behaviored;
 import org.eclipse.ecoretools.ale.implementation.ImplementationPackage;
+import org.eclipse.ecoretools.ale.implementation.Method;
 import org.eclipse.ecoretools.ale.implementation.ModelBehavior;
+import org.eclipse.ecoretools.ale.implementation.ModelUnit;
 
 /**
  * This class is an interpreter for the 'Lang' Language.
@@ -203,7 +204,7 @@ public class LangInterpreter {
     	/*
     	 * Parse semantic files
     	 */
-    	List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(queryEnvironment)).parse(dsl);
+    	List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(queryEnvironment)).parse(dsl);
     	
     	/*
     	 * Load input model
@@ -222,9 +223,9 @@ public class LangInterpreter {
      * Search in {@link dslFile}'s semantics
      * for the first operation tagged 'main' and apply it to {@link caller}
      */
-    public IEvaluationResult eval(EObject caller, List<Object> args, List<ParseResult<ModelBehavior>> parsedSemantics) {
+    public IEvaluationResult eval(EObject caller, List<Object> args, List<ParseResult<ModelUnit>> parsedSemantics) {
     	
-    	Optional<Behaviored> mainOp =
+    	Optional<Method> mainOp =
     		parsedSemantics
 	    	.stream()
 	    	.filter(sem -> sem.getRoot() != null)
@@ -269,8 +270,8 @@ public class LangInterpreter {
 		};
     }
     
-    private EvaluationResult eval(EObject caller, Behaviored operation, List<Object> args, List<ParseResult<ModelBehavior>> parsedSemantics) {
-    	List<ModelBehavior> allBehaviors = 
+    private EvaluationResult eval(EObject caller, Method operation, List<Object> args, List<ParseResult<ModelUnit>> parsedSemantics) {
+    	List<ModelUnit> allBehaviors = 
 				parsedSemantics
 		    	.stream()
 		    	.filter(sem -> sem.getRoot() != null)
@@ -284,7 +285,7 @@ public class LangInterpreter {
     	parsedSemantics
 	    	.stream()
 	    	.forEach(sem -> {
-	    		ModelBehavior root = sem.getRoot();
+	    		ModelUnit root = sem.getRoot();
 	    		if(root != null) {
 	    			root
 	    			.getServices()
@@ -334,7 +335,7 @@ public class LangInterpreter {
     	env.initialize(accessibleInputElements);
     }
     
-    private Optional<Behaviored> getMainOp(ModelBehavior implem) {
+    private Optional<Method> getMainOp(ModelUnit implem) {
 		return 
 			implem.getClassExtensions().stream()
 			.flatMap(cls -> cls.getMethods().stream())

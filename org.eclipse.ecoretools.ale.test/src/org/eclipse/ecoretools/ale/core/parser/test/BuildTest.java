@@ -44,17 +44,15 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.junit.Before;
 import org.junit.Test;
-
-import org.eclipse.ecoretools.ale.implementation.Behaviored;
+import org.eclipse.ecoretools.ale.implementation.Attribute;
 import org.eclipse.ecoretools.ale.implementation.Block;
 import org.eclipse.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.ecoretools.ale.implementation.ForEach;
 import org.eclipse.ecoretools.ale.implementation.If;
-import org.eclipse.ecoretools.ale.implementation.Implementation;
 import org.eclipse.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.ecoretools.ale.implementation.Method;
-import org.eclipse.ecoretools.ale.implementation.ModelBehavior;
+import org.eclipse.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.ecoretools.ale.implementation.Statement;
 import org.eclipse.ecoretools.ale.implementation.VariableAssignment;
@@ -80,8 +78,8 @@ public class BuildTest {
 	@Test
 	public void testClassExtension() {
 		String fileContent = getFileContent("input/structure/extendedClass.implem");
-		ParseResult<ModelBehavior> res = parser.parse(fileContent);
-		ModelBehavior root = res.getRoot();
+		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ModelUnit root = res.getRoot();
 		
 		assertNotNull(root);
 		assertEquals("test.extendedclass",root.getName());
@@ -97,8 +95,8 @@ public class BuildTest {
 	@Test
 	public void testAttributes() {
 		String fileContent = getFileContent("input/structure/attributes.implem");
-		ParseResult<ModelBehavior> res = parser.parse(fileContent);
-		ModelBehavior root = res.getRoot();
+		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ModelUnit root = res.getRoot();
 		
 		assertNotNull(root);
 		assertEquals("test.attributes",root.getName());
@@ -110,14 +108,14 @@ public class BuildTest {
 		assertEquals(EcorePackage.eINSTANCE.getEClass(), xtdCls.getBaseClass());
 		assertEquals(2, xtdCls.getAttributes().size());
 		
-		VariableDeclaration attrib0 = xtdCls.getAttributes().get(0);
-		assertEquals("newAttribute", attrib0.getName());
-		assertEquals(EcorePackage.eINSTANCE.getEBoolean(), attrib0.getType());
+		Attribute attrib0 = xtdCls.getAttributes().get(0);
+		assertEquals("newAttribute", attrib0.getFeatureRef().getName());
+		assertEquals(EcorePackage.eINSTANCE.getEBoolean(), attrib0.getFeatureRef().getEType());
 		assertNull(attrib0.getInitialValue());
 		
-		VariableDeclaration attrib1 = xtdCls.getAttributes().get(1);
-		assertEquals("initialValue", attrib1.getName());
-		assertEquals(EcorePackage.eINSTANCE.getEInt(), attrib1.getType());
+		Attribute attrib1 = xtdCls.getAttributes().get(1);
+		assertEquals("initialValue", attrib1.getFeatureRef().getName());
+		assertEquals(EcorePackage.eINSTANCE.getEInt(), attrib1.getFeatureRef().getEType());
 		assertNotNull(attrib1.getInitialValue());
 		Expression value = attrib1.getInitialValue();
 		assertTrue(value instanceof IntegerLiteral);
@@ -127,8 +125,8 @@ public class BuildTest {
 	@Test
 	public void testMethod(){
 		String fileContent = getFileContent("input/structure/defMethod.implem");
-		ParseResult<ModelBehavior> res = parser.parse(fileContent);
-		ModelBehavior root = res.getRoot();
+		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ModelUnit root = res.getRoot();
 		
 		assertNotNull(root);
 		assertEquals("test.defmethod",root.getName());
@@ -138,9 +136,9 @@ public class BuildTest {
 		assertEquals(EcorePackage.eINSTANCE.getEClass(), xtdCls.getBaseClass());
 		assertEquals(0, xtdCls.getAttributes().size());
 		
-		Behaviored method = xtdCls.getMethods().get(0);
+		Method method = xtdCls.getMethods().get(0);
 		assertTrue(method instanceof Method);
-		EOperation eOperationDef = ((Method)method).getOperationDef();
+		EOperation eOperationDef = ((Method)method).getOperationRef();
 		assertNotNull(eOperationDef);
 		assertEquals("fooBar",eOperationDef.getName());
 		assertNull(eOperationDef.getEType());
@@ -178,8 +176,8 @@ public class BuildTest {
 	@Test
 	public void testImplem() {
 		String fileContent = getFileContent("input/structure/defImplem.implem");
-		ParseResult<ModelBehavior> res = parser.parse(fileContent);
-		ModelBehavior root = res.getRoot();
+		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ModelUnit root = res.getRoot();
 		
 		assertNotNull(root);
 		assertEquals("test.defimpl",root.getName());
@@ -189,14 +187,14 @@ public class BuildTest {
 		assertEquals(EcorePackage.eINSTANCE.getEObject(), xtdCls.getBaseClass());
 		assertEquals(0, xtdCls.getAttributes().size());
 		
-		Behaviored method = xtdCls.getMethods().get(0);
-		assertTrue(method instanceof Implementation);
-		EOperation eOperationRef = ((Implementation)method).getOperationRef();
+		Method method = xtdCls.getMethods().get(0);
+		assertEquals(xtdCls.getBaseClass(),method.getOperationRef().getEContainingClass());
+		EOperation eOperationRef = method.getOperationRef();
 		assertNotNull(eOperationRef);
 		assertEquals("eClass",eOperationRef.getName());
 		assertEquals(EcorePackage.eINSTANCE.getEObject(),eOperationRef.getEContainingClass());
 		
-		Block body = ((Implementation)method).getBody();
+		Block body = method.getBody();
 		assertNotNull(body);
 		assertEquals(2, body.getStatements().size());
 		Statement local0 = body.getStatements().get(0);
@@ -219,8 +217,8 @@ public class BuildTest {
 	@Test
 	public void testFor(){
 		String fileContent = getFileContent("input/structure/for.implem");
-		ParseResult<ModelBehavior> res = parser.parse(fileContent);
-		ModelBehavior root = res.getRoot();
+		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ModelUnit root = res.getRoot();
 		
 		assertNotNull(root);
 		assertEquals("test.forloop",root.getName());
@@ -230,9 +228,9 @@ public class BuildTest {
 		assertEquals(EcorePackage.eINSTANCE.getEPackage(), xtdCls.getBaseClass());
 		assertEquals(0, xtdCls.getAttributes().size());
 		
-		Behaviored method = xtdCls.getMethods().get(0);
+		Method method = xtdCls.getMethods().get(0);
 		assertTrue(method instanceof Method);
-		EOperation eOperationDef = ((Method)method).getOperationDef();
+		EOperation eOperationDef = method.getOperationRef();
 		assertNotNull(eOperationDef);
 		assertEquals("entryPoint",eOperationDef.getName());
 		assertNull(eOperationDef.getEType());
@@ -326,8 +324,8 @@ public class BuildTest {
 	@Test
 	public void testWhile(){
 		String fileContent = getFileContent("input/structure/while.implem");
-		ParseResult<ModelBehavior> res = parser.parse(fileContent);
-		ModelBehavior root = res.getRoot();
+		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ModelUnit root = res.getRoot();
 		
 		assertNotNull(root);
 		assertEquals("test.whileloop",root.getName());
@@ -337,9 +335,9 @@ public class BuildTest {
 		assertEquals(EcorePackage.eINSTANCE.getEPackage(), xtdCls.getBaseClass());
 		assertEquals(0, xtdCls.getAttributes().size());
 		
-		Behaviored method = xtdCls.getMethods().get(0);
+		Method method = xtdCls.getMethods().get(0);
 		assertTrue(method instanceof Method);
-		EOperation eOperationDef = ((Method)method).getOperationDef();
+		EOperation eOperationDef = method.getOperationRef();
 		assertNotNull(eOperationDef);
 		assertEquals("entryPoint",eOperationDef.getName());
 		assertNull(eOperationDef.getEType());
@@ -399,8 +397,8 @@ public class BuildTest {
 	@Test
 	public void testIf(){
 		String fileContent = getFileContent("input/structure/if.implem");
-		ParseResult<ModelBehavior> res = parser.parse(fileContent);
-		ModelBehavior root = res.getRoot();
+		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ModelUnit root = res.getRoot();
 		
 		assertNotNull(root);
 		assertEquals("test.ifstmt",root.getName());
@@ -410,9 +408,9 @@ public class BuildTest {
 		assertEquals(EcorePackage.eINSTANCE.getEPackage(), xtdCls.getBaseClass());
 		assertEquals(0, xtdCls.getAttributes().size());
 		
-		Behaviored method = xtdCls.getMethods().get(0);
+		Method method = xtdCls.getMethods().get(0);
 		assertTrue(method instanceof Method);
-		EOperation eOperationDef = ((Method)method).getOperationDef();
+		EOperation eOperationDef = ((Method)method).getOperationRef();
 		assertNotNull(eOperationDef);
 		assertEquals("entryPoint",eOperationDef.getName());
 		assertNull(eOperationDef.getEType());
@@ -501,8 +499,8 @@ public class BuildTest {
 	@Test
 	public void testAllFeatures(){
 		String fileContent = getFileContent("input/structure/allFeatures.implem");
-		ParseResult<ModelBehavior> res = parser.parse(fileContent);
-		ModelBehavior root = res.getRoot();
+		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ModelUnit root = res.getRoot();
 		assertEquals(Diagnostic.OK,res.getDiagnostic().getCode());
 		assertNotNull(root);
 		assertEquals("test.allfeatures",root.getName());
@@ -510,8 +508,8 @@ public class BuildTest {
 	
 	@Test
 	public void testRuntimeClass() {
-		List<ParseResult<ModelBehavior>> res = parser.parseFromFiles(Arrays.asList("input/structure/newClass.implem"));
-		ModelBehavior root = res.get(0).getRoot();
+		List<ParseResult<ModelUnit>> res = parser.parseFromFiles(Arrays.asList("input/structure/newClass.implem"));
+		ModelUnit root = res.get(0).getRoot();
 		
 		assertNotNull(root);
 		assertEquals("test.newclass",root.getName());
@@ -523,20 +521,20 @@ public class BuildTest {
 		assertEquals("NewRuntimeClass", newCls.getName());
 		assertEquals(2, newCls.getAttributes().size());
 		
-		VariableDeclaration myName = newCls.getAttributes().get(0);
-		assertEquals("myName",myName.getName());
-		assertEquals(EcorePackage.eINSTANCE.getEString(), myName.getType());
+		Attribute myName = newCls.getAttributes().get(0);
+		assertEquals("myName",myName.getFeatureRef().getName());
+		assertEquals(EcorePackage.eINSTANCE.getEString(), myName.getFeatureRef().getEType());
 		assertNotNull(myName.getInitialValue());
-		VariableDeclaration toEClass = newCls.getAttributes().get(1);
-		assertEquals("toEClass",toEClass.getName());
-		assertEquals(EcorePackage.eINSTANCE.getEClass(), toEClass.getType());
+		Attribute toEClass = newCls.getAttributes().get(1);
+		assertEquals("toEClass",toEClass.getFeatureRef().getName());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(), toEClass.getFeatureRef().getEType());
 		assertNull(toEClass.getInitialValue());
 		
 		assertEquals(2, newCls.getMethods().size());
 		Method someOp = newCls.getMethods().get(0);
-		assertEquals("someOp",someOp.getOperationDef().getName());
-		assertEquals(0,someOp.getOperationDef().getEParameters().size());
-		assertEquals(EcorePackage.eINSTANCE.getEClass(),someOp.getOperationDef().getEType());
+		assertEquals("someOp",someOp.getOperationRef().getName());
+		assertEquals(0,someOp.getOperationRef().getEParameters().size());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(),someOp.getOperationRef().getEType());
 		
 		
 		Collection<EClassifier> foundTypes = queryEnvironment.getEPackageProvider().getTypes("NewRuntimeClass");
@@ -544,10 +542,10 @@ public class BuildTest {
 		EClass runtimeClass = (EClass) foundTypes.iterator().next();
 		
 		Method entryPoint = newCls.getMethods().get(1);
-		assertEquals("entryPoint",entryPoint.getOperationDef().getName());
-		assertEquals(1,entryPoint.getOperationDef().getEParameters().size());
-		assertEquals(EcorePackage.eINSTANCE.getEInt(),entryPoint.getOperationDef().getEParameters().get(0).getEType());
-		assertEquals(runtimeClass,entryPoint.getOperationDef().getEType());
+		assertEquals("entryPoint",entryPoint.getOperationRef().getName());
+		assertEquals(1,entryPoint.getOperationRef().getEParameters().size());
+		assertEquals(EcorePackage.eINSTANCE.getEInt(),entryPoint.getOperationRef().getEParameters().get(0).getEType());
+		assertEquals(runtimeClass,entryPoint.getOperationRef().getEType());
 		assertEquals(1,entryPoint.getTags().size());
 		assertEquals("main",entryPoint.getTags().get(0));
 		
@@ -571,9 +569,9 @@ public class BuildTest {
 	
 	@Test
 	public void testExtends() {
-		List<ParseResult<ModelBehavior>> res = parser.parseFromFiles(Arrays.asList("input/structure/extends.implem","input/structure/extendedClass.implem"));
-		ModelBehavior root = res.get(1).getRoot();
-		ModelBehavior extendedRoot = res.get(0).getRoot();
+		List<ParseResult<ModelUnit>> res = parser.parseFromFiles(Arrays.asList("input/structure/extends.implem","input/structure/extendedClass.implem"));
+		ModelUnit root = res.get(1).getRoot();
+		ModelUnit extendedRoot = res.get(0).getRoot();
 		
 		assertNotNull(root);
 		assertEquals("test.extendedclass",root.getName());

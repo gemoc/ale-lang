@@ -17,8 +17,6 @@ import org.eclipse.emf.ecore.EModelElement;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.ecoretools.ale.implementation.ExtendedClass#getBaseClass <em>Base Class</em>}</li>
- *   <li>{@link org.eclipse.ecoretools.ale.implementation.ExtendedClass#getMethods <em>Methods</em>}</li>
- *   <li>{@link org.eclipse.ecoretools.ale.implementation.ExtendedClass#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link org.eclipse.ecoretools.ale.implementation.ExtendedClass#getExtends <em>Extends</em>}</li>
  *   <li>{@link org.eclipse.ecoretools.ale.implementation.ExtendedClass#getChildren <em>Children</em>}</li>
  * </ul>
@@ -27,7 +25,7 @@ import org.eclipse.emf.ecore.EModelElement;
  * @model
  * @generated
  */
-public interface ExtendedClass extends EModelElement {
+public interface ExtendedClass extends EModelElement, BehavioredClass {
 	/**
 	 * Returns the value of the '<em><b>Base Class</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -53,38 +51,6 @@ public interface ExtendedClass extends EModelElement {
 	 * @generated
 	 */
 	void setBaseClass(EClass value);
-
-	/**
-	 * Returns the value of the '<em><b>Methods</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.ecoretools.ale.implementation.Behaviored}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Methods</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Methods</em>' containment reference list.
-	 * @see org.eclipse.ecoretools.ale.implementation.ImplementationPackage#getExtendedClass_Methods()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<Behaviored> getMethods();
-
-	/**
-	 * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.ecoretools.ale.implementation.VariableDeclaration}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Attributes</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Attributes</em>' containment reference list.
-	 * @see org.eclipse.ecoretools.ale.implementation.ImplementationPackage#getExtendedClass_Attributes()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<VariableDeclaration> getAttributes();
 
 	/**
 	 * Returns the value of the '<em><b>Extends</b></em>' reference list.

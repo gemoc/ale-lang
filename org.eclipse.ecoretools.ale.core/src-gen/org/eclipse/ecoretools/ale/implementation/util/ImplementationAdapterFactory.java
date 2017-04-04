@@ -81,16 +81,20 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 				return createRuntimeClassAdapter();
 			}
 			@Override
-			public Adapter caseBehaviored(Behaviored object) {
-				return createBehavioredAdapter();
-			}
-			@Override
-			public Adapter caseImplementation(Implementation object) {
-				return createImplementationAdapter();
-			}
-			@Override
 			public Adapter caseMethod(Method object) {
 				return createMethodAdapter();
+			}
+			@Override
+			public Adapter caseModelUnit(ModelUnit object) {
+				return createModelUnitAdapter();
+			}
+			@Override
+			public Adapter caseBehavioredClass(BehavioredClass object) {
+				return createBehavioredClassAdapter();
+			}
+			@Override
+			public Adapter caseAttribute(Attribute object) {
+				return createAttributeAdapter();
 			}
 			@Override
 			public Adapter caseBlock(Block object) {
@@ -211,34 +215,6 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.implementation.Behaviored <em>Behaviored</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.ecoretools.ale.implementation.Behaviored
-	 * @generated
-	 */
-	public Adapter createBehavioredAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.implementation.Implementation <em>Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.ecoretools.ale.implementation.Implementation
-	 * @generated
-	 */
-	public Adapter createImplementationAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.implementation.Method <em>Method</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -249,6 +225,48 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMethodAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.implementation.ModelUnit <em>Model Unit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.ecoretools.ale.implementation.ModelUnit
+	 * @generated
+	 */
+	public Adapter createModelUnitAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.implementation.BehavioredClass <em>Behaviored Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.ecoretools.ale.implementation.BehavioredClass
+	 * @generated
+	 */
+	public Adapter createBehavioredClassAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.implementation.Attribute <em>Attribute</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.ecoretools.ale.implementation.Attribute
+	 * @generated
+	 */
+	public Adapter createAttributeAdapter() {
 		return null;
 	}
 

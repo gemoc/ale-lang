@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-import org.eclipse.ecoretools.ale.implementation.ModelBehavior;
+import org.eclipse.ecoretools.ale.implementation.ModelUnit;
 
 public class DslBuilder {
 	
@@ -37,7 +37,7 @@ public class DslBuilder {
 	/**
      * Setup the eval environment & parse semantic files
      */
-    public List<ParseResult<ModelBehavior>> parse(Dsl dsl) { //TODO: add an option to clear services & epackages before
+    public List<ParseResult<ModelUnit>> parse(Dsl dsl) { //TODO: add an option to clear services & epackages before
     	/*
     	 * Register EPackages
     	 */
@@ -62,7 +62,7 @@ public class DslBuilder {
     	/*
     	 * Parse behavior files
     	 */
-    	List<ParseResult<ModelBehavior>> parsedSemantics =
+    	List<ParseResult<ModelUnit>> parsedSemantics =
     			(new AstBuilder(queryEnvironment)).parseFromFiles(dsl.getAllSemantics());
     	
     	return parsedSemantics;

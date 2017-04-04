@@ -32,7 +32,7 @@ import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnosti
 import org.junit.Before;
 import org.junit.Test;
 
-import org.eclipse.ecoretools.ale.implementation.ModelBehavior;
+import org.eclipse.ecoretools.ale.implementation.ModelUnit;
 
 /**
  * This class test the execution of ModelBehavior
@@ -49,7 +49,7 @@ public class EvalTest {
 	@Test
 	public void testAccessLocalVariable(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/localvar.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -60,7 +60,7 @@ public class EvalTest {
 	public void testAccessParameter(){
 		String obj = "";
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/args.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(obj), parsedSemantics);
 		
@@ -70,7 +70,7 @@ public class EvalTest {
 	@Test
 	public void testAccessSelf(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/self.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -80,7 +80,7 @@ public class EvalTest {
 	@Test
 	public void testAccessSelfDynamicAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/selfDynamicAttribute.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -90,7 +90,7 @@ public class EvalTest {
 	@Test
 	public void testAccessCreateDynamicAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/createDynamicAttribute.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -100,7 +100,7 @@ public class EvalTest {
 	@Test
 	public void testAccessLocalDynamicAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/localDynamicAttribute.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -110,7 +110,7 @@ public class EvalTest {
 	@Test
 	public void testAccessParamDynamicAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/paramDynamicAttribute.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EObject newInstance = EcoreUtil.create(caller.eClass());
 		IEvaluationResult res = interpreter.eval(caller,  Arrays.asList(newInstance), parsedSemantics);
@@ -121,7 +121,7 @@ public class EvalTest {
 	@Test
 	public void testAccessResultDynamicAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/resultDynamicAttribute.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -131,7 +131,7 @@ public class EvalTest {
 	@Test
 	public void testAccessCallDynamicAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/callDynamicAttribute.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -141,7 +141,7 @@ public class EvalTest {
 	@Test
 	public void testAccessSelfAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/selfAttribute.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EStructuralFeature field = caller.eClass().getEStructuralFeature("field");
 		caller.eSet(field, 1);
@@ -153,7 +153,7 @@ public class EvalTest {
 	@Test
 	public void testAccessLocalAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/localAttribute.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EStructuralFeature field = caller.eClass().getEStructuralFeature("field");
 		caller.eSet(field, 2);
@@ -165,7 +165,7 @@ public class EvalTest {
 	@Test
 	public void testAccessParamAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/paramAttribute.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EObject newInstance = EcoreUtil.create(caller.eClass());
 		EStructuralFeature field = newInstance.eClass().getEStructuralFeature("field");
@@ -178,7 +178,7 @@ public class EvalTest {
 	@Test
 	public void testAccessResultAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/resultAttribute.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EStructuralFeature field = caller.eClass().getEStructuralFeature("field");
 		caller.eSet(field, 4);
@@ -190,7 +190,7 @@ public class EvalTest {
 	@Test
 	public void testAccessCallAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/callAttribute.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EStructuralFeature field = caller.eClass().getEStructuralFeature("field");
 		caller.eSet(field, 5);
@@ -202,7 +202,7 @@ public class EvalTest {
 	@Test
 	public void testAssignSelfDynamicAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/selfDynamicAttributeAssign.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -212,7 +212,7 @@ public class EvalTest {
 	@Test
 	public void testAssignLocalDynamicAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/localDynamicAttributeAssign.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -222,7 +222,7 @@ public class EvalTest {
 	@Test
 	public void testAssignParamDynamicAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/paramDynamicAttributeAssign.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EObject newInstance = EcoreUtil.create(caller.eClass());
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(newInstance), parsedSemantics);
@@ -233,7 +233,7 @@ public class EvalTest {
 	@Test
 	public void testAssignResultDynamicAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/resultDynamicAttributeAssign.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -243,7 +243,7 @@ public class EvalTest {
 	@Test
 	public void testAssignCallDynamicAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/callDynamicAttributeAssign.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -253,7 +253,7 @@ public class EvalTest {
 	@Test
 	public void testAssignSelfAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/selfAttributeAssign.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -263,7 +263,7 @@ public class EvalTest {
 	@Test
 	public void testAssignLocalAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/localAttributeAssign.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -273,7 +273,7 @@ public class EvalTest {
 	@Test
 	public void testAssignParamAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/paramAttributeAssign.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EObject newInstance = EcoreUtil.create(caller.eClass());
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(newInstance), parsedSemantics);
@@ -284,7 +284,7 @@ public class EvalTest {
 	@Test
 	public void testAssignResultAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/resultAttributeAssign.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -294,7 +294,7 @@ public class EvalTest {
 	@Test
 	public void testAssignCallAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/callAttributeAssign.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -304,7 +304,7 @@ public class EvalTest {
 	@Test
 	public void testSelfCall(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/selfCall.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -314,7 +314,7 @@ public class EvalTest {
 	@Test
 	public void testLocalCall(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/localCall.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -324,7 +324,7 @@ public class EvalTest {
 	@Test
 	public void testAttributeCall(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/attributeCall.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -334,7 +334,7 @@ public class EvalTest {
 	@Test
 	public void testDynamicAttributeCall(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/dynamicAttributeCall.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -344,7 +344,7 @@ public class EvalTest {
 	@Test
 	public void testParamCall(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/paramCall.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EObject newInstance = EcoreUtil.create(caller.eClass());
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(newInstance), parsedSemantics);
@@ -355,7 +355,7 @@ public class EvalTest {
 	@Test
 	public void testResultCall(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/resultCall.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -365,7 +365,7 @@ public class EvalTest {
 	@Test
 	public void testChainAttrib(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/chainAttribute.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -375,7 +375,7 @@ public class EvalTest {
 	@Test
 	public void testChainDynamicAttrib(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/chainDynamicAttribute.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -385,7 +385,7 @@ public class EvalTest {
 	@Test
 	public void testChainCall(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/chainCall.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -395,7 +395,7 @@ public class EvalTest {
 	@Test
 	public void testForEachSequence(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/forEachSequence.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -405,7 +405,7 @@ public class EvalTest {
 	@Test
 	public void testForEachReverseSequence(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/forEachReverseSequence.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -415,7 +415,7 @@ public class EvalTest {
 	@Test
 	public void testForEachCollection(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/forEachCollection.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -425,7 +425,7 @@ public class EvalTest {
 	@Test
 	public void testForEachEmpty(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/forEachEmptyCollection.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -435,7 +435,7 @@ public class EvalTest {
 	@Test
 	public void testWhile(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/while.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -445,7 +445,7 @@ public class EvalTest {
 	@Test
 	public void testIfTrue(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/ifTrue.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -455,7 +455,7 @@ public class EvalTest {
 	@Test
 	public void testIfFalse(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/ifFalse.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -465,7 +465,7 @@ public class EvalTest {
 	@Test
 	public void testElseTrue(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/elseTrue.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -475,7 +475,7 @@ public class EvalTest {
 	@Test
 	public void testElseFalse(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/elseFalse.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -485,7 +485,7 @@ public class EvalTest {
 	@Test
 	public void testAdd(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/add.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -495,7 +495,7 @@ public class EvalTest {
 	@Test
 	public void testRemove(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/remove.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -508,7 +508,7 @@ public class EvalTest {
 		System.setOut(new PrintStream(outContent));
 		
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/log.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -521,7 +521,7 @@ public class EvalTest {
 	@Test
 	public void testCreate(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/create.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -542,7 +542,7 @@ public class EvalTest {
 			e.printStackTrace();
 		}
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/service.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
@@ -552,7 +552,7 @@ public class EvalTest {
 	@Test
 	public void testNewClass(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/newClass.implem"));
-		List<ParseResult<ModelBehavior>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		

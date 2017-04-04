@@ -68,40 +68,22 @@ public interface ImplementationPackage extends EPackage {
 	int MODEL_BEHAVIOR = 0;
 
 	/**
-	 * The feature id for the '<em><b>Class Extensions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODEL_BEHAVIOR__CLASS_EXTENSIONS = 0;
-
-	/**
-	 * The feature id for the '<em><b>Class Definitions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODEL_BEHAVIOR__CLASS_DEFINITIONS = 1;
-
-	/**
-	 * The feature id for the '<em><b>Services</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODEL_BEHAVIOR__SERVICES = 2;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_BEHAVIOR__NAME = 3;
+	int MODEL_BEHAVIOR__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Units</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_BEHAVIOR__UNITS = 1;
 
 	/**
 	 * The number of structural features of the '<em>Model Behavior</em>' class.
@@ -110,7 +92,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_BEHAVIOR_FEATURE_COUNT = 4;
+	int MODEL_BEHAVIOR_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Model Behavior</em>' class.
@@ -141,22 +123,13 @@ public interface ImplementationPackage extends EPackage {
 	int EXTENDED_CLASS__EANNOTATIONS = EcorePackage.EMODEL_ELEMENT__EANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Base Class</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENDED_CLASS__BASE_CLASS = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Methods</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENDED_CLASS__METHODS = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 1;
+	int EXTENDED_CLASS__METHODS = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -165,7 +138,34 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENDED_CLASS__ATTRIBUTES = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 2;
+	int EXTENDED_CLASS__ATTRIBUTES = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__NAME = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Fragment</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__FRAGMENT = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Base Class</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__BASE_CLASS = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Extends</b></em>' reference list.
@@ -174,7 +174,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENDED_CLASS__EXTENDS = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 3;
+	int EXTENDED_CLASS__EXTENDS = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' reference list.
@@ -183,7 +183,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENDED_CLASS__CHILDREN = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 4;
+	int EXTENDED_CLASS__CHILDREN = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of structural features of the '<em>Extended Class</em>' class.
@@ -192,7 +192,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENDED_CLASS_FEATURE_COUNT = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 5;
+	int EXTENDED_CLASS_FEATURE_COUNT = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The operation id for the '<em>Get EAnnotation</em>' operation.
@@ -213,6 +213,70 @@ public interface ImplementationPackage extends EPackage {
 	int EXTENDED_CLASS_OPERATION_COUNT = EcorePackage.EMODEL_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.ecoretools.ale.implementation.impl.BehavioredClassImpl <em>Behaviored Class</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.ecoretools.ale.implementation.impl.BehavioredClassImpl
+	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getBehavioredClass()
+	 * @generated
+	 */
+	int BEHAVIORED_CLASS = 5;
+
+	/**
+	 * The feature id for the '<em><b>Methods</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORED_CLASS__METHODS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORED_CLASS__ATTRIBUTES = 1;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORED_CLASS__NAME = 2;
+
+	/**
+	 * The feature id for the '<em><b>Fragment</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORED_CLASS__FRAGMENT = 3;
+
+	/**
+	 * The number of structural features of the '<em>Behaviored Class</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORED_CLASS_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Behaviored Class</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORED_CLASS_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.ecoretools.ale.implementation.impl.RuntimeClassImpl <em>Runtime Class</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -223,13 +287,13 @@ public interface ImplementationPackage extends EPackage {
 	int RUNTIME_CLASS = 2;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Methods</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RUNTIME_CLASS__NAME = 0;
+	int RUNTIME_CLASS__METHODS = BEHAVIORED_CLASS__METHODS;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -238,16 +302,25 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RUNTIME_CLASS__ATTRIBUTES = 1;
+	int RUNTIME_CLASS__ATTRIBUTES = BEHAVIORED_CLASS__ATTRIBUTES;
 
 	/**
-	 * The feature id for the '<em><b>Methods</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RUNTIME_CLASS__METHODS = 2;
+	int RUNTIME_CLASS__NAME = BEHAVIORED_CLASS__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Fragment</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RUNTIME_CLASS__FRAGMENT = BEHAVIORED_CLASS__FRAGMENT;
 
 	/**
 	 * The number of structural features of the '<em>Runtime Class</em>' class.
@@ -256,7 +329,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RUNTIME_CLASS_FEATURE_COUNT = 3;
+	int RUNTIME_CLASS_FEATURE_COUNT = BEHAVIORED_CLASS_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Runtime Class</em>' class.
@@ -265,108 +338,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RUNTIME_CLASS_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link org.eclipse.ecoretools.ale.implementation.impl.BehavioredImpl <em>Behaviored</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.ecoretools.ale.implementation.impl.BehavioredImpl
-	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getBehaviored()
-	 * @generated
-	 */
-	int BEHAVIORED = 3;
-
-	/**
-	 * The feature id for the '<em><b>Body</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIORED__BODY = 0;
-
-	/**
-	 * The feature id for the '<em><b>Tags</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIORED__TAGS = 1;
-
-	/**
-	 * The number of structural features of the '<em>Behaviored</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIORED_FEATURE_COUNT = 2;
-
-	/**
-	 * The number of operations of the '<em>Behaviored</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIORED_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link org.eclipse.ecoretools.ale.implementation.impl.ImplementationImpl <em>Implementation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationImpl
-	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getImplementation()
-	 * @generated
-	 */
-	int IMPLEMENTATION = 4;
-
-	/**
-	 * The feature id for the '<em><b>Body</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLEMENTATION__BODY = BEHAVIORED__BODY;
-
-	/**
-	 * The feature id for the '<em><b>Tags</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLEMENTATION__TAGS = BEHAVIORED__TAGS;
-
-	/**
-	 * The feature id for the '<em><b>Operation Ref</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLEMENTATION__OPERATION_REF = BEHAVIORED_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Implementation</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLEMENTATION_FEATURE_COUNT = BEHAVIORED_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of operations of the '<em>Implementation</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLEMENTATION_OPERATION_COUNT = BEHAVIORED_OPERATION_COUNT + 0;
+	int RUNTIME_CLASS_OPERATION_COUNT = BEHAVIORED_CLASS_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ecoretools.ale.implementation.impl.MethodImpl <em>Method</em>}' class.
@@ -376,7 +348,16 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getMethod()
 	 * @generated
 	 */
-	int METHOD = 5;
+	int METHOD = 3;
+
+	/**
+	 * The feature id for the '<em><b>Operation Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD__OPERATION_REF = 0;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -385,7 +366,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD__BODY = BEHAVIORED__BODY;
+	int METHOD__BODY = 1;
 
 	/**
 	 * The feature id for the '<em><b>Tags</b></em>' attribute list.
@@ -394,16 +375,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD__TAGS = BEHAVIORED__TAGS;
-
-	/**
-	 * The feature id for the '<em><b>Operation Def</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int METHOD__OPERATION_DEF = BEHAVIORED_FEATURE_COUNT + 0;
+	int METHOD__TAGS = 2;
 
 	/**
 	 * The number of structural features of the '<em>Method</em>' class.
@@ -412,7 +384,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD_FEATURE_COUNT = BEHAVIORED_FEATURE_COUNT + 1;
+	int METHOD_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Method</em>' class.
@@ -421,7 +393,117 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD_OPERATION_COUNT = BEHAVIORED_OPERATION_COUNT + 0;
+	int METHOD_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.ecoretools.ale.implementation.impl.ModelUnitImpl <em>Model Unit</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.ecoretools.ale.implementation.impl.ModelUnitImpl
+	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getModelUnit()
+	 * @generated
+	 */
+	int MODEL_UNIT = 4;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_UNIT__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Services</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_UNIT__SERVICES = 1;
+
+	/**
+	 * The feature id for the '<em><b>Class Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_UNIT__CLASS_EXTENSIONS = 2;
+
+	/**
+	 * The feature id for the '<em><b>Class Definitions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_UNIT__CLASS_DEFINITIONS = 3;
+
+	/**
+	 * The number of structural features of the '<em>Model Unit</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_UNIT_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Model Unit</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_UNIT_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.ecoretools.ale.implementation.impl.AttributeImpl <em>Attribute</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.ecoretools.ale.implementation.impl.AttributeImpl
+	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getAttribute()
+	 * @generated
+	 */
+	int ATTRIBUTE = 6;
+
+	/**
+	 * The feature id for the '<em><b>Feature Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE__FEATURE_REF = 0;
+
+	/**
+	 * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE__INITIAL_VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Attribute</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Attribute</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTE_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.ecoretools.ale.implementation.impl.StatementImpl <em>Statement</em>}' class.
@@ -431,7 +513,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getStatement()
 	 * @generated
 	 */
-	int STATEMENT = 7;
+	int STATEMENT = 8;
 
 	/**
 	 * The number of structural features of the '<em>Statement</em>' class.
@@ -459,7 +541,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getBlock()
 	 * @generated
 	 */
-	int BLOCK = 6;
+	int BLOCK = 7;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -496,7 +578,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getVariableDeclaration()
 	 * @generated
 	 */
-	int VARIABLE_DECLARATION = 8;
+	int VARIABLE_DECLARATION = 9;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -551,7 +633,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getAssignment()
 	 * @generated
 	 */
-	int ASSIGNMENT = 9;
+	int ASSIGNMENT = 10;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -588,7 +670,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getVariableAssignment()
 	 * @generated
 	 */
-	int VARIABLE_ASSIGNMENT = 10;
+	int VARIABLE_ASSIGNMENT = 11;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -634,7 +716,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getFeatureAssignment()
 	 * @generated
 	 */
-	int FEATURE_ASSIGNMENT = 11;
+	int FEATURE_ASSIGNMENT = 12;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -689,7 +771,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getFeatureInsert()
 	 * @generated
 	 */
-	int FEATURE_INSERT = 12;
+	int FEATURE_INSERT = 13;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -744,7 +826,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getFeatureRemove()
 	 * @generated
 	 */
-	int FEATURE_REMOVE = 13;
+	int FEATURE_REMOVE = 14;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -799,7 +881,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getFeaturePut()
 	 * @generated
 	 */
-	int FEATURE_PUT = 14;
+	int FEATURE_PUT = 15;
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' containment reference.
@@ -863,7 +945,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getForEach()
 	 * @generated
 	 */
-	int FOR_EACH = 15;
+	int FOR_EACH = 16;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' attribute.
@@ -918,7 +1000,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getWhile()
 	 * @generated
 	 */
-	int WHILE = 16;
+	int WHILE = 17;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -964,7 +1046,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getIf()
 	 * @generated
 	 */
-	int IF = 17;
+	int IF = 18;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -1019,7 +1101,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getExpressionStatement()
 	 * @generated
 	 */
-	int EXPRESSION_STATEMENT = 18;
+	int EXPRESSION_STATEMENT = 19;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -1060,39 +1142,6 @@ public interface ImplementationPackage extends EPackage {
 	EClass getModelBehavior();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.implementation.ModelBehavior#getClassExtensions <em>Class Extensions</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Class Extensions</em>'.
-	 * @see org.eclipse.ecoretools.ale.implementation.ModelBehavior#getClassExtensions()
-	 * @see #getModelBehavior()
-	 * @generated
-	 */
-	EReference getModelBehavior_ClassExtensions();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.implementation.ModelBehavior#getClassDefinitions <em>Class Definitions</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Class Definitions</em>'.
-	 * @see org.eclipse.ecoretools.ale.implementation.ModelBehavior#getClassDefinitions()
-	 * @see #getModelBehavior()
-	 * @generated
-	 */
-	EReference getModelBehavior_ClassDefinitions();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.ecoretools.ale.implementation.ModelBehavior#getServices <em>Services</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Services</em>'.
-	 * @see org.eclipse.ecoretools.ale.implementation.ModelBehavior#getServices()
-	 * @see #getModelBehavior()
-	 * @generated
-	 */
-	EAttribute getModelBehavior_Services();
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.implementation.ModelBehavior#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1102,6 +1151,17 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getModelBehavior_Name();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.implementation.ModelBehavior#getUnits <em>Units</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Units</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.ModelBehavior#getUnits()
+	 * @see #getModelBehavior()
+	 * @generated
+	 */
+	EReference getModelBehavior_Units();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.implementation.ExtendedClass <em>Extended Class</em>}'.
@@ -1123,28 +1183,6 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getExtendedClass_BaseClass();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.implementation.ExtendedClass#getMethods <em>Methods</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Methods</em>'.
-	 * @see org.eclipse.ecoretools.ale.implementation.ExtendedClass#getMethods()
-	 * @see #getExtendedClass()
-	 * @generated
-	 */
-	EReference getExtendedClass_Methods();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.implementation.ExtendedClass#getAttributes <em>Attributes</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Attributes</em>'.
-	 * @see org.eclipse.ecoretools.ale.implementation.ExtendedClass#getAttributes()
-	 * @see #getExtendedClass()
-	 * @generated
-	 */
-	EReference getExtendedClass_Attributes();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.eclipse.ecoretools.ale.implementation.ExtendedClass#getExtends <em>Extends</em>}'.
@@ -1179,92 +1217,6 @@ public interface ImplementationPackage extends EPackage {
 	EClass getRuntimeClass();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.implementation.RuntimeClass#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.ecoretools.ale.implementation.RuntimeClass#getName()
-	 * @see #getRuntimeClass()
-	 * @generated
-	 */
-	EAttribute getRuntimeClass_Name();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.implementation.RuntimeClass#getAttributes <em>Attributes</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Attributes</em>'.
-	 * @see org.eclipse.ecoretools.ale.implementation.RuntimeClass#getAttributes()
-	 * @see #getRuntimeClass()
-	 * @generated
-	 */
-	EReference getRuntimeClass_Attributes();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.implementation.RuntimeClass#getMethods <em>Methods</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Methods</em>'.
-	 * @see org.eclipse.ecoretools.ale.implementation.RuntimeClass#getMethods()
-	 * @see #getRuntimeClass()
-	 * @generated
-	 */
-	EReference getRuntimeClass_Methods();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.implementation.Behaviored <em>Behaviored</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Behaviored</em>'.
-	 * @see org.eclipse.ecoretools.ale.implementation.Behaviored
-	 * @generated
-	 */
-	EClass getBehaviored();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.implementation.Behaviored#getBody <em>Body</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Body</em>'.
-	 * @see org.eclipse.ecoretools.ale.implementation.Behaviored#getBody()
-	 * @see #getBehaviored()
-	 * @generated
-	 */
-	EReference getBehaviored_Body();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.ecoretools.ale.implementation.Behaviored#getTags <em>Tags</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Tags</em>'.
-	 * @see org.eclipse.ecoretools.ale.implementation.Behaviored#getTags()
-	 * @see #getBehaviored()
-	 * @generated
-	 */
-	EAttribute getBehaviored_Tags();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.implementation.Implementation <em>Implementation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Implementation</em>'.
-	 * @see org.eclipse.ecoretools.ale.implementation.Implementation
-	 * @generated
-	 */
-	EClass getImplementation();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.ecoretools.ale.implementation.Implementation#getOperationRef <em>Operation Ref</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Operation Ref</em>'.
-	 * @see org.eclipse.ecoretools.ale.implementation.Implementation#getOperationRef()
-	 * @see #getImplementation()
-	 * @generated
-	 */
-	EReference getImplementation_OperationRef();
-
-	/**
 	 * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.implementation.Method <em>Method</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1275,15 +1227,177 @@ public interface ImplementationPackage extends EPackage {
 	EClass getMethod();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.implementation.Method#getOperationDef <em>Operation Def</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.ecoretools.ale.implementation.Method#getOperationRef <em>Operation Ref</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Operation Def</em>'.
-	 * @see org.eclipse.ecoretools.ale.implementation.Method#getOperationDef()
+	 * @return the meta object for the reference '<em>Operation Ref</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.Method#getOperationRef()
 	 * @see #getMethod()
 	 * @generated
 	 */
-	EReference getMethod_OperationDef();
+	EReference getMethod_OperationRef();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.implementation.Method#getBody <em>Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Body</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.Method#getBody()
+	 * @see #getMethod()
+	 * @generated
+	 */
+	EReference getMethod_Body();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.ecoretools.ale.implementation.Method#getTags <em>Tags</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Tags</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.Method#getTags()
+	 * @see #getMethod()
+	 * @generated
+	 */
+	EAttribute getMethod_Tags();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.implementation.ModelUnit <em>Model Unit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Model Unit</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.ModelUnit
+	 * @generated
+	 */
+	EClass getModelUnit();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.implementation.ModelUnit#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.ModelUnit#getName()
+	 * @see #getModelUnit()
+	 * @generated
+	 */
+	EAttribute getModelUnit_Name();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.ecoretools.ale.implementation.ModelUnit#getServices <em>Services</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Services</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.ModelUnit#getServices()
+	 * @see #getModelUnit()
+	 * @generated
+	 */
+	EAttribute getModelUnit_Services();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.implementation.ModelUnit#getClassExtensions <em>Class Extensions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Class Extensions</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.ModelUnit#getClassExtensions()
+	 * @see #getModelUnit()
+	 * @generated
+	 */
+	EReference getModelUnit_ClassExtensions();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.implementation.ModelUnit#getClassDefinitions <em>Class Definitions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Class Definitions</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.ModelUnit#getClassDefinitions()
+	 * @see #getModelUnit()
+	 * @generated
+	 */
+	EReference getModelUnit_ClassDefinitions();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.implementation.BehavioredClass <em>Behaviored Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Behaviored Class</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.BehavioredClass
+	 * @generated
+	 */
+	EClass getBehavioredClass();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.implementation.BehavioredClass#getMethods <em>Methods</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Methods</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.BehavioredClass#getMethods()
+	 * @see #getBehavioredClass()
+	 * @generated
+	 */
+	EReference getBehavioredClass_Methods();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.implementation.BehavioredClass#getAttributes <em>Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Attributes</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.BehavioredClass#getAttributes()
+	 * @see #getBehavioredClass()
+	 * @generated
+	 */
+	EReference getBehavioredClass_Attributes();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.implementation.BehavioredClass#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.BehavioredClass#getName()
+	 * @see #getBehavioredClass()
+	 * @generated
+	 */
+	EAttribute getBehavioredClass_Name();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.implementation.BehavioredClass#getFragment <em>Fragment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Fragment</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.BehavioredClass#getFragment()
+	 * @see #getBehavioredClass()
+	 * @generated
+	 */
+	EReference getBehavioredClass_Fragment();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.implementation.Attribute <em>Attribute</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Attribute</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.Attribute
+	 * @generated
+	 */
+	EClass getAttribute();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.ecoretools.ale.implementation.Attribute#getFeatureRef <em>Feature Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Feature Ref</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.Attribute#getFeatureRef()
+	 * @see #getAttribute()
+	 * @generated
+	 */
+	EReference getAttribute_FeatureRef();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.implementation.Attribute#getInitialValue <em>Initial Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Initial Value</em>'.
+	 * @see org.eclipse.ecoretools.ale.implementation.Attribute#getInitialValue()
+	 * @see #getAttribute()
+	 * @generated
+	 */
+	EReference getAttribute_InitialValue();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.implementation.Block <em>Block</em>}'.
@@ -1724,36 +1838,20 @@ public interface ImplementationPackage extends EPackage {
 		EClass MODEL_BEHAVIOR = eINSTANCE.getModelBehavior();
 
 		/**
-		 * The meta object literal for the '<em><b>Class Extensions</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference MODEL_BEHAVIOR__CLASS_EXTENSIONS = eINSTANCE.getModelBehavior_ClassExtensions();
-
-		/**
-		 * The meta object literal for the '<em><b>Class Definitions</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference MODEL_BEHAVIOR__CLASS_DEFINITIONS = eINSTANCE.getModelBehavior_ClassDefinitions();
-
-		/**
-		 * The meta object literal for the '<em><b>Services</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute MODEL_BEHAVIOR__SERVICES = eINSTANCE.getModelBehavior_Services();
-
-		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute MODEL_BEHAVIOR__NAME = eINSTANCE.getModelBehavior_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Units</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODEL_BEHAVIOR__UNITS = eINSTANCE.getModelBehavior_Units();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.ecoretools.ale.implementation.impl.ExtendedClassImpl <em>Extended Class</em>}' class.
@@ -1772,22 +1870,6 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EXTENDED_CLASS__BASE_CLASS = eINSTANCE.getExtendedClass_BaseClass();
-
-		/**
-		 * The meta object literal for the '<em><b>Methods</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EXTENDED_CLASS__METHODS = eINSTANCE.getExtendedClass_Methods();
-
-		/**
-		 * The meta object literal for the '<em><b>Attributes</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EXTENDED_CLASS__ATTRIBUTES = eINSTANCE.getExtendedClass_Attributes();
 
 		/**
 		 * The meta object literal for the '<em><b>Extends</b></em>' reference list feature.
@@ -1816,74 +1898,6 @@ public interface ImplementationPackage extends EPackage {
 		EClass RUNTIME_CLASS = eINSTANCE.getRuntimeClass();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute RUNTIME_CLASS__NAME = eINSTANCE.getRuntimeClass_Name();
-
-		/**
-		 * The meta object literal for the '<em><b>Attributes</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference RUNTIME_CLASS__ATTRIBUTES = eINSTANCE.getRuntimeClass_Attributes();
-
-		/**
-		 * The meta object literal for the '<em><b>Methods</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference RUNTIME_CLASS__METHODS = eINSTANCE.getRuntimeClass_Methods();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.ecoretools.ale.implementation.impl.BehavioredImpl <em>Behaviored</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.ecoretools.ale.implementation.impl.BehavioredImpl
-		 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getBehaviored()
-		 * @generated
-		 */
-		EClass BEHAVIORED = eINSTANCE.getBehaviored();
-
-		/**
-		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference BEHAVIORED__BODY = eINSTANCE.getBehaviored_Body();
-
-		/**
-		 * The meta object literal for the '<em><b>Tags</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute BEHAVIORED__TAGS = eINSTANCE.getBehaviored_Tags();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.ecoretools.ale.implementation.impl.ImplementationImpl <em>Implementation</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationImpl
-		 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getImplementation()
-		 * @generated
-		 */
-		EClass IMPLEMENTATION = eINSTANCE.getImplementation();
-
-		/**
-		 * The meta object literal for the '<em><b>Operation Ref</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference IMPLEMENTATION__OPERATION_REF = eINSTANCE.getImplementation_OperationRef();
-
-		/**
 		 * The meta object literal for the '{@link org.eclipse.ecoretools.ale.implementation.impl.MethodImpl <em>Method</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1894,12 +1908,138 @@ public interface ImplementationPackage extends EPackage {
 		EClass METHOD = eINSTANCE.getMethod();
 
 		/**
-		 * The meta object literal for the '<em><b>Operation Def</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Operation Ref</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference METHOD__OPERATION_DEF = eINSTANCE.getMethod_OperationDef();
+		EReference METHOD__OPERATION_REF = eINSTANCE.getMethod_OperationRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference METHOD__BODY = eINSTANCE.getMethod_Body();
+
+		/**
+		 * The meta object literal for the '<em><b>Tags</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD__TAGS = eINSTANCE.getMethod_Tags();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.ecoretools.ale.implementation.impl.ModelUnitImpl <em>Model Unit</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.ecoretools.ale.implementation.impl.ModelUnitImpl
+		 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getModelUnit()
+		 * @generated
+		 */
+		EClass MODEL_UNIT = eINSTANCE.getModelUnit();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODEL_UNIT__NAME = eINSTANCE.getModelUnit_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Services</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODEL_UNIT__SERVICES = eINSTANCE.getModelUnit_Services();
+
+		/**
+		 * The meta object literal for the '<em><b>Class Extensions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODEL_UNIT__CLASS_EXTENSIONS = eINSTANCE.getModelUnit_ClassExtensions();
+
+		/**
+		 * The meta object literal for the '<em><b>Class Definitions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODEL_UNIT__CLASS_DEFINITIONS = eINSTANCE.getModelUnit_ClassDefinitions();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.ecoretools.ale.implementation.impl.BehavioredClassImpl <em>Behaviored Class</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.ecoretools.ale.implementation.impl.BehavioredClassImpl
+		 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getBehavioredClass()
+		 * @generated
+		 */
+		EClass BEHAVIORED_CLASS = eINSTANCE.getBehavioredClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Methods</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BEHAVIORED_CLASS__METHODS = eINSTANCE.getBehavioredClass_Methods();
+
+		/**
+		 * The meta object literal for the '<em><b>Attributes</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BEHAVIORED_CLASS__ATTRIBUTES = eINSTANCE.getBehavioredClass_Attributes();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BEHAVIORED_CLASS__NAME = eINSTANCE.getBehavioredClass_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Fragment</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BEHAVIORED_CLASS__FRAGMENT = eINSTANCE.getBehavioredClass_Fragment();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.ecoretools.ale.implementation.impl.AttributeImpl <em>Attribute</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.ecoretools.ale.implementation.impl.AttributeImpl
+		 * @see org.eclipse.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getAttribute()
+		 * @generated
+		 */
+		EClass ATTRIBUTE = eINSTANCE.getAttribute();
+
+		/**
+		 * The meta object literal for the '<em><b>Feature Ref</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ATTRIBUTE__FEATURE_REF = eINSTANCE.getAttribute_FeatureRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Initial Value</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ATTRIBUTE__INITIAL_VALUE = eINSTANCE.getAttribute_InitialValue();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.ecoretools.ale.implementation.impl.BlockImpl <em>Block</em>}' class.

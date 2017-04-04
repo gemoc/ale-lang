@@ -76,13 +76,13 @@ import org.eclipse.ecoretools.ale.rAttribute;
 import org.eclipse.ecoretools.ale.rClass;
 import org.eclipse.ecoretools.ale.rOperation;
 import org.eclipse.ecoretools.ale.rRoot;
-
+import org.eclipse.ecoretools.ale.implementation.Attribute;
 import org.eclipse.ecoretools.ale.implementation.ExtendedClass;
-import org.eclipse.ecoretools.ale.implementation.Implementation;
 import org.eclipse.ecoretools.ale.implementation.ImplementationFactory;
 import org.eclipse.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.ecoretools.ale.implementation.Method;
 import org.eclipse.ecoretools.ale.implementation.ModelBehavior;
+import org.eclipse.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.ecoretools.ale.implementation.VariableDeclaration;
 
 public class Services {
@@ -135,7 +135,7 @@ public class Services {
 				String relativeURI = implemFileURI.toPlatformString(true);
 				String fullURI = ResourcesPlugin.getWorkspace().getRoot().getLocation()+relativeURI;
 				List<EPackage> pkgs = getMetamodel(ecoreRes);
-				ModelBehavior mb = loadBehavior(fullURI, pkgs).getRoot();
+				ModelUnit mb = loadBehavior(fullURI, pkgs).getRoot();
 				res.getContents().add(mb);
 				
 				session.addSemanticResource(res.getURI(), new NullProgressMonitor());
@@ -188,7 +188,7 @@ public class Services {
 	/**
 	 * Call the parser
 	 */
-	private static ParseResult<ModelBehavior> loadBehavior(String filePath, List<EPackage> pkgs) {
+	private static ParseResult<ModelUnit> loadBehavior(String filePath, List<EPackage> pkgs) {
 		String content = getFileContent(filePath);
 		
 		IQueryEnvironment queryEnvironment = Query.newEnvironmentWithDefaultServices(null);
@@ -290,8 +290,9 @@ public class Services {
         		EOperation op = (EOperation) elem;
         		Optional<ExtendedClass> searchCls = 
         			((ModelBehavior)implemSearch.get().getContents().get(0))
-    				.getClassExtensions()
+        			.getUnits()
     				.stream()
+    				.flatMap(u -> u.getClassExtensions().stream())
     				.filter(ext -> ext.getBaseClass().getName().equals(op.getEContainingClass().getName())).findFirst();
         		
         		if(searchCls.isPresent()) {
@@ -299,7 +300,7 @@ public class Services {
         			return xtdClass
         				.getMethods()
         				.stream()
-        				.filter(mtd -> (mtd instanceof Implementation)	&& ((Implementation)mtd).getOperationRef().getName().equals(op.getName()))
+        				.filter(mtd -> mtd.getOperationRef().getName().equals(op.getName()) && mtd.getOperationRef().getEContainingClass() == xtdClass.getBaseClass())
         				.findAny()
         				.isPresent();
         		}
@@ -308,7 +309,7 @@ public class Services {
     	return false;
     }
     
-    public List<VariableDeclaration> getDynaAttrib(EClass cls){
+    public List<Attribute> getDynaAttrib(EClass cls){
     	
     	Session session = SessionManager.INSTANCE.getSession(cls);
     	final TransactionalEditingDomain editingDomain = session.getTransactionalEditingDomain();
@@ -328,15 +329,16 @@ public class Services {
     		ModelBehavior root = (ModelBehavior) implemRes.getContents().get(0);
 			Optional<ExtendedClass> searchCls = 
 				root
-				.getClassExtensions()
+				.getUnits()
 				.stream()
+				.flatMap(u -> u.getClassExtensions().stream())
 				.filter(ext -> ext.getBaseClass().getName().equals(cls.getName())).findFirst();
 			if(searchCls.isPresent()){
 				ExtendedClass xtdCls = searchCls.get();
 				return xtdCls.getAttributes();
 			}
     	}
-    	return new ArrayList<VariableDeclaration>();
+    	return new ArrayList<Attribute>();
     }
     
     public List<Method> getMethod(EClass cls){
@@ -358,8 +360,9 @@ public class Services {
     		ModelBehavior root = (ModelBehavior) implemRes.getContents().get(0);
 			Optional<ExtendedClass> searchCls = 
 				root
-				.getClassExtensions()
+				.getUnits()
 				.stream()
+				.flatMap(u -> u.getClassExtensions().stream())
 				.filter(ext -> ext.getBaseClass().getName().equals(cls.getName())).findFirst();
 			if(searchCls.isPresent()){
 				ExtendedClass xtdCls = searchCls.get();

@@ -13,7 +13,6 @@ package org.eclipse.ecoretools.ale.core.interpreter.services;
 import org.eclipse.acceleo.query.runtime.impl.EOperationService;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.ecoretools.ale.implementation.Behaviored;
 import org.eclipse.acceleo.query.runtime.impl.AbstractService;
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
@@ -26,9 +25,8 @@ import java.util.Optional;
 
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.ecoretools.ale.implementation.Method;
-import org.eclipse.ecoretools.ale.implementation.ModelBehavior;
+import org.eclipse.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.ecoretools.ale.implementation.RuntimeClass;
-import org.eclipse.ecoretools.ale.implementation.Implementation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -56,12 +54,12 @@ import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
 public class EvalBodyService extends AbstractService {
 	
 	EvalEnvironment evalEnv;
-	Behaviored implem;
+	Method implem;
 	DiagnosticLogger logger;
 	
 	int priority = EOperationService.PRIORITY + 1;
 	
-	public EvalBodyService (Behaviored implem, EvalEnvironment evalEnv, DiagnosticLogger logger) {
+	public EvalBodyService (Method implem, EvalEnvironment evalEnv, DiagnosticLogger logger) {
 		this.implem = implem;
 		this.evalEnv = evalEnv;
 		this.logger = logger;
@@ -82,10 +80,7 @@ public class EvalBodyService extends AbstractService {
 	@Override
 	public String getName() {
 		if(implem instanceof Method){
-			return ((Method)implem).getOperationDef().getName();
-		}
-		else if(implem instanceof Implementation){
-			return ((Implementation)implem).getOperationRef().getName();
+			return implem.getOperationRef().getName();
 		}
 		else
 			return "undefined";
@@ -94,10 +89,7 @@ public class EvalBodyService extends AbstractService {
 	@Override
 	public int getNumberOfParameters() {
 		if(implem instanceof Method){
-			return ((Method)implem).getOperationDef().getEParameters().size() + 1;
-		}
-		else if(implem instanceof Implementation){
-			return ((Implementation)implem).getOperationRef().getEParameters().size() + 1;
+			return implem.getOperationRef().getEParameters().size() + 1;
 		}
 		else
 			return 1;
@@ -106,18 +98,6 @@ public class EvalBodyService extends AbstractService {
 	@Override
 	public List<IType> getParameterTypes(IReadOnlyQueryEnvironment queryEnvironment) {
 		List<IType> result = new ArrayList<IType>();
-		if(implem instanceof Implementation) {
-			result.add(new EClassifierType(queryEnvironment, ((Implementation)implem).getOperationRef().getEContainingClass()));
-			for (EParameter parameter : ((Implementation)implem).getOperationRef().getEParameters()) {
-				EClassifierType rawType = new EClassifierType(queryEnvironment, parameter.getEType());
-				if (parameter.isMany()) {
-					result.add(new SequenceType(queryEnvironment, rawType));
-				} else {
-					result.add(rawType);
-				}
-			}
-		}
-		else if(implem instanceof Method) {
 			//TODO: take care of qualified name & EClass not found
 			if(implem.eContainer() instanceof ExtendedClass) {
 				EClass containingClass = ((ExtendedClass)implem.eContainer()).getBaseClass();
@@ -125,7 +105,7 @@ public class EvalBodyService extends AbstractService {
 			}
 			else if (implem.eContainer() instanceof RuntimeClass) {
 				RuntimeClass container = ((RuntimeClass)implem.eContainer());
-				String pkgName = ((ModelBehavior)container.eContainer()).getName();
+				String pkgName = ((ModelUnit)container.eContainer()).getName();
 				String simpleName = container.getName();
 				String fullName = pkgName+"."+simpleName;
 				Collection<EClassifier> candidates = queryEnvironment.getEPackageProvider().getTypes(simpleName); //TODO: move to constructor
@@ -139,7 +119,7 @@ public class EvalBodyService extends AbstractService {
 				}
 			}
 			
-			for (EParameter parameter : ((Method)implem).getOperationDef().getEParameters()) {
+			for (EParameter parameter : ((Method)implem).getOperationRef().getEParameters()) {
 				EClassifierType rawType = new EClassifierType(queryEnvironment, parameter.getEType());
 				if (parameter.isMany()) {
 					result.add(new SequenceType(queryEnvironment, rawType));
@@ -147,7 +127,6 @@ public class EvalBodyService extends AbstractService {
 					result.add(rawType);
 				}
 			}
-		}
 		return result;
 	}
 	
@@ -193,11 +172,7 @@ public class EvalBodyService extends AbstractService {
 	public Set<IType> getType(Call call, ValidationServices services, IValidationResult validationResult, IReadOnlyQueryEnvironment queryEnvironment, List<IType> argTypes) {
 		Set<IType> result = new LinkedHashSet<IType>();
 
-		EOperation eOperation = null;
-		if(implem instanceof Implementation)
-			eOperation = ((Implementation)implem).getOperationRef();
-		else if(implem instanceof Method)
-			eOperation = ((Method)implem).getOperationDef();
+		EOperation eOperation = ((Method)implem).getOperationRef();
 				
 		IType eClassifierType = new EClassifierType(queryEnvironment, eOperation.getEType());
 		if (eOperation.isMany()) {

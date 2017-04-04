@@ -40,7 +40,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 
-import org.eclipse.ecoretools.ale.implementation.Behaviored;
 import org.eclipse.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.ecoretools.ale.implementation.ModelBehavior;
 import kmLogo.ASM.ASMPackage;
