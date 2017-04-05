@@ -1,0 +1,16 @@
+behavior test.oppattributes;
+
+open class ClassA {
+	opposite parent
+		ClassA child;
+		
+	opposite child
+		ClassA parent;
+		
+	@main
+	def int main() {
+		ClassA cls := test::ClassA.create();
+		self.child := cls;
+		result := cls.parent;
+	}
+}

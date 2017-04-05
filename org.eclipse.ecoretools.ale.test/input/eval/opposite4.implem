@@ -1,0 +1,26 @@
+behavior test.oppattributes;
+
+open class ClassA {
+	@main
+	def int main() {
+		NewClass newcls1 := oppattributes::NewClass.create();
+		newcls1.name := 'obj1';
+		
+		NewClass newcls2 := oppattributes::NewClass.create();
+		newcls2.name := 'obj2';
+		
+		newcls1.child := newcls2;
+		result := newcls2.parent.name;
+	}
+}
+
+class NewClass {
+
+	String name;
+
+	opposite parent
+		NewClass child;
+		
+	opposite child
+		NewClass parent;
+}
