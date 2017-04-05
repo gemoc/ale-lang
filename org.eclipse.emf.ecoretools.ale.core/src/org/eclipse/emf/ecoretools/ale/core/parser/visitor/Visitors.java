@@ -468,6 +468,7 @@ public class Visitors {
 				.collect(Collectors.toList());
 			
 			ExtendedClass res = ModelBuilder.singleton.buildExtendedClass(name,attributes,operations,extended);
+			res.setFragment(fragment);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
 			return res;

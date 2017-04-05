@@ -11,6 +11,7 @@
 package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,14 +24,13 @@ import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEvaluationEngine;
 import org.eclipse.emf.common.util.BasicDiagnostic;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.DynamicFeatureAccessService;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.RuntimeInstanceHelper;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
@@ -41,12 +41,14 @@ import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 public class DynamicFeatureRegistry {
 	
 	List<ModelUnit> allImplemModels;
+	Map<EClass,EClass> baseToRuntime;
 	
-	Map<EObject,Map<String,Object>> extendedObjects; //instance -> (featureName -> value)
+	Map<EObject,EObject> extendedObjects; //instance -> runtime content
 	
 	public DynamicFeatureRegistry (List<ModelUnit> allImplemModels){
 		this.allImplemModels = allImplemModels;
-		extendedObjects = new HashMap<EObject,Map<String,Object>>();
+		this.baseToRuntime = RuntimeInstanceHelper.getBaseToRuntime(allImplemModels);
+		extendedObjects = new HashMap<EObject,EObject>();
 	}
 	
 	/**
@@ -88,96 +90,87 @@ public class DynamicFeatureRegistry {
 	
 	public Object getDynamicFeatureValue(EObject instance, String featureName) {
 		
-		Map<String,Object> extendedInstance = getExtensionFeatures(instance);
+		EObject extendedInstance = getOrCreateRuntimeExtension(instance);
 		
-		Object featureValue = extendedInstance.get(featureName);
-		if(featureValue != null)
-			return featureValue;
-		
-		Optional<ExtendedClass> xtdClass = //FIXME:look type hierarchy 
-				allImplemModels
-				.stream()
-				.flatMap(m -> m.getClassExtensions().stream())
-				.filter(cls -> cls.getBaseClass().isInstance(instance))
-				.findFirst(); 
-		
-		if(!xtdClass.isPresent()){
-			String message = String.format(DynamicFeatureAccessService.UNKNOWN_FEATURE, featureName, instance.eClass().getName());
-			throw new AcceleoQueryEvaluationException(message);
+		if(extendedInstance != null) {
+			EStructuralFeature feature = extendedInstance.eClass().getEStructuralFeature(featureName);
+			if(feature != null) {
+				return extendedInstance.eGet(feature);
+			}
+			else {
+				//TODO: error unknow feature
+			}
+		}
+		else {
+			//TODO: error
 		}
 		
-		Optional<Attribute> featureDeclaration = 
-				xtdClass
-				.get()
-				.getAttributes()
-				.stream()
-				.filter(attr -> attr.getFeatureRef().getName().equals(featureName))
-				.findFirst();
+		return null;
 		
-		if(!featureDeclaration.isPresent()){
-			String message = String.format(DynamicFeatureAccessService.UNKNOWN_FEATURE, featureName, instance.eClass().getName());
-			throw new AcceleoQueryEvaluationException(message);
-		}
-		
-		int initialValue = 0; //TODO: eval initial value (in the constructor)
-		extendedInstance.put(featureName,initialValue);
-		
-		return initialValue;
 	}
 	
 	public void setDynamicFeatureValue(EObject instance, String featureName, Object newValue) {
-		Map<String,Object> extendedInstance = getExtensionFeatures(instance);
+		EObject extendedInstance = getOrCreateRuntimeExtension(instance);
 		
-		Object featureValue = extendedInstance.get(featureName);
-		Optional<Attribute> featureDeclaration = findFeature(instance.eClass(),featureName);
-		if(featureValue != null || featureDeclaration.isPresent()){
-			extendedInstance.put(featureName,newValue);
+		if(extendedInstance != null) {
+			EStructuralFeature feature = extendedInstance.eClass().getEStructuralFeature(featureName);
+			if(feature != null) {
+				extendedInstance.eSet(feature, newValue);
+			}
+			else {
+				//TODO: error feature not found
+			}
 		}
-		else{
-			//TODO:raise feature not found error
+		else {
+			//TODO: error
 		}
 	}
 	
 	public void insertDynamicFeatureValue(EObject instance, String featureName, Object newValue) {
-		Map<String,Object> extendedInstance = getExtensionFeatures(instance);
 		
-		Object featureValue = extendedInstance.get(featureName);
-		Optional<Attribute> featureDeclaration = findFeature(instance.eClass(),featureName);
-		if(featureDeclaration.isPresent()){
-			if(featureValue == null) {
-				if(featureDeclaration.get().getFeatureRef().isUnique()){
-					featureValue = new UniqueEList();
+		EObject extendedInstance = getOrCreateRuntimeExtension(instance);
+		
+		if(extendedInstance != null) {
+			EStructuralFeature feature = extendedInstance.eClass().getEStructuralFeature(featureName);
+			if(feature != null) {
+				Object featureValue = extendedInstance.eGet(feature);
+				if(featureValue instanceof List){
+					((List)featureValue).add(newValue);
 				}
-				else{
-					featureValue = new BasicEList();
+				else {
+					//error
 				}
-				extendedInstance.put(featureName,featureValue);
-			}
-			
-			if(newValue instanceof EObject && featureValue instanceof EList) {
-				((EList)featureValue).add(newValue);
 			}
 			else {
-				//TODO: Error
+				//TODO: error feature not found
 			}
 		}
-		else{
-			//TODO:raise feature not found error
+		else {
+			//TODO: error
 		}
 	}
 	
 	public void removeDynamicFeatureValue(EObject instance, String featureName, Object newValue) {
-		Map<String,Object> extendedInstance = getExtensionFeatures(instance);
 		
-		Object featureValue = extendedInstance.get(featureName);
-		Optional<Attribute> featureDeclaration = findFeature(instance.eClass(),featureName);
-		if(featureDeclaration.isPresent()){
-			if(newValue instanceof EObject && featureValue instanceof EList) {
-				((EList)featureValue).remove(newValue);
+		EObject extendedInstance = getOrCreateRuntimeExtension(instance);
+		
+		if(extendedInstance != null) {
+			EStructuralFeature feature = extendedInstance.eClass().getEStructuralFeature(featureName);
+			if(feature != null) {
+				Object featureValue = extendedInstance.eGet(feature);
+				if(featureValue instanceof List){
+					((List)featureValue).remove(newValue);
+				}
+				else {
+					//TODO: Error
+				}
+			}
+			else {
+				//TODO: error feature not found
 			}
 		}
-		else{
-			//TODO:raise feature not found error
+		else {
+			//TODO: error
 		}
 	}
 	
@@ -212,12 +205,15 @@ public class DynamicFeatureRegistry {
 		return Optional.empty();
 	}
 	
-	private Map<String,Object> getExtensionFeatures(EObject instance) {
-		Map<String,Object> extendedInstance = extendedObjects.get(instance);
+	private EObject getOrCreateRuntimeExtension(EObject instance) {
+		EObject extendedInstance = extendedObjects.get(instance);
 		
 		if(extendedInstance == null){
-			extendedInstance = new HashMap<String,Object>();
-			extendedObjects.put(instance,extendedInstance);
+			EClass runtimeExtensionClass = baseToRuntime.get(instance.eClass());
+			if(runtimeExtensionClass != null){
+				extendedInstance = EcoreUtil.create(runtimeExtensionClass);
+				extendedObjects.put(instance,extendedInstance);
+			}
 		}
 		
 		return extendedInstance;
@@ -243,10 +239,17 @@ public class DynamicFeatureRegistry {
     }
     
     private void init(EObject instance, List<ExtendedClass> extensions, IQueryEvaluationEngine aqlEngine) {
-    	Map<String,Object> extendedInstance = getExtensionFeatures(instance);
+    	EObject extendedInstance = getOrCreateRuntimeExtension(instance);
     	
     	Map<String,Object> scope = new HashMap<String,Object>();
     	scope.put("self", instance);
+    	
+    	if(extendedInstance != null) {
+    		
+    	}
+		else {
+			//TODO: error
+		}
     	
     	extensions
 			.stream()
@@ -256,7 +259,27 @@ public class DynamicFeatureRegistry {
 				AstResult dummyAstResult = new AstResult(attr.getInitialValue(), new HashMap(), new HashMap(), new ArrayList(), new BasicDiagnostic());
 				EvaluationResult result = aqlEngine.eval(dummyAstResult, scope); //TODO: forward diagnotic
 				Object value = result.getResult();
-				extendedInstance.put(attr.getFeatureRef().getName(), value);
+				
+				
+					EStructuralFeature feature = extendedInstance.eClass().getEStructuralFeature(attr.getFeatureRef().getName());
+					if(feature != null) {
+						if(feature.isMany()){
+							List featureValue = (List) extendedInstance.eGet(feature);
+							if(value instanceof Collection){
+								featureValue.addAll((Collection) value);
+							}
+							else{
+								featureValue.add(value);
+							}
+						}
+						else {
+							extendedInstance.eSet(feature, value);
+						}
+					}
+					else {
+						//TODO: error feature not found
+					}
+				
 			});
     }
 }
