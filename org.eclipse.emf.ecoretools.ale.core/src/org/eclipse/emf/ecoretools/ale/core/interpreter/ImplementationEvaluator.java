@@ -181,9 +181,15 @@ public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 		
 		if(assigned instanceof EObject){
 			EStructuralFeature feature = ((EObject)assigned).eClass().getEStructuralFeature(featInsert.getTargetFeature());
-			Object featureValue = ((EObject)assigned).eGet(feature);
-			if(featureValue instanceof EList){
-				((EList)featureValue).add(value);
+			
+			if(feature != null){
+				Object featureValue = ((EObject)assigned).eGet(feature);
+				if(featureValue instanceof EList){
+					((EList)featureValue).add(value);
+				}
+			}
+			else {
+				dynamicFeatureAccess.insertDynamicFeatureValue(((EObject)assigned),featInsert.getTargetFeature(),value);
 			}
 		}
 		return null;
@@ -196,9 +202,14 @@ public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 			
 		if(assigned instanceof EObject){
 			EStructuralFeature feature = ((EObject)assigned).eClass().getEStructuralFeature(featRemove.getTargetFeature());
-			Object featureValue = ((EObject)assigned).eGet(feature);
-			if(featureValue instanceof EList){
-				((EList)featureValue).remove(value);
+			if(feature != null){
+				Object featureValue = ((EObject)assigned).eGet(feature);
+				if(featureValue instanceof EList){
+					((EList)featureValue).remove(value);
+				}
+			}
+			else {
+				dynamicFeatureAccess.removeDynamicFeatureValue(((EObject)assigned),featRemove.getTargetFeature(),value);
 			}
 		}
 		return null;
