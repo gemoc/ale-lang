@@ -673,4 +673,24 @@ public class EvalTest {
 		assertTrue(res.getValue() instanceof EObject);
 		assertEquals("NewClass", ((EObject)res.getValue()).eClass().getName());
 	}
+	
+	@Test
+	public void testUniqueAssign(){
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/unique.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals(1, res.getValue());
+	}
+	
+	@Test
+	public void testManyRemove(){
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/removeDynamic.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals(1, res.getValue());
+	}
 }

@@ -1,0 +1,16 @@
+behavior test.uniqueattributes;
+
+open class ClassA {
+	unique 0..* NewClass toNewClass;
+		
+	@main
+	def int main() {
+		NewClass cls := uniqueattributes::NewClass.create();
+		self.toNewClass.add(cls);
+		self.toNewClass.add(cls);
+		result := self.toNewClass->size();
+	}
+}
+
+class NewClass {
+}
