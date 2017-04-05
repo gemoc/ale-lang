@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+Moved to https://github.com/gemoc/ale-lang
+=======
 # ale-lang
 Action Language for EMF
 
@@ -47,4 +50,4 @@ org.eclipse.ecoretools.ale.xtext
 -----------------------
  * Basic Xtext editor for behavior files
 
-
+>>>>>>> local-ale-lang

@@ -1,0 +1,13 @@
+<<<<<<< HEAD
+*.xtendbin
+*.log
+=======
+>>>>>>> local-ale-lang
+*.class
+bin/
+target/
+xtend-gen/
+<<<<<<< HEAD
+=======
+
+>>>>>>> local-ale-lang

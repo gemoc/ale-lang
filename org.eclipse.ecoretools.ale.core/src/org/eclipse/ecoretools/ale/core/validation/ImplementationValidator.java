@@ -129,7 +129,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 						));
 			}
 			else {
-				EClassifierType declaredType = new EClassifierType(qryEnv, attrib.getType().getEType());
+				EClassifierType declaredType = new EClassifierType(qryEnv, attrib.getType());
 				Set<IType> typeSet = new HashSet<IType>();
 				typeSet.add(declaredType);
 				attributeTypes.put(attrib.getName(), typeSet);
@@ -146,7 +146,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 				 * Check assignment type
 				 */
 				Set<IType> inferredTypes = expValidation.getPossibleTypes(attrib.getInitialValue());
-				EClassifierType declaredType = new EClassifierType(qryEnv, attrib.getType().getEType());
+				EClassifierType declaredType = new EClassifierType(qryEnv, attrib.getType());
 				Optional<IType> existResult = inferredTypes.stream().filter(type -> declaredType.isAssignableFrom(type)).findAny();
 				if(!existResult.isPresent()){
 					String types = 
@@ -333,7 +333,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 						.filter(field -> field.getName().equals(featAssign.getTargetFeature()))
 						.findFirst();
 					if(foundDynamicAttribute.isPresent()) {
-						EClassifierType featureType = new EClassifierType(qryEnv, foundDynamicAttribute.get().getType().getEType());
+						EClassifierType featureType = new EClassifierType(qryEnv, foundDynamicAttribute.get().getType());
 						featureTypes.add(featureType);
 					}
 				}
@@ -836,7 +836,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 				lastScope.put(varDecl.getName(), expValidation.getPossibleTypes(varDecl.getInitialValue()));
 			}
 			else {
-				EClassifierType declaredType = new EClassifierType(qryEnv, varDecl.getType().getEType());
+				EClassifierType declaredType = new EClassifierType(qryEnv, varDecl.getType());
 				Set<IType> typeSet = new HashSet<IType>();
 				typeSet.add(declaredType);
 				lastScope.put(varDecl.getName(), typeSet);
@@ -847,7 +847,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		 * Check assignment type
 		 */
 		Map<String, Set<IType>> lastScope = variableTypesStack.peek();
-		EClassifierType varType = new EClassifierType(qryEnv, varDecl.getType().getEType());
+		EClassifierType varType = new EClassifierType(qryEnv, varDecl.getType());
 		Set<IType> inferredTypes = lastScope.get(varDecl.getName());
 		if(inferredTypes != null) {
 			Optional<IType> existResult = inferredTypes.stream().filter(t -> varType.isAssignableFrom(t)).findAny();

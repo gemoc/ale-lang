@@ -6,11 +6,3 @@
 /QueryListener.java
 /QueryParser.java
 /QueryVisitor.java
-/ALE.tokens
-/ALEBaseListener.java
-/ALEBaseVisitor.java
-/ALELexer.java
-/ALELexer.tokens
-/ALEListener.java
-/ALEParser.java
-/ALEVisitor.java
