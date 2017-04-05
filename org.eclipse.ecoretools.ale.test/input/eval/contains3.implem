@@ -1,0 +1,14 @@
+behavior test.containattributes;
+
+open class ClassA {
+	@main
+	def int main() {
+		NewClass cls := containattributes::NewClass.create();
+		cls.toClassA := self;
+		result := self.eContainer();
+	}
+}
+
+class NewClass {
+	contains ClassA toClassA;
+}

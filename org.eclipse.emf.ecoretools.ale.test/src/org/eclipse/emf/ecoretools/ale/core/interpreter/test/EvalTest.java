@@ -13,6 +13,7 @@ package org.eclipse.emf.ecoretools.ale.core.interpreter.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
@@ -616,5 +617,60 @@ public class EvalTest {
 		assertNotNull(res.getValue());
 		assertNotEquals(caller,res.getValue());
 		assertEquals("obj1", res.getValue());
+	}
+	
+	@Test
+	public void testContainsAssign(){
+		/*
+		 * Check eContainer()
+		 */
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/contains.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertNotNull(res.getValue());
+		assertEquals(caller, res.getValue());
+	}
+	
+	@Test
+	public void testContainsAssign2(){
+		/*
+		 * Check double assignment
+		 */
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/contains2.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertNull(res.getValue());
+	}
+	
+	@Test
+	public void testContainsAssign3(){
+		/*
+		 * Check self.eContainer()
+		 */
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/contains3.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertTrue(res.getValue() instanceof EObject);
+		assertEquals("NewClass", ((EObject)res.getValue()).eClass().getName());
+	}
+	
+	@Test
+	public void testContainsAssign4(){
+		/*
+		 * Check self.eContent()
+		 */
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/contains4.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertTrue(res.getValue() instanceof EObject);
+		assertEquals("NewClass", ((EObject)res.getValue()).eClass().getName());
 	}
 }
