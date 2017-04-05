@@ -25,13 +25,12 @@ import org.eclipse.acceleo.query.runtime.IQueryEvaluationEngine;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.DynamicFeatureAccessService;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
-import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
-import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 
 /**
  * This class manages dynamic attributes for EObjects.
@@ -127,33 +126,44 @@ public class DynamicFeatureRegistry {
 		Map<String,Object> extendedInstance = getExtensionFeatures(instance);
 		
 		Object featureValue = extendedInstance.get(featureName);
-		if(featureValue != null)
+		Optional<Attribute> featureDeclaration = findFeature(instance.eClass(),featureName);
+		if(featureValue != null || featureDeclaration.isPresent()){
 			extendedInstance.put(featureName,newValue);
+		}
 		else{
-			Optional<ExtendedClass> xtdClass = //FIXME:look type hierarchy 
-					allImplemModels
+			//TODO:raise feature not found error
+		}
+	}
+	
+	public Optional<Attribute> findFeature(EClass type, String featureName) {
+		Optional<ExtendedClass> xtdClass = //FIXME:look type hierarchy 
+				allImplemModels
+				.stream()
+				.flatMap(m -> m.getClassExtensions().stream())
+				.filter(cls -> cls.getBaseClass().isSuperTypeOf(type))
+				.findFirst();
+		
+		if(xtdClass.isPresent()){
+			Optional<Attribute> featureDeclaration = 
+					xtdClass
+					.get()
+					.getAttributes()
 					.stream()
-					.flatMap(m -> m.getClassExtensions().stream())
-					.filter(cls -> cls.getBaseClass().isInstance(instance))
+					.filter(attr -> attr.getFeatureRef().getName().equals(featureName))
 					.findFirst();
 			
-			if(xtdClass.isPresent()){
-				Optional<Attribute> featureDeclaration = 
-						xtdClass
-						.get()
-						.getAttributes()
-						.stream()
-						.filter(attr -> attr.getFeatureRef().getName().equals(featureName))
-						.findFirst();
-				
-				if(featureDeclaration.isPresent()){
-					extendedInstance.put(featureName,newValue);
-				}
-				else{
-					//TODO:raise feature not found error
-				}
-			}
+			return featureDeclaration;
 		}
+		return Optional.empty();
+	}
+	
+	private Optional<Attribute> findOpposite(Attribute feature) {
+		
+		if(feature.getFeatureRef() instanceof EReference) {
+			EReference ref = (EReference) feature.getFeatureRef();
+		}
+		
+		return Optional.empty();
 	}
 	
 	private Map<String,Object> getExtensionFeatures(EObject instance) {

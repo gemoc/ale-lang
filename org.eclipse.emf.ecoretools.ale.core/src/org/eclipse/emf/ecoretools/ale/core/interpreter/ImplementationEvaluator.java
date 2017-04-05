@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Stack;
 
 import org.eclipse.acceleo.query.ast.Expression;
@@ -29,7 +30,9 @@ import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
@@ -133,6 +136,39 @@ public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 			}
 			else{
 				dynamicFeatureAccess.setDynamicFeatureValue(((EObject)assigned),featAssign.getTargetFeature(),value);
+			}
+			
+			//Manage EOpposite
+			if(value instanceof EObject && feature instanceof EReference) {
+				EReference oppositeRef = ((EReference)feature).getEOpposite();
+				if(oppositeRef != null){
+					
+					//oppositeRef can be defined in an 'open class'
+					EStructuralFeature opFeat = ((EObject)value).eClass().getEStructuralFeature(oppositeRef.getName());
+					if(opFeat != null){
+						((EObject)value).eSet(opFeat,assigned);
+					}
+					else{
+						dynamicFeatureAccess.setDynamicFeatureValue(((EObject)value),oppositeRef.getName(),assigned);
+					}
+				}
+			}
+			else if(value instanceof EObject && feature == null){
+				Optional<Attribute> featureDef = dynamicFeatureAccess.findFeature(((EObject)assigned).eClass(), featAssign.getTargetFeature());
+				if(featureDef.isPresent() && featureDef.get().getFeatureRef() instanceof EReference){
+					EReference oppositeRef = ((EReference)featureDef.get().getFeatureRef()).getEOpposite();
+					if(oppositeRef != null){
+						
+						//oppositeRef can be defined in an 'open class'
+						EStructuralFeature opFeat = ((EObject)value).eClass().getEStructuralFeature(oppositeRef.getName());
+						if(opFeat != null){
+							((EObject)value).eSet(opFeat,assigned);
+						}
+						else{
+							dynamicFeatureAccess.setDynamicFeatureValue(((EObject)value),oppositeRef.getName(),assigned);
+						}
+					}
+				}
 			}
 		}
 		return null;
