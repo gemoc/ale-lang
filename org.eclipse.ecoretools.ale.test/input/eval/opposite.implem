@@ -1,0 +1,18 @@
+behavior test.oppattributes;
+
+open class ClassA {
+	opposite toClassA
+		NewClass toNewClass;
+		
+	@main
+	def int main() {
+		NewClass cls := oppattributes::NewClass.create();
+		cls.toClassA := self;
+		result := self.toNewClass;
+	}
+}
+
+class NewClass {
+	opposite toNewClass
+		ClassA toClassA;
+}

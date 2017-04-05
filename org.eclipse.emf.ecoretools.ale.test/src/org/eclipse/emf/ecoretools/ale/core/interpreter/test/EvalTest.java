@@ -559,4 +559,62 @@ public class EvalTest {
 		assertTrue(res.getValue() instanceof EObject);
 		assertEquals("NewRuntimeClass",((EObject)res.getValue()).eClass().getName());
 	}
+	
+	@Test
+	public void testOppositeAssign(){
+		/*
+		 * Check NewClass to self
+		 */
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/opposite.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertTrue(res.getValue() instanceof EObject);
+		assertNotEquals(caller,res.getValue());
+		assertEquals("NewClass",((EObject)res.getValue()).eClass().getName());
+	}
+	
+	@Test
+	public void testOppositeAssign2(){
+		/*
+		 * Check self to NewClass
+		 */
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/opposite2.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertTrue(res.getValue() instanceof EObject);
+		assertEquals(caller,res.getValue());
+	}
+	
+	@Test
+	public void testOppositeAssign3(){
+		/*
+		 * Check ClassA to self
+		 */
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/opposite3.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertTrue(res.getValue() instanceof EObject);
+		assertEquals(caller,res.getValue());
+	}
+	
+	@Test
+	public void testOppositeAssign4(){
+		/*
+		 * Check NewClass to NewClass
+		 */
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/opposite4.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertNotNull(res.getValue());
+		assertNotEquals(caller,res.getValue());
+		assertEquals("obj1", res.getValue());
+	}
 }
