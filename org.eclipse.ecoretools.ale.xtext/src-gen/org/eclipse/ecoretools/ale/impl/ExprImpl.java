@@ -3,33 +3,18 @@
  */
 package org.eclipse.ecoretools.ale.impl;
 
-import java.util.Collection;
-
 import org.eclipse.ecoretools.ale.AlePackage;
 import org.eclipse.ecoretools.ale.Expr;
 import org.eclipse.ecoretools.ale.RExpression;
-import org.eclipse.ecoretools.ale.RForEach;
-import org.eclipse.ecoretools.ale.RStatement;
 import org.eclipse.ecoretools.ale.RWhile;
-import org.eclipse.ecoretools.ale.RecExpression;
-import org.eclipse.ecoretools.ale.binding;
-import org.eclipse.ecoretools.ale.callExp;
-import org.eclipse.ecoretools.ale.nonLeftRecExpression;
-import org.eclipse.ecoretools.ale.rBlock;
-import org.eclipse.ecoretools.ale.rCollection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,44 +24,17 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.ecoretools.ale.impl.ExprImpl#getForEach <em>For Each</em>}</li>
- *   <li>{@link org.eclipse.ecoretools.ale.impl.ExprImpl#getBlock <em>Block</em>}</li>
  *   <li>{@link org.eclipse.ecoretools.ale.impl.ExprImpl#getWhile <em>While</em>}</li>
  *   <li>{@link org.eclipse.ecoretools.ale.impl.ExprImpl#getExpr <em>Expr</em>}</li>
- *   <li>{@link org.eclipse.ecoretools.ale.impl.ExprImpl#getRecExp <em>Rec Exp</em>}</li>
- *   <li>{@link org.eclipse.ecoretools.ale.impl.ExprImpl#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.eclipse.ecoretools.ale.impl.ExprImpl#getIfBlock <em>If Block</em>}</li>
- *   <li>{@link org.eclipse.ecoretools.ale.impl.ExprImpl#getElseBlock <em>Else Block</em>}</li>
- *   <li>{@link org.eclipse.ecoretools.ale.impl.ExprImpl#getBindings <em>Bindings</em>}</li>
- *   <li>{@link org.eclipse.ecoretools.ale.impl.ExprImpl#getLetExpr <em>Let Expr</em>}</li>
  *   <li>{@link org.eclipse.ecoretools.ale.impl.ExprImpl#getLeftPart <em>Left Part</em>}</li>
  *   <li>{@link org.eclipse.ecoretools.ale.impl.ExprImpl#getRecpart <em>Recpart</em>}</li>
+ *   <li>{@link org.eclipse.ecoretools.ale.impl.ExprImpl#getRecExp <em>Rec Exp</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ExprImpl extends rVarDeclImpl implements Expr
+public class ExprImpl extends rCollectionImpl implements Expr
 {
-  /**
-   * The cached value of the '{@link #getForEach() <em>For Each</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getForEach()
-   * @generated
-   * @ordered
-   */
-  protected RForEach forEach;
-
-  /**
-   * The cached value of the '{@link #getBlock() <em>Block</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getBlock()
-   * @generated
-   * @ordered
-   */
-  protected rBlock block;
-
   /**
    * The cached value of the '{@link #getWhile() <em>While</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -98,66 +56,6 @@ public class ExprImpl extends rVarDeclImpl implements Expr
   protected RExpression expr;
 
   /**
-   * The cached value of the '{@link #getRecExp() <em>Rec Exp</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getRecExp()
-   * @generated
-   * @ordered
-   */
-  protected RecExpression recExp;
-
-  /**
-   * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getCondition()
-   * @generated
-   * @ordered
-   */
-  protected Expr condition;
-
-  /**
-   * The cached value of the '{@link #getIfBlock() <em>If Block</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getIfBlock()
-   * @generated
-   * @ordered
-   */
-  protected Expr ifBlock;
-
-  /**
-   * The cached value of the '{@link #getElseBlock() <em>Else Block</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getElseBlock()
-   * @generated
-   * @ordered
-   */
-  protected Expr elseBlock;
-
-  /**
-   * The cached value of the '{@link #getBindings() <em>Bindings</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getBindings()
-   * @generated
-   * @ordered
-   */
-  protected EList<binding> bindings;
-
-  /**
-   * The cached value of the '{@link #getLetExpr() <em>Let Expr</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getLetExpr()
-   * @generated
-   * @ordered
-   */
-  protected Expr letExpr;
-
-  /**
    * The cached value of the '{@link #getLeftPart() <em>Left Part</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -165,7 +63,7 @@ public class ExprImpl extends rVarDeclImpl implements Expr
    * @generated
    * @ordered
    */
-  protected nonLeftRecExpression leftPart;
+  protected Expr leftPart;
 
   /**
    * The cached value of the '{@link #getRecpart() <em>Recpart</em>}' containment reference.
@@ -175,7 +73,17 @@ public class ExprImpl extends rVarDeclImpl implements Expr
    * @generated
    * @ordered
    */
-  protected RecExpression recpart;
+  protected Expr recpart;
+
+  /**
+   * The cached value of the '{@link #getRecExp() <em>Rec Exp</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRecExp()
+   * @generated
+   * @ordered
+   */
+  protected Expr recExp;
 
   /**
    * <!-- begin-user-doc -->
@@ -196,102 +104,6 @@ public class ExprImpl extends rVarDeclImpl implements Expr
   protected EClass eStaticClass()
   {
     return AlePackage.Literals.EXPR;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public RForEach getForEach()
-  {
-    return forEach;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetForEach(RForEach newForEach, NotificationChain msgs)
-  {
-    RForEach oldForEach = forEach;
-    forEach = newForEach;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__FOR_EACH, oldForEach, newForEach);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setForEach(RForEach newForEach)
-  {
-    if (newForEach != forEach)
-    {
-      NotificationChain msgs = null;
-      if (forEach != null)
-        msgs = ((InternalEObject)forEach).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__FOR_EACH, null, msgs);
-      if (newForEach != null)
-        msgs = ((InternalEObject)newForEach).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__FOR_EACH, null, msgs);
-      msgs = basicSetForEach(newForEach, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__FOR_EACH, newForEach, newForEach));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public rBlock getBlock()
-  {
-    return block;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetBlock(rBlock newBlock, NotificationChain msgs)
-  {
-    rBlock oldBlock = block;
-    block = newBlock;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__BLOCK, oldBlock, newBlock);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setBlock(rBlock newBlock)
-  {
-    if (newBlock != block)
-    {
-      NotificationChain msgs = null;
-      if (block != null)
-        msgs = ((InternalEObject)block).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__BLOCK, null, msgs);
-      if (newBlock != null)
-        msgs = ((InternalEObject)newBlock).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__BLOCK, null, msgs);
-      msgs = basicSetBlock(newBlock, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__BLOCK, newBlock, newBlock));
   }
 
   /**
@@ -395,261 +207,7 @@ public class ExprImpl extends rVarDeclImpl implements Expr
    * <!-- end-user-doc -->
    * @generated
    */
-  public RecExpression getRecExp()
-  {
-    return recExp;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetRecExp(RecExpression newRecExp, NotificationChain msgs)
-  {
-    RecExpression oldRecExp = recExp;
-    recExp = newRecExp;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__REC_EXP, oldRecExp, newRecExp);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setRecExp(RecExpression newRecExp)
-  {
-    if (newRecExp != recExp)
-    {
-      NotificationChain msgs = null;
-      if (recExp != null)
-        msgs = ((InternalEObject)recExp).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__REC_EXP, null, msgs);
-      if (newRecExp != null)
-        msgs = ((InternalEObject)newRecExp).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__REC_EXP, null, msgs);
-      msgs = basicSetRecExp(newRecExp, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__REC_EXP, newRecExp, newRecExp));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Expr getCondition()
-  {
-    return condition;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetCondition(Expr newCondition, NotificationChain msgs)
-  {
-    Expr oldCondition = condition;
-    condition = newCondition;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__CONDITION, oldCondition, newCondition);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCondition(Expr newCondition)
-  {
-    if (newCondition != condition)
-    {
-      NotificationChain msgs = null;
-      if (condition != null)
-        msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__CONDITION, null, msgs);
-      if (newCondition != null)
-        msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__CONDITION, null, msgs);
-      msgs = basicSetCondition(newCondition, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__CONDITION, newCondition, newCondition));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Expr getIfBlock()
-  {
-    return ifBlock;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetIfBlock(Expr newIfBlock, NotificationChain msgs)
-  {
-    Expr oldIfBlock = ifBlock;
-    ifBlock = newIfBlock;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__IF_BLOCK, oldIfBlock, newIfBlock);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setIfBlock(Expr newIfBlock)
-  {
-    if (newIfBlock != ifBlock)
-    {
-      NotificationChain msgs = null;
-      if (ifBlock != null)
-        msgs = ((InternalEObject)ifBlock).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__IF_BLOCK, null, msgs);
-      if (newIfBlock != null)
-        msgs = ((InternalEObject)newIfBlock).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__IF_BLOCK, null, msgs);
-      msgs = basicSetIfBlock(newIfBlock, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__IF_BLOCK, newIfBlock, newIfBlock));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Expr getElseBlock()
-  {
-    return elseBlock;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetElseBlock(Expr newElseBlock, NotificationChain msgs)
-  {
-    Expr oldElseBlock = elseBlock;
-    elseBlock = newElseBlock;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__ELSE_BLOCK, oldElseBlock, newElseBlock);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setElseBlock(Expr newElseBlock)
-  {
-    if (newElseBlock != elseBlock)
-    {
-      NotificationChain msgs = null;
-      if (elseBlock != null)
-        msgs = ((InternalEObject)elseBlock).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__ELSE_BLOCK, null, msgs);
-      if (newElseBlock != null)
-        msgs = ((InternalEObject)newElseBlock).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__ELSE_BLOCK, null, msgs);
-      msgs = basicSetElseBlock(newElseBlock, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__ELSE_BLOCK, newElseBlock, newElseBlock));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<binding> getBindings()
-  {
-    if (bindings == null)
-    {
-      bindings = new EObjectContainmentEList<binding>(binding.class, this, AlePackage.EXPR__BINDINGS);
-    }
-    return bindings;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Expr getLetExpr()
-  {
-    return letExpr;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetLetExpr(Expr newLetExpr, NotificationChain msgs)
-  {
-    Expr oldLetExpr = letExpr;
-    letExpr = newLetExpr;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__LET_EXPR, oldLetExpr, newLetExpr);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setLetExpr(Expr newLetExpr)
-  {
-    if (newLetExpr != letExpr)
-    {
-      NotificationChain msgs = null;
-      if (letExpr != null)
-        msgs = ((InternalEObject)letExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__LET_EXPR, null, msgs);
-      if (newLetExpr != null)
-        msgs = ((InternalEObject)newLetExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__LET_EXPR, null, msgs);
-      msgs = basicSetLetExpr(newLetExpr, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__LET_EXPR, newLetExpr, newLetExpr));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public nonLeftRecExpression getLeftPart()
+  public Expr getLeftPart()
   {
     return leftPart;
   }
@@ -659,9 +217,9 @@ public class ExprImpl extends rVarDeclImpl implements Expr
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetLeftPart(nonLeftRecExpression newLeftPart, NotificationChain msgs)
+  public NotificationChain basicSetLeftPart(Expr newLeftPart, NotificationChain msgs)
   {
-    nonLeftRecExpression oldLeftPart = leftPart;
+    Expr oldLeftPart = leftPart;
     leftPart = newLeftPart;
     if (eNotificationRequired())
     {
@@ -676,7 +234,7 @@ public class ExprImpl extends rVarDeclImpl implements Expr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setLeftPart(nonLeftRecExpression newLeftPart)
+  public void setLeftPart(Expr newLeftPart)
   {
     if (newLeftPart != leftPart)
     {
@@ -697,7 +255,7 @@ public class ExprImpl extends rVarDeclImpl implements Expr
    * <!-- end-user-doc -->
    * @generated
    */
-  public RecExpression getRecpart()
+  public Expr getRecpart()
   {
     return recpart;
   }
@@ -707,9 +265,9 @@ public class ExprImpl extends rVarDeclImpl implements Expr
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetRecpart(RecExpression newRecpart, NotificationChain msgs)
+  public NotificationChain basicSetRecpart(Expr newRecpart, NotificationChain msgs)
   {
-    RecExpression oldRecpart = recpart;
+    Expr oldRecpart = recpart;
     recpart = newRecpart;
     if (eNotificationRequired())
     {
@@ -724,7 +282,7 @@ public class ExprImpl extends rVarDeclImpl implements Expr
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRecpart(RecExpression newRecpart)
+  public void setRecpart(Expr newRecpart)
   {
     if (newRecpart != recpart)
     {
@@ -745,35 +303,69 @@ public class ExprImpl extends rVarDeclImpl implements Expr
    * <!-- end-user-doc -->
    * @generated
    */
+  public Expr getRecExp()
+  {
+    return recExp;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetRecExp(Expr newRecExp, NotificationChain msgs)
+  {
+    Expr oldRecExp = recExp;
+    recExp = newRecExp;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__REC_EXP, oldRecExp, newRecExp);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRecExp(Expr newRecExp)
+  {
+    if (newRecExp != recExp)
+    {
+      NotificationChain msgs = null;
+      if (recExp != null)
+        msgs = ((InternalEObject)recExp).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__REC_EXP, null, msgs);
+      if (newRecExp != null)
+        msgs = ((InternalEObject)newRecExp).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlePackage.EXPR__REC_EXP, null, msgs);
+      msgs = basicSetRecExp(newRecExp, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.EXPR__REC_EXP, newRecExp, newRecExp));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
-      case AlePackage.EXPR__FOR_EACH:
-        return basicSetForEach(null, msgs);
-      case AlePackage.EXPR__BLOCK:
-        return basicSetBlock(null, msgs);
       case AlePackage.EXPR__WHILE:
         return basicSetWhile(null, msgs);
       case AlePackage.EXPR__EXPR:
         return basicSetExpr(null, msgs);
-      case AlePackage.EXPR__REC_EXP:
-        return basicSetRecExp(null, msgs);
-      case AlePackage.EXPR__CONDITION:
-        return basicSetCondition(null, msgs);
-      case AlePackage.EXPR__IF_BLOCK:
-        return basicSetIfBlock(null, msgs);
-      case AlePackage.EXPR__ELSE_BLOCK:
-        return basicSetElseBlock(null, msgs);
-      case AlePackage.EXPR__BINDINGS:
-        return ((InternalEList<?>)getBindings()).basicRemove(otherEnd, msgs);
-      case AlePackage.EXPR__LET_EXPR:
-        return basicSetLetExpr(null, msgs);
       case AlePackage.EXPR__LEFT_PART:
         return basicSetLeftPart(null, msgs);
       case AlePackage.EXPR__RECPART:
         return basicSetRecpart(null, msgs);
+      case AlePackage.EXPR__REC_EXP:
+        return basicSetRecExp(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -788,30 +380,16 @@ public class ExprImpl extends rVarDeclImpl implements Expr
   {
     switch (featureID)
     {
-      case AlePackage.EXPR__FOR_EACH:
-        return getForEach();
-      case AlePackage.EXPR__BLOCK:
-        return getBlock();
       case AlePackage.EXPR__WHILE:
         return getWhile();
       case AlePackage.EXPR__EXPR:
         return getExpr();
-      case AlePackage.EXPR__REC_EXP:
-        return getRecExp();
-      case AlePackage.EXPR__CONDITION:
-        return getCondition();
-      case AlePackage.EXPR__IF_BLOCK:
-        return getIfBlock();
-      case AlePackage.EXPR__ELSE_BLOCK:
-        return getElseBlock();
-      case AlePackage.EXPR__BINDINGS:
-        return getBindings();
-      case AlePackage.EXPR__LET_EXPR:
-        return getLetExpr();
       case AlePackage.EXPR__LEFT_PART:
         return getLeftPart();
       case AlePackage.EXPR__RECPART:
         return getRecpart();
+      case AlePackage.EXPR__REC_EXP:
+        return getRecExp();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -821,48 +399,25 @@ public class ExprImpl extends rVarDeclImpl implements Expr
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case AlePackage.EXPR__FOR_EACH:
-        setForEach((RForEach)newValue);
-        return;
-      case AlePackage.EXPR__BLOCK:
-        setBlock((rBlock)newValue);
-        return;
       case AlePackage.EXPR__WHILE:
         setWhile((RWhile)newValue);
         return;
       case AlePackage.EXPR__EXPR:
         setExpr((RExpression)newValue);
         return;
-      case AlePackage.EXPR__REC_EXP:
-        setRecExp((RecExpression)newValue);
-        return;
-      case AlePackage.EXPR__CONDITION:
-        setCondition((Expr)newValue);
-        return;
-      case AlePackage.EXPR__IF_BLOCK:
-        setIfBlock((Expr)newValue);
-        return;
-      case AlePackage.EXPR__ELSE_BLOCK:
-        setElseBlock((Expr)newValue);
-        return;
-      case AlePackage.EXPR__BINDINGS:
-        getBindings().clear();
-        getBindings().addAll((Collection<? extends binding>)newValue);
-        return;
-      case AlePackage.EXPR__LET_EXPR:
-        setLetExpr((Expr)newValue);
-        return;
       case AlePackage.EXPR__LEFT_PART:
-        setLeftPart((nonLeftRecExpression)newValue);
+        setLeftPart((Expr)newValue);
         return;
       case AlePackage.EXPR__RECPART:
-        setRecpart((RecExpression)newValue);
+        setRecpart((Expr)newValue);
+        return;
+      case AlePackage.EXPR__REC_EXP:
+        setRecExp((Expr)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -878,41 +433,20 @@ public class ExprImpl extends rVarDeclImpl implements Expr
   {
     switch (featureID)
     {
-      case AlePackage.EXPR__FOR_EACH:
-        setForEach((RForEach)null);
-        return;
-      case AlePackage.EXPR__BLOCK:
-        setBlock((rBlock)null);
-        return;
       case AlePackage.EXPR__WHILE:
         setWhile((RWhile)null);
         return;
       case AlePackage.EXPR__EXPR:
         setExpr((RExpression)null);
         return;
-      case AlePackage.EXPR__REC_EXP:
-        setRecExp((RecExpression)null);
-        return;
-      case AlePackage.EXPR__CONDITION:
-        setCondition((Expr)null);
-        return;
-      case AlePackage.EXPR__IF_BLOCK:
-        setIfBlock((Expr)null);
-        return;
-      case AlePackage.EXPR__ELSE_BLOCK:
-        setElseBlock((Expr)null);
-        return;
-      case AlePackage.EXPR__BINDINGS:
-        getBindings().clear();
-        return;
-      case AlePackage.EXPR__LET_EXPR:
-        setLetExpr((Expr)null);
-        return;
       case AlePackage.EXPR__LEFT_PART:
-        setLeftPart((nonLeftRecExpression)null);
+        setLeftPart((Expr)null);
         return;
       case AlePackage.EXPR__RECPART:
-        setRecpart((RecExpression)null);
+        setRecpart((Expr)null);
+        return;
+      case AlePackage.EXPR__REC_EXP:
+        setRecExp((Expr)null);
         return;
     }
     super.eUnset(featureID);
@@ -928,30 +462,16 @@ public class ExprImpl extends rVarDeclImpl implements Expr
   {
     switch (featureID)
     {
-      case AlePackage.EXPR__FOR_EACH:
-        return forEach != null;
-      case AlePackage.EXPR__BLOCK:
-        return block != null;
       case AlePackage.EXPR__WHILE:
         return while_ != null;
       case AlePackage.EXPR__EXPR:
         return expr != null;
-      case AlePackage.EXPR__REC_EXP:
-        return recExp != null;
-      case AlePackage.EXPR__CONDITION:
-        return condition != null;
-      case AlePackage.EXPR__IF_BLOCK:
-        return ifBlock != null;
-      case AlePackage.EXPR__ELSE_BLOCK:
-        return elseBlock != null;
-      case AlePackage.EXPR__BINDINGS:
-        return bindings != null && !bindings.isEmpty();
-      case AlePackage.EXPR__LET_EXPR:
-        return letExpr != null;
       case AlePackage.EXPR__LEFT_PART:
         return leftPart != null;
       case AlePackage.EXPR__RECPART:
         return recpart != null;
+      case AlePackage.EXPR__REC_EXP:
+        return recExp != null;
     }
     return super.eIsSet(featureID);
   }
@@ -964,29 +484,6 @@ public class ExprImpl extends rVarDeclImpl implements Expr
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
-    if (baseClass == RStatement.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == RForEach.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AlePackage.EXPR__FOR_EACH: return AlePackage.RFOR_EACH__FOR_EACH;
-        default: return -1;
-      }
-    }
-    if (baseClass == rCollection.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AlePackage.EXPR__BLOCK: return AlePackage.RCOLLECTION__BLOCK;
-        default: return -1;
-      }
-    }
     if (baseClass == RWhile.class)
     {
       switch (derivedFeatureID)
@@ -1003,40 +500,6 @@ public class ExprImpl extends rVarDeclImpl implements Expr
         default: return -1;
       }
     }
-    if (baseClass == RecExpression.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AlePackage.EXPR__REC_EXP: return AlePackage.REC_EXPRESSION__REC_EXP;
-        default: return -1;
-      }
-    }
-    if (baseClass == nonLeftRecExpression.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AlePackage.EXPR__CONDITION: return AlePackage.NON_LEFT_REC_EXPRESSION__CONDITION;
-        case AlePackage.EXPR__IF_BLOCK: return AlePackage.NON_LEFT_REC_EXPRESSION__IF_BLOCK;
-        case AlePackage.EXPR__ELSE_BLOCK: return AlePackage.NON_LEFT_REC_EXPRESSION__ELSE_BLOCK;
-        case AlePackage.EXPR__BINDINGS: return AlePackage.NON_LEFT_REC_EXPRESSION__BINDINGS;
-        case AlePackage.EXPR__LET_EXPR: return AlePackage.NON_LEFT_REC_EXPRESSION__LET_EXPR;
-        default: return -1;
-      }
-    }
-    if (baseClass == binding.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == callExp.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
     return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
   }
 
@@ -1048,29 +511,6 @@ public class ExprImpl extends rVarDeclImpl implements Expr
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
-    if (baseClass == RStatement.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == RForEach.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AlePackage.RFOR_EACH__FOR_EACH: return AlePackage.EXPR__FOR_EACH;
-        default: return -1;
-      }
-    }
-    if (baseClass == rCollection.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AlePackage.RCOLLECTION__BLOCK: return AlePackage.EXPR__BLOCK;
-        default: return -1;
-      }
-    }
     if (baseClass == RWhile.class)
     {
       switch (baseFeatureID)
@@ -1084,40 +524,6 @@ public class ExprImpl extends rVarDeclImpl implements Expr
       switch (baseFeatureID)
       {
         case AlePackage.REXPRESSION__EXPR: return AlePackage.EXPR__EXPR;
-        default: return -1;
-      }
-    }
-    if (baseClass == RecExpression.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AlePackage.REC_EXPRESSION__REC_EXP: return AlePackage.EXPR__REC_EXP;
-        default: return -1;
-      }
-    }
-    if (baseClass == nonLeftRecExpression.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AlePackage.NON_LEFT_REC_EXPRESSION__CONDITION: return AlePackage.EXPR__CONDITION;
-        case AlePackage.NON_LEFT_REC_EXPRESSION__IF_BLOCK: return AlePackage.EXPR__IF_BLOCK;
-        case AlePackage.NON_LEFT_REC_EXPRESSION__ELSE_BLOCK: return AlePackage.EXPR__ELSE_BLOCK;
-        case AlePackage.NON_LEFT_REC_EXPRESSION__BINDINGS: return AlePackage.EXPR__BINDINGS;
-        case AlePackage.NON_LEFT_REC_EXPRESSION__LET_EXPR: return AlePackage.EXPR__LET_EXPR;
-        default: return -1;
-      }
-    }
-    if (baseClass == binding.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == callExp.class)
-    {
-      switch (baseFeatureID)
-      {
         default: return -1;
       }
     }

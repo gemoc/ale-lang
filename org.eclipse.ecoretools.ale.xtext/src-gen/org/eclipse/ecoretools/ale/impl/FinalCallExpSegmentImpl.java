@@ -4,8 +4,8 @@
 package org.eclipse.ecoretools.ale.impl;
 
 import org.eclipse.ecoretools.ale.AlePackage;
+import org.eclipse.ecoretools.ale.ClassExp;
 import org.eclipse.ecoretools.ale.FinalCallExpSegment;
-import org.eclipse.ecoretools.ale.callExp;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -38,7 +38,7 @@ public class FinalCallExpSegmentImpl extends NavigationSegmentImpl implements Fi
    * @generated
    * @ordered
    */
-  protected callExp call;
+  protected ClassExp call;
 
   /**
    * <!-- begin-user-doc -->
@@ -66,7 +66,7 @@ public class FinalCallExpSegmentImpl extends NavigationSegmentImpl implements Fi
    * <!-- end-user-doc -->
    * @generated
    */
-  public callExp getCall()
+  public ClassExp getCall()
   {
     return call;
   }
@@ -76,9 +76,9 @@ public class FinalCallExpSegmentImpl extends NavigationSegmentImpl implements Fi
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetCall(callExp newCall, NotificationChain msgs)
+  public NotificationChain basicSetCall(ClassExp newCall, NotificationChain msgs)
   {
-    callExp oldCall = call;
+    ClassExp oldCall = call;
     call = newCall;
     if (eNotificationRequired())
     {
@@ -93,7 +93,7 @@ public class FinalCallExpSegmentImpl extends NavigationSegmentImpl implements Fi
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setCall(callExp newCall)
+  public void setCall(ClassExp newCall)
   {
     if (newCall != call)
     {
@@ -152,7 +152,7 @@ public class FinalCallExpSegmentImpl extends NavigationSegmentImpl implements Fi
     switch (featureID)
     {
       case AlePackage.FINAL_CALL_EXP_SEGMENT__CALL:
-        setCall((callExp)newValue);
+        setCall((ClassExp)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -169,7 +169,7 @@ public class FinalCallExpSegmentImpl extends NavigationSegmentImpl implements Fi
     switch (featureID)
     {
       case AlePackage.FINAL_CALL_EXP_SEGMENT__CALL:
-        setCall((callExp)null);
+        setCall((ClassExp)null);
         return;
     }
     super.eUnset(featureID);

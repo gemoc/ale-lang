@@ -14,6 +14,6 @@ package org.eclipse.ecoretools.ale;
  * @model
  * @generated
  */
-public interface NavigationSegment extends RecExpression
+public interface NavigationSegment extends Expr
 {
 } // NavigationSegment

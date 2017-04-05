@@ -252,7 +252,7 @@ public interface AlePackage extends EPackage
   int ROPERATION = 4;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -335,7 +335,7 @@ public interface AlePackage extends EPackage
   int RVARIABLE = 6;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -372,7 +372,7 @@ public interface AlePackage extends EPackage
   int RATTRIBUTE = 7;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -437,13 +437,40 @@ public interface AlePackage extends EPackage
   int RVAR_DECL = 9;
 
   /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RVAR_DECL__TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Ident</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RVAR_DECL__IDENT = 1;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RVAR_DECL__EXPRESSION = 2;
+
+  /**
    * The number of structural features of the '<em>rVar Decl</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RVAR_DECL_FEATURE_COUNT = 0;
+  int RVAR_DECL_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.RAssignImpl <em>RAssign</em>}' class.
@@ -712,7 +739,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXPR__FOR_EACH = RVAR_DECL_FEATURE_COUNT + 0;
+  int EXPR__FOR_EACH = RCOLLECTION__FOR_EACH;
 
   /**
    * The feature id for the '<em><b>Block</b></em>' containment reference.
@@ -721,7 +748,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXPR__BLOCK = RVAR_DECL_FEATURE_COUNT + 1;
+  int EXPR__BLOCK = RCOLLECTION__BLOCK;
 
   /**
    * The feature id for the '<em><b>While</b></em>' containment reference.
@@ -730,7 +757,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXPR__WHILE = RVAR_DECL_FEATURE_COUNT + 2;
+  int EXPR__WHILE = RCOLLECTION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -739,61 +766,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXPR__EXPR = RVAR_DECL_FEATURE_COUNT + 3;
-
-  /**
-   * The feature id for the '<em><b>Rec Exp</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR__REC_EXP = RVAR_DECL_FEATURE_COUNT + 4;
-
-  /**
-   * The feature id for the '<em><b>Condition</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR__CONDITION = RVAR_DECL_FEATURE_COUNT + 5;
-
-  /**
-   * The feature id for the '<em><b>If Block</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR__IF_BLOCK = RVAR_DECL_FEATURE_COUNT + 6;
-
-  /**
-   * The feature id for the '<em><b>Else Block</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR__ELSE_BLOCK = RVAR_DECL_FEATURE_COUNT + 7;
-
-  /**
-   * The feature id for the '<em><b>Bindings</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR__BINDINGS = RVAR_DECL_FEATURE_COUNT + 8;
-
-  /**
-   * The feature id for the '<em><b>Let Expr</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR__LET_EXPR = RVAR_DECL_FEATURE_COUNT + 9;
+  int EXPR__EXPR = RCOLLECTION_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Left Part</b></em>' containment reference.
@@ -802,7 +775,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXPR__LEFT_PART = RVAR_DECL_FEATURE_COUNT + 10;
+  int EXPR__LEFT_PART = RCOLLECTION_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Recpart</b></em>' containment reference.
@@ -811,26 +784,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXPR__RECPART = RVAR_DECL_FEATURE_COUNT + 11;
-
-  /**
-   * The number of structural features of the '<em>Expr</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPR_FEATURE_COUNT = RVAR_DECL_FEATURE_COUNT + 12;
-
-  /**
-   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.RecExpressionImpl <em>Rec Expression</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.eclipse.ecoretools.ale.impl.RecExpressionImpl
-   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRecExpression()
-   * @generated
-   */
-  int REC_EXPRESSION = 18;
+  int EXPR__RECPART = RCOLLECTION_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Rec Exp</b></em>' containment reference.
@@ -839,16 +793,16 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int REC_EXPRESSION__REC_EXP = 0;
+  int EXPR__REC_EXP = RCOLLECTION_FEATURE_COUNT + 4;
 
   /**
-   * The number of structural features of the '<em>Rec Expression</em>' class.
+   * The number of structural features of the '<em>Expr</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REC_EXPRESSION_FEATURE_COUNT = 1;
+  int EXPR_FEATURE_COUNT = RCOLLECTION_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.NavigationSegmentImpl <em>Navigation Segment</em>}' class.
@@ -858,7 +812,61 @@ public interface AlePackage extends EPackage
    * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getNavigationSegment()
    * @generated
    */
-  int NAVIGATION_SEGMENT = 19;
+  int NAVIGATION_SEGMENT = 18;
+
+  /**
+   * The feature id for the '<em><b>For Each</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAVIGATION_SEGMENT__FOR_EACH = EXPR__FOR_EACH;
+
+  /**
+   * The feature id for the '<em><b>Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAVIGATION_SEGMENT__BLOCK = EXPR__BLOCK;
+
+  /**
+   * The feature id for the '<em><b>While</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAVIGATION_SEGMENT__WHILE = EXPR__WHILE;
+
+  /**
+   * The feature id for the '<em><b>Expr</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAVIGATION_SEGMENT__EXPR = EXPR__EXPR;
+
+  /**
+   * The feature id for the '<em><b>Left Part</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAVIGATION_SEGMENT__LEFT_PART = EXPR__LEFT_PART;
+
+  /**
+   * The feature id for the '<em><b>Recpart</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NAVIGATION_SEGMENT__RECPART = EXPR__RECPART;
 
   /**
    * The feature id for the '<em><b>Rec Exp</b></em>' containment reference.
@@ -867,7 +875,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int NAVIGATION_SEGMENT__REC_EXP = REC_EXPRESSION__REC_EXP;
+  int NAVIGATION_SEGMENT__REC_EXP = EXPR__REC_EXP;
 
   /**
    * The number of structural features of the '<em>Navigation Segment</em>' class.
@@ -876,109 +884,72 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int NAVIGATION_SEGMENT_FEATURE_COUNT = REC_EXPRESSION_FEATURE_COUNT + 0;
+  int NAVIGATION_SEGMENT_FEATURE_COUNT = EXPR_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.nonLeftRecExpressionImpl <em>non Left Rec Expression</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.BindingImpl <em>Binding</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.eclipse.ecoretools.ale.impl.nonLeftRecExpressionImpl
-   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getnonLeftRecExpression()
+   * @see org.eclipse.ecoretools.ale.impl.BindingImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getBinding()
    * @generated
    */
-  int NON_LEFT_REC_EXPRESSION = 20;
+  int BINDING = 19;
 
   /**
-   * The feature id for the '<em><b>Condition</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int NON_LEFT_REC_EXPRESSION__CONDITION = 0;
-
-  /**
-   * The feature id for the '<em><b>If Block</b></em>' containment reference.
+   * The feature id for the '<em><b>Identifier</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NON_LEFT_REC_EXPRESSION__IF_BLOCK = 1;
+  int BINDING__IDENTIFIER = 0;
 
   /**
-   * The feature id for the '<em><b>Else Block</b></em>' containment reference.
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NON_LEFT_REC_EXPRESSION__ELSE_BLOCK = 2;
+  int BINDING__TYPE = 1;
 
   /**
-   * The feature id for the '<em><b>Bindings</b></em>' containment reference list.
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NON_LEFT_REC_EXPRESSION__BINDINGS = 3;
+  int BINDING__EXPRESSION = 2;
 
   /**
-   * The feature id for the '<em><b>Let Expr</b></em>' containment reference.
+   * The number of structural features of the '<em>Binding</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NON_LEFT_REC_EXPRESSION__LET_EXPR = 4;
+  int BINDING_FEATURE_COUNT = 3;
 
   /**
-   * The number of structural features of the '<em>non Left Rec Expression</em>' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.ClassExpImpl <em>Class Exp</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.ClassExpImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getClassExp()
+   * @generated
+   */
+  int CLASS_EXP = 20;
+
+  /**
+   * The number of structural features of the '<em>Class Exp</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NON_LEFT_REC_EXPRESSION_FEATURE_COUNT = 5;
-
-  /**
-   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.bindingImpl <em>binding</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.eclipse.ecoretools.ale.impl.bindingImpl
-   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getbinding()
-   * @generated
-   */
-  int BINDING = 21;
-
-  /**
-   * The number of structural features of the '<em>binding</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BINDING_FEATURE_COUNT = 0;
-
-  /**
-   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.callExpImpl <em>call Exp</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.eclipse.ecoretools.ale.impl.callExpImpl
-   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getcallExp()
-   * @generated
-   */
-  int CALL_EXP = 22;
-
-  /**
-   * The number of structural features of the '<em>call Exp</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CALL_EXP_FEATURE_COUNT = 0;
+  int CLASS_EXP_FEATURE_COUNT = 0;
 
   /**
    * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.expressionSequenceImpl <em>expression Sequence</em>}' class.
@@ -988,52 +959,7 @@ public interface AlePackage extends EPackage
    * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getexpressionSequence()
    * @generated
    */
-  int EXPRESSION_SEQUENCE = 23;
-
-  /**
-   * The feature id for the '<em><b>Condition</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRESSION_SEQUENCE__CONDITION = CALL_EXP_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>If Block</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRESSION_SEQUENCE__IF_BLOCK = CALL_EXP_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Else Block</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRESSION_SEQUENCE__ELSE_BLOCK = CALL_EXP_FEATURE_COUNT + 2;
-
-  /**
-   * The feature id for the '<em><b>Bindings</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRESSION_SEQUENCE__BINDINGS = CALL_EXP_FEATURE_COUNT + 3;
-
-  /**
-   * The feature id for the '<em><b>Let Expr</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EXPRESSION_SEQUENCE__LET_EXPR = CALL_EXP_FEATURE_COUNT + 4;
+  int EXPRESSION_SEQUENCE = 21;
 
   /**
    * The feature id for the '<em><b>Seq Exprs</b></em>' containment reference list.
@@ -1042,7 +968,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXPRESSION_SEQUENCE__SEQ_EXPRS = CALL_EXP_FEATURE_COUNT + 5;
+  int EXPRESSION_SEQUENCE__SEQ_EXPRS = CLASS_EXP_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>expression Sequence</em>' class.
@@ -1051,71 +977,101 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXPRESSION_SEQUENCE_FEATURE_COUNT = CALL_EXP_FEATURE_COUNT + 6;
+  int EXPRESSION_SEQUENCE_FEATURE_COUNT = CLASS_EXP_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.literalImpl <em>literal</em>}' class.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.variableDefinitionImpl <em>variable Definition</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.eclipse.ecoretools.ale.impl.literalImpl
-   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getliteral()
+   * @see org.eclipse.ecoretools.ale.impl.variableDefinitionImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getvariableDefinition()
    * @generated
    */
-  int LITERAL = 24;
+  int VARIABLE_DEFINITION = 22;
 
   /**
-   * The feature id for the '<em><b>Condition</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int LITERAL__CONDITION = NON_LEFT_REC_EXPRESSION__CONDITION;
-
-  /**
-   * The feature id for the '<em><b>If Block</b></em>' containment reference.
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int LITERAL__IF_BLOCK = NON_LEFT_REC_EXPRESSION__IF_BLOCK;
+  int VARIABLE_DEFINITION__EXPRESSION = CLASS_EXP_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Else Block</b></em>' containment reference.
+   * The number of structural features of the '<em>variable Definition</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int LITERAL__ELSE_BLOCK = NON_LEFT_REC_EXPRESSION__ELSE_BLOCK;
+  int VARIABLE_DEFINITION_FEATURE_COUNT = CLASS_EXP_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Bindings</b></em>' containment reference list.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.LiteralImpl <em>Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.LiteralImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getLiteral()
+   * @generated
+   */
+  int LITERAL = 23;
+
+  /**
+   * The number of structural features of the '<em>Literal</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int LITERAL__BINDINGS = NON_LEFT_REC_EXPRESSION__BINDINGS;
+  int LITERAL_FEATURE_COUNT = 0;
 
   /**
-   * The feature id for the '<em><b>Let Expr</b></em>' containment reference.
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralImpl <em>Type Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.TypeLiteralImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteral()
+   * @generated
+   */
+  int TYPE_LITERAL = 24;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int LITERAL__LET_EXPR = NON_LEFT_REC_EXPRESSION__LET_EXPR;
+  int TYPE_LITERAL__EXPRESSION = VARIABLE_DEFINITION__EXPRESSION;
 
   /**
-   * The number of structural features of the '<em>literal</em>' class.
+   * The number of structural features of the '<em>Type Literal</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int LITERAL_FEATURE_COUNT = NON_LEFT_REC_EXPRESSION_FEATURE_COUNT + 0;
+  int TYPE_LITERAL_FEATURE_COUNT = VARIABLE_DEFINITION_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.RTypeImpl <em>RType</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.RTypeImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRType()
+   * @generated
+   */
+  int RTYPE = 25;
+
+  /**
+   * The number of structural features of the '<em>RType</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RTYPE_FEATURE_COUNT = 0;
 
   /**
    * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.RValDeclImpl <em>RVal Decl</em>}' class.
@@ -1125,7 +1081,7 @@ public interface AlePackage extends EPackage
    * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRValDecl()
    * @generated
    */
-  int RVAL_DECL = 25;
+  int RVAL_DECL = 26;
 
   /**
    * The feature id for the '<em><b>Stmt</b></em>' containment reference.
@@ -1153,7 +1109,61 @@ public interface AlePackage extends EPackage
    * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getFinalIdentSegment()
    * @generated
    */
-  int FINAL_IDENT_SEGMENT = 26;
+  int FINAL_IDENT_SEGMENT = 27;
+
+  /**
+   * The feature id for the '<em><b>For Each</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_IDENT_SEGMENT__FOR_EACH = NAVIGATION_SEGMENT__FOR_EACH;
+
+  /**
+   * The feature id for the '<em><b>Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_IDENT_SEGMENT__BLOCK = NAVIGATION_SEGMENT__BLOCK;
+
+  /**
+   * The feature id for the '<em><b>While</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_IDENT_SEGMENT__WHILE = NAVIGATION_SEGMENT__WHILE;
+
+  /**
+   * The feature id for the '<em><b>Expr</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_IDENT_SEGMENT__EXPR = NAVIGATION_SEGMENT__EXPR;
+
+  /**
+   * The feature id for the '<em><b>Left Part</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_IDENT_SEGMENT__LEFT_PART = NAVIGATION_SEGMENT__LEFT_PART;
+
+  /**
+   * The feature id for the '<em><b>Recpart</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_IDENT_SEGMENT__RECPART = NAVIGATION_SEGMENT__RECPART;
 
   /**
    * The feature id for the '<em><b>Rec Exp</b></em>' containment reference.
@@ -1190,7 +1200,61 @@ public interface AlePackage extends EPackage
    * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getFinalIdentCallSegment()
    * @generated
    */
-  int FINAL_IDENT_CALL_SEGMENT = 27;
+  int FINAL_IDENT_CALL_SEGMENT = 28;
+
+  /**
+   * The feature id for the '<em><b>For Each</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_IDENT_CALL_SEGMENT__FOR_EACH = NAVIGATION_SEGMENT__FOR_EACH;
+
+  /**
+   * The feature id for the '<em><b>Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_IDENT_CALL_SEGMENT__BLOCK = NAVIGATION_SEGMENT__BLOCK;
+
+  /**
+   * The feature id for the '<em><b>While</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_IDENT_CALL_SEGMENT__WHILE = NAVIGATION_SEGMENT__WHILE;
+
+  /**
+   * The feature id for the '<em><b>Expr</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_IDENT_CALL_SEGMENT__EXPR = NAVIGATION_SEGMENT__EXPR;
+
+  /**
+   * The feature id for the '<em><b>Left Part</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_IDENT_CALL_SEGMENT__LEFT_PART = NAVIGATION_SEGMENT__LEFT_PART;
+
+  /**
+   * The feature id for the '<em><b>Recpart</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_IDENT_CALL_SEGMENT__RECPART = NAVIGATION_SEGMENT__RECPART;
 
   /**
    * The feature id for the '<em><b>Rec Exp</b></em>' containment reference.
@@ -1227,7 +1291,61 @@ public interface AlePackage extends EPackage
    * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getFinalCallExpSegment()
    * @generated
    */
-  int FINAL_CALL_EXP_SEGMENT = 28;
+  int FINAL_CALL_EXP_SEGMENT = 29;
+
+  /**
+   * The feature id for the '<em><b>For Each</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_CALL_EXP_SEGMENT__FOR_EACH = NAVIGATION_SEGMENT__FOR_EACH;
+
+  /**
+   * The feature id for the '<em><b>Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_CALL_EXP_SEGMENT__BLOCK = NAVIGATION_SEGMENT__BLOCK;
+
+  /**
+   * The feature id for the '<em><b>While</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_CALL_EXP_SEGMENT__WHILE = NAVIGATION_SEGMENT__WHILE;
+
+  /**
+   * The feature id for the '<em><b>Expr</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_CALL_EXP_SEGMENT__EXPR = NAVIGATION_SEGMENT__EXPR;
+
+  /**
+   * The feature id for the '<em><b>Left Part</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_CALL_EXP_SEGMENT__LEFT_PART = NAVIGATION_SEGMENT__LEFT_PART;
+
+  /**
+   * The feature id for the '<em><b>Recpart</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FINAL_CALL_EXP_SEGMENT__RECPART = NAVIGATION_SEGMENT__RECPART;
 
   /**
    * The feature id for the '<em><b>Rec Exp</b></em>' containment reference.
@@ -1255,6 +1373,912 @@ public interface AlePackage extends EPackage
    * @ordered
    */
   int FINAL_CALL_EXP_SEGMENT_FEATURE_COUNT = NAVIGATION_SEGMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.NotExpressionImpl <em>Not Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.NotExpressionImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getNotExpression()
+   * @generated
+   */
+  int NOT_EXPRESSION = 30;
+
+  /**
+   * The feature id for the '<em><b>For Each</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NOT_EXPRESSION__FOR_EACH = EXPR__FOR_EACH;
+
+  /**
+   * The feature id for the '<em><b>Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NOT_EXPRESSION__BLOCK = EXPR__BLOCK;
+
+  /**
+   * The feature id for the '<em><b>While</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NOT_EXPRESSION__WHILE = EXPR__WHILE;
+
+  /**
+   * The feature id for the '<em><b>Expr</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NOT_EXPRESSION__EXPR = EXPR__EXPR;
+
+  /**
+   * The feature id for the '<em><b>Left Part</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NOT_EXPRESSION__LEFT_PART = EXPR__LEFT_PART;
+
+  /**
+   * The feature id for the '<em><b>Recpart</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NOT_EXPRESSION__RECPART = EXPR__RECPART;
+
+  /**
+   * The feature id for the '<em><b>Rec Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NOT_EXPRESSION__REC_EXP = EXPR__REC_EXP;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NOT_EXPRESSION__EXPRESSION = EXPR_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Not Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NOT_EXPRESSION_FEATURE_COUNT = EXPR_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.NegExpressionImpl <em>Neg Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.NegExpressionImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getNegExpression()
+   * @generated
+   */
+  int NEG_EXPRESSION = 31;
+
+  /**
+   * The feature id for the '<em><b>For Each</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NEG_EXPRESSION__FOR_EACH = EXPR__FOR_EACH;
+
+  /**
+   * The feature id for the '<em><b>Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NEG_EXPRESSION__BLOCK = EXPR__BLOCK;
+
+  /**
+   * The feature id for the '<em><b>While</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NEG_EXPRESSION__WHILE = EXPR__WHILE;
+
+  /**
+   * The feature id for the '<em><b>Expr</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NEG_EXPRESSION__EXPR = EXPR__EXPR;
+
+  /**
+   * The feature id for the '<em><b>Left Part</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NEG_EXPRESSION__LEFT_PART = EXPR__LEFT_PART;
+
+  /**
+   * The feature id for the '<em><b>Recpart</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NEG_EXPRESSION__RECPART = EXPR__RECPART;
+
+  /**
+   * The feature id for the '<em><b>Rec Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NEG_EXPRESSION__REC_EXP = EXPR__REC_EXP;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NEG_EXPRESSION__EXPRESSION = EXPR_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Neg Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NEG_EXPRESSION_FEATURE_COUNT = EXPR_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.IdentifierExpresionImpl <em>Identifier Expresion</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.IdentifierExpresionImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getIdentifierExpresion()
+   * @generated
+   */
+  int IDENTIFIER_EXPRESION = 32;
+
+  /**
+   * The feature id for the '<em><b>For Each</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IDENTIFIER_EXPRESION__FOR_EACH = EXPR__FOR_EACH;
+
+  /**
+   * The feature id for the '<em><b>Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IDENTIFIER_EXPRESION__BLOCK = EXPR__BLOCK;
+
+  /**
+   * The feature id for the '<em><b>While</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IDENTIFIER_EXPRESION__WHILE = EXPR__WHILE;
+
+  /**
+   * The feature id for the '<em><b>Expr</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IDENTIFIER_EXPRESION__EXPR = EXPR__EXPR;
+
+  /**
+   * The feature id for the '<em><b>Left Part</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IDENTIFIER_EXPRESION__LEFT_PART = EXPR__LEFT_PART;
+
+  /**
+   * The feature id for the '<em><b>Recpart</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IDENTIFIER_EXPRESION__RECPART = EXPR__RECPART;
+
+  /**
+   * The feature id for the '<em><b>Rec Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IDENTIFIER_EXPRESION__REC_EXP = EXPR__REC_EXP;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IDENTIFIER_EXPRESION__VALUE = EXPR_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Identifier Expresion</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IDENTIFIER_EXPRESION_FEATURE_COUNT = EXPR_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.LiteralExpressioinImpl <em>Literal Expressioin</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.LiteralExpressioinImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getLiteralExpressioin()
+   * @generated
+   */
+  int LITERAL_EXPRESSIOIN = 33;
+
+  /**
+   * The feature id for the '<em><b>For Each</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LITERAL_EXPRESSIOIN__FOR_EACH = EXPR__FOR_EACH;
+
+  /**
+   * The feature id for the '<em><b>Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LITERAL_EXPRESSIOIN__BLOCK = EXPR__BLOCK;
+
+  /**
+   * The feature id for the '<em><b>While</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LITERAL_EXPRESSIOIN__WHILE = EXPR__WHILE;
+
+  /**
+   * The feature id for the '<em><b>Expr</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LITERAL_EXPRESSIOIN__EXPR = EXPR__EXPR;
+
+  /**
+   * The feature id for the '<em><b>Left Part</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LITERAL_EXPRESSIOIN__LEFT_PART = EXPR__LEFT_PART;
+
+  /**
+   * The feature id for the '<em><b>Recpart</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LITERAL_EXPRESSIOIN__RECPART = EXPR__RECPART;
+
+  /**
+   * The feature id for the '<em><b>Rec Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LITERAL_EXPRESSIOIN__REC_EXP = EXPR__REC_EXP;
+
+  /**
+   * The feature id for the '<em><b>Lit</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LITERAL_EXPRESSIOIN__LIT = EXPR_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Literal Expressioin</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LITERAL_EXPRESSIOIN_FEATURE_COUNT = EXPR_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.ParenthesisExpressionImpl <em>Parenthesis Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.ParenthesisExpressionImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getParenthesisExpression()
+   * @generated
+   */
+  int PARENTHESIS_EXPRESSION = 34;
+
+  /**
+   * The feature id for the '<em><b>For Each</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARENTHESIS_EXPRESSION__FOR_EACH = EXPR__FOR_EACH;
+
+  /**
+   * The feature id for the '<em><b>Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARENTHESIS_EXPRESSION__BLOCK = EXPR__BLOCK;
+
+  /**
+   * The feature id for the '<em><b>While</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARENTHESIS_EXPRESSION__WHILE = EXPR__WHILE;
+
+  /**
+   * The feature id for the '<em><b>Expr</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARENTHESIS_EXPRESSION__EXPR = EXPR__EXPR;
+
+  /**
+   * The feature id for the '<em><b>Left Part</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARENTHESIS_EXPRESSION__LEFT_PART = EXPR__LEFT_PART;
+
+  /**
+   * The feature id for the '<em><b>Recpart</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARENTHESIS_EXPRESSION__RECPART = EXPR__RECPART;
+
+  /**
+   * The feature id for the '<em><b>Rec Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARENTHESIS_EXPRESSION__REC_EXP = EXPR__REC_EXP;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARENTHESIS_EXPRESSION__EXPRESSION = EXPR_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Parenthesis Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARENTHESIS_EXPRESSION_FEATURE_COUNT = EXPR_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.IfExpressionImpl <em>If Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.IfExpressionImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getIfExpression()
+   * @generated
+   */
+  int IF_EXPRESSION = 35;
+
+  /**
+   * The feature id for the '<em><b>For Each</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_EXPRESSION__FOR_EACH = EXPR__FOR_EACH;
+
+  /**
+   * The feature id for the '<em><b>Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_EXPRESSION__BLOCK = EXPR__BLOCK;
+
+  /**
+   * The feature id for the '<em><b>While</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_EXPRESSION__WHILE = EXPR__WHILE;
+
+  /**
+   * The feature id for the '<em><b>Expr</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_EXPRESSION__EXPR = EXPR__EXPR;
+
+  /**
+   * The feature id for the '<em><b>Left Part</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_EXPRESSION__LEFT_PART = EXPR__LEFT_PART;
+
+  /**
+   * The feature id for the '<em><b>Recpart</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_EXPRESSION__RECPART = EXPR__RECPART;
+
+  /**
+   * The feature id for the '<em><b>Rec Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_EXPRESSION__REC_EXP = EXPR__REC_EXP;
+
+  /**
+   * The feature id for the '<em><b>Condition</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_EXPRESSION__CONDITION = EXPR_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>If Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_EXPRESSION__IF_BLOCK = EXPR_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Else Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_EXPRESSION__ELSE_BLOCK = EXPR_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>If Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_EXPRESSION_FEATURE_COUNT = EXPR_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.LetExpressionImpl <em>Let Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.LetExpressionImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getLetExpression()
+   * @generated
+   */
+  int LET_EXPRESSION = 36;
+
+  /**
+   * The feature id for the '<em><b>For Each</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LET_EXPRESSION__FOR_EACH = EXPR__FOR_EACH;
+
+  /**
+   * The feature id for the '<em><b>Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LET_EXPRESSION__BLOCK = EXPR__BLOCK;
+
+  /**
+   * The feature id for the '<em><b>While</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LET_EXPRESSION__WHILE = EXPR__WHILE;
+
+  /**
+   * The feature id for the '<em><b>Expr</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LET_EXPRESSION__EXPR = EXPR__EXPR;
+
+  /**
+   * The feature id for the '<em><b>Left Part</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LET_EXPRESSION__LEFT_PART = EXPR__LEFT_PART;
+
+  /**
+   * The feature id for the '<em><b>Recpart</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LET_EXPRESSION__RECPART = EXPR__RECPART;
+
+  /**
+   * The feature id for the '<em><b>Rec Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LET_EXPRESSION__REC_EXP = EXPR__REC_EXP;
+
+  /**
+   * The feature id for the '<em><b>Bindings</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LET_EXPRESSION__BINDINGS = EXPR_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Let Expr</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LET_EXPRESSION__LET_EXPR = EXPR_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Let Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LET_EXPRESSION_FEATURE_COUNT = EXPR_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralStringImpl <em>Type Literal String</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.TypeLiteralStringImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralString()
+   * @generated
+   */
+  int TYPE_LITERAL_STRING = 37;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_STRING__EXPRESSION = TYPE_LITERAL__EXPRESSION;
+
+  /**
+   * The number of structural features of the '<em>Type Literal String</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_STRING_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralIntegerImpl <em>Type Literal Integer</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.TypeLiteralIntegerImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralInteger()
+   * @generated
+   */
+  int TYPE_LITERAL_INTEGER = 38;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_INTEGER__EXPRESSION = TYPE_LITERAL__EXPRESSION;
+
+  /**
+   * The number of structural features of the '<em>Type Literal Integer</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_INTEGER_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralRealImpl <em>Type Literal Real</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.TypeLiteralRealImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralReal()
+   * @generated
+   */
+  int TYPE_LITERAL_REAL = 39;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_REAL__EXPRESSION = TYPE_LITERAL__EXPRESSION;
+
+  /**
+   * The number of structural features of the '<em>Type Literal Real</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_REAL_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralBooleanImpl <em>Type Literal Boolean</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.TypeLiteralBooleanImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralBoolean()
+   * @generated
+   */
+  int TYPE_LITERAL_BOOLEAN = 40;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_BOOLEAN__EXPRESSION = TYPE_LITERAL__EXPRESSION;
+
+  /**
+   * The number of structural features of the '<em>Type Literal Boolean</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_BOOLEAN_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralSequenceImpl <em>Type Literal Sequence</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.TypeLiteralSequenceImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralSequence()
+   * @generated
+   */
+  int TYPE_LITERAL_SEQUENCE = 41;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_SEQUENCE__EXPRESSION = TYPE_LITERAL__EXPRESSION;
+
+  /**
+   * The feature id for the '<em><b>Sub Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_SEQUENCE__SUB_TYPE = TYPE_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Type Literal Sequence</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_SEQUENCE_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralOrderedTypeSetImpl <em>Type Literal Ordered Type Set</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.TypeLiteralOrderedTypeSetImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralOrderedTypeSet()
+   * @generated
+   */
+  int TYPE_LITERAL_ORDERED_TYPE_SET = 42;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_ORDERED_TYPE_SET__EXPRESSION = TYPE_LITERAL__EXPRESSION;
+
+  /**
+   * The feature id for the '<em><b>Sub Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_ORDERED_TYPE_SET__SUB_TYPE = TYPE_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Type Literal Ordered Type Set</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_ORDERED_TYPE_SET_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralClassifierImpl <em>Type Literal Classifier</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.TypeLiteralClassifierImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralClassifier()
+   * @generated
+   */
+  int TYPE_LITERAL_CLASSIFIER = 43;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_CLASSIFIER__EXPRESSION = TYPE_LITERAL__EXPRESSION;
+
+  /**
+   * The number of structural features of the '<em>Type Literal Classifier</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_CLASSIFIER_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralPipeImpl <em>Type Literal Pipe</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.ecoretools.ale.impl.TypeLiteralPipeImpl
+   * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralPipe()
+   * @generated
+   */
+  int TYPE_LITERAL_PIPE = 44;
+
+  /**
+   * The feature id for the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_PIPE__EXPRESSION = TYPE_LITERAL__EXPRESSION;
+
+  /**
+   * The number of structural features of the '<em>Type Literal Pipe</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_PIPE_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 0;
 
 
   /**
@@ -1374,15 +2398,15 @@ public interface AlePackage extends EPackage
   EClass getrOperation();
 
   /**
-   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rOperation#getType <em>Type</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.rOperation#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Type</em>'.
+   * @return the meta object for the containment reference '<em>Type</em>'.
    * @see org.eclipse.ecoretools.ale.rOperation#getType()
    * @see #getrOperation()
    * @generated
    */
-  EAttribute getrOperation_Type();
+  EReference getrOperation_Type();
 
   /**
    * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rOperation#getName <em>Name</em>}'.
@@ -1449,15 +2473,15 @@ public interface AlePackage extends EPackage
   EClass getrVariable();
 
   /**
-   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rVariable#getType <em>Type</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.rVariable#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Type</em>'.
+   * @return the meta object for the containment reference '<em>Type</em>'.
    * @see org.eclipse.ecoretools.ale.rVariable#getType()
    * @see #getrVariable()
    * @generated
    */
-  EAttribute getrVariable_Type();
+  EReference getrVariable_Type();
 
   /**
    * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rVariable#getName <em>Name</em>}'.
@@ -1481,15 +2505,15 @@ public interface AlePackage extends EPackage
   EClass getrAttribute();
 
   /**
-   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rAttribute#getType <em>Type</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.rAttribute#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Type</em>'.
+   * @return the meta object for the containment reference '<em>Type</em>'.
    * @see org.eclipse.ecoretools.ale.rAttribute#getType()
    * @see #getrAttribute()
    * @generated
    */
-  EAttribute getrAttribute_Type();
+  EReference getrAttribute_Type();
 
   /**
    * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rAttribute#getName <em>Name</em>}'.
@@ -1532,6 +2556,39 @@ public interface AlePackage extends EPackage
    * @generated
    */
   EClass getrVarDecl();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.rVarDecl#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.eclipse.ecoretools.ale.rVarDecl#getType()
+   * @see #getrVarDecl()
+   * @generated
+   */
+  EReference getrVarDecl_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.rVarDecl#getIdent <em>Ident</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Ident</em>'.
+   * @see org.eclipse.ecoretools.ale.rVarDecl#getIdent()
+   * @see #getrVarDecl()
+   * @generated
+   */
+  EAttribute getrVarDecl_Ident();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.rVarDecl#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.eclipse.ecoretools.ale.rVarDecl#getExpression()
+   * @see #getrVarDecl()
+   * @generated
+   */
+  EReference getrVarDecl_Expression();
 
   /**
    * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.RAssign <em>RAssign</em>}'.
@@ -1768,25 +2825,15 @@ public interface AlePackage extends EPackage
   EReference getExpr_Recpart();
 
   /**
-   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.RecExpression <em>Rec Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Rec Expression</em>'.
-   * @see org.eclipse.ecoretools.ale.RecExpression
-   * @generated
-   */
-  EClass getRecExpression();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.RecExpression#getRecExp <em>Rec Exp</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.Expr#getRecExp <em>Rec Exp</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Rec Exp</em>'.
-   * @see org.eclipse.ecoretools.ale.RecExpression#getRecExp()
-   * @see #getRecExpression()
+   * @see org.eclipse.ecoretools.ale.Expr#getRecExp()
+   * @see #getExpr()
    * @generated
    */
-  EReference getRecExpression_RecExp();
+  EReference getExpr_RecExp();
 
   /**
    * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.NavigationSegment <em>Navigation Segment</em>}'.
@@ -1799,89 +2846,57 @@ public interface AlePackage extends EPackage
   EClass getNavigationSegment();
 
   /**
-   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.nonLeftRecExpression <em>non Left Rec Expression</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.Binding <em>Binding</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>non Left Rec Expression</em>'.
-   * @see org.eclipse.ecoretools.ale.nonLeftRecExpression
+   * @return the meta object for class '<em>Binding</em>'.
+   * @see org.eclipse.ecoretools.ale.Binding
    * @generated
    */
-  EClass getnonLeftRecExpression();
+  EClass getBinding();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.nonLeftRecExpression#getCondition <em>Condition</em>}'.
+   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.Binding#getIdentifier <em>Identifier</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Condition</em>'.
-   * @see org.eclipse.ecoretools.ale.nonLeftRecExpression#getCondition()
-   * @see #getnonLeftRecExpression()
+   * @return the meta object for the attribute '<em>Identifier</em>'.
+   * @see org.eclipse.ecoretools.ale.Binding#getIdentifier()
+   * @see #getBinding()
    * @generated
    */
-  EReference getnonLeftRecExpression_Condition();
+  EAttribute getBinding_Identifier();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.nonLeftRecExpression#getIfBlock <em>If Block</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.Binding#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>If Block</em>'.
-   * @see org.eclipse.ecoretools.ale.nonLeftRecExpression#getIfBlock()
-   * @see #getnonLeftRecExpression()
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.eclipse.ecoretools.ale.Binding#getType()
+   * @see #getBinding()
    * @generated
    */
-  EReference getnonLeftRecExpression_IfBlock();
+  EReference getBinding_Type();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.nonLeftRecExpression#getElseBlock <em>Else Block</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.Binding#getExpression <em>Expression</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Else Block</em>'.
-   * @see org.eclipse.ecoretools.ale.nonLeftRecExpression#getElseBlock()
-   * @see #getnonLeftRecExpression()
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.eclipse.ecoretools.ale.Binding#getExpression()
+   * @see #getBinding()
    * @generated
    */
-  EReference getnonLeftRecExpression_ElseBlock();
+  EReference getBinding_Expression();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.nonLeftRecExpression#getBindings <em>Bindings</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.ClassExp <em>Class Exp</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Bindings</em>'.
-   * @see org.eclipse.ecoretools.ale.nonLeftRecExpression#getBindings()
-   * @see #getnonLeftRecExpression()
+   * @return the meta object for class '<em>Class Exp</em>'.
+   * @see org.eclipse.ecoretools.ale.ClassExp
    * @generated
    */
-  EReference getnonLeftRecExpression_Bindings();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.nonLeftRecExpression#getLetExpr <em>Let Expr</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Let Expr</em>'.
-   * @see org.eclipse.ecoretools.ale.nonLeftRecExpression#getLetExpr()
-   * @see #getnonLeftRecExpression()
-   * @generated
-   */
-  EReference getnonLeftRecExpression_LetExpr();
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.binding <em>binding</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>binding</em>'.
-   * @see org.eclipse.ecoretools.ale.binding
-   * @generated
-   */
-  EClass getbinding();
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.callExp <em>call Exp</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>call Exp</em>'.
-   * @see org.eclipse.ecoretools.ale.callExp
-   * @generated
-   */
-  EClass getcallExp();
+  EClass getClassExp();
 
   /**
    * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.expressionSequence <em>expression Sequence</em>}'.
@@ -1905,14 +2920,55 @@ public interface AlePackage extends EPackage
   EReference getexpressionSequence_SeqExprs();
 
   /**
-   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.literal <em>literal</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.variableDefinition <em>variable Definition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>literal</em>'.
-   * @see org.eclipse.ecoretools.ale.literal
+   * @return the meta object for class '<em>variable Definition</em>'.
+   * @see org.eclipse.ecoretools.ale.variableDefinition
    * @generated
    */
-  EClass getliteral();
+  EClass getvariableDefinition();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.variableDefinition#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.eclipse.ecoretools.ale.variableDefinition#getExpression()
+   * @see #getvariableDefinition()
+   * @generated
+   */
+  EReference getvariableDefinition_Expression();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.Literal <em>Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Literal</em>'.
+   * @see org.eclipse.ecoretools.ale.Literal
+   * @generated
+   */
+  EClass getLiteral();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.TypeLiteral <em>Type Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type Literal</em>'.
+   * @see org.eclipse.ecoretools.ale.TypeLiteral
+   * @generated
+   */
+  EClass getTypeLiteral();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.RType <em>RType</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>RType</em>'.
+   * @see org.eclipse.ecoretools.ale.RType
+   * @generated
+   */
+  EClass getRType();
 
   /**
    * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.RValDecl <em>RVal Decl</em>}'.
@@ -1997,6 +3053,288 @@ public interface AlePackage extends EPackage
    * @generated
    */
   EReference getFinalCallExpSegment_Call();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.NotExpression <em>Not Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Not Expression</em>'.
+   * @see org.eclipse.ecoretools.ale.NotExpression
+   * @generated
+   */
+  EClass getNotExpression();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.NotExpression#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.eclipse.ecoretools.ale.NotExpression#getExpression()
+   * @see #getNotExpression()
+   * @generated
+   */
+  EReference getNotExpression_Expression();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.NegExpression <em>Neg Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Neg Expression</em>'.
+   * @see org.eclipse.ecoretools.ale.NegExpression
+   * @generated
+   */
+  EClass getNegExpression();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.NegExpression#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.eclipse.ecoretools.ale.NegExpression#getExpression()
+   * @see #getNegExpression()
+   * @generated
+   */
+  EReference getNegExpression_Expression();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.IdentifierExpresion <em>Identifier Expresion</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Identifier Expresion</em>'.
+   * @see org.eclipse.ecoretools.ale.IdentifierExpresion
+   * @generated
+   */
+  EClass getIdentifierExpresion();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.ecoretools.ale.IdentifierExpresion#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.eclipse.ecoretools.ale.IdentifierExpresion#getValue()
+   * @see #getIdentifierExpresion()
+   * @generated
+   */
+  EAttribute getIdentifierExpresion_Value();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.LiteralExpressioin <em>Literal Expressioin</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Literal Expressioin</em>'.
+   * @see org.eclipse.ecoretools.ale.LiteralExpressioin
+   * @generated
+   */
+  EClass getLiteralExpressioin();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.LiteralExpressioin#getLit <em>Lit</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Lit</em>'.
+   * @see org.eclipse.ecoretools.ale.LiteralExpressioin#getLit()
+   * @see #getLiteralExpressioin()
+   * @generated
+   */
+  EReference getLiteralExpressioin_Lit();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.ParenthesisExpression <em>Parenthesis Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Parenthesis Expression</em>'.
+   * @see org.eclipse.ecoretools.ale.ParenthesisExpression
+   * @generated
+   */
+  EClass getParenthesisExpression();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.ParenthesisExpression#getExpression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expression</em>'.
+   * @see org.eclipse.ecoretools.ale.ParenthesisExpression#getExpression()
+   * @see #getParenthesisExpression()
+   * @generated
+   */
+  EReference getParenthesisExpression_Expression();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.IfExpression <em>If Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>If Expression</em>'.
+   * @see org.eclipse.ecoretools.ale.IfExpression
+   * @generated
+   */
+  EClass getIfExpression();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.IfExpression#getCondition <em>Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Condition</em>'.
+   * @see org.eclipse.ecoretools.ale.IfExpression#getCondition()
+   * @see #getIfExpression()
+   * @generated
+   */
+  EReference getIfExpression_Condition();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.IfExpression#getIfBlock <em>If Block</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>If Block</em>'.
+   * @see org.eclipse.ecoretools.ale.IfExpression#getIfBlock()
+   * @see #getIfExpression()
+   * @generated
+   */
+  EReference getIfExpression_IfBlock();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.IfExpression#getElseBlock <em>Else Block</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Else Block</em>'.
+   * @see org.eclipse.ecoretools.ale.IfExpression#getElseBlock()
+   * @see #getIfExpression()
+   * @generated
+   */
+  EReference getIfExpression_ElseBlock();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.LetExpression <em>Let Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Let Expression</em>'.
+   * @see org.eclipse.ecoretools.ale.LetExpression
+   * @generated
+   */
+  EClass getLetExpression();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.ecoretools.ale.LetExpression#getBindings <em>Bindings</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Bindings</em>'.
+   * @see org.eclipse.ecoretools.ale.LetExpression#getBindings()
+   * @see #getLetExpression()
+   * @generated
+   */
+  EReference getLetExpression_Bindings();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.LetExpression#getLetExpr <em>Let Expr</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Let Expr</em>'.
+   * @see org.eclipse.ecoretools.ale.LetExpression#getLetExpr()
+   * @see #getLetExpression()
+   * @generated
+   */
+  EReference getLetExpression_LetExpr();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.TypeLiteralString <em>Type Literal String</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type Literal String</em>'.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralString
+   * @generated
+   */
+  EClass getTypeLiteralString();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.TypeLiteralInteger <em>Type Literal Integer</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type Literal Integer</em>'.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralInteger
+   * @generated
+   */
+  EClass getTypeLiteralInteger();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.TypeLiteralReal <em>Type Literal Real</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type Literal Real</em>'.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralReal
+   * @generated
+   */
+  EClass getTypeLiteralReal();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.TypeLiteralBoolean <em>Type Literal Boolean</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type Literal Boolean</em>'.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralBoolean
+   * @generated
+   */
+  EClass getTypeLiteralBoolean();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.TypeLiteralSequence <em>Type Literal Sequence</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type Literal Sequence</em>'.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralSequence
+   * @generated
+   */
+  EClass getTypeLiteralSequence();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.TypeLiteralSequence#getSubType <em>Sub Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Sub Type</em>'.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralSequence#getSubType()
+   * @see #getTypeLiteralSequence()
+   * @generated
+   */
+  EReference getTypeLiteralSequence_SubType();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.TypeLiteralOrderedTypeSet <em>Type Literal Ordered Type Set</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type Literal Ordered Type Set</em>'.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralOrderedTypeSet
+   * @generated
+   */
+  EClass getTypeLiteralOrderedTypeSet();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.ecoretools.ale.TypeLiteralOrderedTypeSet#getSubType <em>Sub Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Sub Type</em>'.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralOrderedTypeSet#getSubType()
+   * @see #getTypeLiteralOrderedTypeSet()
+   * @generated
+   */
+  EReference getTypeLiteralOrderedTypeSet_SubType();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.TypeLiteralClassifier <em>Type Literal Classifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type Literal Classifier</em>'.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralClassifier
+   * @generated
+   */
+  EClass getTypeLiteralClassifier();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.ecoretools.ale.TypeLiteralPipe <em>Type Literal Pipe</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type Literal Pipe</em>'.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralPipe
+   * @generated
+   */
+  EClass getTypeLiteralPipe();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -2120,12 +3458,12 @@ public interface AlePackage extends EPackage
     EClass ROPERATION = eINSTANCE.getrOperation();
 
     /**
-     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ROPERATION__TYPE = eINSTANCE.getrOperation_Type();
+    EReference ROPERATION__TYPE = eINSTANCE.getrOperation_Type();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -2180,12 +3518,12 @@ public interface AlePackage extends EPackage
     EClass RVARIABLE = eINSTANCE.getrVariable();
 
     /**
-     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RVARIABLE__TYPE = eINSTANCE.getrVariable_Type();
+    EReference RVARIABLE__TYPE = eINSTANCE.getrVariable_Type();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -2206,12 +3544,12 @@ public interface AlePackage extends EPackage
     EClass RATTRIBUTE = eINSTANCE.getrAttribute();
 
     /**
-     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RATTRIBUTE__TYPE = eINSTANCE.getrAttribute_Type();
+    EReference RATTRIBUTE__TYPE = eINSTANCE.getrAttribute_Type();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -2248,6 +3586,30 @@ public interface AlePackage extends EPackage
      * @generated
      */
     EClass RVAR_DECL = eINSTANCE.getrVarDecl();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RVAR_DECL__TYPE = eINSTANCE.getrVarDecl_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Ident</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RVAR_DECL__IDENT = eINSTANCE.getrVarDecl_Ident();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RVAR_DECL__EXPRESSION = eINSTANCE.getrVarDecl_Expression();
 
     /**
      * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.RAssignImpl <em>RAssign</em>}' class.
@@ -2442,22 +3804,12 @@ public interface AlePackage extends EPackage
     EReference EXPR__RECPART = eINSTANCE.getExpr_Recpart();
 
     /**
-     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.RecExpressionImpl <em>Rec Expression</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.ecoretools.ale.impl.RecExpressionImpl
-     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRecExpression()
-     * @generated
-     */
-    EClass REC_EXPRESSION = eINSTANCE.getRecExpression();
-
-    /**
      * The meta object literal for the '<em><b>Rec Exp</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REC_EXPRESSION__REC_EXP = eINSTANCE.getRecExpression_RecExp();
+    EReference EXPR__REC_EXP = eINSTANCE.getExpr_RecExp();
 
     /**
      * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.NavigationSegmentImpl <em>Navigation Segment</em>}' class.
@@ -2470,74 +3822,48 @@ public interface AlePackage extends EPackage
     EClass NAVIGATION_SEGMENT = eINSTANCE.getNavigationSegment();
 
     /**
-     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.nonLeftRecExpressionImpl <em>non Left Rec Expression</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.BindingImpl <em>Binding</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.eclipse.ecoretools.ale.impl.nonLeftRecExpressionImpl
-     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getnonLeftRecExpression()
+     * @see org.eclipse.ecoretools.ale.impl.BindingImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getBinding()
      * @generated
      */
-    EClass NON_LEFT_REC_EXPRESSION = eINSTANCE.getnonLeftRecExpression();
+    EClass BINDING = eINSTANCE.getBinding();
 
     /**
-     * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Identifier</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference NON_LEFT_REC_EXPRESSION__CONDITION = eINSTANCE.getnonLeftRecExpression_Condition();
+    EAttribute BINDING__IDENTIFIER = eINSTANCE.getBinding_Identifier();
 
     /**
-     * The meta object literal for the '<em><b>If Block</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference NON_LEFT_REC_EXPRESSION__IF_BLOCK = eINSTANCE.getnonLeftRecExpression_IfBlock();
+    EReference BINDING__TYPE = eINSTANCE.getBinding_Type();
 
     /**
-     * The meta object literal for the '<em><b>Else Block</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference NON_LEFT_REC_EXPRESSION__ELSE_BLOCK = eINSTANCE.getnonLeftRecExpression_ElseBlock();
+    EReference BINDING__EXPRESSION = eINSTANCE.getBinding_Expression();
 
     /**
-     * The meta object literal for the '<em><b>Bindings</b></em>' containment reference list feature.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.ClassExpImpl <em>Class Exp</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.ClassExpImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getClassExp()
      * @generated
      */
-    EReference NON_LEFT_REC_EXPRESSION__BINDINGS = eINSTANCE.getnonLeftRecExpression_Bindings();
-
-    /**
-     * The meta object literal for the '<em><b>Let Expr</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference NON_LEFT_REC_EXPRESSION__LET_EXPR = eINSTANCE.getnonLeftRecExpression_LetExpr();
-
-    /**
-     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.bindingImpl <em>binding</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.ecoretools.ale.impl.bindingImpl
-     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getbinding()
-     * @generated
-     */
-    EClass BINDING = eINSTANCE.getbinding();
-
-    /**
-     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.callExpImpl <em>call Exp</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.ecoretools.ale.impl.callExpImpl
-     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getcallExp()
-     * @generated
-     */
-    EClass CALL_EXP = eINSTANCE.getcallExp();
+    EClass CLASS_EXP = eINSTANCE.getClassExp();
 
     /**
      * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.expressionSequenceImpl <em>expression Sequence</em>}' class.
@@ -2558,14 +3884,52 @@ public interface AlePackage extends EPackage
     EReference EXPRESSION_SEQUENCE__SEQ_EXPRS = eINSTANCE.getexpressionSequence_SeqExprs();
 
     /**
-     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.literalImpl <em>literal</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.variableDefinitionImpl <em>variable Definition</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.eclipse.ecoretools.ale.impl.literalImpl
-     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getliteral()
+     * @see org.eclipse.ecoretools.ale.impl.variableDefinitionImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getvariableDefinition()
      * @generated
      */
-    EClass LITERAL = eINSTANCE.getliteral();
+    EClass VARIABLE_DEFINITION = eINSTANCE.getvariableDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VARIABLE_DEFINITION__EXPRESSION = eINSTANCE.getvariableDefinition_Expression();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.LiteralImpl <em>Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.LiteralImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getLiteral()
+     * @generated
+     */
+    EClass LITERAL = eINSTANCE.getLiteral();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralImpl <em>Type Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.TypeLiteralImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteral()
+     * @generated
+     */
+    EClass TYPE_LITERAL = eINSTANCE.getTypeLiteral();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.RTypeImpl <em>RType</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.RTypeImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getRType()
+     * @generated
+     */
+    EClass RTYPE = eINSTANCE.getRType();
 
     /**
      * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.RValDeclImpl <em>RVal Decl</em>}' class.
@@ -2638,6 +4002,252 @@ public interface AlePackage extends EPackage
      * @generated
      */
     EReference FINAL_CALL_EXP_SEGMENT__CALL = eINSTANCE.getFinalCallExpSegment_Call();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.NotExpressionImpl <em>Not Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.NotExpressionImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getNotExpression()
+     * @generated
+     */
+    EClass NOT_EXPRESSION = eINSTANCE.getNotExpression();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NOT_EXPRESSION__EXPRESSION = eINSTANCE.getNotExpression_Expression();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.NegExpressionImpl <em>Neg Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.NegExpressionImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getNegExpression()
+     * @generated
+     */
+    EClass NEG_EXPRESSION = eINSTANCE.getNegExpression();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NEG_EXPRESSION__EXPRESSION = eINSTANCE.getNegExpression_Expression();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.IdentifierExpresionImpl <em>Identifier Expresion</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.IdentifierExpresionImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getIdentifierExpresion()
+     * @generated
+     */
+    EClass IDENTIFIER_EXPRESION = eINSTANCE.getIdentifierExpresion();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute IDENTIFIER_EXPRESION__VALUE = eINSTANCE.getIdentifierExpresion_Value();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.LiteralExpressioinImpl <em>Literal Expressioin</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.LiteralExpressioinImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getLiteralExpressioin()
+     * @generated
+     */
+    EClass LITERAL_EXPRESSIOIN = eINSTANCE.getLiteralExpressioin();
+
+    /**
+     * The meta object literal for the '<em><b>Lit</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference LITERAL_EXPRESSIOIN__LIT = eINSTANCE.getLiteralExpressioin_Lit();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.ParenthesisExpressionImpl <em>Parenthesis Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.ParenthesisExpressionImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getParenthesisExpression()
+     * @generated
+     */
+    EClass PARENTHESIS_EXPRESSION = eINSTANCE.getParenthesisExpression();
+
+    /**
+     * The meta object literal for the '<em><b>Expression</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PARENTHESIS_EXPRESSION__EXPRESSION = eINSTANCE.getParenthesisExpression_Expression();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.IfExpressionImpl <em>If Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.IfExpressionImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getIfExpression()
+     * @generated
+     */
+    EClass IF_EXPRESSION = eINSTANCE.getIfExpression();
+
+    /**
+     * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference IF_EXPRESSION__CONDITION = eINSTANCE.getIfExpression_Condition();
+
+    /**
+     * The meta object literal for the '<em><b>If Block</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference IF_EXPRESSION__IF_BLOCK = eINSTANCE.getIfExpression_IfBlock();
+
+    /**
+     * The meta object literal for the '<em><b>Else Block</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference IF_EXPRESSION__ELSE_BLOCK = eINSTANCE.getIfExpression_ElseBlock();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.LetExpressionImpl <em>Let Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.LetExpressionImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getLetExpression()
+     * @generated
+     */
+    EClass LET_EXPRESSION = eINSTANCE.getLetExpression();
+
+    /**
+     * The meta object literal for the '<em><b>Bindings</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference LET_EXPRESSION__BINDINGS = eINSTANCE.getLetExpression_Bindings();
+
+    /**
+     * The meta object literal for the '<em><b>Let Expr</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference LET_EXPRESSION__LET_EXPR = eINSTANCE.getLetExpression_LetExpr();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralStringImpl <em>Type Literal String</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.TypeLiteralStringImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralString()
+     * @generated
+     */
+    EClass TYPE_LITERAL_STRING = eINSTANCE.getTypeLiteralString();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralIntegerImpl <em>Type Literal Integer</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.TypeLiteralIntegerImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralInteger()
+     * @generated
+     */
+    EClass TYPE_LITERAL_INTEGER = eINSTANCE.getTypeLiteralInteger();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralRealImpl <em>Type Literal Real</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.TypeLiteralRealImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralReal()
+     * @generated
+     */
+    EClass TYPE_LITERAL_REAL = eINSTANCE.getTypeLiteralReal();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralBooleanImpl <em>Type Literal Boolean</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.TypeLiteralBooleanImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralBoolean()
+     * @generated
+     */
+    EClass TYPE_LITERAL_BOOLEAN = eINSTANCE.getTypeLiteralBoolean();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralSequenceImpl <em>Type Literal Sequence</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.TypeLiteralSequenceImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralSequence()
+     * @generated
+     */
+    EClass TYPE_LITERAL_SEQUENCE = eINSTANCE.getTypeLiteralSequence();
+
+    /**
+     * The meta object literal for the '<em><b>Sub Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TYPE_LITERAL_SEQUENCE__SUB_TYPE = eINSTANCE.getTypeLiteralSequence_SubType();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralOrderedTypeSetImpl <em>Type Literal Ordered Type Set</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.TypeLiteralOrderedTypeSetImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralOrderedTypeSet()
+     * @generated
+     */
+    EClass TYPE_LITERAL_ORDERED_TYPE_SET = eINSTANCE.getTypeLiteralOrderedTypeSet();
+
+    /**
+     * The meta object literal for the '<em><b>Sub Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TYPE_LITERAL_ORDERED_TYPE_SET__SUB_TYPE = eINSTANCE.getTypeLiteralOrderedTypeSet_SubType();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralClassifierImpl <em>Type Literal Classifier</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.TypeLiteralClassifierImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralClassifier()
+     * @generated
+     */
+    EClass TYPE_LITERAL_CLASSIFIER = eINSTANCE.getTypeLiteralClassifier();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.ecoretools.ale.impl.TypeLiteralPipeImpl <em>Type Literal Pipe</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.ecoretools.ale.impl.TypeLiteralPipeImpl
+     * @see org.eclipse.ecoretools.ale.impl.AlePackageImpl#getTypeLiteralPipe()
+     * @generated
+     */
+    EClass TYPE_LITERAL_PIPE = eINSTANCE.getTypeLiteralPipe();
 
   }
 

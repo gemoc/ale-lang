@@ -17,7 +17,7 @@ import org.eclipse.ecoretools.ale.AlePackage
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 
-class AleValidator extends AbstractAleValidator {
+class AleValidator extends AleTypingValidate {
 	
 //	public static val INVALID_NAME = 'invalidName'
 //
@@ -74,40 +74,40 @@ class AleValidator extends AbstractAleValidator {
 	
 	int DUPLICATE_OPERATION_NAME = 2
 	
-	@Check
-	def typecheckFinalIdentSegment(FinalIdentSegment finalIdentSegment) {
-		println('''FinalIdentSegment «finalIdentSegment.ident»''')
-	}
-
-	@Check
-	def typecheckFinalIdentCallSegment(FinalIdentCallSegment finalIdentCallSegment) {
-		println('''FinalIdentCallSegment «finalIdentCallSegment.call»''')
-	}
-
-	@Check
-	def typecheckFinalCallExpSegment(FinalCallExpSegment finalCallExpSegment) {
-		println('''FinalCallExpSegment «finalCallExpSegment.call»''')
-	}
-
-	@Check
-	def noDuplicateClasses(RRoot root) {
-		val duplicateClasses = root.xtendedClasses.groupBy[name].filter[p1, p2|p2.size > 1]
-		if (!duplicateClasses.empty) {
-			duplicateClasses.values.flatten.forEach [
-				error('Duplicated class name', it, AlePackage.Literals.RCLASS__NAME, DUPLICATE_CLASS_NAME)
-			]
-		}
-	}
-
-	@Check
-	def noDuplicateMethodsInClass(RClass openClass) {
-		// Note: We do not allow overloading for now.
-		val duplicateOperations = openClass.operations.groupBy[name].filter[p1, p2|p2.size > 1]
-		if (!duplicateOperations.empty) {
-			duplicateOperations.values.flatten.forEach [
-				error('Duplicate operation name', it, AlePackage.Literals.ROPERATION__NAME, DUPLICATE_OPERATION_NAME)
-			]
-		}
-	}
+//	@Check
+//	def typecheckFinalIdentSegment(FinalIdentSegment finalIdentSegment) {
+//		println('''FinalIdentSegment «finalIdentSegment.ident»''')
+//	}
+//
+//	@Check
+//	def typecheckFinalIdentCallSegment(FinalIdentCallSegment finalIdentCallSegment) {
+//		println('''FinalIdentCallSegment «finalIdentCallSegment.call»''')
+//	}
+//
+//	@Check
+//	def typecheckFinalCallExpSegment(FinalCallExpSegment finalCallExpSegment) {
+//		println('''FinalCallExpSegment «finalCallExpSegment.call»''')
+//	}
+//
+//	@Check
+//	def noDuplicateClasses(RRoot root) {
+//		val duplicateClasses = root.xtendedClasses.groupBy[name].filter[p1, p2|p2.size > 1]
+//		if (!duplicateClasses.empty) {
+//			duplicateClasses.values.flatten.forEach [
+//				error('Duplicated class name', it, AlePackage.Literals.RCLASS__NAME, DUPLICATE_CLASS_NAME)
+//			]
+//		}
+//	}
+//
+//	@Check
+//	def noDuplicateMethodsInClass(RClass openClass) {
+//		// Note: We do not allow overloading for now.
+//		val duplicateOperations = openClass.operations.groupBy[name].filter[p1, p2|p2.size > 1]
+//		if (!duplicateOperations.empty) {
+//			duplicateOperations.values.flatten.forEach [
+//				error('Duplicate operation name', it, AlePackage.Literals.ROPERATION__NAME, DUPLICATE_OPERATION_NAME)
+//			]
+//		}
+//	}
 
 }

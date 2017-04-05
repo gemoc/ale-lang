@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class NavigationSegmentImpl extends RecExpressionImpl implements NavigationSegment
+public class NavigationSegmentImpl extends ExprImpl implements NavigationSegment
 {
   /**
    * <!-- begin-user-doc -->

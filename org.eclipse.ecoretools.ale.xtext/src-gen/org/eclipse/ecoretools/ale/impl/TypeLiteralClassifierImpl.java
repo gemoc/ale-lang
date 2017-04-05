@@ -4,27 +4,25 @@
 package org.eclipse.ecoretools.ale.impl;
 
 import org.eclipse.ecoretools.ale.AlePackage;
-import org.eclipse.ecoretools.ale.callExp;
+import org.eclipse.ecoretools.ale.TypeLiteralClassifier;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>call Exp</b></em>'.
+ * An implementation of the model object '<em><b>Type Literal Classifier</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class callExpImpl extends MinimalEObjectImpl.Container implements callExp
+public class TypeLiteralClassifierImpl extends TypeLiteralImpl implements TypeLiteralClassifier
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected callExpImpl()
+  protected TypeLiteralClassifierImpl()
   {
     super();
   }
@@ -37,7 +35,7 @@ public class callExpImpl extends MinimalEObjectImpl.Container implements callExp
   @Override
   protected EClass eStaticClass()
   {
-    return AlePackage.Literals.CALL_EXP;
+    return AlePackage.Literals.TYPE_LITERAL_CLASSIFIER;
   }
 
-} //callExpImpl
+} //TypeLiteralClassifierImpl

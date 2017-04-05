@@ -186,15 +186,6 @@ public interface AleFactory extends EFactory
   Expr createExpr();
 
   /**
-   * Returns a new object of class '<em>Rec Expression</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Rec Expression</em>'.
-   * @generated
-   */
-  RecExpression createRecExpression();
-
-  /**
    * Returns a new object of class '<em>Navigation Segment</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -204,31 +195,22 @@ public interface AleFactory extends EFactory
   NavigationSegment createNavigationSegment();
 
   /**
-   * Returns a new object of class '<em>non Left Rec Expression</em>'.
+   * Returns a new object of class '<em>Binding</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>non Left Rec Expression</em>'.
+   * @return a new object of class '<em>Binding</em>'.
    * @generated
    */
-  nonLeftRecExpression createnonLeftRecExpression();
+  Binding createBinding();
 
   /**
-   * Returns a new object of class '<em>binding</em>'.
+   * Returns a new object of class '<em>Class Exp</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>binding</em>'.
+   * @return a new object of class '<em>Class Exp</em>'.
    * @generated
    */
-  binding createbinding();
-
-  /**
-   * Returns a new object of class '<em>call Exp</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>call Exp</em>'.
-   * @generated
-   */
-  callExp createcallExp();
+  ClassExp createClassExp();
 
   /**
    * Returns a new object of class '<em>expression Sequence</em>'.
@@ -240,13 +222,40 @@ public interface AleFactory extends EFactory
   expressionSequence createexpressionSequence();
 
   /**
-   * Returns a new object of class '<em>literal</em>'.
+   * Returns a new object of class '<em>variable Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>literal</em>'.
+   * @return a new object of class '<em>variable Definition</em>'.
    * @generated
    */
-  literal createliteral();
+  variableDefinition createvariableDefinition();
+
+  /**
+   * Returns a new object of class '<em>Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Literal</em>'.
+   * @generated
+   */
+  Literal createLiteral();
+
+  /**
+   * Returns a new object of class '<em>Type Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Literal</em>'.
+   * @generated
+   */
+  TypeLiteral createTypeLiteral();
+
+  /**
+   * Returns a new object of class '<em>RType</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>RType</em>'.
+   * @generated
+   */
+  RType createRType();
 
   /**
    * Returns a new object of class '<em>RVal Decl</em>'.
@@ -283,6 +292,141 @@ public interface AleFactory extends EFactory
    * @generated
    */
   FinalCallExpSegment createFinalCallExpSegment();
+
+  /**
+   * Returns a new object of class '<em>Not Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Not Expression</em>'.
+   * @generated
+   */
+  NotExpression createNotExpression();
+
+  /**
+   * Returns a new object of class '<em>Neg Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Neg Expression</em>'.
+   * @generated
+   */
+  NegExpression createNegExpression();
+
+  /**
+   * Returns a new object of class '<em>Identifier Expresion</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Identifier Expresion</em>'.
+   * @generated
+   */
+  IdentifierExpresion createIdentifierExpresion();
+
+  /**
+   * Returns a new object of class '<em>Literal Expressioin</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Literal Expressioin</em>'.
+   * @generated
+   */
+  LiteralExpressioin createLiteralExpressioin();
+
+  /**
+   * Returns a new object of class '<em>Parenthesis Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Parenthesis Expression</em>'.
+   * @generated
+   */
+  ParenthesisExpression createParenthesisExpression();
+
+  /**
+   * Returns a new object of class '<em>If Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>If Expression</em>'.
+   * @generated
+   */
+  IfExpression createIfExpression();
+
+  /**
+   * Returns a new object of class '<em>Let Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Let Expression</em>'.
+   * @generated
+   */
+  LetExpression createLetExpression();
+
+  /**
+   * Returns a new object of class '<em>Type Literal String</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Literal String</em>'.
+   * @generated
+   */
+  TypeLiteralString createTypeLiteralString();
+
+  /**
+   * Returns a new object of class '<em>Type Literal Integer</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Literal Integer</em>'.
+   * @generated
+   */
+  TypeLiteralInteger createTypeLiteralInteger();
+
+  /**
+   * Returns a new object of class '<em>Type Literal Real</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Literal Real</em>'.
+   * @generated
+   */
+  TypeLiteralReal createTypeLiteralReal();
+
+  /**
+   * Returns a new object of class '<em>Type Literal Boolean</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Literal Boolean</em>'.
+   * @generated
+   */
+  TypeLiteralBoolean createTypeLiteralBoolean();
+
+  /**
+   * Returns a new object of class '<em>Type Literal Sequence</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Literal Sequence</em>'.
+   * @generated
+   */
+  TypeLiteralSequence createTypeLiteralSequence();
+
+  /**
+   * Returns a new object of class '<em>Type Literal Ordered Type Set</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Literal Ordered Type Set</em>'.
+   * @generated
+   */
+  TypeLiteralOrderedTypeSet createTypeLiteralOrderedTypeSet();
+
+  /**
+   * Returns a new object of class '<em>Type Literal Classifier</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Literal Classifier</em>'.
+   * @generated
+   */
+  TypeLiteralClassifier createTypeLiteralClassifier();
+
+  /**
+   * Returns a new object of class '<em>Type Literal Pipe</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type Literal Pipe</em>'.
+   * @generated
+   */
+  TypeLiteralPipe createTypeLiteralPipe();
 
   /**
    * Returns the package supported by this factory.

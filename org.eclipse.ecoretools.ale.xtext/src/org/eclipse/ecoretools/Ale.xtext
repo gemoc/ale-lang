@@ -10,10 +10,10 @@ generate ale "http://www.eclipse.org/ecoretools/Ale"
 rRoot returns RRoot: 'behavior' rQualified ';' rImport* rService* xtendedClasses+=rClass*
 ;
 
-rImport : 'import' rQualified 'as' Ident ';'
+rImport : 'import' rQualified 'as' IDENT ';'
 ;
 
-rService : 'use' Ident ('.' Ident)* ';'
+rService : 'use' IDENT ('.' IDENT)* ';'
 ;
 
 rClass returns RClass: 
@@ -27,19 +27,19 @@ rOpenClass returns ROpenClass: 'open' 'class' name=rQualified ('extends' rQualif
 rNewClass returns RNewClass: 'class' name=rQualified '{' attributes+=rAttribute* operations+=rOperation* '}'
 ;
 
-rOperation : rTag* ('def' | 'override') type=rType name=Ident '(' paramList+=rParameters? ')' body=rBlock
+rOperation : rTag* ('def' | 'override') type=rType name=IDENT '(' paramList+=rParameters? ')' body=rBlock
 ;
 
-rTag : '@'Ident
+rTag : '@'IDENT
 ;
 
 rParameters : params+=rVariable (',' params+=rVariable)*
 ;
 
-rVariable : type=rType name=Ident
+rVariable : type=rType name=IDENT
 ;
 
-rAttribute : type=rType name=Ident (':=' expr=expression)? ';'
+rAttribute : type=rType name=IDENT (':=' expr=expression)? ';'
 ;
 
 rStatement returns RStatement : 
@@ -51,13 +51,13 @@ rStatement returns RStatement :
 	{RExpression} expr=rExpression
 ;
 
-rVarDecl : rType Ident (':=' expression)? ';'
+rVarDecl : type=rType ident=IDENT (':=' expression=expression)? ';'
 ;
 
 rAssign returns RAssign: left=expression ':=' right=expression ';'
 ;
 
-rForEach returns RForEach: 'for' '(' Ident  'in' rCollection ')' block=rBlock
+rForEach returns RForEach: 'for' '(' IDENT  'in' rCollection ')' block=rBlock
 ;
 
 rCollection : '[' INT '..' INT ']' | expression
@@ -83,33 +83,33 @@ expression returns Expr:
 	leftPart=nonLeftRecExpression recpart=recExpression?
 ;
 
-recExpression returns RecExpression:
-	(navigationSegment | MultOp expression | addOp expression | compOp expression | 'and' expression | 'or' expression | 'xor' expression | 'implies' expression) recExp=recExpression?
+recExpression returns Expr:
+	(navigationSegment | MULT_OP expression | ADD_OP expression | COMP_OP expression | 'and' expression | 'or' expression | 'xor' expression | 'implies' expression) recExp=recExpression?
 ;
 
 navigationSegment returns NavigationSegment:     
-	{FinalIdentSegment} '.'ident=Ident | 
+	{FinalIdentSegment} '.'ident=IDENT | 
   	{FinalIdentCallSegment} '.' call=callExp | 
   	{FinalCallExpSegment} '->' call=callExp
 ;    
 
-nonLeftRecExpression :
-              'not' expression
-		     | '-' expression
-		     | Ident
-		     | literal
-		     | '(' expression ')'
-		     | 'if' condition=expression 'then' ifBlock=expression 'else' elseBlock=expression 'endif'
-		     | 'let' bindings+=binding (',' bindings+=binding)* 'in' letExpr=expression
+nonLeftRecExpression returns Expr:
+              {NotExpression} 'not' expression=expression
+		     | {NegExpression} '-' expression=expression
+		     | {IdentifierExpresion} value=IDENT
+		     | {LiteralExpressioin} lit=literal
+		     | {ParenthesisExpression}'(' expression=expression ')'
+		     | {IfExpression} 'if' condition=expression 'then' ifBlock=expression 'else' elseBlock=expression 'endif'
+		     | {LetExpression} 'let' bindings+=binding (',' bindings+=binding)* 'in' letExpr=expression
 ;
 
-binding : Ident (':' typeLiteral)? '=' expression
+binding returns Binding: identifier=IDENT (':' type=typeLiteral)? '=' expression=expression
 ;
 
-addOp: '+' | '-'
+terminal ADD_OP: '+' | '-'
 ;
 
-compOp :     '<='
+terminal COMP_OP :     '<='
 	    	|'>='
 	  		|'!='
 	  		|'<>'
@@ -120,8 +120,8 @@ compOp :     '<='
 ;
 
 
-callExp :     collectionIterator '(' variableDefinition expression ')'
-			| Ident'(' expressionSequence ')'
+callExp returns ClassExp:     collectionIterator '(' variableDefinition expression=expression ')'
+			| IDENT'(' expressionSequence ')'
 ;
 
 collectionIterator : 'select' | 'reject' | 'collect' | 'any' | 'exists' | 'forAll' | 'isUnique' | 'one' | 'sortedBy' | 'closure'
@@ -130,50 +130,51 @@ collectionIterator : 'select' | 'reject' | 'collect' | 'any' | 'exists' | 'forAl
 expressionSequence : (seqExprs+=expression (',' seqExprs+=expression)*)?
 ;
 
-variableDefinition : Ident (':' typeLiteral)? '|'
+variableDefinition : IDENT (':' typeLiteral)? '|'
 ;
 
-literal :    STRING
+literal returns Literal :    STRING
 		   | INT
-		   | Real
+		   | REAL
 		   |'true'
 		   |'false'
 		   |'null'
 		   |'Sequence{' expressionSequence '}'
 		   |'OrderedSet{' expressionSequence '}'
-		   | Ident '::' Ident '::' Ident
-		   | Ident '::' Ident ':'
+		   | IDENT '::' IDENT '::' IDENT
+		   | IDENT '::' IDENT ':'
 		   | typeLiteral
 ;
 
-typeLiteral :   'String'
-		      | 'Integer'
-		      | 'Real'
-		      | 'Boolean'
-		      | 'Sequence(' typeLiteral')'
-		      | 'OrderedSet(' typeLiteral')'
-		      | classifierTypeRule
-		      | '{' classifierTypeRule ('|' classifierTypeRule)* '}'
+typeLiteral returns TypeLiteral : 
+	{TypeLiteralString}   'String' |
+	{TypeLiteralInteger} 'Integer' |
+	{TypeLiteralReal} 'Real' | 
+	{TypeLiteralBoolean} 'Boolean' |
+	{TypeLiteralSequence} 'Sequence(' subType=typeLiteral')' | 
+	{TypeLiteralOrderedTypeSet} 'OrderedSet(' subType=typeLiteral')' | 
+	{TypeLiteralClassifier} classifierTypeRule | 
+	{TypeLiteralPipe} '{' classifierTypeRule ('|' classifierTypeRule)* '}'
 ;
 
-classifierTypeRule :   Ident '::' Ident
-				     | Ident ':' 
+classifierTypeRule :   IDENT '::' IDENT
+				     | IDENT ':' 
 ;
 
-rType: rQualified | typeLiteral
+rType returns RType: rQualified | typeLiteral
 ;
 
-rQualified : Ident ('.'Ident)*
+rQualified : IDENT ('.'IDENT)*
 ;
 
-terminal MultOp : '*' | '/'
+terminal MULT_OP : '*' | '/'
 ;
 
-terminal Real : ('0'..'9')+'.'('0'..'9')+
+terminal REAL : ('0'..'9')+'.'('0'..'9')+
 ;
 
-terminal Ident : (Letter | '_') (Letter | '0'..'9' | '_')*
+terminal IDENT : (LETTER | '_') (LETTER | '0'..'9' | '_')*
 ;
 
-terminal Letter : ('a'..'z'|'A'..'Z')
+terminal LETTER : ('a'..'z'|'A'..'Z')
 ;

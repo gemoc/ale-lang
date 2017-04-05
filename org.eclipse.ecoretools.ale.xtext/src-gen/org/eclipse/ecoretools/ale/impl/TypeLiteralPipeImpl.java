@@ -4,25 +4,25 @@
 package org.eclipse.ecoretools.ale.impl;
 
 import org.eclipse.ecoretools.ale.AlePackage;
-import org.eclipse.ecoretools.ale.literal;
+import org.eclipse.ecoretools.ale.TypeLiteralPipe;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>literal</b></em>'.
+ * An implementation of the model object '<em><b>Type Literal Pipe</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class literalImpl extends nonLeftRecExpressionImpl implements literal
+public class TypeLiteralPipeImpl extends TypeLiteralImpl implements TypeLiteralPipe
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected literalImpl()
+  protected TypeLiteralPipeImpl()
   {
     super();
   }
@@ -35,7 +35,7 @@ public class literalImpl extends nonLeftRecExpressionImpl implements literal
   @Override
   protected EClass eStaticClass()
   {
-    return AlePackage.Literals.LITERAL;
+    return AlePackage.Literals.TYPE_LITERAL_PIPE;
   }
 
-} //literalImpl
+} //TypeLiteralPipeImpl

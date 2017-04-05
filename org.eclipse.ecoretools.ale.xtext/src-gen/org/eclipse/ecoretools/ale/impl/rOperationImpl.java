@@ -6,6 +6,7 @@ package org.eclipse.ecoretools.ale.impl;
 import java.util.Collection;
 
 import org.eclipse.ecoretools.ale.AlePackage;
+import org.eclipse.ecoretools.ale.RType;
 import org.eclipse.ecoretools.ale.rBlock;
 import org.eclipse.ecoretools.ale.rOperation;
 import org.eclipse.ecoretools.ale.rParameters;
@@ -43,24 +44,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class rOperationImpl extends MinimalEObjectImpl.Container implements rOperation
 {
   /**
-   * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+   * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getType()
    * @generated
    * @ordered
    */
-  protected static final String TYPE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getType()
-   * @generated
-   * @ordered
-   */
-  protected String type = TYPE_EDEFAULT;
+  protected RType type;
 
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -128,7 +119,7 @@ public class rOperationImpl extends MinimalEObjectImpl.Container implements rOpe
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getType()
+  public RType getType()
   {
     return type;
   }
@@ -138,12 +129,37 @@ public class rOperationImpl extends MinimalEObjectImpl.Container implements rOpe
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setType(String newType)
+  public NotificationChain basicSetType(RType newType, NotificationChain msgs)
   {
-    String oldType = type;
+    RType oldType = type;
     type = newType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.ROPERATION__TYPE, oldType, type));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlePackage.ROPERATION__TYPE, oldType, newType);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setType(RType newType)
+  {
+    if (newType != type)
+    {
+      NotificationChain msgs = null;
+      if (type != null)
+        msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlePackage.ROPERATION__TYPE, null, msgs);
+      if (newType != null)
+        msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlePackage.ROPERATION__TYPE, null, msgs);
+      msgs = basicSetType(newType, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.ROPERATION__TYPE, newType, newType));
   }
 
   /**
@@ -241,6 +257,8 @@ public class rOperationImpl extends MinimalEObjectImpl.Container implements rOpe
   {
     switch (featureID)
     {
+      case AlePackage.ROPERATION__TYPE:
+        return basicSetType(null, msgs);
       case AlePackage.ROPERATION__PARAM_LIST:
         return ((InternalEList<?>)getParamList()).basicRemove(otherEnd, msgs);
       case AlePackage.ROPERATION__BODY:
@@ -283,7 +301,7 @@ public class rOperationImpl extends MinimalEObjectImpl.Container implements rOpe
     switch (featureID)
     {
       case AlePackage.ROPERATION__TYPE:
-        setType((String)newValue);
+        setType((RType)newValue);
         return;
       case AlePackage.ROPERATION__NAME:
         setName((String)newValue);
@@ -310,7 +328,7 @@ public class rOperationImpl extends MinimalEObjectImpl.Container implements rOpe
     switch (featureID)
     {
       case AlePackage.ROPERATION__TYPE:
-        setType(TYPE_EDEFAULT);
+        setType((RType)null);
         return;
       case AlePackage.ROPERATION__NAME:
         setName(NAME_EDEFAULT);
@@ -336,7 +354,7 @@ public class rOperationImpl extends MinimalEObjectImpl.Container implements rOpe
     switch (featureID)
     {
       case AlePackage.ROPERATION__TYPE:
-        return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+        return type != null;
       case AlePackage.ROPERATION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AlePackage.ROPERATION__PARAM_LIST:
@@ -358,9 +376,7 @@ public class rOperationImpl extends MinimalEObjectImpl.Container implements rOpe
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (type: ");
-    result.append(type);
-    result.append(", name: ");
+    result.append(" (name: ");
     result.append(name);
     result.append(')');
     return result.toString();

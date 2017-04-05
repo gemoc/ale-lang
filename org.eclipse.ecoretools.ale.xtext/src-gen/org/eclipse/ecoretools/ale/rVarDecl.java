@@ -10,6 +10,14 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>rVar Decl</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.ecoretools.ale.rVarDecl#getType <em>Type</em>}</li>
+ *   <li>{@link org.eclipse.ecoretools.ale.rVarDecl#getIdent <em>Ident</em>}</li>
+ *   <li>{@link org.eclipse.ecoretools.ale.rVarDecl#getExpression <em>Expression</em>}</li>
+ * </ul>
  *
  * @see org.eclipse.ecoretools.ale.AlePackage#getrVarDecl()
  * @model
@@ -17,4 +25,82 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface rVarDecl extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Type</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Type</em>' containment reference.
+   * @see #setType(RType)
+   * @see org.eclipse.ecoretools.ale.AlePackage#getrVarDecl_Type()
+   * @model containment="true"
+   * @generated
+   */
+  RType getType();
+
+  /**
+   * Sets the value of the '{@link org.eclipse.ecoretools.ale.rVarDecl#getType <em>Type</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Type</em>' containment reference.
+   * @see #getType()
+   * @generated
+   */
+  void setType(RType value);
+
+  /**
+   * Returns the value of the '<em><b>Ident</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Ident</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Ident</em>' attribute.
+   * @see #setIdent(String)
+   * @see org.eclipse.ecoretools.ale.AlePackage#getrVarDecl_Ident()
+   * @model
+   * @generated
+   */
+  String getIdent();
+
+  /**
+   * Sets the value of the '{@link org.eclipse.ecoretools.ale.rVarDecl#getIdent <em>Ident</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Ident</em>' attribute.
+   * @see #getIdent()
+   * @generated
+   */
+  void setIdent(String value);
+
+  /**
+   * Returns the value of the '<em><b>Expression</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Expression</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Expression</em>' containment reference.
+   * @see #setExpression(Expr)
+   * @see org.eclipse.ecoretools.ale.AlePackage#getrVarDecl_Expression()
+   * @model containment="true"
+   * @generated
+   */
+  Expr getExpression();
+
+  /**
+   * Sets the value of the '{@link org.eclipse.ecoretools.ale.rVarDecl#getExpression <em>Expression</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Expression</em>' containment reference.
+   * @see #getExpression()
+   * @generated
+   */
+  void setExpression(Expr value);
+
 } // rVarDecl

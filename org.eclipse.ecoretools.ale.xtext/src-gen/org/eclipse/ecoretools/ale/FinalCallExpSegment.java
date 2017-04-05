@@ -31,12 +31,12 @@ public interface FinalCallExpSegment extends NavigationSegment
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Call</em>' containment reference.
-   * @see #setCall(callExp)
+   * @see #setCall(ClassExp)
    * @see org.eclipse.ecoretools.ale.AlePackage#getFinalCallExpSegment_Call()
    * @model containment="true"
    * @generated
    */
-  callExp getCall();
+  ClassExp getCall();
 
   /**
    * Sets the value of the '{@link org.eclipse.ecoretools.ale.FinalCallExpSegment#getCall <em>Call</em>}' containment reference.
@@ -46,6 +46,6 @@ public interface FinalCallExpSegment extends NavigationSegment
    * @see #getCall()
    * @generated
    */
-  void setCall(callExp value);
+  void setCall(ClassExp value);
 
 } // FinalCallExpSegment

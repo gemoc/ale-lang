@@ -5,6 +5,7 @@ package org.eclipse.ecoretools.ale.impl;
 
 import org.eclipse.ecoretools.ale.AlePackage;
 import org.eclipse.ecoretools.ale.Expr;
+import org.eclipse.ecoretools.ale.RType;
 import org.eclipse.ecoretools.ale.rAttribute;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -34,24 +35,14 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAttribute
 {
   /**
-   * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+   * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getType()
    * @generated
    * @ordered
    */
-  protected static final String TYPE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getType()
-   * @generated
-   * @ordered
-   */
-  protected String type = TYPE_EDEFAULT;
+  protected RType type;
 
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -109,7 +100,7 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getType()
+  public RType getType()
   {
     return type;
   }
@@ -119,12 +110,37 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setType(String newType)
+  public NotificationChain basicSetType(RType newType, NotificationChain msgs)
   {
-    String oldType = type;
+    RType oldType = type;
     type = newType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.RATTRIBUTE__TYPE, oldType, type));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlePackage.RATTRIBUTE__TYPE, oldType, newType);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setType(RType newType)
+  {
+    if (newType != type)
+    {
+      NotificationChain msgs = null;
+      if (type != null)
+        msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlePackage.RATTRIBUTE__TYPE, null, msgs);
+      if (newType != null)
+        msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlePackage.RATTRIBUTE__TYPE, null, msgs);
+      msgs = basicSetType(newType, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.RATTRIBUTE__TYPE, newType, newType));
   }
 
   /**
@@ -208,6 +224,8 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
   {
     switch (featureID)
     {
+      case AlePackage.RATTRIBUTE__TYPE:
+        return basicSetType(null, msgs);
       case AlePackage.RATTRIBUTE__EXPR:
         return basicSetExpr(null, msgs);
     }
@@ -245,7 +263,7 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
     switch (featureID)
     {
       case AlePackage.RATTRIBUTE__TYPE:
-        setType((String)newValue);
+        setType((RType)newValue);
         return;
       case AlePackage.RATTRIBUTE__NAME:
         setName((String)newValue);
@@ -268,7 +286,7 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
     switch (featureID)
     {
       case AlePackage.RATTRIBUTE__TYPE:
-        setType(TYPE_EDEFAULT);
+        setType((RType)null);
         return;
       case AlePackage.RATTRIBUTE__NAME:
         setName(NAME_EDEFAULT);
@@ -291,7 +309,7 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
     switch (featureID)
     {
       case AlePackage.RATTRIBUTE__TYPE:
-        return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+        return type != null;
       case AlePackage.RATTRIBUTE__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AlePackage.RATTRIBUTE__EXPR:
@@ -311,9 +329,7 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (type: ");
-    result.append(type);
-    result.append(", name: ");
+    result.append(" (name: ");
     result.append(name);
     result.append(')');
     return result.toString();

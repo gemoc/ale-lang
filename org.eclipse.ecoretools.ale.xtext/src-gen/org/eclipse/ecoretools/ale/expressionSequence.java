@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface expressionSequence extends callExp, literal
+public interface expressionSequence extends ClassExp, Literal
 {
   /**
    * Returns the value of the '<em><b>Seq Exprs</b></em>' containment reference list.

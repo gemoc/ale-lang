@@ -1,0 +1,25 @@
+import org.eclipse.ecoretools.ale.Literal
+import org.eclipse.ecoretools.ale.RRoot
+import org.eclipse.ecoretools.ale.RType
+import org.eclipse.ecoretools.ale.TypeLiteralString
+
+system org.eclipse.ecoretools.ale.typing.AleTypingValidate
+
+judgments {
+//	type |- RClass rClass: output RType
+//		error "cannot type " + rClass
+//		source rClass
+	exprType |- Literal expression: output RType
+		error "cannot type " + expression
+		source expression
+}
+
+axiom literal
+	G |- TypeLiteralString literal: literal
+
+checkrule CheckClassNameDuplicate for
+	RRoot rRoot
+from {
+	println(rRoot.xtendedClasses.map[name].join(System.lineSeparator))
+	true
+}

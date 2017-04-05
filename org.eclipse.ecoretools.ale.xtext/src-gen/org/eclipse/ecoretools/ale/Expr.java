@@ -15,13 +15,14 @@ package org.eclipse.ecoretools.ale;
  * <ul>
  *   <li>{@link org.eclipse.ecoretools.ale.Expr#getLeftPart <em>Left Part</em>}</li>
  *   <li>{@link org.eclipse.ecoretools.ale.Expr#getRecpart <em>Recpart</em>}</li>
+ *   <li>{@link org.eclipse.ecoretools.ale.Expr#getRecExp <em>Rec Exp</em>}</li>
  * </ul>
  *
  * @see org.eclipse.ecoretools.ale.AlePackage#getExpr()
  * @model
  * @generated
  */
-public interface Expr extends rVarDecl, rCollection, RWhile, RExpression, RecExpression, nonLeftRecExpression, binding, callExp
+public interface Expr extends rCollection, RWhile, RExpression
 {
   /**
    * Returns the value of the '<em><b>Left Part</b></em>' containment reference.
@@ -32,12 +33,12 @@ public interface Expr extends rVarDecl, rCollection, RWhile, RExpression, RecExp
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Left Part</em>' containment reference.
-   * @see #setLeftPart(nonLeftRecExpression)
+   * @see #setLeftPart(Expr)
    * @see org.eclipse.ecoretools.ale.AlePackage#getExpr_LeftPart()
    * @model containment="true"
    * @generated
    */
-  nonLeftRecExpression getLeftPart();
+  Expr getLeftPart();
 
   /**
    * Sets the value of the '{@link org.eclipse.ecoretools.ale.Expr#getLeftPart <em>Left Part</em>}' containment reference.
@@ -47,7 +48,7 @@ public interface Expr extends rVarDecl, rCollection, RWhile, RExpression, RecExp
    * @see #getLeftPart()
    * @generated
    */
-  void setLeftPart(nonLeftRecExpression value);
+  void setLeftPart(Expr value);
 
   /**
    * Returns the value of the '<em><b>Recpart</b></em>' containment reference.
@@ -58,12 +59,12 @@ public interface Expr extends rVarDecl, rCollection, RWhile, RExpression, RecExp
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Recpart</em>' containment reference.
-   * @see #setRecpart(RecExpression)
+   * @see #setRecpart(Expr)
    * @see org.eclipse.ecoretools.ale.AlePackage#getExpr_Recpart()
    * @model containment="true"
    * @generated
    */
-  RecExpression getRecpart();
+  Expr getRecpart();
 
   /**
    * Sets the value of the '{@link org.eclipse.ecoretools.ale.Expr#getRecpart <em>Recpart</em>}' containment reference.
@@ -73,6 +74,32 @@ public interface Expr extends rVarDecl, rCollection, RWhile, RExpression, RecExp
    * @see #getRecpart()
    * @generated
    */
-  void setRecpart(RecExpression value);
+  void setRecpart(Expr value);
+
+  /**
+   * Returns the value of the '<em><b>Rec Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Rec Exp</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Rec Exp</em>' containment reference.
+   * @see #setRecExp(Expr)
+   * @see org.eclipse.ecoretools.ale.AlePackage#getExpr_RecExp()
+   * @model containment="true"
+   * @generated
+   */
+  Expr getRecExp();
+
+  /**
+   * Sets the value of the '{@link org.eclipse.ecoretools.ale.Expr#getRecExp <em>Rec Exp</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Rec Exp</em>' containment reference.
+   * @see #getRecExp()
+   * @generated
+   */
+  void setRecExp(Expr value);
 
 } // Expr

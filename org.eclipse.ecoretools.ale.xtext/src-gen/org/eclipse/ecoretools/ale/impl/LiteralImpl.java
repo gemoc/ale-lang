@@ -4,7 +4,7 @@
 package org.eclipse.ecoretools.ale.impl;
 
 import org.eclipse.ecoretools.ale.AlePackage;
-import org.eclipse.ecoretools.ale.binding;
+import org.eclipse.ecoretools.ale.Literal;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -12,19 +12,19 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>binding</b></em>'.
+ * An implementation of the model object '<em><b>Literal</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class bindingImpl extends MinimalEObjectImpl.Container implements binding
+public class LiteralImpl extends MinimalEObjectImpl.Container implements Literal
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected bindingImpl()
+  protected LiteralImpl()
   {
     super();
   }
@@ -37,7 +37,7 @@ public class bindingImpl extends MinimalEObjectImpl.Container implements binding
   @Override
   protected EClass eStaticClass()
   {
-    return AlePackage.Literals.BINDING;
+    return AlePackage.Literals.LITERAL;
   }
 
-} //bindingImpl
+} //LiteralImpl

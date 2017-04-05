@@ -7,14 +7,14 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>call Exp</b></em>'.
+ * A representation of the model object '<em><b>Class Exp</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.eclipse.ecoretools.ale.AlePackage#getcallExp()
+ * @see org.eclipse.ecoretools.ale.AlePackage#getClassExp()
  * @model
  * @generated
  */
-public interface callExp extends EObject
+public interface ClassExp extends EObject
 {
-} // callExp
+} // ClassExp

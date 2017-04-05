@@ -166,29 +166,19 @@ public class AleAdapterFactory extends AdapterFactoryImpl
         return createExprAdapter();
       }
       @Override
-      public Adapter caseRecExpression(RecExpression object)
-      {
-        return createRecExpressionAdapter();
-      }
-      @Override
       public Adapter caseNavigationSegment(NavigationSegment object)
       {
         return createNavigationSegmentAdapter();
       }
       @Override
-      public Adapter casenonLeftRecExpression(nonLeftRecExpression object)
+      public Adapter caseBinding(Binding object)
       {
-        return createnonLeftRecExpressionAdapter();
+        return createBindingAdapter();
       }
       @Override
-      public Adapter casebinding(binding object)
+      public Adapter caseClassExp(ClassExp object)
       {
-        return createbindingAdapter();
-      }
-      @Override
-      public Adapter casecallExp(callExp object)
-      {
-        return createcallExpAdapter();
+        return createClassExpAdapter();
       }
       @Override
       public Adapter caseexpressionSequence(expressionSequence object)
@@ -196,9 +186,24 @@ public class AleAdapterFactory extends AdapterFactoryImpl
         return createexpressionSequenceAdapter();
       }
       @Override
-      public Adapter caseliteral(literal object)
+      public Adapter casevariableDefinition(variableDefinition object)
       {
-        return createliteralAdapter();
+        return createvariableDefinitionAdapter();
+      }
+      @Override
+      public Adapter caseLiteral(Literal object)
+      {
+        return createLiteralAdapter();
+      }
+      @Override
+      public Adapter caseTypeLiteral(TypeLiteral object)
+      {
+        return createTypeLiteralAdapter();
+      }
+      @Override
+      public Adapter caseRType(RType object)
+      {
+        return createRTypeAdapter();
       }
       @Override
       public Adapter caseRValDecl(RValDecl object)
@@ -219,6 +224,81 @@ public class AleAdapterFactory extends AdapterFactoryImpl
       public Adapter caseFinalCallExpSegment(FinalCallExpSegment object)
       {
         return createFinalCallExpSegmentAdapter();
+      }
+      @Override
+      public Adapter caseNotExpression(NotExpression object)
+      {
+        return createNotExpressionAdapter();
+      }
+      @Override
+      public Adapter caseNegExpression(NegExpression object)
+      {
+        return createNegExpressionAdapter();
+      }
+      @Override
+      public Adapter caseIdentifierExpresion(IdentifierExpresion object)
+      {
+        return createIdentifierExpresionAdapter();
+      }
+      @Override
+      public Adapter caseLiteralExpressioin(LiteralExpressioin object)
+      {
+        return createLiteralExpressioinAdapter();
+      }
+      @Override
+      public Adapter caseParenthesisExpression(ParenthesisExpression object)
+      {
+        return createParenthesisExpressionAdapter();
+      }
+      @Override
+      public Adapter caseIfExpression(IfExpression object)
+      {
+        return createIfExpressionAdapter();
+      }
+      @Override
+      public Adapter caseLetExpression(LetExpression object)
+      {
+        return createLetExpressionAdapter();
+      }
+      @Override
+      public Adapter caseTypeLiteralString(TypeLiteralString object)
+      {
+        return createTypeLiteralStringAdapter();
+      }
+      @Override
+      public Adapter caseTypeLiteralInteger(TypeLiteralInteger object)
+      {
+        return createTypeLiteralIntegerAdapter();
+      }
+      @Override
+      public Adapter caseTypeLiteralReal(TypeLiteralReal object)
+      {
+        return createTypeLiteralRealAdapter();
+      }
+      @Override
+      public Adapter caseTypeLiteralBoolean(TypeLiteralBoolean object)
+      {
+        return createTypeLiteralBooleanAdapter();
+      }
+      @Override
+      public Adapter caseTypeLiteralSequence(TypeLiteralSequence object)
+      {
+        return createTypeLiteralSequenceAdapter();
+      }
+      @Override
+      public Adapter caseTypeLiteralOrderedTypeSet(TypeLiteralOrderedTypeSet object)
+      {
+        return createTypeLiteralOrderedTypeSetAdapter();
+      }
+      @Override
+      public Adapter caseTypeLiteralClassifier(TypeLiteralClassifier object)
+      {
+        return createTypeLiteralClassifierAdapter();
+      }
+      @Override
+      public Adapter caseTypeLiteralPipe(TypeLiteralPipe object)
+      {
+        return createTypeLiteralPipeAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -513,21 +593,6 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.RecExpression <em>Rec Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.eclipse.ecoretools.ale.RecExpression
-   * @generated
-   */
-  public Adapter createRecExpressionAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.NavigationSegment <em>Navigation Segment</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -543,46 +608,31 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.nonLeftRecExpression <em>non Left Rec Expression</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.Binding <em>Binding</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.ecoretools.ale.nonLeftRecExpression
+   * @see org.eclipse.ecoretools.ale.Binding
    * @generated
    */
-  public Adapter createnonLeftRecExpressionAdapter()
+  public Adapter createBindingAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.binding <em>binding</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.ClassExp <em>Class Exp</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.ecoretools.ale.binding
+   * @see org.eclipse.ecoretools.ale.ClassExp
    * @generated
    */
-  public Adapter createbindingAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.callExp <em>call Exp</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.eclipse.ecoretools.ale.callExp
-   * @generated
-   */
-  public Adapter createcallExpAdapter()
+  public Adapter createClassExpAdapter()
   {
     return null;
   }
@@ -603,16 +653,61 @@ public class AleAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.literal <em>literal</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.variableDefinition <em>variable Definition</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.ecoretools.ale.literal
+   * @see org.eclipse.ecoretools.ale.variableDefinition
    * @generated
    */
-  public Adapter createliteralAdapter()
+  public Adapter createvariableDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.Literal <em>Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.Literal
+   * @generated
+   */
+  public Adapter createLiteralAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.TypeLiteral <em>Type Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.TypeLiteral
+   * @generated
+   */
+  public Adapter createTypeLiteralAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.RType <em>RType</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.RType
+   * @generated
+   */
+  public Adapter createRTypeAdapter()
   {
     return null;
   }
@@ -673,6 +768,231 @@ public class AleAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createFinalCallExpSegmentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.NotExpression <em>Not Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.NotExpression
+   * @generated
+   */
+  public Adapter createNotExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.NegExpression <em>Neg Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.NegExpression
+   * @generated
+   */
+  public Adapter createNegExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.IdentifierExpresion <em>Identifier Expresion</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.IdentifierExpresion
+   * @generated
+   */
+  public Adapter createIdentifierExpresionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.LiteralExpressioin <em>Literal Expressioin</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.LiteralExpressioin
+   * @generated
+   */
+  public Adapter createLiteralExpressioinAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.ParenthesisExpression <em>Parenthesis Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.ParenthesisExpression
+   * @generated
+   */
+  public Adapter createParenthesisExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.IfExpression <em>If Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.IfExpression
+   * @generated
+   */
+  public Adapter createIfExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.LetExpression <em>Let Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.LetExpression
+   * @generated
+   */
+  public Adapter createLetExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.TypeLiteralString <em>Type Literal String</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralString
+   * @generated
+   */
+  public Adapter createTypeLiteralStringAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.TypeLiteralInteger <em>Type Literal Integer</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralInteger
+   * @generated
+   */
+  public Adapter createTypeLiteralIntegerAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.TypeLiteralReal <em>Type Literal Real</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralReal
+   * @generated
+   */
+  public Adapter createTypeLiteralRealAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.TypeLiteralBoolean <em>Type Literal Boolean</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralBoolean
+   * @generated
+   */
+  public Adapter createTypeLiteralBooleanAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.TypeLiteralSequence <em>Type Literal Sequence</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralSequence
+   * @generated
+   */
+  public Adapter createTypeLiteralSequenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.TypeLiteralOrderedTypeSet <em>Type Literal Ordered Type Set</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralOrderedTypeSet
+   * @generated
+   */
+  public Adapter createTypeLiteralOrderedTypeSetAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.TypeLiteralClassifier <em>Type Literal Classifier</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralClassifier
+   * @generated
+   */
+  public Adapter createTypeLiteralClassifierAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.ecoretools.ale.TypeLiteralPipe <em>Type Literal Pipe</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.ecoretools.ale.TypeLiteralPipe
+   * @generated
+   */
+  public Adapter createTypeLiteralPipeAdapter()
   {
     return null;
   }

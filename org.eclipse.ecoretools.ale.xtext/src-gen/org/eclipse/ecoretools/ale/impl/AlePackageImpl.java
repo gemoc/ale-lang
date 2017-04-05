@@ -5,11 +5,21 @@ package org.eclipse.ecoretools.ale.impl;
 
 import org.eclipse.ecoretools.ale.AleFactory;
 import org.eclipse.ecoretools.ale.AlePackage;
+import org.eclipse.ecoretools.ale.Binding;
+import org.eclipse.ecoretools.ale.ClassExp;
 import org.eclipse.ecoretools.ale.Expr;
 import org.eclipse.ecoretools.ale.FinalCallExpSegment;
 import org.eclipse.ecoretools.ale.FinalIdentCallSegment;
 import org.eclipse.ecoretools.ale.FinalIdentSegment;
+import org.eclipse.ecoretools.ale.IdentifierExpresion;
+import org.eclipse.ecoretools.ale.IfExpression;
+import org.eclipse.ecoretools.ale.LetExpression;
+import org.eclipse.ecoretools.ale.Literal;
+import org.eclipse.ecoretools.ale.LiteralExpressioin;
 import org.eclipse.ecoretools.ale.NavigationSegment;
+import org.eclipse.ecoretools.ale.NegExpression;
+import org.eclipse.ecoretools.ale.NotExpression;
+import org.eclipse.ecoretools.ale.ParenthesisExpression;
 import org.eclipse.ecoretools.ale.RAssign;
 import org.eclipse.ecoretools.ale.RClass;
 import org.eclipse.ecoretools.ale.RExpression;
@@ -19,14 +29,19 @@ import org.eclipse.ecoretools.ale.RNewClass;
 import org.eclipse.ecoretools.ale.ROpenClass;
 import org.eclipse.ecoretools.ale.RRoot;
 import org.eclipse.ecoretools.ale.RStatement;
+import org.eclipse.ecoretools.ale.RType;
 import org.eclipse.ecoretools.ale.RValDecl;
 import org.eclipse.ecoretools.ale.RWhile;
-import org.eclipse.ecoretools.ale.RecExpression;
-import org.eclipse.ecoretools.ale.binding;
-import org.eclipse.ecoretools.ale.callExp;
+import org.eclipse.ecoretools.ale.TypeLiteral;
+import org.eclipse.ecoretools.ale.TypeLiteralBoolean;
+import org.eclipse.ecoretools.ale.TypeLiteralClassifier;
+import org.eclipse.ecoretools.ale.TypeLiteralInteger;
+import org.eclipse.ecoretools.ale.TypeLiteralOrderedTypeSet;
+import org.eclipse.ecoretools.ale.TypeLiteralPipe;
+import org.eclipse.ecoretools.ale.TypeLiteralReal;
+import org.eclipse.ecoretools.ale.TypeLiteralSequence;
+import org.eclipse.ecoretools.ale.TypeLiteralString;
 import org.eclipse.ecoretools.ale.expressionSequence;
-import org.eclipse.ecoretools.ale.literal;
-import org.eclipse.ecoretools.ale.nonLeftRecExpression;
 import org.eclipse.ecoretools.ale.rAttribute;
 import org.eclipse.ecoretools.ale.rBlock;
 import org.eclipse.ecoretools.ale.rCollection;
@@ -34,6 +49,7 @@ import org.eclipse.ecoretools.ale.rOperation;
 import org.eclipse.ecoretools.ale.rParameters;
 import org.eclipse.ecoretools.ale.rVarDecl;
 import org.eclipse.ecoretools.ale.rVariable;
+import org.eclipse.ecoretools.ale.variableDefinition;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -181,21 +197,7 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass recExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass navigationSegmentEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass nonLeftRecExpressionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -209,7 +211,7 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass callExpEClass = null;
+  private EClass classExpEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -223,7 +225,28 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass variableDefinitionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass literalEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeLiteralEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass rTypeEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -252,6 +275,111 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * @generated
    */
   private EClass finalCallExpSegmentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass notExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass negExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass identifierExpresionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass literalExpressioinEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass parenthesisExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass ifExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass letExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeLiteralStringEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeLiteralIntegerEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeLiteralRealEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeLiteralBooleanEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeLiteralSequenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeLiteralOrderedTypeSetEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeLiteralClassifierEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeLiteralPipeEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -431,9 +559,9 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getrOperation_Type()
+  public EReference getrOperation_Type()
   {
-    return (EAttribute)rOperationEClass.getEStructuralFeatures().get(0);
+    return (EReference)rOperationEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -501,9 +629,9 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getrVariable_Type()
+  public EReference getrVariable_Type()
   {
-    return (EAttribute)rVariableEClass.getEStructuralFeatures().get(0);
+    return (EReference)rVariableEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -531,9 +659,9 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getrAttribute_Type()
+  public EReference getrAttribute_Type()
   {
-    return (EAttribute)rAttributeEClass.getEStructuralFeatures().get(0);
+    return (EReference)rAttributeEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -574,6 +702,36 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
   public EClass getrVarDecl()
   {
     return rVarDeclEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getrVarDecl_Type()
+  {
+    return (EReference)rVarDeclEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getrVarDecl_Ident()
+  {
+    return (EAttribute)rVarDeclEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getrVarDecl_Expression()
+  {
+    return (EReference)rVarDeclEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -801,19 +959,9 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getRecExpression()
+  public EReference getExpr_RecExp()
   {
-    return recExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getRecExpression_RecExp()
-  {
-    return (EReference)recExpressionEClass.getEStructuralFeatures().get(0);
+    return (EReference)exprEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -831,67 +979,7 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getnonLeftRecExpression()
-  {
-    return nonLeftRecExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getnonLeftRecExpression_Condition()
-  {
-    return (EReference)nonLeftRecExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getnonLeftRecExpression_IfBlock()
-  {
-    return (EReference)nonLeftRecExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getnonLeftRecExpression_ElseBlock()
-  {
-    return (EReference)nonLeftRecExpressionEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getnonLeftRecExpression_Bindings()
-  {
-    return (EReference)nonLeftRecExpressionEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getnonLeftRecExpression_LetExpr()
-  {
-    return (EReference)nonLeftRecExpressionEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getbinding()
+  public EClass getBinding()
   {
     return bindingEClass;
   }
@@ -901,9 +989,39 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getcallExp()
+  public EAttribute getBinding_Identifier()
   {
-    return callExpEClass;
+    return (EAttribute)bindingEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getBinding_Type()
+  {
+    return (EReference)bindingEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getBinding_Expression()
+  {
+    return (EReference)bindingEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getClassExp()
+  {
+    return classExpEClass;
   }
 
   /**
@@ -931,9 +1049,49 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getliteral()
+  public EClass getvariableDefinition()
+  {
+    return variableDefinitionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getvariableDefinition_Expression()
+  {
+    return (EReference)variableDefinitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getLiteral()
   {
     return literalEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTypeLiteral()
+  {
+    return typeLiteralEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getRType()
+  {
+    return rTypeEClass;
   }
 
   /**
@@ -1021,6 +1179,276 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getNotExpression()
+  {
+    return notExpressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getNotExpression_Expression()
+  {
+    return (EReference)notExpressionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getNegExpression()
+  {
+    return negExpressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getNegExpression_Expression()
+  {
+    return (EReference)negExpressionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getIdentifierExpresion()
+  {
+    return identifierExpresionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getIdentifierExpresion_Value()
+  {
+    return (EAttribute)identifierExpresionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getLiteralExpressioin()
+  {
+    return literalExpressioinEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getLiteralExpressioin_Lit()
+  {
+    return (EReference)literalExpressioinEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getParenthesisExpression()
+  {
+    return parenthesisExpressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getParenthesisExpression_Expression()
+  {
+    return (EReference)parenthesisExpressionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getIfExpression()
+  {
+    return ifExpressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getIfExpression_Condition()
+  {
+    return (EReference)ifExpressionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getIfExpression_IfBlock()
+  {
+    return (EReference)ifExpressionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getIfExpression_ElseBlock()
+  {
+    return (EReference)ifExpressionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getLetExpression()
+  {
+    return letExpressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getLetExpression_Bindings()
+  {
+    return (EReference)letExpressionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getLetExpression_LetExpr()
+  {
+    return (EReference)letExpressionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTypeLiteralString()
+  {
+    return typeLiteralStringEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTypeLiteralInteger()
+  {
+    return typeLiteralIntegerEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTypeLiteralReal()
+  {
+    return typeLiteralRealEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTypeLiteralBoolean()
+  {
+    return typeLiteralBooleanEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTypeLiteralSequence()
+  {
+    return typeLiteralSequenceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTypeLiteralSequence_SubType()
+  {
+    return (EReference)typeLiteralSequenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTypeLiteralOrderedTypeSet()
+  {
+    return typeLiteralOrderedTypeSetEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTypeLiteralOrderedTypeSet_SubType()
+  {
+    return (EReference)typeLiteralOrderedTypeSetEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTypeLiteralClassifier()
+  {
+    return typeLiteralClassifierEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTypeLiteralPipe()
+  {
+    return typeLiteralPipeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public AleFactory getAleFactory()
   {
     return (AleFactory)getEFactoryInstance();
@@ -1061,7 +1489,7 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     createEReference(rNewClassEClass, RNEW_CLASS__NEW_CLASS);
 
     rOperationEClass = createEClass(ROPERATION);
-    createEAttribute(rOperationEClass, ROPERATION__TYPE);
+    createEReference(rOperationEClass, ROPERATION__TYPE);
     createEAttribute(rOperationEClass, ROPERATION__NAME);
     createEReference(rOperationEClass, ROPERATION__PARAM_LIST);
     createEReference(rOperationEClass, ROPERATION__BODY);
@@ -1070,17 +1498,20 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     createEReference(rParametersEClass, RPARAMETERS__PARAMS);
 
     rVariableEClass = createEClass(RVARIABLE);
-    createEAttribute(rVariableEClass, RVARIABLE__TYPE);
+    createEReference(rVariableEClass, RVARIABLE__TYPE);
     createEAttribute(rVariableEClass, RVARIABLE__NAME);
 
     rAttributeEClass = createEClass(RATTRIBUTE);
-    createEAttribute(rAttributeEClass, RATTRIBUTE__TYPE);
+    createEReference(rAttributeEClass, RATTRIBUTE__TYPE);
     createEAttribute(rAttributeEClass, RATTRIBUTE__NAME);
     createEReference(rAttributeEClass, RATTRIBUTE__EXPR);
 
     rStatementEClass = createEClass(RSTATEMENT);
 
     rVarDeclEClass = createEClass(RVAR_DECL);
+    createEReference(rVarDeclEClass, RVAR_DECL__TYPE);
+    createEAttribute(rVarDeclEClass, RVAR_DECL__IDENT);
+    createEReference(rVarDeclEClass, RVAR_DECL__EXPRESSION);
 
     rAssignEClass = createEClass(RASSIGN);
     createEReference(rAssignEClass, RASSIGN__STMT);
@@ -1111,27 +1542,28 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     exprEClass = createEClass(EXPR);
     createEReference(exprEClass, EXPR__LEFT_PART);
     createEReference(exprEClass, EXPR__RECPART);
-
-    recExpressionEClass = createEClass(REC_EXPRESSION);
-    createEReference(recExpressionEClass, REC_EXPRESSION__REC_EXP);
+    createEReference(exprEClass, EXPR__REC_EXP);
 
     navigationSegmentEClass = createEClass(NAVIGATION_SEGMENT);
 
-    nonLeftRecExpressionEClass = createEClass(NON_LEFT_REC_EXPRESSION);
-    createEReference(nonLeftRecExpressionEClass, NON_LEFT_REC_EXPRESSION__CONDITION);
-    createEReference(nonLeftRecExpressionEClass, NON_LEFT_REC_EXPRESSION__IF_BLOCK);
-    createEReference(nonLeftRecExpressionEClass, NON_LEFT_REC_EXPRESSION__ELSE_BLOCK);
-    createEReference(nonLeftRecExpressionEClass, NON_LEFT_REC_EXPRESSION__BINDINGS);
-    createEReference(nonLeftRecExpressionEClass, NON_LEFT_REC_EXPRESSION__LET_EXPR);
-
     bindingEClass = createEClass(BINDING);
+    createEAttribute(bindingEClass, BINDING__IDENTIFIER);
+    createEReference(bindingEClass, BINDING__TYPE);
+    createEReference(bindingEClass, BINDING__EXPRESSION);
 
-    callExpEClass = createEClass(CALL_EXP);
+    classExpEClass = createEClass(CLASS_EXP);
 
     expressionSequenceEClass = createEClass(EXPRESSION_SEQUENCE);
     createEReference(expressionSequenceEClass, EXPRESSION_SEQUENCE__SEQ_EXPRS);
 
+    variableDefinitionEClass = createEClass(VARIABLE_DEFINITION);
+    createEReference(variableDefinitionEClass, VARIABLE_DEFINITION__EXPRESSION);
+
     literalEClass = createEClass(LITERAL);
+
+    typeLiteralEClass = createEClass(TYPE_LITERAL);
+
+    rTypeEClass = createEClass(RTYPE);
 
     rValDeclEClass = createEClass(RVAL_DECL);
     createEReference(rValDeclEClass, RVAL_DECL__STMT);
@@ -1144,6 +1576,48 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
 
     finalCallExpSegmentEClass = createEClass(FINAL_CALL_EXP_SEGMENT);
     createEReference(finalCallExpSegmentEClass, FINAL_CALL_EXP_SEGMENT__CALL);
+
+    notExpressionEClass = createEClass(NOT_EXPRESSION);
+    createEReference(notExpressionEClass, NOT_EXPRESSION__EXPRESSION);
+
+    negExpressionEClass = createEClass(NEG_EXPRESSION);
+    createEReference(negExpressionEClass, NEG_EXPRESSION__EXPRESSION);
+
+    identifierExpresionEClass = createEClass(IDENTIFIER_EXPRESION);
+    createEAttribute(identifierExpresionEClass, IDENTIFIER_EXPRESION__VALUE);
+
+    literalExpressioinEClass = createEClass(LITERAL_EXPRESSIOIN);
+    createEReference(literalExpressioinEClass, LITERAL_EXPRESSIOIN__LIT);
+
+    parenthesisExpressionEClass = createEClass(PARENTHESIS_EXPRESSION);
+    createEReference(parenthesisExpressionEClass, PARENTHESIS_EXPRESSION__EXPRESSION);
+
+    ifExpressionEClass = createEClass(IF_EXPRESSION);
+    createEReference(ifExpressionEClass, IF_EXPRESSION__CONDITION);
+    createEReference(ifExpressionEClass, IF_EXPRESSION__IF_BLOCK);
+    createEReference(ifExpressionEClass, IF_EXPRESSION__ELSE_BLOCK);
+
+    letExpressionEClass = createEClass(LET_EXPRESSION);
+    createEReference(letExpressionEClass, LET_EXPRESSION__BINDINGS);
+    createEReference(letExpressionEClass, LET_EXPRESSION__LET_EXPR);
+
+    typeLiteralStringEClass = createEClass(TYPE_LITERAL_STRING);
+
+    typeLiteralIntegerEClass = createEClass(TYPE_LITERAL_INTEGER);
+
+    typeLiteralRealEClass = createEClass(TYPE_LITERAL_REAL);
+
+    typeLiteralBooleanEClass = createEClass(TYPE_LITERAL_BOOLEAN);
+
+    typeLiteralSequenceEClass = createEClass(TYPE_LITERAL_SEQUENCE);
+    createEReference(typeLiteralSequenceEClass, TYPE_LITERAL_SEQUENCE__SUB_TYPE);
+
+    typeLiteralOrderedTypeSetEClass = createEClass(TYPE_LITERAL_ORDERED_TYPE_SET);
+    createEReference(typeLiteralOrderedTypeSetEClass, TYPE_LITERAL_ORDERED_TYPE_SET__SUB_TYPE);
+
+    typeLiteralClassifierEClass = createEClass(TYPE_LITERAL_CLASSIFIER);
+
+    typeLiteralPipeEClass = createEClass(TYPE_LITERAL_PIPE);
   }
 
   /**
@@ -1183,22 +1657,35 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     rIfEClass.getESuperTypes().add(this.getRStatement());
     rWhileEClass.getESuperTypes().add(this.getRStatement());
     rExpressionEClass.getESuperTypes().add(this.getRStatement());
-    exprEClass.getESuperTypes().add(this.getrVarDecl());
     exprEClass.getESuperTypes().add(this.getrCollection());
     exprEClass.getESuperTypes().add(this.getRWhile());
     exprEClass.getESuperTypes().add(this.getRExpression());
-    exprEClass.getESuperTypes().add(this.getRecExpression());
-    exprEClass.getESuperTypes().add(this.getnonLeftRecExpression());
-    exprEClass.getESuperTypes().add(this.getbinding());
-    exprEClass.getESuperTypes().add(this.getcallExp());
-    navigationSegmentEClass.getESuperTypes().add(this.getRecExpression());
-    expressionSequenceEClass.getESuperTypes().add(this.getcallExp());
-    expressionSequenceEClass.getESuperTypes().add(this.getliteral());
-    literalEClass.getESuperTypes().add(this.getnonLeftRecExpression());
+    navigationSegmentEClass.getESuperTypes().add(this.getExpr());
+    expressionSequenceEClass.getESuperTypes().add(this.getClassExp());
+    expressionSequenceEClass.getESuperTypes().add(this.getLiteral());
+    variableDefinitionEClass.getESuperTypes().add(this.getClassExp());
+    typeLiteralEClass.getESuperTypes().add(this.getvariableDefinition());
+    typeLiteralEClass.getESuperTypes().add(this.getLiteral());
+    typeLiteralEClass.getESuperTypes().add(this.getRType());
     rValDeclEClass.getESuperTypes().add(this.getRStatement());
     finalIdentSegmentEClass.getESuperTypes().add(this.getNavigationSegment());
     finalIdentCallSegmentEClass.getESuperTypes().add(this.getNavigationSegment());
     finalCallExpSegmentEClass.getESuperTypes().add(this.getNavigationSegment());
+    notExpressionEClass.getESuperTypes().add(this.getExpr());
+    negExpressionEClass.getESuperTypes().add(this.getExpr());
+    identifierExpresionEClass.getESuperTypes().add(this.getExpr());
+    literalExpressioinEClass.getESuperTypes().add(this.getExpr());
+    parenthesisExpressionEClass.getESuperTypes().add(this.getExpr());
+    ifExpressionEClass.getESuperTypes().add(this.getExpr());
+    letExpressionEClass.getESuperTypes().add(this.getExpr());
+    typeLiteralStringEClass.getESuperTypes().add(this.getTypeLiteral());
+    typeLiteralIntegerEClass.getESuperTypes().add(this.getTypeLiteral());
+    typeLiteralRealEClass.getESuperTypes().add(this.getTypeLiteral());
+    typeLiteralBooleanEClass.getESuperTypes().add(this.getTypeLiteral());
+    typeLiteralSequenceEClass.getESuperTypes().add(this.getTypeLiteral());
+    typeLiteralOrderedTypeSetEClass.getESuperTypes().add(this.getTypeLiteral());
+    typeLiteralClassifierEClass.getESuperTypes().add(this.getTypeLiteral());
+    typeLiteralPipeEClass.getESuperTypes().add(this.getTypeLiteral());
 
     // Initialize classes and features; add operations and parameters
     initEClass(rRootEClass, RRoot.class, "RRoot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1216,7 +1703,7 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     initEReference(getRNewClass_NewClass(), this.getRNewClass(), null, "newClass", null, 0, 1, RNewClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(rOperationEClass, rOperation.class, "rOperation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getrOperation_Type(), ecorePackage.getEString(), "type", null, 0, 1, rOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getrOperation_Type(), this.getRType(), null, "type", null, 0, 1, rOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getrOperation_Name(), ecorePackage.getEString(), "name", null, 0, 1, rOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getrOperation_ParamList(), this.getrParameters(), null, "paramList", null, 0, -1, rOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getrOperation_Body(), this.getrBlock(), null, "body", null, 0, 1, rOperation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1225,17 +1712,20 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     initEReference(getrParameters_Params(), this.getrVariable(), null, "params", null, 0, -1, rParameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(rVariableEClass, rVariable.class, "rVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getrVariable_Type(), ecorePackage.getEString(), "type", null, 0, 1, rVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getrVariable_Type(), this.getRType(), null, "type", null, 0, 1, rVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getrVariable_Name(), ecorePackage.getEString(), "name", null, 0, 1, rVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(rAttributeEClass, rAttribute.class, "rAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getrAttribute_Type(), ecorePackage.getEString(), "type", null, 0, 1, rAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getrAttribute_Type(), this.getRType(), null, "type", null, 0, 1, rAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getrAttribute_Name(), ecorePackage.getEString(), "name", null, 0, 1, rAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getrAttribute_Expr(), this.getExpr(), null, "expr", null, 0, 1, rAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(rStatementEClass, RStatement.class, "RStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(rVarDeclEClass, rVarDecl.class, "rVarDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getrVarDecl_Type(), this.getRType(), null, "type", null, 0, 1, rVarDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getrVarDecl_Ident(), ecorePackage.getEString(), "ident", null, 0, 1, rVarDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getrVarDecl_Expression(), this.getExpr(), null, "expression", null, 0, 1, rVarDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(rAssignEClass, RAssign.class, "RAssign", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRAssign_Stmt(), this.getRAssign(), null, "stmt", null, 0, 1, RAssign.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1264,29 +1754,30 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     initEReference(getRExpression_Expr(), this.getRExpression(), null, "expr", null, 0, 1, RExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(exprEClass, Expr.class, "Expr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getExpr_LeftPart(), this.getnonLeftRecExpression(), null, "leftPart", null, 0, 1, Expr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getExpr_Recpart(), this.getRecExpression(), null, "recpart", null, 0, 1, Expr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(recExpressionEClass, RecExpression.class, "RecExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getRecExpression_RecExp(), this.getRecExpression(), null, "recExp", null, 0, 1, RecExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExpr_LeftPart(), this.getExpr(), null, "leftPart", null, 0, 1, Expr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExpr_Recpart(), this.getExpr(), null, "recpart", null, 0, 1, Expr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getExpr_RecExp(), this.getExpr(), null, "recExp", null, 0, 1, Expr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(navigationSegmentEClass, NavigationSegment.class, "NavigationSegment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(nonLeftRecExpressionEClass, nonLeftRecExpression.class, "nonLeftRecExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getnonLeftRecExpression_Condition(), this.getExpr(), null, "condition", null, 0, 1, nonLeftRecExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getnonLeftRecExpression_IfBlock(), this.getExpr(), null, "ifBlock", null, 0, 1, nonLeftRecExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getnonLeftRecExpression_ElseBlock(), this.getExpr(), null, "elseBlock", null, 0, 1, nonLeftRecExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getnonLeftRecExpression_Bindings(), this.getbinding(), null, "bindings", null, 0, -1, nonLeftRecExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getnonLeftRecExpression_LetExpr(), this.getExpr(), null, "letExpr", null, 0, 1, nonLeftRecExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(bindingEClass, Binding.class, "Binding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getBinding_Identifier(), ecorePackage.getEString(), "identifier", null, 0, 1, Binding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getBinding_Type(), this.getTypeLiteral(), null, "type", null, 0, 1, Binding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getBinding_Expression(), this.getExpr(), null, "expression", null, 0, 1, Binding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(bindingEClass, binding.class, "binding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(callExpEClass, callExp.class, "callExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(classExpEClass, ClassExp.class, "ClassExp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(expressionSequenceEClass, expressionSequence.class, "expressionSequence", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getexpressionSequence_SeqExprs(), this.getExpr(), null, "seqExprs", null, 0, -1, expressionSequence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(literalEClass, literal.class, "literal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(variableDefinitionEClass, variableDefinition.class, "variableDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getvariableDefinition_Expression(), this.getExpr(), null, "expression", null, 0, 1, variableDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(literalEClass, Literal.class, "Literal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(typeLiteralEClass, TypeLiteral.class, "TypeLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(rTypeEClass, RType.class, "RType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(rValDeclEClass, RValDecl.class, "RValDecl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRValDecl_Stmt(), this.getrVarDecl(), null, "stmt", null, 0, 1, RValDecl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1295,10 +1786,52 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     initEAttribute(getFinalIdentSegment_Ident(), ecorePackage.getEString(), "ident", null, 0, 1, FinalIdentSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(finalIdentCallSegmentEClass, FinalIdentCallSegment.class, "FinalIdentCallSegment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFinalIdentCallSegment_Call(), this.getcallExp(), null, "call", null, 0, 1, FinalIdentCallSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFinalIdentCallSegment_Call(), this.getClassExp(), null, "call", null, 0, 1, FinalIdentCallSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(finalCallExpSegmentEClass, FinalCallExpSegment.class, "FinalCallExpSegment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFinalCallExpSegment_Call(), this.getcallExp(), null, "call", null, 0, 1, FinalCallExpSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFinalCallExpSegment_Call(), this.getClassExp(), null, "call", null, 0, 1, FinalCallExpSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(notExpressionEClass, NotExpression.class, "NotExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getNotExpression_Expression(), this.getExpr(), null, "expression", null, 0, 1, NotExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(negExpressionEClass, NegExpression.class, "NegExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getNegExpression_Expression(), this.getExpr(), null, "expression", null, 0, 1, NegExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(identifierExpresionEClass, IdentifierExpresion.class, "IdentifierExpresion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getIdentifierExpresion_Value(), ecorePackage.getEString(), "value", null, 0, 1, IdentifierExpresion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(literalExpressioinEClass, LiteralExpressioin.class, "LiteralExpressioin", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getLiteralExpressioin_Lit(), this.getLiteral(), null, "lit", null, 0, 1, LiteralExpressioin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(parenthesisExpressionEClass, ParenthesisExpression.class, "ParenthesisExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getParenthesisExpression_Expression(), this.getExpr(), null, "expression", null, 0, 1, ParenthesisExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(ifExpressionEClass, IfExpression.class, "IfExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getIfExpression_Condition(), this.getExpr(), null, "condition", null, 0, 1, IfExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getIfExpression_IfBlock(), this.getExpr(), null, "ifBlock", null, 0, 1, IfExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getIfExpression_ElseBlock(), this.getExpr(), null, "elseBlock", null, 0, 1, IfExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(letExpressionEClass, LetExpression.class, "LetExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getLetExpression_Bindings(), this.getBinding(), null, "bindings", null, 0, -1, LetExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getLetExpression_LetExpr(), this.getExpr(), null, "letExpr", null, 0, 1, LetExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(typeLiteralStringEClass, TypeLiteralString.class, "TypeLiteralString", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(typeLiteralIntegerEClass, TypeLiteralInteger.class, "TypeLiteralInteger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(typeLiteralRealEClass, TypeLiteralReal.class, "TypeLiteralReal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(typeLiteralBooleanEClass, TypeLiteralBoolean.class, "TypeLiteralBoolean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(typeLiteralSequenceEClass, TypeLiteralSequence.class, "TypeLiteralSequence", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTypeLiteralSequence_SubType(), this.getTypeLiteral(), null, "subType", null, 0, 1, TypeLiteralSequence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(typeLiteralOrderedTypeSetEClass, TypeLiteralOrderedTypeSet.class, "TypeLiteralOrderedTypeSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTypeLiteralOrderedTypeSet_SubType(), this.getTypeLiteral(), null, "subType", null, 0, 1, TypeLiteralOrderedTypeSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(typeLiteralClassifierEClass, TypeLiteralClassifier.class, "TypeLiteralClassifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(typeLiteralPipeEClass, TypeLiteralPipe.class, "TypeLiteralPipe", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     // Create resource
     createResource(eNS_URI);

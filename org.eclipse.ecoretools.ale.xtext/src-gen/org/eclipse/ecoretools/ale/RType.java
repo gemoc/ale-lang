@@ -7,14 +7,14 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>binding</b></em>'.
+ * A representation of the model object '<em><b>RType</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.eclipse.ecoretools.ale.AlePackage#getbinding()
+ * @see org.eclipse.ecoretools.ale.AlePackage#getRType()
  * @model
  * @generated
  */
-public interface binding extends EObject
+public interface RType extends EObject
 {
-} // binding
+} // RType

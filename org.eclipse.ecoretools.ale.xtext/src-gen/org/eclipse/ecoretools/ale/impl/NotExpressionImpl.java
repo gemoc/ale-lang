@@ -4,7 +4,8 @@
 package org.eclipse.ecoretools.ale.impl;
 
 import org.eclipse.ecoretools.ale.AlePackage;
-import org.eclipse.ecoretools.ale.RecExpression;
+import org.eclipse.ecoretools.ale.Expr;
+import org.eclipse.ecoretools.ale.NotExpression;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -13,39 +14,38 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Rec Expression</b></em>'.
+ * An implementation of the model object '<em><b>Not Expression</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.ecoretools.ale.impl.RecExpressionImpl#getRecExp <em>Rec Exp</em>}</li>
+ *   <li>{@link org.eclipse.ecoretools.ale.impl.NotExpressionImpl#getExpression <em>Expression</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class RecExpressionImpl extends MinimalEObjectImpl.Container implements RecExpression
+public class NotExpressionImpl extends ExprImpl implements NotExpression
 {
   /**
-   * The cached value of the '{@link #getRecExp() <em>Rec Exp</em>}' containment reference.
+   * The cached value of the '{@link #getExpression() <em>Expression</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRecExp()
+   * @see #getExpression()
    * @generated
    * @ordered
    */
-  protected RecExpression recExp;
+  protected Expr expression;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected RecExpressionImpl()
+  protected NotExpressionImpl()
   {
     super();
   }
@@ -58,7 +58,7 @@ public class RecExpressionImpl extends MinimalEObjectImpl.Container implements R
   @Override
   protected EClass eStaticClass()
   {
-    return AlePackage.Literals.REC_EXPRESSION;
+    return AlePackage.Literals.NOT_EXPRESSION;
   }
 
   /**
@@ -66,9 +66,9 @@ public class RecExpressionImpl extends MinimalEObjectImpl.Container implements R
    * <!-- end-user-doc -->
    * @generated
    */
-  public RecExpression getRecExp()
+  public Expr getExpression()
   {
-    return recExp;
+    return expression;
   }
 
   /**
@@ -76,13 +76,13 @@ public class RecExpressionImpl extends MinimalEObjectImpl.Container implements R
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetRecExp(RecExpression newRecExp, NotificationChain msgs)
+  public NotificationChain basicSetExpression(Expr newExpression, NotificationChain msgs)
   {
-    RecExpression oldRecExp = recExp;
-    recExp = newRecExp;
+    Expr oldExpression = expression;
+    expression = newExpression;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlePackage.REC_EXPRESSION__REC_EXP, oldRecExp, newRecExp);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AlePackage.NOT_EXPRESSION__EXPRESSION, oldExpression, newExpression);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -93,20 +93,20 @@ public class RecExpressionImpl extends MinimalEObjectImpl.Container implements R
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRecExp(RecExpression newRecExp)
+  public void setExpression(Expr newExpression)
   {
-    if (newRecExp != recExp)
+    if (newExpression != expression)
     {
       NotificationChain msgs = null;
-      if (recExp != null)
-        msgs = ((InternalEObject)recExp).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlePackage.REC_EXPRESSION__REC_EXP, null, msgs);
-      if (newRecExp != null)
-        msgs = ((InternalEObject)newRecExp).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlePackage.REC_EXPRESSION__REC_EXP, null, msgs);
-      msgs = basicSetRecExp(newRecExp, msgs);
+      if (expression != null)
+        msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AlePackage.NOT_EXPRESSION__EXPRESSION, null, msgs);
+      if (newExpression != null)
+        msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AlePackage.NOT_EXPRESSION__EXPRESSION, null, msgs);
+      msgs = basicSetExpression(newExpression, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.REC_EXPRESSION__REC_EXP, newRecExp, newRecExp));
+      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.NOT_EXPRESSION__EXPRESSION, newExpression, newExpression));
   }
 
   /**
@@ -119,8 +119,8 @@ public class RecExpressionImpl extends MinimalEObjectImpl.Container implements R
   {
     switch (featureID)
     {
-      case AlePackage.REC_EXPRESSION__REC_EXP:
-        return basicSetRecExp(null, msgs);
+      case AlePackage.NOT_EXPRESSION__EXPRESSION:
+        return basicSetExpression(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -135,8 +135,8 @@ public class RecExpressionImpl extends MinimalEObjectImpl.Container implements R
   {
     switch (featureID)
     {
-      case AlePackage.REC_EXPRESSION__REC_EXP:
-        return getRecExp();
+      case AlePackage.NOT_EXPRESSION__EXPRESSION:
+        return getExpression();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -151,8 +151,8 @@ public class RecExpressionImpl extends MinimalEObjectImpl.Container implements R
   {
     switch (featureID)
     {
-      case AlePackage.REC_EXPRESSION__REC_EXP:
-        setRecExp((RecExpression)newValue);
+      case AlePackage.NOT_EXPRESSION__EXPRESSION:
+        setExpression((Expr)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -168,8 +168,8 @@ public class RecExpressionImpl extends MinimalEObjectImpl.Container implements R
   {
     switch (featureID)
     {
-      case AlePackage.REC_EXPRESSION__REC_EXP:
-        setRecExp((RecExpression)null);
+      case AlePackage.NOT_EXPRESSION__EXPRESSION:
+        setExpression((Expr)null);
         return;
     }
     super.eUnset(featureID);
@@ -185,10 +185,10 @@ public class RecExpressionImpl extends MinimalEObjectImpl.Container implements R
   {
     switch (featureID)
     {
-      case AlePackage.REC_EXPRESSION__REC_EXP:
-        return recExp != null;
+      case AlePackage.NOT_EXPRESSION__EXPRESSION:
+        return expression != null;
     }
     return super.eIsSet(featureID);
   }
 
-} //RecExpressionImpl
+} //NotExpressionImpl

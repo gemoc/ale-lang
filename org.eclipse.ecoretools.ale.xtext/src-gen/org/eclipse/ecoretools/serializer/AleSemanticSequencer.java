@@ -6,10 +6,19 @@ package org.eclipse.ecoretools.serializer;
 import com.google.inject.Inject;
 import java.util.Set;
 import org.eclipse.ecoretools.ale.AlePackage;
+import org.eclipse.ecoretools.ale.Binding;
+import org.eclipse.ecoretools.ale.ClassExp;
 import org.eclipse.ecoretools.ale.Expr;
 import org.eclipse.ecoretools.ale.FinalCallExpSegment;
 import org.eclipse.ecoretools.ale.FinalIdentCallSegment;
 import org.eclipse.ecoretools.ale.FinalIdentSegment;
+import org.eclipse.ecoretools.ale.IdentifierExpresion;
+import org.eclipse.ecoretools.ale.IfExpression;
+import org.eclipse.ecoretools.ale.LetExpression;
+import org.eclipse.ecoretools.ale.LiteralExpressioin;
+import org.eclipse.ecoretools.ale.NegExpression;
+import org.eclipse.ecoretools.ale.NotExpression;
+import org.eclipse.ecoretools.ale.ParenthesisExpression;
 import org.eclipse.ecoretools.ale.RAssign;
 import org.eclipse.ecoretools.ale.RExpression;
 import org.eclipse.ecoretools.ale.RForEach;
@@ -19,12 +28,20 @@ import org.eclipse.ecoretools.ale.ROpenClass;
 import org.eclipse.ecoretools.ale.RRoot;
 import org.eclipse.ecoretools.ale.RValDecl;
 import org.eclipse.ecoretools.ale.RWhile;
+import org.eclipse.ecoretools.ale.TypeLiteralBoolean;
+import org.eclipse.ecoretools.ale.TypeLiteralClassifier;
+import org.eclipse.ecoretools.ale.TypeLiteralInteger;
+import org.eclipse.ecoretools.ale.TypeLiteralOrderedTypeSet;
+import org.eclipse.ecoretools.ale.TypeLiteralPipe;
+import org.eclipse.ecoretools.ale.TypeLiteralReal;
+import org.eclipse.ecoretools.ale.TypeLiteralSequence;
+import org.eclipse.ecoretools.ale.TypeLiteralString;
 import org.eclipse.ecoretools.ale.expressionSequence;
-import org.eclipse.ecoretools.ale.nonLeftRecExpression;
 import org.eclipse.ecoretools.ale.rAttribute;
 import org.eclipse.ecoretools.ale.rBlock;
 import org.eclipse.ecoretools.ale.rOperation;
 import org.eclipse.ecoretools.ale.rParameters;
+import org.eclipse.ecoretools.ale.rVarDecl;
 import org.eclipse.ecoretools.ale.rVariable;
 import org.eclipse.ecoretools.services.AleGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
@@ -51,14 +68,16 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == AlePackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case AlePackage.BINDING:
+				sequence_binding(context, (Binding) semanticObject); 
+				return; 
+			case AlePackage.CLASS_EXP:
+				sequence_callExp(context, (ClassExp) semanticObject); 
+				return; 
 			case AlePackage.EXPR:
-				if (rule == grammarAccess.getRVarDeclRule()
-						|| rule == grammarAccess.getRCollectionRule()
+				if (rule == grammarAccess.getRCollectionRule()
 						|| rule == grammarAccess.getRExpressionRule()
-						|| rule == grammarAccess.getExpressionRule()
-						|| rule == grammarAccess.getNonLeftRecExpressionRule()
-						|| rule == grammarAccess.getBindingRule()
-						|| rule == grammarAccess.getCallExpRule()) {
+						|| rule == grammarAccess.getExpressionRule()) {
 					sequence_expression(context, (Expr) semanticObject); 
 					return; 
 				}
@@ -105,6 +124,27 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
+			case AlePackage.IDENTIFIER_EXPRESION:
+				sequence_nonLeftRecExpression(context, (IdentifierExpresion) semanticObject); 
+				return; 
+			case AlePackage.IF_EXPRESSION:
+				sequence_nonLeftRecExpression(context, (IfExpression) semanticObject); 
+				return; 
+			case AlePackage.LET_EXPRESSION:
+				sequence_nonLeftRecExpression(context, (LetExpression) semanticObject); 
+				return; 
+			case AlePackage.LITERAL_EXPRESSIOIN:
+				sequence_nonLeftRecExpression(context, (LiteralExpressioin) semanticObject); 
+				return; 
+			case AlePackage.NEG_EXPRESSION:
+				sequence_nonLeftRecExpression(context, (NegExpression) semanticObject); 
+				return; 
+			case AlePackage.NOT_EXPRESSION:
+				sequence_nonLeftRecExpression(context, (NotExpression) semanticObject); 
+				return; 
+			case AlePackage.PARENTHESIS_EXPRESSION:
+				sequence_nonLeftRecExpression(context, (ParenthesisExpression) semanticObject); 
+				return; 
 			case AlePackage.RASSIGN:
 				if (rule == grammarAccess.getRAssignRule()) {
 					sequence_rAssign(context, (RAssign) semanticObject); 
@@ -167,11 +207,112 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case AlePackage.RWHILE:
 				sequence_rStatement(context, (RWhile) semanticObject); 
 				return; 
+			case AlePackage.TYPE_LITERAL_BOOLEAN:
+				if (rule == grammarAccess.getCallExpRule()) {
+					sequence_callExp_typeLiteral(context, (TypeLiteralBoolean) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getVariableDefinitionRule()
+						|| rule == grammarAccess.getLiteralRule()
+						|| rule == grammarAccess.getTypeLiteralRule()
+						|| rule == grammarAccess.getRTypeRule()) {
+					sequence_typeLiteral(context, (TypeLiteralBoolean) semanticObject); 
+					return; 
+				}
+				else break;
+			case AlePackage.TYPE_LITERAL_CLASSIFIER:
+				if (rule == grammarAccess.getCallExpRule()) {
+					sequence_callExp_typeLiteral(context, (TypeLiteralClassifier) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getVariableDefinitionRule()
+						|| rule == grammarAccess.getLiteralRule()
+						|| rule == grammarAccess.getTypeLiteralRule()
+						|| rule == grammarAccess.getRTypeRule()) {
+					sequence_typeLiteral(context, (TypeLiteralClassifier) semanticObject); 
+					return; 
+				}
+				else break;
+			case AlePackage.TYPE_LITERAL_INTEGER:
+				if (rule == grammarAccess.getCallExpRule()) {
+					sequence_callExp_typeLiteral(context, (TypeLiteralInteger) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getVariableDefinitionRule()
+						|| rule == grammarAccess.getLiteralRule()
+						|| rule == grammarAccess.getTypeLiteralRule()
+						|| rule == grammarAccess.getRTypeRule()) {
+					sequence_typeLiteral(context, (TypeLiteralInteger) semanticObject); 
+					return; 
+				}
+				else break;
+			case AlePackage.TYPE_LITERAL_ORDERED_TYPE_SET:
+				if (rule == grammarAccess.getCallExpRule()) {
+					sequence_callExp_typeLiteral(context, (TypeLiteralOrderedTypeSet) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getVariableDefinitionRule()
+						|| rule == grammarAccess.getLiteralRule()
+						|| rule == grammarAccess.getTypeLiteralRule()
+						|| rule == grammarAccess.getRTypeRule()) {
+					sequence_typeLiteral(context, (TypeLiteralOrderedTypeSet) semanticObject); 
+					return; 
+				}
+				else break;
+			case AlePackage.TYPE_LITERAL_PIPE:
+				if (rule == grammarAccess.getCallExpRule()) {
+					sequence_callExp_typeLiteral(context, (TypeLiteralPipe) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getVariableDefinitionRule()
+						|| rule == grammarAccess.getLiteralRule()
+						|| rule == grammarAccess.getTypeLiteralRule()
+						|| rule == grammarAccess.getRTypeRule()) {
+					sequence_typeLiteral(context, (TypeLiteralPipe) semanticObject); 
+					return; 
+				}
+				else break;
+			case AlePackage.TYPE_LITERAL_REAL:
+				if (rule == grammarAccess.getCallExpRule()) {
+					sequence_callExp_typeLiteral(context, (TypeLiteralReal) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getVariableDefinitionRule()
+						|| rule == grammarAccess.getLiteralRule()
+						|| rule == grammarAccess.getTypeLiteralRule()
+						|| rule == grammarAccess.getRTypeRule()) {
+					sequence_typeLiteral(context, (TypeLiteralReal) semanticObject); 
+					return; 
+				}
+				else break;
+			case AlePackage.TYPE_LITERAL_SEQUENCE:
+				if (rule == grammarAccess.getCallExpRule()) {
+					sequence_callExp_typeLiteral(context, (TypeLiteralSequence) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getVariableDefinitionRule()
+						|| rule == grammarAccess.getLiteralRule()
+						|| rule == grammarAccess.getTypeLiteralRule()
+						|| rule == grammarAccess.getRTypeRule()) {
+					sequence_typeLiteral(context, (TypeLiteralSequence) semanticObject); 
+					return; 
+				}
+				else break;
+			case AlePackage.TYPE_LITERAL_STRING:
+				if (rule == grammarAccess.getCallExpRule()) {
+					sequence_callExp_typeLiteral(context, (TypeLiteralString) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getVariableDefinitionRule()
+						|| rule == grammarAccess.getLiteralRule()
+						|| rule == grammarAccess.getTypeLiteralRule()
+						|| rule == grammarAccess.getRTypeRule()) {
+					sequence_typeLiteral(context, (TypeLiteralString) semanticObject); 
+					return; 
+				}
+				else break;
 			case AlePackage.EXPRESSION_SEQUENCE:
 				sequence_expressionSequence(context, (expressionSequence) semanticObject); 
-				return; 
-			case AlePackage.NON_LEFT_REC_EXPRESSION:
-				sequence_nonLeftRecExpression(context, (nonLeftRecExpression) semanticObject); 
 				return; 
 			case AlePackage.RATTRIBUTE:
 				sequence_rAttribute(context, (rAttribute) semanticObject); 
@@ -185,6 +326,9 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case AlePackage.RPARAMETERS:
 				sequence_rParameters(context, (rParameters) semanticObject); 
 				return; 
+			case AlePackage.RVAR_DECL:
+				sequence_rVarDecl(context, (rVarDecl) semanticObject); 
+				return; 
 			case AlePackage.RVARIABLE:
 				sequence_rVariable(context, (rVariable) semanticObject); 
 				return; 
@@ -195,7 +339,180 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     nonLeftRecExpression returns expressionSequence
+	 *     binding returns Binding
+	 *
+	 * Constraint:
+	 *     (identifier=IDENT type=typeLiteral? expression=expression)
+	 */
+	protected void sequence_binding(ISerializationContext context, Binding semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     callExp returns ClassExp
+	 *
+	 * Constraint:
+	 *     expression=expression
+	 */
+	protected void sequence_callExp(ISerializationContext context, ClassExp semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     callExp returns TypeLiteralBoolean
+	 *
+	 * Constraint:
+	 *     expression=expression
+	 */
+	protected void sequence_callExp_typeLiteral(ISerializationContext context, TypeLiteralBoolean semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCallExpAccess().getExpressionExpressionParserRuleCall_0_3_0(), semanticObject.getExpression());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     callExp returns TypeLiteralClassifier
+	 *
+	 * Constraint:
+	 *     expression=expression
+	 */
+	protected void sequence_callExp_typeLiteral(ISerializationContext context, TypeLiteralClassifier semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCallExpAccess().getExpressionExpressionParserRuleCall_0_3_0(), semanticObject.getExpression());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     callExp returns TypeLiteralInteger
+	 *
+	 * Constraint:
+	 *     expression=expression
+	 */
+	protected void sequence_callExp_typeLiteral(ISerializationContext context, TypeLiteralInteger semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCallExpAccess().getExpressionExpressionParserRuleCall_0_3_0(), semanticObject.getExpression());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     callExp returns TypeLiteralOrderedTypeSet
+	 *
+	 * Constraint:
+	 *     (subType=typeLiteral expression=expression)
+	 */
+	protected void sequence_callExp_typeLiteral(ISerializationContext context, TypeLiteralOrderedTypeSet semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.TYPE_LITERAL_ORDERED_TYPE_SET__SUB_TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.TYPE_LITERAL_ORDERED_TYPE_SET__SUB_TYPE));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getTypeLiteralAccess().getSubTypeTypeLiteralParserRuleCall_5_2_0(), semanticObject.getSubType());
+		feeder.accept(grammarAccess.getCallExpAccess().getExpressionExpressionParserRuleCall_0_3_0(), semanticObject.getExpression());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     callExp returns TypeLiteralPipe
+	 *
+	 * Constraint:
+	 *     expression=expression
+	 */
+	protected void sequence_callExp_typeLiteral(ISerializationContext context, TypeLiteralPipe semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCallExpAccess().getExpressionExpressionParserRuleCall_0_3_0(), semanticObject.getExpression());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     callExp returns TypeLiteralReal
+	 *
+	 * Constraint:
+	 *     expression=expression
+	 */
+	protected void sequence_callExp_typeLiteral(ISerializationContext context, TypeLiteralReal semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCallExpAccess().getExpressionExpressionParserRuleCall_0_3_0(), semanticObject.getExpression());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     callExp returns TypeLiteralSequence
+	 *
+	 * Constraint:
+	 *     (subType=typeLiteral expression=expression)
+	 */
+	protected void sequence_callExp_typeLiteral(ISerializationContext context, TypeLiteralSequence semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.TYPE_LITERAL_SEQUENCE__SUB_TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.TYPE_LITERAL_SEQUENCE__SUB_TYPE));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getTypeLiteralAccess().getSubTypeTypeLiteralParserRuleCall_4_2_0(), semanticObject.getSubType());
+		feeder.accept(grammarAccess.getCallExpAccess().getExpressionExpressionParserRuleCall_0_3_0(), semanticObject.getExpression());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     callExp returns TypeLiteralString
+	 *
+	 * Constraint:
+	 *     expression=expression
+	 */
+	protected void sequence_callExp_typeLiteral(ISerializationContext context, TypeLiteralString semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.VARIABLE_DEFINITION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCallExpAccess().getExpressionExpressionParserRuleCall_0_3_0(), semanticObject.getExpression());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     callExp returns expressionSequence
 	 *     expressionSequence returns expressionSequence
 	 *     literal returns expressionSequence
@@ -210,13 +527,9 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     rVarDecl returns Expr
 	 *     rCollection returns Expr
 	 *     rExpression returns Expr
 	 *     expression returns Expr
-	 *     nonLeftRecExpression returns Expr
-	 *     binding returns Expr
-	 *     callExp returns Expr
 	 *
 	 * Constraint:
 	 *     (leftPart=nonLeftRecExpression recpart=recExpression?)
@@ -303,7 +616,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     navigationSegment returns FinalIdentSegment
 	 *
 	 * Constraint:
-	 *     ident=Ident
+	 *     ident=IDENT
 	 */
 	protected void sequence_navigationSegment(ISerializationContext context, FinalIdentSegment semanticObject) {
 		if (errorAcceptor != null) {
@@ -311,7 +624,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.FINAL_IDENT_SEGMENT__IDENT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getNavigationSegmentAccess().getIdentIdentTerminalRuleCall_0_2_0(), semanticObject.getIdent());
+		feeder.accept(grammarAccess.getNavigationSegmentAccess().getIdentIDENTTerminalRuleCall_0_2_0(), semanticObject.getIdent());
 		feeder.finish();
 	}
 	
@@ -345,7 +658,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     recExpression returns FinalIdentSegment
 	 *
 	 * Constraint:
-	 *     (ident=Ident recExp=recExpression?)
+	 *     (ident=IDENT recExp=recExpression?)
 	 */
 	protected void sequence_navigationSegment_recExpression(ISerializationContext context, FinalIdentSegment semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -354,13 +667,127 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     nonLeftRecExpression returns nonLeftRecExpression
+	 *     nonLeftRecExpression returns IdentifierExpresion
 	 *
 	 * Constraint:
-	 *     ((condition=expression ifBlock=expression elseBlock=expression) | (bindings+=binding bindings+=binding* letExpr=expression))
+	 *     value=IDENT
 	 */
-	protected void sequence_nonLeftRecExpression(ISerializationContext context, nonLeftRecExpression semanticObject) {
+	protected void sequence_nonLeftRecExpression(ISerializationContext context, IdentifierExpresion semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.IDENTIFIER_EXPRESION__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.IDENTIFIER_EXPRESION__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getNonLeftRecExpressionAccess().getValueIDENTTerminalRuleCall_2_1_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     nonLeftRecExpression returns IfExpression
+	 *
+	 * Constraint:
+	 *     (condition=expression ifBlock=expression elseBlock=expression)
+	 */
+	protected void sequence_nonLeftRecExpression(ISerializationContext context, IfExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.IF_EXPRESSION__CONDITION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.IF_EXPRESSION__CONDITION));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.IF_EXPRESSION__IF_BLOCK) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.IF_EXPRESSION__IF_BLOCK));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.IF_EXPRESSION__ELSE_BLOCK) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.IF_EXPRESSION__ELSE_BLOCK));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getNonLeftRecExpressionAccess().getConditionExpressionParserRuleCall_5_2_0(), semanticObject.getCondition());
+		feeder.accept(grammarAccess.getNonLeftRecExpressionAccess().getIfBlockExpressionParserRuleCall_5_4_0(), semanticObject.getIfBlock());
+		feeder.accept(grammarAccess.getNonLeftRecExpressionAccess().getElseBlockExpressionParserRuleCall_5_6_0(), semanticObject.getElseBlock());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     nonLeftRecExpression returns LetExpression
+	 *
+	 * Constraint:
+	 *     (bindings+=binding bindings+=binding* letExpr=expression)
+	 */
+	protected void sequence_nonLeftRecExpression(ISerializationContext context, LetExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     nonLeftRecExpression returns LiteralExpressioin
+	 *
+	 * Constraint:
+	 *     lit=literal
+	 */
+	protected void sequence_nonLeftRecExpression(ISerializationContext context, LiteralExpressioin semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.LITERAL_EXPRESSIOIN__LIT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.LITERAL_EXPRESSIOIN__LIT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getNonLeftRecExpressionAccess().getLitLiteralParserRuleCall_3_1_0(), semanticObject.getLit());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     nonLeftRecExpression returns NegExpression
+	 *
+	 * Constraint:
+	 *     expression=expression
+	 */
+	protected void sequence_nonLeftRecExpression(ISerializationContext context, NegExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.NEG_EXPRESSION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.NEG_EXPRESSION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getNonLeftRecExpressionAccess().getExpressionExpressionParserRuleCall_1_2_0(), semanticObject.getExpression());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     nonLeftRecExpression returns NotExpression
+	 *
+	 * Constraint:
+	 *     expression=expression
+	 */
+	protected void sequence_nonLeftRecExpression(ISerializationContext context, NotExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.NOT_EXPRESSION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.NOT_EXPRESSION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getNonLeftRecExpressionAccess().getExpressionExpressionParserRuleCall_0_2_0(), semanticObject.getExpression());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     nonLeftRecExpression returns ParenthesisExpression
+	 *
+	 * Constraint:
+	 *     expression=expression
+	 */
+	protected void sequence_nonLeftRecExpression(ISerializationContext context, ParenthesisExpression semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.PARENTHESIS_EXPRESSION__EXPRESSION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.PARENTHESIS_EXPRESSION__EXPRESSION));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getNonLeftRecExpressionAccess().getExpressionExpressionParserRuleCall_4_2_0(), semanticObject.getExpression());
+		feeder.finish();
 	}
 	
 	
@@ -390,7 +817,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     rAttribute returns rAttribute
 	 *
 	 * Constraint:
-	 *     (type=rType name=Ident expr=expression?)
+	 *     (type=rType name=IDENT expr=expression?)
 	 */
 	protected void sequence_rAttribute(ISerializationContext context, rAttribute semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -498,7 +925,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     rOperation returns rOperation
 	 *
 	 * Constraint:
-	 *     (type=rType name=Ident paramList+=rParameters? body=rBlock)
+	 *     (type=rType name=IDENT paramList+=rParameters? body=rBlock)
 	 */
 	protected void sequence_rOperation(ISerializationContext context, rOperation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -639,10 +1066,22 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     rVarDecl returns rVarDecl
+	 *
+	 * Constraint:
+	 *     (type=rType ident=IDENT expression=expression?)
+	 */
+	protected void sequence_rVarDecl(ISerializationContext context, rVarDecl semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     rVariable returns rVariable
 	 *
 	 * Constraint:
-	 *     (type=rType name=Ident)
+	 *     (type=rType name=IDENT)
 	 */
 	protected void sequence_rVariable(ISerializationContext context, rVariable semanticObject) {
 		if (errorAcceptor != null) {
@@ -653,8 +1092,140 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getRVariableAccess().getTypeRTypeParserRuleCall_0_0(), semanticObject.getType());
-		feeder.accept(grammarAccess.getRVariableAccess().getNameIdentTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getRVariableAccess().getNameIDENTTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     variableDefinition returns TypeLiteralBoolean
+	 *     literal returns TypeLiteralBoolean
+	 *     typeLiteral returns TypeLiteralBoolean
+	 *     rType returns TypeLiteralBoolean
+	 *
+	 * Constraint:
+	 *     {TypeLiteralBoolean}
+	 */
+	protected void sequence_typeLiteral(ISerializationContext context, TypeLiteralBoolean semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     variableDefinition returns TypeLiteralClassifier
+	 *     literal returns TypeLiteralClassifier
+	 *     typeLiteral returns TypeLiteralClassifier
+	 *     rType returns TypeLiteralClassifier
+	 *
+	 * Constraint:
+	 *     {TypeLiteralClassifier}
+	 */
+	protected void sequence_typeLiteral(ISerializationContext context, TypeLiteralClassifier semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     variableDefinition returns TypeLiteralInteger
+	 *     literal returns TypeLiteralInteger
+	 *     typeLiteral returns TypeLiteralInteger
+	 *     rType returns TypeLiteralInteger
+	 *
+	 * Constraint:
+	 *     {TypeLiteralInteger}
+	 */
+	protected void sequence_typeLiteral(ISerializationContext context, TypeLiteralInteger semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     variableDefinition returns TypeLiteralOrderedTypeSet
+	 *     literal returns TypeLiteralOrderedTypeSet
+	 *     typeLiteral returns TypeLiteralOrderedTypeSet
+	 *     rType returns TypeLiteralOrderedTypeSet
+	 *
+	 * Constraint:
+	 *     subType=typeLiteral
+	 */
+	protected void sequence_typeLiteral(ISerializationContext context, TypeLiteralOrderedTypeSet semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.TYPE_LITERAL_ORDERED_TYPE_SET__SUB_TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.TYPE_LITERAL_ORDERED_TYPE_SET__SUB_TYPE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getTypeLiteralAccess().getSubTypeTypeLiteralParserRuleCall_5_2_0(), semanticObject.getSubType());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     variableDefinition returns TypeLiteralPipe
+	 *     literal returns TypeLiteralPipe
+	 *     typeLiteral returns TypeLiteralPipe
+	 *     rType returns TypeLiteralPipe
+	 *
+	 * Constraint:
+	 *     {TypeLiteralPipe}
+	 */
+	protected void sequence_typeLiteral(ISerializationContext context, TypeLiteralPipe semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     variableDefinition returns TypeLiteralReal
+	 *     literal returns TypeLiteralReal
+	 *     typeLiteral returns TypeLiteralReal
+	 *     rType returns TypeLiteralReal
+	 *
+	 * Constraint:
+	 *     {TypeLiteralReal}
+	 */
+	protected void sequence_typeLiteral(ISerializationContext context, TypeLiteralReal semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     variableDefinition returns TypeLiteralSequence
+	 *     literal returns TypeLiteralSequence
+	 *     typeLiteral returns TypeLiteralSequence
+	 *     rType returns TypeLiteralSequence
+	 *
+	 * Constraint:
+	 *     subType=typeLiteral
+	 */
+	protected void sequence_typeLiteral(ISerializationContext context, TypeLiteralSequence semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.TYPE_LITERAL_SEQUENCE__SUB_TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.TYPE_LITERAL_SEQUENCE__SUB_TYPE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getTypeLiteralAccess().getSubTypeTypeLiteralParserRuleCall_4_2_0(), semanticObject.getSubType());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     variableDefinition returns TypeLiteralString
+	 *     literal returns TypeLiteralString
+	 *     typeLiteral returns TypeLiteralString
+	 *     rType returns TypeLiteralString
+	 *
+	 * Constraint:
+	 *     {TypeLiteralString}
+	 */
+	protected void sequence_typeLiteral(ISerializationContext context, TypeLiteralString semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

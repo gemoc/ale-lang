@@ -22,10 +22,8 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected AleGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_binding___ColonKeyword_1_0_TypeLiteralParserRuleCall_1_1__q;
-	protected AbstractElementAlias match_literal_FalseKeyword_4_or_INTTerminalRuleCall_1_or_NullKeyword_5_or_RealTerminalRuleCall_2_or_STRINGTerminalRuleCall_0_or_TrueKeyword_3_or_TypeLiteralParserRuleCall_10_or___IdentTerminalRuleCall_8_0_ColonColonKeyword_8_1_IdentTerminalRuleCall_8_2_ColonColonKeyword_8_3_IdentTerminalRuleCall_8_4___or___IdentTerminalRuleCall_9_0_ColonColonKeyword_9_1_IdentTerminalRuleCall_9_2_ColonKeyword_9_3__;
+	protected AbstractElementAlias match_literal_FalseKeyword_4_or_INTTerminalRuleCall_1_or_NullKeyword_5_or_REALTerminalRuleCall_2_or_STRINGTerminalRuleCall_0_or_TrueKeyword_3_or___IDENTTerminalRuleCall_8_0_ColonColonKeyword_8_1_IDENTTerminalRuleCall_8_2_ColonColonKeyword_8_3_IDENTTerminalRuleCall_8_4___or___IDENTTerminalRuleCall_9_0_ColonColonKeyword_9_1_IDENTTerminalRuleCall_9_2_ColonKeyword_9_3__;
 	protected AbstractElementAlias match_literal_OrderedSetKeyword_7_0_or_SequenceKeyword_6_0;
-	protected AbstractElementAlias match_nonLeftRecExpression_HyphenMinusKeyword_1_0_or_LeftParenthesisKeyword_4_0_or_NotKeyword_0_0;
 	protected AbstractElementAlias match_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q;
 	protected AbstractElementAlias match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1;
 	protected AbstractElementAlias match_rOperation_RTagParserRuleCall_0_a;
@@ -33,15 +31,14 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_rRoot_RImportParserRuleCall_3_q;
 	protected AbstractElementAlias match_rRoot_RServiceParserRuleCall_4_a;
 	protected AbstractElementAlias match_rRoot_RServiceParserRuleCall_4_q;
-	protected AbstractElementAlias match_recExpression_AddOpParserRuleCall_0_2_0_or_AndKeyword_0_4_0_or_CompOpParserRuleCall_0_3_0_or_ImpliesKeyword_0_7_0_or_MultOpTerminalRuleCall_0_1_0_or_OrKeyword_0_5_0_or_XorKeyword_0_6_0;
+	protected AbstractElementAlias match_recExpression_ADD_OPTerminalRuleCall_0_2_0_or_AndKeyword_0_4_0_or_COMP_OPTerminalRuleCall_0_3_0_or_ImpliesKeyword_0_7_0_or_MULT_OPTerminalRuleCall_0_1_0_or_OrKeyword_0_5_0_or_XorKeyword_0_6_0;
+	protected AbstractElementAlias match_typeLiteral___VerticalLineKeyword_7_3_0_ClassifierTypeRuleParserRuleCall_7_3_1__a;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (AleGrammarAccess) access;
-		match_binding___ColonKeyword_1_0_TypeLiteralParserRuleCall_1_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getBindingAccess().getColonKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getBindingAccess().getTypeLiteralParserRuleCall_1_1()));
-		match_literal_FalseKeyword_4_or_INTTerminalRuleCall_1_or_NullKeyword_5_or_RealTerminalRuleCall_2_or_STRINGTerminalRuleCall_0_or_TrueKeyword_3_or_TypeLiteralParserRuleCall_10_or___IdentTerminalRuleCall_8_0_ColonColonKeyword_8_1_IdentTerminalRuleCall_8_2_ColonColonKeyword_8_3_IdentTerminalRuleCall_8_4___or___IdentTerminalRuleCall_9_0_ColonColonKeyword_9_1_IdentTerminalRuleCall_9_2_ColonKeyword_9_3__ = new AlternativeAlias(false, false, new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getLiteralAccess().getIdentTerminalRuleCall_8_0()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getColonColonKeyword_8_1()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getIdentTerminalRuleCall_8_2()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getColonColonKeyword_8_3()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getIdentTerminalRuleCall_8_4())), new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getLiteralAccess().getIdentTerminalRuleCall_9_0()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getColonColonKeyword_9_1()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getIdentTerminalRuleCall_9_2()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getColonKeyword_9_3())), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getFalseKeyword_4()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getINTTerminalRuleCall_1()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getNullKeyword_5()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getRealTerminalRuleCall_2()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getSTRINGTerminalRuleCall_0()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getTrueKeyword_3()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getTypeLiteralParserRuleCall_10()));
+		match_literal_FalseKeyword_4_or_INTTerminalRuleCall_1_or_NullKeyword_5_or_REALTerminalRuleCall_2_or_STRINGTerminalRuleCall_0_or_TrueKeyword_3_or___IDENTTerminalRuleCall_8_0_ColonColonKeyword_8_1_IDENTTerminalRuleCall_8_2_ColonColonKeyword_8_3_IDENTTerminalRuleCall_8_4___or___IDENTTerminalRuleCall_9_0_ColonColonKeyword_9_1_IDENTTerminalRuleCall_9_2_ColonKeyword_9_3__ = new AlternativeAlias(false, false, new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getLiteralAccess().getIDENTTerminalRuleCall_8_0()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getColonColonKeyword_8_1()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getIDENTTerminalRuleCall_8_2()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getColonColonKeyword_8_3()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getIDENTTerminalRuleCall_8_4())), new GroupAlias(false, false, new TokenAlias(false, false, grammarAccess.getLiteralAccess().getIDENTTerminalRuleCall_9_0()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getColonColonKeyword_9_1()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getIDENTTerminalRuleCall_9_2()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getColonKeyword_9_3())), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getFalseKeyword_4()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getINTTerminalRuleCall_1()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getNullKeyword_5()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getREALTerminalRuleCall_2()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getSTRINGTerminalRuleCall_0()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getTrueKeyword_3()));
 		match_literal_OrderedSetKeyword_7_0_or_SequenceKeyword_6_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getLiteralAccess().getOrderedSetKeyword_7_0()), new TokenAlias(false, false, grammarAccess.getLiteralAccess().getSequenceKeyword_6_0()));
-		match_nonLeftRecExpression_HyphenMinusKeyword_1_0_or_LeftParenthesisKeyword_4_0_or_NotKeyword_0_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getNonLeftRecExpressionAccess().getHyphenMinusKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getNonLeftRecExpressionAccess().getLeftParenthesisKeyword_4_0()), new TokenAlias(false, false, grammarAccess.getNonLeftRecExpressionAccess().getNotKeyword_0_0()));
 		match_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getExtendsKeyword_3_0()), new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getRQualifiedParserRuleCall_3_1()), new GroupAlias(true, true, new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getCommaKeyword_3_2_0()), new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getRQualifiedParserRuleCall_3_2_1())));
 		match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getROperationAccess().getDefKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getROperationAccess().getOverrideKeyword_1_1()));
 		match_rOperation_RTagParserRuleCall_0_a = new TokenAlias(true, true, grammarAccess.getROperationAccess().getRTagParserRuleCall_0());
@@ -49,27 +46,30 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_rRoot_RImportParserRuleCall_3_q = new TokenAlias(false, true, grammarAccess.getRRootAccess().getRImportParserRuleCall_3());
 		match_rRoot_RServiceParserRuleCall_4_a = new TokenAlias(true, true, grammarAccess.getRRootAccess().getRServiceParserRuleCall_4());
 		match_rRoot_RServiceParserRuleCall_4_q = new TokenAlias(false, true, grammarAccess.getRRootAccess().getRServiceParserRuleCall_4());
-		match_recExpression_AddOpParserRuleCall_0_2_0_or_AndKeyword_0_4_0_or_CompOpParserRuleCall_0_3_0_or_ImpliesKeyword_0_7_0_or_MultOpTerminalRuleCall_0_1_0_or_OrKeyword_0_5_0_or_XorKeyword_0_6_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getRecExpressionAccess().getAddOpParserRuleCall_0_2_0()), new TokenAlias(false, false, grammarAccess.getRecExpressionAccess().getAndKeyword_0_4_0()), new TokenAlias(false, false, grammarAccess.getRecExpressionAccess().getCompOpParserRuleCall_0_3_0()), new TokenAlias(false, false, grammarAccess.getRecExpressionAccess().getImpliesKeyword_0_7_0()), new TokenAlias(false, false, grammarAccess.getRecExpressionAccess().getMultOpTerminalRuleCall_0_1_0()), new TokenAlias(false, false, grammarAccess.getRecExpressionAccess().getOrKeyword_0_5_0()), new TokenAlias(false, false, grammarAccess.getRecExpressionAccess().getXorKeyword_0_6_0()));
+		match_recExpression_ADD_OPTerminalRuleCall_0_2_0_or_AndKeyword_0_4_0_or_COMP_OPTerminalRuleCall_0_3_0_or_ImpliesKeyword_0_7_0_or_MULT_OPTerminalRuleCall_0_1_0_or_OrKeyword_0_5_0_or_XorKeyword_0_6_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getRecExpressionAccess().getADD_OPTerminalRuleCall_0_2_0()), new TokenAlias(false, false, grammarAccess.getRecExpressionAccess().getAndKeyword_0_4_0()), new TokenAlias(false, false, grammarAccess.getRecExpressionAccess().getCOMP_OPTerminalRuleCall_0_3_0()), new TokenAlias(false, false, grammarAccess.getRecExpressionAccess().getImpliesKeyword_0_7_0()), new TokenAlias(false, false, grammarAccess.getRecExpressionAccess().getMULT_OPTerminalRuleCall_0_1_0()), new TokenAlias(false, false, grammarAccess.getRecExpressionAccess().getOrKeyword_0_5_0()), new TokenAlias(false, false, grammarAccess.getRecExpressionAccess().getXorKeyword_0_6_0()));
+		match_typeLiteral___VerticalLineKeyword_7_3_0_ClassifierTypeRuleParserRuleCall_7_3_1__a = new GroupAlias(true, true, new TokenAlias(false, false, grammarAccess.getTypeLiteralAccess().getVerticalLineKeyword_7_3_0()), new TokenAlias(false, false, grammarAccess.getTypeLiteralAccess().getClassifierTypeRuleParserRuleCall_7_3_1()));
 	}
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (ruleCall.getRule() == grammarAccess.getINTRule())
+		if (ruleCall.getRule() == grammarAccess.getADD_OPRule())
+			return getADD_OPToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getCOMP_OPRule())
+			return getCOMP_OPToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getIDENTRule())
+			return getIDENTToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getINTRule())
 			return getINTToken(semanticObject, ruleCall, node);
-		else if (ruleCall.getRule() == grammarAccess.getIdentRule())
-			return getIdentToken(semanticObject, ruleCall, node);
-		else if (ruleCall.getRule() == grammarAccess.getMultOpRule())
-			return getMultOpToken(semanticObject, ruleCall, node);
-		else if (ruleCall.getRule() == grammarAccess.getRealRule())
-			return getRealToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getMULT_OPRule())
+			return getMULT_OPToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getREALRule())
+			return getREALToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getSTRINGRule())
 			return getSTRINGToken(semanticObject, ruleCall, node);
-		else if (ruleCall.getRule() == grammarAccess.getAddOpRule())
-			return getaddOpToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getClassifierTypeRuleRule())
+			return getclassifierTypeRuleToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getCollectionIteratorRule())
 			return getcollectionIteratorToken(semanticObject, ruleCall, node);
-		else if (ruleCall.getRule() == grammarAccess.getCompOpRule())
-			return getcompOpToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getRImportRule())
 			return getrImportToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getRQualifiedRule())
@@ -78,12 +78,43 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 			return getrServiceToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getRTagRule())
 			return getrTagToken(semanticObject, ruleCall, node);
-		else if (ruleCall.getRule() == grammarAccess.getRTypeRule())
-			return getrTypeToken(semanticObject, ruleCall, node);
-		else if (ruleCall.getRule() == grammarAccess.getTypeLiteralRule())
-			return gettypeLiteralToken(semanticObject, ruleCall, node);
-		else if (ruleCall.getRule() == grammarAccess.getVariableDefinitionRule())
-			return getvariableDefinitionToken(semanticObject, ruleCall, node);
+		return "";
+	}
+	
+	/**
+	 * terminal ADD_OP: '+' | '-'
+	 * ;
+	 */
+	protected String getADD_OPToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "+";
+	}
+	
+	/**
+	 * terminal COMP_OP :     '<='
+	 * 	    	|'>='
+	 * 	  		|'!='
+	 * 	  		|'<>'
+	 * 	  		|'='
+	 * 	  		|'=='
+	 * 	 		|'<'
+	 * 	  		|'>'
+	 * ;
+	 */
+	protected String getCOMP_OPToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "<=";
+	}
+	
+	/**
+	 * terminal IDENT : (LETTER | '_') (LETTER | '0'..'9' | '_')*
+	 * ;
+	 */
+	protected String getIDENTToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
 		return "";
 	}
 	
@@ -97,30 +128,20 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	}
 	
 	/**
-	 * terminal Ident : (Letter | '_') (Letter | '0'..'9' | '_')*
+	 * terminal MULT_OP : '*' | '/'
 	 * ;
 	 */
-	protected String getIdentToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "";
-	}
-	
-	/**
-	 * terminal MultOp : '*' | '/'
-	 * ;
-	 */
-	protected String getMultOpToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	protected String getMULT_OPToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
 		return "*";
 	}
 	
 	/**
-	 * terminal Real : ('0'..'9')+'.'('0'..'9')+
+	 * terminal REAL : ('0'..'9')+'.'('0'..'9')+
 	 * ;
 	 */
-	protected String getRealToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	protected String getREALToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
 		return ".";
@@ -139,13 +160,14 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	}
 	
 	/**
-	 * addOp: '+' | '-'
+	 * classifierTypeRule :   IDENT '::' IDENT
+	 * 				     | IDENT ':' 
 	 * ;
 	 */
-	protected String getaddOpToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	protected String getclassifierTypeRuleToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
-		return "+";
+		return "::";
 	}
 	
 	/**
@@ -159,24 +181,7 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	}
 	
 	/**
-	 * compOp :     '<='
-	 * 	    	|'>='
-	 * 	  		|'!='
-	 * 	  		|'<>'
-	 * 	  		|'='
-	 * 	  		|'=='
-	 * 	 		|'<'
-	 * 	  		|'>'
-	 * ;
-	 */
-	protected String getcompOpToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "<=";
-	}
-	
-	/**
-	 * rImport : 'import' rQualified 'as' Ident ';'
+	 * rImport : 'import' rQualified 'as' IDENT ';'
 	 * ;
 	 */
 	protected String getrImportToken(EObject semanticObject, RuleCall ruleCall, INode node) {
@@ -186,7 +191,7 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	}
 	
 	/**
-	 * rQualified : Ident ('.'Ident)*
+	 * rQualified : IDENT ('.'IDENT)*
 	 * ;
 	 */
 	protected String getrQualifiedToken(EObject semanticObject, RuleCall ruleCall, INode node) {
@@ -196,7 +201,7 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	}
 	
 	/**
-	 * rService : 'use' Ident ('.' Ident)* ';'
+	 * rService : 'use' IDENT ('.' IDENT)* ';'
 	 * ;
 	 */
 	protected String getrServiceToken(EObject semanticObject, RuleCall ruleCall, INode node) {
@@ -206,7 +211,7 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	}
 	
 	/**
-	 * rTag : '@'Ident
+	 * rTag : '@'IDENT
 	 * ;
 	 */
 	protected String getrTagToken(EObject semanticObject, RuleCall ruleCall, INode node) {
@@ -215,57 +220,16 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 		return "@";
 	}
 	
-	/**
-	 * rType: rQualified | typeLiteral
-	 * ;
-	 */
-	protected String getrTypeToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "";
-	}
-	
-	/**
-	 * typeLiteral :   'String'
-	 * 		      | 'Integer'
-	 * 		      | 'Real'
-	 * 		      | 'Boolean'
-	 * 		      | 'Sequence(' typeLiteral')'
-	 * 		      | 'OrderedSet(' typeLiteral')'
-	 * 		      | classifierTypeRule
-	 * 		      | '{' classifierTypeRule ('|' classifierTypeRule)* '}'
-	 * ;
-	 */
-	protected String gettypeLiteralToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "String";
-	}
-	
-	/**
-	 * variableDefinition : Ident (':' typeLiteral)? '|'
-	 * ;
-	 */
-	protected String getvariableDefinitionToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "|";
-	}
-	
 	@Override
 	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
 		if (transition.getAmbiguousSyntaxes().isEmpty()) return;
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if (match_binding___ColonKeyword_1_0_TypeLiteralParserRuleCall_1_1__q.equals(syntax))
-				emit_binding___ColonKeyword_1_0_TypeLiteralParserRuleCall_1_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_literal_FalseKeyword_4_or_INTTerminalRuleCall_1_or_NullKeyword_5_or_RealTerminalRuleCall_2_or_STRINGTerminalRuleCall_0_or_TrueKeyword_3_or_TypeLiteralParserRuleCall_10_or___IdentTerminalRuleCall_8_0_ColonColonKeyword_8_1_IdentTerminalRuleCall_8_2_ColonColonKeyword_8_3_IdentTerminalRuleCall_8_4___or___IdentTerminalRuleCall_9_0_ColonColonKeyword_9_1_IdentTerminalRuleCall_9_2_ColonKeyword_9_3__.equals(syntax))
-				emit_literal_FalseKeyword_4_or_INTTerminalRuleCall_1_or_NullKeyword_5_or_RealTerminalRuleCall_2_or_STRINGTerminalRuleCall_0_or_TrueKeyword_3_or_TypeLiteralParserRuleCall_10_or___IdentTerminalRuleCall_8_0_ColonColonKeyword_8_1_IdentTerminalRuleCall_8_2_ColonColonKeyword_8_3_IdentTerminalRuleCall_8_4___or___IdentTerminalRuleCall_9_0_ColonColonKeyword_9_1_IdentTerminalRuleCall_9_2_ColonKeyword_9_3__(semanticObject, getLastNavigableState(), syntaxNodes);
+			if (match_literal_FalseKeyword_4_or_INTTerminalRuleCall_1_or_NullKeyword_5_or_REALTerminalRuleCall_2_or_STRINGTerminalRuleCall_0_or_TrueKeyword_3_or___IDENTTerminalRuleCall_8_0_ColonColonKeyword_8_1_IDENTTerminalRuleCall_8_2_ColonColonKeyword_8_3_IDENTTerminalRuleCall_8_4___or___IDENTTerminalRuleCall_9_0_ColonColonKeyword_9_1_IDENTTerminalRuleCall_9_2_ColonKeyword_9_3__.equals(syntax))
+				emit_literal_FalseKeyword_4_or_INTTerminalRuleCall_1_or_NullKeyword_5_or_REALTerminalRuleCall_2_or_STRINGTerminalRuleCall_0_or_TrueKeyword_3_or___IDENTTerminalRuleCall_8_0_ColonColonKeyword_8_1_IDENTTerminalRuleCall_8_2_ColonColonKeyword_8_3_IDENTTerminalRuleCall_8_4___or___IDENTTerminalRuleCall_9_0_ColonColonKeyword_9_1_IDENTTerminalRuleCall_9_2_ColonKeyword_9_3__(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_literal_OrderedSetKeyword_7_0_or_SequenceKeyword_6_0.equals(syntax))
 				emit_literal_OrderedSetKeyword_7_0_or_SequenceKeyword_6_0(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_nonLeftRecExpression_HyphenMinusKeyword_1_0_or_LeftParenthesisKeyword_4_0_or_NotKeyword_0_0.equals(syntax))
-				emit_nonLeftRecExpression_HyphenMinusKeyword_1_0_or_LeftParenthesisKeyword_4_0_or_NotKeyword_0_0(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q.equals(syntax))
 				emit_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1.equals(syntax))
@@ -280,41 +244,31 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_rRoot_RServiceParserRuleCall_4_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_rRoot_RServiceParserRuleCall_4_q.equals(syntax))
 				emit_rRoot_RServiceParserRuleCall_4_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_recExpression_AddOpParserRuleCall_0_2_0_or_AndKeyword_0_4_0_or_CompOpParserRuleCall_0_3_0_or_ImpliesKeyword_0_7_0_or_MultOpTerminalRuleCall_0_1_0_or_OrKeyword_0_5_0_or_XorKeyword_0_6_0.equals(syntax))
-				emit_recExpression_AddOpParserRuleCall_0_2_0_or_AndKeyword_0_4_0_or_CompOpParserRuleCall_0_3_0_or_ImpliesKeyword_0_7_0_or_MultOpTerminalRuleCall_0_1_0_or_OrKeyword_0_5_0_or_XorKeyword_0_6_0(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_recExpression_ADD_OPTerminalRuleCall_0_2_0_or_AndKeyword_0_4_0_or_COMP_OPTerminalRuleCall_0_3_0_or_ImpliesKeyword_0_7_0_or_MULT_OPTerminalRuleCall_0_1_0_or_OrKeyword_0_5_0_or_XorKeyword_0_6_0.equals(syntax))
+				emit_recExpression_ADD_OPTerminalRuleCall_0_2_0_or_AndKeyword_0_4_0_or_COMP_OPTerminalRuleCall_0_3_0_or_ImpliesKeyword_0_7_0_or_MULT_OPTerminalRuleCall_0_1_0_or_OrKeyword_0_5_0_or_XorKeyword_0_6_0(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_typeLiteral___VerticalLineKeyword_7_3_0_ClassifierTypeRuleParserRuleCall_7_3_1__a.equals(syntax))
+				emit_typeLiteral___VerticalLineKeyword_7_3_0_ClassifierTypeRuleParserRuleCall_7_3_1__a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
 	/**
 	 * Ambiguous syntax:
-	 *     (':' typeLiteral)?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     (rule start) Ident (ambiguity) '=' leftPart=nonLeftRecExpression
-	 */
-	protected void emit_binding___ColonKeyword_1_0_TypeLiteralParserRuleCall_1_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
 	 *     (
-	  *         (Ident '::' Ident '::' Ident) | 
-	  *         (Ident '::' Ident ':') | 
+	  *         (IDENT '::' IDENT '::' IDENT) | 
+	  *         (IDENT '::' IDENT ':') | 
 	  *         STRING | 
 	  *         INT | 
-	  *         Real | 
+	  *         REAL | 
 	  *         'true' | 
 	  *         'false' | 
-	  *         'null' | 
-	  *         typeLiteral
+	  *         'null'
 	  *     )
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) (rule start)
 	 */
-	protected void emit_literal_FalseKeyword_4_or_INTTerminalRuleCall_1_or_NullKeyword_5_or_RealTerminalRuleCall_2_or_STRINGTerminalRuleCall_0_or_TrueKeyword_3_or_TypeLiteralParserRuleCall_10_or___IdentTerminalRuleCall_8_0_ColonColonKeyword_8_1_IdentTerminalRuleCall_8_2_ColonColonKeyword_8_3_IdentTerminalRuleCall_8_4___or___IdentTerminalRuleCall_9_0_ColonColonKeyword_9_1_IdentTerminalRuleCall_9_2_ColonKeyword_9_3__(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_literal_FalseKeyword_4_or_INTTerminalRuleCall_1_or_NullKeyword_5_or_REALTerminalRuleCall_2_or_STRINGTerminalRuleCall_0_or_TrueKeyword_3_or___IDENTTerminalRuleCall_8_0_ColonColonKeyword_8_1_IDENTTerminalRuleCall_8_2_ColonColonKeyword_8_3_IDENTTerminalRuleCall_8_4___or___IDENTTerminalRuleCall_9_0_ColonColonKeyword_9_1_IDENTTerminalRuleCall_9_2_ColonKeyword_9_3__(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -326,17 +280,6 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) seqExprs+=expression
 	 */
 	protected void emit_literal_OrderedSetKeyword_7_0_or_SequenceKeyword_6_0(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     'not' | '-' | '('
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) leftPart=nonLeftRecExpression
-	 */
-	protected void emit_nonLeftRecExpression_HyphenMinusKeyword_1_0_or_LeftParenthesisKeyword_4_0_or_NotKeyword_0_0(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -422,9 +365,9 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	/**
 	 * Ambiguous syntax:
 	 *     (
-	  *         MultOp | 
-	  *         addOp | 
-	  *         compOp | 
+	  *         MULT_OP | 
+	  *         ADD_OP | 
+	  *         COMP_OP | 
 	  *         'and' | 
 	  *         'or' | 
 	  *         'xor' | 
@@ -434,7 +377,20 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) leftPart=nonLeftRecExpression
 	 */
-	protected void emit_recExpression_AddOpParserRuleCall_0_2_0_or_AndKeyword_0_4_0_or_CompOpParserRuleCall_0_3_0_or_ImpliesKeyword_0_7_0_or_MultOpTerminalRuleCall_0_1_0_or_OrKeyword_0_5_0_or_XorKeyword_0_6_0(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_recExpression_ADD_OPTerminalRuleCall_0_2_0_or_AndKeyword_0_4_0_or_COMP_OPTerminalRuleCall_0_3_0_or_ImpliesKeyword_0_7_0_or_MULT_OPTerminalRuleCall_0_1_0_or_OrKeyword_0_5_0_or_XorKeyword_0_6_0(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('|' classifierTypeRule)*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) '{' classifierTypeRule (ambiguity) '}' (rule start)
+	 *     (rule start) IDENT ':' '{' classifierTypeRule (ambiguity) '}' '|' (rule start)
+	 *     (rule start) collectionIterator '(' IDENT ':' '{' classifierTypeRule (ambiguity) '}' '|' expression=expression
+	 */
+	protected void emit_typeLiteral___VerticalLineKeyword_7_3_0_ClassifierTypeRuleParserRuleCall_7_3_1__a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

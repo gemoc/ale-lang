@@ -83,17 +83,33 @@ public class AleFactoryImpl extends EFactoryImpl implements AleFactory
       case AlePackage.RWHILE: return createRWhile();
       case AlePackage.REXPRESSION: return createRExpression();
       case AlePackage.EXPR: return createExpr();
-      case AlePackage.REC_EXPRESSION: return createRecExpression();
       case AlePackage.NAVIGATION_SEGMENT: return createNavigationSegment();
-      case AlePackage.NON_LEFT_REC_EXPRESSION: return createnonLeftRecExpression();
-      case AlePackage.BINDING: return createbinding();
-      case AlePackage.CALL_EXP: return createcallExp();
+      case AlePackage.BINDING: return createBinding();
+      case AlePackage.CLASS_EXP: return createClassExp();
       case AlePackage.EXPRESSION_SEQUENCE: return createexpressionSequence();
-      case AlePackage.LITERAL: return createliteral();
+      case AlePackage.VARIABLE_DEFINITION: return createvariableDefinition();
+      case AlePackage.LITERAL: return createLiteral();
+      case AlePackage.TYPE_LITERAL: return createTypeLiteral();
+      case AlePackage.RTYPE: return createRType();
       case AlePackage.RVAL_DECL: return createRValDecl();
       case AlePackage.FINAL_IDENT_SEGMENT: return createFinalIdentSegment();
       case AlePackage.FINAL_IDENT_CALL_SEGMENT: return createFinalIdentCallSegment();
       case AlePackage.FINAL_CALL_EXP_SEGMENT: return createFinalCallExpSegment();
+      case AlePackage.NOT_EXPRESSION: return createNotExpression();
+      case AlePackage.NEG_EXPRESSION: return createNegExpression();
+      case AlePackage.IDENTIFIER_EXPRESION: return createIdentifierExpresion();
+      case AlePackage.LITERAL_EXPRESSIOIN: return createLiteralExpressioin();
+      case AlePackage.PARENTHESIS_EXPRESSION: return createParenthesisExpression();
+      case AlePackage.IF_EXPRESSION: return createIfExpression();
+      case AlePackage.LET_EXPRESSION: return createLetExpression();
+      case AlePackage.TYPE_LITERAL_STRING: return createTypeLiteralString();
+      case AlePackage.TYPE_LITERAL_INTEGER: return createTypeLiteralInteger();
+      case AlePackage.TYPE_LITERAL_REAL: return createTypeLiteralReal();
+      case AlePackage.TYPE_LITERAL_BOOLEAN: return createTypeLiteralBoolean();
+      case AlePackage.TYPE_LITERAL_SEQUENCE: return createTypeLiteralSequence();
+      case AlePackage.TYPE_LITERAL_ORDERED_TYPE_SET: return createTypeLiteralOrderedTypeSet();
+      case AlePackage.TYPE_LITERAL_CLASSIFIER: return createTypeLiteralClassifier();
+      case AlePackage.TYPE_LITERAL_PIPE: return createTypeLiteralPipe();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -302,17 +318,6 @@ public class AleFactoryImpl extends EFactoryImpl implements AleFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public RecExpression createRecExpression()
-  {
-    RecExpressionImpl recExpression = new RecExpressionImpl();
-    return recExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public NavigationSegment createNavigationSegment()
   {
     NavigationSegmentImpl navigationSegment = new NavigationSegmentImpl();
@@ -324,20 +329,9 @@ public class AleFactoryImpl extends EFactoryImpl implements AleFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public nonLeftRecExpression createnonLeftRecExpression()
+  public Binding createBinding()
   {
-    nonLeftRecExpressionImpl nonLeftRecExpression = new nonLeftRecExpressionImpl();
-    return nonLeftRecExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public binding createbinding()
-  {
-    bindingImpl binding = new bindingImpl();
+    BindingImpl binding = new BindingImpl();
     return binding;
   }
 
@@ -346,10 +340,10 @@ public class AleFactoryImpl extends EFactoryImpl implements AleFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public callExp createcallExp()
+  public ClassExp createClassExp()
   {
-    callExpImpl callExp = new callExpImpl();
-    return callExp;
+    ClassExpImpl classExp = new ClassExpImpl();
+    return classExp;
   }
 
   /**
@@ -368,10 +362,43 @@ public class AleFactoryImpl extends EFactoryImpl implements AleFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public literal createliteral()
+  public variableDefinition createvariableDefinition()
   {
-    literalImpl literal = new literalImpl();
+    variableDefinitionImpl variableDefinition = new variableDefinitionImpl();
+    return variableDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Literal createLiteral()
+  {
+    LiteralImpl literal = new LiteralImpl();
     return literal;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeLiteral createTypeLiteral()
+  {
+    TypeLiteralImpl typeLiteral = new TypeLiteralImpl();
+    return typeLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public RType createRType()
+  {
+    RTypeImpl rType = new RTypeImpl();
+    return rType;
   }
 
   /**
@@ -416,6 +443,171 @@ public class AleFactoryImpl extends EFactoryImpl implements AleFactory
   {
     FinalCallExpSegmentImpl finalCallExpSegment = new FinalCallExpSegmentImpl();
     return finalCallExpSegment;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotExpression createNotExpression()
+  {
+    NotExpressionImpl notExpression = new NotExpressionImpl();
+    return notExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NegExpression createNegExpression()
+  {
+    NegExpressionImpl negExpression = new NegExpressionImpl();
+    return negExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IdentifierExpresion createIdentifierExpresion()
+  {
+    IdentifierExpresionImpl identifierExpresion = new IdentifierExpresionImpl();
+    return identifierExpresion;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public LiteralExpressioin createLiteralExpressioin()
+  {
+    LiteralExpressioinImpl literalExpressioin = new LiteralExpressioinImpl();
+    return literalExpressioin;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ParenthesisExpression createParenthesisExpression()
+  {
+    ParenthesisExpressionImpl parenthesisExpression = new ParenthesisExpressionImpl();
+    return parenthesisExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public IfExpression createIfExpression()
+  {
+    IfExpressionImpl ifExpression = new IfExpressionImpl();
+    return ifExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public LetExpression createLetExpression()
+  {
+    LetExpressionImpl letExpression = new LetExpressionImpl();
+    return letExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeLiteralString createTypeLiteralString()
+  {
+    TypeLiteralStringImpl typeLiteralString = new TypeLiteralStringImpl();
+    return typeLiteralString;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeLiteralInteger createTypeLiteralInteger()
+  {
+    TypeLiteralIntegerImpl typeLiteralInteger = new TypeLiteralIntegerImpl();
+    return typeLiteralInteger;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeLiteralReal createTypeLiteralReal()
+  {
+    TypeLiteralRealImpl typeLiteralReal = new TypeLiteralRealImpl();
+    return typeLiteralReal;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeLiteralBoolean createTypeLiteralBoolean()
+  {
+    TypeLiteralBooleanImpl typeLiteralBoolean = new TypeLiteralBooleanImpl();
+    return typeLiteralBoolean;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeLiteralSequence createTypeLiteralSequence()
+  {
+    TypeLiteralSequenceImpl typeLiteralSequence = new TypeLiteralSequenceImpl();
+    return typeLiteralSequence;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeLiteralOrderedTypeSet createTypeLiteralOrderedTypeSet()
+  {
+    TypeLiteralOrderedTypeSetImpl typeLiteralOrderedTypeSet = new TypeLiteralOrderedTypeSetImpl();
+    return typeLiteralOrderedTypeSet;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeLiteralClassifier createTypeLiteralClassifier()
+  {
+    TypeLiteralClassifierImpl typeLiteralClassifier = new TypeLiteralClassifierImpl();
+    return typeLiteralClassifier;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TypeLiteralPipe createTypeLiteralPipe()
+  {
+    TypeLiteralPipeImpl typeLiteralPipe = new TypeLiteralPipeImpl();
+    return typeLiteralPipe;
   }
 
   /**

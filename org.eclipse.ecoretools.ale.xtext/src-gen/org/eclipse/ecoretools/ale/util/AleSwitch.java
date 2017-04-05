@@ -205,23 +205,11 @@ public class AleSwitch<T> extends Switch<T>
       {
         Expr expr = (Expr)theEObject;
         T result = caseExpr(expr);
-        if (result == null) result = caserVarDecl(expr);
         if (result == null) result = caserCollection(expr);
         if (result == null) result = caseRWhile(expr);
         if (result == null) result = caseRExpression(expr);
-        if (result == null) result = caseRecExpression(expr);
-        if (result == null) result = casenonLeftRecExpression(expr);
-        if (result == null) result = casebinding(expr);
-        if (result == null) result = casecallExp(expr);
         if (result == null) result = caseRForEach(expr);
         if (result == null) result = caseRStatement(expr);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AlePackage.REC_EXPRESSION:
-      {
-        RecExpression recExpression = (RecExpression)theEObject;
-        T result = caseRecExpression(recExpression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -229,28 +217,26 @@ public class AleSwitch<T> extends Switch<T>
       {
         NavigationSegment navigationSegment = (NavigationSegment)theEObject;
         T result = caseNavigationSegment(navigationSegment);
-        if (result == null) result = caseRecExpression(navigationSegment);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AlePackage.NON_LEFT_REC_EXPRESSION:
-      {
-        nonLeftRecExpression nonLeftRecExpression = (nonLeftRecExpression)theEObject;
-        T result = casenonLeftRecExpression(nonLeftRecExpression);
+        if (result == null) result = caseExpr(navigationSegment);
+        if (result == null) result = caserCollection(navigationSegment);
+        if (result == null) result = caseRWhile(navigationSegment);
+        if (result == null) result = caseRExpression(navigationSegment);
+        if (result == null) result = caseRForEach(navigationSegment);
+        if (result == null) result = caseRStatement(navigationSegment);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
       case AlePackage.BINDING:
       {
-        binding binding = (binding)theEObject;
-        T result = casebinding(binding);
+        Binding binding = (Binding)theEObject;
+        T result = caseBinding(binding);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case AlePackage.CALL_EXP:
+      case AlePackage.CLASS_EXP:
       {
-        callExp callExp = (callExp)theEObject;
-        T result = casecallExp(callExp);
+        ClassExp classExp = (ClassExp)theEObject;
+        T result = caseClassExp(classExp);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -258,17 +244,41 @@ public class AleSwitch<T> extends Switch<T>
       {
         expressionSequence expressionSequence = (expressionSequence)theEObject;
         T result = caseexpressionSequence(expressionSequence);
-        if (result == null) result = casecallExp(expressionSequence);
-        if (result == null) result = caseliteral(expressionSequence);
-        if (result == null) result = casenonLeftRecExpression(expressionSequence);
+        if (result == null) result = caseClassExp(expressionSequence);
+        if (result == null) result = caseLiteral(expressionSequence);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.VARIABLE_DEFINITION:
+      {
+        variableDefinition variableDefinition = (variableDefinition)theEObject;
+        T result = casevariableDefinition(variableDefinition);
+        if (result == null) result = caseClassExp(variableDefinition);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
       case AlePackage.LITERAL:
       {
-        literal literal = (literal)theEObject;
-        T result = caseliteral(literal);
-        if (result == null) result = casenonLeftRecExpression(literal);
+        Literal literal = (Literal)theEObject;
+        T result = caseLiteral(literal);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.TYPE_LITERAL:
+      {
+        TypeLiteral typeLiteral = (TypeLiteral)theEObject;
+        T result = caseTypeLiteral(typeLiteral);
+        if (result == null) result = casevariableDefinition(typeLiteral);
+        if (result == null) result = caseLiteral(typeLiteral);
+        if (result == null) result = caseRType(typeLiteral);
+        if (result == null) result = caseClassExp(typeLiteral);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.RTYPE:
+      {
+        RType rType = (RType)theEObject;
+        T result = caseRType(rType);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -285,7 +295,12 @@ public class AleSwitch<T> extends Switch<T>
         FinalIdentSegment finalIdentSegment = (FinalIdentSegment)theEObject;
         T result = caseFinalIdentSegment(finalIdentSegment);
         if (result == null) result = caseNavigationSegment(finalIdentSegment);
-        if (result == null) result = caseRecExpression(finalIdentSegment);
+        if (result == null) result = caseExpr(finalIdentSegment);
+        if (result == null) result = caserCollection(finalIdentSegment);
+        if (result == null) result = caseRWhile(finalIdentSegment);
+        if (result == null) result = caseRExpression(finalIdentSegment);
+        if (result == null) result = caseRForEach(finalIdentSegment);
+        if (result == null) result = caseRStatement(finalIdentSegment);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -294,7 +309,12 @@ public class AleSwitch<T> extends Switch<T>
         FinalIdentCallSegment finalIdentCallSegment = (FinalIdentCallSegment)theEObject;
         T result = caseFinalIdentCallSegment(finalIdentCallSegment);
         if (result == null) result = caseNavigationSegment(finalIdentCallSegment);
-        if (result == null) result = caseRecExpression(finalIdentCallSegment);
+        if (result == null) result = caseExpr(finalIdentCallSegment);
+        if (result == null) result = caserCollection(finalIdentCallSegment);
+        if (result == null) result = caseRWhile(finalIdentCallSegment);
+        if (result == null) result = caseRExpression(finalIdentCallSegment);
+        if (result == null) result = caseRForEach(finalIdentCallSegment);
+        if (result == null) result = caseRStatement(finalIdentCallSegment);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -303,7 +323,199 @@ public class AleSwitch<T> extends Switch<T>
         FinalCallExpSegment finalCallExpSegment = (FinalCallExpSegment)theEObject;
         T result = caseFinalCallExpSegment(finalCallExpSegment);
         if (result == null) result = caseNavigationSegment(finalCallExpSegment);
-        if (result == null) result = caseRecExpression(finalCallExpSegment);
+        if (result == null) result = caseExpr(finalCallExpSegment);
+        if (result == null) result = caserCollection(finalCallExpSegment);
+        if (result == null) result = caseRWhile(finalCallExpSegment);
+        if (result == null) result = caseRExpression(finalCallExpSegment);
+        if (result == null) result = caseRForEach(finalCallExpSegment);
+        if (result == null) result = caseRStatement(finalCallExpSegment);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.NOT_EXPRESSION:
+      {
+        NotExpression notExpression = (NotExpression)theEObject;
+        T result = caseNotExpression(notExpression);
+        if (result == null) result = caseExpr(notExpression);
+        if (result == null) result = caserCollection(notExpression);
+        if (result == null) result = caseRWhile(notExpression);
+        if (result == null) result = caseRExpression(notExpression);
+        if (result == null) result = caseRForEach(notExpression);
+        if (result == null) result = caseRStatement(notExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.NEG_EXPRESSION:
+      {
+        NegExpression negExpression = (NegExpression)theEObject;
+        T result = caseNegExpression(negExpression);
+        if (result == null) result = caseExpr(negExpression);
+        if (result == null) result = caserCollection(negExpression);
+        if (result == null) result = caseRWhile(negExpression);
+        if (result == null) result = caseRExpression(negExpression);
+        if (result == null) result = caseRForEach(negExpression);
+        if (result == null) result = caseRStatement(negExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.IDENTIFIER_EXPRESION:
+      {
+        IdentifierExpresion identifierExpresion = (IdentifierExpresion)theEObject;
+        T result = caseIdentifierExpresion(identifierExpresion);
+        if (result == null) result = caseExpr(identifierExpresion);
+        if (result == null) result = caserCollection(identifierExpresion);
+        if (result == null) result = caseRWhile(identifierExpresion);
+        if (result == null) result = caseRExpression(identifierExpresion);
+        if (result == null) result = caseRForEach(identifierExpresion);
+        if (result == null) result = caseRStatement(identifierExpresion);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.LITERAL_EXPRESSIOIN:
+      {
+        LiteralExpressioin literalExpressioin = (LiteralExpressioin)theEObject;
+        T result = caseLiteralExpressioin(literalExpressioin);
+        if (result == null) result = caseExpr(literalExpressioin);
+        if (result == null) result = caserCollection(literalExpressioin);
+        if (result == null) result = caseRWhile(literalExpressioin);
+        if (result == null) result = caseRExpression(literalExpressioin);
+        if (result == null) result = caseRForEach(literalExpressioin);
+        if (result == null) result = caseRStatement(literalExpressioin);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.PARENTHESIS_EXPRESSION:
+      {
+        ParenthesisExpression parenthesisExpression = (ParenthesisExpression)theEObject;
+        T result = caseParenthesisExpression(parenthesisExpression);
+        if (result == null) result = caseExpr(parenthesisExpression);
+        if (result == null) result = caserCollection(parenthesisExpression);
+        if (result == null) result = caseRWhile(parenthesisExpression);
+        if (result == null) result = caseRExpression(parenthesisExpression);
+        if (result == null) result = caseRForEach(parenthesisExpression);
+        if (result == null) result = caseRStatement(parenthesisExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.IF_EXPRESSION:
+      {
+        IfExpression ifExpression = (IfExpression)theEObject;
+        T result = caseIfExpression(ifExpression);
+        if (result == null) result = caseExpr(ifExpression);
+        if (result == null) result = caserCollection(ifExpression);
+        if (result == null) result = caseRWhile(ifExpression);
+        if (result == null) result = caseRExpression(ifExpression);
+        if (result == null) result = caseRForEach(ifExpression);
+        if (result == null) result = caseRStatement(ifExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.LET_EXPRESSION:
+      {
+        LetExpression letExpression = (LetExpression)theEObject;
+        T result = caseLetExpression(letExpression);
+        if (result == null) result = caseExpr(letExpression);
+        if (result == null) result = caserCollection(letExpression);
+        if (result == null) result = caseRWhile(letExpression);
+        if (result == null) result = caseRExpression(letExpression);
+        if (result == null) result = caseRForEach(letExpression);
+        if (result == null) result = caseRStatement(letExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.TYPE_LITERAL_STRING:
+      {
+        TypeLiteralString typeLiteralString = (TypeLiteralString)theEObject;
+        T result = caseTypeLiteralString(typeLiteralString);
+        if (result == null) result = caseTypeLiteral(typeLiteralString);
+        if (result == null) result = casevariableDefinition(typeLiteralString);
+        if (result == null) result = caseLiteral(typeLiteralString);
+        if (result == null) result = caseRType(typeLiteralString);
+        if (result == null) result = caseClassExp(typeLiteralString);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.TYPE_LITERAL_INTEGER:
+      {
+        TypeLiteralInteger typeLiteralInteger = (TypeLiteralInteger)theEObject;
+        T result = caseTypeLiteralInteger(typeLiteralInteger);
+        if (result == null) result = caseTypeLiteral(typeLiteralInteger);
+        if (result == null) result = casevariableDefinition(typeLiteralInteger);
+        if (result == null) result = caseLiteral(typeLiteralInteger);
+        if (result == null) result = caseRType(typeLiteralInteger);
+        if (result == null) result = caseClassExp(typeLiteralInteger);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.TYPE_LITERAL_REAL:
+      {
+        TypeLiteralReal typeLiteralReal = (TypeLiteralReal)theEObject;
+        T result = caseTypeLiteralReal(typeLiteralReal);
+        if (result == null) result = caseTypeLiteral(typeLiteralReal);
+        if (result == null) result = casevariableDefinition(typeLiteralReal);
+        if (result == null) result = caseLiteral(typeLiteralReal);
+        if (result == null) result = caseRType(typeLiteralReal);
+        if (result == null) result = caseClassExp(typeLiteralReal);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.TYPE_LITERAL_BOOLEAN:
+      {
+        TypeLiteralBoolean typeLiteralBoolean = (TypeLiteralBoolean)theEObject;
+        T result = caseTypeLiteralBoolean(typeLiteralBoolean);
+        if (result == null) result = caseTypeLiteral(typeLiteralBoolean);
+        if (result == null) result = casevariableDefinition(typeLiteralBoolean);
+        if (result == null) result = caseLiteral(typeLiteralBoolean);
+        if (result == null) result = caseRType(typeLiteralBoolean);
+        if (result == null) result = caseClassExp(typeLiteralBoolean);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.TYPE_LITERAL_SEQUENCE:
+      {
+        TypeLiteralSequence typeLiteralSequence = (TypeLiteralSequence)theEObject;
+        T result = caseTypeLiteralSequence(typeLiteralSequence);
+        if (result == null) result = caseTypeLiteral(typeLiteralSequence);
+        if (result == null) result = casevariableDefinition(typeLiteralSequence);
+        if (result == null) result = caseLiteral(typeLiteralSequence);
+        if (result == null) result = caseRType(typeLiteralSequence);
+        if (result == null) result = caseClassExp(typeLiteralSequence);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.TYPE_LITERAL_ORDERED_TYPE_SET:
+      {
+        TypeLiteralOrderedTypeSet typeLiteralOrderedTypeSet = (TypeLiteralOrderedTypeSet)theEObject;
+        T result = caseTypeLiteralOrderedTypeSet(typeLiteralOrderedTypeSet);
+        if (result == null) result = caseTypeLiteral(typeLiteralOrderedTypeSet);
+        if (result == null) result = casevariableDefinition(typeLiteralOrderedTypeSet);
+        if (result == null) result = caseLiteral(typeLiteralOrderedTypeSet);
+        if (result == null) result = caseRType(typeLiteralOrderedTypeSet);
+        if (result == null) result = caseClassExp(typeLiteralOrderedTypeSet);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.TYPE_LITERAL_CLASSIFIER:
+      {
+        TypeLiteralClassifier typeLiteralClassifier = (TypeLiteralClassifier)theEObject;
+        T result = caseTypeLiteralClassifier(typeLiteralClassifier);
+        if (result == null) result = caseTypeLiteral(typeLiteralClassifier);
+        if (result == null) result = casevariableDefinition(typeLiteralClassifier);
+        if (result == null) result = caseLiteral(typeLiteralClassifier);
+        if (result == null) result = caseRType(typeLiteralClassifier);
+        if (result == null) result = caseClassExp(typeLiteralClassifier);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AlePackage.TYPE_LITERAL_PIPE:
+      {
+        TypeLiteralPipe typeLiteralPipe = (TypeLiteralPipe)theEObject;
+        T result = caseTypeLiteralPipe(typeLiteralPipe);
+        if (result == null) result = caseTypeLiteral(typeLiteralPipe);
+        if (result == null) result = casevariableDefinition(typeLiteralPipe);
+        if (result == null) result = caseLiteral(typeLiteralPipe);
+        if (result == null) result = caseRType(typeLiteralPipe);
+        if (result == null) result = caseClassExp(typeLiteralPipe);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -600,22 +812,6 @@ public class AleSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Rec Expression</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Rec Expression</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseRecExpression(RecExpression object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Navigation Segment</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -632,49 +828,33 @@ public class AleSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>non Left Rec Expression</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Binding</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>non Left Rec Expression</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Binding</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casenonLeftRecExpression(nonLeftRecExpression object)
+  public T caseBinding(Binding object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>binding</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Class Exp</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>binding</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Class Exp</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casebinding(binding object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>call Exp</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>call Exp</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casecallExp(callExp object)
+  public T caseClassExp(ClassExp object)
   {
     return null;
   }
@@ -696,17 +876,65 @@ public class AleSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>literal</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>variable Definition</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>literal</em>'.
+   * @return the result of interpreting the object as an instance of '<em>variable Definition</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseliteral(literal object)
+  public T casevariableDefinition(variableDefinition object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseLiteral(Literal object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Type Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Type Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypeLiteral(TypeLiteral object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>RType</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>RType</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseRType(RType object)
   {
     return null;
   }
@@ -771,6 +999,246 @@ public class AleSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseFinalCallExpSegment(FinalCallExpSegment object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Not Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Not Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNotExpression(NotExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Neg Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Neg Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNegExpression(NegExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Identifier Expresion</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Identifier Expresion</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIdentifierExpresion(IdentifierExpresion object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Literal Expressioin</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Literal Expressioin</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseLiteralExpressioin(LiteralExpressioin object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Parenthesis Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Parenthesis Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseParenthesisExpression(ParenthesisExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>If Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>If Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseIfExpression(IfExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Let Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Let Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseLetExpression(LetExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Type Literal String</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Type Literal String</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypeLiteralString(TypeLiteralString object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Type Literal Integer</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Type Literal Integer</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypeLiteralInteger(TypeLiteralInteger object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Type Literal Real</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Type Literal Real</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypeLiteralReal(TypeLiteralReal object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Type Literal Boolean</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Type Literal Boolean</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypeLiteralBoolean(TypeLiteralBoolean object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Type Literal Sequence</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Type Literal Sequence</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypeLiteralSequence(TypeLiteralSequence object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Type Literal Ordered Type Set</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Type Literal Ordered Type Set</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypeLiteralOrderedTypeSet(TypeLiteralOrderedTypeSet object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Type Literal Classifier</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Type Literal Classifier</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypeLiteralClassifier(TypeLiteralClassifier object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Type Literal Pipe</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Type Literal Pipe</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTypeLiteralPipe(TypeLiteralPipe object)
   {
     return null;
   }
