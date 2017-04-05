@@ -84,6 +84,18 @@ public class UnitTests {
 	public void oARootInheritance1() throws Exception {
 		testCompare("OARootInheritance1");
 	}
+	
+
+	@Test
+	public void fsm() throws Exception {
+		testCompare("fsm");
+	}
+	
+	@Test
+	public void gfsm() throws Exception {
+		testCompare("gfsm");
+	}
+
 
 	@Test
 	public void simpleCrossRefNoInheritance() throws Exception {

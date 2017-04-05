@@ -1,27 +1,24 @@
 package fr.inria.diverse.objectalgebragenerator
 
 import fr.inria.diverse.objectalgebragenerator.Graph.GraphNode
-import java.util.Comparator
+import java.util.Collection
 import java.util.HashSet
 import java.util.List
 import java.util.Map
-import java.util.Map.Entry
 import java.util.Set
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EReference
-import java.util.Collection
-import org.eclipse.emf.ecore.EPackage.Descriptor
 
 class GenerateAlgebra {
 
-	private def Node<EClass> addChildren(EClass e, List<EClass> allElems) {
-		val ret = new Node(e)
-		val subtypes = allElems.filter[f|f.ESuperTypes.contains(e)]
-		subtypes.filter[x|!x.isRoot].map[f|addChildren(f, allElems)].forEach[x|ret.addChild(x)]
-		ret
-	}
+//	private def Node<EClass> addChildren(EClass e, List<EClass> allElems) {
+//		val ret = new Node(e)
+//		val subtypes = allElems.filter[f|f.ESuperTypes.contains(e)]
+//		subtypes.filter[x|!x.isRoot].map[f|addChildren(f, allElems)].forEach[x|ret.addChild(x)]
+//		ret
+//	}
 	
 	public def Graph<EClass> buildGraph(EPackage ePackage) {
 		val graph1 = new Graph<EClass>()
@@ -36,15 +33,6 @@ class GenerateAlgebra {
 	private def List<List<GraphNode<EClass>>> calculateClusters(Graph<EClass> graphCurrentPackage) {
 		graphCurrentPackage.clusters().map[x|x.sortBy[y|y.elem.name]].sortBy[z|z.head.elem.name].toList		
 	}
-	
-	private def buildConcretTypeForParents(EPackage ePackage, Map<String, List<GraphNode<EClass>>> allTypes) {
-		val graphCurrentPackage = buildGraph(ePackage)
-
-		val  clusters = calculateClusters(graphCurrentPackage)
-		
-		clusters.map[x | x.filter[z|!z.elem.abstract].head.elem.abstractType(allTypes)]
-	}
-	
 	
 	def calculateAllTypes(EPackage ePackage, boolean global) {
 		buildConcretTypes(buildAllTypes(calculateClusters(buildGraph(ePackage)))).mapValues[e|if(global) e else e.filter[f|f.elem.EPackage.equals(ePackage)]].
@@ -130,15 +118,6 @@ class GenerateAlgebra {
 			!e.elem.abstract
 		] 
 		val allDirectPackages = allMethods.allDirectPackages(ePackage)
-//		val allWithHierarchy = newHashSet()
-//		allWithHierarchy.addAll(allMethods.map[elem])
-//		allWithHierarchy.addAll(allMethods.map[x|x.elem.ancestors].flatten)
-		
-		// TODO: refine the $ dispatch methods.
-		// Note: We have to redefine the dispatch for every newly introduced class and all its ancestors (since now we have to dispatch to X and Ancestors_X methods newly added)
-		// If the instance given at a given level is not from the currently handled class (the newly defined), it has to be delegated to the relevant parent interface.
-		// TODO: Replace the ${ClassName}T convention since two classes can have the same name in different packages.
-		// TODO: choose which usecase to work on
 		
 		'''
 		package «ePackage.name».algebra;
@@ -147,7 +126,7 @@ class GenerateAlgebra {
 		import «clazz.javaFullPath»;
 		«ENDFOR»
 		
-		public interface «ePackage.toPackageName»«FOR clazz: graph.nodes BEFORE '<' SEPARATOR ',' AFTER '>'»«clazz.elem.genericType»«ENDFOR»
+		public interface «ePackage.toPackageName»«FOR clazz: graph.nodes.sortBy[x|x.elem.name] BEFORE '<' SEPARATOR ',' AFTER '>'»«clazz.elem.genericType»«ENDFOR»
 			«FOR ePp : allDirectPackages.sortBy[name] BEFORE ' extends ' SEPARATOR ', '»«ePp.name».algebra.«ePp.toPackageName»«FOR x : ePp.allClasses BEFORE '<' SEPARATOR ', ' AFTER '>'»«x.genericType»«ENDFOR»«ENDFOR» {
 			«FOR clazzNode:allMethods»
 			«clazzNode.elem.genericType» «clazzNode.elem.name.toFirstLower»(final «clazzNode.elem.name» «clazzNode.elem.name.toFirstLower»);
@@ -169,77 +148,10 @@ class GenerateAlgebra {
 				«ENDIF»
 			}
 			«ENDFOR»
-			
-«««			«FOR clazzNode:graph.nodes.sortBy[e|e.elem.name].filter[e|e.elem.EPackage.equals(ePackage)]»
-«««			public default «clazzNode.elem.genericType» $(final «clazzNode.elem.name» «clazzNode.elem.name.toFirstLower») {
-«««				«clazzNode.elem.genericType» ret = null;
-«««				«FOR child: allWithHierarchy»
-«««				if(«clazzNode.elem.name.toFirstLower» instanceof «child.name») {
-«««					ret = «clazzNode.elem.name.toFirstLower»_«child.name.toFirstLower»((«child.name») «clazzNode.elem.name.toFirstLower»);
-«««				}
-«««				«ENDFOR»
-«««				«IF !clazzNode.elem.abstract»
-«««				if(ret == null) ret = «clazzNode.elem.name.toFirstLower»(«clazzNode.elem.name.toFirstLower»);
-«««				«ELSE»
-«««				«FOR ePp : clazzNode.outgoing.map[cn|cn.elem.EPackage].filter[pa|allDirectPackages.contains(pa)].toSet»
-«««				if(ret == null) ret =  «ePp.name».algebra.«ePp.toPackageName».super.$(«clazzNode.elem.name.toFirstLower»);
-«««				«ENDFOR»
-«««				«ENDIF»
-«««				
-«««				return ret;
-«««			}
-			
-«««			«ENDFOR»
 		}
 		'''
 	}
 
-	def String processAlgebraOld(EPackage ePackage) {
-
-		val graphCurrentPackage = buildGraph(ePackage)
-
-		val  clusters = calculateClusters(graphCurrentPackage)
-		val allTypes = buildAllTypes(clusters)
-		
-		val allConcretTypes = buildConcretTypes(allTypes)
-		
-		val allMethods = graphCurrentPackage.nodes.sortBy[e|e.elem.name].filter[e|e.elem.EPackage.equals(ePackage)].filter [e|
-			!e.elem.abstract
-		]
-		
-		val allDirectPackages = allMethods.allDirectPackages(ePackage) 
-
-		val all$Types = calculateAllTypes(ePackage, false)
-		
-		'''
-		package «ePackage.name».algebra;
-		
-		public interface «ePackage.toPackageName»«FOR x : allConcretTypes.keySet BEFORE '<' SEPARATOR ', ' AFTER '>'»«x»«ENDFOR»«FOR ePp : allDirectPackages.sortBy[name].map[x | (x -> buildConcretTypeForParents(x, allTypes))] BEFORE ' extends ' SEPARATOR ', '»«ePp.key.name».algebra.«ePp.key.toPackageName»«FOR x : ePp.value BEFORE '<' SEPARATOR ', ' AFTER '>'»«x»«ENDFOR»«ENDFOR» {
-		
-			«FOR eClass : allMethods.map[elem]»
-				default «eClass.abstractType(allTypes)» «eClass.name.toFirstLower»(final «eClass.javaFullPath» «eClass.name.toFirstLower») {
-					throw new UnsupportedOperationException();
-				}
-
-			«ENDFOR»
-			«FOR abstractTypes : all$Types.entrySet.filter[tmp | tmp.concretTypes(ePackage).size > 0] SEPARATOR '\n'»
-			«IF abstractTypes.value.getDirectPackages(ePackage).size > 0»@Override«ENDIF»			
-			public default «abstractTypes.key» $(final «abstractTypes.value.findRootType.javaFullPath» «abstractTypes.value.findRootType.name.toFirstLower») {
-				final «abstractTypes.key» ret;
-				«FOR type : abstractTypes.concretTypes(ePackage).map[elem].sortBy[name] BEFORE 'if' SEPARATOR ' else if' AFTER ''» («abstractTypes.value.findRootType.name.toFirstLower».eClass().getClassifierID() == «abstractTypes.value.findRootType.EPackage.name».«abstractTypes.value.findRootType.EPackage.name.toFirstUpper»Package.«type.name.toUpperSnake») {
-					ret = this.«type.name.toFirstLower»((«type.javaFullPath») «abstractTypes.value.findRootType.name.toFirstLower»);
-				}«ENDFOR» else {
-				«IF abstractTypes.value.getDirectPackages(ePackage).size > 0»
-					«abstractTypes.value.getDirectPackages(ePackage).toTryCatch(abstractTypes.value.findRootType.name.toFirstLower)»
-				«ELSE»
-								«'\t'»throw new RuntimeException("Unknow «abstractTypes.value.findRootType.name» " + «abstractTypes.value.findRootType.name.toFirstLower»);
-				«ENDIF»
-				}
-				return ret;
-			}«ENDFOR»
-		}'''
-	}
-	
 	private def buildConcretTypes(Map<String, List<GraphNode<EClass>>> allTypes) {
 		allTypes.mapValues[x|x.filter[y|!y.elem.abstract]].filter[p1, p2|!p2.empty]
 	}
@@ -265,22 +177,6 @@ class GenerateAlgebra {
 		].toSet
 	}
 
-
-	
-	private def concretTypes(Entry<String, Iterable<GraphNode<EClass>>> entry, EPackage ePackage) {
-		entry.value.findConcretTypes(ePackage).sortWith(new Comparator<GraphNode<EClass>> {
-				
-				override compare(GraphNode<EClass> o1, GraphNode<EClass> o2) {
-					val d1 = o1.distanceFromRoot(entry.value.findRootType)
-					val d2 = o2.distanceFromRoot(entry.value.findRootType)
-					d1.compareTo(d2)
-				}
-				
-			}).reverse
-	}
-	
-	
-
 	private def String toTryCatch(Iterable<EPackage> packages, String typeVarName) {
 			'''
 			«IF packages.size == 1»
@@ -293,14 +189,6 @@ class GenerateAlgebra {
 				}
 			«ENDIF»
 			'''
-	}
-
-	private def Set<GraphNode<EClass>> findConcretTypes(Iterable<GraphNode<EClass>> nodes, EPackage ePackage) {
-		nodes.filter[e|!e.elem.abstract].filter[e|e.elem.EPackage.equals(ePackage)].toSet
-	}
-
-	private def List<EPackage> getDirectPackages(Iterable<GraphNode<EClass>> entry, EPackage currentPackage) {
-		entry.map[outgoing].flatten.map[e|e.elem.EPackage].filter[e|!e.equals(currentPackage)].toSet.sortBy[name]
 	}
 
 	public def static EClass getFindRootType(Iterable<GraphNode<EClass>> nodes) {
@@ -333,12 +221,6 @@ class GenerateAlgebra {
 		} else {
 			newArrayList()
 		}
-	}
-
-	private def String abstractType(EClass class1, Map<String, List<GraphNode<EClass>>> allTypes) {
-		allTypes.entrySet.filter[e|
-			e.value.contains(new GraphNode(class1))
-		].head.key
 	}
 
 	private def void visitPackages(HashSet<EPackage> visitedpackage, EPackage ePackage, Graph<EClass> graph1) {
@@ -380,10 +262,6 @@ class GenerateAlgebra {
 		if(eClass.isRoot) eClass else findRootParent(eClass.ESuperTypes.head)
 	}
 
-//	private def static boolean hasOARootAnnotation(EClass eClass) {
-//		eClass.EAnnotations.exists[e|e.source.equals("OARoot")]
-//	}
-
 	private def static String toClassName(String name) {
 		name.split("\\.").map[e|e.toFirstUpper].join
 	}
@@ -392,8 +270,4 @@ class GenerateAlgebra {
 	
 	private def static javaFullPath(EClass eClass) '''«eClass.EPackage.name».«eClass.name»'''
 	private def static operationFullPath(EClass eClass, EPackage rootPackage) '''«rootPackage.name».algebra.operation.«rootPackage.name.toFirstUpper»«eClass.name»Operation'''
-	
-	private def static String toUpperSnake(String name) {
-		name.split("(?=\\p{Upper})").map[toUpperCase].join("_").replaceAll("([A-Z])_([A-Z])_", "$1$2")
-	}
 }
