@@ -159,7 +159,8 @@ public class ModelBuilder {
 		if(exp != null){
 			varDecl.setInitialValue(builder.build(exp).getAst());
 		}
-		varDecl.setType(resolve(type));
+		
+		varDecl.getType().setEType(resolve(type));
 		return varDecl;
 	}
 	
@@ -341,7 +342,7 @@ public class ModelBuilder {
 		.stream()
 		.forEach(attr -> {
 			String name = attr.getName();
-			EClassifier type = attr.getType();
+			EClassifier type = attr.getType().getEType();
 			
 			if(type instanceof EClass){
 				EReference newRef = (EReference) EcoreUtil.create(eRefClass);
@@ -380,7 +381,7 @@ public class ModelBuilder {
 		.stream()
 		.forEach(attr -> {
 			String name = attr.getName();
-			EClassifier type = attr.getType();
+			EClassifier type = attr.getType().getEType();
 			
 			if(type instanceof EClass){
 				EReference newRef = (EReference) EcoreUtil.create(eRefClass);

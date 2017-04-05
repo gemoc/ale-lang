@@ -3,11 +3,12 @@ package fr.inria.diverse.objectalgebragenerator
 import java.util.Set
 import org.eclipse.emf.ecore.EClass
 import fr.inria.diverse.objectalgebragenerator.Graph.GraphNode
+import java.util.List
 
 class Graph<E> {
 	static class GraphNode<E> {
 		public E elem
-		private Set<GraphNode<E>> incomming = newHashSet()
+		private Set<GraphNode<E>> incoming = newHashSet()
 		private Set<GraphNode<E>> outgoing = newHashSet()
 
 		new(E elem) {
@@ -18,12 +19,33 @@ class Graph<E> {
 			outgoing.add(x)
 		}
 
-		private def addIncomming(GraphNode<E> x) {
-			incomming.add(x)
+		private def addIncoming(GraphNode<E> x) {
+			incoming.add(x)
 		}
 
 		def getOutgoing() {
 			outgoing
+		}
+		
+		def getIncoming() {
+			incoming
+		}
+		
+		
+		// returns all incoming nodes, recursivelly
+		def getIncomings() {
+			val elems = newHashSet()
+			getIncomings(this, elems)
+			elems
+		}
+		
+		private def getIncomings(GraphNode<E> current, Set<GraphNode<E>> e) {
+			current.incoming.forEach[ci |
+				if(!e.contains(ci)) {
+					getIncomings(ci, e)
+					e.add(ci)
+				}
+			]
 		}
 
 		def isRoot() {
@@ -65,8 +87,8 @@ class Graph<E> {
 
 		def Set<GraphNode<E>> getChildren() {
 			val ret = newHashSet();
-			ret.addAll(this.incomming)
-			incomming.forEach[x|ret.addAll(x.children)]
+			ret.addAll(this.incoming)
+			incoming.forEach[x|ret.addAll(x.children)]
 			ret
 		}
 
@@ -90,7 +112,7 @@ class Graph<E> {
 
 	def addEdge(GraphNode<E> elem1, GraphNode<E> elem2) {
 		elem1.addOutgoing(elem2)
-		elem2.addIncomming(elem1)
+		elem2.addIncoming(elem1)
 
 	}
 

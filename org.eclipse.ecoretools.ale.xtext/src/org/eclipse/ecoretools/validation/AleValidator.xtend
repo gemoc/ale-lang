@@ -3,13 +3,7 @@
  */
 package org.eclipse.ecoretools.validation
 
-import org.eclipse.ecoretools.ale.FinalCallExpSegment
-import org.eclipse.ecoretools.ale.FinalIdentCallSegment
-import org.eclipse.ecoretools.ale.FinalIdentSegment
-import org.eclipse.ecoretools.ale.RClass
-import org.eclipse.ecoretools.ale.RRoot
-import org.eclipse.xtext.validation.Check
-import org.eclipse.ecoretools.ale.AlePackage
+import org.eclipse.ecoretools.ale.typing.validation.AleTypingValidateValidator
 
 /**
  * This class contains custom validation rules. 
@@ -17,7 +11,7 @@ import org.eclipse.ecoretools.ale.AlePackage
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 
-class AleValidator extends AleTypingValidate {
+class AleValidator extends AleTypingValidateValidator {
 	
 //	public static val INVALID_NAME = 'invalidName'
 //

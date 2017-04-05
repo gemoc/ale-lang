@@ -11,6 +11,8 @@ import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.EReference
+import java.util.Collection
+import org.eclipse.emf.ecore.EPackage.Descriptor
 
 class GenerateAlgebra {
 
@@ -97,8 +99,102 @@ class GenerateAlgebra {
 		clusters.values.filter[i | i.exists[e | e.elem === node.elem]].head.findRootType
 	}
 	
+	
+	private def Collection<EClass> ancestors(EClass clazz) {
+		val ret = newHashSet()
+		if(!clazz.ESuperTypes.empty) {
+			clazz.ESuperTypes.forEach[st|
+				ret.add(st) 
+				ret.addAll(st.ancestors)
+			]
+		}
+		
+		ret
+	}
+	
+	
+	def allClasses(EPackage ePackage) {
+		ePackage.eAllContents.filter[e|e instanceof EClass].map[e|e as EClass].toList.sortBy[e|e.name]	
+	}
+	
+	def String genericType(EClass clazz) 
+		'''«clazz.EPackage.name.replaceAll("\\.","").toFirstUpper»__«clazz.name»T'''
+	
+	
 
 	def String processAlgebra(EPackage ePackage) {
+		
+		val allEClasses = ePackage.allClasses
+		val graph = buildGraph(ePackage)
+		val allMethods = graph.nodes.sortBy[e|e.elem.name].filter[e|e.elem.EPackage.equals(ePackage)].filter [e|
+			!e.elem.abstract
+		] 
+		val allDirectPackages = allMethods.allDirectPackages(ePackage)
+//		val allWithHierarchy = newHashSet()
+//		allWithHierarchy.addAll(allMethods.map[elem])
+//		allWithHierarchy.addAll(allMethods.map[x|x.elem.ancestors].flatten)
+		
+		// TODO: refine the $ dispatch methods.
+		// Note: We have to redefine the dispatch for every newly introduced class and all its ancestors (since now we have to dispatch to X and Ancestors_X methods newly added)
+		// If the instance given at a given level is not from the currently handled class (the newly defined), it has to be delegated to the relevant parent interface.
+		// TODO: Replace the ${ClassName}T convention since two classes can have the same name in different packages.
+		// TODO: choose which usecase to work on
+		
+		'''
+		package «ePackage.name».algebra;
+		
+		«FOR clazz: allEClasses»
+		import «clazz.javaFullPath»;
+		«ENDFOR»
+		
+		public interface «ePackage.toPackageName»«FOR clazz: graph.nodes BEFORE '<' SEPARATOR ',' AFTER '>'»«clazz.elem.genericType»«ENDFOR»
+			«FOR ePp : allDirectPackages.sortBy[name] BEFORE ' extends ' SEPARATOR ', '»«ePp.name».algebra.«ePp.toPackageName»«FOR x : ePp.allClasses BEFORE '<' SEPARATOR ', ' AFTER '>'»«x.genericType»«ENDFOR»«ENDFOR» {
+			«FOR clazzNode:allMethods»
+			«clazzNode.elem.genericType» «clazzNode.elem.name.toFirstLower»(final «clazzNode.elem.name» «clazzNode.elem.name.toFirstLower»);
+			«FOR parent: clazzNode.elem.ancestors»
+			«parent.genericType» «parent.name.toFirstLower»_«clazzNode.elem.name.toFirstLower»(final «clazzNode.elem.name» «clazzNode.elem.name.toFirstLower»);
+			«ENDFOR»
+			
+			«ENDFOR»
+			
+			«FOR clazz:graph.nodes»
+			default «clazz.elem.genericType» $(«clazz.elem.name» «clazz.elem.name.toFirstLower») {
+				«FOR subClazz:clazz.incomings.filter[sc|!sc.elem.abstract]»
+				if(«clazz.elem.name.toFirstLower» instanceof «subClazz.elem.name») return «clazz.elem.name.toFirstLower»_«subClazz.elem.name.toFirstLower»((«subClazz.elem.name») «subClazz.elem.name.toFirstLower»);
+				«ENDFOR»
+				«IF clazz.elem.abstract»
+				return null;
+				«ELSE»
+				return «clazz.elem.name.toFirstLower»(«clazz.elem.name.toFirstLower»);
+				«ENDIF»
+			}
+			«ENDFOR»
+			
+«««			«FOR clazzNode:graph.nodes.sortBy[e|e.elem.name].filter[e|e.elem.EPackage.equals(ePackage)]»
+«««			public default «clazzNode.elem.genericType» $(final «clazzNode.elem.name» «clazzNode.elem.name.toFirstLower») {
+«««				«clazzNode.elem.genericType» ret = null;
+«««				«FOR child: allWithHierarchy»
+«««				if(«clazzNode.elem.name.toFirstLower» instanceof «child.name») {
+«««					ret = «clazzNode.elem.name.toFirstLower»_«child.name.toFirstLower»((«child.name») «clazzNode.elem.name.toFirstLower»);
+«««				}
+«««				«ENDFOR»
+«««				«IF !clazzNode.elem.abstract»
+«««				if(ret == null) ret = «clazzNode.elem.name.toFirstLower»(«clazzNode.elem.name.toFirstLower»);
+«««				«ELSE»
+«««				«FOR ePp : clazzNode.outgoing.map[cn|cn.elem.EPackage].filter[pa|allDirectPackages.contains(pa)].toSet»
+«««				if(ret == null) ret =  «ePp.name».algebra.«ePp.toPackageName».super.$(«clazzNode.elem.name.toFirstLower»);
+«««				«ENDFOR»
+«««				«ENDIF»
+«««				
+«««				return ret;
+«««			}
+			
+«««			«ENDFOR»
+		}
+		'''
+	}
+
+	def String processAlgebraOld(EPackage ePackage) {
 
 		val graphCurrentPackage = buildGraph(ePackage)
 
@@ -277,16 +373,16 @@ class GenerateAlgebra {
 	 * A root element is an element with no super type or explicitly defined with @OARoot.
 	 */
 	private def static boolean isRoot(EClass eClass) {
-		eClass.ESuperTypes.empty || eClass.hasOARootAnnotation
+		eClass.ESuperTypes.empty //|| eClass.hasOARootAnnotation
 	}
 
 	private def static EClass findRootParent(EClass eClass) {
 		if(eClass.isRoot) eClass else findRootParent(eClass.ESuperTypes.head)
 	}
 
-	private def static boolean hasOARootAnnotation(EClass eClass) {
-		eClass.EAnnotations.exists[e|e.source.equals("OARoot")]
-	}
+//	private def static boolean hasOARootAnnotation(EClass eClass) {
+//		eClass.EAnnotations.exists[e|e.source.equals("OARoot")]
+//	}
 
 	private def static String toClassName(String name) {
 		name.split("\\.").map[e|e.toFirstUpper].join
