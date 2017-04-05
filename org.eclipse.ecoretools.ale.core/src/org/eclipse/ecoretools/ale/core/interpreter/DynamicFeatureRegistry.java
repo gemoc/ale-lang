@@ -18,6 +18,9 @@ import org.eclipse.ecoretools.ale.core.interpreter.services.DynamicFeatureAccess
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.ecoretools.ale.implementation.Attribute;
@@ -131,6 +134,49 @@ public class DynamicFeatureRegistry {
 		Optional<Attribute> featureDeclaration = findFeature(instance.eClass(),featureName);
 		if(featureValue != null || featureDeclaration.isPresent()){
 			extendedInstance.put(featureName,newValue);
+		}
+		else{
+			//TODO:raise feature not found error
+		}
+	}
+	
+	public void insertDynamicFeatureValue(EObject instance, String featureName, Object newValue) {
+		Map<String,Object> extendedInstance = getExtensionFeatures(instance);
+		
+		Object featureValue = extendedInstance.get(featureName);
+		Optional<Attribute> featureDeclaration = findFeature(instance.eClass(),featureName);
+		if(featureDeclaration.isPresent()){
+			if(featureValue == null) {
+				if(featureDeclaration.get().getFeatureRef().isUnique()){
+					featureValue = new UniqueEList();
+				}
+				else{
+					featureValue = new BasicEList();
+				}
+				extendedInstance.put(featureName,featureValue);
+			}
+			
+			if(newValue instanceof EObject && featureValue instanceof EList) {
+				((EList)featureValue).add(newValue);
+			}
+			else {
+				//TODO: Error
+			}
+		}
+		else{
+			//TODO:raise feature not found error
+		}
+	}
+	
+	public void removeDynamicFeatureValue(EObject instance, String featureName, Object newValue) {
+		Map<String,Object> extendedInstance = getExtensionFeatures(instance);
+		
+		Object featureValue = extendedInstance.get(featureName);
+		Optional<Attribute> featureDeclaration = findFeature(instance.eClass(),featureName);
+		if(featureDeclaration.isPresent()){
+			if(newValue instanceof EObject && featureValue instanceof EList) {
+				((EList)featureValue).remove(newValue);
+			}
 		}
 		else{
 			//TODO:raise feature not found error
