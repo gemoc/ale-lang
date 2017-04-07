@@ -1,0 +1,10 @@
+behavior test.services;
+use org.eclipse.emf.ecoretools.ale.core.interpreter.test.Service;
+
+open class ClassA {
+	
+	@main
+	def String main() {
+		result := self.foobar();
+	}
+}
