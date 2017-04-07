@@ -24,7 +24,7 @@ import org.eclipse.acceleo.query.runtime.ServiceUtils;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecoretools.ale.LangInterpreter;
+import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
@@ -38,11 +38,11 @@ import org.junit.Test;
  */
 public class EvalTest {
 	
-	LangInterpreter interpreter;
+	ALEInterpreter interpreter;
 	
 	@Before
 	public void setup() {
-		interpreter = new LangInterpreter();
+		interpreter = new ALEInterpreter();
 	}
 	
 	@Test

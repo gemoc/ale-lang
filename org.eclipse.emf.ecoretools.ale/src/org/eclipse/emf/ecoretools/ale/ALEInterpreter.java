@@ -66,7 +66,7 @@ import org.eclipse.sirius.common.tools.api.interpreter.JavaExtensionsManager;
 /**
  * This class is an interpreter for the 'Lang' Language.
  */
-public class LangInterpreter {
+public class ALEInterpreter {
 	
 	/**
 	 * Environment of the evaluation. It contains declared EPackages & services.
@@ -114,11 +114,11 @@ public class LangInterpreter {
     /**
      * The environment is setup with default services & EPackages
      */
-    public LangInterpreter() {
+    public ALEInterpreter() {
     	this(false);
     }
     
-    public LangInterpreter(boolean isDebugMode) {
+    public ALEInterpreter(boolean isDebugMode) {
         this.queryEnvironment = createQueryEnvironment(isDebugMode,null);
         queryEnvironment.registerEPackage(ImplementationPackage.eINSTANCE);
 		queryEnvironment.registerEPackage(AstPackage.eINSTANCE);

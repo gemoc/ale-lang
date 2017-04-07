@@ -13,7 +13,7 @@ package logo.standalone;
 import java.util.ArrayList;
 
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
-import org.eclipse.emf.ecoretools.ale.LangInterpreter;
+import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 
@@ -29,7 +29,7 @@ public class Main {
 		/*
 		 * Init eval environment
 		 */
-		LangInterpreter interpreter = new LangInterpreter();
+		ALEInterpreter interpreter = new ALEInterpreter();
 		try {
 			ServiceUtils.registerServices(
 					interpreter.getQueryEnvironment(),

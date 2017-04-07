@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.emf.ecoretools.ale.core/src-gen" editDirectory="/org.eclipse.emf.ecoretools.ale.core.edit/src-gen"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText=" Copyright (c) 2017 Inria and Obeo.&#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License v1.0&#xA; which accompanies this distribution, and is available at&#xA; http://www.eclipse.org/legal/epl-v10.html&#xA;&#xA; Contributors:&#xA;     Inria - initial API and implementation&#xA;"
+    modelDirectory="/org.eclipse.emf.ecoretools.ale.core/src-gen" editDirectory="/org.eclipse.emf.ecoretools.ale.core.edit/src-gen"
     editorDirectory="/org.eclipse.emf.ecoretools.ale.core.editor/src-gen" modelPluginID="org.eclipse.emf.ecoretools.ale.core"
     modelName="Implementation" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     testsDirectory="/org.eclipse.emf.ecoretools.ale.core.tests/src-gen" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="8.0" copyrightFields="false" usedGenPackages="../../org.eclipse.acceleo.query/model/ast.genmodel#//ast ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"
+    complianceLevel="8.0" usedGenPackages="../../org.eclipse.acceleo.query/model/ast.genmodel#//ast ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"
     operationReflection="true" importOrganizing="true">
   <foreignModel>Implementation.ecore</foreignModel>
   <genPackages prefix="Implementation" basePackage="org.eclipse.emf.ecoretools.ale"

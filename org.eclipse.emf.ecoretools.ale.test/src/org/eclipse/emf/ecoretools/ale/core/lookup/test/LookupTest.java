@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecoretools.ale.LangInterpreter;
+import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
@@ -27,11 +27,11 @@ import org.junit.Test;
 
 public class LookupTest {
 	
-	LangInterpreter interpreter;
+	ALEInterpreter interpreter;
 	
 	@Before
 	public void setup() {
-		interpreter = new LangInterpreter();
+		interpreter = new ALEInterpreter();
 	}
 	
 	@Test

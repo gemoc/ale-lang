@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecoretools.ale.LangInterpreter;
+import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
 import org.eclipse.emf.ecoretools.ale.ide.WorkbenchDsl;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
@@ -80,7 +80,7 @@ public class RunModel extends AbstractHandler {
 		Set<String> plugins = new HashSet<String>();
 		projects.add(dslProject);
 		projects.add(modelProject);
-		LangInterpreter interpreter = new LangInterpreter();
+		ALEInterpreter interpreter = new ALEInterpreter();
 		interpreter.javaExtensions.updateScope(plugins,projects);
 		interpreter.javaExtensions.reloadIfNeeded();
 		
