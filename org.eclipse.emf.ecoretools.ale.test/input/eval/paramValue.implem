@@ -1,0 +1,12 @@
+behavior test.paramvalue;
+open class ClassA {
+	
+	@main
+	def int main() {
+		result := self.getSix(6);
+	}
+	
+	def int getSix(int param){
+		result := param;
+	}
+}
