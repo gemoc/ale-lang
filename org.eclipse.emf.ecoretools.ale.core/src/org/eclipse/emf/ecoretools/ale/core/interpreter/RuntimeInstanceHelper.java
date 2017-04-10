@@ -1,4 +1,4 @@
-package org.eclipse.ecoretools.ale.core.interpreter;
+package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.eclipse.ecoretools.ale.implementation.ExtendedClass;
-import org.eclipse.ecoretools.ale.implementation.ModelUnit;
+import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
+import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
