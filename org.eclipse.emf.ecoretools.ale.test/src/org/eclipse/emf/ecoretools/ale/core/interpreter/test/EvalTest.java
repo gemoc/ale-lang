@@ -703,4 +703,16 @@ public class EvalTest {
 		
 		assertEquals(1, res.getValue());
 	}
+	
+	@Test
+	public void testInitDynamicAttributeFailure(){
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/initDynamicAttributeFailure.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals("ClassA",((EObject)res.getValue()).eClass().getName());
+		interpreter.getLogger().diagnosticForHuman();
+		assertEquals("An error occured during initialization of an EObject", interpreter.getLogger().getLog().get(0).getMessage());
+	}
 }

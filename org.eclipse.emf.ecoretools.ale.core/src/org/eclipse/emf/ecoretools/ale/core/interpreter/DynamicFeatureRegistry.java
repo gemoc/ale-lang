@@ -260,7 +260,6 @@ public class DynamicFeatureRegistry {
 				EvaluationResult result = aqlEngine.eval(dummyAstResult, scope); //TODO: forward diagnotic
 				Object value = result.getResult();
 				
-				
 					EStructuralFeature feature = extendedInstance.eClass().getEStructuralFeature(attr.getFeatureRef().getName());
 					if(feature != null) {
 						if(feature.isMany()){
@@ -273,7 +272,7 @@ public class DynamicFeatureRegistry {
 							}
 						}
 						else {
-							extendedInstance.eSet(feature, value);
+							extendedInstance.eSet(feature, value); //TODO: check type?
 						}
 					}
 					else {

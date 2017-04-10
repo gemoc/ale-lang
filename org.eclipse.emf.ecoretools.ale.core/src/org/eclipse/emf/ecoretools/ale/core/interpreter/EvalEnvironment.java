@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.impl.JavaMethodService;
 import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.DynamicFeatureAccessService;
@@ -38,6 +40,8 @@ import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
  * This class is the context of an evaluation.
  */
 public class EvalEnvironment {
+	
+	public static final String INIT_ERROR = "An error occured during initialization of an EObject";
 	
 	/**
 	 * It contains declared EPackages & services.
@@ -211,7 +215,18 @@ public class EvalEnvironment {
 	 * Set initial values for dynamic attributes 
 	 */
 	public void initialize(Set<EObject> model) {
-		this.dynamicFeatures.dynamicModelConstructor(model, new QueryEvaluationEngine(qryEnv));
+		try {
+			this.dynamicFeatures.dynamicModelConstructor(model, new QueryEvaluationEngine(qryEnv));
+		} catch (Exception e) {
+			Diagnostic initError = new BasicDiagnostic(
+					Diagnostic.ERROR,
+					ImplementationEvaluator.PLUGIN_ID,
+					0,
+					EvalEnvironment.INIT_ERROR,
+					new Object[] { model }
+					);
+			logger.notify(initError);
+		}
 	}
 	
 }
