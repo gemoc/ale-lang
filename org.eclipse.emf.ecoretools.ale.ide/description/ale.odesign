@@ -82,6 +82,6 @@
         <targetMapping href="viewpoint:/org.eclipse.emf.ecoretools.design/Design#//@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']"/>
       </layers>
     </ownedRepresentationExtensions>
-    <ownedJavaExtensions qualifiedClassName="org.eclipse.acceleo.ale.ide.services.Services"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.emf.ecoretools.ale.ide.services.Services"/>
   </ownedViewpoints>
 </description:Group>
