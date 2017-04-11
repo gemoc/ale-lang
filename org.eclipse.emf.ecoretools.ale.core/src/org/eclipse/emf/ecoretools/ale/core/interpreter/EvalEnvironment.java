@@ -19,9 +19,22 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.eclipse.acceleo.query.runtime.CrossReferenceProvider;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
+import org.eclipse.acceleo.query.runtime.IRootEObjectProvider;
+import org.eclipse.acceleo.query.runtime.IService;
+import org.eclipse.acceleo.query.runtime.ServiceUtils;
 import org.eclipse.acceleo.query.runtime.impl.JavaMethodService;
 import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
+import org.eclipse.acceleo.query.services.AnyServices;
+import org.eclipse.acceleo.query.services.BooleanServices;
+import org.eclipse.acceleo.query.services.CollectionServices;
+import org.eclipse.acceleo.query.services.ComparableServices;
+import org.eclipse.acceleo.query.services.EObjectServices;
+import org.eclipse.acceleo.query.services.NumberServices;
+import org.eclipse.acceleo.query.services.ResourceServices;
+import org.eclipse.acceleo.query.services.StringServices;
+import org.eclipse.acceleo.query.services.XPathServices;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EClass;
@@ -33,7 +46,6 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.services.LogService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.TrigoServices;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
-import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 /**
@@ -67,11 +79,34 @@ public class EvalEnvironment {
 	public EvalEnvironment (IQueryEnvironment qryEnv, List<ModelUnit> allImplem, DiagnosticLogger logger) {
 		this.qryEnv = qryEnv;
 		this.logger = logger;
-		createDefaultServices();
 		registerImplem(allImplem);
+		populateEnvironmentWithDefaultServices(null,null);
 	}
 	
-	public void createDefaultServices() {
+    /**
+     * @see org.eclipse.acceleo.query.runtime.Query
+     */
+	private void populateEnvironmentWithDefaultServices(CrossReferenceProvider xRefProvider,
+			IRootEObjectProvider rootProvider) {
+		Set<IService> services = ServiceUtils.getServices(qryEnv, new AnyServices(qryEnv));
+		ServiceUtils.registerServices(qryEnv, services);
+		services = ServiceUtils.getServices(qryEnv, new EObjectServices(qryEnv, xRefProvider, rootProvider));
+		ServiceUtils.registerServices(qryEnv, services);
+		services = ServiceUtils.getServices(qryEnv, new XPathServices(qryEnv));
+		ServiceUtils.registerServices(qryEnv, services);
+		services = ServiceUtils.getServices(qryEnv, ComparableServices.class);
+		ServiceUtils.registerServices(qryEnv, services);
+		services = ServiceUtils.getServices(qryEnv, NumberServices.class);
+		ServiceUtils.registerServices(qryEnv, services);
+		services = ServiceUtils.getServices(qryEnv, StringServices.class);
+		ServiceUtils.registerServices(qryEnv, services);
+		services = ServiceUtils.getServices(qryEnv, BooleanServices.class);
+		ServiceUtils.registerServices(qryEnv, services);
+		services = ServiceUtils.getServices(qryEnv, CollectionServices.class);
+		ServiceUtils.registerServices(qryEnv, services);
+		services = ServiceUtils.getServices(qryEnv, ResourceServices.class);
+		ServiceUtils.registerServices(qryEnv, services);
+		
 		try {
 			java.lang.reflect.Method logMethod = LogService.class.getMethod("log",Object.class);
 			qryEnv.registerService(new JavaMethodService(logMethod, null));
