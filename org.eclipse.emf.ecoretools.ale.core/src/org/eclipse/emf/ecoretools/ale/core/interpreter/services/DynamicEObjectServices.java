@@ -95,4 +95,16 @@ public class DynamicEObjectServices extends EObjectServices{
 			}
 		};
 	}
+	
+	@Override
+	public Object eCrossReferences(EObject eObject) {
+		List<Object> crossRef = Lists.newArrayList(eObject.eCrossReferences());
+		
+		Optional<EObject> extension = dynamicFeatures.getRuntimeExtension(eObject);
+		if(extension.isPresent()) {
+			crossRef.addAll(extension.get().eCrossReferences());
+		}
+		
+		return crossRef;
+	}
 }
