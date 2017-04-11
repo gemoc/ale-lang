@@ -11,21 +11,27 @@
 package org.eclipse.emf.ecoretools.ale.core.interpreter.services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.eclipse.acceleo.query.runtime.CrossReferenceProvider;
 import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IRootEObjectProvider;
 import org.eclipse.acceleo.query.services.EObjectServices;
 import org.eclipse.emf.common.util.AbstractTreeIterator;
+import org.eclipse.emf.common.util.BasicEMap;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.DynamicFeatureRegistry;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 public class DynamicEObjectServices extends EObjectServices{
 	
@@ -106,5 +112,32 @@ public class DynamicEObjectServices extends EObjectServices{
 		}
 		
 		return crossRef;
+	}
+	
+	@Override
+	public Object eGet(EObject eObject, final String featureName) {
+		
+		Object result = super.eGet(eObject,featureName);
+		
+		if(result == null) {
+			Optional<EObject> extension = dynamicFeatures.getRuntimeExtension(eObject);
+			if(extension.isPresent()) {
+				final EStructuralFeature feature = extension.get().eClass().getEStructuralFeature(featureName);
+
+				if (feature != null) {
+					result = extension.get().eGet(feature);
+				}
+
+				if (result instanceof Set<?>) {
+					result = Sets.newLinkedHashSet((Set<?>)result);
+				} else if (result instanceof EMap<?, ?>) {
+					result = new BasicEMap<Object, Object>(((EMap<?, ?>)result).map());
+				} else if (result instanceof Collection<?>) {
+					result = Lists.newArrayList((Collection<?>)result);
+				}
+			}
+		}
+		
+		return result;
 	}
 }
