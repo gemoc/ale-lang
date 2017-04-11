@@ -14,12 +14,24 @@ import org.eclipse.acceleo.query.runtime.CrossReferenceProvider;
 import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IRootEObjectProvider;
 import org.eclipse.acceleo.query.services.EObjectServices;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.DynamicFeatureRegistry;
 
 public class DynamicEObjectServices extends EObjectServices{
+	
+	public static final String UNKNOWN_FEATURE = "Feature %s not found in EClass %s";
+	public static final String NON_EOBJECT_FEATURE_ACCESS = "Attempt to access feature (%s) on a non ModelObject value (%s).";
+	
+	DynamicFeatureRegistry dynamicFeatures;
 
 	public DynamicEObjectServices(IReadOnlyQueryEnvironment queryEnvironment, CrossReferenceProvider crossReferencer,
-			IRootEObjectProvider rootProvider) {
+			IRootEObjectProvider rootProvider, DynamicFeatureRegistry dynamicFeatures) {
 		super(queryEnvironment, crossReferencer, rootProvider);
+		this.dynamicFeatures = dynamicFeatures;
 	}
 
+	@Override
+	public Object aqlFeatureAccess(EObject self, String featureName) {
+		return dynamicFeatures.aqlFeatureAccess(self, featureName);
+	}
 }

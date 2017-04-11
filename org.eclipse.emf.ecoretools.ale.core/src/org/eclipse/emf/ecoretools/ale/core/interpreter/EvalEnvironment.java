@@ -39,7 +39,7 @@ import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.services.DynamicFeatureAccessService;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.services.DynamicEObjectServices;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.FactoryService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.LogService;
@@ -90,7 +90,7 @@ public class EvalEnvironment {
 			IRootEObjectProvider rootProvider) {
 		Set<IService> services = ServiceUtils.getServices(qryEnv, new AnyServices(qryEnv));
 		ServiceUtils.registerServices(qryEnv, services);
-		services = ServiceUtils.getServices(qryEnv, new EObjectServices(qryEnv, xRefProvider, rootProvider));
+		services = ServiceUtils.getServices(qryEnv, new DynamicEObjectServices(qryEnv, xRefProvider, rootProvider, dynamicFeatures));
 		ServiceUtils.registerServices(qryEnv, services);
 		services = ServiceUtils.getServices(qryEnv, new XPathServices(qryEnv));
 		ServiceUtils.registerServices(qryEnv, services);
@@ -134,13 +134,6 @@ public class EvalEnvironment {
 		createServices(allImplemModels)
 			.stream()
 			.forEach(opService -> qryEnv.registerService(opService));
-		java.lang.reflect.Method featureAccessMethod;
-		try {
-			featureAccessMethod = DynamicFeatureRegistry.class.getMethod("aqlFeatureAccess",EObject.class,String.class);
-			qryEnv.registerService(new DynamicFeatureAccessService(featureAccessMethod, dynamicFeatures));
-		} catch (NoSuchMethodException | SecurityException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public IQueryEnvironment getQueryEnvironment() {

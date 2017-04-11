@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.services.DynamicFeatureAccessService;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.services.DynamicEObjectServices;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.RuntimeInstanceHelper;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
@@ -69,7 +69,7 @@ public class DynamicFeatureRegistry {
 		Object result;
 
 		if (context == null) {
-			String message = String.format(DynamicFeatureAccessService.NON_EOBJECT_FEATURE_ACCESS, featureName, "null");
+			String message = String.format(DynamicEObjectServices.NON_EOBJECT_FEATURE_ACCESS, featureName, "null");
 			throw new AcceleoQueryEvaluationException(message);
 		} else {
 			EClass eClass = (context).eClass();
@@ -77,7 +77,7 @@ public class DynamicFeatureRegistry {
 			if (feature == null) {
 				result = getDynamicFeatureValue(context,featureName);
 				if(result == null){
-					String message = String.format(DynamicFeatureAccessService.UNKNOWN_FEATURE, featureName, eClass.getName());
+					String message = String.format(DynamicEObjectServices.UNKNOWN_FEATURE, featureName, eClass.getName());
 					throw new AcceleoQueryEvaluationException(message);
 				}
 			} else {
