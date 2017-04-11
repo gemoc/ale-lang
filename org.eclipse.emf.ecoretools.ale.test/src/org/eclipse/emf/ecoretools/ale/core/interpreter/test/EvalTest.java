@@ -682,11 +682,40 @@ public class EvalTest {
 		
 		Object value = res.getValue();
 		assertTrue(value instanceof List);
-		assertEquals(1,((List)value).size());
+		assertEquals(1,((List<?>)value).size());
 		
-		Object contained = ((List)value).get(0);
+		Object contained = ((List<?>)value).get(0);
 		assertTrue(contained instanceof EObject);
 		assertEquals("NewClass", ((EObject)contained).eClass().getName());
+	}
+	
+	@Test
+	public void testContainsEAllContents(){
+		/*
+		 * Check self.eAllContent()
+		 */
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/containsEAllContents.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA2.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		Object value = res.getValue();
+		assertTrue(value instanceof List);
+		assertEquals(4,((List<?>)value).size());
+		
+		Object elem1 = ((List<?>)value).get(0);
+		Object elem2 = ((List<?>)value).get(1);
+		Object elem3 = ((List<?>)value).get(2);
+		Object elem4 = ((List<?>)value).get(3);
+		
+		assertTrue(elem1 instanceof EObject);
+		assertEquals("ClassA", ((EObject)elem1).eClass().getName());
+		assertTrue(elem2 instanceof EObject);
+		assertEquals("ClassA", ((EObject)elem2).eClass().getName());
+		assertTrue(elem3 instanceof EObject);
+		assertEquals("NewClass", ((EObject)elem3).eClass().getName());
+		assertTrue(elem4 instanceof EObject);
+		assertEquals("ClassA", ((EObject)elem4).eClass().getName());
 	}
 	
 	@Test
