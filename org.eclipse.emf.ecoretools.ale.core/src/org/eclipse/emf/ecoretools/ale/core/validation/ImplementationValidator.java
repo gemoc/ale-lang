@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.EvalEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
@@ -899,6 +900,14 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 		
 		this.msgs = new ArrayList<IValidationMessage>();
 		this.allModels = roots;
+		
+		List<ModelUnit> allUnits =
+			roots
+			.stream()
+			.map(p->p.getRoot())
+			.filter(u->u != null)
+			.collect(Collectors.toList());
+		new EvalEnvironment(qryEnv, allUnits, null); //add runtime services to qryEnv
 
 		roots.forEach(root -> {
 			this.currentModel = root;
