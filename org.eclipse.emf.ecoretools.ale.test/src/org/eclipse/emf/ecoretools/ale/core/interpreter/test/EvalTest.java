@@ -749,4 +749,41 @@ public class EvalTest {
 		interpreter.getLogger().diagnosticForHuman();
 		assertEquals("An error occured during initialization of an EObject", interpreter.getLogger().getLog().get(0).getMessage());
 	}
+	
+	@Test
+	public void testECrossRef() {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/crossRef.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA3.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertTrue(res.getValue() instanceof List);
+		List<?> resValue = (List<?>) res.getValue();
+		assertEquals(1,resValue.size());
+		
+		EObject elem1 = (EObject) resValue.get(0);
+		assertEquals("ClassA",elem1.eClass().getName());
+		EStructuralFeature field = elem1.eClass().getEStructuralFeature("field");
+		assertEquals(0,elem1.eGet(field));
+		assertEquals(5,caller.eGet(field));
+	}
+	
+	@Test
+	public void testECrossRefDynamic() {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/crossRefDynamic.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		EObject arg = interpreter.loadModel("model/ClassA3.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(arg), parsedSemantics);
+		
+		assertTrue(res.getValue() instanceof List);
+		List<?> resValue = (List<?>) res.getValue();
+		assertEquals(1,resValue.size());
+		
+		EObject elem1 = (EObject) resValue.get(0);
+		assertEquals("ClassA",elem1.eClass().getName());
+		EStructuralFeature field = elem1.eClass().getEStructuralFeature("field");
+		assertEquals(5,elem1.eGet(field));
+		assertEquals(0,caller.eGet(field));
+	}
 }

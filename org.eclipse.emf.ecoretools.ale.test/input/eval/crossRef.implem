@@ -1,0 +1,8 @@
+behavior test.containattributes;
+
+open class ClassA {
+	@main
+	def int main() {
+		result := self.eCrossReferences();
+	}
+}

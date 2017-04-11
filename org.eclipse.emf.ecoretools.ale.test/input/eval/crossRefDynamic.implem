@@ -1,0 +1,11 @@
+behavior test.containattributes;
+
+open class ClassA {
+	ClassA crossRef;
+		
+	@main
+	def int main(ClassA arg) {
+		self.crossRef := arg;
+		result := self.eCrossReferences();
+	}
+}
