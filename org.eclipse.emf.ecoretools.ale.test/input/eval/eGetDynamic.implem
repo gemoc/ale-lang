@@ -1,0 +1,11 @@
+behavior test.eget;
+
+open class ClassA {
+
+	int newField := 123;
+
+	@main
+	def int main() {
+		result := self.eGet('newField');
+	}
+}

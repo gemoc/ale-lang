@@ -786,4 +786,24 @@ public class EvalTest {
 		assertEquals(5,elem1.eGet(field));
 		assertEquals(0,caller.eGet(field));
 	}
+	
+	@Test
+	public void testEGet() {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/eGet.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA3.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals(5,res.getValue());
+	}
+	
+	@Test
+	public void testEGetDynamic() {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/eGetDynamic.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA3.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals(123,res.getValue());
+	}
 }
