@@ -43,12 +43,14 @@ public class DynamicFeatureRegistry {
 	List<ModelUnit> allImplemModels;
 	Map<EClass,EClass> baseToRuntime;
 	
-	Map<EObject,EObject> extendedObjects; //instance -> runtime content
+	Map<EObject,EObject> instanceToRuntime; //instance -> runtime content
+	Map<EObject,EObject> runtimeToInstance;
 	
 	public DynamicFeatureRegistry (List<ModelUnit> allImplemModels){
 		this.allImplemModels = allImplemModels;
 		this.baseToRuntime = RuntimeInstanceHelper.getBaseToRuntime(allImplemModels);
-		extendedObjects = new HashMap<EObject,EObject>();
+		instanceToRuntime = new HashMap<EObject,EObject>();
+		runtimeToInstance = new HashMap<EObject,EObject>();
 	}
 	
 	/**
@@ -88,7 +90,7 @@ public class DynamicFeatureRegistry {
 		return result;
 	}
 	
-	public Object getDynamicFeatureValue(EObject instance, String featureName) {
+	private Object getDynamicFeatureValue(EObject instance, String featureName) {
 		
 		EObject extendedInstance = getOrCreateRuntimeExtension(instance);
 		
@@ -206,17 +208,41 @@ public class DynamicFeatureRegistry {
 	}
 	
 	private EObject getOrCreateRuntimeExtension(EObject instance) {
-		EObject extendedInstance = extendedObjects.get(instance);
+		EObject extendedInstance = instanceToRuntime.get(instance);
 		
 		if(extendedInstance == null){
 			EClass runtimeExtensionClass = baseToRuntime.get(instance.eClass());
 			if(runtimeExtensionClass != null){
 				extendedInstance = EcoreUtil.create(runtimeExtensionClass);
-				extendedObjects.put(instance,extendedInstance);
+				instanceToRuntime.put(instance,extendedInstance);
+				runtimeToInstance.put(extendedInstance, instance);
 			}
 		}
 		
 		return extendedInstance;
+	}
+	
+	/**
+	 * Return an EObject containing values of runtime features defined
+	 * in ExtendedClasses appliables on {@link instance}
+	 */
+	public Optional<EObject> getRuntimeExtension(EObject instance) {
+		EObject extendedInstance = instanceToRuntime.get(instance);
+		return Optional.ofNullable(extendedInstance);
+	}
+	
+	/**
+	 * If {@link eObject} is an extension, return the corresponding instance.
+	 * Return itself otherwise
+	 */
+	public EObject getInstanceOrSelf(EObject eObject) {
+		EObject res = runtimeToInstance.get(eObject);
+		if(res != null) {
+			return res;
+		}
+		else {
+			return eObject;
+		}
 	}
 	
     /**
