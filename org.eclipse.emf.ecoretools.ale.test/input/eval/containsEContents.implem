@@ -7,7 +7,7 @@ open class ClassA {
 	def int main() {
 		NewClass cls := containattributes::NewClass.create();
 		self.toNewClass := cls;
-		result := self.eContent();
+		result := self.eContents();
 	}
 }
 

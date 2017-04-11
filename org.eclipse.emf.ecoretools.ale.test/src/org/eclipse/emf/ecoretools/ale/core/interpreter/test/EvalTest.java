@@ -630,11 +630,11 @@ public class EvalTest {
 	}
 	
 	@Test
-	public void testContainsAssign(){
+	public void testContainsDynamicEContainer(){
 		/*
 		 * Check eContainer()
 		 */
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/contains.implem"));
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/containsDynamicEContainer.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
@@ -644,11 +644,11 @@ public class EvalTest {
 	}
 	
 	@Test
-	public void testContainsAssign2(){
+	public void testContainsDoubelAssign(){
 		/*
 		 * Check double assignment
 		 */
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/contains2.implem"));
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/containsDoubleAssign.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
@@ -657,11 +657,11 @@ public class EvalTest {
 	}
 	
 	@Test
-	public void testContainsAssign3(){
+	public void testContainsSelfEContainer(){
 		/*
 		 * Check self.eContainer()
 		 */
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/contains3.implem"));
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/containsSelfEContainer.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
@@ -671,17 +671,22 @@ public class EvalTest {
 	}
 	
 	@Test
-	public void testContainsAssign4(){
+	public void testContainsEContents(){
 		/*
 		 * Check self.eContent()
 		 */
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/contains4.implem"));
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/containsEContents.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
-		assertTrue(res.getValue() instanceof EObject);
-		assertEquals("NewClass", ((EObject)res.getValue()).eClass().getName());
+		Object value = res.getValue();
+		assertTrue(value instanceof List);
+		assertEquals(1,((List)value).size());
+		
+		Object contained = ((List)value).get(0);
+		assertTrue(contained instanceof EObject);
+		assertEquals("NewClass", ((EObject)contained).eClass().getName());
 	}
 	
 	@Test
