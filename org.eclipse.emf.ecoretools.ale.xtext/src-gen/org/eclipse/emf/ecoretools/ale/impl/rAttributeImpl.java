@@ -32,6 +32,9 @@ import org.eclipse.emf.ecoretools.ale.rAttribute;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.impl.rAttributeImpl#getModifier <em>Modifier</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.impl.rAttributeImpl#getBounds <em>Bounds</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.impl.rAttributeImpl#getOpposite <em>Opposite</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.impl.rAttributeImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.impl.rAttributeImpl#getName <em>Name</em>}</li>
  * </ul>
@@ -40,6 +43,66 @@ import org.eclipse.emf.ecoretools.ale.rAttribute;
  */
 public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAttribute
 {
+  /**
+   * The default value of the '{@link #getModifier() <em>Modifier</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getModifier()
+   * @generated
+   * @ordered
+   */
+  protected static final String MODIFIER_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getModifier() <em>Modifier</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getModifier()
+   * @generated
+   * @ordered
+   */
+  protected String modifier = MODIFIER_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getBounds() <em>Bounds</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getBounds()
+   * @generated
+   * @ordered
+   */
+  protected static final String BOUNDS_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getBounds() <em>Bounds</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getBounds()
+   * @generated
+   * @ordered
+   */
+  protected String bounds = BOUNDS_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getOpposite() <em>Opposite</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOpposite()
+   * @generated
+   * @ordered
+   */
+  protected static final String OPPOSITE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getOpposite() <em>Opposite</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOpposite()
+   * @generated
+   * @ordered
+   */
+  protected String opposite = OPPOSITE_EDEFAULT;
+
   /**
    * The default value of the '{@link #getType() <em>Type</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -106,6 +169,75 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getModifier()
+  {
+    return modifier;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setModifier(String newModifier)
+  {
+    String oldModifier = modifier;
+    modifier = newModifier;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.RATTRIBUTE__MODIFIER, oldModifier, modifier));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getBounds()
+  {
+    return bounds;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setBounds(String newBounds)
+  {
+    String oldBounds = bounds;
+    bounds = newBounds;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.RATTRIBUTE__BOUNDS, oldBounds, bounds));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getOpposite()
+  {
+    return opposite;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setOpposite(String newOpposite)
+  {
+    String oldOpposite = opposite;
+    opposite = newOpposite;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.RATTRIBUTE__OPPOSITE, oldOpposite, opposite));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getType()
   {
     return type;
@@ -157,6 +289,12 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
   {
     switch (featureID)
     {
+      case AlePackage.RATTRIBUTE__MODIFIER:
+        return getModifier();
+      case AlePackage.RATTRIBUTE__BOUNDS:
+        return getBounds();
+      case AlePackage.RATTRIBUTE__OPPOSITE:
+        return getOpposite();
       case AlePackage.RATTRIBUTE__TYPE:
         return getType();
       case AlePackage.RATTRIBUTE__NAME:
@@ -175,6 +313,15 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
   {
     switch (featureID)
     {
+      case AlePackage.RATTRIBUTE__MODIFIER:
+        setModifier((String)newValue);
+        return;
+      case AlePackage.RATTRIBUTE__BOUNDS:
+        setBounds((String)newValue);
+        return;
+      case AlePackage.RATTRIBUTE__OPPOSITE:
+        setOpposite((String)newValue);
+        return;
       case AlePackage.RATTRIBUTE__TYPE:
         setType((String)newValue);
         return;
@@ -195,6 +342,15 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
   {
     switch (featureID)
     {
+      case AlePackage.RATTRIBUTE__MODIFIER:
+        setModifier(MODIFIER_EDEFAULT);
+        return;
+      case AlePackage.RATTRIBUTE__BOUNDS:
+        setBounds(BOUNDS_EDEFAULT);
+        return;
+      case AlePackage.RATTRIBUTE__OPPOSITE:
+        setOpposite(OPPOSITE_EDEFAULT);
+        return;
       case AlePackage.RATTRIBUTE__TYPE:
         setType(TYPE_EDEFAULT);
         return;
@@ -215,6 +371,12 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
   {
     switch (featureID)
     {
+      case AlePackage.RATTRIBUTE__MODIFIER:
+        return MODIFIER_EDEFAULT == null ? modifier != null : !MODIFIER_EDEFAULT.equals(modifier);
+      case AlePackage.RATTRIBUTE__BOUNDS:
+        return BOUNDS_EDEFAULT == null ? bounds != null : !BOUNDS_EDEFAULT.equals(bounds);
+      case AlePackage.RATTRIBUTE__OPPOSITE:
+        return OPPOSITE_EDEFAULT == null ? opposite != null : !OPPOSITE_EDEFAULT.equals(opposite);
       case AlePackage.RATTRIBUTE__TYPE:
         return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
       case AlePackage.RATTRIBUTE__NAME:
@@ -234,7 +396,13 @@ public class rAttributeImpl extends MinimalEObjectImpl.Container implements rAtt
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (type: ");
+    result.append(" (modifier: ");
+    result.append(modifier);
+    result.append(", bounds: ");
+    result.append(bounds);
+    result.append(", opposite: ");
+    result.append(opposite);
+    result.append(", type: ");
     result.append(type);
     result.append(", name: ");
     result.append(name);

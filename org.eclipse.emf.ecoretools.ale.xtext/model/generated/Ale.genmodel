@@ -30,6 +30,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//rVariable/name"/>
     </genClasses>
     <genClasses ecoreClass="Ale.ecore#//rAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//rAttribute/modifier"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//rAttribute/bounds"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//rAttribute/opposite"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//rAttribute/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//rAttribute/name"/>
     </genClasses>

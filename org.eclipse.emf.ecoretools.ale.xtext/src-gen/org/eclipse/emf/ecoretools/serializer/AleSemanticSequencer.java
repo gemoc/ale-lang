@@ -78,19 +78,10 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     rAttribute returns rAttribute
 	 *
 	 * Constraint:
-	 *     (type=rType name=Ident)
+	 *     ((modifier='contains' | modifier='unique')? bounds=rCardinality? opposite=rOpposite? type=rType name=Ident)
 	 */
 	protected void sequence_rAttribute(ISerializationContext context, rAttribute semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.RATTRIBUTE__TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.RATTRIBUTE__TYPE));
-			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.RATTRIBUTE__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.RATTRIBUTE__NAME));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getRAttributeAccess().getTypeRTypeParserRuleCall_0_0(), semanticObject.getType());
-		feeder.accept(grammarAccess.getRAttributeAccess().getNameIdentTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

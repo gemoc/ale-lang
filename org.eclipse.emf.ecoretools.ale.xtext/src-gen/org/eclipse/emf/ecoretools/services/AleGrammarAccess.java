@@ -432,45 +432,128 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 	public class RAttributeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.rAttribute");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cTypeRTypeParserRuleCall_0_0 = (RuleCall)cTypeAssignment_0.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIdentTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cColonEqualsSignKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final RuleCall cExpressionParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cModifierAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Alternatives cModifierAlternatives_0_0 = (Alternatives)cModifierAssignment_0.eContents().get(0);
+		private final Keyword cModifierContainsKeyword_0_0_0 = (Keyword)cModifierAlternatives_0_0.eContents().get(0);
+		private final Keyword cModifierUniqueKeyword_0_0_1 = (Keyword)cModifierAlternatives_0_0.eContents().get(1);
+		private final Assignment cBoundsAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cBoundsRCardinalityParserRuleCall_1_0 = (RuleCall)cBoundsAssignment_1.eContents().get(0);
+		private final Assignment cOppositeAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cOppositeROppositeParserRuleCall_2_0 = (RuleCall)cOppositeAssignment_2.eContents().get(0);
+		private final Assignment cTypeAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTypeRTypeParserRuleCall_3_0 = (RuleCall)cTypeAssignment_3.eContents().get(0);
+		private final Assignment cNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cNameIdentTerminalRuleCall_4_0 = (RuleCall)cNameAssignment_4.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cColonEqualsSignKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final RuleCall cExpressionParserRuleCall_5_1 = (RuleCall)cGroup_5.eContents().get(1);
+		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//rAttribute:
-		//	type=rType name=Ident (':=' expression)? ';';
+		//	modifier=('contains' | 'unique')? bounds=rCardinality? opposite=rOpposite? type=rType name=Ident (':=' expression)?
+		//	';';
 		@Override public ParserRule getRule() { return rule; }
 		
-		//type=rType name=Ident (':=' expression)? ';'
+		//modifier=('contains' | 'unique')? bounds=rCardinality? opposite=rOpposite? type=rType name=Ident (':=' expression)? ';'
 		public Group getGroup() { return cGroup; }
 		
+		//modifier=('contains' | 'unique')?
+		public Assignment getModifierAssignment_0() { return cModifierAssignment_0; }
+		
+		//('contains' | 'unique')
+		public Alternatives getModifierAlternatives_0_0() { return cModifierAlternatives_0_0; }
+		
+		//'contains'
+		public Keyword getModifierContainsKeyword_0_0_0() { return cModifierContainsKeyword_0_0_0; }
+		
+		//'unique'
+		public Keyword getModifierUniqueKeyword_0_0_1() { return cModifierUniqueKeyword_0_0_1; }
+		
+		//bounds=rCardinality?
+		public Assignment getBoundsAssignment_1() { return cBoundsAssignment_1; }
+		
+		//rCardinality
+		public RuleCall getBoundsRCardinalityParserRuleCall_1_0() { return cBoundsRCardinalityParserRuleCall_1_0; }
+		
+		//opposite=rOpposite?
+		public Assignment getOppositeAssignment_2() { return cOppositeAssignment_2; }
+		
+		//rOpposite
+		public RuleCall getOppositeROppositeParserRuleCall_2_0() { return cOppositeROppositeParserRuleCall_2_0; }
+		
 		//type=rType
-		public Assignment getTypeAssignment_0() { return cTypeAssignment_0; }
+		public Assignment getTypeAssignment_3() { return cTypeAssignment_3; }
 		
 		//rType
-		public RuleCall getTypeRTypeParserRuleCall_0_0() { return cTypeRTypeParserRuleCall_0_0; }
+		public RuleCall getTypeRTypeParserRuleCall_3_0() { return cTypeRTypeParserRuleCall_3_0; }
 		
 		//name=Ident
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		public Assignment getNameAssignment_4() { return cNameAssignment_4; }
 		
 		//Ident
-		public RuleCall getNameIdentTerminalRuleCall_1_0() { return cNameIdentTerminalRuleCall_1_0; }
+		public RuleCall getNameIdentTerminalRuleCall_4_0() { return cNameIdentTerminalRuleCall_4_0; }
 		
 		//(':=' expression)?
-		public Group getGroup_2() { return cGroup_2; }
+		public Group getGroup_5() { return cGroup_5; }
 		
 		//':='
-		public Keyword getColonEqualsSignKeyword_2_0() { return cColonEqualsSignKeyword_2_0; }
+		public Keyword getColonEqualsSignKeyword_5_0() { return cColonEqualsSignKeyword_5_0; }
 		
 		//expression
-		public RuleCall getExpressionParserRuleCall_2_1() { return cExpressionParserRuleCall_2_1; }
+		public RuleCall getExpressionParserRuleCall_5_1() { return cExpressionParserRuleCall_5_1; }
 		
 		//';'
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
+	}
+	public class RCardinalityElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.rCardinality");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cINTTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Keyword cFullStopFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
+		private final RuleCall cINTTerminalRuleCall_2_0 = (RuleCall)cAlternatives_2.eContents().get(0);
+		private final RuleCall cMultOpTerminalRuleCall_2_1 = (RuleCall)cAlternatives_2.eContents().get(1);
+		
+		//rCardinality:
+		//	INT '..' (INT | MultOp);
+		@Override public ParserRule getRule() { return rule; }
+		
+		//INT '..' (INT | MultOp)
+		public Group getGroup() { return cGroup; }
+		
+		//INT
+		public RuleCall getINTTerminalRuleCall_0() { return cINTTerminalRuleCall_0; }
+		
+		//'..'
+		public Keyword getFullStopFullStopKeyword_1() { return cFullStopFullStopKeyword_1; }
+		
+		//(INT | MultOp)
+		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+		
+		//INT
+		public RuleCall getINTTerminalRuleCall_2_0() { return cINTTerminalRuleCall_2_0; }
+		
+		//MultOp
+		public RuleCall getMultOpTerminalRuleCall_2_1() { return cMultOpTerminalRuleCall_2_1; }
+	}
+	public class ROppositeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.rOpposite");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cOppositeKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final RuleCall cIdentTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		
+		//rOpposite:
+		//	'opposite' Ident;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'opposite' Ident
+		public Group getGroup() { return cGroup; }
+		
+		//'opposite'
+		public Keyword getOppositeKeyword_0() { return cOppositeKeyword_0; }
+		
+		//Ident
+		public RuleCall getIdentTerminalRuleCall_1() { return cIdentTerminalRuleCall_1; }
 	}
 	public class RStatementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.rStatement");
@@ -1690,6 +1773,8 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 	private final RParametersElements pRParameters;
 	private final RVariableElements pRVariable;
 	private final RAttributeElements pRAttribute;
+	private final RCardinalityElements pRCardinality;
+	private final ROppositeElements pROpposite;
 	private final RStatementElements pRStatement;
 	private final RVarDeclElements pRVarDecl;
 	private final RAssignElements pRAssign;
@@ -1741,6 +1826,8 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 		this.pRParameters = new RParametersElements();
 		this.pRVariable = new RVariableElements();
 		this.pRAttribute = new RAttributeElements();
+		this.pRCardinality = new RCardinalityElements();
+		this.pROpposite = new ROppositeElements();
 		this.pRStatement = new RStatementElements();
 		this.pRVarDecl = new RVarDeclElements();
 		this.pRAssign = new RAssignElements();
@@ -1904,13 +1991,34 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//rAttribute:
-	//	type=rType name=Ident (':=' expression)? ';';
+	//	modifier=('contains' | 'unique')? bounds=rCardinality? opposite=rOpposite? type=rType name=Ident (':=' expression)?
+	//	';';
 	public RAttributeElements getRAttributeAccess() {
 		return pRAttribute;
 	}
 	
 	public ParserRule getRAttributeRule() {
 		return getRAttributeAccess().getRule();
+	}
+	
+	//rCardinality:
+	//	INT '..' (INT | MultOp);
+	public RCardinalityElements getRCardinalityAccess() {
+		return pRCardinality;
+	}
+	
+	public ParserRule getRCardinalityRule() {
+		return getRCardinalityAccess().getRule();
+	}
+	
+	//rOpposite:
+	//	'opposite' Ident;
+	public ROppositeElements getROppositeAccess() {
+		return pROpposite;
+	}
+	
+	public ParserRule getROppositeRule() {
+		return getROppositeAccess().getRule();
 	}
 	
 	//rStatement:

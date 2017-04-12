@@ -365,13 +365,40 @@ public interface AlePackage extends EPackage
   int RATTRIBUTE = 7;
 
   /**
+   * The feature id for the '<em><b>Modifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RATTRIBUTE__MODIFIER = 0;
+
+  /**
+   * The feature id for the '<em><b>Bounds</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RATTRIBUTE__BOUNDS = 1;
+
+  /**
+   * The feature id for the '<em><b>Opposite</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RATTRIBUTE__OPPOSITE = 2;
+
+  /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RATTRIBUTE__TYPE = 0;
+  int RATTRIBUTE__TYPE = 3;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -380,7 +407,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RATTRIBUTE__NAME = 1;
+  int RATTRIBUTE__NAME = 4;
 
   /**
    * The number of structural features of the '<em>rAttribute</em>' class.
@@ -389,7 +416,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RATTRIBUTE_FEATURE_COUNT = 2;
+  int RATTRIBUTE_FEATURE_COUNT = 5;
 
 
   /**
@@ -592,6 +619,39 @@ public interface AlePackage extends EPackage
    * @generated
    */
   EClass getrAttribute();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rAttribute#getModifier <em>Modifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Modifier</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.rAttribute#getModifier()
+   * @see #getrAttribute()
+   * @generated
+   */
+  EAttribute getrAttribute_Modifier();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rAttribute#getBounds <em>Bounds</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Bounds</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.rAttribute#getBounds()
+   * @see #getrAttribute()
+   * @generated
+   */
+  EAttribute getrAttribute_Bounds();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rAttribute#getOpposite <em>Opposite</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Opposite</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.rAttribute#getOpposite()
+   * @see #getrAttribute()
+   * @generated
+   */
+  EAttribute getrAttribute_Opposite();
 
   /**
    * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rAttribute#getType <em>Type</em>}'.
@@ -805,6 +865,30 @@ public interface AlePackage extends EPackage
      * @generated
      */
     EClass RATTRIBUTE = eINSTANCE.getrAttribute();
+
+    /**
+     * The meta object literal for the '<em><b>Modifier</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RATTRIBUTE__MODIFIER = eINSTANCE.getrAttribute_Modifier();
+
+    /**
+     * The meta object literal for the '<em><b>Bounds</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RATTRIBUTE__BOUNDS = eINSTANCE.getrAttribute_Bounds();
+
+    /**
+     * The meta object literal for the '<em><b>Opposite</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RATTRIBUTE__OPPOSITE = eINSTANCE.getrAttribute_Opposite();
 
     /**
      * The meta object literal for the '<em><b>Type</b></em>' attribute feature.

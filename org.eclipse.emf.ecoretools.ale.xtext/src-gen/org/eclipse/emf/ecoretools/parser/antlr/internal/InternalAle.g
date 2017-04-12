@@ -802,10 +802,75 @@ rulerAttribute returns [EObject current=null]
 	(
 		(
 			(
+				(
+					lv_modifier_0_1='contains'
+					{
+						newLeafNode(lv_modifier_0_1, grammarAccess.getRAttributeAccess().getModifierContainsKeyword_0_0_0());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getRAttributeRule());
+						}
+						setWithLastConsumed($current, "modifier", lv_modifier_0_1, null);
+					}
+					    |
+					lv_modifier_0_2='unique'
+					{
+						newLeafNode(lv_modifier_0_2, grammarAccess.getRAttributeAccess().getModifierUniqueKeyword_0_0_1());
+					}
+					{
+						if ($current==null) {
+							$current = createModelElement(grammarAccess.getRAttributeRule());
+						}
+						setWithLastConsumed($current, "modifier", lv_modifier_0_2, null);
+					}
+				)
+			)
+		)?
+		(
+			(
 				{
-					newCompositeNode(grammarAccess.getRAttributeAccess().getTypeRTypeParserRuleCall_0_0());
+					newCompositeNode(grammarAccess.getRAttributeAccess().getBoundsRCardinalityParserRuleCall_1_0());
 				}
-				lv_type_0_0=rulerType
+				lv_bounds_1_0=rulerCardinality
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getRAttributeRule());
+					}
+					set(
+						$current,
+						"bounds",
+						lv_bounds_1_0,
+						"org.eclipse.emf.ecoretools.Ale.rCardinality");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)?
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getRAttributeAccess().getOppositeROppositeParserRuleCall_2_0());
+				}
+				lv_opposite_2_0=rulerOpposite
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getRAttributeRule());
+					}
+					set(
+						$current,
+						"opposite",
+						lv_opposite_2_0,
+						"org.eclipse.emf.ecoretools.Ale.rOpposite");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)?
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getRAttributeAccess().getTypeRTypeParserRuleCall_3_0());
+				}
+				lv_type_3_0=rulerType
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getRAttributeRule());
@@ -813,7 +878,7 @@ rulerAttribute returns [EObject current=null]
 					set(
 						$current,
 						"type",
-						lv_type_0_0,
+						lv_type_3_0,
 						"org.eclipse.emf.ecoretools.Ale.rType");
 					afterParserOrEnumRuleCall();
 				}
@@ -821,9 +886,9 @@ rulerAttribute returns [EObject current=null]
 		)
 		(
 			(
-				lv_name_1_0=RULE_IDENT
+				lv_name_4_0=RULE_IDENT
 				{
-					newLeafNode(lv_name_1_0, grammarAccess.getRAttributeAccess().getNameIdentTerminalRuleCall_1_0());
+					newLeafNode(lv_name_4_0, grammarAccess.getRAttributeAccess().getNameIdentTerminalRuleCall_4_0());
 				}
 				{
 					if ($current==null) {
@@ -832,30 +897,109 @@ rulerAttribute returns [EObject current=null]
 					setWithLastConsumed(
 						$current,
 						"name",
-						lv_name_1_0,
+						lv_name_4_0,
 						"org.eclipse.emf.ecoretools.Ale.Ident");
 				}
 			)
 		)
 		(
-			otherlv_2=':='
+			otherlv_5=':='
 			{
-				newLeafNode(otherlv_2, grammarAccess.getRAttributeAccess().getColonEqualsSignKeyword_2_0());
+				newLeafNode(otherlv_5, grammarAccess.getRAttributeAccess().getColonEqualsSignKeyword_5_0());
 			}
 			{
 				/* */
 			}
 			{
-				newCompositeNode(grammarAccess.getRAttributeAccess().getExpressionParserRuleCall_2_1());
+				newCompositeNode(grammarAccess.getRAttributeAccess().getExpressionParserRuleCall_5_1());
 			}
 			ruleexpression
 			{
 				afterParserOrEnumRuleCall();
 			}
 		)?
-		otherlv_4=';'
+		otherlv_7=';'
 		{
-			newLeafNode(otherlv_4, grammarAccess.getRAttributeAccess().getSemicolonKeyword_3());
+			newLeafNode(otherlv_7, grammarAccess.getRAttributeAccess().getSemicolonKeyword_6());
+		}
+	)
+;
+
+// Entry rule entryRulerCardinality
+entryRulerCardinality returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getRCardinalityRule()); }
+	iv_rulerCardinality=rulerCardinality
+	{ $current=$iv_rulerCardinality.current.getText(); }
+	EOF;
+
+// Rule rCardinality
+rulerCardinality returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		this_INT_0=RULE_INT
+		{
+			$current.merge(this_INT_0);
+		}
+		{
+			newLeafNode(this_INT_0, grammarAccess.getRCardinalityAccess().getINTTerminalRuleCall_0());
+		}
+		kw='..'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getRCardinalityAccess().getFullStopFullStopKeyword_1());
+		}
+		(
+			this_INT_2=RULE_INT
+			{
+				$current.merge(this_INT_2);
+			}
+			{
+				newLeafNode(this_INT_2, grammarAccess.getRCardinalityAccess().getINTTerminalRuleCall_2_0());
+			}
+			    |
+			this_MultOp_3=RULE_MULTOP
+			{
+				$current.merge(this_MultOp_3);
+			}
+			{
+				newLeafNode(this_MultOp_3, grammarAccess.getRCardinalityAccess().getMultOpTerminalRuleCall_2_1());
+			}
+		)
+	)
+;
+
+// Entry rule entryRulerOpposite
+entryRulerOpposite returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getROppositeRule()); }
+	iv_rulerOpposite=rulerOpposite
+	{ $current=$iv_rulerOpposite.current.getText(); }
+	EOF;
+
+// Rule rOpposite
+rulerOpposite returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		kw='opposite'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getROppositeAccess().getOppositeKeyword_0());
+		}
+		this_Ident_1=RULE_IDENT
+		{
+			$current.merge(this_Ident_1);
+		}
+		{
+			newLeafNode(this_Ident_1, grammarAccess.getROppositeAccess().getIdentTerminalRuleCall_1());
 		}
 	)
 ;

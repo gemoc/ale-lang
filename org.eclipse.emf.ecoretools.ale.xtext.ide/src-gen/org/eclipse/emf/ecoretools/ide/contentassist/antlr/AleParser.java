@@ -46,6 +46,8 @@ public class AleParser extends AbstractContentAssistParser {
 				{
 					put(grammarAccess.getRClassAccess().getAlternatives(), "rule__RClass__Alternatives");
 					put(grammarAccess.getROperationAccess().getAlternatives_1(), "rule__ROperation__Alternatives_1");
+					put(grammarAccess.getRAttributeAccess().getModifierAlternatives_0_0(), "rule__RAttribute__ModifierAlternatives_0_0");
+					put(grammarAccess.getRCardinalityAccess().getAlternatives_2(), "rule__RCardinality__Alternatives_2");
 					put(grammarAccess.getRStatementAccess().getAlternatives(), "rule__RStatement__Alternatives");
 					put(grammarAccess.getRCollectionAccess().getAlternatives(), "rule__RCollection__Alternatives");
 					put(grammarAccess.getRecExpressionAccess().getAlternatives_0(), "rule__RecExpression__Alternatives_0");
@@ -73,7 +75,9 @@ public class AleParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRParametersAccess().getGroup_1(), "rule__RParameters__Group_1__0");
 					put(grammarAccess.getRVariableAccess().getGroup(), "rule__RVariable__Group__0");
 					put(grammarAccess.getRAttributeAccess().getGroup(), "rule__RAttribute__Group__0");
-					put(grammarAccess.getRAttributeAccess().getGroup_2(), "rule__RAttribute__Group_2__0");
+					put(grammarAccess.getRAttributeAccess().getGroup_5(), "rule__RAttribute__Group_5__0");
+					put(grammarAccess.getRCardinalityAccess().getGroup(), "rule__RCardinality__Group__0");
+					put(grammarAccess.getROppositeAccess().getGroup(), "rule__ROpposite__Group__0");
 					put(grammarAccess.getRVarDeclAccess().getGroup(), "rule__RVarDecl__Group__0");
 					put(grammarAccess.getRVarDeclAccess().getGroup_2(), "rule__RVarDecl__Group_2__0");
 					put(grammarAccess.getRAssignAccess().getGroup(), "rule__RAssign__Group__0");
@@ -138,8 +142,11 @@ public class AleParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRParametersAccess().getParamsAssignment_1_1(), "rule__RParameters__ParamsAssignment_1_1");
 					put(grammarAccess.getRVariableAccess().getTypeAssignment_0(), "rule__RVariable__TypeAssignment_0");
 					put(grammarAccess.getRVariableAccess().getNameAssignment_1(), "rule__RVariable__NameAssignment_1");
-					put(grammarAccess.getRAttributeAccess().getTypeAssignment_0(), "rule__RAttribute__TypeAssignment_0");
-					put(grammarAccess.getRAttributeAccess().getNameAssignment_1(), "rule__RAttribute__NameAssignment_1");
+					put(grammarAccess.getRAttributeAccess().getModifierAssignment_0(), "rule__RAttribute__ModifierAssignment_0");
+					put(grammarAccess.getRAttributeAccess().getBoundsAssignment_1(), "rule__RAttribute__BoundsAssignment_1");
+					put(grammarAccess.getRAttributeAccess().getOppositeAssignment_2(), "rule__RAttribute__OppositeAssignment_2");
+					put(grammarAccess.getRAttributeAccess().getTypeAssignment_3(), "rule__RAttribute__TypeAssignment_3");
+					put(grammarAccess.getRAttributeAccess().getNameAssignment_4(), "rule__RAttribute__NameAssignment_4");
 				}
 			};
 		}

@@ -46,7 +46,15 @@ rParameters : params+=rVariable (',' params+=rVariable)*
 rVariable : type=rType name=Ident
 ;
 
-rAttribute : type=rType name=Ident (':=' expression)? ';'
+rAttribute : modifier=('contains' | 'unique')? bounds=rCardinality? opposite=rOpposite? type=rType name=Ident (':=' expression)? ';'
+;
+
+rCardinality :
+	INT  '..' (INT| MultOp)
+;
+
+rOpposite :
+	'opposite' Ident
 ;
 
 rStatement : rVarDecl 

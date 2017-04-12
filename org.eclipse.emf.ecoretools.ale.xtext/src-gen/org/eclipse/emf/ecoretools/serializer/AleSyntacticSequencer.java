@@ -31,7 +31,7 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected AleGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q;
+	protected AbstractElementAlias match_rAttribute___ColonEqualsSignKeyword_5_0_ExpressionParserRuleCall_5_1__q;
 	protected AbstractElementAlias match_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q;
 	protected AbstractElementAlias match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1;
 	protected AbstractElementAlias match_rOperation_RTagParserRuleCall_0_a;
@@ -43,7 +43,7 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (AleGrammarAccess) access;
-		match_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRAttributeAccess().getColonEqualsSignKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getRAttributeAccess().getExpressionParserRuleCall_2_1()));
+		match_rAttribute___ColonEqualsSignKeyword_5_0_ExpressionParserRuleCall_5_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getRAttributeAccess().getColonEqualsSignKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getRAttributeAccess().getExpressionParserRuleCall_5_1()));
 		match_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getExtendsKeyword_3_0()), new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getRQualifiedParserRuleCall_3_1()), new GroupAlias(true, true, new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getCommaKeyword_3_2_0()), new TokenAlias(false, false, grammarAccess.getROpenClassAccess().getRQualifiedParserRuleCall_3_2_1())));
 		match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getROperationAccess().getDefKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getROperationAccess().getOverrideKeyword_1_1()));
 		match_rOperation_RTagParserRuleCall_0_a = new TokenAlias(true, true, grammarAccess.getROperationAccess().getRTagParserRuleCall_0());
@@ -125,8 +125,8 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if (match_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q.equals(syntax))
-				emit_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if (match_rAttribute___ColonEqualsSignKeyword_5_0_ExpressionParserRuleCall_5_1__q.equals(syntax))
+				emit_rAttribute___ColonEqualsSignKeyword_5_0_ExpressionParserRuleCall_5_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q.equals(syntax))
 				emit_rOpenClass___ExtendsKeyword_3_0_RQualifiedParserRuleCall_3_1___CommaKeyword_3_2_0_RQualifiedParserRuleCall_3_2_1__a__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1.equals(syntax))
@@ -152,7 +152,7 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     name=Ident (ambiguity) ';' (rule end)
 	 */
-	protected void emit_rAttribute___ColonEqualsSignKeyword_2_0_ExpressionParserRuleCall_2_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_rAttribute___ColonEqualsSignKeyword_5_0_ExpressionParserRuleCall_5_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

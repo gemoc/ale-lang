@@ -25,6 +25,9 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.rAttribute#getModifier <em>Modifier</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.rAttribute#getBounds <em>Bounds</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.rAttribute#getOpposite <em>Opposite</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.rAttribute#getType <em>Type</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.rAttribute#getName <em>Name</em>}</li>
  * </ul>
@@ -35,6 +38,84 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface rAttribute extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Modifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Modifier</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Modifier</em>' attribute.
+   * @see #setModifier(String)
+   * @see org.eclipse.emf.ecoretools.ale.AlePackage#getrAttribute_Modifier()
+   * @model
+   * @generated
+   */
+  String getModifier();
+
+  /**
+   * Sets the value of the '{@link org.eclipse.emf.ecoretools.ale.rAttribute#getModifier <em>Modifier</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Modifier</em>' attribute.
+   * @see #getModifier()
+   * @generated
+   */
+  void setModifier(String value);
+
+  /**
+   * Returns the value of the '<em><b>Bounds</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Bounds</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Bounds</em>' attribute.
+   * @see #setBounds(String)
+   * @see org.eclipse.emf.ecoretools.ale.AlePackage#getrAttribute_Bounds()
+   * @model
+   * @generated
+   */
+  String getBounds();
+
+  /**
+   * Sets the value of the '{@link org.eclipse.emf.ecoretools.ale.rAttribute#getBounds <em>Bounds</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Bounds</em>' attribute.
+   * @see #getBounds()
+   * @generated
+   */
+  void setBounds(String value);
+
+  /**
+   * Returns the value of the '<em><b>Opposite</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Opposite</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Opposite</em>' attribute.
+   * @see #setOpposite(String)
+   * @see org.eclipse.emf.ecoretools.ale.AlePackage#getrAttribute_Opposite()
+   * @model
+   * @generated
+   */
+  String getOpposite();
+
+  /**
+   * Sets the value of the '{@link org.eclipse.emf.ecoretools.ale.rAttribute#getOpposite <em>Opposite</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Opposite</em>' attribute.
+   * @see #getOpposite()
+   * @generated
+   */
+  void setOpposite(String value);
+
   /**
    * Returns the value of the '<em><b>Type</b></em>' attribute.
    * <!-- begin-user-doc -->

@@ -354,7 +354,7 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getrAttribute_Type()
+  public EAttribute getrAttribute_Modifier()
   {
     return (EAttribute)rAttributeEClass.getEStructuralFeatures().get(0);
   }
@@ -364,9 +364,39 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getrAttribute_Name()
+  public EAttribute getrAttribute_Bounds()
   {
     return (EAttribute)rAttributeEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getrAttribute_Opposite()
+  {
+    return (EAttribute)rAttributeEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getrAttribute_Type()
+  {
+    return (EAttribute)rAttributeEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getrAttribute_Name()
+  {
+    return (EAttribute)rAttributeEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -425,6 +455,9 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     createEAttribute(rVariableEClass, RVARIABLE__NAME);
 
     rAttributeEClass = createEClass(RATTRIBUTE);
+    createEAttribute(rAttributeEClass, RATTRIBUTE__MODIFIER);
+    createEAttribute(rAttributeEClass, RATTRIBUTE__BOUNDS);
+    createEAttribute(rAttributeEClass, RATTRIBUTE__OPPOSITE);
     createEAttribute(rAttributeEClass, RATTRIBUTE__TYPE);
     createEAttribute(rAttributeEClass, RATTRIBUTE__NAME);
   }
@@ -488,6 +521,9 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     initEAttribute(getrVariable_Name(), ecorePackage.getEString(), "name", null, 0, 1, rVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(rAttributeEClass, rAttribute.class, "rAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getrAttribute_Modifier(), ecorePackage.getEString(), "modifier", null, 0, 1, rAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getrAttribute_Bounds(), ecorePackage.getEString(), "bounds", null, 0, 1, rAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getrAttribute_Opposite(), ecorePackage.getEString(), "opposite", null, 0, 1, rAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getrAttribute_Type(), ecorePackage.getEString(), "type", null, 0, 1, rAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getrAttribute_Name(), ecorePackage.getEString(), "name", null, 0, 1, rAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
