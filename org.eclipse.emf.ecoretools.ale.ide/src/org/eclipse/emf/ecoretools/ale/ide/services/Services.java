@@ -334,7 +334,7 @@ public class Services {
     	return new ArrayList<Attribute>();
     }
     
-    public List<Method> getMethod(EClass cls){
+    public List<Method> getMethod(EClass cls) {
     	Session session = SessionManager.INSTANCE.getSession(cls);
     	final TransactionalEditingDomain editingDomain = session.getTransactionalEditingDomain();
 		ResourceSet rs = editingDomain.getResourceSet();

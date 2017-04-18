@@ -24,7 +24,7 @@ import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
-import org.eclipse.emf.ecoretools.ale.core.validation.ImplementationValidator;
+import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,7 +47,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -61,7 +61,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -75,7 +75,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -89,7 +89,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -103,7 +103,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -117,7 +117,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -131,7 +131,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -145,7 +145,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -159,7 +159,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -175,7 +175,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -191,7 +191,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -205,7 +205,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -219,7 +219,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -233,7 +233,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -247,7 +247,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -261,7 +261,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -276,7 +276,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -290,7 +290,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -304,7 +304,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -318,7 +318,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -332,7 +332,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -346,7 +346,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -360,7 +360,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -374,7 +374,7 @@ public class ValidatorTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
-		ImplementationValidator validator = new ImplementationValidator(interpreter.getQueryEnvironment());
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		

@@ -38,7 +38,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.DiagnosticLogger;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.EvalEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.ImplementationEvaluator;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.MethodEvaluator;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ModelBuilder;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
@@ -65,7 +65,7 @@ public class EvalBodyService extends AbstractService {
 	@Override
 	public Object internalInvoke(Object[] arguments) throws Exception {
 		EObject caller = (EObject) arguments[0];
-		ImplementationEvaluator evaluator = new ImplementationEvaluator(new QueryEvaluationEngine(evalEnv.getQueryEnvironment()), evalEnv.getFeatureAccess());
+		MethodEvaluator evaluator = new MethodEvaluator(new QueryEvaluationEngine(evalEnv.getQueryEnvironment()), evalEnv.getFeatureAccess());
 		List<Object> args = new ArrayList<Object>();
 		for(int i = 1; i < arguments.length; i++)
 			args.add(arguments[i]);

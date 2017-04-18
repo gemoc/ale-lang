@@ -73,7 +73,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.While;
 /**
  * Visits the result of the antlr parser to build the Implementation model.
  */
-public class Visitors {
+public class AstVisitors {
 	
 	/**
 	 * Do the same as ParseTree.getText() but insert white space

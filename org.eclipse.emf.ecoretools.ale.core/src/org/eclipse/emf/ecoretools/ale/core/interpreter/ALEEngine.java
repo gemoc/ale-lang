@@ -17,16 +17,16 @@ import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 
-public class ImplementationEngine {
+public class ALEEngine {
 	
 	EvalEnvironment implemEnv;
 	
-	public ImplementationEngine (EvalEnvironment evalEnv) {
+	public ALEEngine (EvalEnvironment evalEnv) {
 		this.implemEnv = evalEnv;
 	}
 	
 	public EvaluationResult eval(EObject target, Method mainOp, List<Object> args) {
-		ImplementationEvaluator evaluator = new ImplementationEvaluator(new QueryEvaluationEngine(implemEnv.getQueryEnvironment()), implemEnv.getFeatureAccess());
+		MethodEvaluator evaluator = new MethodEvaluator(new QueryEvaluationEngine(implemEnv.getQueryEnvironment()), implemEnv.getFeatureAccess());
 		return evaluator.eval(target,mainOp,args);
 	}
 }

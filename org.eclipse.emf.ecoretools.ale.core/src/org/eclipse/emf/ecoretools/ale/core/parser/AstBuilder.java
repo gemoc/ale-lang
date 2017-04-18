@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RRootContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ModelBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.Visitors;
+import org.eclipse.emf.ecoretools.ale.core.parser.visitor.AstVisitors;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
@@ -72,7 +72,7 @@ public class AstBuilder {
 		parses
 			.stream()
 			.forEach(implemParse -> {
-				List<EClass> newOnes = Visitors.preVisit(implemParse);
+				List<EClass> newOnes = AstVisitors.preVisit(implemParse);
 				
 				EPackage candidatePkg = null;
 				Collection<EPackage> pkgs = qryEnv.getEPackageProvider().getEPackage(implemParse.rQualified().getText());
@@ -98,7 +98,7 @@ public class AstBuilder {
 		parses
 		.stream()
 		.forEach(p -> {
-			ParseResult<ModelUnit> parseRes = Visitors.visit(p);
+			ParseResult<ModelUnit> parseRes = AstVisitors.visit(p);
 			parseRes.setSourceFile(sourceFiles.get(p));
 			build.add(parseRes);
 		});
@@ -158,7 +158,7 @@ public class AstBuilder {
 	    		.stream()
 	    		.forEach(annot -> {
 	    			String xtd = annot.getDetails().get(ModelBuilder.PARSER_EXTENDS_KEY);
-	    			if(Visitors.isQualified(xtd)) {
+	    			if(AstVisitors.isQualified(xtd)) {
 	    				int lastDot = xtd.lastIndexOf(".");
 	    				if(lastDot < xtd.length()){
 	    					String qualifying = xtd.substring(0, lastDot);
@@ -247,7 +247,7 @@ public class AstBuilder {
 		ALEParser parser = new ALEParser(tokens);
 		RRootContext rootCtx  = parser.rRoot();
 		
-		return Visitors.visit(rootCtx);
+		return AstVisitors.visit(rootCtx);
 	}
 	
 	public ParseResult<ModelUnit> parseFromFile(String filePath) {

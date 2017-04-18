@@ -38,7 +38,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.DiagnosticLogger;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.EvalEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.ExtensionEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.ImplementationEngine;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.ALEEngine;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
@@ -262,7 +262,7 @@ public class ALEInterpreter {
     	inputElems.addAll(args);
     	initDynamicFeatures(inputElems,env);
     	
-    	ImplementationEngine engine = new ImplementationEngine(env);
+    	ALEEngine engine = new ALEEngine(env);
     	return engine.eval(caller, operation, args);
     }
     

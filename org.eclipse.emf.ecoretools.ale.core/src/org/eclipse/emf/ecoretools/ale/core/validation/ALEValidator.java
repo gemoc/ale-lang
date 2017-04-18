@@ -60,7 +60,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.While;
 import org.eclipse.emf.ecoretools.ale.implementation.util.ImplementationSwitch;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
-public class ImplementationValidator extends ImplementationSwitch<Object> {
+public class ALEValidator extends ImplementationSwitch<Object> {
 	
 	public static final String INCOMPATIBLE_TYPE = "Expected %s but was %s";
 	public static final String NAME_ALREADY_USED = "The name %s is already used";
@@ -83,7 +83,7 @@ public class ImplementationValidator extends ImplementationSwitch<Object> {
 	AstValidator expValidator;
 	IQueryEnvironment qryEnv;
 	
-	public ImplementationValidator(IQueryEnvironment qryEnv) {
+	public ALEValidator(IQueryEnvironment qryEnv) {
 		this.qryEnv = qryEnv;
 		this.expValidator = new AstValidator(new ValidationServices(qryEnv));
 	}

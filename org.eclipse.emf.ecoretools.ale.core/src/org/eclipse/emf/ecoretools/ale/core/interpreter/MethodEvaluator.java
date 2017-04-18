@@ -50,7 +50,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.util.ImplementationSwitch;
 /**
  * This class evaluate the body of an operation.
  */
-public class ImplementationEvaluator extends ImplementationSwitch<Object> {
+public class MethodEvaluator extends ImplementationSwitch<Object> {
 	
 	public static final String PLUGIN_ID = "interpreter"; //FIXME: set real name
 	public static final String AQL_ERROR = "An error occured during evaluation of a query";
@@ -61,7 +61,7 @@ public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 	BasicDiagnostic diagnostic;
 	Stack<Map<String, Object>> variablesStack;
 	
-	public ImplementationEvaluator (IQueryEvaluationEngine aqlEngine, DynamicFeatureRegistry dynamicFeatureAccess) {
+	public MethodEvaluator (IQueryEvaluationEngine aqlEngine, DynamicFeatureRegistry dynamicFeatureAccess) {
 		this.aqlEngine = aqlEngine;
 		this.dynamicFeatureAccess = dynamicFeatureAccess;
 	}
@@ -294,9 +294,9 @@ public class ImplementationEvaluator extends ImplementationSwitch<Object> {
 		if(result.getDiagnostic().getSeverity() != Diagnostic.OK){
 			Diagnostic child = new BasicDiagnostic(
 					result.getDiagnostic().getSeverity(),
-					ImplementationEvaluator.PLUGIN_ID,
+					MethodEvaluator.PLUGIN_ID,
 					0,
-					ImplementationEvaluator.AQL_ERROR,
+					MethodEvaluator.AQL_ERROR,
 					new Object[] { expression , result.getDiagnostic()}
 					);
 			diagnostic.add(child);

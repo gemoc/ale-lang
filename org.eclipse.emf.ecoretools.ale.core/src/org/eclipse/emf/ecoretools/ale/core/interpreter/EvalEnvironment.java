@@ -248,7 +248,7 @@ public class EvalEnvironment {
 		} catch (Exception e) {
 			Diagnostic initError = new BasicDiagnostic(
 					Diagnostic.ERROR,
-					ImplementationEvaluator.PLUGIN_ID,
+					MethodEvaluator.PLUGIN_ID,
 					0,
 					EvalEnvironment.INIT_ERROR,
 					new Object[] { model }

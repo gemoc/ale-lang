@@ -51,7 +51,7 @@ public class DiagnosticLogger {
 					.stream()
 					.forEach(
 						diag -> {
-							if(diag.getSource().equals(ImplementationEvaluator.PLUGIN_ID)){
+							if(diag.getSource().equals(MethodEvaluator.PLUGIN_ID)){
 								Expression failedExp = (Expression) diag.getData().get(0);
 								Diagnostic diagExp = (Diagnostic) diag.getData().get(1);
 								printError(failedExp, diagExp.toString());
