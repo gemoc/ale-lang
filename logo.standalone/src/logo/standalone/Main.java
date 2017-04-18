@@ -42,5 +42,6 @@ public class Main {
 		 * Eval
 		 */
 		IEvaluationResult result = interpreter.eval(modelFile, new ArrayList(), new Dsl(dslFile));
+		interpreter.getLogger().diagnosticForHuman();
 	}
 }

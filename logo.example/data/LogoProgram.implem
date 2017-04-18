@@ -14,7 +14,7 @@ open class kmLogo.ASM.LogoProgram {
 		 i.log();
 		}*/
 		Turtle turtle :=  self.createTurtle();
-	
+		
 		for(it in self.instructions){
 			it.eval(turtle);
 		}
@@ -149,7 +149,7 @@ open class Plus {
 open class Minus {
 	def double eval(Turtle turtle) {
 		result := self.lhs.eval(turtle) - self.rhs.eval(turtle);
-		('Minus ' + result).log;
+		//('Minus ' + result).log();
 	}
 }
 
@@ -163,7 +163,7 @@ open class Mult {
 
 open class Div {
 	def double eval(Turtle turtle) {
-		('Div ' + self.lhs).log;
+		//('Div ' + self.lhs).log();
 		if(self.rhs.eval(turtle) != 0){
 			result := self.lhs.eval(turtle) / self.rhs.eval(turtle);
 		}
@@ -238,7 +238,7 @@ open class ProcCall {
 			newVar.value := exp.eval(turtle);
 			newFrame.variables.add(newVar);
 			i := i+1;
-//			(newVar.value).log();
+			//(newVar.value).log();
 		}
 		turtle.callStack.frames.add(newFrame);
 		
@@ -248,6 +248,12 @@ open class ProcCall {
 		}
 		
 		turtle.callStack.frames.remove(newFrame);
+	}
+}
+
+open class ProcDeclaration {
+	def double eval(Turtle turtle) {
+		result := 0.0;
 	}
 }
 
@@ -268,7 +274,7 @@ open class ParameterCall {
 open class Turtle {
 
 	int originalSize := 0.0;
-	int anotherAttrib := 0.0;
+	double anotherAttrib := 0.0;
 	
 	def void move(double dx, double dy) {
 //		'debug move'.log();
