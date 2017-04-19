@@ -1,0 +1,4 @@
+behavior test.declself;
+class MyRuntimeClass {
+	int result := 5;
+}

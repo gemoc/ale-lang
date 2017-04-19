@@ -1,0 +1,5 @@
+behavior test.declself;
+class MyRuntimeClass {
+	def int op(int result){
+	}
+}

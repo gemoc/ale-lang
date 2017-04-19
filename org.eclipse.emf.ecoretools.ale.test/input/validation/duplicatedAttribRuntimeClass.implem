@@ -1,0 +1,5 @@
+behavior test.doubleattr; 
+class MyRuntimeClass {
+	boolean newAttribute;
+	int newAttribute := 0;
+}

@@ -1,0 +1,6 @@
+behavior test.localAssign;
+open class EClass {
+	def void op(){
+		result := 4;
+	}
+}

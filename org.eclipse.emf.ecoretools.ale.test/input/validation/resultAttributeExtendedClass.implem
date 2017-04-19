@@ -1,0 +1,4 @@
+behavior test.declself;
+open class EClass {
+	int result := 5;
+}

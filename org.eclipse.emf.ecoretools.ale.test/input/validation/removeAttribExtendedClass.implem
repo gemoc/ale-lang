@@ -1,0 +1,7 @@
+behavior test.declself;
+open class EClass {
+	0..* int newAttrib;
+	def void foo() {
+		self.newAttrib.remove(10);
+	}
+}

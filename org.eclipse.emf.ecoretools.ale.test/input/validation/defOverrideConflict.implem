@@ -1,0 +1,4 @@
+behavior test.defOverrideConflict;
+open class EClass {
+	def int getFeatureCount() {}
+}

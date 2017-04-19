@@ -1,6 +1,7 @@
 package org.eclipse.emf.ecoretools.ale.core.validation;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -117,14 +118,6 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		
 		Map<String,Set<IType>> attributeTypes = new HashMap<String,Set<IType>>();
 		for(Attribute attrib : xtdClass.getAttributes()) {
-			String name = attrib.getFeatureRef().getName();
-			EClassifier type = attrib.getFeatureRef().getEType();
-			Set<IType> previousDeclaration = attributeTypes.get(name);
-			if(previousDeclaration == null) {
-				EClassifierType declaredType = new EClassifierType(qryEnv, type);
-				attributeTypes.put(name, Sets.newHashSet(declaredType));
-			}
-			
 			if(attrib.getInitialValue() != null) {
 				validateAndStore(attrib.getInitialValue(),new HashMap<String,Set<IType>>());
 			}
@@ -134,29 +127,6 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		EClassifierType selfType = new EClassifierType(qryEnv, xtdClass.getBaseClass());
 		selfTypeSet.add(selfType);
 		attributeTypes.put("self", selfTypeSet);
-		
-		xtdClass
-			.getBaseClass()
-			.getEAllAttributes()
-			.stream()
-			.forEach(att -> {
-				Set<IType> attTypeSet = new HashSet<IType>();
-				EClassifierType attType = new EClassifierType(qryEnv, att.getEType());
-				attTypeSet.add(attType);
-				attributeTypes.put(att.getName(), attTypeSet);
-				}
-			);
-		xtdClass
-			.getBaseClass()
-			.getEAllReferences()
-			.stream()
-			.forEach(ref -> {
-				Set<IType> refTypeSet = new HashSet<IType>();
-				EClassifierType attType = new EClassifierType(qryEnv, ref.getEType());
-				refTypeSet.add(attType);
-				attributeTypes.put(ref.getName(), refTypeSet);
-				}
-			);
 		
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateExtendedClass(xtdClass)));
 		
@@ -188,11 +158,18 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			}
 		}
 		
-		//FIXME
-//		Set<IType> selfTypeSet = new HashSet<IType>();
-//		EClassifierType selfType = new EClassifierType(qryEnv, xtdClass.getBaseClass());
-//		selfTypeSet.add(selfType);
-//		attributeTypes.put("self", selfTypeSet);
+		String pkgName = ((ModelUnit)runtimeCls.eContainer()).getName();
+		if(pkgName.lastIndexOf(".") != -1 && pkgName.lastIndexOf(".") != pkgName.length()-1){ //FIXME: AQL doesn't support qualified name
+			pkgName = pkgName.substring(pkgName.lastIndexOf(".")+1);
+		}
+		Collection<EClassifier> registered = qryEnv.getEPackageProvider().getTypes(pkgName, runtimeCls.getName());
+		if(!registered.isEmpty()) {
+			EClassifier runtimeEClass = registered.iterator().next();
+			Set<IType> selfTypeSet = new HashSet<IType>();
+			EClassifierType selfType = new EClassifierType(qryEnv, runtimeEClass);
+			selfTypeSet.add(selfType);
+			attributeTypes.put("self", selfTypeSet);
+		}
 		
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateRuntimeClass(runtimeCls)));
 		

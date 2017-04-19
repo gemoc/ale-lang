@@ -1,0 +1,11 @@
+behavior test.foreach;
+open class EClass {
+	def void op(){
+		int localDef := 12;
+		for(localDef in [0..10]){
+			if(true){
+				int localDef := 15;
+			}
+		}
+	}
+}

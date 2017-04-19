@@ -1,0 +1,7 @@
+behavior test.localAssign;
+open class EClass {
+	def int op(){
+		int myDecl := 5;
+		myDecl := 4;
+	}
+}

@@ -1,0 +1,5 @@
+behavior test.uniqueRuntimeGlobalTwo;
+
+class MyRuntimeClass {
+
+}

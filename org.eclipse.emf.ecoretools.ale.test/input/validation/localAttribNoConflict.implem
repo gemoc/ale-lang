@@ -1,0 +1,7 @@
+behavior test.localAttrib;
+open class EClass {
+	int myDecl := 5;
+	def int op(){
+		int myDecl := 5;
+	}
+}

@@ -1,0 +1,7 @@
+behavior test.foreach;
+open class EClass {
+	def void op(){
+		for(self in [0..10]){
+		}
+	}
+}

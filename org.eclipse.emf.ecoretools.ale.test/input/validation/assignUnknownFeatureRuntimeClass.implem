@@ -1,0 +1,6 @@
+behavior test.assignfeat;
+class MyRuntimeClass {
+	def void op(){
+		self.wrong := 'foobar';
+	}
+}

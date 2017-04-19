@@ -11,6 +11,7 @@ import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
 import org.eclipse.acceleo.query.runtime.impl.ValidationMessage;
 import org.eclipse.acceleo.query.validation.type.IType;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
@@ -39,6 +40,7 @@ public class NameValidator implements IValidator {
 	public static final String SELF_RESERVED = "'self' is a reserved name";
 	public static final String RESULT_RESERVED = "'result' is a reserved name";
 	public static final String OP_ALREADY_DECLARED = "The operation %s is already declared";
+	public static final String OP_MUST_OVERRIDE = "The operation %s must override";
 	public static final String FEATURE_UNDEFINED = "The feature %s is not defined";
 	public static final String VARIABLE_UNDEFINED = "The variable %s is not defined";
 	public static final String PARAM_ASSIGN = "%s is a parameter and can't be assigned";
@@ -112,6 +114,48 @@ public class NameValidator implements IValidator {
 		
 		//TODO: check cycles in 'extends'
 		msgs.addAll(validateBehavioredClass(xtdClass));
+		
+		/*
+		 * Check name of base class attributes
+		 */
+		List<String> declarations = 
+			xtdClass
+			.getBaseClass()
+			.getEAllStructuralFeatures()
+			.stream().map(s -> s.getName())
+			.collect(Collectors.toList());
+		xtdClass
+		.getAttributes()
+		.stream()
+		.forEach(att -> {
+			String name = att.getFeatureRef().getName();
+			if(declarations.contains(name)) {
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(NAME_ALREADY_USED, name),
+						base.getStartOffset(att),
+						base.getEndOffset(att)
+						));
+			}
+		});
+		
+		/*
+		 * Check def methods must not override
+		 */
+		EList<EOperation> allEOperations = xtdClass.getBaseClass().getEAllOperations();
+		for (Method mtd : xtdClass.getMethods()) {
+			EOperation opRef = mtd.getOperationRef();
+			if(opRef.getEContainingClass() != xtdClass.getBaseClass()) {
+				if(allEOperations.stream().anyMatch(op -> isMatching(opRef, op))){
+					msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(OP_MUST_OVERRIDE, getSignature(mtd)),
+						base.getStartOffset(mtd),
+						base.getEndOffset(mtd)
+						));
+				}
+			}
+		}
 		
 		return msgs;
 	}
@@ -443,7 +487,37 @@ public class NameValidator implements IValidator {
 	}
 	
 	public List<IValidationMessage> validateForEach(ForEach loop) {
-		return new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		
+		if(loop.getVariable().equals("result")){
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					String.format(RESULT_RESERVED,loop.getVariable()),
+					base.getStartOffset(loop),
+					base.getEndOffset(loop)
+					));
+		}
+		else if(loop.getVariable().equals("self")){
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					String.format(SELF_RESERVED,loop.getVariable()),
+					base.getStartOffset(loop),
+					base.getEndOffset(loop)
+					));
+		}
+		else {
+			Map<String, Set<IType>> declaringScope = base.findScope(loop.getVariable());
+			if(declaringScope != null){
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(NAME_ALREADY_USED,loop.getVariable()),
+						base.getStartOffset(loop),
+						base.getEndOffset(loop)
+						));
+			}
+		}
+		
+		return msgs;
 	}
 	
 	public List<IValidationMessage> validateIf(If ifStmt) {
@@ -471,6 +545,10 @@ public class NameValidator implements IValidator {
 		EOperation eOp1 = op1.getOperationRef();
 		EOperation eOp2 = op2.getOperationRef();
 		
+		return isMatching(eOp1,eOp2);
+	}
+	
+	private boolean isMatching(EOperation eOp1, EOperation eOp2) {
 		boolean isMatchingName = eOp1.getName().equals(eOp2.getName());
 		boolean isMatchingArgsSize = (eOp1.getEParameters().size() == eOp2.getEParameters().size());
 		

@@ -1,0 +1,5 @@
+behavior doubleparam;
+class MyRuntimeClass {
+	def void op(int param, string param){
+	}
+}

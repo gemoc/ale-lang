@@ -488,10 +488,7 @@ public class AstVisitors {
 		public RuntimeClass visitRNewClass(RNewClassContext ctx) {
 			String name = ctx.name.getText();
 			
-			EClass fragment = null;
-			if(!ctx.rAttribute().isEmpty() || !ctx.rOperation().isEmpty()){
-				fragment = ModelBuilder.singleton.buildEClass(name);
-			}
+			EClass fragment = ModelBuilder.singleton.buildEClass(name);
 			
 			AttributeVisitor subVisitor1 = new AttributeVisitor(parseRes,fragment);
 			List<Attribute> attributes = 

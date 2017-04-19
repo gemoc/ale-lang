@@ -1,0 +1,9 @@
+behavior test.uniqueRuntime;
+
+class MyRuntimeClass {
+
+}
+
+class MyRuntimeClass {
+
+}

@@ -1,0 +1,6 @@
+behavior test.declself;
+open class EClass {
+	def void foo() {
+		self.abstract := true;
+	}
+}
