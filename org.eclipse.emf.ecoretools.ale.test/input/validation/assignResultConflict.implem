@@ -1,6 +1,6 @@
 behavior test.assignres;
 open class EClass {
 	def String op2(){
-		result := 'foobar';
+		result := 9;
 	}
 }

@@ -1,0 +1,9 @@
+behavior test.featrm;
+class MyRuntimeClass {
+
+	0..* EClass attrib;
+
+	def void op(){
+		self.attrib.remove(self.eClass());
+	}
+}

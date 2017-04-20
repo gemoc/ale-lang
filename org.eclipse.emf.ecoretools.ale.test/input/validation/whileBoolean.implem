@@ -1,0 +1,8 @@
+behavior test.whilebool;
+open class EClass {
+	def void op(){
+		boolean run := true;
+		while(run){
+		}
+	}
+}

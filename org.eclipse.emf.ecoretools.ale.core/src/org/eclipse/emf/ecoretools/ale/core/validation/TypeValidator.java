@@ -113,20 +113,21 @@ public class TypeValidator implements IValidator {
 	
 	@Override
 	public List<IValidationMessage> validateFeatureAssignment(FeatureAssignment featAssign) {
-		return validateAssignment(featAssign, featAssign.getTarget(), featAssign.getTargetFeature(), featAssign.getValue());
+		return validateAssignment(featAssign, featAssign.getTarget(), featAssign.getTargetFeature(), featAssign.getValue(), false);
 	}
 	
 	@Override
 	public List<IValidationMessage> validateFeatureInsert(FeatureInsert featInsert) {
-		return validateAssignment(featInsert, featInsert.getTarget(), featInsert.getTargetFeature(), featInsert.getValue());
+		return validateAssignment(featInsert, featInsert.getTarget(), featInsert.getTargetFeature(), featInsert.getValue(), true);
 	}
 	
 	@Override
 	public List<IValidationMessage> validateFeatureRemove(FeatureRemove featRemove) {
-		return validateAssignment(featRemove, featRemove.getTarget(), featRemove.getTargetFeature(), featRemove.getValue());
+		
+		return validateAssignment(featRemove, featRemove.getTarget(), featRemove.getTargetFeature(), featRemove.getValue(), true);
 	}
 	
-	private List<IValidationMessage> validateAssignment(Statement stmt, Expression targetExp, String featureName, Expression valueExp) {
+	private List<IValidationMessage> validateAssignment(Statement stmt, Expression targetExp, String featureName, Expression valueExp, boolean checkIsCollection) {
 		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
 		
 		/*
@@ -134,6 +135,7 @@ public class TypeValidator implements IValidator {
 		 */
 		Set<IType> targetTypes = base.getPossibleTypes(targetExp);
 		Set<EClassifierType> featureTypes = new HashSet<EClassifierType>();
+		boolean isCollection = false;
 		for(IType type: targetTypes){
 			if(type.getType() instanceof EClass){
 				EClass realType = (EClass) type.getType();
@@ -142,6 +144,7 @@ public class TypeValidator implements IValidator {
 				if(feature  != null){ //static features
 					EClassifierType featureType = new EClassifierType(base.getQryEnv(), feature.getEType());
 					featureTypes.add(featureType);
+					isCollection = feature.isMany();
 				}
 				else { //runtime features
 					List<ExtendedClass> extensions = base.findExtensions(realType);
@@ -155,9 +158,27 @@ public class TypeValidator implements IValidator {
 					if(foundDynamicAttribute.isPresent()) {
 						EClassifierType featureType = new EClassifierType(base.getQryEnv(), foundDynamicAttribute.get().getFeatureRef().getEType());
 						featureTypes.add(featureType);
+						isCollection = foundDynamicAttribute.get().getFeatureRef().isMany();
 					}
 				}
 			}
+		}
+		
+		/*
+		 * Check targetExp.featureName is collection
+		 */
+		if(checkIsCollection && !isCollection) {
+			String inferredToString = 
+					featureTypes
+					.stream()
+					.map(type -> type.toString())
+					.collect(Collectors.joining(",","[","]"));
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					String.format(COLLECTION_TYPE,inferredToString),
+					base.getStartOffset(targetExp),
+					base.getEndOffset(targetExp)
+					));
 		}
 		
 		/*

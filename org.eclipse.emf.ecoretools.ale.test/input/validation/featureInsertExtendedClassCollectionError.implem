@@ -1,0 +1,9 @@
+behavior test.featins;
+open class EClass {
+
+	EClass attrib;
+
+	def void op(){
+		self.attrib.add(self);
+	}
+}

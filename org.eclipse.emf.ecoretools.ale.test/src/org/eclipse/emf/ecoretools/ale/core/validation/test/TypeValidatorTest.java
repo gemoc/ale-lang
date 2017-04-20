@@ -34,12 +34,97 @@ public class TypeValidatorTest {
 	ALEInterpreter interpreter;
 	
 	@Before
-	public void setup(){
+	public void setup() {
 		interpreter = new ALEInterpreter();
 	}
 	
+	/*
+	 * Test ExtendedClass extending another with the same baseClass
+	 */
 	@Test
-	public void testTypeErrorAttribute(){
+	public void testExtendsSameType() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/extendSameType.implem","input/validation/extendSameType2.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test ExtendedClass extending another based on a super type of its baseClass
+	 */
+	@Test
+	public void testExtendsUpperType() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/extendSameType.implem","input/validation/extendSuperType.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test ExtendedClass extending another based on a sub type of its baseClass
+	 */
+	@Test
+	public void testExtendsLowerType() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/extendSubType.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 81, "EClassifier is not a super type of EClass", msg.get(0));
+	}
+	
+	/*
+	 * Test ExtendedClass extending another one not based on a super type of its baseClass
+	 */
+	@Test
+	public void testExtendsNotSuperType() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/extendNotSuperType.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 81, "EOperation is not a super type of EClass", msg.get(0));
+	}
+	
+	/*
+	 * Test initial value of attribute is assignable to the declared type
+	 */
+	@Test
+	public void testAttributeAssignValue() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareAttrib.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test initial value of attribute is not assignable to the declared type
+	 */
+	@Test
+	public void testAttributeAssignValueConflict() {
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/typeErrorAttrib.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
@@ -49,11 +134,30 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 81, "Expected EString but was [java.lang.Integer]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 45, 62, "Expected EString but was [java.lang.Integer]", msg.get(0));
 	}
 	
+	/*
+	 * Test initial value of variable is assignable to the declared type
+	 */
 	@Test
-	public void testTypeErrorLocal(){
+	public void testVariableInitValue() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareLocal.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test initial value of variable is not assignable to the declared type
+	 */
+	@Test
+	public void testVariableInitValueConflict() {
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/typeErrorLocal.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
@@ -66,8 +170,60 @@ public class TypeValidatorTest {
 		assertMsgEquals(ValidationMessageLevel.ERROR, 73, 90, "Expected EString but was [java.lang.Integer]", msg.get(0));
 	}
 	
+	/*
+	 * Test assigned value doesn't conflict the declared type
+	 */
 	@Test
-	public void testScopeTypeErrorLocal(){
+	public void testVariableAssignValue() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignLocalSameBlock.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test assigned value conflict the declared type
+	 */
+	@Test
+	public void testVariableAssignValueConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignLocalTypeError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 78, 95, "Expected [EClassifier=EInt] but was [java.lang.String]", msg.get(0));
+	}
+	
+	/*
+	 * Test assigned value doesn't conflict the declared type in upper block
+	 */
+	@Test
+	public void testVariableAssignValueInnerBlock() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignLocalInnerBlock.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test assigned value conflict the declared type in upper block
+	 */
+	@Test
+	public void testVariableAssignValueInnerBlockConflict() {
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/scopeTypeErrorLocal.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
@@ -80,9 +236,28 @@ public class TypeValidatorTest {
 		assertMsgEquals(ValidationMessageLevel.ERROR, 92, 109, "Expected [EClassifier=EInt] but was [java.lang.String]", msg.get(0));
 	}
 	
+	/*
+	 * Test value of result doesn't conflict the return type
+	 */
 	@Test
-	public void testLocalAssignTypeError(){
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignLocalTypeError.implem"));
+	public void testReturnAssignValue() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignResult.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test value of result conflict the return type
+	 */
+	@Test
+	public void testReturnAssignValueConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignResultConflict.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -91,12 +266,15 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 113, 130, "Expected [EClassifier=EInt] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 66, 77, "Expected EString but was [java.lang.Integer]", msg.get(0));
 	}
 	
+	/*
+	 * Test value of result conflict the return type void
+	 */
 	@Test
-	public void testAttributeAssignTypeError(){ //dynamic attribute
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignAttributeTypeError.implem"));
+	public void testReturnAssignVoid() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignVoid.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -105,11 +283,30 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 82, 101, "Expected [EString] but was [java.lang.Integer]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 65, 76, "'result' is assigned in void operation", msg.get(0));
 	}
 	
+	/*
+	 * Test assigned value doesn't conflict the feature type of the baseClass
+	 */
 	@Test
-	public void testFeatureAssignTypeError(){ //EStructural feature
+	public void testFeatureAssignBaseClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignFeatureBaseClass.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test assigned value conflict the feature type of the baseClass
+	 */
+	@Test
+	public void testFeatureAssignBaseClassConflict() {
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignFeatureTypeError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
@@ -122,9 +319,94 @@ public class TypeValidatorTest {
 		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 83, "Expected [EPackage] but was [java.lang.Integer]", msg.get(0));
 	}
 	
+	/*
+	 * Test assigned value doesn't conflict the feature type from the ExtendedClass
+	 */
 	@Test
-	public void testResultAssignTypeError(){
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignResult.implem"));
+	public void testFeatureAssignExtendedClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignFeatureExtendedClass.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test assigned value conflict the feature type from the ExtendedClass
+	 */
+	@Test
+	public void testFeatureAssignExtendedClassConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignAttributeTypeError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 82, 101, "Expected [EString] but was [java.lang.Integer]", msg.get(0));
+	}
+	
+	/*
+	 * Test assigned value doesn't conflict the feature type from the RuntimeClass
+	 */
+	@Test
+	public void testFeatureAssignRuntimeClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignAttribRuntimeClass.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test assigned value conflict the feature type from the RuntimeClass
+	 */
+	@Test
+	public void testFeatureAssignRuntimeClassConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignAttribRuntimeClassError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 83, 106, "Expected [EInt] but was [java.lang.String]", msg.get(0));
+	}
+	
+	/*
+	 * Test the feature is typed collection from the BaseClass for insert
+	 */
+	@Test
+	public void testInsertToCollectionBaseClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertCollection.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test the feature isn't typed collection from the BaseClass for insert
+	 */
+	@Test
+	public void testInsertToCollectionBaseClassConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertCollectionError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -133,12 +415,97 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(2, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 63, 74, "'result' is assigned in void operation", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 122, 133, "Expected EString but was [java.lang.Integer]", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 64, "Expected Collection but was [EClassifier=EBoolean]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 84, "Expected [EBoolean] but was [EClassifier=EClass]", msg.get(1));
 	}
 	
+	/*
+	 * Test the feature is typed collection from the ExtendedClass for insert
+	 */
 	@Test
-	public void testFeatureInsertTypeError(){
+	public void testInsertToCollectionExtendedClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertExtendedClassCollection.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test the feature isn't typed collection from the ExtendedClass for insert
+	 */
+	@Test
+	public void testInsertToCollectionExtendedClassConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertExtendedClassCollectionError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 79, 82, "Expected Collection but was [EClassifier=EClass]", msg.get(0));
+	}
+	
+	/*
+	 * Test the feature is typed collection from the RuntimeClass for insert
+	 */
+	@Test
+	public void testInsertToCollectionRuntimeClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertRuntimeClassCollection.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test the feature isn't typed collection from the RuntimeClass for insert
+	 */
+	@Test
+	public void testInsertToCollectionRuntimeClassConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertRuntimeClassCollectionError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 82, 85, "Expected Collection but was [EClassifier=EClass]", msg.get(0));
+	}
+	
+	/*
+	 * Test inserted value is assignable to the feature from the BaseClass
+	 */
+	@Test
+	public void testInsertBaseClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertEClassAttrib.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test inserted value is not assignable to the feature from the BaseClass
+	 */
+	@Test
+	public void testInsertBaseClassConflict() {
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertTypeError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
@@ -151,8 +518,194 @@ public class TypeValidatorTest {
 		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 91, "Expected [EClass] but was [java.lang.String]", msg.get(0));
 	}
 	
+	/*
+	 * Test inserted value is assignable to the feature from the ExtendedClass
+	 */
 	@Test
-	public void testFeatureRemoveTypeError(){
+	public void testInsertExtendedClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertAttribExtendedClass.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test inserted value is not assignable to the feature from the ExtendedClass
+	 */
+	@Test
+	public void testInsertExtendedClassConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertAttribExtendedClassError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 85, 110, "Expected [EInt] but was [java.lang.String]", msg.get(0));
+	}
+	
+	/*
+	 * Test inserted value is assignable to the feature from the RuntimeClass
+	 */
+	@Test
+	public void testInsertRuntimeClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertAttribRuntimeClass.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test inserted value is not assignable to the feature from the RuntimeClass
+	 */
+	@Test
+	public void testInsertRuntimeClassConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertAttribRuntimeClassError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 88, 113, "Expected [EInt] but was [java.lang.String]", msg.get(0));
+	}
+	
+	/*
+	 * Test the feature is typed collection from the BaseClass for remove
+	 */
+	@Test
+	public void testRemoveToCollectionBaseClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveCollection.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test the feature isn't typed collection from the BaseClass for remove
+	 */
+	@Test
+	public void testRemoveToCollectionBaseClassConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveCollectionError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(2, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 60, 63, "Expected Collection but was [EClassifier=EBoolean]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 60, 86, "Expected [EBoolean] but was [EClassifier=EClass]", msg.get(1));
+	}
+	
+	/*
+	 * Test the feature is typed collection from the ExtendedClass for remove
+	 */
+	@Test
+	public void testRemoveToCollectionExtendedClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveExtendedClassCollection.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test the feature isn't typed collection from the ExtendedClass for remove
+	 */
+	@Test
+	public void testRemoveToCollectionExtendedClassConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveExtendedClassCollectionError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 78, 81, "Expected Collection but was [EClassifier=EClass]", msg.get(0));
+	}
+	
+	/*
+	 * Test the feature is typed collection from the RuntimeClass for remove
+	 */
+	@Test
+	public void testRemoveToCollectionRuntimeClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveRuntimeClassCollection.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test the feature isn't typed collection from the RuntimeClass for remove
+	 */
+	@Test
+	public void testRemoveToCollectionRuntimeClassConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveRuntimeClassCollectionError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(2, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 81, 84, "Expected Collection but was [EClassifier=EClass]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 81, 105, "Expected [EClass] but was [EClassifier=MyRuntimeClass]", msg.get(1));
+	}
+	
+	/*
+	 * Test removed value is assignable to the feature from the BaseClass
+	 */
+	@Test
+	public void testRemoveBaseClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeEClassAttrib.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test removed value is not assignable to the feature from the BaseClass
+	 */
+	@Test
+	public void testRemoveBaseClassConflict() {
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveTypeError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
@@ -165,8 +718,93 @@ public class TypeValidatorTest {
 		assertMsgEquals(ValidationMessageLevel.ERROR, 60, 93, "Expected [EClass] but was [java.lang.String]", msg.get(0));
 	}
 	
+	/*
+	 * Test removed value is assignable to the feature from the ExtendedClass
+	 */
 	@Test
-	public void testForEachCollectionError(){
+	public void testRemoveExtendedClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeAttribExtendedClass.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test removed value is not assignable to the feature from the ExtendedClass
+	 */
+	@Test
+	public void testRemoveExtendedClassConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeAttribExtendedClassError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 85, 113, "Expected [EInt] but was [java.lang.String]", msg.get(0));
+	}
+	
+	/*
+	 * Test removed value is assignable to the feature from the RuntimeClass
+	 */
+	@Test
+	public void testRemoveRuntimeClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeAttribRuntimeClass.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test removed value is not assignable to the feature from the RuntimeClass
+	 */
+	@Test
+	public void testRemoveRuntimeClassConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeAttribRuntimeClassError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 88, 116, "Expected [EInt] but was [java.lang.String]", msg.get(0));
+	}
+	
+	/*
+	 * Test ForEach expression is a Collection
+	 */
+	@Test
+	public void testForEachCollection() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachCollection.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test ForEach expression is not a Collection
+	 */
+	@Test
+	public void testForEachNotCollection() {
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachCollectionError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
@@ -179,8 +817,27 @@ public class TypeValidatorTest {
 		assertMsgEquals(ValidationMessageLevel.ERROR, 70, 73, "Expected Collection but was [java.lang.Boolean]", msg.get(0));
 	}
 	
+	/*
+	 * Test If expression is a boolean
+	 */
 	@Test
-	public void testIfBooleanError(){
+	public void testIfBoolean() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/ifBoolean.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test If expression is not a boolean
+	 */
+	@Test
+	public void testIfNotBoolean() {
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/ifBooleanError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
@@ -193,8 +850,27 @@ public class TypeValidatorTest {
 		assertMsgEquals(ValidationMessageLevel.ERROR, 63, 69, "Expected Boolean but was [java.lang.Integer]", msg.get(0));
 	}
 	
+	/*
+	 * Test While expression is a boolean
+	 */
 	@Test
-	public void testWhileBooelanError(){
+	public void testWhileBoolean() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/whileBoolean.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test While expression is not a boolean
+	 */
+	@Test
+	public void testWhileNotBoolean() {
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/whileBooleanError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
@@ -208,11 +884,27 @@ public class TypeValidatorTest {
 	}
 	
 	/*
-	 * Test assign result in void method
+	 * Test call argument is assignable to EParameter's type from baseClass
 	 */
 	@Test
-	public void testAssignVoidResult() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignVoid.implem"));
+	public void testCallArgumentBaseClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/callBaseClass.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test call argument is not assignable to EParameter's type from baseClass
+	 */
+	@Test
+	public void testCallArgumentBaseClassConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/callBaseClassError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -221,9 +913,74 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 65, 76, "'result' is assigned in void operation", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 68, 84, "Couldn't find the 'isSuperTypeOf(EClassifier=EClass,java.lang.Integer)' service", msg.get(0));
 	}
 	
+	/*
+	 * Test call argument is assignable to EParameter's type from ExtendedClass
+	 */
+	@Test
+	public void testCallArgumentExtendedClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/callExtendedClass.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test call argument is not assignable to EParameter's type from ExtendedClass
+	 */
+	@Test
+	public void testCallArgumentExtendedClassConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/callExtendedClassError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 68, 74, "Couldn't find the 'foo(EClassifier=EClass,java.lang.Integer)' service", msg.get(0));
+	}
+	
+	/*
+	 * Test call argument is assignable to EParameter's type from RuntimeClass
+	 */
+	@Test
+	public void testCallArgumentRuntimeClass() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/callRuntimeClass.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test call argument is not assignable to EParameter's type from RuntimeClass
+	 */
+	@Test
+	public void testCallArgumentRuntimeClassConflict() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/callRuntimeClassError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 71, 77, "Couldn't find the 'foo(EClassifier=MyRuntimeClass,java.lang.Integer)' service", msg.get(0));
+	}
 	
 	private void assertMsgEquals(ValidationMessageLevel errorLvl, int startPos, int endPos, String text, IValidationMessage msg){
 		assertEquals(errorLvl, msg.getLevel());

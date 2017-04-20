@@ -1,0 +1,9 @@
+behavior test.featins;
+class MyRuntimeClass {
+
+	EClass attrib;
+
+	def void op(){
+		self.attrib.add(self.eClass());
+	}
+}

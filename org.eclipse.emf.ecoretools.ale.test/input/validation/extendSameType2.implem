@@ -1,0 +1,6 @@
+behavior test.extendSameTypeTwo;
+
+import test.extendSameTypeTwo as otherUnit;
+
+open class EClassifier extends otherUnit.EClassifier {
+}

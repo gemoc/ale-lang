@@ -1,0 +1,9 @@
+behavior test.featrm;
+open class EClass {
+
+	EClass attrib;
+
+	def void op(){
+		self.attrib.remove(self);
+	}
+}

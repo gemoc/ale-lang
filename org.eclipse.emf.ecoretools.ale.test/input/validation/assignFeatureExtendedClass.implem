@@ -1,0 +1,9 @@
+behavior test.assignfeat;
+open class EClass {
+
+	int myAttrib;
+
+	def void op(){
+		self.myAttrib := 10;
+	}
+}

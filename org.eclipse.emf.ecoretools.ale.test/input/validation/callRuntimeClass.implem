@@ -1,0 +1,10 @@
+behavior test.declself;
+class MyRuntimeClass {
+	def void foo() {
+		self.foo(self.eClass());
+	}
+	
+	def void foo(EClass cls) {
+	
+	}
+}

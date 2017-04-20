@@ -1,0 +1,10 @@
+behavior test.declself;
+open class EClass {
+	def void foo() {
+		self.foo(self);
+	}
+	
+	def void foo(EClass cls) {
+	
+	}
+}

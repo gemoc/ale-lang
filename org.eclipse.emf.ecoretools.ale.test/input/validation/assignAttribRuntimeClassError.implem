@@ -1,0 +1,7 @@
+behavior test.declself;
+class MyRuntimeClass {
+	int newAttrib;
+	def void foo() {
+		self.newAttrib := 'ten';
+	}
+}

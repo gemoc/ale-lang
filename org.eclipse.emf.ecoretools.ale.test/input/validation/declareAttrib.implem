@@ -1,4 +1,4 @@
 behavior test.typeattr;
 open class EClass {
-	String wrong := 0;
+	int correct := 0;
 }
