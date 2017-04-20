@@ -174,7 +174,7 @@ public class EvalBodyService extends AbstractService {
 		IType eClassifierType = new EClassifierType(queryEnvironment, eOperation.getEType());
 		if (eOperation.isMany()) {
 			result.add(new SequenceType(queryEnvironment, eClassifierType));
-		} else {
+		} else if(eClassifierType.getType() != null){
 			result.add(eClassifierType);
 		}
 
