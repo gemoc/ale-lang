@@ -15,15 +15,19 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import org.antlr.v4.runtime.misc.Interval;
 import org.eclipse.acceleo.query.ast.AstFactory;
+import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.ast.IntegerLiteral;
 import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.impl.QueryBuilderEngine;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
@@ -32,6 +36,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.ExpressionContext;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
@@ -44,6 +49,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationFactory;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
+import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Statement;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
@@ -147,7 +153,7 @@ public class ModelBuilder {
 		return new Parameter(name, resolve(type));
 	}
 	
-	public Attribute buildAttribute(EClass fragment, String name, String exp, String type, int lowerBound, int upperBound, boolean isContainment, boolean isUnique, String opposite) {
+	public Attribute buildAttribute(EClass fragment, String name, ExpressionContext exp, String type, int lowerBound, int upperBound, boolean isContainment, boolean isUnique, String opposite, ParseResult<ModelUnit> parseRes) {
 		Attribute attribute = implemFactory.createAttribute();
 		EStructuralFeature feature;
 		
@@ -166,7 +172,7 @@ public class ModelBuilder {
 		attribute.setFeatureRef(feature);
 		
 		if(exp != null){
-			attribute.setInitialValue(builder.build(exp).getAst());
+			attribute.setInitialValue(parseAQL(exp,parseRes));
 		}
 		
 		if(opposite != null) {
@@ -185,26 +191,26 @@ public class ModelBuilder {
 		return attribute;
 	}
 	
-	public VariableDeclaration buildVariableDecl(String name, String exp, String type) {
+	public VariableDeclaration buildVariableDecl(String name, ExpressionContext exp, String type, ParseResult<ModelUnit> parseRes) {
 		VariableDeclaration varDecl = implemFactory. createVariableDeclaration();
 		varDecl.setName(name);
 		if(exp != null){
-			varDecl.setInitialValue(builder.build(exp).getAst());
+			varDecl.setInitialValue(parseAQL(exp,parseRes));
 		}
 		varDecl.setType(resolve(type));
 		return varDecl;
 	}
 	
-	public VariableAssignment buildVariableAssignement(String name, String exp) {
+	public VariableAssignment buildVariableAssignement(String name, ExpressionContext exp, ParseResult<ModelUnit> parseRes) {
 		VariableAssignment varAssign = implemFactory. createVariableAssignment();
 		varAssign.setName(name);
-		varAssign.setValue(builder.build(exp).getAst());
+		varAssign.setValue(parseAQL(exp,parseRes));
 		return varAssign; 
 	}
 	
-	public If buildIf(String condition, Block thenBlock, Block elseBlock) {
+	public If buildIf(ExpressionContext condition, Block thenBlock, Block elseBlock, ParseResult<ModelUnit> parseRes) {
 		If ifStmt = implemFactory.createIf();
-		ifStmt.setCondition(builder.build(condition).getAst());
+		ifStmt.setCondition(parseAQL(condition,parseRes));
 		ifStmt.setThen(thenBlock);
 		ifStmt.setElse(elseBlock);
 		return ifStmt;
@@ -216,16 +222,16 @@ public class ModelBuilder {
 		return block;
 	}
 	
-	public ExpressionStatement buildExpressionStatement(String value) {
+	public ExpressionStatement buildExpressionStatement(ExpressionContext value, ParseResult<ModelUnit> parseRes) {
 		ExpressionStatement exp = implemFactory.createExpressionStatement();
-		exp.setExpression(builder.build(value).getAst());
+		exp.setExpression(parseAQL(value,parseRes));
 		return exp;
 	}
 	
-	public ForEach buildForEach(String variable, String expression, Block body) {
+	public ForEach buildForEach(String variable, ExpressionContext expression, Block body, ParseResult<ModelUnit> parseRes) {
 		ForEach loop = implemFactory.createForEach();
 		loop.setVariable(variable);
-		loop.setCollectionExpression(builder.build(expression).getAst());
+		loop.setCollectionExpression(parseAQL(expression,parseRes));
 		loop.setBody(body);
 		return loop;
 	}
@@ -238,43 +244,43 @@ public class ModelBuilder {
 		return loop;
 	}
 	
-	public While buildWhile(String expression, Block body) {
+	public While buildWhile(ExpressionContext expression, Block body, ParseResult<ModelUnit> parseRes) {
 		While loop = implemFactory.createWhile();
-		loop.setCondition(builder.build(expression).getAst());
+		loop.setCondition(parseAQL(expression,parseRes));
 		loop.setBody(body);
 		return loop;
 	}
 	
-	public FeatureAssignment buildFeatureAssign(String target, String feature, String valueExp) {
+	public FeatureAssignment buildFeatureAssign(ExpressionContext target, String feature, ExpressionContext valueExp, ParseResult<ModelUnit> parseRes) {
 		FeatureAssignment featSetting = implemFactory.createFeatureAssignment();
-		featSetting.setTarget(builder.build(target).getAst());
+		featSetting.setTarget(parseAQL(target,parseRes));
 		featSetting.setTargetFeature(feature);
-		featSetting.setValue(builder.build(valueExp).getAst());
+		featSetting.setValue(parseAQL(valueExp,parseRes));
 		return featSetting;
 	}
 	
-	public FeatureInsert buildFeatureInsert(String target, String feature, String valueExp) {
+	public FeatureInsert buildFeatureInsert(ExpressionContext target, String feature, ExpressionContext valueExp, ParseResult<ModelUnit> parseRes) {
 		FeatureInsert featSetting = implemFactory.createFeatureInsert();
-		featSetting.setTarget(builder.build(target).getAst());
+		featSetting.setTarget(parseAQL(target,parseRes));
 		featSetting.setTargetFeature(feature);
-		featSetting.setValue(builder.build(valueExp).getAst());
+		featSetting.setValue(parseAQL(valueExp,parseRes));
 		return featSetting;
 	}
 	
-	public FeatureRemove buildFeatureRemove(String target, String feature, String valueExp) {
+	public FeatureRemove buildFeatureRemove(ExpressionContext target, String feature, ExpressionContext valueExp, ParseResult<ModelUnit> parseRes) {
 		FeatureRemove featSetting = implemFactory.createFeatureRemove();
-		featSetting.setTarget(builder.build(target).getAst());
+		featSetting.setTarget(parseAQL(target,parseRes));
 		featSetting.setTargetFeature(feature);
-		featSetting.setValue(builder.build(valueExp).getAst());
+		featSetting.setValue(parseAQL(valueExp,parseRes));
 		return featSetting;
 	}
 	
-	public FeaturePut buildFeaturePut(String target, String feature, String keyExp, String valueExp) {
+	public FeaturePut buildFeaturePut(ExpressionContext target, String feature, ExpressionContext keyExp, ExpressionContext valueExp, ParseResult<ModelUnit> parseRes) {
 		FeaturePut featSetting = implemFactory.createFeaturePut();
-		featSetting.setTarget(builder.build(target).getAst());
+		featSetting.setTarget(parseAQL(target,parseRes));
 		featSetting.setTargetFeature(feature);
-		featSetting.setKey(builder.build(keyExp).getAst());
-		featSetting.setValue(builder.build(valueExp).getAst());
+		featSetting.setKey(parseAQL(keyExp,parseRes));
+		featSetting.setValue(parseAQL(valueExp,parseRes));
 		return featSetting;
 	}
 	
@@ -474,7 +480,39 @@ public class ModelBuilder {
 		return String.join(".", Lists.reverse(fullName));
 	}
 	
-	public AstResult parse(String expression) {
-		return builder.build(expression);
+	public Expression parseAQL(ExpressionContext ctx, ParseResult<ModelUnit> parseRes) {
+		
+		//Parse with AQL
+		String text = safeGetText(ctx);
+		AstResult astRes = builder.build(text);
+		Expression res = astRes.getAst();
+		
+		//Update offsets
+		parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+		parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+		
+		int startOffset = ctx.start.getStartIndex();
+		TreeIterator<EObject> allSubExp = res.eAllContents();
+		allSubExp.forEachRemaining(subExp -> {
+			if(subExp instanceof Expression){
+				int relativeStart = astRes.getStartPosition((Expression) subExp);
+				int relativeEnd = astRes.getEndPosition((Expression) subExp);
+				if(relativeStart != -1 && relativeEnd != -1) {
+					parseRes.getStartPositions().put(subExp,relativeStart + startOffset);
+					parseRes.getEndPositions().put(subExp,relativeEnd + startOffset);
+				}
+			}
+			
+		});
+		
+		return res;
+	}
+	
+	/**
+	 * Get the original text to keep white spaces
+	 */
+	public static String safeGetText(ExpressionContext exp) {
+	    Interval interval = new Interval(exp.start.getStartIndex(),exp.stop.getStopIndex());
+		return exp.start.getInputStream().getText(interval);
 	}
 }

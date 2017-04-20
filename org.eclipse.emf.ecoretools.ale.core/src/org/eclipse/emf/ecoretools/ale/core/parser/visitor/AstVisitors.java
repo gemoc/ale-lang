@@ -17,9 +17,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.antlr.v4.runtime.RuleContext;
-import org.antlr.v4.runtime.UnbufferedCharStream;
-import org.antlr.v4.runtime.misc.Interval;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
 import org.eclipse.emf.common.util.BasicDiagnostic;
@@ -53,22 +50,15 @@ import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.VarRefContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ModelBuilder.Parameter;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
-import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
-import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
-import org.eclipse.emf.ecoretools.ale.implementation.FeatureInsert;
-import org.eclipse.emf.ecoretools.ale.implementation.FeaturePut;
-import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationFactory;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
-import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Statement;
-import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
 
@@ -76,15 +66,6 @@ import org.eclipse.emf.ecoretools.ale.implementation.While;
  * Visits the result of the antlr parser to build the Implementation model.
  */
 public class AstVisitors {
-	
-	/**
-	 * Do the same as ParseTree.getText() but insert white space
-	 * between elements to avoid unwanted concatenation
-	 */
-	public static String safeGetText(ExpressionContext exp) {
-	    Interval interval = new Interval(exp.start.getStartIndex(),exp.stop.getStopIndex());
-		return exp.start.getInputStream().getText(interval);
-	}
 	
 	public static boolean isQualified(String name) {
 		return name.contains(".");
@@ -137,40 +118,31 @@ public class AstVisitors {
 		
 		@Override
 		public Statement visitRVarDecl(RVarDeclContext ctx) {
-			String initialValue = null;
-			if(ctx.expression() != null){ //no initial value
-				initialValue = safeGetText(ctx.expression());
-			}
-			
 			String typeName = ctx.type.getText();
 			
 			String name = ctx.Ident().getText();
+			ExpressionContext initialValue = ctx.expression();
 			
 			VariableDeclaration res = ModelBuilder.singleton.buildVariableDecl(
 				name,
 				initialValue,
-				typeName
+				typeName,
+				parseRes
 			);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
-			if(res.getInitialValue() != null){
-				parseRes.getStartPositions().put(res.getInitialValue(),ctx.expression().start.getStartIndex());
-				parseRes.getEndPositions().put(res.getInitialValue(),ctx.expression().stop.getStopIndex());
-			}
 			return res;
 		}
 		
 		@Override
 		public Statement visitRAssign(RAssignContext ctx) {
 			ExpressionContext left = ctx.expression().get(0); // epxression.feature or variable?
-			String value =  safeGetText(ctx.expression().get(1));
+			ExpressionContext value =  ctx.expression().get(1);
 			
 			Statement res = null;
 			if(left instanceof VarRefContext){
 				VarRefContext varRef = (VarRefContext) left;
-				res = ModelBuilder.singleton.buildVariableAssignement(varRef.Ident().getText(),value);
-				parseRes.getStartPositions().put(((VariableAssignment)res).getValue(),ctx.expression().get(1).start.getStartIndex());
-				parseRes.getEndPositions().put(((VariableAssignment)res).getValue(),ctx.expression().get(1).stop.getStopIndex());
+				res = ModelBuilder.singleton.buildVariableAssignement(varRef.Ident().getText(),value,parseRes);
 			}
 			else if(left instanceof NavContext){
 				NavContext navCtx = (NavContext) left;
@@ -178,15 +150,13 @@ public class AstVisitors {
 				if(navSegment instanceof FeatureContext){
 					FeatureContext featCtx = (FeatureContext) navSegment;
 					String feature = featCtx.Ident().getText();
-					String target = safeGetText(navCtx.expression());
-					res = ModelBuilder.singleton.buildFeatureAssign(target,feature,value);
-					parseRes.getStartPositions().put(((FeatureAssignment)res).getValue(),ctx.expression().get(1).start.getStartIndex());
-					parseRes.getEndPositions().put(((FeatureAssignment)res).getValue(),ctx.expression().get(1).stop.getStopIndex());
+					ExpressionContext target = navCtx.expression();
+					res = ModelBuilder.singleton.buildFeatureAssign(target,feature,value,parseRes);
 				}
 			}
 			else {
 				//TODO: raise error if we reach here
-				res = ModelBuilder.singleton.buildVariableAssignement(left.getText(),value);
+				res = ModelBuilder.singleton.buildVariableAssignement(left.getText(),value,parseRes);
 			}
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
@@ -195,16 +165,14 @@ public class AstVisitors {
 		
 		@Override
 		public Statement visitRIf(RIfContext ctx) {
-			String cond = safeGetText(ctx.expression());
+			ExpressionContext cond = ctx.expression();
 			Block then = (new BlockVisitor(parseRes)).visit(ctx.rBlock().get(0));
 			Block elseB = null;
 			if(ctx.rBlock().size() > 1)
 				elseB = (new BlockVisitor(parseRes)).visit(ctx.rBlock().get(1));
-			If res = ModelBuilder.singleton.buildIf(cond,then,elseB);
+			If res = ModelBuilder.singleton.buildIf(cond,then,elseB,parseRes);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
-			parseRes.getStartPositions().put(res.getCondition(),ctx.expression().start.getStartIndex());
-			parseRes.getEndPositions().put(res.getCondition(),ctx.expression().stop.getStopIndex());
 			return res;
 		}
 		
@@ -221,9 +189,7 @@ public class AstVisitors {
 				res = ModelBuilder.singleton.buildForEach(ctx.Ident().getText(),intSeq,body);
 			}
 			else {
-				res = ModelBuilder.singleton.buildForEach(ctx.Ident().getText(),safeGetText(collectionExp),body);
-				parseRes.getStartPositions().put(res.getCollectionExpression(),collectionExp.start.getStartIndex());
-				parseRes.getEndPositions().put(res.getCollectionExpression(),collectionExp.stop.getStopIndex());
+				res = ModelBuilder.singleton.buildForEach(ctx.Ident().getText(),collectionExp,body,parseRes);
 			}
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
@@ -233,11 +199,9 @@ public class AstVisitors {
 		@Override
 		public Statement visitRWhile(RWhileContext ctx) {
 			Block body = (new BlockVisitor(parseRes)).visit(ctx.rBlock());
-			While res = ModelBuilder.singleton.buildWhile(safeGetText(ctx.expression()),body);
+			While res = ModelBuilder.singleton.buildWhile(ctx.expression(),body,parseRes);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
-			parseRes.getStartPositions().put(res.getCondition(),ctx.expression().start.getStartIndex());
-			parseRes.getEndPositions().put(res.getCondition(),ctx.expression().stop.getStopIndex());
 			return res;
 		}
 	
@@ -254,50 +218,34 @@ public class AstVisitors {
 					if(call instanceof ServiceCallContext){
 						String serviceName = ((ServiceCallContext)call).Ident().getText();
 						
-						String target = "";
+						ExpressionContext target = null;
 						String feature = "";
 						ExpressionContext beforeCall = ((NavContext)exp).expression();
 						if(beforeCall instanceof NavContext){
 							NavigationSegmentContext featurePart = ((NavContext)beforeCall).navigationSegment();
 							if(featurePart instanceof FeatureContext){
 								feature = ((FeatureContext)featurePart).Ident().getText();
-								target = safeGetText(((NavContext)beforeCall).expression());
+								target = ((NavContext)beforeCall).expression();
 							}
 						}
 						
 						List<ExpressionContext> params = ((ServiceCallContext)call).expressionSequence().expression();
 						
 						if(serviceName.equals("add") && params.size() == 1){
-							res = ModelBuilder.singleton.buildFeatureInsert(target,feature,safeGetText(params.get(0)));
-							parseRes.getStartPositions().put(((FeatureInsert)res).getTarget(),((NavContext)beforeCall).expression().start.getStartIndex());
-							parseRes.getEndPositions().put(((FeatureInsert)res).getTarget(),((NavContext)beforeCall).expression().stop.getStopIndex());
-							parseRes.getStartPositions().put(((FeatureInsert)res).getValue(),params.get(0).start.getStartIndex());
-							parseRes.getEndPositions().put(((FeatureInsert)res).getValue(),params.get(0).stop.getStopIndex());
+							res = ModelBuilder.singleton.buildFeatureInsert(target,feature,params.get(0),parseRes);
 						}
 						else if(serviceName.equals("remove") && params.size() == 1){
-							res = ModelBuilder.singleton.buildFeatureRemove(target,feature,safeGetText(params.get(0)));
-							parseRes.getStartPositions().put(((FeatureRemove)res).getTarget(),((NavContext)beforeCall).expression().start.getStartIndex());
-							parseRes.getEndPositions().put(((FeatureRemove)res).getTarget(),((NavContext)beforeCall).expression().stop.getStopIndex());
-							parseRes.getStartPositions().put(((FeatureRemove)res).getValue(),params.get(0).start.getStartIndex());
-							parseRes.getEndPositions().put(((FeatureRemove)res).getValue(),params.get(0).stop.getStopIndex());
+							res = ModelBuilder.singleton.buildFeatureRemove(target,feature,params.get(0),parseRes);
 						}
 						else if(serviceName.equals("put") && params.size() == 2){
-							res = ModelBuilder.singleton.buildFeaturePut(target,feature,safeGetText(params.get(0)),safeGetText(params.get(1)));
-							parseRes.getStartPositions().put(((FeaturePut)res).getTarget(),((NavContext)beforeCall).expression().start.getStartIndex());
-							parseRes.getEndPositions().put(((FeaturePut)res).getTarget(),((NavContext)beforeCall).expression().stop.getStopIndex());
-							parseRes.getStartPositions().put(((FeaturePut)res).getKey(),params.get(0).start.getStartIndex());
-							parseRes.getEndPositions().put(((FeaturePut)res).getKey(),params.get(0).stop.getStopIndex());
-							parseRes.getStartPositions().put(((FeaturePut)res).getValue(),params.get(1).start.getStartIndex());
-							parseRes.getEndPositions().put(((FeaturePut)res).getValue(),params.get(1).stop.getStopIndex());
+							res = ModelBuilder.singleton.buildFeaturePut(target,feature,params.get(0),params.get(1),parseRes);
 						}
 					}
 				}
 			}
 			
 			if(res == null){
-				res = ModelBuilder.singleton.buildExpressionStatement(safeGetText(exp));
-				parseRes.getStartPositions().put(((ExpressionStatement)res).getExpression(),exp.start.getStartIndex());
-				parseRes.getEndPositions().put(((ExpressionStatement)res).getExpression(),exp.stop.getStopIndex());
+				res = ModelBuilder.singleton.buildExpressionStatement(exp,parseRes);
 			}
 			
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
@@ -518,10 +466,7 @@ public class AstVisitors {
 		
 		@Override
 		public Attribute visitRAttribute(RAttributeContext ctx) {
-			String initialValue = null;
-			if(ctx.expression() != null) {
-				initialValue = safeGetText(ctx.expression());
-			}
+			ExpressionContext initialValue = ctx.expression();
 			
 			String typeName = ctx.type.getText();
 			
@@ -565,13 +510,10 @@ public class AstVisitors {
 					upperBound,
 					isContainment,
 					isUnique,
-					opposite);
+					opposite,
+					parseRes);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
-			if(res.getInitialValue() != null){
-				parseRes.getStartPositions().put(res.getInitialValue(),ctx.expression().start.getStartIndex());
-				parseRes.getEndPositions().put(res.getInitialValue(),ctx.expression().stop.getStopIndex());
-			}
 			return res;
 		}
 	}
