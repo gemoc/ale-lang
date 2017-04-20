@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.antlr.v4.runtime.RuleContext;
+import org.antlr.v4.runtime.UnbufferedCharStream;
+import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
@@ -79,21 +81,9 @@ public class AstVisitors {
 	 * Do the same as ParseTree.getText() but insert white space
 	 * between elements to avoid unwanted concatenation
 	 */
-	public static String safeGetText(ParseTree node) {
-		if (node.getChildCount() == 0) {
-			return node.getText();
-		}
-
-		StringBuilder builder = new StringBuilder();
-		
-		for (int i = 0; i < node.getChildCount(); i++) {
-			if(i > 0){
-				builder.append(" ");
-			}
-			builder.append(safeGetText(node.getChild(i)));
-		}
-
-		return builder.toString();
+	public static String safeGetText(ExpressionContext exp) {
+	    Interval interval = new Interval(exp.start.getStartIndex(),exp.stop.getStopIndex());
+		return exp.start.getInputStream().getText(interval);
 	}
 	
 	public static boolean isQualified(String name) {

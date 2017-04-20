@@ -22,9 +22,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenFactory;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.UnbufferedCharStream;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
@@ -60,9 +60,13 @@ public class AstBuilder {
 		files
 			.stream()
 			.forEach(f -> {
-				RRootContext parseRes = doParse(f);
-				parses.add(parseRes);
-				sourceFiles.put(parseRes,f);
+				try {
+					RRootContext parseRes = doParse(f);
+					parses.add(parseRes);
+					sourceFiles.put(parseRes,f);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			});
 		
 		/*
@@ -229,9 +233,8 @@ public class AstBuilder {
 		return build;
 	}
 	
-	private RRootContext doParse(String file) {
-		String content = getFileContent(file);
-		UnbufferedCharStream input = new UnbufferedCharStream(new StringReader(content), content.length());
+	private RRootContext doParse(String fileName) throws IOException {
+		ANTLRFileStream input = new ANTLRFileStream(fileName);
 		ALELexer lexer = new ALELexer(input);
 		lexer.setTokenFactory(new CommonTokenFactory(true));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -239,8 +242,8 @@ public class AstBuilder {
 		return  parser.rRoot();
 	}
 	
-	public ParseResult<ModelUnit> parse(String program) {
-		UnbufferedCharStream input = new UnbufferedCharStream(new StringReader(program), program.length());
+	public ParseResult<ModelUnit> parse(String fileName) throws IOException {
+		ANTLRFileStream input = new ANTLRFileStream(fileName);
 		ALELexer lexer = new ALELexer(input);
 		lexer.setTokenFactory(new CommonTokenFactory(true));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -250,8 +253,8 @@ public class AstBuilder {
 		return AstVisitors.visit(rootCtx);
 	}
 	
-	public ParseResult<ModelUnit> parseFromFile(String filePath) {
-		ParseResult<ModelUnit> parseRes = parse(getFileContent(filePath));
+	public ParseResult<ModelUnit> parseFromFile(String filePath) throws IOException {
+		ParseResult<ModelUnit> parseRes = parse(filePath);
 		parseRes.setSourceFile(filePath);
 		return parseRes;
 	}

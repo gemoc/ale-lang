@@ -79,8 +79,7 @@ public class BuildTest {
 	
 	@Test
 	public void testClassExtension() {
-		String fileContent = getFileContent("input/structure/extendedClass.implem");
-		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ParseResult<ModelUnit> res = parse("input/structure/extendedClass.implem");
 		ModelUnit root = res.getRoot();
 		
 		assertNotNull(root);
@@ -96,8 +95,7 @@ public class BuildTest {
 	
 	@Test
 	public void testAttributes() {
-		String fileContent = getFileContent("input/structure/attributes.implem");
-		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ParseResult<ModelUnit> res = parse("input/structure/attributes.implem");
 		ModelUnit root = res.getRoot();
 		
 		assertNotNull(root);
@@ -126,8 +124,7 @@ public class BuildTest {
 	
 	@Test
 	public void testMethod(){
-		String fileContent = getFileContent("input/structure/defMethod.implem");
-		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ParseResult<ModelUnit> res = parse("input/structure/defMethod.implem");
 		ModelUnit root = res.getRoot();
 		
 		assertNotNull(root);
@@ -177,8 +174,7 @@ public class BuildTest {
 	
 	@Test
 	public void testImplem() {
-		String fileContent = getFileContent("input/structure/defImplem.implem");
-		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ParseResult<ModelUnit> res = parse("input/structure/defImplem.implem");
 		ModelUnit root = res.getRoot();
 		
 		assertNotNull(root);
@@ -218,8 +214,7 @@ public class BuildTest {
 	
 	@Test
 	public void testFor(){
-		String fileContent = getFileContent("input/structure/for.implem");
-		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ParseResult<ModelUnit> res = parse("input/structure/for.implem");
 		ModelUnit root = res.getRoot();
 		
 		assertNotNull(root);
@@ -325,8 +320,7 @@ public class BuildTest {
 	
 	@Test
 	public void testWhile(){
-		String fileContent = getFileContent("input/structure/while.implem");
-		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ParseResult<ModelUnit> res = parse("input/structure/while.implem");
 		ModelUnit root = res.getRoot();
 		
 		assertNotNull(root);
@@ -398,8 +392,7 @@ public class BuildTest {
 	
 	@Test
 	public void testIf(){
-		String fileContent = getFileContent("input/structure/if.implem");
-		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ParseResult<ModelUnit> res = parse("input/structure/if.implem");
 		ModelUnit root = res.getRoot();
 		
 		assertNotNull(root);
@@ -500,8 +493,7 @@ public class BuildTest {
 	
 	@Test
 	public void testAllFeatures(){
-		String fileContent = getFileContent("input/structure/allFeatures.implem");
-		ParseResult<ModelUnit> res = parser.parse(fileContent);
+		ParseResult<ModelUnit> res = parse("input/structure/allFeatures.implem");
 		ModelUnit root = res.getRoot();
 		assertEquals(Diagnostic.OK,res.getDiagnostic().getCode());
 		assertNotNull(root);
@@ -699,6 +691,15 @@ public class BuildTest {
 			e.printStackTrace();
 		}
 		return fileContent;
+	}
+	
+	private ParseResult<ModelUnit> parse(String fileName) {
+		try {
+			return parser.parse(fileName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
