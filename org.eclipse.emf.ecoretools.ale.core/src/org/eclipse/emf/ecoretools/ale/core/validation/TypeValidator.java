@@ -203,7 +203,7 @@ public class TypeValidator implements IValidator {
 		/*
 		 * Check targetExp.featureName is collection
 		 */
-		if(checkIsCollection && !isCollection) {
+		if(checkIsCollection && !isCollection && !featureTypes.isEmpty()) {
 			String inferredToString = 
 					featureTypes
 					.stream()
