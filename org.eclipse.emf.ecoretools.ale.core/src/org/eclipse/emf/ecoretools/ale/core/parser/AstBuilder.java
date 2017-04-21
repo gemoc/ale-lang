@@ -162,25 +162,28 @@ public class AstBuilder {
 	    		.stream()
 	    		.forEach(annot -> {
 	    			String xtd = annot.getDetails().get(ModelBuilder.PARSER_EXTENDS_KEY);
-	    			if(AstVisitors.isQualified(xtd)) {
-	    				int lastDot = xtd.lastIndexOf(".");
-	    				if(lastDot < xtd.length()){
-	    					String qualifying = xtd.substring(0, lastDot);
-	    					String name = xtd.substring(lastDot+1);
-	    					List<ExtendedClass> candidates = behaviorToClass.get(qualifying);
-	    					if(candidates != null) {
-	    						Optional<ExtendedClass> searchRes =
-	    							candidates
-		    						.stream()
-		    						.filter(c -> c.getBaseClass().getName().equals(name))
-		    						.findFirst();
-	    						if(searchRes.isPresent()) {
-	    							cls.getExtends().add(searchRes.get());
-	    							cls.getEAnnotations().remove(annot);
-	    						}
-	    					}
-	    				}
-	    			}
+    				String qualifying = ((ModelUnit)cls.eContainer()).getName();
+    				String name = xtd;
+    				if(AstVisitors.isQualified(xtd)) {
+    					int lastDot = xtd.lastIndexOf(".");
+    					if(lastDot < xtd.length()){
+    						qualifying = xtd.substring(0, lastDot);
+    						name = xtd.substring(lastDot+1);
+    					}
+    				}
+    				String finalName = name;
+    				List<ExtendedClass> candidates = behaviorToClass.get(qualifying);
+    				if(candidates != null) {
+    					Optional<ExtendedClass> searchRes =
+    							candidates
+    							.stream()
+    							.filter(c -> c.getBaseClass().getName().equals(finalName))
+    							.findFirst();
+    					if(searchRes.isPresent()) {
+    						cls.getExtends().add(searchRes.get());
+    						cls.getEAnnotations().remove(annot);
+    					}
+    				}
 	    		});
     	});
     	

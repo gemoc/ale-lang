@@ -402,6 +402,7 @@ public class AstVisitors {
 				ctx
 				.rQualified()
 				.stream()
+				.skip(1) // the first one is the the name
 				.map(q -> aliasToRealName(q.getText(),importedBehaviors))
 				.collect(Collectors.toList());
 			
