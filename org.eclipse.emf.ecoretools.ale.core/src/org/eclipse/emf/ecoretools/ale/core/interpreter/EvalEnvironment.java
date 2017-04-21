@@ -227,6 +227,7 @@ public class EvalEnvironment {
 		Integer priority = priorities.get(cls);
 		if(priority == null) {
 			if(!cls.getExtends().isEmpty()) {
+				priorities.put(cls, 0);//avoid infinite recursion if cls extends itself
 				int p = getMaxPriority(cls.getExtends(),priorities) + 1 ;
 				priorities.put(cls, p);
 				return p;

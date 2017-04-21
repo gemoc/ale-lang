@@ -43,7 +43,11 @@ public class RuntimeInstanceHelper {
 			}
 			
 			List<EClass> finalFrag = fragments;
-			allSupers(xtd).forEach(extension -> {
+			
+			Set<ExtendedClass> allSupers = new HashSet<ExtendedClass>();
+			collectAllSupers(xtd,allSupers);
+			
+			allSupers.forEach(extension -> {
 				if(extension.getFragment() != null){
 					finalFrag.add(extension.getFragment());
 				}
@@ -77,18 +81,12 @@ public class RuntimeInstanceHelper {
 			.collect(Collectors.toList());
 	}
 	
-	private static Set<ExtendedClass> allSupers(ExtendedClass xtdCls) {
-		
-		Set<ExtendedClass> res = new HashSet<ExtendedClass>();
-		res.add(xtdCls);
-		
-		EList<ExtendedClass> supers = xtdCls.getExtends();
-		
-		if(!supers.isEmpty()) {
-			supers.forEach(s ->	res.addAll(allSupers(s)));
+	private static void collectAllSupers(ExtendedClass xtdCls, Set<ExtendedClass> collector) {
+		if(!collector.contains(xtdCls)) {
+			collector.add(xtdCls);
+			EList<ExtendedClass> supers = xtdCls.getExtends();
+			supers.forEach(s ->	collectAllSupers(s,collector));
 		}
-		
-		return res;
 	}
 	
 	private static Set<EClass> allFragments(EClass baseClass, Map<EClass,List<EClass>> baseToFragments) {
