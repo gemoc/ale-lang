@@ -84,7 +84,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 81, "EClassifier is not a super type of EClass", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 59, 99, "EClassifier is not a sub type of [EClass]", msg.get(0));
 	}
 	
 	/*
@@ -101,7 +101,41 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 81, "EOperation is not a super type of EClass", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 63, 107, "EClassifier is not a sub type of [EOperation]", msg.get(0));
+	}
+	
+	/*
+	 * Test ExtendedClass extending itself
+	 */
+	@Test
+	public void testExtendsItself() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/extendItself.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 73, 128, "Reopened EClassifier is extending itself", msg.get(0));
+	}
+	
+	/*
+	 * Test ExtendedClass extending itself by transitivity
+	 */
+	@Test
+	public void testExtendsCycle() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/extendSameType2.implem","input/validation/extendCycle.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(2, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 76, 131, "Reopened EClassifier is extending itself", msg.get(0));
 	}
 	
 	/*

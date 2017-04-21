@@ -1,4 +1,4 @@
-behavior test.extendSameTypeTwo;
+behavior test.extendSameType;
 
 import test.extendSameType as otherUnit;
 

@@ -16,6 +16,7 @@ import org.eclipse.acceleo.query.validation.type.ClassType;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.ICollectionType;
 import org.eclipse.acceleo.query.validation.type.IType;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
@@ -36,12 +37,16 @@ import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
 
+import com.google.common.collect.Lists;
+
 public class TypeValidator implements IValidator {
 
 	public static final String INCOMPATIBLE_TYPE = "Expected %s but was %s";
 	public static final String BOOLEAN_TYPE = "Expected Boolean but was %s";
 	public static final String COLLECTION_TYPE = "Expected Collection but was %s";
 	public static final String VOID_RESULT_ASSIGN = "'result' is assigned in void operation";
+	public static final String EXTENDS_ITSELF = "Reopened %s is extending itself";
+	public static final String EXTENDS_BASE_CLASS = "%s is not a sub type of %s";
 	
 	BaseValidator base;
 	
@@ -64,6 +69,37 @@ public class TypeValidator implements IValidator {
 		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
 		
 		msgs.addAll(validateBehavioredClass(xtdClass));
+		
+		if(isExtendingItself(xtdClass)) {
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					String.format(EXTENDS_ITSELF, xtdClass.getBaseClass().getName()),
+					base.getStartOffset(xtdClass),
+					base.getEndOffset(xtdClass)
+					));
+		}
+		
+		EClass baseCls = xtdClass.getBaseClass();
+		List<EClass> notSuperEClass = 
+			xtdClass
+			.getExtends()
+			.stream()
+			.map(c -> c.getBaseClass())
+			.filter(cls -> !cls.isSuperTypeOf(baseCls))
+			.collect(Collectors.toList());
+		if(!notSuperEClass.isEmpty()) {
+			String types = 
+				notSuperEClass
+				.stream()
+				.map(type -> type.getName())
+				.collect(Collectors.joining(",","[","]"));
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					String.format(EXTENDS_BASE_CLASS, xtdClass.getBaseClass().getName(),types),
+					base.getStartOffset(xtdClass),
+					base.getEndOffset(xtdClass)
+					));
+		}
 		
 		return msgs;
 	}
@@ -393,5 +429,26 @@ public class TypeValidator implements IValidator {
 		}
 		
 		return msgs;
+	}
+	
+	private boolean isExtendingItself(ExtendedClass xtdClass) {
+		
+		List<ExtendedClass> todo = Lists.newArrayList(xtdClass);
+		List<ExtendedClass> done = Lists.newArrayList();
+		
+		while(!todo.isEmpty()) {
+			ExtendedClass current = todo.get(0);
+			
+			if(done.contains(current)) {
+				return true;
+			}
+			
+			todo.addAll(current.getExtends());
+			
+			done.add(current);
+			todo.remove(0);
+		}
+		
+		return false;
 	}
 }
