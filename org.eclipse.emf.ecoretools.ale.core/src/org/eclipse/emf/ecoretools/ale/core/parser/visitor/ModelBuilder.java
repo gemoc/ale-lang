@@ -291,6 +291,7 @@ public class ModelBuilder {
 			cls.setBaseClass((EClass)resolvedType);
 		cls.getMethods().addAll(operations);
 		cls.getAttributes().addAll(attributes);
+		cls.setName(baseCls);
 		
 		//Add metadata for ID to be resolved
 		extendedCls

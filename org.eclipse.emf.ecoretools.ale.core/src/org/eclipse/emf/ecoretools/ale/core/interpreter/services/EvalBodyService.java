@@ -203,4 +203,8 @@ public class EvalBodyService extends AbstractService {
 
 		return result;
 	}
+	
+	public Method getImplem() {
+		return implem;
+	}
 }

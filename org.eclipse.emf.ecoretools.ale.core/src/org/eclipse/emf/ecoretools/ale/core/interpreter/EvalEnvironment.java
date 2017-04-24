@@ -43,10 +43,13 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.services.DynamicEObjectSe
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.FactoryService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.LogService;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.services.SelectedCallService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.TrigoServices;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
+
+import com.google.common.collect.Sets;
 
 /**
  * This class is the context of an evaluation.
@@ -106,6 +109,12 @@ public class EvalEnvironment {
 		ServiceUtils.registerServices(qryEnv, services);
 		services = ServiceUtils.getServices(qryEnv, ResourceServices.class);
 		ServiceUtils.registerServices(qryEnv, services);
+		
+		
+		if(qryEnv.getLookupEngine() instanceof ExtensionLookupEngine) {
+			IService selectedCall = new SelectedCallService(qryEnv, (ExtensionLookupEngine) qryEnv.getLookupEngine()).createService();
+			ServiceUtils.registerServices(qryEnv, Sets.newHashSet(selectedCall));
+		}
 		
 		try {
 			java.lang.reflect.Method logMethod = LogService.class.getMethod("log",Object.class);
