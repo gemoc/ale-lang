@@ -1,0 +1,13 @@
+behavior test.selectedCallMain;
+
+open class B {
+	
+	@main
+	def int main() {
+		String res1 := self.selectedCall('test.selectedCallOne','A','foo');
+		String res2 := self.selectedCall('test.selectedCallOne','B','foo');
+		String res3 := self.selectedCall('test.selectedCallTwo','A','foo');
+		String res4 := self.selectedCall('test.selectedCallTwo','B','foo');
+		result := res1 + '\n' + res2 + '\n' + res3 + '\n' + res4;
+	}
+}

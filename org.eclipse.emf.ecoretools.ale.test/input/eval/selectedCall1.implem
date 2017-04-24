@@ -1,0 +1,15 @@
+behavior test.selectedCallOne;
+
+open class A {
+	
+	def String foo() {
+		result := 'test.selectedCallOne.A.foo()';
+	}
+}
+
+open class B {
+
+	def String foo() {
+		result := 'test.selectedCallOne.B.foo()';
+	}
+}

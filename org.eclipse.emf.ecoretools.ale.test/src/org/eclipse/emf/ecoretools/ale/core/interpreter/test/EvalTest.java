@@ -806,4 +806,14 @@ public class EvalTest {
 		
 		assertEquals(123,res.getValue());
 	}
+	
+	@Test
+	public void testSelectedCall() {
+		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/eval/selectedCallMain.implem","input/eval/selectedCall1.implem","input/eval/selectedCall2.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/B.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals("test.selectedCallOne.A.foo()\ntest.selectedCallOne.B.foo()\ntest.selectedCallTwo.A.foo()\ntest.selectedCallTwo.B.foo()",res.getValue());
+	}
 }
