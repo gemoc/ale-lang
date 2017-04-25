@@ -270,9 +270,31 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateIf(ifStmt)));
 		
+		/*
+		 * Then
+		 */
+		Map<String,Set<IType>> thenScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
+		IValidationResult validRes = validations.get(ifStmt.getCondition());
+		if(validRes != null) {
+			Map<String, Set<IType>> vartypes = validRes.getInferredVariableTypes(ifStmt.getCondition(), true);
+			thenScope.putAll(vartypes);
+		}
+		variableTypesStack.push(thenScope);
 		doSwitch(ifStmt.getThen());
+		variableTypesStack.pop();
+		
+		/*
+		 * Else
+		 */
 		if(ifStmt.getElse() != null){
+			Map<String,Set<IType>> elseScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
+			if(validRes != null) {
+				Map<String, Set<IType>> vartypes = validRes.getInferredVariableTypes(ifStmt.getCondition(), false);
+				elseScope.putAll(vartypes);
+			}
+			variableTypesStack.push(elseScope);
 			doSwitch(ifStmt.getElse());
+			variableTypesStack.pop();
 		}
 		
 		return null;
@@ -313,7 +335,16 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateWhile(loop)));
 		
+		Map<String,Set<IType>> loopScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
+		IValidationResult validRes = validations.get(loop.getCondition());
+		if(validRes != null) {
+			Map<String, Set<IType>> vartypes = validRes.getInferredVariableTypes(loop.getCondition(), true);
+			loopScope.putAll(vartypes);
+		}
+		variableTypesStack.push(loopScope);
 		doSwitch(loop.getBody());
+		variableTypesStack.pop();
+		
 		return null;
 	}
 
