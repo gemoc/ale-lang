@@ -1,0 +1,13 @@
+behavior test.infer;
+
+open class A {
+	def void foo(){
+		A localVar;
+		A param;
+		while(param.oclIsTypeOf(abc::A)) {
+			localVar.bar(param); //not valid
+		}
+	}
+	
+	def void bar(B arg) {}
+}
