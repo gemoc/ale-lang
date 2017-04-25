@@ -116,7 +116,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	@Override
 	public Object caseExtendedClass(ExtendedClass xtdClass) {
 		
-		Map<String,Set<IType>> attributeTypes = new HashMap<String,Set<IType>>();
+		Map<String,Set<IType>> classScope = new HashMap<String,Set<IType>>();
 		for(Attribute attrib : xtdClass.getAttributes()) {
 			if(attrib.getInitialValue() != null) {
 				validateAndStore(attrib.getInitialValue(),new HashMap<String,Set<IType>>());
@@ -126,11 +126,11 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		Set<IType> selfTypeSet = new HashSet<IType>();
 		EClassifierType selfType = new EClassifierType(qryEnv, xtdClass.getBaseClass());
 		selfTypeSet.add(selfType);
-		attributeTypes.put("self", selfTypeSet);
+		classScope.put("self", selfTypeSet);
 		
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateExtendedClass(xtdClass)));
 		
-		variableTypesStack.push(attributeTypes);
+		variableTypesStack.push(classScope);
 		for (Method operation : xtdClass.getMethods()) {
 			doSwitch(operation);
 		}
@@ -142,17 +142,8 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	@Override
 	public Object caseRuntimeClass(RuntimeClass runtimeCls) {
 		
-		Map<String,Set<IType>> attributeTypes = new HashMap<String,Set<IType>>();
+		Map<String,Set<IType>> classScope = new HashMap<String,Set<IType>>();
 		for(Attribute attrib : runtimeCls.getAttributes()) {
-			String name = attrib.getFeatureRef().getName();
-			EClassifier type = attrib.getFeatureRef().getEType();
-			Set<IType> previousDeclaration = attributeTypes.get(name);
-			if(previousDeclaration == null) {
-				EClassifierType declaredType = new EClassifierType(qryEnv, type);
-				Set<IType> typeSet = Sets.newHashSet(declaredType);
-				attributeTypes.put(name, typeSet);
-			}
-			
 			if(attrib.getInitialValue() != null) {
 				validateAndStore(attrib.getInitialValue(),new HashMap<String,Set<IType>>());
 			}
@@ -168,12 +159,12 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			Set<IType> selfTypeSet = new HashSet<IType>();
 			EClassifierType selfType = new EClassifierType(qryEnv, runtimeEClass);
 			selfTypeSet.add(selfType);
-			attributeTypes.put("self", selfTypeSet);
+			classScope.put("self", selfTypeSet);
 		}
 		
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateRuntimeClass(runtimeCls)));
 		
-		variableTypesStack.push(attributeTypes);
+		variableTypesStack.push(classScope);
 		for (Method operation : runtimeCls.getMethods()) {
 			doSwitch(operation);
 		}
@@ -184,19 +175,19 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	
 	@Override
 	public Object caseMethod(Method mtd) {
-		Map<String,Set<IType>> parameterTypes = new HashMap<String,Set<IType>>();
+		Map<String,Set<IType>> methodScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
 		
 		for (EParameter param : mtd.getOperationRef().getEParameters()) {
-			Set<IType> previousDeclaration = parameterTypes.get(param.getName());
+			Set<IType> previousDeclaration = methodScope.get(param.getName());
 			if(previousDeclaration == null) {
 				EClassifierType type = new EClassifierType(qryEnv, param.getEType());
-				parameterTypes.put(param.getName(), Sets.newHashSet(type));
+				methodScope.put(param.getName(), Sets.newHashSet(type));
 			}
 		}
 		
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateMethod(mtd)));
 		
-		variableTypesStack.push(parameterTypes);
+		variableTypesStack.push(methodScope);
 		doSwitch(mtd.getBody());
 		variableTypesStack.pop();
 		
@@ -205,9 +196,9 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	
 	@Override
 	public Object caseBlock(Block block) {
-		Map<String,Set<IType>> variableTypes = new HashMap<String,Set<IType>>();
+		Map<String,Set<IType>> blockScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
 		
-		variableTypesStack.push(variableTypes);
+		variableTypesStack.push(blockScope);
 		for(Statement stmt: block.getStatements()){
 			doSwitch(stmt);
 		}
@@ -258,14 +249,14 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	@Override
 	public Object caseForEach(ForEach loop) {
 		
-		Map<String,Set<IType>> variableTypes = new HashMap<String,Set<IType>>();
+		Map<String,Set<IType>> loopScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
 		
 		validateAndStore(loop.getCollectionExpression(),getCurrentScope());
-		variableTypes.put(loop.getVariable(), getPossibleTypes(loop.getCollectionExpression()));
+		loopScope.put(loop.getVariable(), getPossibleTypes(loop.getCollectionExpression()));
 		
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateForEach(loop)));
 		
-		variableTypesStack.push(variableTypes);
+		variableTypesStack.push(loopScope);
 		doSwitch(loop.getBody());
 		variableTypesStack.pop();
 		
@@ -325,18 +316,9 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		doSwitch(loop.getBody());
 		return null;
 	}
-	
-	/*
-	 * Flatten stack
-	 */
-	private Map<String, Set<IType>> getCurrentScope() {
-		Map<String, Set<IType>> scope = new HashMap<String, Set<IType>>();
-		variableTypesStack
-		.stream()
-		.flatMap(scp -> scp.entrySet().stream())
-		.forEachOrdered(entry -> scope.put(entry.getKey(), entry.getValue()));
-		
-		return scope;
+
+	public Map<String, Set<IType>> getCurrentScope() {
+		return variableTypesStack.peek();
 	}
 	
 	/*
@@ -385,16 +367,6 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			.flatMap(m -> m.getRoot().getClassExtensions().stream())
 			.filter(xtdCls -> xtdCls.getBaseClass().isSuperTypeOf(realType))
 			.collect(Collectors.toList());
-	}
-	
-	public Map<String, Set<IType>> findScope(String variable) {
-		for(int i = variableTypesStack.size() - 1; i >= 0; i--) {
-			Map<String, Set<IType>> scope = variableTypesStack.get(i);
-			if(scope.keySet().contains(variable)){
-				return scope;
-			}
-		}
-		return null;
 	}
 	
 	public IQueryEnvironment getQryEnv() {

@@ -411,8 +411,8 @@ public class NameValidator implements IValidator {
 		/*
 		 * Check name
 		 */
-		Map<String, Set<IType>> declaringScope = base.findScope(varAssign.getName());
-		if(declaringScope == null && !varAssign.getName().equals("result")){
+		Set<IType> declaringTypes = base.getCurrentScope().get(varAssign.getName());
+		if(declaringTypes == null && !varAssign.getName().equals("result")){
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(VARIABLE_UNDEFINED,varAssign.getName()),
@@ -472,8 +472,8 @@ public class NameValidator implements IValidator {
 					));
 		}
 		else {
-			Map<String, Set<IType>> declaringScope = base.findScope(varDecl.getName());
-			if(declaringScope != null){
+			Set<IType> declaringTypes = base.getCurrentScope().get(varDecl.getName());
+			if(declaringTypes != null){
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
 						String.format(NAME_ALREADY_USED,varDecl.getName()),
@@ -506,8 +506,8 @@ public class NameValidator implements IValidator {
 					));
 		}
 		else {
-			Map<String, Set<IType>> declaringScope = base.findScope(loop.getVariable());
-			if(declaringScope != null){
+			Set<IType> declaringTypes = base.getCurrentScope().get(loop.getVariable());
+			if(declaringTypes != null){
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
 						String.format(NAME_ALREADY_USED,loop.getVariable()),

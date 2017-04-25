@@ -258,7 +258,7 @@ public class TypeValidator implements IValidator {
 	public List<IValidationMessage> validateVariableAssignment(VariableAssignment varAssign) {
 		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
 		
-		Map<String, Set<IType>> declaringScope = base.findScope(varAssign.getName());
+		Set<IType> declaringTypes = base.getCurrentScope().get(varAssign.getName());
 		if(varAssign.getName().equals("result")) {
 			Method op = base.getContainingOperation(varAssign);
 			EOperation eOp = ((Method)op).getOperationRef();
@@ -292,12 +292,11 @@ public class TypeValidator implements IValidator {
 				}
 			}
 		}
-		else if(declaringScope != null && !varAssign.getName().equals("self")) {
-			Set<IType> declaredTypes = declaringScope.get(varAssign.getName());
+		else if(declaringTypes != null && !varAssign.getName().equals("self")) {
 			Set<IType> inferredTypes = base.getPossibleTypes(varAssign.getValue());
-			if(declaredTypes != null && inferredTypes != null) {
+			if(inferredTypes != null) {
 				Optional<IType> existResult = 
-					declaredTypes
+					declaringTypes
 					.stream()
 					.filter(declType -> 
 					inferredTypes
@@ -309,7 +308,7 @@ public class TypeValidator implements IValidator {
 					.findAny();
 				if(!existResult.isPresent()){
 					String declaredToString = 
-							declaredTypes
+							declaringTypes
 							.stream()
 							.map(type -> type.toString())
 							.collect(Collectors.joining(",","[","]"));
