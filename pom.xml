@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.eclipse.emf.ecoretools.ale</groupId>
-	<artifactId>parent</artifactId>
+	<artifactId>root</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
@@ -32,20 +32,9 @@
  </repositories>
 
 	<modules>
-		<module>org.eclipse.emf.ecoretools.ale</module>
-		<module>org.eclipse.emf.ecoretools.ale.core</module>
-		<module>org.eclipse.emf.ecoretools.ale.test</module>
+		<module>plugins</module>
+		<module>releng</module>
+		<module>tests</module>
 	</modules>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
-				<version>${tycho.version}</version>
-				<extensions>true</extensions>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

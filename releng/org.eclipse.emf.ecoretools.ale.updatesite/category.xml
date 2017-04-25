@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.eclipse.emf.ecoretools.ale.feature_0.0.1.qualifier.jar" id="org.eclipse.emf.ecoretools.ale.feature" version="0.0.1.qualifier">
+      <category name="ALE"/>
+   </feature>
+   <category-def name="ALE" label="ALE"/>
+</site>
