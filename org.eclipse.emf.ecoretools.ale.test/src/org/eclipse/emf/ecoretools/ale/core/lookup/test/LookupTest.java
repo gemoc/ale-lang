@@ -53,4 +53,14 @@ public class LookupTest {
 		
 		assertEquals("a.foo2:b.foo:c.foo",res.getValue());
 	}
+	
+	@Test
+	public void testMultiInherits() {
+		Dsl environment = new Dsl(Arrays.asList("model/multi.ecore"),Arrays.asList("input/lookup/multi.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/C.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals("a.foo",res.getValue());
+	}
 }

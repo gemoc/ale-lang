@@ -1,0 +1,21 @@
+behavior test.lookup.multi.inherits;
+
+open class A {
+
+	def String foo() {
+		result := 'a.foo';
+	}
+}
+
+open class B {
+	def String foo() {
+		result := 'b.foo';
+	}
+}
+
+open class C {
+	@main
+	def String main() {
+		result := self.foo(); //call a.foo()
+	}
+}
