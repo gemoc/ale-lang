@@ -11,6 +11,7 @@
  */
 package org.eclipse.emf.ecoretools.ale.implementation.util;
 
+import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -220,6 +221,19 @@ public class ImplementationSwitch<T> extends Switch<T> {
 				ExpressionStatement expressionStatement = (ExpressionStatement)theEObject;
 				T result = caseExpressionStatement(expressionStatement);
 				if (result == null) result = caseStatement(expressionStatement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ImplementationPackage.SWITCH: {
+				org.eclipse.emf.ecoretools.ale.implementation.Switch switch_ = (org.eclipse.emf.ecoretools.ale.implementation.Switch)theEObject;
+				T result = caseSwitch(switch_);
+				if (result == null) result = caseExpression(switch_);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ImplementationPackage.CASE: {
+				Case case_ = (Case)theEObject;
+				T result = caseCase(case_);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -528,6 +542,36 @@ public class ImplementationSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Switch</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Switch</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSwitch(org.eclipse.emf.ecoretools.ale.implementation.Switch object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Case</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Case</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCase(Case object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>EModel Element</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -539,6 +583,21 @@ public class ImplementationSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseEModelElement(EModelElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExpression(Expression object) {
 		return null;
 	}
 

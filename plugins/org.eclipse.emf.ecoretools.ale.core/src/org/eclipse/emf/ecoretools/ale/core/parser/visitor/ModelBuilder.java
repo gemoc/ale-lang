@@ -17,8 +17,10 @@ import java.util.Optional;
 
 import org.antlr.v4.runtime.misc.Interval;
 import org.eclipse.acceleo.query.ast.AstFactory;
+import org.eclipse.acceleo.query.ast.Binding;
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.ast.IntegerLiteral;
+import org.eclipse.acceleo.query.ast.Let;
 import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
@@ -37,8 +39,12 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.ExpressionContext;
+import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RCaseContext;
+import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RExpressionContext;
+import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RSwitchContext;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
+import org.eclipse.emf.ecoretools.ale.implementation.Case;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
@@ -52,6 +58,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Statement;
+import org.eclipse.emf.ecoretools.ale.implementation.Switch;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
@@ -153,7 +160,7 @@ public class ModelBuilder {
 		return new Parameter(name, resolve(type));
 	}
 	
-	public Attribute buildAttribute(EClass fragment, String name, ExpressionContext exp, String type, int lowerBound, int upperBound, boolean isContainment, boolean isUnique, String opposite, ParseResult<ModelUnit> parseRes) {
+	public Attribute buildAttribute(EClass fragment, String name, RExpressionContext exp, String type, int lowerBound, int upperBound, boolean isContainment, boolean isUnique, String opposite, ParseResult<ModelUnit> parseRes) {
 		Attribute attribute = implemFactory.createAttribute();
 		EStructuralFeature feature;
 		
@@ -172,7 +179,7 @@ public class ModelBuilder {
 		attribute.setFeatureRef(feature);
 		
 		if(exp != null){
-			attribute.setInitialValue(parseAQL(exp,parseRes));
+			attribute.setInitialValue(parseExp(exp,parseRes));
 		}
 		
 		if(opposite != null) {
@@ -191,26 +198,26 @@ public class ModelBuilder {
 		return attribute;
 	}
 	
-	public VariableDeclaration buildVariableDecl(String name, ExpressionContext exp, String type, ParseResult<ModelUnit> parseRes) {
+	public VariableDeclaration buildVariableDecl(String name, RExpressionContext exp, String type, ParseResult<ModelUnit> parseRes) {
 		VariableDeclaration varDecl = implemFactory. createVariableDeclaration();
 		varDecl.setName(name);
 		if(exp != null){
-			varDecl.setInitialValue(parseAQL(exp,parseRes));
+			varDecl.setInitialValue(parseExp(exp,parseRes));
 		}
 		varDecl.setType(resolve(type));
 		return varDecl;
 	}
 	
-	public VariableAssignment buildVariableAssignement(String name, ExpressionContext exp, ParseResult<ModelUnit> parseRes) {
+	public VariableAssignment buildVariableAssignement(String name, RExpressionContext exp, ParseResult<ModelUnit> parseRes) {
 		VariableAssignment varAssign = implemFactory. createVariableAssignment();
 		varAssign.setName(name);
-		varAssign.setValue(parseAQL(exp,parseRes));
+		varAssign.setValue(parseExp(exp,parseRes));
 		return varAssign; 
 	}
 	
-	public If buildIf(ExpressionContext condition, Block thenBlock, Block elseBlock, ParseResult<ModelUnit> parseRes) {
+	public If buildIf(RExpressionContext condition, Block thenBlock, Block elseBlock, ParseResult<ModelUnit> parseRes) {
 		If ifStmt = implemFactory.createIf();
-		ifStmt.setCondition(parseAQL(condition,parseRes));
+		ifStmt.setCondition(parseExp(condition,parseRes));
 		ifStmt.setThen(thenBlock);
 		ifStmt.setElse(elseBlock);
 		return ifStmt;
@@ -222,16 +229,16 @@ public class ModelBuilder {
 		return block;
 	}
 	
-	public ExpressionStatement buildExpressionStatement(ExpressionContext value, ParseResult<ModelUnit> parseRes) {
+	public ExpressionStatement buildExpressionStatement(RExpressionContext value, ParseResult<ModelUnit> parseRes) {
 		ExpressionStatement exp = implemFactory.createExpressionStatement();
-		exp.setExpression(parseAQL(value,parseRes));
+		exp.setExpression(parseExp(value,parseRes));
 		return exp;
 	}
 	
-	public ForEach buildForEach(String variable, ExpressionContext expression, Block body, ParseResult<ModelUnit> parseRes) {
+	public ForEach buildForEach(String variable, RExpressionContext expression, Block body, ParseResult<ModelUnit> parseRes) {
 		ForEach loop = implemFactory.createForEach();
 		loop.setVariable(variable);
-		loop.setCollectionExpression(parseAQL(expression,parseRes));
+		loop.setCollectionExpression(parseExp(expression,parseRes));
 		loop.setBody(body);
 		return loop;
 	}
@@ -244,18 +251,18 @@ public class ModelBuilder {
 		return loop;
 	}
 	
-	public While buildWhile(ExpressionContext expression, Block body, ParseResult<ModelUnit> parseRes) {
+	public While buildWhile(RExpressionContext expression, Block body, ParseResult<ModelUnit> parseRes) {
 		While loop = implemFactory.createWhile();
-		loop.setCondition(parseAQL(expression,parseRes));
+		loop.setCondition(parseExp(expression,parseRes));
 		loop.setBody(body);
 		return loop;
 	}
 	
-	public FeatureAssignment buildFeatureAssign(ExpressionContext target, String feature, ExpressionContext valueExp, ParseResult<ModelUnit> parseRes) {
+	public FeatureAssignment buildFeatureAssign(ExpressionContext target, String feature, RExpressionContext valueExp, ParseResult<ModelUnit> parseRes) {
 		FeatureAssignment featSetting = implemFactory.createFeatureAssignment();
 		featSetting.setTarget(parseAQL(target,parseRes));
 		featSetting.setTargetFeature(feature);
-		featSetting.setValue(parseAQL(valueExp,parseRes));
+		featSetting.setValue(parseExp(valueExp,parseRes));
 		return featSetting;
 	}
 	
@@ -479,6 +486,63 @@ public class ModelBuilder {
 		}
 		
 		return String.join(".", Lists.reverse(fullName));
+	}
+	
+	public Expression parseExp(RExpressionContext ctx, ParseResult<ModelUnit> parseRes) {
+		
+		if(ctx.rSwitch() != null) {
+			return parseSwitch(ctx.rSwitch(), parseRes);
+		}
+		else {
+			return parseAQL(ctx.expression(), parseRes);
+		}
+	}
+	
+	public Expression parseSwitch(RSwitchContext ctx, ParseResult<ModelUnit> parseRes) {
+		
+		Switch switchExp = implemFactory.createSwitch();
+		
+		RExpressionContext paramVal = ctx.paramVal;
+		List<RCaseContext> cases = ctx.cases;
+		RExpressionContext defaultExp = ctx.other;
+		
+		switchExp.setParam(parseExp(paramVal, parseRes));
+		switchExp.setDefault(parseExp(defaultExp, parseRes));
+		cases.forEach(caseCtx -> {
+			Case newCase = implemFactory.createCase();
+			if(caseCtx.guard != null){
+				newCase.setGuard(resolve(caseCtx.guard.getText()));
+			}
+			if(caseCtx.match != null){
+				newCase.setMatch(parseExp(caseCtx.match, parseRes));
+			}
+			//TODO: guard & match can't be null together -> raise error
+			newCase.setValue(parseExp(caseCtx.value, parseRes));
+			switchExp.getCases().add(newCase);
+		});
+		
+		/*
+		 * Trick to register a new variable in the variable stack
+		 * since we can't access private field of AstEvaluator
+		 */
+		if(ctx.paramName != null) {
+			String paramName = ctx.paramName.getText();
+			Let let = aqlFactory.createLet(); 
+			Binding binding = aqlFactory.createBinding();
+			binding.setName(paramName);
+			binding.setValue(switchExp.getParam());
+			let.getBindings().add(binding);
+			let.setBody(switchExp);
+			
+			// Because paramVal is contained in Let,
+			// now the switch expression is paramName
+			AstResult astRes = builder.build(paramName);
+			Expression param = astRes.getAst();
+			switchExp.setParam(param);
+			return let;
+		}
+		
+		return switchExp;
 	}
 	
 	public Expression parseAQL(ExpressionContext ctx, ParseResult<ModelUnit> parseRes) {

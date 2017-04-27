@@ -11,6 +11,7 @@
  */
 package org.eclipse.emf.ecoretools.ale.implementation;
 
+import org.eclipse.acceleo.query.ast.AstPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -1166,6 +1167,117 @@ public interface ImplementationPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.SwitchImpl <em>Switch</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.SwitchImpl
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getSwitch()
+	 * @generated
+	 */
+	int SWITCH = 20;
+
+	/**
+	 * The feature id for the '<em><b>Param</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SWITCH__PARAM = AstPackage.EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Cases</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SWITCH__CASES = AstPackage.EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Default</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SWITCH__DEFAULT = AstPackage.EXPRESSION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Switch</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SWITCH_FEATURE_COUNT = AstPackage.EXPRESSION_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of operations of the '<em>Switch</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SWITCH_OPERATION_COUNT = AstPackage.EXPRESSION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.CaseImpl <em>Case</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.CaseImpl
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getCase()
+	 * @generated
+	 */
+	int CASE = 21;
+
+	/**
+	 * The feature id for the '<em><b>Guard</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE__GUARD = 0;
+
+	/**
+	 * The feature id for the '<em><b>Match</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE__MATCH = 1;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE__VALUE = 2;
+
+	/**
+	 * The number of structural features of the '<em>Case</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>Case</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CASE_OPERATION_COUNT = 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior <em>Model Behavior</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1839,6 +1951,92 @@ public interface ImplementationPackage extends EPackage {
 	EReference getExpressionStatement_Expression();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.Switch <em>Switch</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Switch</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Switch
+	 * @generated
+	 */
+	EClass getSwitch();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.implementation.Switch#getParam <em>Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Param</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Switch#getParam()
+	 * @see #getSwitch()
+	 * @generated
+	 */
+	EReference getSwitch_Param();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.implementation.Switch#getCases <em>Cases</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Cases</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Switch#getCases()
+	 * @see #getSwitch()
+	 * @generated
+	 */
+	EReference getSwitch_Cases();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.implementation.Switch#getDefault <em>Default</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Default</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Switch#getDefault()
+	 * @see #getSwitch()
+	 * @generated
+	 */
+	EReference getSwitch_Default();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.Case <em>Case</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Case</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Case
+	 * @generated
+	 */
+	EClass getCase();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.emf.ecoretools.ale.implementation.Case#getGuard <em>Guard</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Guard</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Case#getGuard()
+	 * @see #getCase()
+	 * @generated
+	 */
+	EReference getCase_Guard();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.implementation.Case#getMatch <em>Match</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Match</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Case#getMatch()
+	 * @see #getCase()
+	 * @generated
+	 */
+	EReference getCase_Match();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.implementation.Case#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Case#getValue()
+	 * @see #getCase()
+	 * @generated
+	 */
+	EReference getCase_Value();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2404,6 +2602,74 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EXPRESSION_STATEMENT__EXPRESSION = eINSTANCE.getExpressionStatement_Expression();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.SwitchImpl <em>Switch</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.SwitchImpl
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getSwitch()
+		 * @generated
+		 */
+		EClass SWITCH = eINSTANCE.getSwitch();
+
+		/**
+		 * The meta object literal for the '<em><b>Param</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SWITCH__PARAM = eINSTANCE.getSwitch_Param();
+
+		/**
+		 * The meta object literal for the '<em><b>Cases</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SWITCH__CASES = eINSTANCE.getSwitch_Cases();
+
+		/**
+		 * The meta object literal for the '<em><b>Default</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SWITCH__DEFAULT = eINSTANCE.getSwitch_Default();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.CaseImpl <em>Case</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.CaseImpl
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getCase()
+		 * @generated
+		 */
+		EClass CASE = eINSTANCE.getCase();
+
+		/**
+		 * The meta object literal for the '<em><b>Guard</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CASE__GUARD = eINSTANCE.getCase_Guard();
+
+		/**
+		 * The meta object literal for the '<em><b>Match</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CASE__MATCH = eINSTANCE.getCase_Match();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CASE__VALUE = eINSTANCE.getCase_Value();
 
 	}
 

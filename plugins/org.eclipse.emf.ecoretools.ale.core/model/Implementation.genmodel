@@ -91,5 +91,15 @@
     <genClasses ecoreClass="Implementation.ecore#//ExpressionStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExpressionStatement/expression"/>
     </genClasses>
+    <genClasses ecoreClass="Implementation.ecore#//Switch">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Switch/param"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Switch/cases"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Switch/default"/>
+    </genClasses>
+    <genClasses ecoreClass="Implementation.ecore#//Case">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//Case/guard"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Case/match"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Case/value"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -34,6 +34,7 @@ import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RAssignContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RAttributeContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RBlockContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RExpressionContext;
+import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RExpressionStmtContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RForEachContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RIfContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RNewClassContext;
@@ -121,7 +122,7 @@ public class AstVisitors {
 			String typeName = ctx.type.getText();
 			
 			String name = ctx.Ident().getText();
-			ExpressionContext initialValue = ctx.expression();
+			RExpressionContext initialValue = ctx.rExpression();
 			
 			VariableDeclaration res = ModelBuilder.singleton.buildVariableDecl(
 				name,
@@ -136,8 +137,8 @@ public class AstVisitors {
 		
 		@Override
 		public Statement visitRAssign(RAssignContext ctx) {
-			ExpressionContext left = ctx.expression().get(0); // epxression.feature or variable?
-			ExpressionContext value =  ctx.expression().get(1);
+			ExpressionContext left = ctx.expression(); // epxression.feature or variable?
+			RExpressionContext value =  ctx.rExpression();
 			
 			Statement res = null;
 			if(left instanceof VarRefContext){
@@ -165,7 +166,7 @@ public class AstVisitors {
 		
 		@Override
 		public Statement visitRIf(RIfContext ctx) {
-			ExpressionContext cond = ctx.expression();
+			RExpressionContext cond = ctx.rExpression();
 			Block then = (new BlockVisitor(parseRes)).visit(ctx.rBlock().get(0));
 			Block elseB = null;
 			if(ctx.rBlock().size() > 1)
@@ -181,7 +182,7 @@ public class AstVisitors {
 			
 			ForEach res = null;
 			Block body = (new BlockVisitor(parseRes)).visit(ctx.rBlock());
-			ExpressionContext collectionExp = ctx.rCollection().expression();
+			RExpressionContext collectionExp = ctx.rCollection().rExpression();
 			if(collectionExp == null){
 				String left = ctx.rCollection().Integer().get(0).getText();
 				String right = ctx.rCollection().Integer().get(1).getText();
@@ -199,16 +200,16 @@ public class AstVisitors {
 		@Override
 		public Statement visitRWhile(RWhileContext ctx) {
 			Block body = (new BlockVisitor(parseRes)).visit(ctx.rBlock());
-			While res = ModelBuilder.singleton.buildWhile(ctx.expression(),body,parseRes);
+			While res = ModelBuilder.singleton.buildWhile(ctx.rExpression(),body,parseRes);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
 			return res;
 		}
 	
 		@Override
-		public Statement visitRExpression(RExpressionContext ctx) {
+		public Statement visitRExpressionStmt(RExpressionStmtContext ctx) {
 			
-			ExpressionContext exp = ctx.expression();
+			ExpressionContext exp = ctx.rExpression().expression();
 			
 			Statement res =  null;
 			if(exp instanceof NavContext){
@@ -245,7 +246,7 @@ public class AstVisitors {
 			}
 			
 			if(res == null){
-				res = ModelBuilder.singleton.buildExpressionStatement(exp,parseRes);
+				res = ModelBuilder.singleton.buildExpressionStatement(ctx.rExpression(),parseRes);
 			}
 			
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
@@ -467,7 +468,7 @@ public class AstVisitors {
 		
 		@Override
 		public Attribute visitRAttribute(RAttributeContext ctx) {
-			ExpressionContext initialValue = ctx.expression();
+			RExpressionContext initialValue = ctx.rExpression();
 			
 			String typeName = ctx.type.getText();
 			

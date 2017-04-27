@@ -69,7 +69,7 @@ rParameters : rVariable (',' rVariable)*
 rVariable : type=rType Ident
 ;
 
-rAttribute : modifier=('contains' | 'unique')? bounds=rCardinality? opposite=rOpposite? type=rType Ident (':=' expression)? ';'
+rAttribute : modifier=('contains' | 'unique')? bounds=rCardinality? opposite=rOpposite? type=rType Ident (':=' rExpression)? ';'
 ;
 
 rCardinality :
@@ -89,37 +89,50 @@ rStatement : rVarDecl
 		| rForEach
 		| rWhile
 		| rIf
-		| rExpression
+		| rExpressionStmt
 ;
 
-rVarDecl : type=rType Ident (':=' expression)? ';'
+rVarDecl : type=rType Ident (':=' rExpression)? ';'
 ;
 
-rAssign : expression ':=' expression ';'
+rAssign : expression ':=' rExpression ';'
 ;
 
 rForEach : 'for' '(' Ident  'in' rCollection ')' rBlock
 ;
 
-rCollection : '[' Integer '..' Integer ']' | expression
+rCollection : '[' Integer '..' Integer ']' | rExpression
 ;
 
 rBlock : '{' (rStatement (rStatement)*)? '}'
 ;
 
-rIf : 'if' '(' expression ')' rBlock ('else' rBlock)?
+rIf : 'if' '(' rExpression ')' rBlock ('else' rBlock)?
 ;
 
-rWhile : 'while' '(' expression ')' rBlock
+rWhile : 'while' '(' rExpression ')' rBlock
 ;
 
-rExpression : expression ';'
+rExpressionStmt : rExpression ';'
+;
+
+rExpression : rSwitch | expression
 ;
 
 rType: rQualified | typeLiteral
 ;
 
 rQualified : Ident ('.'Ident)*
+;
+
+rSwitch : 
+	'switch' '(' (paramName=Ident ':')? paramVal=rExpression')' '{'
+		cases+=rCase+
+		'default' ':' other=rExpression
+	'}'
+;
+
+rCase : guard=rType? ('case' match=rExpression)? ':' value=rExpression
 ;
 
 STRING :  '"' (.)*? '"'

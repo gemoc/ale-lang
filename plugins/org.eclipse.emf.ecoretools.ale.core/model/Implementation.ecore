@@ -127,4 +127,20 @@
         eType="ecore:EClass ../../org.eclipse.acceleo.query/model/ast.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Switch" eSuperTypes="../../org.eclipse.acceleo.query/model/ast.ecore#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="param" lowerBound="1" eType="ecore:EClass ../../org.eclipse.acceleo.query/model/ast.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cases" upperBound="-1"
+        eType="#//Case" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="default" lowerBound="1"
+        eType="ecore:EClass ../../org.eclipse.acceleo.query/model/ast.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Case">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="guard" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="match" lowerBound="1" eType="ecore:EClass ../../org.eclipse.acceleo.query/model/ast.ecore#//Expression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="ecore:EClass ../../org.eclipse.acceleo.query/model/ast.ecore#//Expression"
+        containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

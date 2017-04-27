@@ -25,6 +25,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.Assignment;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
+import org.eclipse.emf.ecoretools.ale.implementation.Case;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
@@ -40,6 +41,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Statement;
+import org.eclipse.emf.ecoretools.ale.implementation.Switch;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
@@ -197,6 +199,20 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * @generated
 	 */
 	private EClass expressionStatementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass switchEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass caseEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -834,6 +850,78 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getSwitch() {
+		return switchEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSwitch_Param() {
+		return (EReference)switchEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSwitch_Cases() {
+		return (EReference)switchEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSwitch_Default() {
+		return (EReference)switchEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCase() {
+		return caseEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCase_Guard() {
+		return (EReference)caseEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCase_Match() {
+		return (EReference)caseEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCase_Value() {
+		return (EReference)caseEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ImplementationFactory getImplementationFactory() {
 		return (ImplementationFactory)getEFactoryInstance();
 	}
@@ -939,6 +1027,16 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 
 		expressionStatementEClass = createEClass(EXPRESSION_STATEMENT);
 		createEReference(expressionStatementEClass, EXPRESSION_STATEMENT__EXPRESSION);
+
+		switchEClass = createEClass(SWITCH);
+		createEReference(switchEClass, SWITCH__PARAM);
+		createEReference(switchEClass, SWITCH__CASES);
+		createEReference(switchEClass, SWITCH__DEFAULT);
+
+		caseEClass = createEClass(CASE);
+		createEReference(caseEClass, CASE__GUARD);
+		createEReference(caseEClass, CASE__MATCH);
+		createEReference(caseEClass, CASE__VALUE);
 	}
 
 	/**
@@ -989,6 +1087,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		whileEClass.getESuperTypes().add(this.getStatement());
 		ifEClass.getESuperTypes().add(this.getStatement());
 		expressionStatementEClass.getESuperTypes().add(this.getStatement());
+		switchEClass.getESuperTypes().add(theAstPackage.getExpression());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(modelBehaviorEClass, ModelBehavior.class, "ModelBehavior", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1073,6 +1172,16 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 
 		initEClass(expressionStatementEClass, ExpressionStatement.class, "ExpressionStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExpressionStatement_Expression(), theAstPackage.getExpression(), null, "expression", null, 1, 1, ExpressionStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(switchEClass, Switch.class, "Switch", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSwitch_Param(), theAstPackage.getExpression(), null, "param", null, 1, 1, Switch.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSwitch_Cases(), this.getCase(), null, "cases", null, 0, -1, Switch.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSwitch_Default(), theAstPackage.getExpression(), null, "default", null, 1, 1, Switch.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(caseEClass, Case.class, "Case", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCase_Guard(), theEcorePackage.getEClassifier(), null, "guard", null, 0, 1, Case.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCase_Match(), theAstPackage.getExpression(), null, "match", null, 1, 1, Case.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCase_Value(), theAstPackage.getExpression(), null, "value", null, 1, 1, Case.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

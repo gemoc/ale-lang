@@ -11,6 +11,7 @@
  */
 package org.eclipse.emf.ecoretools.ale.implementation.util;
 
+import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 
@@ -165,8 +166,20 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 				return createExpressionStatementAdapter();
 			}
 			@Override
+			public Adapter caseSwitch(Switch object) {
+				return createSwitchAdapter();
+			}
+			@Override
+			public Adapter caseCase(Case object) {
+				return createCaseAdapter();
+			}
+			@Override
 			public Adapter caseEModelElement(EModelElement object) {
 				return createEModelElementAdapter();
+			}
+			@Override
+			public Adapter caseExpression(Expression object) {
+				return createExpressionAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -469,6 +482,34 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.implementation.Switch <em>Switch</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Switch
+	 * @generated
+	 */
+	public Adapter createSwitchAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.implementation.Case <em>Case</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Case
+	 * @generated
+	 */
+	public Adapter createCaseAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecore.EModelElement <em>EModel Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -479,6 +520,20 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEModelElementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.acceleo.query.ast.Expression <em>Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.acceleo.query.ast.Expression
+	 * @generated
+	 */
+	public Adapter createExpressionAdapter() {
 		return null;
 	}
 
