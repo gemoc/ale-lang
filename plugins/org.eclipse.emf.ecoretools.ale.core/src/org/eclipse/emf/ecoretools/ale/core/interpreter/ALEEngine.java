@@ -26,7 +26,7 @@ public class ALEEngine {
 	}
 	
 	public EvaluationResult eval(EObject target, Method mainOp, List<Object> args) {
-		MethodEvaluator evaluator = new MethodEvaluator(new QueryEvaluationEngine(implemEnv.getQueryEnvironment()), implemEnv.getFeatureAccess());
+		MethodEvaluator evaluator = new MethodEvaluator(new ExpressionEvaluationEngine(implemEnv.getQueryEnvironment()), implemEnv.getFeatureAccess());
 		return evaluator.eval(target,mainOp,args);
 	}
 }
