@@ -16,6 +16,7 @@
 	<modules>
 		<module>org.eclipse.emf.ecoretools.ale</module>
 		<module>org.eclipse.emf.ecoretools.ale.core</module>
+		<module>org.eclipse.emf.ecoretools.ale.xtext</module>
 	</modules>
 
 	<build>
