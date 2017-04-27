@@ -1,0 +1,17 @@
+behavior test.switchguard;
+open class ClassA {
+	
+	@main
+	def int main() {
+	
+		ClassA cls := test::ClassA.create();
+		cls.field := 4;
+	
+		result :=
+			switch (c : cls) {
+				ClassA case c.field = 4 : 4
+				ClassA : 2
+				default : 0
+			};
+	}
+}

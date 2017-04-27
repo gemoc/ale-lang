@@ -1,0 +1,12 @@
+behavior test.switchguard;
+open class ClassA {
+	
+	@main
+	def int main() {
+		result :=
+			switch (self) {
+				ClassA : 2
+				default : 0
+			};
+	}
+}

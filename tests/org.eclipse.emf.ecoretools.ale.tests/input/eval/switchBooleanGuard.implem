@@ -1,0 +1,14 @@
+behavior test.switchguard;
+open class ClassA {
+	
+	@main
+	def int main() {
+	
+		boolean var := true;
+		result :=
+			switch (var) {
+				boolean : 2
+				default : 0
+			};
+	}
+}

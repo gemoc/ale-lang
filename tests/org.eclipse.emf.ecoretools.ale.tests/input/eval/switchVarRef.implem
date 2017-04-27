@@ -1,0 +1,16 @@
+behavior test.switchcase;
+open class ClassA {
+	
+	@main
+	def int main() {
+	
+		ClassA var := self;
+		
+		result :=
+			switch (var) {
+				case 4 : 4
+				case self : 3
+				default : 0
+			};
+	}
+}
