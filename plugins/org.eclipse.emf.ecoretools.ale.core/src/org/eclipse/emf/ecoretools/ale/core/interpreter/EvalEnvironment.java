@@ -13,6 +13,7 @@ package org.eclipse.emf.ecoretools.ale.core.interpreter;
 //import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -154,7 +155,7 @@ public class EvalEnvironment {
 	}
 	
 	private List<EvalBodyService> createServices(List<ModelUnit> allImplemModels) {
-		Map<Method, EvalBodyService> res = new HashMap<Method, EvalBodyService>();
+		Map<Method, EvalBodyService> res = new LinkedHashMap<Method, EvalBodyService>();
 		
 		/*
 		 * Create services
