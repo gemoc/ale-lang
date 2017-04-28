@@ -50,6 +50,7 @@ import org.eclipse.emf.ecoretools.ale.rOperation;
 import org.eclipse.emf.ecoretools.ale.rRoot;
 import org.eclipse.emf.ecoretools.ale.core.parser.AstBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
+import org.eclipse.emf.ecoretools.ale.ide.Activator;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
@@ -111,7 +112,7 @@ public class Services {
 				CommandStack commandStack = editingDomain.getCommandStack();
 				commandStack.execute(cmd);
 			} catch (Exception e) {
-				// TODO: error msg
+				Activator.getDefault().error(e);
 			}
     	}
     	
@@ -134,8 +135,7 @@ public class Services {
 					res.getContents().add(mb);
 					
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Activator.getDefault().error(e);
 				}
 				
 				session.addSemanticResource(res.getURI(), new NullProgressMonitor());
@@ -145,7 +145,7 @@ public class Services {
 			CommandStack commandStack = editingDomain.getCommandStack();
 			commandStack.execute(cmd);
 		} catch (Exception e) {
-			// TODO: error msg
+			Activator.getDefault().error(e);
 		}
 	}
 	
@@ -165,7 +165,7 @@ public class Services {
 			try {
 				implemFile.create(source, true, new NullProgressMonitor());
 			} catch (CoreException e) {
-				e.printStackTrace();
+				Activator.getDefault().error(e);
 			}
 		}
 		Session session = SessionManager.INSTANCE.getSession(ecoreResource);
@@ -204,7 +204,7 @@ public class Services {
 		try {
 			fileContent = new String(Files.readAllBytes(Paths.get(implementionPath)));
 		} catch (IOException e) {
-			e.printStackTrace();
+			Activator.getDefault().error(e);
 		}
 		return fileContent;
 	}
@@ -260,7 +260,7 @@ public class Services {
 									CommandStack commandStack = session.getTransactionalEditingDomain().getCommandStack();
 									commandStack.execute(cmd);
 								} catch (Exception e) {
-									// TODO: error msg
+									Activator.getDefault().error(e);
 								}
 							}
 						}
@@ -434,7 +434,7 @@ public class Services {
 			}
 			
 		} catch (PartInitException e) {
-			e.printStackTrace();
+			Activator.getDefault().error(e);
 		}
 		return op;
 	}
@@ -487,7 +487,7 @@ public class Services {
 			}
 			
 		} catch (PartInitException e) {
-			e.printStackTrace();
+			Activator.getDefault().error(e);
 		}
 		return cls;
 	}
@@ -552,7 +552,7 @@ public class Services {
 			}
 			
 		} catch (PartInitException e) {
-			e.printStackTrace();
+			Activator.getDefault().error(e);
 		}
 		return cls;
 	}
