@@ -40,6 +40,7 @@
 	</modules>
 	<build>
 		<plugins>
+			<!-- enable xtend compilation -->
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
@@ -48,6 +49,9 @@
 					<execution>
 						<goals>
 							<goal>compile</goal>
+							<goal>xtend-install-debug-info</goal>
+							<goal>testCompile</goal>
+							<goal>xtend-test-install-debug-info</goal>
 						</goals>
 						<configuration>
 							<outputDirectory>xtend-gen</outputDirectory>
@@ -116,6 +120,15 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<!-- enable plugin tests -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<argLine>-Xmx1024m -XX:MaxPermSize=1024m</argLine>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
