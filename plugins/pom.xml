@@ -16,7 +16,10 @@
 	<modules>
 		<module>org.eclipse.emf.ecoretools.ale</module>
 		<module>org.eclipse.emf.ecoretools.ale.core</module>
+		
 		<module>org.eclipse.emf.ecoretools.ale.xtext</module>
+		<module>org.eclipse.emf.ecoretools.ale.xtext.ide</module>
+		<module>org.eclipse.emf.ecoretools.ale.xtext.ui</module>
 	</modules>
 
 	<build>
