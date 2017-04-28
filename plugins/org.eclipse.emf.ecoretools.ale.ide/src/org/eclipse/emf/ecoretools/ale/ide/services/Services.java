@@ -128,8 +128,15 @@ public class Services {
 				String relativeURI = implemFileURI.toPlatformString(true);
 				String fullURI = ResourcesPlugin.getWorkspace().getRoot().getLocation()+relativeURI;
 				List<EPackage> pkgs = getMetamodel(ecoreRes);
-				ModelUnit mb = loadBehavior(fullURI, pkgs).getRoot();
-				res.getContents().add(mb);
+				ModelUnit mb;
+				try {
+					mb = loadBehavior(fullURI, pkgs).getRoot();
+					res.getContents().add(mb);
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				session.addSemanticResource(res.getURI(), new NullProgressMonitor());
 			}
@@ -180,8 +187,9 @@ public class Services {
 	
 	/**
 	 * Call the parser
+	 * @throws IOException 
 	 */
-	private static ParseResult<ModelUnit> loadBehavior(String filePath, List<EPackage> pkgs) {
+	private static ParseResult<ModelUnit> loadBehavior(String filePath, List<EPackage> pkgs) throws IOException {
 		String content = getFileContent(filePath);
 		
 		IQueryEnvironment queryEnvironment = Query.newEnvironmentWithDefaultServices(null);
