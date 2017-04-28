@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Ale
 Bundle-SymbolicName: org.eclipse.emf.ecoretools.ale
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 0.0.1.qualifier
 Export-Package: org.eclipse.emf.ecoretools.ale
 Require-Bundle: org.eclipse.acceleo.query,
  org.eclipse.emf.common,

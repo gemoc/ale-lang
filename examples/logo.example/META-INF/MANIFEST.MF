@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: test
 Bundle-SymbolicName: logo.example
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 0.0.1.qualifier
 Export-Package: logo.example.service
 Require-Bundle: org.eclipse.emf.common,
  org.eclipse.emf.ecoretools.ale.core,
