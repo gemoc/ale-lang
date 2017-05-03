@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" name="ale" version="11.1.1.201610211630">
-  <ownedViewpoints name="MyViewpoint">
-    <ownedRepresentationExtensions xsi:type="description_1:DiagramExtensionDescription" name="MyExtension" viewpointURI="viewpoint:/org.eclipse.emf.ecoretools.design/Design" representationName="Entities">
+  <ownedViewpoints name="Behavior">
+    <ownedRepresentationExtensions xsi:type="description_1:DiagramExtensionDescription" name="BehaviorEntities" viewpointURI="viewpoint:/org.eclipse.emf.ecoretools.design/Design" representationName="Entities">
       <layers name="Behavior">
-        <edgeMappings name="DynaRef" targetFinderExpression="aql:self.type" sourceFinderExpression="aql:self.eContainer().baseClass" domainClass="VariableDeclaration" useDomainElement="true">
+        <edgeMappings name="Runtime reference" targetFinderExpression="aql:self.featureRef.eType" sourceFinderExpression="aql:self.eContainer().baseClass" domainClass="implementation.Attribute" useDomainElement="true">
           <sourceMapping xsi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
           <targetMapping xsi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
-          <style sizeComputationExpression="3">
-            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
-            <centerLabelStyleDescription labelExpression="aql:self.name">
+          <style sizeComputationExpression="3" routingStyle="manhattan">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.featureRef.name">
+              <labelFormat>bold</labelFormat>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <containerMappings xsi:type="description_1:ContainerMappingImport" name="XtdClass" childrenPresentation="List">
+        <containerMappings xsi:type="description_1:ContainerMappingImport" name="ExtendedClass" childrenPresentation="List">
           <reusedBorderedNodeMappings href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@additionalLayers[name='Constraint']/@nodeMappings[name='EC%20Constraint%20Annotation']"/>
           <reusedBorderedNodeMappings href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
           <reusedBorderedNodeMappings href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EReferenceNode']"/>
@@ -22,8 +23,8 @@
           <reusedBorderedNodeMappings href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EDataType']/@subNodeMappings[name='EC_DataType_InstanceClassName']"/>
           <reusedBorderedNodeMappings href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@nodeMappings[name='Empty%20Diagram']"/>
           <reusedBorderedNodeMappings href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@additionalLayers[name='Documentation']/@nodeMappings[name='EC%20Doc%20Annotation']"/>
-          <subNodeMappings name="Dyna Attrib" semanticCandidatesExpression="aql:self.getDynaAttrib()" domainClass="VariableDeclaration">
-            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.name+' : '+self.type.name" labelPosition="node" resizeKind="NSEW">
+          <subNodeMappings name="Runtime feature" semanticCandidatesExpression="aql:self.getDynaAttrib()" domainClass="implementation.Attribute">
+            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.featureRef.name+' : '+self.featureRef.eType.name" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelFormat>bold</labelFormat>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -31,7 +32,7 @@
             </style>
           </subNodeMappings>
           <subNodeMappings name="Method" semanticCandidatesExpression="aql:self.getMethod()" domainClass="implementation.Method">
-            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.operationDef.name+'()'" labelPosition="node" resizeKind="NSEW">
+            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.operationRef.name+'()'" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelFormat>bold</labelFormat>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -51,6 +52,24 @@
           <reusedContainerMappings href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@additionalLayers[name='Package']/@containerMappings[name='Dropped%20Package']"/>
           <reusedContainerMappings href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@additionalLayers[name='Related%20EClasses']/@containerMappings[name='EC%20External%20EClasses']"/>
           <importedMapping href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
+        </containerMappings>
+        <containerMappings name="RuntimeClass" domainClass="implementation.RuntimeClass" childrenPresentation="List">
+          <subNodeMappings name="Runtime feature" semanticCandidatesExpression="aql:self.getDynaAttrib()" domainClass="implementation.Attribute">
+            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.featureRef.name+' : '+self.featureRef.eType.name" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelFormat>bold</labelFormat>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </subNodeMappings>
+          <subNodeMappings name="Method" semanticCandidatesExpression="aql:self.getMethod()" domainClass="implementation.Method">
+            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.operationRef.name+'()'" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelFormat>bold</labelFormat>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </subNodeMappings>
         </containerMappings>
         <toolSections name="BehavTool">
           <ownedTools xsi:type="tool:OperationAction" name="Edit implementation" precondition="aql:self.oclIsTypeOf(ecore::EOperation)">

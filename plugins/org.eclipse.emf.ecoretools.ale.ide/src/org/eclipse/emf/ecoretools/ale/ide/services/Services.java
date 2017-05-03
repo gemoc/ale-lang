@@ -38,6 +38,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
@@ -274,108 +275,95 @@ public class Services {
 	}
 	
     public boolean isImplemented(EObject elem) {
-    	Session session = SessionManager.INSTANCE.getSession(elem);
-    	
-    	URI uri = elem.eResource().getURI();
-    	URI implemURI = uri.trimFileExtension().appendFileExtension(IMPLEM_EXTENSION+"."+RESOURCE_SUFFIX);
-    	
-    	Optional<Resource> implemSearch = 
-    			session
-    			.getSemanticResources()
-    			.stream()
-    			.filter(res -> res.getURI().equals(implemURI))
-    			.findFirst();
-    	
-    	if(implemSearch.isPresent()){
-        	if(elem instanceof EOperation) {
-        		EOperation op = (EOperation) elem;
-        		Optional<ExtendedClass> searchCls = 
-        			((ModelBehavior)implemSearch.get().getContents().get(0))
-        			.getUnits()
-    				.stream()
-    				.flatMap(u -> u.getClassExtensions().stream())
-    				.filter(ext -> ext.getBaseClass().getName().equals(op.getEContainingClass().getName())).findFirst();
+    	if(elem instanceof EOperation) {
+    		EOperation op = (EOperation) elem;
+    		List<ModelUnit> modelUnits = getModelBehavior(elem);
+    		Optional<ExtendedClass> searchCls = 
+				modelUnits
+				.stream()
+				.map(elm -> (ModelUnit) elm)
+				.flatMap(u -> u.getClassExtensions().stream())
+				.filter(ext -> ext.getBaseClass().getName().equals(op.getEContainingClass().getName())).findFirst();
         		
-        		if(searchCls.isPresent()) {
-        			ExtendedClass xtdClass = searchCls.get();
-        			return xtdClass
-        				.getMethods()
-        				.stream()
-        				.filter(mtd -> mtd.getOperationRef().getName().equals(op.getName()) && mtd.getOperationRef().getEContainingClass() == xtdClass.getBaseClass())
-        				.findAny()
-        				.isPresent();
-        		}
-        	}
+    		if(searchCls.isPresent()) {
+    			ExtendedClass xtdClass = searchCls.get();
+    			return xtdClass
+    				.getMethods()
+    				.stream()
+    				.filter(mtd -> mtd.getOperationRef().getName().equals(op.getName()) && mtd.getOperationRef().getEContainingClass() == xtdClass.getBaseClass())
+    				.findAny()
+    				.isPresent();
+    		}
     	}
+    	
     	return false;
     }
     
-    public List<Attribute> getDynaAttrib(EClass cls){
+    private List<ModelUnit> getModelBehavior(EObject element) {
+    	Session session = SessionManager.INSTANCE.getSession(element);
     	
-    	Session session = SessionManager.INSTANCE.getSession(cls);
-    	final TransactionalEditingDomain editingDomain = session.getTransactionalEditingDomain();
-		ResourceSet rs = editingDomain.getResourceSet();
-		
-    	URI uri = cls.eResource().getURI();
-    	URI implemURI = uri.trimFileExtension().appendFileExtension(IMPLEM_EXTENSION+"."+RESOURCE_SUFFIX);
+    	URI uri = element.eResource().getURI();
+    	URI implemURI = uri.trimFileExtension().appendFileExtension(DSL_EXTENSION);
     	
-    	Optional<Resource> implemSearch = 
+    	Optional<Resource> implemRes = 
 			session
 			.getSemanticResources()
 			.stream()
-			.filter(r -> r.getURI().equals(implemURI))
+			.filter(res -> res.getURI().equals(implemURI))
 			.findFirst();
-    	if(implemSearch.isPresent()){
-    		Resource implemRes = implemSearch.get();
-    		ModelBehavior root = (ModelBehavior) implemRes.getContents().get(0);
-			Optional<ExtendedClass> searchCls = 
-				root
-				.getUnits()
+    	
+    	if(implemRes.isPresent()){
+    		return 
+    			implemRes.get()
+    			.getContents()
 				.stream()
-				.flatMap(u -> u.getClassExtensions().stream())
-				.filter(ext -> ext.getBaseClass().getName().equals(cls.getName())).findFirst();
-			if(searchCls.isPresent()){
-				ExtendedClass xtdCls = searchCls.get();
-				return xtdCls.getAttributes();
-			}
+				.filter(elem -> elem instanceof ModelUnit)
+				.map(elm -> (ModelUnit) elm)
+				.collect(Collectors.toList());
     	}
+    	
+    	return new ArrayList<ModelUnit>();
+    }
+    
+    public List<Attribute> getDynaAttrib(EClass cls){
+    	List<ModelUnit> modelUnits = getModelBehavior(cls);
+    	Optional<ExtendedClass> searchCls = 
+			modelUnits
+			.stream()
+			.flatMap(u -> u.getClassExtensions().stream())
+			.filter(ext -> ext.getBaseClass().getName().equals(cls.getName())).findFirst();
+		if(searchCls.isPresent()){
+			ExtendedClass xtdCls = searchCls.get();
+			return 
+				xtdCls
+				.getAttributes()
+				.stream()
+				.filter(att -> att.getFeatureRef() instanceof EAttribute) //FIXME: show also not displayer EReferences
+				.collect(Collectors.toList());
+		}
+    	
     	return new ArrayList<Attribute>();
     }
     
     public List<Method> getMethod(EClass cls) {
-    	Session session = SessionManager.INSTANCE.getSession(cls);
-    	final TransactionalEditingDomain editingDomain = session.getTransactionalEditingDomain();
-		ResourceSet rs = editingDomain.getResourceSet();
-		
-    	URI uri = cls.eResource().getURI();
-    	URI implemURI = uri.trimFileExtension().appendFileExtension(IMPLEM_EXTENSION+"."+RESOURCE_SUFFIX);
-    	
-    	Optional<Resource> implemSearch = 
-			session
-			.getSemanticResources()
+    	List<ModelUnit> modelUnits = getModelBehavior(cls);
+    	Optional<ExtendedClass> searchCls = 
+			modelUnits
 			.stream()
-			.filter(r -> r.getURI().equals(implemURI))
-			.findFirst();
-    	if(implemSearch.isPresent()){
-    		Resource implemRes = implemSearch.get();
-    		ModelBehavior root = (ModelBehavior) implemRes.getContents().get(0);
-			Optional<ExtendedClass> searchCls = 
-				root
-				.getUnits()
+			.flatMap(u -> u.getClassExtensions().stream())
+			.filter(ext -> ext.getBaseClass().getName().equals(cls.getName())).findFirst();
+		if(searchCls.isPresent()){
+			ExtendedClass xtdCls = searchCls.get();
+			return 
+				xtdCls
+				.getMethods()
 				.stream()
-				.flatMap(u -> u.getClassExtensions().stream())
-				.filter(ext -> ext.getBaseClass().getName().equals(cls.getName())).findFirst();
-			if(searchCls.isPresent()){
-				ExtendedClass xtdCls = searchCls.get();
-				return 
-					xtdCls
-					.getMethods()
-					.stream()
-					.filter(op -> op instanceof Method)
-					.map(op -> (Method) op)
-					.collect(Collectors.toList());
-			}
-    	}
+				.filter(op -> op instanceof Method)
+				.map(op -> (Method) op)
+				.filter(op -> !isImplemented(op.getOperationRef())) //TODO: improve
+				.collect(Collectors.toList());
+		}
+    	
     	return new ArrayList<Method>();
     }
     

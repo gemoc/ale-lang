@@ -11,7 +11,9 @@
 package org.eclipse.emf.ecoretools.ale.core.parser;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,13 +28,16 @@ public class Dsl {
 		this.allSemantics.addAll(semantics);
 	}
 	
-	public Dsl(String dslFile) {
+	public Dsl(String dslFile) throws FileNotFoundException {
+		this(new FileInputStream(dslFile));
+	}
+	
+	public Dsl(InputStream input) {
 		
 		Properties dslProp = new Properties();
 		try {
-			FileInputStream in = new FileInputStream(dslFile);
-			dslProp.load(in);
-			in.close();
+			dslProp.load(input);
+			input.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

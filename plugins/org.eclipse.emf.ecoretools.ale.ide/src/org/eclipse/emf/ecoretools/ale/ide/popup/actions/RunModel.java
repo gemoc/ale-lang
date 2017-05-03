@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.ide.popup.actions;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -94,8 +95,12 @@ public class RunModel extends AbstractHandler {
 				Thread execThread = new Thread("Aql eval thread"){
 					@Override
 					public void run() {
-						IEvaluationResult result = interpreter.eval(modelLocation, new ArrayList(), new WorkbenchDsl(resource.getLocationURI().getPath().toString()));
-						interpreter.getLogger().diagnosticForHuman();
+						try {
+							IEvaluationResult result = interpreter.eval(modelLocation, new ArrayList(), new WorkbenchDsl(resource.getLocationURI().getPath().toString()));
+							interpreter.getLogger().diagnosticForHuman();
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+						}
 						this.stop();
 					}
 				};

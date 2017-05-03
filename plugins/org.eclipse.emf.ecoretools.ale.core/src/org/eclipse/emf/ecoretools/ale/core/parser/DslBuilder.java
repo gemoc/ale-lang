@@ -28,9 +28,16 @@ import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 public class DslBuilder {
 	
 	IQueryEnvironment queryEnvironment;
+	ResourceSet rs;
 	
 	public DslBuilder(IQueryEnvironment qryEnv) {
 		this.queryEnvironment = qryEnv;
+		this.rs = new ResourceSetImpl();
+	}
+	
+	public DslBuilder(IQueryEnvironment qryEnv, ResourceSet rs) {
+		this.queryEnvironment = qryEnv;
+		this.rs = rs;
 	}
 
 	/**
@@ -40,7 +47,6 @@ public class DslBuilder {
     	/*
     	 * Register EPackages
     	 */
-    	ResourceSet rs = new ResourceSetImpl();
     	rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
     	dsl.getAllSyntaxes()
     		.stream()
