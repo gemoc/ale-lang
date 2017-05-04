@@ -26,7 +26,7 @@
 <!-- List of pages -->
 			{% assign all_pages = site.pages | where_exp: 'item', 'item.order' != null | sort: 'order' %}
 			{% for p in all_pages  %}
-			  <li><a href="{{ p.url }}">{{ p.title }}</a></li>
+			  <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
 			{% endfor %}
 <!-- -->
         {% if site.show_downloads %}
