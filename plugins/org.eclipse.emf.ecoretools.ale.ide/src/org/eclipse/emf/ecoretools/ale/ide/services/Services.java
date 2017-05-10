@@ -58,6 +58,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
+import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -156,6 +157,15 @@ public class Services {
     	return new ArrayList<Attribute>();
     }
     
+    public List<Attribute> getDynaAttrib(RuntimeClass cls){
+		return 
+			cls
+			.getAttributes()
+			.stream()
+			.filter(att -> att.getFeatureRef() instanceof EAttribute) //FIXME: show also not displayer EReferences
+			.collect(Collectors.toList());
+    }
+    
     public List<Method> getMethod(EClass cls) {
     	List<ModelUnit> modelUnits = getModelBehavior(cls);
     	Optional<ExtendedClass> searchCls = 
@@ -176,6 +186,16 @@ public class Services {
 		}
     	
     	return new ArrayList<Method>();
+    }
+    
+    public List<Method> getMethod(RuntimeClass cls) {
+		return 
+			cls
+			.getMethods()
+			.stream()
+			.filter(op -> op instanceof Method)
+			.map(op -> (Method) op)
+			.collect(Collectors.toList());
     }
     
 	public EOperation editImplementation(EOperation op) {
@@ -363,6 +383,41 @@ public class Services {
 			Activator.getDefault().error(e);
 		}
 		return cls;
+	}
+	
+	public void createRuntimeClass(EObject obj) {
+		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		IFile file = getImplemFile(obj.eResource());
+		IEditorDescriptor desc = PlatformUI.getWorkbench().
+		        getEditorRegistry().getDefaultEditor(file.getName());
+		try {
+			IEditorPart editor = page.openEditor(new FileEditorInput(file), desc.getId());
+			
+			if(editor instanceof XtextEditor){
+				XtextEditor xEditor = (XtextEditor) editor;
+				IXtextDocument document = xEditor.getDocument();
+				document.modify(new IUnitOfWork.Void<XtextResource>() {
+					@Override
+					public void process(XtextResource state) throws Exception {
+						if(state.getContents().size() > 0) {
+							rRoot root = (rRoot) state.getContents().get(0);
+							
+							String newClassName = "NewRuntimeClass";
+							String template = "\n\t/* Write your code here */\n";
+							String newClass = "\n class "+newClassName+" {\n"+template+"}";
+							
+							ICompositeNode node = NodeModelUtils.findActualNodeFor(root);
+							int endOffset = node.getEndOffset();
+							document.replace(endOffset, 0,	newClass);
+							int templateOffset = endOffset + newClassName.length() + 13;
+							xEditor.selectAndReveal(templateOffset, template.length() -3);
+						}
+					}
+				});
+			}
+		} catch (PartInitException e) {
+			Activator.getDefault().error(e);
+		}
 	}
 	
 	private static IFile getImplemFile(Resource ecoreResource) {
