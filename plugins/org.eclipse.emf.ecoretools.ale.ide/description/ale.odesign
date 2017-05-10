@@ -72,19 +72,19 @@
           </subNodeMappings>
         </containerMappings>
         <toolSections name="BehavTool">
-          <ownedTools xsi:type="tool:OperationAction" name="Edit implementation" precondition="aql:self.oclIsTypeOf(ecore::EOperation)">
+          <ownedTools xsi:type="tool:OperationAction" name="Edit implementation" precondition="aql:self.oclIsTypeOf(ecore::EOperation)" icon="/org.eclipse.emf.ecore.edit/icons/full/obj16/EOperation.gif">
             <view name="views"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self.editImplementation()"/>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:OperationAction" name="Add method" precondition="aql:self.oclIsTypeOf(ecore::EClass)">
+          <ownedTools xsi:type="tool:OperationAction" name="Add runtime method" precondition="aql:self.oclIsTypeOf(ecore::EClass)" icon="/org.eclipse.emf.ecore.edit/icons/full/obj16/EOperation.gif">
             <view name="views"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self.addMethod()"/>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:OperationAction" name="Add dynamic feature" precondition="aql:self.oclIsTypeOf(ecore::EClass)">
+          <ownedTools xsi:type="tool:OperationAction" name="Add runtime feature" precondition="aql:self.oclIsTypeOf(ecore::EClass)" icon="/org.eclipse.emf.ecore.edit/icons/full/obj16/EAttribute.gif">
             <view name="views"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self.addDynamicFeature()"/>
