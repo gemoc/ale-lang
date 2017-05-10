@@ -55,7 +55,7 @@
     <extension
            point="org.eclipse.sirius.sessionManagerListener">
         <listener
-              class="org.eclipse.emf.ecoretools.ale.ide.listener.AleSessionListener">
+              class="org.eclipse.emf.ecoretools.ale.ide.listener.AleSessionManagerListener">
         </listener>
      </extension>
 

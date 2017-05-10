@@ -82,197 +82,8 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
 public class Services {
 	
-	public static final String IMPLEM_EXTENSION = "mydsl";
+	public static final String IMPLEM_EXTENSION = "ale";
 	public static final String DSL_EXTENSION = "dsl";
-	public static final String RESOURCE_SUFFIX = "transient";
-	
-	public static void reloadModelBehavior(Session session, Resource ecoreRes) {
-		final TransactionalEditingDomain editingDomain = session.getTransactionalEditingDomain();
-		ResourceSet rs = editingDomain.getResourceSet();
-		
-    	URI uri = ecoreRes.getURI();
-    	URI implemURI = uri.trimFileExtension().appendFileExtension(IMPLEM_EXTENSION+"."+RESOURCE_SUFFIX);
-    	
-    	/*
-    	 * Remove existing implem resource
-    	 */
-    	Optional<Resource> implemSearch = 
-			session
-			.getSemanticResources()
-			.stream()
-			.filter(r -> r.getURI().equals(implemURI))
-			.findFirst();
-    	if(implemSearch.isPresent()){
-    		RecordingCommand cmd = new RecordingCommand(editingDomain) {
-				@Override
-				protected void doExecute() {
-					session.removeSemanticResource(implemSearch.get(), new NullProgressMonitor(), false);
-				}
-			};
-			try {
-				CommandStack commandStack = editingDomain.getCommandStack();
-				commandStack.execute(cmd);
-			} catch (Exception e) {
-				Activator.getDefault().error(e);
-			}
-    	}
-    	
-    	/*
-    	 * Reload implem resource
-    	 */
-		RecordingCommand cmd = new RecordingCommand(editingDomain) {
-		@Override
-		protected void doExecute() {
-				getOrCreateImplemFile(ecoreRes);
-				Resource res = rs.createResource(implemURI);
-				
-				URI implemFileURI = uri.trimFileExtension().appendFileExtension(IMPLEM_EXTENSION);
-				String relativeURI = implemFileURI.toPlatformString(true);
-				String fullURI = ResourcesPlugin.getWorkspace().getRoot().getLocation()+relativeURI;
-				List<EPackage> pkgs = getMetamodel(ecoreRes);
-				ModelUnit mb;
-				try {
-					mb = loadBehavior(fullURI, pkgs).getRoot();
-					res.getContents().add(mb);
-					
-				} catch (IOException e) {
-					Activator.getDefault().error(e);
-				}
-				
-				session.addSemanticResource(res.getURI(), new NullProgressMonitor());
-			}
-		};
-		try {
-			CommandStack commandStack = editingDomain.getCommandStack();
-			commandStack.execute(cmd);
-		} catch (Exception e) {
-			Activator.getDefault().error(e);
-		}
-	}
-	
-	/**
-	 * Create a .mydsl file based an the ecoreResource's URI and add listener.
-	 * Do nothing if already there
-	 */
-	private static IFile getOrCreateImplemFile(Resource ecoreResource) {
-		
-		IFile file = WorkspaceSynchronizer.getFile(ecoreResource);
-		IPath dslPath = file.getFullPath().removeFileExtension().addFileExtension(IMPLEM_EXTENSION);
-		IWorkspaceRoot ws = ResourcesPlugin.getWorkspace().getRoot();
-		IFile implemFile = ws.getFile(dslPath);
-		if(!implemFile.exists()){
-			String emptyContent = "";
-			InputStream source = new ByteArrayInputStream(emptyContent.getBytes());
-			try {
-				implemFile.create(source, true, new NullProgressMonitor());
-			} catch (CoreException e) {
-				Activator.getDefault().error(e);
-			}
-		}
-		Session session = SessionManager.INSTANCE.getSession(ecoreResource);
-		addListenerIfNeeded(session,ecoreResource);
-		return implemFile;
-	}
-	
-	
-	
-	private static List<EPackage> getMetamodel(Resource ecoreRes) {
-		List<EPackage> res = new ArrayList<EPackage>();
-		ecoreRes.getAllContents().forEachRemaining(e -> {
-			if(e instanceof EPackage){
-				res.add((EPackage) e);
-			}
-		});
-		return res;
-	}
-	
-	/**
-	 * Call the parser
-	 * @throws IOException 
-	 */
-	private static ParseResult<ModelUnit> loadBehavior(String filePath, List<EPackage> pkgs) throws IOException {
-		String content = getFileContent(filePath);
-		
-		IQueryEnvironment queryEnvironment = Query.newEnvironmentWithDefaultServices(null);
-		queryEnvironment.registerEPackage(ImplementationPackage.eINSTANCE);
-		queryEnvironment.registerEPackage(AstPackage.eINSTANCE);
-		pkgs.stream().forEach(pkg -> queryEnvironment.registerEPackage(pkg));
-		return (new AstBuilder(queryEnvironment)).parse(content);
-	}
-	
-	private static String getFileContent(String implementionPath){
-		String fileContent = "";
-		try {
-			fileContent = new String(Files.readAllBytes(Paths.get(implementionPath)));
-		} catch (IOException e) {
-			Activator.getDefault().error(e);
-		}
-		return fileContent;
-	}
-	
-	static Map<Session,Map<String,IResourceChangeListener>> registry = new HashMap<Session,Map<String,IResourceChangeListener>>();
-
-	public EObject addListenerIfNeeded(EObject e){
-		Session session = SessionManager.INSTANCE.getSession(e);
-		addListenerIfNeeded(session, e.eResource());
-		return null;
-	}
-	
-	private static void addListenerIfNeeded(Session session, Resource ecoreRes) {
-		
-		URI implemUri = ecoreRes.getURI().trimFileExtension().appendFileExtension(IMPLEM_EXTENSION);
-		String implemPath = implemUri.toPlatformString(true);
-		
-		IResourceChangeListener existingListener = null;
-		Map<String, IResourceChangeListener> sessionReg = registry.get(session);
-		if(sessionReg != null){
-			existingListener = registry.get(session).get(implemPath);
-		}
-		else{
-			registry.put(session,new HashMap<String,IResourceChangeListener>());
-		}
-		
-		if(existingListener == null) {
-			IFile implemFile = null;
-			if (implemUri.isPlatformResource()) {
-	             IPath path = new Path(implemUri.toPlatformString(true));
-	             implemFile = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
-	        }
-			else if (implemUri.isFile() && !implemUri.isRelative()) {
-				implemFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(new Path(implemUri.toFileString()));
-	        }
-			
-			final IFile targetFile = implemFile;
-			if(implemFile != null) {
-				IResourceChangeListener listener = new IResourceChangeListener() {
-					@Override
-					public void resourceChanged(IResourceChangeEvent event) {
-						if(event.getType() == IResourceChangeEvent.POST_CHANGE){
-							IResourceDelta deltaTarget = event.getDelta().findMember(targetFile.getFullPath());
-							if(deltaTarget != null){
-								reloadModelBehavior(session,ecoreRes);
-								RecordingCommand cmd = new RecordingCommand(session.getTransactionalEditingDomain()) {
-									@Override
-									protected void doExecute() {
-										session.getOwnedViews().forEach(e -> e.refresh());
-									}
-								};
-								try {
-									CommandStack commandStack = session.getTransactionalEditingDomain().getCommandStack();
-									commandStack.execute(cmd);
-								} catch (Exception e) {
-									Activator.getDefault().error(e);
-								}
-							}
-						}
-					}
-				};
-				sessionReg = registry.get(session);
-				sessionReg.put(implemPath, listener);
-				ResourcesPlugin.getWorkspace().addResourceChangeListener(listener);
-			}
-		}
-	}
 	
     public boolean isImplemented(EObject elem) {
     	if(elem instanceof EOperation) {
@@ -369,7 +180,7 @@ public class Services {
     
 	public EOperation editImplementation(EOperation op) {
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		IFile file = getOrCreateImplemFile(op.eResource());
+		IFile file = getImplemFile(op.eResource());
 		IEditorDescriptor desc = PlatformUI.getWorkbench().
 		        getEditorRegistry().getDefaultEditor(file.getName());
 		try {
@@ -412,7 +223,7 @@ public class Services {
 							else {
 								ICompositeNode node = NodeModelUtils.findActualNodeFor(root);
 								int endOffset = node.getEndOffset();
-								String newXtdClass = "\nclass "+op.getEContainingClass().getName()+" {\n"+template+"}";
+								String newXtdClass = "\nopen class "+op.getEContainingClass().getName()+" {\n"+template+"}";
 								document.replace(endOffset, 0,	newXtdClass);
 								xEditor.selectAndReveal(endOffset, newXtdClass.length());
 							}
@@ -429,7 +240,7 @@ public class Services {
 
 	public EClass addMethod(EClass cls) {
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		IFile file = getOrCreateImplemFile(cls.eResource());
+		IFile file = getImplemFile(cls.eResource());
 		IEditorDescriptor desc = PlatformUI.getWorkbench().
 		        getEditorRegistry().getDefaultEditor(file.getName());
 		try {
@@ -466,7 +277,7 @@ public class Services {
 							else {
 								ICompositeNode node = NodeModelUtils.findActualNodeFor(root);
 								int endOffset = node.getEndOffset();
-								String newXtdClass = "\nclass "+cls.getName()+" {\n"+template+"}";
+								String newXtdClass = "\nopen class "+cls.getName()+" {\n"+template+"}";
 								document.replace(endOffset, 0,	newXtdClass);
 							}
 						}
@@ -482,7 +293,7 @@ public class Services {
 
 	public EClass addDynamicFeature(EClass cls){
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		IFile file = getOrCreateImplemFile(cls.eResource());
+		IFile file = getImplemFile(cls.eResource());
 		IEditorDescriptor desc = PlatformUI.getWorkbench().
 		        getEditorRegistry().getDefaultEditor(file.getName());
 		try {
@@ -531,7 +342,7 @@ public class Services {
 							else {
 								ICompositeNode node = NodeModelUtils.findActualNodeFor(root);
 								int endOffset = node.getEndOffset();
-								String newXtdClass = "\nclass "+cls.getName()+" {\n"+template+"}";
+								String newXtdClass = "\nopen class "+cls.getName()+" {\n"+template+"}";
 								document.replace(endOffset, 0,	newXtdClass);
 							}
 						}
@@ -543,5 +354,13 @@ public class Services {
 			Activator.getDefault().error(e);
 		}
 		return cls;
+	}
+	
+	private static IFile getImplemFile(Resource ecoreResource) {
+		IFile file = WorkspaceSynchronizer.getFile(ecoreResource);
+		IPath dslPath = file.getFullPath().removeFileExtension().addFileExtension(IMPLEM_EXTENSION);
+		IWorkspaceRoot ws = ResourcesPlugin.getWorkspace().getRoot();
+		IFile implemFile = ws.getFile(dslPath);
+		return implemFile;
 	}
 }
