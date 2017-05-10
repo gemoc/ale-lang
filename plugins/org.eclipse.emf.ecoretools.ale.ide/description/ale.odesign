@@ -24,7 +24,7 @@
           <reusedBorderedNodeMappings href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@nodeMappings[name='Empty%20Diagram']"/>
           <reusedBorderedNodeMappings href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@additionalLayers[name='Documentation']/@nodeMappings[name='EC%20Doc%20Annotation']"/>
           <subNodeMappings name="Runtime feature" semanticCandidatesExpression="aql:self.getDynaAttrib()" domainClass="implementation.Attribute">
-            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.featureRef.name+' : '+self.featureRef.eType.name" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
+            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.featureRef.render()" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EAttribute.gif" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelFormat>bold</labelFormat>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -32,7 +32,7 @@
             </style>
           </subNodeMappings>
           <subNodeMappings name="Method" semanticCandidatesExpression="aql:self.getMethod()" domainClass="implementation.Method">
-            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.operationRef.name+'()'" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
+            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.operationRef.render()" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EOperation.gif" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelFormat>bold</labelFormat>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -55,7 +55,7 @@
         </containerMappings>
         <containerMappings name="RuntimeClass" domainClass="implementation.RuntimeClass" childrenPresentation="List">
           <subNodeMappings name="Runtime feature" semanticCandidatesExpression="aql:self.getDynaAttrib()" domainClass="implementation.Attribute">
-            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.featureRef.name+' : '+self.featureRef.eType.name" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
+            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.featureRef.render()" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EAttribute.gif" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelFormat>bold</labelFormat>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -63,7 +63,7 @@
             </style>
           </subNodeMappings>
           <subNodeMappings name="Method" semanticCandidatesExpression="aql:self.getMethod()" domainClass="implementation.Method">
-            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.operationRef.name+'()'" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
+            <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.operationRef.render()" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EOperation.gif" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelFormat>bold</labelFormat>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -102,5 +102,6 @@
       </layers>
     </ownedRepresentationExtensions>
     <ownedJavaExtensions qualifiedClassName="org.eclipse.emf.ecoretools.ale.ide.services.Services"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.emf.ecoretools.design.service.DesignServices"/>
   </ownedViewpoints>
 </description:Group>
