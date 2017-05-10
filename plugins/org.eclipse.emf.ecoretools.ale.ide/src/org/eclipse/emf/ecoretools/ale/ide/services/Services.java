@@ -218,6 +218,7 @@ public class Services {
 								if(!opSearch.isPresent()){
 									int endOffset = node.getEndOffset();
 									document.replace(endOffset-1, 0,	template);
+									xEditor.selectAndReveal(endOffset, template.length() -2);
 								}
 							}
 							else {
@@ -226,6 +227,8 @@ public class Services {
 								String newXtdClass = "\nopen class "+op.getEContainingClass().getName()+" {\n"+template+"}";
 								document.replace(endOffset, 0,	newXtdClass);
 								xEditor.selectAndReveal(endOffset, newXtdClass.length());
+								int templateOffset = endOffset + op.getEContainingClass().getName().length() + 16;
+								xEditor.selectAndReveal(templateOffset, template.length() -2);
 							}
 						}
 					}
@@ -272,6 +275,7 @@ public class Services {
 								if(!opSearch.isPresent()){
 									int endOffset = node.getEndOffset();
 									document.replace(endOffset-1, 0, template);
+									xEditor.selectAndReveal(endOffset, template.length() -2);
 								}
 							}
 							else {
@@ -279,6 +283,8 @@ public class Services {
 								int endOffset = node.getEndOffset();
 								String newXtdClass = "\nopen class "+cls.getName()+" {\n"+template+"}";
 								document.replace(endOffset, 0,	newXtdClass);
+								int templateOffset = endOffset + cls.getName().length() + 16;
+								xEditor.selectAndReveal(templateOffset, template.length() -2);
 							}
 						}
 					}
@@ -337,6 +343,7 @@ public class Services {
 									}
 									
 									document.replace(endOffset-1, 0, template);
+									xEditor.selectAndReveal(endOffset+1, template.length() -3);
 								}
 							}
 							else {
@@ -344,6 +351,8 @@ public class Services {
 								int endOffset = node.getEndOffset();
 								String newXtdClass = "\nopen class "+cls.getName()+" {\n"+template+"}";
 								document.replace(endOffset, 0,	newXtdClass);
+								int templateOffset = endOffset + cls.getName().length() + 17;
+								xEditor.selectAndReveal(templateOffset, template.length() -3);
 							}
 						}
 					}
