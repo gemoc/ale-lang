@@ -21,9 +21,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENamedElementImpl;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -42,13 +41,12 @@ import org.eclipse.emf.ecoretools.ale.implementation.Method;
  * <ul>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.BehavioredClassImpl#getMethods <em>Methods</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.BehavioredClassImpl#getAttributes <em>Attributes</em>}</li>
- *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.BehavioredClassImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.BehavioredClassImpl#getFragment <em>Fragment</em>}</li>
  * </ul>
  *
  * @generated
  */
-public abstract class BehavioredClassImpl extends MinimalEObjectImpl.Container implements BehavioredClass {
+public abstract class BehavioredClassImpl extends ENamedElementImpl implements BehavioredClass {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -75,26 +73,6 @@ public abstract class BehavioredClassImpl extends MinimalEObjectImpl.Container i
 	 * @ordered
 	 */
 	protected EList<Attribute> attributes;
-
-	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String NAME_EDEFAULT = "";
-
-	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getFragment() <em>Fragment</em>}' containment reference.
@@ -147,27 +125,6 @@ public abstract class BehavioredClassImpl extends MinimalEObjectImpl.Container i
 			attributes = new EObjectContainmentEList<Attribute>(Attribute.class, this, ImplementationPackage.BEHAVIORED_CLASS__ATTRIBUTES);
 		}
 		return attributes;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.BEHAVIORED_CLASS__NAME, oldName, name));
 	}
 
 	/**
@@ -243,8 +200,6 @@ public abstract class BehavioredClassImpl extends MinimalEObjectImpl.Container i
 				return getMethods();
 			case ImplementationPackage.BEHAVIORED_CLASS__ATTRIBUTES:
 				return getAttributes();
-			case ImplementationPackage.BEHAVIORED_CLASS__NAME:
-				return getName();
 			case ImplementationPackage.BEHAVIORED_CLASS__FRAGMENT:
 				return getFragment();
 		}
@@ -268,9 +223,6 @@ public abstract class BehavioredClassImpl extends MinimalEObjectImpl.Container i
 				getAttributes().clear();
 				getAttributes().addAll((Collection<? extends Attribute>)newValue);
 				return;
-			case ImplementationPackage.BEHAVIORED_CLASS__NAME:
-				setName((String)newValue);
-				return;
 			case ImplementationPackage.BEHAVIORED_CLASS__FRAGMENT:
 				setFragment((EClass)newValue);
 				return;
@@ -292,9 +244,6 @@ public abstract class BehavioredClassImpl extends MinimalEObjectImpl.Container i
 			case ImplementationPackage.BEHAVIORED_CLASS__ATTRIBUTES:
 				getAttributes().clear();
 				return;
-			case ImplementationPackage.BEHAVIORED_CLASS__NAME:
-				setName(NAME_EDEFAULT);
-				return;
 			case ImplementationPackage.BEHAVIORED_CLASS__FRAGMENT:
 				setFragment((EClass)null);
 				return;
@@ -314,28 +263,10 @@ public abstract class BehavioredClassImpl extends MinimalEObjectImpl.Container i
 				return methods != null && !methods.isEmpty();
 			case ImplementationPackage.BEHAVIORED_CLASS__ATTRIBUTES:
 				return attributes != null && !attributes.isEmpty();
-			case ImplementationPackage.BEHAVIORED_CLASS__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ImplementationPackage.BEHAVIORED_CLASS__FRAGMENT:
 				return fragment != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(')');
-		return result.toString();
 	}
 
 } //BehavioredClassImpl

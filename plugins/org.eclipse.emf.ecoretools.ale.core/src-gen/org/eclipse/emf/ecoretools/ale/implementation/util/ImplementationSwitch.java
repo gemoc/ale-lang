@@ -13,6 +13,7 @@ package org.eclipse.emf.ecoretools.ale.implementation.util;
 
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.emf.ecore.EModelElement;
+import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -93,8 +94,9 @@ public class ImplementationSwitch<T> extends Switch<T> {
 			case ImplementationPackage.EXTENDED_CLASS: {
 				ExtendedClass extendedClass = (ExtendedClass)theEObject;
 				T result = caseExtendedClass(extendedClass);
-				if (result == null) result = caseEModelElement(extendedClass);
 				if (result == null) result = caseBehavioredClass(extendedClass);
+				if (result == null) result = caseENamedElement(extendedClass);
+				if (result == null) result = caseEModelElement(extendedClass);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -102,6 +104,8 @@ public class ImplementationSwitch<T> extends Switch<T> {
 				RuntimeClass runtimeClass = (RuntimeClass)theEObject;
 				T result = caseRuntimeClass(runtimeClass);
 				if (result == null) result = caseBehavioredClass(runtimeClass);
+				if (result == null) result = caseENamedElement(runtimeClass);
+				if (result == null) result = caseEModelElement(runtimeClass);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -114,12 +118,16 @@ public class ImplementationSwitch<T> extends Switch<T> {
 			case ImplementationPackage.MODEL_UNIT: {
 				ModelUnit modelUnit = (ModelUnit)theEObject;
 				T result = caseModelUnit(modelUnit);
+				if (result == null) result = caseENamedElement(modelUnit);
+				if (result == null) result = caseEModelElement(modelUnit);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ImplementationPackage.BEHAVIORED_CLASS: {
 				BehavioredClass behavioredClass = (BehavioredClass)theEObject;
 				T result = caseBehavioredClass(behavioredClass);
+				if (result == null) result = caseENamedElement(behavioredClass);
+				if (result == null) result = caseEModelElement(behavioredClass);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -583,6 +591,21 @@ public class ImplementationSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseEModelElement(EModelElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>ENamed Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>ENamed Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseENamedElement(ENamedElement object) {
 		return null;
 	}
 

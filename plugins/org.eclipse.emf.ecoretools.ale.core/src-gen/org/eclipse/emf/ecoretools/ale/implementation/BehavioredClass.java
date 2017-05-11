@@ -14,7 +14,7 @@ package org.eclipse.emf.ecoretools.ale.implementation;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.ENamedElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,7 +27,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass#getMethods <em>Methods</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass#getAttributes <em>Attributes</em>}</li>
- *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass#getFragment <em>Fragment</em>}</li>
  * </ul>
  *
@@ -35,7 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface BehavioredClass extends EObject {
+public interface BehavioredClass extends ENamedElement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -74,33 +73,6 @@ public interface BehavioredClass extends EObject {
 	 * @generated
 	 */
 	EList<Attribute> getAttributes();
-
-	/**
-	 * Returns the value of the '<em><b>Name</b></em>' attribute.
-	 * The default value is <code>""</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage#getBehavioredClass_Name()
-	 * @model default="" required="true"
-	 * @generated
-	 */
-	String getName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass#getName <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Name</em>' attribute.
-	 * @see #getName()
-	 * @generated
-	 */
-	void setName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Fragment</b></em>' containment reference.

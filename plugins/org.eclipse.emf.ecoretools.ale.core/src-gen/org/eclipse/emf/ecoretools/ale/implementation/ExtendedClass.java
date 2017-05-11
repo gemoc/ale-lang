@@ -14,7 +14,6 @@ package org.eclipse.emf.ecoretools.ale.implementation;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EModelElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,7 +33,7 @@ import org.eclipse.emf.ecore.EModelElement;
  * @model
  * @generated
  */
-public interface ExtendedClass extends EModelElement, BehavioredClass {
+public interface ExtendedClass extends BehavioredClass {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

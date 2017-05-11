@@ -18,6 +18,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EModelElement;
+import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.ecoretools.ale.implementation.*;
@@ -176,6 +177,10 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseEModelElement(EModelElement object) {
 				return createEModelElementAdapter();
+			}
+			@Override
+			public Adapter caseENamedElement(ENamedElement object) {
+				return createENamedElementAdapter();
 			}
 			@Override
 			public Adapter caseExpression(Expression object) {
@@ -520,6 +525,20 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEModelElementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecore.ENamedElement <em>ENamed Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.emf.ecore.ENamedElement
+	 * @generated
+	 */
+	public Adapter createENamedElementAdapter() {
 		return null;
 	}
 

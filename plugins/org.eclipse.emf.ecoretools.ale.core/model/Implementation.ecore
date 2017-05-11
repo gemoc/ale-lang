@@ -7,7 +7,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="units" upperBound="-1"
         eType="#//ModelUnit" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExtendedClass" eSuperTypes="../../org.eclipse.emf.ecore/model/Ecore.ecore#//EModelElement #//BehavioredClass">
+  <eClassifiers xsi:type="ecore:EClass" name="ExtendedClass" eSuperTypes="#//BehavioredClass">
     <eStructuralFeatures xsi:type="ecore:EReference" name="baseClass" lowerBound="1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extends" upperBound="-1"
@@ -23,8 +23,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tags" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ModelUnit">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelUnit" eSuperTypes="../../org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="services" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classExtensions" upperBound="-1"
@@ -32,13 +31,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="classDefinitions" upperBound="-1"
         eType="#//RuntimeClass" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BehavioredClass" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="BehavioredClass" abstract="true" eSuperTypes="../../org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="methods" upperBound="-1"
         eType="#//Method" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
         eType="#//Attribute" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        defaultValueLiteral=""/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fragment" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"
         containment="true"/>
   </eClassifiers>

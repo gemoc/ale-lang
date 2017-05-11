@@ -400,7 +400,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getModelUnit_Name() {
+	public EAttribute getModelUnit_Services() {
 		return (EAttribute)modelUnitEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -409,17 +409,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getModelUnit_Services() {
-		return (EAttribute)modelUnitEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getModelUnit_ClassExtensions() {
-		return (EReference)modelUnitEClass.getEStructuralFeatures().get(2);
+		return (EReference)modelUnitEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -428,7 +419,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * @generated
 	 */
 	public EReference getModelUnit_ClassDefinitions() {
-		return (EReference)modelUnitEClass.getEStructuralFeatures().get(3);
+		return (EReference)modelUnitEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -463,17 +454,8 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBehavioredClass_Name() {
-		return (EAttribute)behavioredClassEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getBehavioredClass_Fragment() {
-		return (EReference)behavioredClassEClass.getEStructuralFeatures().get(3);
+		return (EReference)behavioredClassEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -962,7 +944,6 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		createEAttribute(methodEClass, METHOD__TAGS);
 
 		modelUnitEClass = createEClass(MODEL_UNIT);
-		createEAttribute(modelUnitEClass, MODEL_UNIT__NAME);
 		createEAttribute(modelUnitEClass, MODEL_UNIT__SERVICES);
 		createEReference(modelUnitEClass, MODEL_UNIT__CLASS_EXTENSIONS);
 		createEReference(modelUnitEClass, MODEL_UNIT__CLASS_DEFINITIONS);
@@ -970,7 +951,6 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		behavioredClassEClass = createEClass(BEHAVIORED_CLASS);
 		createEReference(behavioredClassEClass, BEHAVIORED_CLASS__METHODS);
 		createEReference(behavioredClassEClass, BEHAVIORED_CLASS__ATTRIBUTES);
-		createEAttribute(behavioredClassEClass, BEHAVIORED_CLASS__NAME);
 		createEReference(behavioredClassEClass, BEHAVIORED_CLASS__FRAGMENT);
 
 		attributeEClass = createEClass(ATTRIBUTE);
@@ -1071,9 +1051,10 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		extendedClassEClass.getESuperTypes().add(theEcorePackage.getEModelElement());
 		extendedClassEClass.getESuperTypes().add(this.getBehavioredClass());
 		runtimeClassEClass.getESuperTypes().add(this.getBehavioredClass());
+		modelUnitEClass.getESuperTypes().add(theEcorePackage.getENamedElement());
+		behavioredClassEClass.getESuperTypes().add(theEcorePackage.getENamedElement());
 		attributeEClass.getESuperTypes().add(theEcorePackage.getEModelElement());
 		blockEClass.getESuperTypes().add(this.getStatement());
 		variableDeclarationEClass.getESuperTypes().add(this.getStatement());
@@ -1107,7 +1088,6 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		initEAttribute(getMethod_Tags(), ecorePackage.getEString(), "tags", null, 0, -1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelUnitEClass, ModelUnit.class, "ModelUnit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getModelUnit_Name(), ecorePackage.getEString(), "name", null, 0, 1, ModelUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getModelUnit_Services(), ecorePackage.getEString(), "services", null, 0, -1, ModelUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelUnit_ClassExtensions(), this.getExtendedClass(), null, "classExtensions", null, 0, -1, ModelUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelUnit_ClassDefinitions(), this.getRuntimeClass(), null, "classDefinitions", null, 0, -1, ModelUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1115,7 +1095,6 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		initEClass(behavioredClassEClass, BehavioredClass.class, "BehavioredClass", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBehavioredClass_Methods(), this.getMethod(), null, "methods", null, 0, -1, BehavioredClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehavioredClass_Attributes(), this.getAttribute(), null, "attributes", null, 0, -1, BehavioredClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBehavioredClass_Name(), ecorePackage.getEString(), "name", "", 1, 1, BehavioredClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehavioredClass_Fragment(), theEcorePackage.getEClass(), null, "fragment", null, 0, 1, BehavioredClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(attributeEClass, Attribute.class, "Attribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

@@ -131,105 +131,6 @@ public interface ImplementationPackage extends EPackage {
 	int EXTENDED_CLASS = 1;
 
 	/**
-	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENDED_CLASS__EANNOTATIONS = EcorePackage.EMODEL_ELEMENT__EANNOTATIONS;
-
-	/**
-	 * The feature id for the '<em><b>Methods</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENDED_CLASS__METHODS = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENDED_CLASS__ATTRIBUTES = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENDED_CLASS__NAME = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Fragment</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENDED_CLASS__FRAGMENT = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Base Class</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENDED_CLASS__BASE_CLASS = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Extends</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENDED_CLASS__EXTENDS = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>Children</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENDED_CLASS__CHILDREN = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 6;
-
-	/**
-	 * The number of structural features of the '<em>Extended Class</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENDED_CLASS_FEATURE_COUNT = EcorePackage.EMODEL_ELEMENT_FEATURE_COUNT + 7;
-
-	/**
-	 * The operation id for the '<em>Get EAnnotation</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENDED_CLASS___GET_EANNOTATION__STRING = EcorePackage.EMODEL_ELEMENT___GET_EANNOTATION__STRING;
-
-	/**
-	 * The number of operations of the '<em>Extended Class</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENDED_CLASS_OPERATION_COUNT = EcorePackage.EMODEL_ELEMENT_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.BehavioredClassImpl <em>Behaviored Class</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -240,22 +141,13 @@ public interface ImplementationPackage extends EPackage {
 	int BEHAVIORED_CLASS = 5;
 
 	/**
-	 * The feature id for the '<em><b>Methods</b></em>' containment reference list.
+	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIORED_CLASS__METHODS = 0;
-
-	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BEHAVIORED_CLASS__ATTRIBUTES = 1;
+	int BEHAVIORED_CLASS__EANNOTATIONS = EcorePackage.ENAMED_ELEMENT__EANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -264,7 +156,25 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIORED_CLASS__NAME = 2;
+	int BEHAVIORED_CLASS__NAME = EcorePackage.ENAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Methods</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORED_CLASS__METHODS = EcorePackage.ENAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORED_CLASS__ATTRIBUTES = EcorePackage.ENAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Fragment</b></em>' containment reference.
@@ -273,7 +183,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIORED_CLASS__FRAGMENT = 3;
+	int BEHAVIORED_CLASS__FRAGMENT = EcorePackage.ENAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Behaviored Class</em>' class.
@@ -282,7 +192,16 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIORED_CLASS_FEATURE_COUNT = 4;
+	int BEHAVIORED_CLASS_FEATURE_COUNT = EcorePackage.ENAMED_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The operation id for the '<em>Get EAnnotation</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIORED_CLASS___GET_EANNOTATION__STRING = EcorePackage.ENAMED_ELEMENT___GET_EANNOTATION__STRING;
 
 	/**
 	 * The number of operations of the '<em>Behaviored Class</em>' class.
@@ -291,7 +210,106 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BEHAVIORED_CLASS_OPERATION_COUNT = 0;
+	int BEHAVIORED_CLASS_OPERATION_COUNT = EcorePackage.ENAMED_ELEMENT_OPERATION_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__EANNOTATIONS = BEHAVIORED_CLASS__EANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__NAME = BEHAVIORED_CLASS__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Methods</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__METHODS = BEHAVIORED_CLASS__METHODS;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__ATTRIBUTES = BEHAVIORED_CLASS__ATTRIBUTES;
+
+	/**
+	 * The feature id for the '<em><b>Fragment</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__FRAGMENT = BEHAVIORED_CLASS__FRAGMENT;
+
+	/**
+	 * The feature id for the '<em><b>Base Class</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__BASE_CLASS = BEHAVIORED_CLASS_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Extends</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__EXTENDS = BEHAVIORED_CLASS_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS__CHILDREN = BEHAVIORED_CLASS_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Extended Class</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS_FEATURE_COUNT = BEHAVIORED_CLASS_FEATURE_COUNT + 3;
+
+	/**
+	 * The operation id for the '<em>Get EAnnotation</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS___GET_EANNOTATION__STRING = BEHAVIORED_CLASS___GET_EANNOTATION__STRING;
+
+	/**
+	 * The number of operations of the '<em>Extended Class</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENDED_CLASS_OPERATION_COUNT = BEHAVIORED_CLASS_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.RuntimeClassImpl <em>Runtime Class</em>}' class.
@@ -302,6 +320,24 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	int RUNTIME_CLASS = 2;
+
+	/**
+	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RUNTIME_CLASS__EANNOTATIONS = BEHAVIORED_CLASS__EANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RUNTIME_CLASS__NAME = BEHAVIORED_CLASS__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Methods</b></em>' containment reference list.
@@ -322,15 +358,6 @@ public interface ImplementationPackage extends EPackage {
 	int RUNTIME_CLASS__ATTRIBUTES = BEHAVIORED_CLASS__ATTRIBUTES;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RUNTIME_CLASS__NAME = BEHAVIORED_CLASS__NAME;
-
-	/**
 	 * The feature id for the '<em><b>Fragment</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -347,6 +374,15 @@ public interface ImplementationPackage extends EPackage {
 	 * @ordered
 	 */
 	int RUNTIME_CLASS_FEATURE_COUNT = BEHAVIORED_CLASS_FEATURE_COUNT + 0;
+
+	/**
+	 * The operation id for the '<em>Get EAnnotation</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RUNTIME_CLASS___GET_EANNOTATION__STRING = BEHAVIORED_CLASS___GET_EANNOTATION__STRING;
 
 	/**
 	 * The number of operations of the '<em>Runtime Class</em>' class.
@@ -423,13 +459,22 @@ public interface ImplementationPackage extends EPackage {
 	int MODEL_UNIT = 4;
 
 	/**
+	 * The feature id for the '<em><b>EAnnotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_UNIT__EANNOTATIONS = EcorePackage.ENAMED_ELEMENT__EANNOTATIONS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_UNIT__NAME = 0;
+	int MODEL_UNIT__NAME = EcorePackage.ENAMED_ELEMENT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Services</b></em>' attribute list.
@@ -438,7 +483,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_UNIT__SERVICES = 1;
+	int MODEL_UNIT__SERVICES = EcorePackage.ENAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Class Extensions</b></em>' containment reference list.
@@ -447,7 +492,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_UNIT__CLASS_EXTENSIONS = 2;
+	int MODEL_UNIT__CLASS_EXTENSIONS = EcorePackage.ENAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Class Definitions</b></em>' containment reference list.
@@ -456,7 +501,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_UNIT__CLASS_DEFINITIONS = 3;
+	int MODEL_UNIT__CLASS_DEFINITIONS = EcorePackage.ENAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Model Unit</em>' class.
@@ -465,7 +510,16 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_UNIT_FEATURE_COUNT = 4;
+	int MODEL_UNIT_FEATURE_COUNT = EcorePackage.ENAMED_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The operation id for the '<em>Get EAnnotation</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_UNIT___GET_EANNOTATION__STRING = EcorePackage.ENAMED_ELEMENT___GET_EANNOTATION__STRING;
 
 	/**
 	 * The number of operations of the '<em>Model Unit</em>' class.
@@ -474,7 +528,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_UNIT_OPERATION_COUNT = 0;
+	int MODEL_UNIT_OPERATION_COUNT = EcorePackage.ENAMED_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.AttributeImpl <em>Attribute</em>}' class.
@@ -1416,17 +1470,6 @@ public interface ImplementationPackage extends EPackage {
 	EClass getModelUnit();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.implementation.ModelUnit#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.emf.ecoretools.ale.implementation.ModelUnit#getName()
-	 * @see #getModelUnit()
-	 * @generated
-	 */
-	EAttribute getModelUnit_Name();
-
-	/**
 	 * Returns the meta object for the attribute list '{@link org.eclipse.emf.ecoretools.ale.implementation.ModelUnit#getServices <em>Services</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1490,17 +1533,6 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getBehavioredClass_Attributes();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass#getName()
-	 * @see #getBehavioredClass()
-	 * @generated
-	 */
-	EAttribute getBehavioredClass_Name();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass#getFragment <em>Fragment</em>}'.
@@ -2174,14 +2206,6 @@ public interface ImplementationPackage extends EPackage {
 		EClass MODEL_UNIT = eINSTANCE.getModelUnit();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute MODEL_UNIT__NAME = eINSTANCE.getModelUnit_Name();
-
-		/**
 		 * The meta object literal for the '<em><b>Services</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2230,14 +2254,6 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BEHAVIORED_CLASS__ATTRIBUTES = eINSTANCE.getBehavioredClass_Attributes();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute BEHAVIORED_CLASS__NAME = eINSTANCE.getBehavioredClass_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>Fragment</b></em>' containment reference feature.
