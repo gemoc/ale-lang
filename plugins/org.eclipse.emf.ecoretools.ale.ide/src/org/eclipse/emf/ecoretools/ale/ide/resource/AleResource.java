@@ -67,4 +67,9 @@ public class AleResource extends ResourceImpl {
 			return false;
 		}
 	}
+	
+	@Override
+	public void save(Map<?, ?> options) throws IOException {
+		//Do nothing
+	}
 }
