@@ -40,6 +40,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
@@ -150,7 +151,7 @@ public class Services {
 				xtdCls
 				.getAttributes()
 				.stream()
-				.filter(att -> att.getFeatureRef() instanceof EAttribute) //FIXME: show also not displayer EReferences
+				.filter(att -> att.getFeatureRef() instanceof EAttribute) //FIXME: show also not displayed EReferences
 				.collect(Collectors.toList());
 		}
     	
@@ -162,7 +163,7 @@ public class Services {
 			cls
 			.getAttributes()
 			.stream()
-			.filter(att -> att.getFeatureRef() instanceof EAttribute) //FIXME: show also not displayer EReferences
+			.filter(att -> att.getFeatureRef() instanceof EAttribute) //FIXME: show also not displayed EReferences
 			.collect(Collectors.toList());
     }
     
@@ -196,6 +197,16 @@ public class Services {
 			.filter(op -> op instanceof Method)
 			.map(op -> (Method) op)
 			.collect(Collectors.toList());
+    }
+    
+    public ModelUnit getModelUnit(EPackage pkg) {
+    	List<ModelUnit> res = getModelBehavior(pkg);
+    	
+    	if(!res.isEmpty()) {
+    		return res.get(0); //TODO: manage several .ale files
+    	}
+    	
+    	return null;
     }
     
 	public EOperation editImplementation(EOperation op) {
@@ -260,10 +271,26 @@ public class Services {
 		}
 		return op;
 	}
-
-	public EClass addMethod(EClass cls) {
+	
+	public EObject addMethod(EObject obj) {
+		
+		final String className;
+		final String keyword;
+		
+		if(obj instanceof EClass) {
+			className = ((EClass)obj).getName();
+			keyword = "open class";
+		}
+		else if(obj instanceof RuntimeClass) {
+			className = ((RuntimeClass)obj).getName();
+			keyword = "class";
+		}
+		else {
+			return obj;
+		}
+		
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		IFile file = getImplemFile(cls.eResource());
+		IFile file = getImplemFile(obj.eResource());
 		IEditorDescriptor desc = PlatformUI.getWorkbench().
 		        getEditorRegistry().getDefaultEditor(file.getName());
 		try {
@@ -284,7 +311,7 @@ public class Services {
 							String template = "\tdef "+returnType+" "+opName+" "+parameters+" {\n\t\t/* Write your code here */\n\t\tresult := 0;\n\t}\n";
 							
 							EList<rClass> allXtdCls = root.getXtendedClasses();
-							Optional<rClass> search = allXtdCls.stream().filter(xtd -> xtd.getName().equals(cls.getName())).findFirst();
+							Optional<rClass> search = allXtdCls.stream().filter(xtd -> xtd.getName().equals(className)).findFirst();
 							
 							rClass xtdCls = null;
 							if(search.isPresent()){
@@ -301,9 +328,9 @@ public class Services {
 							else {
 								ICompositeNode node = NodeModelUtils.findActualNodeFor(root);
 								int endOffset = node.getEndOffset();
-								String newXtdClass = "\nopen class "+cls.getName()+" {\n"+template+"}";
+								String newXtdClass = "\n"+keyword+" "+className+" {\n"+template+"}";
 								document.replace(endOffset, 0,	newXtdClass);
-								int templateOffset = endOffset + cls.getName().length() + 16;
+								int templateOffset = endOffset + keyword.length() + className.length() + 6;
 								xEditor.selectAndReveal(templateOffset, template.length() -2);
 							}
 						}
@@ -314,12 +341,33 @@ public class Services {
 		} catch (PartInitException e) {
 			Activator.getDefault().error(e);
 		}
-		return cls;
+		return obj;
 	}
 
-	public EClass addDynamicFeature(EClass cls){
+	
+	public EObject addDynamicFeature(EObject obj){
+		return addDynamicFeature(obj,"newFeature","int");
+	}
+	
+	public EObject addDynamicFeature(EObject obj, String featureName, String typeName){
+		
+		final String className;
+		final String keyword;
+		
+		if(obj instanceof EClass) {
+			className = ((EClass)obj).getName();
+			keyword = "open class";
+		}
+		else if(obj instanceof RuntimeClass) {
+			className = ((RuntimeClass)obj).getName();
+			keyword = "class";
+		}
+		else {
+			return obj;
+		}
+		
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		IFile file = getImplemFile(cls.eResource());
+		IFile file = getImplemFile(obj.eResource());
 		IEditorDescriptor desc = PlatformUI.getWorkbench().
 		        getEditorRegistry().getDefaultEditor(file.getName());
 		try {
@@ -334,19 +382,17 @@ public class Services {
 						if(state.getContents().size() > 0) {
 							rRoot root = (rRoot) state.getContents().get(0);
 							
-							String type = "int";
-							String attrName = "newFeature";
-							String template = "\n\t"+type+" "+attrName+";\n";
+							String template = "\n\t"+typeName+" "+featureName+";\n";
 							
 							EList<rClass> allXtdCls = root.getXtendedClasses();
-							Optional<rClass> search = allXtdCls.stream().filter(xtd -> xtd.getName().equals(cls.getName())).findFirst();
+							Optional<rClass> search = allXtdCls.stream().filter(xtd -> xtd.getName().equals(className)).findFirst();
 							
 							rClass xtdCls = null;
 							if(search.isPresent()){
 								xtdCls = search.get(); 
 								ICompositeNode node = NodeModelUtils.findActualNodeFor(xtdCls);
 								
-								Optional<rAttribute> attrSearch = xtdCls.getAttributes().stream().filter(a -> a.getName().equals(attrName)).findFirst();
+								Optional<rAttribute> attrSearch = xtdCls.getAttributes().stream().filter(a -> a.getName().equals(featureName)).findFirst();
 								if(!attrSearch.isPresent()){
 									int endOffset = node.getEndOffset();
 									Iterable<ILeafNode> leafs = node.getLeafNodes();
@@ -369,9 +415,9 @@ public class Services {
 							else {
 								ICompositeNode node = NodeModelUtils.findActualNodeFor(root);
 								int endOffset = node.getEndOffset();
-								String newXtdClass = "\nopen class "+cls.getName()+" {\n"+template+"}";
+								String newXtdClass = "\n"+keyword+" "+className+" {\n"+template+"}";
 								document.replace(endOffset, 0,	newXtdClass);
-								int templateOffset = endOffset + cls.getName().length() + 17;
+								int templateOffset = endOffset + keyword.length() + className.length() + 7;
 								xEditor.selectAndReveal(templateOffset, template.length() -3);
 							}
 						}
@@ -382,8 +428,9 @@ public class Services {
 		} catch (PartInitException e) {
 			Activator.getDefault().error(e);
 		}
-		return cls;
+		return obj;
 	}
+	
 	
 	public void createRuntimeClass(EObject obj) {
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
@@ -426,5 +473,46 @@ public class Services {
 		IWorkspaceRoot ws = ResourcesPlugin.getWorkspace().getRoot();
 		IFile implemFile = ws.getFile(dslPath);
 		return implemFile;
+	}
+	
+	public EObject getSource(Attribute attrib) {
+		
+		EObject container = attrib.eContainer();
+		if(container instanceof ExtendedClass) {
+			return ((ExtendedClass)container).getBaseClass();
+		}
+		else if(container instanceof RuntimeClass) {
+			return container;
+		}
+		
+		return null;
+	}
+	
+	public EObject getTarget(Attribute attrib) {
+		
+		EClassifier type = attrib.getFeatureRef().getEType();
+		if(type.eResource() == null) {
+			
+			List<ModelUnit> modelUnits = attrib.eResource()
+    			.getContents()
+				.stream()
+				.filter(elem -> elem instanceof ModelUnit)
+				.map(elm -> (ModelUnit) elm)
+				.collect(Collectors.toList());
+			
+			
+	    	Optional<RuntimeClass> searchCls = 
+				modelUnits
+				.stream()
+				.flatMap(u -> u.getClassDefinitions().stream())
+				.filter(cls -> cls.getName().equals(type.getName())).findFirst();
+	    	
+			if(searchCls.isPresent()){
+				return searchCls.get();
+			}
+	    	
+		}
+		
+		return type;
 	}
 }

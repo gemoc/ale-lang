@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" name="ale" version="11.1.1.201610211630">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" name="ale" version="11.1.1.201610211630">
   <ownedViewpoints name="Behavior">
     <ownedRepresentationExtensions xsi:type="description_1:DiagramExtensionDescription" name="BehaviorEntities" viewpointURI="viewpoint:/org.eclipse.emf.ecoretools.design/Design" representationName="Entities">
       <layers name="Behavior">
-        <edgeMappings name="Runtime reference" targetFinderExpression="aql:self.featureRef.eType" sourceFinderExpression="aql:self.eContainer().baseClass" domainClass="implementation.Attribute" useDomainElement="true">
+        <edgeMappings name="Runtime reference" targetFinderExpression="aql:self.getTarget()" sourceFinderExpression="aql:self.getSource()" domainClass="implementation.Attribute" useDomainElement="true">
           <sourceMapping xsi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='RuntimeClass']"/>
           <targetMapping xsi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
+          <targetMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='RuntimeClass']"/>
           <style sizeComputationExpression="3" routingStyle="manhattan">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.featureRef.name">
@@ -53,8 +55,8 @@
           <reusedContainerMappings href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@additionalLayers[name='Related%20EClasses']/@containerMappings[name='EC%20External%20EClasses']"/>
           <importedMapping href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
         </containerMappings>
-        <containerMappings name="RuntimeClass" domainClass="implementation.RuntimeClass" childrenPresentation="List">
-          <subNodeMappings name="Runtime feature" semanticCandidatesExpression="aql:self.getDynaAttrib()" domainClass="implementation.Attribute">
+        <containerMappings name="RuntimeClass" deletionDescription="//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@toolSections.0/@ownedTools[name='Delete%20RuntimeClass']" domainClass="implementation.RuntimeClass" childrenPresentation="List">
+          <subNodeMappings name="Runtime feature2" semanticCandidatesExpression="aql:self.getDynaAttrib()" domainClass="implementation.Attribute">
             <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.featureRef.render()" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EAttribute.gif" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelFormat>bold</labelFormat>
@@ -62,7 +64,7 @@
               <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </subNodeMappings>
-          <subNodeMappings name="Method" semanticCandidatesExpression="aql:self.getMethod()" domainClass="implementation.Method">
+          <subNodeMappings name="Method2" semanticCandidatesExpression="aql:self.getMethod()" domainClass="implementation.Method">
             <style xsi:type="style:BundledImageDescription" labelExpression="aql:self.operationRef.render()" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EOperation.gif" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelFormat>bold</labelFormat>
@@ -77,7 +79,7 @@
             <foregroundColor xsi:type="description:UserFixedColor" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@userColorsPalettes[name='Ecore%20Palette']/@entries[name='Dark%20EClass']"/>
           </style>
         </containerMappings>
-        <toolSections name="BehavTool">
+        <toolSections name="Behavior">
           <ownedTools xsi:type="tool:OperationAction" name="Edit implementation" precondition="aql:self.oclIsTypeOf(ecore::EOperation)" icon="/org.eclipse.emf.ecore.edit/icons/full/obj16/EOperation.gif">
             <view name="views"/>
             <initialOperation>
@@ -101,6 +103,45 @@
             <initialOperation>
               <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self.createRuntimeClass()"/>
             </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool_1:ContainerCreationDescription" name="RuntimeClass" containerMappings="//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='RuntimeClass']" iconPath="/org.eclipse.emf.ecore.edit/icons/full/ctool16/CreateEPackage_eClassifiers_EClass.gif">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self.getModelUnit()">
+                <subModelOperations xsi:type="tool:CreateInstance" typeName="RuntimeClass" referenceName="classDefinitions"/>
+                <subModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self.createRuntimeClass()"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool_1:NodeCreationDescription" name="Operation" nodeMappings="//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method'] //@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='RuntimeClass']/@subNodeMappings[name='Method2']" iconPath="/org.eclipse.emf.ecore.edit/icons/full/ctool16/CreateEClass_eOperations_EOperation.gif">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self.addMethod()"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool_1:NodeCreationDescription" name="Attribute" nodeMappings="//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature'] //@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='RuntimeClass']/@subNodeMappings[name='Runtime%20feature2']" iconPath="/org.eclipse.emf.ecore.edit/icons/full/ctool16/CreateEClass_eStructuralFeatures_EAttribute.gif">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self.addDynamicFeature()"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool_1:EdgeCreationDescription" name="Reference" edgeMappings="//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@edgeMappings[name='Runtime%20reference']" iconPath="/org.eclipse.emf.ecore.edit/icons/full/ctool16/CreateEClass_eStructuralFeatures_EReference.gif">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:ChangeContext" browseExpression="aql:self.addDynamicFeature('newRef',target.name)"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool_1:DeleteElementDescription" name="Delete RuntimeClass">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <containerView name="containerView"/>
+            <initialOperation/>
           </ownedTools>
         </toolSections>
         <customization>
