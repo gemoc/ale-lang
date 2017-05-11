@@ -45,11 +45,16 @@ public class Dsl {
 		String allSyntaxes = (String) dslProp.get("syntax");
 		String allBehaviors = (String) dslProp.get("behavior");
 		
-		String[] syntaxes = allSyntaxes.split(",");
-		String[] behaviors = allBehaviors.split(",");
-		
-		this.allSyntaxes.addAll(Arrays.asList(syntaxes));
-		this.allSemantics.addAll(Arrays.asList(behaviors));
+		if(allSyntaxes != null && allBehaviors != null) {
+			String[] syntaxes = allSyntaxes.split(",");
+			String[] behaviors = allBehaviors.split(",");
+			
+			this.allSyntaxes.addAll(Arrays.asList(syntaxes));
+			this.allSemantics.addAll(Arrays.asList(behaviors));
+		}
+		else {
+			//TODO: Malformed file error
+		}
 		
 	}
 	
