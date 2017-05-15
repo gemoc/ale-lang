@@ -84,7 +84,7 @@ public class AstVisitors {
 		return qname;
 	}
 	
-	static class BlockVisitor extends ALEBaseVisitor<Block> {
+	public static class BlockVisitor extends ALEBaseVisitor<Block> {
 		
 		ParseResult<ModelUnit> parseRes;
 		

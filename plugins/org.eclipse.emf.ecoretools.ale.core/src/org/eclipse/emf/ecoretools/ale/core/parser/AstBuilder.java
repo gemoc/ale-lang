@@ -11,7 +11,6 @@
 package org.eclipse.emf.ecoretools.ale.core.parser;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 /**
- * This class parse ".implem" file and produce model intance of Implementation metamodel
+ * This class parse ".ale" file and produce model intance of Implementation metamodel
  */
 public class AstBuilder {
 	

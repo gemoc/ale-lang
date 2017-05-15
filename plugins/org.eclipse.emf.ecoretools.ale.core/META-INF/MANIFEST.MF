@@ -14,7 +14,8 @@ Export-Package: org.eclipse.emf.ecoretools.ale.core.interpreter,
  org.eclipse.emf.ecoretools.ale.core.validation,
  org.eclipse.emf.ecoretools.ale.implementation,
  org.eclipse.emf.ecoretools.ale.implementation.impl,
- org.eclipse.emf.ecoretools.ale.implementation.util
+ org.eclipse.emf.ecoretools.ale.implementation.util,
+ org.eclipse.emf.ecoretools.ale.core.delegate
 Require-Bundle: org.antlr.runtime,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.core.runtime,

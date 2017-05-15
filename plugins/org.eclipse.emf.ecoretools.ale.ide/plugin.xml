@@ -65,4 +65,11 @@
 	       name="org.eclipse.emf.ecoretools.ale">
     </component>
   </extension>
+  <extension point="org.eclipse.emf.ecore.invocation_delegate">
+      <factory
+            class="org.eclipse.emf.ecoretools.ale.core.delegate.ALEInvocationDelegateFactory"
+            uri="http://implementation/">
+      </factory>
+   </extension>
+  
 </plugin>

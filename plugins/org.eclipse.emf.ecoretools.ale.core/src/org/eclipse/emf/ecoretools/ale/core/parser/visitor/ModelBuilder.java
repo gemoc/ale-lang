@@ -131,10 +131,10 @@ public class ModelBuilder {
 		operation.setEType(type);
 		fragment.getEOperations().add(operation);
 		
-		return buildMethod(name,params,returnType,body,tags,operation);
+		return buildMethod(operation,body,tags);
 	}
 	
-	public Method buildMethod(String name, List<Parameter> params, String returnType, Block body, List<String> tags, EOperation operation) {
+	public Method buildMethod(EOperation operation, Block body, List<String> tags) {
 		Method newMethod = implemFactory.createMethod();
 		newMethod.setOperationRef(operation);
 		newMethod.setBody(body);
@@ -151,7 +151,7 @@ public class ModelBuilder {
 			return null;
 		}
 		
-		return buildMethod(name,params,returnType,body,tags,existingOperation.get());
+		return buildMethod(existingOperation.get(),body,tags);
 	}
 	
 	
