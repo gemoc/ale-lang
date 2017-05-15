@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fsm:FSM xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:fsm="fsm"
+    xsi:schemaLocation="fsm metamodel.ecore">
+  <states name="First state"/>
+</fsm:FSM>

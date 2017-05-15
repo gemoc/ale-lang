@@ -28,6 +28,15 @@ public class ALEInvocationDelegateFactory implements Factory {
 
 	ALEEngine engine;
 	List<ModelUnit> allBehaviors;
+	List<EPackage> scope;
+	
+	public ALEInvocationDelegateFactory() {
+		
+	}
+	
+	public ALEInvocationDelegateFactory(List<EPackage> scope) {
+		this.scope = scope;
+	}
 	
 	@Override
 	public InvocationDelegate createInvocationDelegate(EOperation operation) {
@@ -54,8 +63,7 @@ public class ALEInvocationDelegateFactory implements Factory {
 	    	qryEnv.registerEPackage(ImplementationPackage.eINSTANCE);
 	    	qryEnv.registerEPackage(AstPackage.eINSTANCE);
 	    	
-	    	List<EPackage> pkgs = new ArrayList<EPackage>();
-	    	pkgs.addAll((Collection<? extends EPackage>) EPackageRegistryImpl.createGlobalRegistry().values());
+	    	List<EPackage> pkgs = getAllPackages();
 	    	for (EPackage ePkg : pkgs) {
 	    		qryEnv.registerEPackage(ePkg);
 			}
@@ -72,5 +80,16 @@ public class ALEInvocationDelegateFactory implements Factory {
 			engine = new ALEEngine(env);
 		}
 		return engine;
+	}
+	
+	private List<EPackage> getAllPackages() {
+		if(scope != null) {
+			return scope;
+		}
+		else {
+			List<EPackage> pkgs = new ArrayList<EPackage>();
+	    	pkgs.addAll((Collection<? extends EPackage>) EPackageRegistryImpl.createGlobalRegistry().values());
+	    	return pkgs;
+		}
 	}
 }
