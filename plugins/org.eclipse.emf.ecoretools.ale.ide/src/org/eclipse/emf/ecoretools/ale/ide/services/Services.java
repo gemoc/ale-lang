@@ -264,6 +264,7 @@ public class Services {
 						}
 					}
 				});
+				editor.doSave(new NullProgressMonitor());
 			}
 			
 		} catch (PartInitException e) {
@@ -337,7 +338,7 @@ public class Services {
 					}
 				});
 			}
-			
+			editor.doSave(new NullProgressMonitor());
 		} catch (PartInitException e) {
 			Activator.getDefault().error(e);
 		}
@@ -423,6 +424,7 @@ public class Services {
 						}
 					}
 				});
+				editor.doSave(new NullProgressMonitor());
 			}
 			
 		} catch (PartInitException e) {
@@ -462,6 +464,7 @@ public class Services {
 					}
 				});
 			}
+			editor.doSave(new NullProgressMonitor());
 		} catch (PartInitException e) {
 			Activator.getDefault().error(e);
 		}
