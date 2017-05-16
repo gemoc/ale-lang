@@ -325,6 +325,19 @@ public class Services {
 									document.replace(endOffset-1, 0, template);
 									xEditor.selectAndReveal(endOffset, template.length() -2);
 								}
+								else {
+									for(int i = 2; i <= xtdCls.getOperations().size()+1; i++) {
+										final String suffixedOpName = opName + i;  
+										opSearch = xtdCls.getOperations().stream().filter(o -> o.getName().equals(suffixedOpName)).findFirst();
+										if(!opSearch.isPresent()){
+											template = "\tdef "+returnType+" "+suffixedOpName+" "+parameters+" {\n\t\t/* Write your code here */\n\t\tresult := 0;\n\t}\n";
+											int endOffset = node.getEndOffset();
+											document.replace(endOffset-1, 0, template);
+											xEditor.selectAndReveal(endOffset, template.length() -2);
+											break;
+										}
+									}
+								}
 							}
 							else {
 								ICompositeNode node = NodeModelUtils.findActualNodeFor(root);
@@ -412,6 +425,32 @@ public class Services {
 									document.replace(endOffset-1, 0, template);
 									xEditor.selectAndReveal(endOffset+1, template.length() -3);
 								}
+								else {
+									for(int i = 2; i <= xtdCls.getAttributes().size()+1; i++) {
+										final String suffixedFeatureName = featureName + i;  
+										attrSearch = xtdCls.getAttributes().stream().filter(a -> a.getName().equals(suffixedFeatureName)).findFirst();
+										if(!attrSearch.isPresent()){
+											int endOffset = node.getEndOffset();
+											Iterable<ILeafNode> leafs = node.getLeafNodes();
+											ArrayList<ILeafNode> l = new ArrayList<ILeafNode>();
+											leafs.forEach(e -> l.add(e));
+											
+											Optional<ILeafNode> openBraceSearch = l.stream()
+												.filter(n -> n instanceof LeafNode 
+														&& ((LeafNode)n).getGrammarElement() instanceof Keyword 
+														&& ((Keyword)((LeafNode)n).getGrammarElement()).getValue().equals("{"))
+												.findFirst();
+											if(openBraceSearch.isPresent()){
+												endOffset = openBraceSearch.get().getEndOffset()+1;
+											}
+											
+											template = "\n\t"+typeName+" "+suffixedFeatureName+";\n";
+											document.replace(endOffset-1, 0, template);
+											xEditor.selectAndReveal(endOffset+1, template.length() -3);
+											break;
+										}
+									}
+								}
 							}
 							else {
 								ICompositeNode node = NodeModelUtils.findActualNodeFor(root);
@@ -455,11 +494,30 @@ public class Services {
 							String template = "\n\t/* Write your code here */\n";
 							String newClass = "\n class "+newClassName+" {\n"+template+"}";
 							
-							ICompositeNode node = NodeModelUtils.findActualNodeFor(root);
-							int endOffset = node.getEndOffset();
-							document.replace(endOffset, 0,	newClass);
-							int templateOffset = endOffset + newClassName.length() + 13;
-							xEditor.selectAndReveal(templateOffset, template.length() -3);
+							EList<rClass> allXtdCls = root.getXtendedClasses();
+							Optional<rClass> search = allXtdCls.stream().filter(xtd -> xtd.getName().equals(newClassName)).findFirst();
+							if(!search.isPresent()){
+								ICompositeNode node = NodeModelUtils.findActualNodeFor(root);
+								int endOffset = node.getEndOffset();
+								document.replace(endOffset, 0,	newClass);
+								int templateOffset = endOffset + newClassName.length() + 13;
+								xEditor.selectAndReveal(templateOffset, template.length() -3);
+							}
+							else {
+								for(int i = 2; i <= allXtdCls.size()+1; i++) {
+									final String suffixedClassName = newClassName + i;  
+									search = allXtdCls.stream().filter(xtd -> xtd.getName().equals(suffixedClassName)).findFirst();
+									if(!search.isPresent()){
+										newClass = "\n class "+suffixedClassName+" {\n"+template+"}";
+										ICompositeNode node = NodeModelUtils.findActualNodeFor(root);
+										int endOffset = node.getEndOffset();
+										document.replace(endOffset, 0,	newClass);
+										int templateOffset = endOffset + newClassName.length() + 13;
+										xEditor.selectAndReveal(templateOffset, template.length() -3);
+										break;
+									}
+								}
+							}
 						}
 					}
 				});
