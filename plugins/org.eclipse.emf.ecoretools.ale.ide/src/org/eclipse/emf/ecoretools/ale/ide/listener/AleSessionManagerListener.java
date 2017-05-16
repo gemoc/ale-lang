@@ -55,7 +55,6 @@ public class AleSessionManagerListener implements SessionManagerListener {
 
 	@Override
 	public void notifyAddSession(Session newSession) {
-		System.out.println("debug start");
 		registerEmfFactory(newSession);
 		createDslIfNeeded(newSession);
 	}
@@ -92,7 +91,6 @@ public class AleSessionManagerListener implements SessionManagerListener {
 		if(behaviorVP.isPresent()) {
 			if(!getDsl(session).isPresent()) {
 				createAndRegisterDsl(session);
-				System.out.println("debug");
 			}
 			createWsListener(session);
 		}
@@ -235,7 +233,7 @@ public class AleSessionManagerListener implements SessionManagerListener {
 	}
 	
 	private String getSimpleName(Resource ecoreRes) {
-		return ecoreRes.getURI().lastSegment();
+		return ecoreRes.getURI().lastSegment().replaceAll("\\.ecore", "");
 	}
 	
 	private void createFile(IPath filePath, String fileContent) {
