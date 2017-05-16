@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ModelBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
@@ -44,6 +45,18 @@ public class DslBuilder {
      * Setup the eval environment & parse semantic files
      */
     public List<ParseResult<ModelUnit>> parse(Dsl dsl) { //TODO: add an option to clear services & epackages before
+    	/*
+    	 * Clean up existing Runtime EPackages
+    	 */
+    	List<EPackage> toRemove = 
+    		queryEnvironment
+			.getEPackageProvider()
+			.getRegisteredEPackages()
+			.stream()
+			.filter(p -> p.getNsURI().startsWith(ModelBuilder.RUNTIME_ALE_NSURI))
+			.collect(Collectors.toList());
+    	toRemove.forEach(p -> queryEnvironment.removeEPackage(p));
+    	
     	/*
     	 * Register EPackages
     	 */
