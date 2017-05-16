@@ -74,6 +74,7 @@ public class ModelBuilder {
 	public static final String PARSER_SOURCE = "http://org/eclipse/emf/ecoretools/ale/parser/metadata";
 	public static final String PARSER_EXTENDS_KEY = "extends";
 	public static final String PARSER_OPPOSITE_KEY = "opposite";
+	public static final String RUNTIME_ALE_NSURI = "http://ale/runtime/";
 	
 	
 	public static ModelBuilder createSingleton(IQueryEnvironment qryEnv) {
@@ -358,6 +359,8 @@ public class ModelBuilder {
 		
 		String[] segments = qualifiedName.split("\\.");
 		newPkg.setName(segments[0]);
+		newPkg.setNsPrefix(segments[0]);
+		newPkg.setNsURI(RUNTIME_ALE_NSURI+segments[0]);
 		
 		int i = 1;
 		EPackage parent = newPkg;
@@ -366,6 +369,8 @@ public class ModelBuilder {
 			EPackage subPkg = (EPackage) EcoreUtil.create(ePkgClass);
 			subPkg.setName(segment);
 			parent.getESubpackages().add(subPkg);
+			subPkg.setNsPrefix(segment);
+			subPkg.setNsURI(parent.getNsURI()+"/"+segment);
 			parent = subPkg;
 			i++;
 		}
