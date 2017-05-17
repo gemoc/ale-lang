@@ -26,10 +26,12 @@ import org.eclipse.acceleo.query.ast.AstPackage;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.Query;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -53,6 +55,7 @@ import org.eclipse.emf.ecoretools.ale.rRoot;
 import org.eclipse.emf.ecoretools.ale.core.parser.AstBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.ide.Activator;
+import org.eclipse.emf.ecoretools.ale.ide.AlePreferenceStore;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
@@ -72,6 +75,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.ILeafNode;
@@ -215,7 +219,12 @@ public class Services {
 		IEditorDescriptor desc = PlatformUI.getWorkbench().
 		        getEditorRegistry().getDefaultEditor(file.getName());
 		try {
-			IEditorPart editor = page.openEditor(new FileEditorInput(file), desc.getId());
+			IEditorPart oldEditor = page.getActiveEditor();
+			IEditorPart editor = page.openEditor(new FileEditorInput(file), desc.getId(),false);
+			
+			if(!hasXtextFocus(file.getProject())) {
+				page.activate(oldEditor);
+			}
 			
 			if(editor instanceof XtextEditor){
 				XtextEditor xEditor = (XtextEditor) editor;
@@ -295,7 +304,12 @@ public class Services {
 		IEditorDescriptor desc = PlatformUI.getWorkbench().
 		        getEditorRegistry().getDefaultEditor(file.getName());
 		try {
+			IEditorPart oldEditor = page.getActiveEditor();
 			IEditorPart editor = page.openEditor(new FileEditorInput(file), desc.getId());
+			
+			if(!hasXtextFocus(file.getProject())) {
+				page.activate(oldEditor);
+			}
 			
 			if(editor instanceof XtextEditor){
 				XtextEditor xEditor = (XtextEditor) editor;
@@ -385,7 +399,12 @@ public class Services {
 		IEditorDescriptor desc = PlatformUI.getWorkbench().
 		        getEditorRegistry().getDefaultEditor(file.getName());
 		try {
+			IEditorPart oldEditor = page.getActiveEditor();
 			IEditorPart editor = page.openEditor(new FileEditorInput(file), desc.getId());
+			
+			if(!hasXtextFocus(file.getProject())) {
+				page.activate(oldEditor);
+			}
 			
 			if(editor instanceof XtextEditor){
 				XtextEditor xEditor = (XtextEditor) editor;
@@ -479,7 +498,12 @@ public class Services {
 		IEditorDescriptor desc = PlatformUI.getWorkbench().
 		        getEditorRegistry().getDefaultEditor(file.getName());
 		try {
+			IEditorPart oldEditor = page.getActiveEditor();
 			IEditorPart editor = page.openEditor(new FileEditorInput(file), desc.getId());
+			
+			if(!hasXtextFocus(file.getProject())) {
+				page.activate(oldEditor);
+			}
 			
 			if(editor instanceof XtextEditor){
 				XtextEditor xEditor = (XtextEditor) editor;
@@ -575,5 +599,10 @@ public class Services {
 		}
 		
 		return type;
+	}
+	
+	private boolean hasXtextFocus(IProject project) {
+		ScopedPreferenceStore store = new AlePreferenceStore(new ProjectScope(project), Activator.PLUGIN_ID);
+		return store.getBoolean(AlePreferenceStore.ALE_PREF_XTEXT_FOCUS);
 	}
 }

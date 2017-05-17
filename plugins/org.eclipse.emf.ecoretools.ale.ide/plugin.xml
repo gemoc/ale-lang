@@ -81,5 +81,18 @@
            name="DSL editor">
      </editor>
   </extension>
+  <extension
+        point="org.eclipse.ui.propertyPages">
+     <page
+           class="org.eclipse.emf.ecoretools.ale.ide.AlePropertyPage"
+           id="org.eclipse.emf.ecoretools.ale.ide.propertypage"
+           name="ALE settings">
+        <enabledWhen>
+           <adapt
+                 type="org.eclipse.core.resources.IProject">
+           </adapt>
+        </enabledWhen>
+     </page>
+  </extension>
   
 </plugin>
