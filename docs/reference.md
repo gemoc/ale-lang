@@ -258,11 +258,19 @@ Statements
 
 ### Variable declaration
 
+Declare a local variable inside the body of an operation.
+A type is require since ALE perform static type checking.
+
 ```
-int localVar;
+int localVar; //initial value is optional
+int otherVar := 2;
 ```
 
 ### Variable assignment
+
+Assign a value to a local variable.
+
+Note: The assignment operator is **:=** that is different from the comparison operator **=** used in expressions.
 
 ```
 localVar := 3;
@@ -270,17 +278,23 @@ localVar := 3;
 
 ### Attribute assignment
 
+Assign a value to an EClass feature declared ALE or Ecore file.
+
 ```
 self.myAttrib := "newVal";
 ```
 
 ### If
 
+Basic control flow statement executing the statements inside the block if the expression is evaluated true.
+
 ```
 if(isRainning){
 	self.getFluffyUmbrella();
 }
 ```
+
+The else block is optionnal.
 
 ```
 if(i < 3) {
@@ -293,11 +307,17 @@ else {
 
 ### ForEach
 
+A loop to iterate over a collection.
+
+The static type of the iterating variable is infered from the type of the collection.
+
 ```
 for(elem in collection){
 	elem.log(); //Print elem in the standard output
 }
 ```
+
+The loop can also iterate over a sequence of integer following the syntax [MIN..MAX] (or [MAX..MIN] for reverse order).
 
 ```
 for(i in [1..5]){
@@ -307,13 +327,17 @@ for(i in [1..5]){
 
 ### While
 
+Basic loop executing statements inside its block until the condition is evaluated false.
+
 ```
-While(isRaining){
+while(isRaining){
 	'cats!'.log();
 }
 ```
 
 ### 0..* insertion
+
+An EClass feature with many elements supports assignment through the **add()** operation.
 
 ```
 self.elements.add(newElem);
@@ -321,11 +345,18 @@ self.elements.add(newElem);
 
 ### 0..* remove
 
+An EClass feature with many elements supports unassignment through the **remove()** operation.
+
 ```
 self.elements.remove(oldElem);
 ```
 
-### Println
+### Log
+
+Evaluate an expression and print the result in the console.
+
+Follow the syntax <Expression>.log()
+
 
 ```
 eObject.log();
@@ -334,11 +365,15 @@ eObject.log();
 
 ### Create EClass instance
 
+Create an instance of an EClass.
+
 ```
 MyClass newCls := MyPackage::MyClass.create();
 ```
 
 ### Self
+
+Local variable accessible inside the body of an operation and referencing the calling object.
 
 ```
 self.myAttribute;
@@ -346,6 +381,8 @@ self.operation();
 ```
 
 ### Result
+
+Local variable storing the result of an operation. Its value is returned at the end of the execution of an operation's body.
 
 ```
 result := someValue;
@@ -355,10 +392,109 @@ result := someValue;
 
 ---------------------------------------------------------------------
 
+AQL
+---
+
+Some cheatsheets on AQL expressions
+
+See [AQL syntax reference](https://www.eclipse.org/acceleo/documentation/aql.html#SyntaxReference) for more details.
+
+### Numerical operator
+
+```
+1 + 1
+2 - 2
+3 * 3
+4 / 4
+-5
+```
+
+### Comparators
+
+```
+expression = expression
+expression != expression
+expression <> expression
+expression < expression
+expression <= expression
+expression > expression
+expression >= expression
+```
+
+### Logical operators
+
+```
+not expression
+expression and expression
+expression or expression
+expression xor expression
+expression implies expression
+```
+
+### Primitive types
+
+```
+String
+Integer
+Real
+Boolean
+Sequence( type_litral )
+OrderedSet( type_litral )
+epackage_name :: eclassifier_name
+```
+
+### Services for collections
+
+```
+OrderedSet{'a', 'b', 'c'} + OrderedSet{'c', 'b', 'f'}
+Sequence{'a', 'b', 'c'}->any(str | str.size() = 1)
+Sequence{'a', 'b', 'c'}->asOrderedSet()
+OrderedSet{'a', 'b', 'c'}->asSequence()
+Sequence{'a', 'b', 'c', 'c', 'a'}->asSet()
+Sequence{'a', 'b', 'c'}->at(1)
+Sequence{'a', 'b', 'c'}->collect(str | str.toUpper())
+OrderedSet{'a', 'b', 'c'}->concat(Sequence{'d', 'e'})
+OrderedSet{'a', 'b', 'c'}->count('d')
+Sequence{'a', 'b', 'c'}->excludes('a')
+Sequence{'a', 'b'}->excludesAll(OrderedSet{'a','f'})
+OrderedSet{'a', 'b', 'c'}->excluding('c')
+Sequence{'a', 'b', 'c'}->exists(str | str.size() > 5)
+Sequence{anEClass, anEAttribute}->filter(ecore::EStructuralFeature)
+Sequence{'a', 'b', 'c'}->first()
+Sequence{'a', 'b', 'c'}->forAll(str | str.size() = 1)
+Sequence{'a', 'b', 'c'}->includes('d')
+Sequence{'a', 'b', 'c'}->includesAll(OrderedSet{'a', 'f'})
+OrderedSet{1, 2, 3, 4}->indexOf(3)
+OrderedSet{'a', 'b', 'c'}->insertAt(2, 'f')
+OrderedSet{'a', 'b', 'c'}->intersection(OrderedSet{'a', 'f'})
+OrderedSet{'a', 'b', 'c'}->isEmpty()
+Sequence{'a', 'b', 'c'}->isUnique(str | str.size())
+Sequence{'a', 'b', 'c'}->last()
+OrderedSet{'a', 'b', 'c'}->notEmpty()
+Sequence{'a', 'b', 'c'}->one(str | str.equals('a'))
+OrderedSet{'a', 'b', 'c'}->prepend('f')
+OrderedSet{'a', 'b', 'c'}->reject(str | str.equals('a'))
+OrderedSet{'a', 'b', 'c'}->reverse()
+Sequence{'a', 'b', 'c'}->select(str | str.equals('a'))
+Sequence{'a', 'b', 'c'}->sep('[', '-', ']')
+Sequence{'a', 'b', 'c'}->sep('-')
+Sequence{'a', 'b', 'c'}->size()
+Sequence{'aa', 'bbb', 'c'}->sortedBy(str | str.size())
+Sequence{'a', 'b', 'c'} - Sequence{'c', 'b', 'f'}
+OrderedSet{'a', 'b', 'c'}->subOrderedSet(1, 2)
+Sequence{'a', 'b', 'c'}->subSequence(1, 2)
+Sequence{1, 2, 3, 4}->sum()
+Sequence{'a', 'b', 'c'}->union(Sequence{'d', 'c'})
+```
+
+---------------------------------------------------------------------
+
 Misc
 ----
 
 ### External Java Service
+
+Declare a Java service usable from an operation implemented in ALE.
 
 ```
 use qualified.name.MyService;
