@@ -10,8 +10,14 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.parser.visitor;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.eclipse.emf.common.util.Diagnostic;
 
@@ -56,5 +62,24 @@ public class ParseResult<T> {
 	
 	public String getSourceFile() {
 		return sourceFile;
+	}
+	
+	public Optional<String> getText(Object element) {
+		
+		int start = startPositions.get(element);
+		int end = endPositions.get(element);
+		
+		int length = end - start + 1;
+		char[] cbuf = new char[length];
+		
+		Path path = Paths.get(sourceFile);
+		try (BufferedReader reader = Files.newBufferedReader(path)) {
+			reader.read(cbuf, start, length);
+			return Optional.of(new String(cbuf));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return Optional.empty();
 	}
 }

@@ -85,6 +85,15 @@ public class DslBuilder {
     	
     	return parsedSemantics;
     }
+    
+    public List<EPackage> getSyntaxes(Dsl dsl) {
+    	return
+	    	dsl
+	    	.getAllSyntaxes()
+			.stream()
+			.flatMap(syntaxURI -> load(syntaxURI, rs).stream())
+			.collect(Collectors.toList());
+    }
 	
     private List<EPackage> load(String ecoreURI, ResourceSet rs) {
     	URI uri = URI.createURI(ecoreURI);

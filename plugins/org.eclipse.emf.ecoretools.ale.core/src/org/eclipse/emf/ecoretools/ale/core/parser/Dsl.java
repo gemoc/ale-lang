@@ -12,6 +12,7 @@ package org.eclipse.emf.ecoretools.ale.core.parser;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import java.util.List;
 import java.util.Properties;
 
 public class Dsl {
+	
+	String sourceFile;
 	List<String> allSyntaxes = new ArrayList<String>();
 	List<String> allSemantics = new ArrayList<String>();
 	
@@ -30,6 +33,7 @@ public class Dsl {
 	
 	public Dsl(String dslFile) throws FileNotFoundException {
 		this(new FileInputStream(dslFile));
+		this.sourceFile = dslFile;
 	}
 	
 	public Dsl(InputStream input) {
@@ -64,5 +68,24 @@ public class Dsl {
 	
 	public List<String> getAllSyntaxes() {
 		return allSyntaxes;
+	}
+	
+	public void setSourceFile(String sourceFile) {
+		this.sourceFile = sourceFile;
+	}
+	
+	public void save() {
+		if(sourceFile != null) {
+			Properties dslProp = new Properties();
+			dslProp.put("syntax", String.join(",", allSyntaxes));
+			dslProp.put("behavior", String.join(",", allSemantics));
+			try {
+				FileOutputStream output = new FileOutputStream(sourceFile);
+				dslProp.store(output,"");
+				output.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
