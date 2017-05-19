@@ -8,56 +8,33 @@
  * Contributors:
  *     Inria - initial API and implementation
  *******************************************************************************/
-package org.eclipse.emf.ecoretools.ale.ide.popup.actions;
+package org.eclipse.emf.ecoretools.ale.ide.launchconfig;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import org.eclipse.core.commands.AbstractHandler;
-import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.internal.resources.File;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
 import org.eclipse.emf.ecoretools.ale.ide.WorkbenchDsl;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ResourceListSelectionDialog;
-import org.eclipse.ui.handlers.HandlerUtil;
 
-public class RunModel extends AbstractHandler {
+public class RunModelAction {
 
-	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException {
+	/**
+	 * Open a selection dialog to get the model file before launch
+	 */
+	public static void launch(Shell shell, IResource dslFile) {
 		
-		Shell shell = HandlerUtil.getActiveWorkbenchWindow(event).getShell();
-		
-		/*
-		 * Dsl file
-		 */
-		IStructuredSelection selection = (IStructuredSelection) HandlerUtil.getActiveMenuSelection(event);
-		IResource resource = (IResource) selection.getFirstElement();
-		String dslProject = resource.getProject().getName();
-		
-		System.out.println("\nRun "+resource.getName());
+		System.out.println("\nRun "+dslFile.getName());
 		System.out.println("------------");
 		
 		/*
@@ -68,11 +45,19 @@ public class RunModel extends AbstractHandler {
 		dialog.open();
 		Object[] selected = dialog.getResult();
 		
-		if(selected == null)
-			return null;
+		if(selected != null && selected.length == 1 && selected[0] instanceof IResource) {
+			launch(dslFile,(IResource)selected[0]);
+		}
+	}
+	
+	/**
+	 * Execute a DSL on a model
+	 */
+	public static void launch(IResource dslFile, IResource modelFile) {
 		
-		String modelLocation = ((File)selected[0]).getLocationURI().toString();
-		String modelProject = ((File)selected[0]).getProject().getName();
+		String dslProject = dslFile.getProject().getName();
+		String modelLocation = modelFile.getLocationURI().toString();
+		String modelProject = modelFile.getProject().getName();
 		
 		/*
 		 * Init interpreter
@@ -96,7 +81,7 @@ public class RunModel extends AbstractHandler {
 					@Override
 					public void run() {
 						try {
-							IEvaluationResult result = interpreter.eval(modelLocation, new ArrayList(), new WorkbenchDsl(resource.getLocationURI().getPath().toString()));
+							IEvaluationResult result = interpreter.eval(modelLocation, new ArrayList(), new WorkbenchDsl(dslFile.getLocationURI().getPath().toString()));
 							interpreter.getLogger().diagnosticForHuman();
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
@@ -126,7 +111,5 @@ public class RunModel extends AbstractHandler {
 			}
 		};
 		evalJob.schedule();
-		
-		return null;
 	}
 }
