@@ -78,10 +78,6 @@ public class DynamicFeatureRegistry {
 			EStructuralFeature feature = eClass.getEStructuralFeature(featureName);
 			if (feature == null) {
 				result = getDynamicFeatureValue(context,featureName);
-				if(result == null){
-					String message = String.format(DynamicEObjectServices.UNKNOWN_FEATURE, featureName, eClass.getName());
-					throw new AcceleoQueryEvaluationException(message);
-				}
 			} else {
 				result = (context).eGet(feature);
 			}
@@ -99,16 +95,12 @@ public class DynamicFeatureRegistry {
 			if(feature != null) {
 				return extendedInstance.eGet(feature);
 			}
-			else {
-				//TODO: error unknow feature
-			}
 		}
 		else {
 			//TODO: error
 		}
-		
-		return null;
-		
+		String message = String.format(DynamicEObjectServices.UNKNOWN_FEATURE, featureName, instance.eClass().getName());
+		throw new AcceleoQueryEvaluationException(message);
 	}
 	
 	public void setDynamicFeatureValue(EObject instance, String featureName, Object newValue) {
