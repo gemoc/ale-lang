@@ -150,6 +150,18 @@ public class EvalTest {
 	}
 	
 	@Test
+	public void testUnknownDynamicAttribute(){
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/unknownDynamicAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals(Diagnostic.WARNING, res.getDiagnostic().getSeverity());		
+		assertEquals("An error occured during evaluation of a query", res.getDiagnostic().getMessage());
+		assertEquals(null,res.getValue());
+	}
+	
+	@Test
 	public void testAccessSelfAttribute(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/selfAttribute.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);

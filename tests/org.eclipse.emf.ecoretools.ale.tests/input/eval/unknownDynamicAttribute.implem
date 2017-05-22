@@ -1,0 +1,8 @@
+behavior test.calldynaattr;
+open class ClassA {
+	
+	@main
+	def int main() {
+		result := self.wrong;
+	}
+}
