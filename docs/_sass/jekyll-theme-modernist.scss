@@ -26,6 +26,11 @@ body {
   box-shadow: rgba(#000, 0.2) 0 0 0 1px, rgba(#000, 0.45) 0 3px 10px;
 }
 
+img {
+  display: block;
+  margin: auto;
+}
+
 header, section, footer {
   display:block;
 }
