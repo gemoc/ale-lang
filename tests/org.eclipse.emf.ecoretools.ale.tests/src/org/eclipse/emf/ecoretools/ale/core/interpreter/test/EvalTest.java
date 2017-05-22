@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -135,6 +136,17 @@ public class EvalTest {
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
 		assertEquals("foo",res.getValue());
+	}
+	
+	@Test
+	public void testNullDynamicAttribute(){
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/nullDynamicAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals(Diagnostic.OK, res.getDiagnostic().getSeverity());		
+		assertEquals(null,res.getValue());
 	}
 	
 	@Test

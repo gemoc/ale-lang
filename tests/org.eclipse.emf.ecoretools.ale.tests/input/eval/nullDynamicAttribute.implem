@@ -1,0 +1,10 @@
+behavior test.calldynaattr;
+open class ClassA {
+	
+	String attrib;
+	
+	@main
+	def int main() {
+		result := self.attrib;
+	}
+}
