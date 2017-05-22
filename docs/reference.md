@@ -421,6 +421,13 @@ expression > expression
 expression >= expression
 ```
 
+### Type of
+
+```
+anEPackage.oclIsKindOf(ecore::ENamedElement) //true
+anEPackage.oclIsTypeOf(ecore::ENamedElement) //false
+```
+
 ### Logical operators
 
 ```
