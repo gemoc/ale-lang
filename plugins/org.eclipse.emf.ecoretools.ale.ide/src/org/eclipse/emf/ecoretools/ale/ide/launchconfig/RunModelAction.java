@@ -11,6 +11,7 @@
 package org.eclipse.emf.ecoretools.ale.ide.launchconfig;
 
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +26,10 @@ import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
 import org.eclipse.emf.ecoretools.ale.ide.WorkbenchDsl;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.console.ConsolePlugin;
+import org.eclipse.ui.console.IConsole;
+import org.eclipse.ui.console.IConsoleManager;
+import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.dialogs.ResourceListSelectionDialog;
 
 public class RunModelAction {
@@ -33,9 +38,6 @@ public class RunModelAction {
 	 * Open a selection dialog to get the model file before launch
 	 */
 	public static void launch(Shell shell, IResource dslFile) {
-		
-		System.out.println("\nRun "+dslFile.getName());
-		System.out.println("------------");
 		
 		/*
 		 * Selected model
@@ -77,6 +79,13 @@ public class RunModelAction {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				
+				MessageConsole console = findConsole("ALE Console");
+				PrintStream oldOut = System.out;
+				System.setOut(new PrintStream(console.newMessageStream()));
+				
+				System.out.println("\nRun "+dslFile.getName());
+				System.out.println("------------");
+				
 				Thread execThread = new Thread("Aql eval thread"){
 					@Override
 					public void run() {
@@ -107,9 +116,23 @@ public class RunModelAction {
 					execThread.stop();
 				}
 				
+				System.setOut(oldOut);
 				return Status.OK_STATUS;
 			}
 		};
 		evalJob.schedule();
+	}
+	
+	private static MessageConsole findConsole(String name) {
+		ConsolePlugin plugin = ConsolePlugin.getDefault();
+		IConsoleManager conMan = plugin.getConsoleManager();
+		IConsole[] existing = conMan.getConsoles();
+		for (int i = 0; i < existing.length; i++)
+			if (name.equals(existing[i].getName()))
+				return (MessageConsole) existing[i];
+		// no console found, so create a new one
+		MessageConsole myConsole = new MessageConsole(name, null);
+		conMan.addConsoles(new IConsole[] { myConsole });
+		return myConsole;
 	}
 }
