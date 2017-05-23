@@ -140,7 +140,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     rRoot returns rRoot
 	 *
 	 * Constraint:
-	 *     xtendedClasses+=rClass+
+	 *     (name=rQualified xtendedClasses+=rClass*)
 	 */
 	protected void sequence_rRoot(ISerializationContext context, rRoot semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

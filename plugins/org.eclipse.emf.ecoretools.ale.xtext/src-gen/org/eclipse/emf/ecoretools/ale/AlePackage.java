@@ -79,13 +79,22 @@ public interface AlePackage extends EPackage
   int RROOT = 0;
 
   /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RROOT__NAME = 0;
+
+  /**
    * The feature id for the '<em><b>Xtended Classes</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RROOT__XTENDED_CLASSES = 0;
+  int RROOT__XTENDED_CLASSES = 1;
 
   /**
    * The number of structural features of the '<em>rRoot</em>' class.
@@ -94,7 +103,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RROOT_FEATURE_COUNT = 1;
+  int RROOT_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.rClassImpl <em>rClass</em>}' class.
@@ -430,6 +439,17 @@ public interface AlePackage extends EPackage
   EClass getrRoot();
 
   /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rRoot#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.rRoot#getName()
+   * @see #getrRoot()
+   * @generated
+   */
+  EAttribute getrRoot_Name();
+
+  /**
    * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.rRoot#getXtendedClasses <em>Xtended Classes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -707,6 +727,14 @@ public interface AlePackage extends EPackage
      * @generated
      */
     EClass RROOT = eINSTANCE.getrRoot();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RROOT__NAME = eINSTANCE.getrRoot_Name();
 
     /**
      * The meta object literal for the '<em><b>Xtended Classes</b></em>' containment reference list feature.

@@ -1706,9 +1706,9 @@ rule__RRoot__Group__1__Impl
 	}
 :
 (
-	{ before(grammarAccess.getRRootAccess().getRQualifiedParserRuleCall_1()); }
-	rulerQualified
-	{ after(grammarAccess.getRRootAccess().getRQualifiedParserRuleCall_1()); }
+	{ before(grammarAccess.getRRootAccess().getNameAssignment_1()); }
+	(rule__RRoot__NameAssignment_1)
+	{ after(grammarAccess.getRRootAccess().getNameAssignment_1()); }
 )
 ;
 finally {
@@ -7411,6 +7411,21 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+
+rule__RRoot__NameAssignment_1
+	@init {
+		int stackSize = keepStackSize();
+	}
+:
+	(
+		{ before(grammarAccess.getRRootAccess().getNameRQualifiedParserRuleCall_1_0()); }
+		rulerQualified
+		{ after(grammarAccess.getRRootAccess().getNameRQualifiedParserRuleCall_1_0()); }
+	)
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 rule__RRoot__XtendedClassesAssignment_5
 	@init {

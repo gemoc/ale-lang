@@ -95,16 +95,25 @@ rulerRoot returns [EObject current=null]
 		{
 			newLeafNode(otherlv_0, grammarAccess.getRRootAccess().getBehaviorKeyword_0());
 		}
-		{
-			/* */
-		}
-		{
-			newCompositeNode(grammarAccess.getRRootAccess().getRQualifiedParserRuleCall_1());
-		}
-		rulerQualified
-		{
-			afterParserOrEnumRuleCall();
-		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getRRootAccess().getNameRQualifiedParserRuleCall_1_0());
+				}
+				lv_name_1_0=rulerQualified
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getRRootRule());
+					}
+					set(
+						$current,
+						"name",
+						lv_name_1_0,
+						"org.eclipse.emf.ecoretools.Ale.rQualified");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
 		otherlv_2=';'
 		{
 			newLeafNode(otherlv_2, grammarAccess.getRRootAccess().getSemicolonKeyword_2());

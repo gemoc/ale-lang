@@ -7,6 +7,7 @@
   <genPackages prefix="Ale" basePackage="org.eclipse.emf.ecoretools" disposableProviderFactory="true"
       fileExtensions="ale" ecorePackage="Ale.ecore#/">
     <genClasses ecoreClass="Ale.ecore#//rRoot">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//rRoot/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//rRoot/xtendedClasses"/>
     </genClasses>
     <genClasses ecoreClass="Ale.ecore#//rClass">

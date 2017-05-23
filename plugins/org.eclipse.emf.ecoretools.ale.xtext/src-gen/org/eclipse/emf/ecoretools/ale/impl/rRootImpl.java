@@ -16,6 +16,7 @@ package org.eclipse.emf.ecoretools.ale.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -23,6 +24,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -40,6 +42,7 @@ import org.eclipse.emf.ecoretools.ale.rRoot;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.impl.rRootImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.impl.rRootImpl#getXtendedClasses <em>Xtended Classes</em>}</li>
  * </ul>
  *
@@ -47,6 +50,26 @@ import org.eclipse.emf.ecoretools.ale.rRoot;
  */
 public class rRootImpl extends MinimalEObjectImpl.Container implements rRoot
 {
+  /**
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getXtendedClasses() <em>Xtended Classes</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -76,6 +99,29 @@ public class rRootImpl extends MinimalEObjectImpl.Container implements rRoot
   protected EClass eStaticClass()
   {
     return AlePackage.Literals.RROOT;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getName()
+  {
+    return name;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setName(String newName)
+  {
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.RROOT__NAME, oldName, name));
   }
 
   /**
@@ -118,6 +164,8 @@ public class rRootImpl extends MinimalEObjectImpl.Container implements rRoot
   {
     switch (featureID)
     {
+      case AlePackage.RROOT__NAME:
+        return getName();
       case AlePackage.RROOT__XTENDED_CLASSES:
         return getXtendedClasses();
     }
@@ -135,6 +183,9 @@ public class rRootImpl extends MinimalEObjectImpl.Container implements rRoot
   {
     switch (featureID)
     {
+      case AlePackage.RROOT__NAME:
+        setName((String)newValue);
+        return;
       case AlePackage.RROOT__XTENDED_CLASSES:
         getXtendedClasses().clear();
         getXtendedClasses().addAll((Collection<? extends rClass>)newValue);
@@ -153,6 +204,9 @@ public class rRootImpl extends MinimalEObjectImpl.Container implements rRoot
   {
     switch (featureID)
     {
+      case AlePackage.RROOT__NAME:
+        setName(NAME_EDEFAULT);
+        return;
       case AlePackage.RROOT__XTENDED_CLASSES:
         getXtendedClasses().clear();
         return;
@@ -170,10 +224,29 @@ public class rRootImpl extends MinimalEObjectImpl.Container implements rRoot
   {
     switch (featureID)
     {
+      case AlePackage.RROOT__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case AlePackage.RROOT__XTENDED_CLASSES:
         return xtendedClasses != null && !xtendedClasses.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
   }
 
 } //rRootImpl

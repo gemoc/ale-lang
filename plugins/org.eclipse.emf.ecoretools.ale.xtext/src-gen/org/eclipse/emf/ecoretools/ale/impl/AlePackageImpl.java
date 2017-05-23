@@ -174,9 +174,19 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getrRoot_Name()
+  {
+    return (EAttribute)rRootEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getrRoot_XtendedClasses()
   {
-    return (EReference)rRootEClass.getEStructuralFeatures().get(0);
+    return (EReference)rRootEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -430,6 +440,7 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
 
     // Create classes and their features
     rRootEClass = createEClass(RROOT);
+    createEAttribute(rRootEClass, RROOT__NAME);
     createEReference(rRootEClass, RROOT__XTENDED_CLASSES);
 
     rClassEClass = createEClass(RCLASS);
@@ -496,6 +507,7 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
 
     // Initialize classes and features; add operations and parameters
     initEClass(rRootEClass, rRoot.class, "rRoot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getrRoot_Name(), ecorePackage.getEString(), "name", null, 0, 1, rRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getrRoot_XtendedClasses(), this.getrClass(), null, "xtendedClasses", null, 0, -1, rRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(rClassEClass, rClass.class, "rClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

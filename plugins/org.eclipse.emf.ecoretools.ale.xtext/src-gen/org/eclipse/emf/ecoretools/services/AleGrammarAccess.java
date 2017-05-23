@@ -35,7 +35,8 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.rRoot");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cBehaviorKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cRQualifiedParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameRQualifiedParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final RuleCall cRImportParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		private final RuleCall cRServiceParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
@@ -45,17 +46,20 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 		/// *****************
 		// *  ALE grammar  *
 		// ***************** / rRoot:
-		//	'behavior' rQualified ';' rImport* rService* xtendedClasses+=rClass*;
+		//	'behavior' name=rQualified ';' rImport* rService* xtendedClasses+=rClass*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//'behavior' rQualified ';' rImport* rService* xtendedClasses+=rClass*
+		//'behavior' name=rQualified ';' rImport* rService* xtendedClasses+=rClass*
 		public Group getGroup() { return cGroup; }
 		
 		//'behavior'
 		public Keyword getBehaviorKeyword_0() { return cBehaviorKeyword_0; }
 		
+		//name=rQualified
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		
 		//rQualified
-		public RuleCall getRQualifiedParserRuleCall_1() { return cRQualifiedParserRuleCall_1; }
+		public RuleCall getNameRQualifiedParserRuleCall_1_0() { return cNameRQualifiedParserRuleCall_1_0; }
 		
 		//';'
 		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
@@ -1890,7 +1894,7 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 	/// *****************
 	// *  ALE grammar  *
 	// ***************** / rRoot:
-	//	'behavior' rQualified ';' rImport* rService* xtendedClasses+=rClass*;
+	//	'behavior' name=rQualified ';' rImport* rService* xtendedClasses+=rClass*;
 	public RRootElements getRRootAccess() {
 		return pRRoot;
 	}

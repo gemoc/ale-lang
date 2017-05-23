@@ -127,6 +127,7 @@ public class AleParser extends AbstractContentAssistParser {
 					put(grammarAccess.getClassifierTypeRuleAccess().getGroup_1(), "rule__ClassifierTypeRule__Group_1__0");
 					put(grammarAccess.getRQualifiedAccess().getGroup(), "rule__RQualified__Group__0");
 					put(grammarAccess.getRQualifiedAccess().getGroup_1(), "rule__RQualified__Group_1__0");
+					put(grammarAccess.getRRootAccess().getNameAssignment_1(), "rule__RRoot__NameAssignment_1");
 					put(grammarAccess.getRRootAccess().getXtendedClassesAssignment_5(), "rule__RRoot__XtendedClassesAssignment_5");
 					put(grammarAccess.getROpenClassAccess().getNameAssignment_2(), "rule__ROpenClass__NameAssignment_2");
 					put(grammarAccess.getROpenClassAccess().getAttributesAssignment_5(), "rule__ROpenClass__AttributesAssignment_5");

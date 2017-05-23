@@ -36,9 +36,7 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1;
 	protected AbstractElementAlias match_rOperation_RTagParserRuleCall_0_a;
 	protected AbstractElementAlias match_rRoot_RImportParserRuleCall_3_a;
-	protected AbstractElementAlias match_rRoot_RImportParserRuleCall_3_q;
 	protected AbstractElementAlias match_rRoot_RServiceParserRuleCall_4_a;
-	protected AbstractElementAlias match_rRoot_RServiceParserRuleCall_4_q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -48,9 +46,7 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_rOperation_DefKeyword_1_0_or_OverrideKeyword_1_1 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getROperationAccess().getDefKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getROperationAccess().getOverrideKeyword_1_1()));
 		match_rOperation_RTagParserRuleCall_0_a = new TokenAlias(true, true, grammarAccess.getROperationAccess().getRTagParserRuleCall_0());
 		match_rRoot_RImportParserRuleCall_3_a = new TokenAlias(true, true, grammarAccess.getRRootAccess().getRImportParserRuleCall_3());
-		match_rRoot_RImportParserRuleCall_3_q = new TokenAlias(false, true, grammarAccess.getRRootAccess().getRImportParserRuleCall_3());
 		match_rRoot_RServiceParserRuleCall_4_a = new TokenAlias(true, true, grammarAccess.getRRootAccess().getRServiceParserRuleCall_4());
-		match_rRoot_RServiceParserRuleCall_4_q = new TokenAlias(false, true, grammarAccess.getRRootAccess().getRServiceParserRuleCall_4());
 	}
 	
 	@Override
@@ -135,12 +131,8 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_rOperation_RTagParserRuleCall_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_rRoot_RImportParserRuleCall_3_a.equals(syntax))
 				emit_rRoot_RImportParserRuleCall_3_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_rRoot_RImportParserRuleCall_3_q.equals(syntax))
-				emit_rRoot_RImportParserRuleCall_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_rRoot_RServiceParserRuleCall_4_a.equals(syntax))
 				emit_rRoot_RServiceParserRuleCall_4_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_rRoot_RServiceParserRuleCall_4_q.equals(syntax))
-				emit_rRoot_RServiceParserRuleCall_4_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -196,20 +188,10 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     rImport*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) 'behavior' rQualified ';' (ambiguity) rService* (rule start)
+	 *     name=rQualified ';' (ambiguity) rService* (rule end)
+	 *     name=rQualified ';' (ambiguity) rService* xtendedClasses+=rClass
 	 */
 	protected void emit_rRoot_RImportParserRuleCall_3_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     rImport?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     (rule start) 'behavior' rQualified ';' (ambiguity) rService? xtendedClasses+=rClass
-	 */
-	protected void emit_rRoot_RImportParserRuleCall_3_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -218,20 +200,10 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     rService*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) 'behavior' rQualified ';' rImport* (ambiguity) (rule start)
+	 *     name=rQualified ';' rImport* (ambiguity) (rule end)
+	 *     name=rQualified ';' rImport* (ambiguity) xtendedClasses+=rClass
 	 */
 	protected void emit_rRoot_RServiceParserRuleCall_4_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     rService?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     (rule start) 'behavior' rQualified ';' rImport? (ambiguity) xtendedClasses+=rClass
-	 */
-	protected void emit_rRoot_RServiceParserRuleCall_4_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

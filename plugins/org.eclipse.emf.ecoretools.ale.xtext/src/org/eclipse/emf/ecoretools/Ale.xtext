@@ -16,7 +16,7 @@ generate ale "http://www.eclipse.org/emf/ecoretools/Ale"
  *  ALE grammar  *
  *****************/
 
-rRoot : 'behavior' rQualified ';' rImport* rService* xtendedClasses+=rClass*
+rRoot : 'behavior' name=rQualified ';' rImport* rService* xtendedClasses+=rClass*
 ;
 
 rImport : 'import' rQualified 'as' Ident ';'
