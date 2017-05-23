@@ -264,11 +264,11 @@ public class Services {
 							else {
 								ICompositeNode node = NodeModelUtils.findActualNodeFor(root);
 								int endOffset = node.getEndOffset();
-								String newXtdClass = "\nopen class "+op.getEContainingClass().getName()+" {\n"+template+"}";
+								String newXtdClass = "\n\nopen class "+op.getEContainingClass().getName()+" {\n"+template+"}";
 								document.replace(endOffset, 0,	newXtdClass);
 								xEditor.selectAndReveal(endOffset, newXtdClass.length());
 								int templateOffset = endOffset + op.getEContainingClass().getName().length() + 16;
-								xEditor.selectAndReveal(templateOffset, template.length() -2);
+								xEditor.selectAndReveal(templateOffset, template.length() -1);
 							}
 						}
 					}
@@ -356,10 +356,10 @@ public class Services {
 							else {
 								ICompositeNode node = NodeModelUtils.findActualNodeFor(root);
 								int endOffset = node.getEndOffset();
-								String newXtdClass = "\n"+keyword+" "+className+" {\n"+template+"}";
+								String newXtdClass = "\n\n"+keyword+" "+className+" {\n"+template+"}";
 								document.replace(endOffset, 0,	newXtdClass);
 								int templateOffset = endOffset + keyword.length() + className.length() + 6;
-								xEditor.selectAndReveal(templateOffset, template.length() -2);
+								xEditor.selectAndReveal(templateOffset, template.length() -1);
 							}
 						}
 					}
@@ -474,10 +474,10 @@ public class Services {
 							else {
 								ICompositeNode node = NodeModelUtils.findActualNodeFor(root);
 								int endOffset = node.getEndOffset();
-								String newXtdClass = "\n"+keyword+" "+className+" {\n"+template+"}";
+								String newXtdClass = "\n\n"+keyword+" "+className+" {\n"+template+"}";
 								document.replace(endOffset, 0,	newXtdClass);
 								int templateOffset = endOffset + keyword.length() + className.length() + 7;
-								xEditor.selectAndReveal(templateOffset, template.length() -3);
+								xEditor.selectAndReveal(templateOffset, template.length() -2);
 							}
 						}
 					}
@@ -516,7 +516,7 @@ public class Services {
 							
 							String newClassName = "NewRuntimeClass";
 							String template = "\n\t/* Write your code here */\n";
-							String newClass = "\n class "+newClassName+" {\n"+template+"}";
+							String newClass = "\n\nclass "+newClassName+" {\n"+template+"}";
 							
 							EList<rClass> allXtdCls = root.getXtendedClasses();
 							Optional<rClass> search = allXtdCls.stream().filter(xtd -> xtd.getName().equals(newClassName)).findFirst();
@@ -532,12 +532,12 @@ public class Services {
 									final String suffixedClassName = newClassName + i;  
 									search = allXtdCls.stream().filter(xtd -> xtd.getName().equals(suffixedClassName)).findFirst();
 									if(!search.isPresent()){
-										newClass = "\n class "+suffixedClassName+" {\n"+template+"}";
+										newClass = "\n\nclass "+suffixedClassName+" {\n"+template+"}";
 										ICompositeNode node = NodeModelUtils.findActualNodeFor(root);
 										int endOffset = node.getEndOffset();
 										document.replace(endOffset, 0,	newClass);
 										int templateOffset = endOffset + newClassName.length() + 13;
-										xEditor.selectAndReveal(templateOffset, template.length() -3);
+										xEditor.selectAndReveal(templateOffset, template.length() -2);
 										break;
 									}
 								}
