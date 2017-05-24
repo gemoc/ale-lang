@@ -3,23 +3,60 @@
  */
 package org.eclipse.emf.ecoretools.validation
 
+import java.util.List
+import org.eclipse.acceleo.query.runtime.IValidationMessage
+import org.eclipse.core.resources.IFile
+import org.eclipse.core.resources.IMarker
+import org.eclipse.core.resources.IResource
+import org.eclipse.core.resources.IWorkspaceRoot
+import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.core.runtime.IPath
+import org.eclipse.emf.ecoretools.ale.ALEInterpreter
+import org.eclipse.emf.ecoretools.ale.core.parser.Dsl
+import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder
+import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult
+import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator
+import org.eclipse.emf.ecoretools.ale.ide.WorkbenchDsl
+import org.eclipse.emf.ecoretools.ale.ide.services.Services
+import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit
+import org.eclipse.emf.ecoretools.ale.rRoot
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer
+import org.eclipse.xtext.validation.Check
 
 /**
- * This class contains custom validation rules. 
- *
- * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
+ * Delegate validation to ALE validator
  */
 class AleValidator extends AbstractAleValidator {
 	
-//	public static val INVALID_NAME = 'invalidName'
-//
-//	@Check
-//	def checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.name.charAt(0))) {
-//			warning('Name should start with a capital', 
-//					AlePackage.Literals.GREETING__NAME,
-//					INVALID_NAME)
-//		}
-//	}
+	public static String ALE_MARKER = "org.eclipse.emf.ecoretools.ale.xtext.AleMarker";
 	
+	@Check
+	def checkGreetingStartsWithCapital(rRoot root) {
+		
+		val IFile aleFile = WorkspaceSynchronizer.getFile(root.eResource);
+		cleanUpMarkers(aleFile);
+		
+		val IPath dslPath = aleFile.getFullPath().removeFileExtension().addFileExtension(Services.DSL_EXTENSION);
+		val IWorkspaceRoot ws = ResourcesPlugin.getWorkspace().getRoot();
+		val dsl = new WorkbenchDsl(ws.getFile(dslPath).contents);
+		val ALEInterpreter interpreter = new ALEInterpreter();
+		val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(dsl as Dsl);
+		
+		val ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		val List<IValidationMessage> msgs = validator.getMessages();
+		
+		msgs.forEach[msg |
+			val marker = aleFile.createMarker(ALE_MARKER);
+			marker.setAttribute(IMarker.MESSAGE, msg.getMessage());
+			marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
+			marker.setAttribute(IMarker.CHAR_START, msg.startPosition);
+			marker.setAttribute(IMarker.CHAR_END, msg.endPosition);
+		]
+		
+	}
+	
+	private def cleanUpMarkers(IFile file) {
+		file.deleteMarkers(ALE_MARKER, true, IResource.DEPTH_ZERO);
+	}
 }

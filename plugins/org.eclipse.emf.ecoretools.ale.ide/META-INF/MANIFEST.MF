@@ -30,3 +30,8 @@ Require-Bundle: org.eclipse.emf.ecoretools.ale,
  org.eclipse.debug.ui
 Import-Package: org.eclipse.emf.common.util,
  org.eclipse.emf.ecore.resource.impl
+Export-Package: org.eclipse.emf.ecoretools.ale.ide,
+ org.eclipse.emf.ecoretools.ale.ide.resource,
+ org.eclipse.emf.ecoretools.ale.ide.launchconfig,
+ org.eclipse.emf.ecoretools.ale.ide.services,
+ org.eclipse.emf.ecoretools.ale.ide.listener
