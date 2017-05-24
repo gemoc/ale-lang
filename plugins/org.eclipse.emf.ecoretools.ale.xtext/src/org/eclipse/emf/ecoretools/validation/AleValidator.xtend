@@ -12,16 +12,16 @@ import org.eclipse.core.resources.IWorkspaceRoot
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator
-import org.eclipse.emf.ecoretools.ale.ide.WorkbenchDsl
-import org.eclipse.emf.ecoretools.ale.ide.services.Services
+import org.eclipse.emf.ecoretools.ale.core.parser.Dsl
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit
 import org.eclipse.emf.ecoretools.ale.rRoot
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer
 import org.eclipse.xtext.validation.Check
+import java.util.ArrayList
+import org.eclipse.emf.common.util.URI
 
 /**
  * Delegate validation to ALE validator
@@ -36,11 +36,12 @@ class AleValidator extends AbstractAleValidator {
 		val IFile aleFile = WorkspaceSynchronizer.getFile(root.eResource);
 		cleanUpMarkers(aleFile);
 		
-		val IPath dslPath = aleFile.getFullPath().removeFileExtension().addFileExtension(Services.DSL_EXTENSION);
+		val IPath dslPath = aleFile.getFullPath().removeFileExtension().addFileExtension("dsl");
 		val IWorkspaceRoot ws = ResourcesPlugin.getWorkspace().getRoot();
-		val dsl = new WorkbenchDsl(ws.getFile(dslPath).contents);
+		val dsl = new Dsl(ws.getFile(dslPath).contents);
+		dsl.resolveUris
 		val ALEInterpreter interpreter = new ALEInterpreter();
-		val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(dsl as Dsl);
+		val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(dsl);
 		
 		val ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
@@ -54,6 +55,26 @@ class AleValidator extends AbstractAleValidator {
 			marker.setAttribute(IMarker.CHAR_END, msg.endPosition);
 		]
 		
+	}
+	
+	// copied from WorkbenchDsl (which introduce cyclic dependency if used)
+	private def void resolveUris(Dsl dsl) {
+		val newSemantics = new ArrayList<String>();
+		val ws = ResourcesPlugin.getWorkspace();
+		dsl.getAllSemantics()
+			.forEach[elem |
+				val uri = URI.createURI(elem);
+				if(ws != null && uri.isPlatform()) {
+					val file = ws.getRoot().findMember(uri.toPlatformString(true));
+					val path = file.getLocationURI().getRawPath();
+					newSemantics.add(path);
+				}
+				else {
+					newSemantics.add(elem);
+				}
+			]
+		dsl.getAllSemantics().clear();
+		dsl.getAllSemantics().addAll(newSemantics);
 	}
 	
 	private def cleanUpMarkers(IFile file) {
