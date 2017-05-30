@@ -85,7 +85,7 @@ In similare way add `event` typed `EString` into Transition
 ### Declare EOperation
 1. Select `Feature > Operation`
 2. Click on `FSM`
-3. In the `Properties` view fill `Name` with 'execute'
+3. In the `Properties` view fill `Name` with 'handle'
 4. In the left part of the `Properties` view, open the `Parameter` tab
 5. Click the `Add` button at the right
 6. In `Parameter Details` name it 'event' and type it 'EString'
@@ -95,7 +95,8 @@ Add also an operation:
  * `isActivated` typed EBoolean into Transition
 
 Your metamodel should look like that now:
-//TODO: add image here
+
+![FSM syntax](img/syntax.png)
 
 Implementation
 ==============
@@ -111,10 +112,15 @@ Then we activate the Behavior tools:
 1. Right click on minifsm.aird and select `Viewpoints Selection`
 2. Check `Behavior` and click `OK`
 3. Now you can activate the `Behavior` layer in the toolbar
-//TODO: add screenshot pointing to the tool bar icon > Menu
 
-You have a new selection in the `Palette` at the right
-Two new files are created:
+![layer](img/layer.png)
+
+A new selection `Behavior` is activated in the `Palette` at the right<br>
+
+![palette](img/palette.png)
+
+
+Two new files are also created:
  * minifsm.dsl (We will ignore it in this tutorial)
  * minifsm.ale (It will contain the implementations)
 
@@ -127,8 +133,6 @@ Add Dynamic features
 6. In the automatically opened `minifsm.ale`, change `newRef` for `currentState`
 
 Do the same with `Behavior > Attribute` to add `String currentEvent` into `FSM`
-
-//TODO: screen with both .ale & .aird
 
 Implement EOperations
 ---------------------
@@ -149,13 +153,125 @@ We are checking
 The content of the variable `result` will be returned at the end of `isActivated`<br>
 The variable `self` refer to the current object (here it is a Transition)
 
-//TODO: screen with both .ale & .aird
 
-//TODO: State.execute(), FSM.execute(), FSM.main()
+In similar way we implements `execute` from `State`
+
+```
+override void execute () {
+	('  Execute ' + self.name).log();
+}
+```
+
+We just log the name of the State
+
+And for the implementation of `handle` from `FSM`
+
+```
+override void handle (EString event) {
+	(' Handle ' + event).log();
+	self.currentEvent := event;
+	
+	self.currentState :=
+		self.transitions
+		->select(t | t.isActivated() )
+		->first()
+		.outgoing;
+}
+	
+```
+
+Here we simply update `currentEvent`, search for an activated `Transition` and update `currentState` accordingly.
+
+Define new operation
+--------------------
+
+To complete the behavior of our language, we will now define an entry point to run an FSM.
+
+1. Select `Behavior > Operation`
+2. Click on `FSM`
+
+This tool create an operation `int newMethod()` in FSM. You can notice that `newMethod` start with the keyword `def` contrary to implemented EOperation that use the keyword `override`. This distinction is done to raise an error if we try to implement an EOperation that doesn't exist in the metamodel.
+
+1. Change `def int newMethod()` to `def void entryPoint()`
+2. Add `@main` before the `entryPoint` declaration
+
+We changed the return type to `void` since the `entryPoint` return nothing<br>
+We also added the tag `main` to call this operation at the execution of an FSM
+
+And for the content:
+
+```
+@main
+def void entryPoint() {
+	'Start'.log();
+	
+	Sequence(String) events := Sequence{'event1','event2'};
+	
+	self.currentState :=
+		self.states
+		->select(s | s.oclIsKindOf(minifsm::InitialState) )
+		->first();
+	self.currentState.execute();
+	
+	for(event in events) {
+		self.handle(event);
+		self.currentState.execute();
+	}
+	
+	'End'.log();
+}
+```
+
+We created a sequence of `2 events`, initialized `currentState` with an `InitialState` and notify the `FSM` with the events.
+
+Your FSM language should now look like:
+
+[![full FSM](img/fullFSM.png)](img/fullFSM.png)
 
 Launch the execution
 --------------------
 
 ### Create dynamic instance
 
+Before test our implementation we need an FSM model
+
+1. Select `Dynamic > Dynamic instance`
+2. Click on `FSM`
+3. Name it `FSM.xmi` and click `Finish`
+4. In the automatically opened `FSM.xmi`, right click on `FSM` and select `New Child > States Initial State`
+5. Name it `First` in the `Properties` view
+6. Create a child `State` named `Second` and a `Final State` named `Third`
+7. Create a `Transition` and edit the properties `Event` to `event1`, `Incoming` to  `First` and `Outgoing` to `Second`
+8. Add another `Transition` from `Second` to `Third` with `event2`
+
+Your FSM model should look like:
+
+![full FSM](img/xmi.png)
+
 ### Run!
+
+Now we can test!
+
+1. Right click on `minifsm.dsl`
+2. Select `Run As > ALE launch`
+3. Enter `*xmi`
+4. Select `FSM.xmi` 
+5. Then click `OK`
+
+Console output:
+
+```
+Run minifsm.dsl
+------------
+Start
+  Execute First
+ Handle event1
+  Execute Second
+ Handle event2
+  Execute Third
+End
+```
+
+Congratulation, you created an executable language from scratch !<br>
+With EcoreTools you defined the abstract syntax of a FSM, you then implemented its EOperations with ALE and you run it on a FSM model.
+
