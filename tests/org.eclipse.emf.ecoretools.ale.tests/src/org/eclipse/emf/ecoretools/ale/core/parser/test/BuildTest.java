@@ -682,6 +682,63 @@ public class BuildTest {
 		assertEquals(toEClass.getEOpposite(), toNewClass);
 	}
 	
+	@Test
+	public void testTypeLiteral() {
+		ParseResult<ModelUnit> res = parse("input/structure/typeLiteral.implem");
+		ModelUnit root = res.getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.typeliteral",root.getName());
+		assertEquals(0, root.getServices().size());
+		assertEquals(1, root.getClassExtensions().size());
+		
+		ExtendedClass xtdCls = root.getClassExtensions().get(0);
+		assertEquals(0, xtdCls.getMethods().size());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(), xtdCls.getBaseClass());
+		assertEquals(8, xtdCls.getAttributes().size());
+		
+		Attribute attrib0 = xtdCls.getAttributes().get(0);
+		assertEquals("stringAttr", attrib0.getFeatureRef().getName());
+		assertEquals(EcorePackage.eINSTANCE.getEString(), attrib0.getFeatureRef().getEType());
+		assertNull(attrib0.getInitialValue());
+		
+		Attribute attrib1 = xtdCls.getAttributes().get(1);
+		assertEquals("intAttr", attrib1.getFeatureRef().getName());
+		assertEquals(EcorePackage.eINSTANCE.getEInt(), attrib1.getFeatureRef().getEType());
+		assertNull(attrib1.getInitialValue());
+		
+		Attribute attrib2 = xtdCls.getAttributes().get(2);
+		assertEquals("realAttr", attrib2.getFeatureRef().getName());
+		assertEquals(EcorePackage.eINSTANCE.getEDouble(), attrib2.getFeatureRef().getEType());
+		assertNull(attrib2.getInitialValue());
+		
+		Attribute attrib3 = xtdCls.getAttributes().get(3);
+		assertEquals("boolAttr", attrib3.getFeatureRef().getName());
+		assertEquals(EcorePackage.eINSTANCE.getEBoolean(), attrib3.getFeatureRef().getEType());
+		assertNull(attrib3.getInitialValue());
+		
+		Attribute attrib4 = xtdCls.getAttributes().get(4);
+		assertEquals("seqAttr", attrib4.getFeatureRef().getName());
+		assertEquals(EcorePackage.eINSTANCE.getEEList(), attrib4.getFeatureRef().getEType());
+		assertNull(attrib4.getInitialValue());
+		
+		Attribute attrib5 = xtdCls.getAttributes().get(5);
+		assertEquals("setAttr", attrib5.getFeatureRef().getName());
+		assertEquals(EcorePackage.eINSTANCE.getEEList(), attrib5.getFeatureRef().getEType());
+		assertNull(attrib5.getInitialValue());
+		
+		Attribute attrib6 = xtdCls.getAttributes().get(6);
+		assertEquals("clsAttr", attrib6.getFeatureRef().getName());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(), attrib6.getFeatureRef().getEType());
+		assertNull(attrib6.getInitialValue());
+		
+		//Check multi set fall in default EType
+		Attribute attrib7 = xtdCls.getAttributes().get(7);
+		assertEquals("clsSetAttr", attrib7.getFeatureRef().getName());
+		assertEquals(EcorePackage.eINSTANCE.getEClassifier(), attrib7.getFeatureRef().getEType());
+		assertNull(attrib7.getInitialValue());
+	}
+	
 	private static String getFileContent(String implementionPath){
 		String fileContent = "";
 		try {

@@ -1,0 +1,12 @@
+behavior test.typeliteral;
+
+open class EClass {
+	String stringAttr;
+	Integer intAttr;
+	Real realAttr;
+	Boolean boolAttr;
+	Sequence(String) seqAttr;
+	OrderedSet(String) setAttr;
+	ecore::EClass clsAttr;
+	{ecore::EClass | ecore::EOperation} clsSetAttr;
+}
