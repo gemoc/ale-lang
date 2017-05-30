@@ -43,6 +43,7 @@ import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.ROperationContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RParametersContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RRootContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RServiceContext;
+import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RTypeContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RVarDeclContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RVariableContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RWhileContext;
@@ -119,7 +120,7 @@ public class AstVisitors {
 		
 		@Override
 		public Statement visitRVarDecl(RVarDeclContext ctx) {
-			String typeName = ctx.type.getText();
+			RTypeContext typeName = ctx.type;
 			
 			String name = ctx.Ident().getText();
 			RExpressionContext initialValue = ctx.rExpression();
@@ -276,7 +277,7 @@ public class AstVisitors {
 				.get()
 				.getText();
 			
-			final String returnType = ctx.type.getText();
+			final RTypeContext returnType = ctx.type;
 			
 			String operationName = ctx.name.getText();;
 			
@@ -355,11 +356,11 @@ public class AstVisitors {
 		
 		@Override
 		public Parameter visitRVariable(RVariableContext ctx) {
-			String typeName = ctx.type.getText();
+			RTypeContext type = ctx.type;
 			
 			String name = ctx.Ident().getText();
 			
-			Parameter res = ModelBuilder.singleton.buildParameter(typeName,name);
+			Parameter res = ModelBuilder.singleton.buildParameter(type,name);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
 			return res;
@@ -470,7 +471,7 @@ public class AstVisitors {
 		public Attribute visitRAttribute(RAttributeContext ctx) {
 			RExpressionContext initialValue = ctx.rExpression();
 			
-			String typeName = ctx.type.getText();
+			RTypeContext type = ctx.type;
 			
 			String name = ctx.Ident().getText();
 			
@@ -507,7 +508,7 @@ public class AstVisitors {
 					fragment,
 					name,
 					initialValue,
-					typeName,
+					type,
 					lowerBound,
 					upperBound,
 					isContainment,

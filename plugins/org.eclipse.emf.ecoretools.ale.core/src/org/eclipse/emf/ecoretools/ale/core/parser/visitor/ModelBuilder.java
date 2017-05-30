@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.antlr.v4.runtime.misc.Interval;
 import org.eclipse.acceleo.query.ast.AstFactory;
@@ -22,9 +23,11 @@ import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.ast.IntegerLiteral;
 import org.eclipse.acceleo.query.ast.Let;
 import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
+import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.impl.QueryBuilderEngine;
+import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
@@ -42,6 +45,8 @@ import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.ExpressionContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RCaseContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RExpressionContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RSwitchContext;
+import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RTypeContext;
+import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.TypeLiteralContext;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.Case;
@@ -64,6 +69,8 @@ import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 /**
  * Helper to create parts of Implementation model & to resolve types.
@@ -103,6 +110,7 @@ public class ModelBuilder {
 	
 	IQueryEnvironment qryEnv;
 	QueryBuilderEngine builder;
+	QueryEvaluationEngine aqlEngine;
 	
 	ImplementationFactory implemFactory;
 	EcoreFactory ecoreFactory;
@@ -111,13 +119,14 @@ public class ModelBuilder {
 	public ModelBuilder (IQueryEnvironment qryEnv){
 		this.qryEnv = qryEnv;
 		builder = new QueryBuilderEngine(qryEnv);
+		aqlEngine = new QueryEvaluationEngine(qryEnv);
 		
 		ecoreFactory = (EcoreFactory) qryEnv.getEPackageProvider().getEPackage("ecore").iterator().next().getEFactoryInstance();
 		implemFactory = (ImplementationFactory) qryEnv.getEPackageProvider().getEPackage("implementation").iterator().next().getEFactoryInstance();
 		aqlFactory = (AstFactory) qryEnv.getEPackageProvider().getEPackage("ast").iterator().next().getEFactoryInstance();
 	}
 	
-	public Method buildMethod(EClass fragment, String name, List<Parameter> params, String returnType, Block body, List<String> tags) {
+	public Method buildMethod(EClass fragment, String name, List<Parameter> params, RTypeContext returnType, Block body, List<String> tags) {
 		EOperation operation = ecoreFactory.createEOperation();
 		operation.setName(name);
 		
@@ -144,7 +153,7 @@ public class ModelBuilder {
 		return newMethod;
 	}
 	
-	public Method buildImplementation(String containingClass, String name, List<Parameter> params, String returnType, Block body, List<String> tags) {
+	public Method buildImplementation(String containingClass, String name, List<Parameter> params, RTypeContext returnType, Block body, List<String> tags) {
 		Optional<EOperation> existingOperation = resolve(containingClass, name, params.size(), returnType);
 		
 		if(!existingOperation.isPresent()){
@@ -157,11 +166,11 @@ public class ModelBuilder {
 	
 	
 	
-	public Parameter buildParameter(String type, String name) {
+	public Parameter buildParameter(RTypeContext type, String name) {
 		return new Parameter(name, resolve(type));
 	}
 	
-	public Attribute buildAttribute(EClass fragment, String name, RExpressionContext exp, String type, int lowerBound, int upperBound, boolean isContainment, boolean isUnique, String opposite, ParseResult<ModelUnit> parseRes) {
+	public Attribute buildAttribute(EClass fragment, String name, RExpressionContext exp, RTypeContext type, int lowerBound, int upperBound, boolean isContainment, boolean isUnique, String opposite, ParseResult<ModelUnit> parseRes) {
 		Attribute attribute = implemFactory.createAttribute();
 		EStructuralFeature feature;
 		
@@ -199,7 +208,7 @@ public class ModelBuilder {
 		return attribute;
 	}
 	
-	public VariableDeclaration buildVariableDecl(String name, RExpressionContext exp, String type, ParseResult<ModelUnit> parseRes) {
+	public VariableDeclaration buildVariableDecl(String name, RExpressionContext exp, RTypeContext type, ParseResult<ModelUnit> parseRes) {
 		VariableDeclaration varDecl = implemFactory. createVariableDeclaration();
 		varDecl.setName(name);
 		if(exp != null){
@@ -416,7 +425,7 @@ public class ModelBuilder {
 	}
 	
 	//Can return null
-	public Optional<EOperation> resolve(String className, String methodName, int nbArgs, String returnType) {
+	public Optional<EOperation> resolve(String className, String methodName, int nbArgs, RTypeContext returnType) {
 		EClassifier type = resolve(returnType);
 		//TODO: manage qualified name		
 		Optional<EOperation> eOperation = 
@@ -477,6 +486,34 @@ public class ModelBuilder {
 		}
 	}
 	
+	public EClassifier resolve(RTypeContext type) {
+		TypeLiteralContext typeLit = type.typeLiteral();
+		if(typeLit != null) {
+			AstResult astResult = builder.build(type.getText());
+			EvaluationResult evaluationResult = aqlEngine.eval(astResult, Maps.newHashMap());
+			Object result = evaluationResult.getResult();
+			
+			if(result == java.lang.String.class)
+				return EcorePackage.eINSTANCE.getEString();
+			else if(result == java.lang.Integer.class)
+				return EcorePackage.eINSTANCE.getEInt();
+			else if(result == java.lang.Double.class)
+				return EcorePackage.eINSTANCE.getEDouble();
+			else if(result == java.lang.Boolean.class)
+				return EcorePackage.eINSTANCE.getEBoolean();
+			else if(result == List.class)
+				return EcorePackage.eINSTANCE.getEEList();
+			else if(result == Set.class)
+				return EcorePackage.eINSTANCE.getEEList();
+			else if(result instanceof EClassifier) {
+				return (EClassifier) result;
+			}
+			//TODO: else error
+		}
+		
+		return resolve(type.getText()); //default
+	}
+	
 	public static String getQualifiedName(EClassifier cls) {
 		
 		List<String> fullName = new ArrayList<String>();
@@ -516,7 +553,7 @@ public class ModelBuilder {
 		cases.forEach(caseCtx -> {
 			Case newCase = implemFactory.createCase();
 			if(caseCtx.guard != null){
-				newCase.setGuard(resolve(caseCtx.guard.getText()));
+				newCase.setGuard(resolve(caseCtx.guard));
 			}
 			if(caseCtx.match != null){
 				newCase.setMatch(parseExp(caseCtx.match, parseRes));
