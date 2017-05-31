@@ -12,10 +12,12 @@ import java.util.stream.Collectors;
 
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.parser.AstValidator;
+import org.eclipse.acceleo.query.runtime.AcceleoQueryValidationException;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.runtime.IValidationResult;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
+import org.eclipse.acceleo.query.runtime.impl.ValidationResult;
 import org.eclipse.acceleo.query.runtime.impl.ValidationServices;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
@@ -364,7 +366,14 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 				new ArrayList(),
 				new BasicDiagnostic()
 				);
-		return expValidator.validate(variableTypes, fakeAst);
+		try {
+			return expValidator.validate(variableTypes, fakeAst);
+		}
+		catch(AcceleoQueryValidationException e) {
+			System.out.println(e);
+			//TODO: something bad appened
+		}
+		return  new ValidationResult(fakeAst);
 	}
 	
 	public int getStartOffset(Object obj) {
