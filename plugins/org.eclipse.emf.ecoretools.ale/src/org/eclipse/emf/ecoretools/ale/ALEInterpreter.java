@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.DiagnosticLogger;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.EvalEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.ExtensionEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.MethodEvaluator;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.ALEEngine;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
@@ -57,6 +58,8 @@ import org.eclipse.sirius.common.tools.api.interpreter.JavaExtensionsManager;
  * This class is an interpreter for the 'Lang' Language.
  */
 public class ALEInterpreter {
+	
+	public static final String NO_MAIN_ERROR = "No operation with @main found";
 	
 	/**
 	 * Environment of the evaluation. It contains declared EPackages & services.
@@ -209,6 +212,16 @@ public class ALEInterpreter {
 				diagnostic.merge(evalResult.getDiagnostic());
 			}
 			value = evalResult.getResult();
+		}
+		else {
+			Diagnostic child = new BasicDiagnostic (
+					Diagnostic.ERROR,
+					MethodEvaluator.PLUGIN_ID,
+					0,
+					ALEInterpreter.NO_MAIN_ERROR,
+					new Object[] { caller }
+					);
+			diagnostic.add(child);
 		}
 		
 		Object dumbFinal = value;
