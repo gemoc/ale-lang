@@ -900,4 +900,15 @@ public class EvalTest {
 		
 		assertEquals(3,res.getValue());
 	}
+	
+	@Test
+	public void testNoMain(){
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/nomain.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals(null,res.getValue());
+		assertEquals("No operation with @main found", res.getDiagnostic().getMessage());
+	}
 }
