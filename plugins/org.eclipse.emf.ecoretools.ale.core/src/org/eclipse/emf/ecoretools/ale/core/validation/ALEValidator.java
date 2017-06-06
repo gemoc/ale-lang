@@ -29,7 +29,7 @@ public class ALEValidator {
 	}
 	
 	public void validate(List<ParseResult<ModelUnit>> roots) {
-		List<IValidator> validators = Lists.newArrayList(new NameValidator(), new TypeValidator());
+		List<IValidator> validators = Lists.newArrayList(new NameValidator(), new TypeValidator(), new OpenClassValidator());
 		BaseValidator base = new BaseValidator(qryEnv, validators);
 		msgs = base.validate(roots);
 	}
