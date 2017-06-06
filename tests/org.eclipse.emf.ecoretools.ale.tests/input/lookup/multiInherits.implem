@@ -1,0 +1,34 @@
+behavior test.lookup.invertmulti;
+
+open class A {
+
+	@main
+	def String main(){
+		result := self.foo();
+	}
+	
+	def String foo() {
+		result := 'a.foo';
+	}
+}
+
+open class B {
+
+	def String foo() {
+		result := 'b.foo';
+	}
+}
+
+open class C {
+
+	def String foo() {
+		result := 'c.foo';
+	}
+}
+
+open class D extends B,C {
+
+	def String foo() {
+		result := 'd.foo';
+	}
+}

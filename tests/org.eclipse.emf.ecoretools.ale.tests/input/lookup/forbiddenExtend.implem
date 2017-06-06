@@ -1,0 +1,27 @@
+behavior test.lookup.simple;
+
+open class A {
+
+	@main
+	def String main(){
+		result := self.foo();
+	}
+	
+	def String foo() {
+		result := 'a.foo';
+	}
+}
+
+open class B {
+
+	def String foo() {
+		result := 'b.foo';
+	}
+}
+
+open class C extends B {
+
+	def String foo() {
+		result := 'b.foo';
+	}
+}

@@ -16,6 +16,6 @@ open class B {
 open class C {
 	@main
 	def String main() {
-		result := self.foo(); //call a.foo()
+		result := self.foo(); //call b.foo()
 	}
 }

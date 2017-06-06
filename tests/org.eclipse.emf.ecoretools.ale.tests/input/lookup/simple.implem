@@ -1,0 +1,13 @@
+behavior test.lookup.simple;
+
+open class A {
+
+	@main
+	def String main(){
+		result := self.foo();
+	}
+	
+	def String foo() {
+		result := 'a.foo';
+	}
+}
