@@ -84,7 +84,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 59, 99, "EClassifier is not a sub type of [EClass]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 59, 99, "Can't extend EClass since it is not a direct super type of EClassifier", msg.get(0));
 	}
 	
 	/*
@@ -101,7 +101,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 63, 107, "EClassifier is not a sub type of [EOperation]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 63, 107, "Can't extend EOperation since it is not a direct super type of EClassifier", msg.get(0));
 	}
 	
 	/*

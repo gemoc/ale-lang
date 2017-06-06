@@ -46,7 +46,7 @@ public class TypeValidator implements IValidator {
 	public static final String COLLECTION_TYPE = "Expected Collection but was %s";
 	public static final String VOID_RESULT_ASSIGN = "'result' is assigned in void operation";
 	public static final String EXTENDS_ITSELF = "Reopened %s is extending itself";
-	public static final String EXTENDS_BASE_CLASS = "%s is not a sub type of %s";
+	public static final String INDIRECT_EXTENSION = "Can't extend %s since it is not a direct super type of %s";
 	
 	BaseValidator base;
 	
@@ -80,26 +80,25 @@ public class TypeValidator implements IValidator {
 		}
 		
 		EClass baseCls = xtdClass.getBaseClass();
-		List<EClass> notSuperEClass = 
-			xtdClass
-			.getExtends()
-			.stream()
-			.map(c -> c.getBaseClass())
-			.filter(cls -> !cls.isSuperTypeOf(baseCls))
-			.collect(Collectors.toList());
-		if(!notSuperEClass.isEmpty()) {
-			String types = 
-				notSuperEClass
+		EList<EClass> superTypes = baseCls.getESuperTypes();
+		
+		List<EClass> extendsBaseClasses =
+				xtdClass
+				.getExtends()
 				.stream()
-				.map(type -> type.getName())
-				.collect(Collectors.joining(",","[","]"));
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(EXTENDS_BASE_CLASS, xtdClass.getBaseClass().getName(),types),
-					base.getStartOffset(xtdClass),
-					base.getEndOffset(xtdClass)
-					));
-		}
+				.map(xtd -> xtd.getBaseClass())
+				.collect(Collectors.toList());
+		
+		extendsBaseClasses.forEach(superBase -> {
+			if(!superTypes.contains(superBase) && baseCls != superBase) {
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(INDIRECT_EXTENSION, superBase.getName(), baseCls.getName()),
+						this.base.getStartOffset(xtdClass),
+						this.base.getEndOffset(xtdClass)
+						));
+			}
+		});
 		
 		return msgs;
 	}
