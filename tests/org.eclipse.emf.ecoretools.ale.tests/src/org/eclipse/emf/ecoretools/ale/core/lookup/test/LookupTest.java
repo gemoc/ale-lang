@@ -68,6 +68,16 @@ public class LookupTest {
 	}
 	
 	@Test
+	public void testDoubleMultiInherits() {
+		Dsl environment = new Dsl(Arrays.asList("model/doubleMulti.ecore"),Arrays.asList("input/lookup/doubleMulti.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = create("C");
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals("b.foo a.foo",res.getValue());
+	}
+	
+	@Test
 	public void testSimple() {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/simple.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
