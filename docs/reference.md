@@ -19,7 +19,7 @@ It defines a scope containing all declared elements of a DSL, which are the abst
 It is mainly used for the execution and the validation (type checking, name conflicts...).
 
 It uses the file extension *dsl*. <br>
-It is a standard Java properties file (i.e a textual file where each line follows the syntax <key>=<value>)
+It is a standard Java properties file (i.e a textual file where each line follows the syntax \<key\>=\<value\>)
 
 We use the special keys:
  * syntax = Comma separated list of paths to .ecore files.
