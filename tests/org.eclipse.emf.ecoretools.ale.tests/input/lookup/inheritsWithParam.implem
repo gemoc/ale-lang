@@ -1,0 +1,29 @@
+behavior test.lookup.inherits;
+
+open class A {
+
+	@main
+	def String main() {
+		A a := abc::A.create();
+		B b := abc::B.create();
+		C c := abc::C.create();
+		result := a.foo(a) + ':' + b.foo(a) + ':' + c.foo(a);
+	}
+
+
+	def String foo(A a) {
+		result := 'a.foo';
+	}
+}
+
+open class B {
+	def String foo(A a) {
+		result := 'b.foo';
+	}
+}
+
+open class C {
+	def String foo(A a) {
+		result := 'c.foo';
+	}
+}

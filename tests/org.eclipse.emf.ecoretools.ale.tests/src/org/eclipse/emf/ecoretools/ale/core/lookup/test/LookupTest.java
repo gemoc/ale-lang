@@ -48,6 +48,16 @@ public class LookupTest {
 	}
 	
 	@Test
+	public void testInheritsWithParam() {
+		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inheritsWithParam.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/A.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals("a.foo:b.foo:c.foo",res.getValue());
+	}
+	
+	@Test
 	public void testExtends() {
 		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inherits.implem","input/lookup/extends.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
@@ -125,6 +135,76 @@ public class LookupTest {
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
 		assertEquals("b.foo",res.getValue());
+	}
+	
+	@Test
+	public void testSimpleLowerType() {
+		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/simpleLowerType.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = create("A");
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(create("A")), parsedSemantics);
+		
+		assertEquals("a.foo(a)",res.getValue());
+	}
+	
+	@Test
+	public void testSimpleLowerType2() {
+		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/simpleLowerType.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = create("A");
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(create("B")), parsedSemantics);
+		
+		assertEquals("a.foo(b)",res.getValue());
+	}
+	
+	@Test
+	public void testLowerType() {
+		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/lowerType.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = create("B");
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(create("A")), parsedSemantics);
+		
+		assertEquals("a.foo(a)",res.getValue());
+	}
+	
+	@Test
+	public void testLowerType2() {
+		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/lowerType.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = create("B");
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(create("B")), parsedSemantics);
+		
+		assertEquals("b.foo(b)",res.getValue());
+	}
+	
+	@Test
+	public void testLowerType3() {
+		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/lowerType.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = create("A");
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(create("B")), parsedSemantics);
+		
+		assertEquals("a.foo(a)",res.getValue());
+	}
+	
+	@Test
+	public void testLowerTypeInverted() {
+		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/lowerTypeInverted.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = create("B");
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(create("A")), parsedSemantics);
+		
+		assertEquals("b.foo(a)",res.getValue());
+	}
+	
+	@Test
+	public void testLowerTypeInverted2() {
+		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/lowerTypeInverted.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = create("B");
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(create("B")), parsedSemantics);
+		
+		assertEquals("b.foo(a)",res.getValue());
 	}
 	
 	private EObject create(String className) {
