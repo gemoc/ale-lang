@@ -11,6 +11,7 @@
 package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,13 +19,17 @@ import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IService;
 import org.eclipse.acceleo.query.runtime.lookup.basic.BasicLookupEngine;
 import org.eclipse.acceleo.query.validation.type.ClassType;
-import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
+
+import com.google.common.collect.Lists;
 
 //FIXME: would like extend CacheLookupEngine but it's too private
 public class ExtensionLookupEngine extends BasicLookupEngine {
@@ -84,7 +89,7 @@ public class ExtensionLookupEngine extends BasicLookupEngine {
 			return null;
 		}
 		else {
-			return selectBestCandidate(candidates);
+			return selectBestCandidate(candidates, argumentTypes);
 		}
 	}
 	
@@ -101,7 +106,7 @@ public class ExtensionLookupEngine extends BasicLookupEngine {
 		}
 	}
 	
-	private IService selectBestCandidate(List<IService> candidates) {
+	private IService selectBestCandidate(List<IService> candidates, IType[] argumentTypes) {
 		
 		List<EvalBodyService> evalServices = 
 			candidates
@@ -110,21 +115,32 @@ public class ExtensionLookupEngine extends BasicLookupEngine {
 			.map(srv -> (EvalBodyService)srv)
 			.collect(Collectors.toList());
 		
-		if(!evalServices.isEmpty()) {
+		Object callerType = argumentTypes[0].getType();
+		if(!evalServices.isEmpty() && callerType instanceof EClass) {
 			
-			IService result = null;
+			IService selection = null;
+			int distance = -1; //TODO: compute distance table at parse time
 			for (EvalBodyService service : evalServices) {
-				if (result == null
-						
-						|| (service.getPriority() > result.getPriority() && service
-						.isEqualParameterTypes(queryEnvironment, result))
-						
-						|| (service.isLowerParameterTypes(queryEnvironment, result)) ) {
-					
-					result = service;
+				if (selection == null) {
+					selection = service;
+					distance = getDistance((EClass) callerType,(EClass) service.getParameterTypes(queryEnvironment).get(0).getType());
+				}
+				else {
+					int newDistance = getDistance((EClass) callerType,(EClass) service.getParameterTypes(queryEnvironment).get(0).getType());
+					if(newDistance < distance) {
+						selection = service;
+						distance = newDistance;
+					}
+					else if(selection.getParameterTypes(queryEnvironment).get(0).getType() == service.getParameterTypes(queryEnvironment).get(0).getType()) {
+						if(service.getPriority() > selection.getPriority() 
+								|| service.isLowerOrEqualParameterTypes(queryEnvironment, selection)){
+							selection = service;
+						}
+					}
 				}
 			}
-			return result;
+			
+			return selection;
 		}
 		else { //BasicLookupEngine behavior
 			
@@ -184,5 +200,32 @@ public class ExtensionLookupEngine extends BasicLookupEngine {
 		}
 		
 		return null; //TODO: service not found error
+	}
+	
+	private int getDistance(EClass source, EClass target) {
+		EList<EClass> superTypes = getEAllSuperTypes(source);
+		return superTypes.indexOf(target);
+	}
+	
+	/**
+	 * Get all super type in Breadth-first (right to left) order, include {@link cls}
+	 */
+	private EList<EClass> getEAllSuperTypes(EClass cls) {
+		
+		EList<EClass> result = new BasicEList<EClass>();
+		
+		LinkedList<EClass> toVisit = new LinkedList<EClass>();
+		toVisit.add(cls);
+		
+		while(!toVisit.isEmpty()) {
+			EClass current = toVisit.poll();
+			if(!result.contains(current)) {
+				result.add(current);
+				Lists.reverse(current.getESuperTypes())
+					.forEach(elem -> toVisit.offer(elem));
+			}
+		}
+		
+		return result;
 	}
 }
