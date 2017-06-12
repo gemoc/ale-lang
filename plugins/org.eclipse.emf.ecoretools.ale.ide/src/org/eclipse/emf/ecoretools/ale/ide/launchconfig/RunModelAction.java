@@ -92,6 +92,10 @@ public class RunModelAction {
 						try {
 							IEvaluationResult result = interpreter.eval(modelLocation, new ArrayList(), new WorkbenchDsl(dslFile.getLocationURI().getPath().toString()));
 							interpreter.getLogger().diagnosticForHuman();
+							
+							if(result.getDiagnostic().getMessage() != null) {
+								System.out.println(result.getDiagnostic().getMessage());
+							}
 						} catch (FileNotFoundException e) {
 							e.printStackTrace();
 						}

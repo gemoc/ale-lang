@@ -204,6 +204,7 @@ public class ALEInterpreter {
     	.filter(parseResult -> Diagnostic.OK != parseResult.getDiagnostic().getSeverity())
     	.forEach(parseResult -> diagnostic.merge(parseResult.getDiagnostic()));
     	
+    	logger = new DiagnosticLogger(parsedSemantics);
     	
     	Object value = null;
 		if (mainOp.isPresent()) {
@@ -251,7 +252,6 @@ public class ALEInterpreter {
 		    	.filter(sem -> sem.getRoot() != null)
 		    	.map(sem -> sem.getRoot())
 		    	.collect(Collectors.toList());
-    	logger = new DiagnosticLogger(parsedSemantics);
     	
     	/*
     	 * Register services
