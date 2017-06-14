@@ -1,0 +1,43 @@
+behavior MiniFsm;
+
+open class FSM {
+
+	State currentState;
+	String currentEvent;
+	
+	override void handle (EString event) {
+		('Handle ' + event).log();
+		self.currentEvent := event;
+		self.currentState := self.transitions->select(t | t.isActivated())->first().outgoing;
+	}
+	
+	@main
+	def void entryPoint() 
+		
+		Sequence(String) events := Sequence{'event1','event2'};
+		
+		'Start'.log();
+		
+		self.currentState := self.states->filter(minifsm::Initial)->first();
+		self.currentState.execute();
+		
+		for(event in events) {
+			self.handle(event);
+			self.currentState.execute();
+		}
+		
+		'End'.log();
+	}
+}
+
+open class Transition {
+	override EBoolean isActivated () {
+		result := self.event = self.fsm.currentEvent and self.incoming = self.fsm.currentState;
+	}
+}
+
+open class State {
+	override void execute () {
+		(' Execute ' + self.name).log();
+	}
+}

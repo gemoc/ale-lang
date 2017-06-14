@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<minifsm:FSM
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:minifsm="http://minifsm"
+    xsi:schemaLocation="http://minifsm MiniFsm.ecore">
+  <states xsi:type="minifsm:Initial"
+      name="First"/>
+  <states name="Second"/>
+  <states xsi:type="minifsm:Terminal"
+      name="Third"/>
+  <transitions
+      incoming="//@states.0"
+      outgoing="//@states.1"
+      event="event1"/>
+  <transitions
+      incoming="//@states.1"
+      outgoing="//@states.2"
+      event="event2"/>
+</minifsm:FSM>
