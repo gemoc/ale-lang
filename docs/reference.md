@@ -337,18 +337,18 @@ while(isRaining){
 
 ### 0..* insertion
 
-An EClass feature with many elements supports assignment through the **add()** operation.
+An EClass feature with many elements supports assignment through the **+=** operation.
 
 ```
-self.elements.add(newElem);
+self.elements += newElem;
 ```
 
 ### 0..* remove
 
-An EClass feature with many elements supports unassignment through the **remove()** operation.
+An EClass feature with many elements supports unassignment through the **-=** operation.
 
 ```
-self.elements.remove(oldElem);
+self.elements -= oldElem;
 ```
 
 ### Log
