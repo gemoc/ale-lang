@@ -564,21 +564,25 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cRVarDeclParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cRAssignParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cRForEachParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cRWhileParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cRIfParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cRExpressionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cRInsertParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cRRemoveParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cRForEachParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cRWhileParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cRIfParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cRExpressionParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
 		
 		//rStatement:
 		//	rVarDecl
 		//	| rAssign
+		//	| rInsert
+		//	| rRemove
 		//	| rForEach
 		//	| rWhile
 		//	| rIf
 		//	| rExpression;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//rVarDecl | rAssign | rForEach | rWhile | rIf | rExpression
+		//rVarDecl | rAssign | rInsert | rRemove | rForEach | rWhile | rIf | rExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//rVarDecl
@@ -587,17 +591,23 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 		//rAssign
 		public RuleCall getRAssignParserRuleCall_1() { return cRAssignParserRuleCall_1; }
 		
+		//rInsert
+		public RuleCall getRInsertParserRuleCall_2() { return cRInsertParserRuleCall_2; }
+		
+		//rRemove
+		public RuleCall getRRemoveParserRuleCall_3() { return cRRemoveParserRuleCall_3; }
+		
 		//rForEach
-		public RuleCall getRForEachParserRuleCall_2() { return cRForEachParserRuleCall_2; }
+		public RuleCall getRForEachParserRuleCall_4() { return cRForEachParserRuleCall_4; }
 		
 		//rWhile
-		public RuleCall getRWhileParserRuleCall_3() { return cRWhileParserRuleCall_3; }
+		public RuleCall getRWhileParserRuleCall_5() { return cRWhileParserRuleCall_5; }
 		
 		//rIf
-		public RuleCall getRIfParserRuleCall_4() { return cRIfParserRuleCall_4; }
+		public RuleCall getRIfParserRuleCall_6() { return cRIfParserRuleCall_6; }
 		
 		//rExpression
-		public RuleCall getRExpressionParserRuleCall_5() { return cRExpressionParserRuleCall_5; }
+		public RuleCall getRExpressionParserRuleCall_7() { return cRExpressionParserRuleCall_7; }
 	}
 	public class RVarDeclElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.rVarDecl");
@@ -654,6 +664,60 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//':='
 		public Keyword getColonEqualsSignKeyword_1() { return cColonEqualsSignKeyword_1; }
+		
+		//expression
+		public RuleCall getExpressionParserRuleCall_2() { return cExpressionParserRuleCall_2; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+	}
+	public class RInsertElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.rInsert");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Keyword cPlusSignEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cExpressionParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//rInsert:
+		//	expression '+=' expression ';';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//expression '+=' expression ';'
+		public Group getGroup() { return cGroup; }
+		
+		//expression
+		public RuleCall getExpressionParserRuleCall_0() { return cExpressionParserRuleCall_0; }
+		
+		//'+='
+		public Keyword getPlusSignEqualsSignKeyword_1() { return cPlusSignEqualsSignKeyword_1; }
+		
+		//expression
+		public RuleCall getExpressionParserRuleCall_2() { return cExpressionParserRuleCall_2; }
+		
+		//';'
+		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+	}
+	public class RRemoveElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.rRemove");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cExpressionParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Keyword cHyphenMinusEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cExpressionParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//rRemove:
+		//	expression '-=' expression ';';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//expression '-=' expression ';'
+		public Group getGroup() { return cGroup; }
+		
+		//expression
+		public RuleCall getExpressionParserRuleCall_0() { return cExpressionParserRuleCall_0; }
+		
+		//'-='
+		public Keyword getHyphenMinusEqualsSignKeyword_1() { return cHyphenMinusEqualsSignKeyword_1; }
 		
 		//expression
 		public RuleCall getExpressionParserRuleCall_2() { return cExpressionParserRuleCall_2; }
@@ -1782,6 +1846,8 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 	private final RStatementElements pRStatement;
 	private final RVarDeclElements pRVarDecl;
 	private final RAssignElements pRAssign;
+	private final RInsertElements pRInsert;
+	private final RRemoveElements pRRemove;
 	private final RForEachElements pRForEach;
 	private final RCollectionElements pRCollection;
 	private final RBlockElements pRBlock;
@@ -1835,6 +1901,8 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 		this.pRStatement = new RStatementElements();
 		this.pRVarDecl = new RVarDeclElements();
 		this.pRAssign = new RAssignElements();
+		this.pRInsert = new RInsertElements();
+		this.pRRemove = new RRemoveElements();
 		this.pRForEach = new RForEachElements();
 		this.pRCollection = new RCollectionElements();
 		this.pRBlock = new RBlockElements();
@@ -2028,6 +2096,8 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 	//rStatement:
 	//	rVarDecl
 	//	| rAssign
+	//	| rInsert
+	//	| rRemove
 	//	| rForEach
 	//	| rWhile
 	//	| rIf
@@ -2058,6 +2128,26 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getRAssignRule() {
 		return getRAssignAccess().getRule();
+	}
+	
+	//rInsert:
+	//	expression '+=' expression ';';
+	public RInsertElements getRInsertAccess() {
+		return pRInsert;
+	}
+	
+	public ParserRule getRInsertRule() {
+		return getRInsertAccess().getRule();
+	}
+	
+	//rRemove:
+	//	expression '-=' expression ';';
+	public RRemoveElements getRRemoveAccess() {
+		return pRRemove;
+	}
+	
+	public ParserRule getRRemoveRule() {
+		return getRRemoveAccess().getRule();
 	}
 	
 	//rForEach:

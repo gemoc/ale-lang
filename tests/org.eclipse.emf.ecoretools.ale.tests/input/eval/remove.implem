@@ -4,10 +4,10 @@ open class ClassA {
 	@main
 	def int main() {
 		ClassA toRemove := test::ClassA.create();
-		self.collection.add(test::ClassA.create());
-		self.collection.add(toRemove);
-		self.collection.add(test::ClassA.create());
-		self.collection.remove(toRemove);
+		self.collection += test::ClassA.create();
+		self.collection += toRemove;
+		self.collection += test::ClassA.create();
+		self.collection -= toRemove;
 		result := self.collection->size();
 	}
 }

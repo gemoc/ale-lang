@@ -4,6 +4,6 @@ open class EClass {
 	0..* EClass attrib;
 
 	def void op(){
-		self.attrib.remove(self);
+		self.attrib -= self;
 	}
 }

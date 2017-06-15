@@ -43,10 +43,13 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecoretools.ale.core.parser.AstBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
+import org.eclipse.emf.ecoretools.ale.implementation.Assignment;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
+import org.eclipse.emf.ecoretools.ale.implementation.FeatureInsert;
+import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
@@ -737,6 +740,141 @@ public class BuildTest {
 		assertEquals("clsSetAttr", attrib7.getFeatureRef().getName());
 		assertEquals(EcorePackage.eINSTANCE.getEClassifier(), attrib7.getFeatureRef().getEType());
 		assertNull(attrib7.getInitialValue());
+	}
+	
+	@Test
+	public void testAssign() {
+		ParseResult<ModelUnit> res = parse("input/structure/assign.implem");
+		ModelUnit root = res.getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.assign",root.getName());
+		
+		ExtendedClass xtdCls = root.getClassExtensions().get(0);
+		assertEquals(1, xtdCls.getMethods().size());
+		assertEquals(EcorePackage.eINSTANCE.getEObject(), xtdCls.getBaseClass());
+		assertEquals(0, xtdCls.getAttributes().size());
+		
+		Method method = xtdCls.getMethods().get(0);
+		assertTrue(method instanceof Method);
+		EOperation eOperationDef = method.getOperationRef();
+		assertNotNull(eOperationDef);
+		assertEquals("eClass",eOperationDef.getName());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(),eOperationDef.getEType());
+		assertEquals(0, eOperationDef.getEParameters().size());
+		
+		Block body = ((Method)method).getBody();
+		assertNotNull(body);
+		assertEquals(1, body.getStatements().size());
+		
+		Statement local0 = body.getStatements().get(0);
+		assertTrue(local0 instanceof VariableAssignment);
+		assertEquals("result",((VariableAssignment)local0).getName());
+		Expression value = ((VariableAssignment)local0).getValue();
+		assertTrue(value instanceof TypeLiteral);
+		assertEquals(EcorePackage.eINSTANCE.getEModelElement(), ((TypeLiteral)value).getValue());
+	}
+	
+	@Test
+	public void testInsert() {
+		ParseResult<ModelUnit> res = parse("input/structure/insert.implem");
+		ModelUnit root = res.getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.insert",root.getName());
+		
+		ExtendedClass xtdCls = root.getClassExtensions().get(0);
+		assertEquals(1, xtdCls.getMethods().size());
+		assertEquals(EcorePackage.eINSTANCE.getEObject(), xtdCls.getBaseClass());
+		assertEquals(0, xtdCls.getAttributes().size());
+		
+		Method method = xtdCls.getMethods().get(0);
+		assertTrue(method instanceof Method);
+		EOperation eOperationDef = method.getOperationRef();
+		assertNotNull(eOperationDef);
+		assertEquals("eClass",eOperationDef.getName());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(),eOperationDef.getEType());
+		assertEquals(0, eOperationDef.getEParameters().size());
+		
+		Block body = ((Method)method).getBody();
+		assertNotNull(body);
+		assertEquals(1, body.getStatements().size());
+		
+		Statement insertion = body.getStatements().get(0);
+		assertTrue(insertion instanceof FeatureInsert);
+		assertTrue(((FeatureInsert)insertion).getTarget() instanceof VarRef);
+		assertEquals("self", ((VarRef)((FeatureInsert)insertion).getTarget()).getVariableName());
+		assertEquals("eSuperTypes",((FeatureInsert)insertion).getTargetFeature());
+		Expression value = ((FeatureInsert)insertion).getValue();
+		assertTrue(value instanceof VarRef);
+		assertEquals("self", ((VarRef)value).getVariableName());
+	}
+	
+	@Test
+	public void testRemove() {
+		ParseResult<ModelUnit> res = parse("input/structure/remove.implem");
+		ModelUnit root = res.getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.remove",root.getName());
+		
+		ExtendedClass xtdCls = root.getClassExtensions().get(0);
+		assertEquals(1, xtdCls.getMethods().size());
+		assertEquals(EcorePackage.eINSTANCE.getEObject(), xtdCls.getBaseClass());
+		assertEquals(0, xtdCls.getAttributes().size());
+		
+		Method method = xtdCls.getMethods().get(0);
+		assertTrue(method instanceof Method);
+		EOperation eOperationDef = method.getOperationRef();
+		assertNotNull(eOperationDef);
+		assertEquals("eClass",eOperationDef.getName());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(),eOperationDef.getEType());
+		assertEquals(0, eOperationDef.getEParameters().size());
+		
+		Block body = ((Method)method).getBody();
+		assertNotNull(body);
+		assertEquals(1, body.getStatements().size());
+		
+		Statement removal = body.getStatements().get(0);
+		assertTrue(removal instanceof FeatureRemove);
+		assertTrue(((FeatureRemove)removal).getTarget() instanceof VarRef);
+		assertEquals("self", ((VarRef)((FeatureRemove)removal).getTarget()).getVariableName());
+		assertEquals("eSuperTypes",((FeatureRemove)removal).getTargetFeature());
+		Expression value = ((FeatureRemove)removal).getValue();
+		assertTrue(value instanceof VarRef);
+		assertEquals("self", ((VarRef)value).getVariableName());
+	}
+	
+	@Test
+	public void testStatementError() {
+		ParseResult<ModelUnit> res = parse("input/structure/statementError.implem");
+		ModelUnit root = res.getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.assign",root.getName());
+		
+		ExtendedClass xtdCls = root.getClassExtensions().get(0);
+		assertEquals(1, xtdCls.getMethods().size());
+		assertEquals(EcorePackage.eINSTANCE.getEObject(), xtdCls.getBaseClass());
+		assertEquals(0, xtdCls.getAttributes().size());
+		
+		Method method = xtdCls.getMethods().get(0);
+		assertTrue(method instanceof Method);
+		EOperation eOperationDef = method.getOperationRef();
+		assertNotNull(eOperationDef);
+		assertEquals("eClass",eOperationDef.getName());
+		assertEquals(EcorePackage.eINSTANCE.getEClass(),eOperationDef.getEType());
+		assertEquals(0, eOperationDef.getEParameters().size());
+		
+		Block body = ((Method)method).getBody();
+		assertNotNull(body);
+		assertEquals(1, body.getStatements().size());
+		
+		Statement insertion = body.getStatements().get(0);
+		assertTrue(insertion instanceof ExpressionStatement);
+		Expression expression = ((ExpressionStatement)insertion).getExpression();
+		assertTrue(expression instanceof TypeLiteral);
+		assertEquals(EcorePackage.eINSTANCE.getEModelElement(), ((TypeLiteral)expression).getValue());
 	}
 	
 	private static String getFileContent(String implementionPath){

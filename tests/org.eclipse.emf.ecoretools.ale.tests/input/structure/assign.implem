@@ -1,0 +1,7 @@
+behavior test.assign;
+
+open class EObject {
+	override EClass eClass() {
+		result := ecore::EModelElement;
+	}
+}

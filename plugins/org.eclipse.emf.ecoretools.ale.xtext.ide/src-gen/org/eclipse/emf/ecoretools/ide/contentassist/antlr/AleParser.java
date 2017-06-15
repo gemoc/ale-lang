@@ -81,6 +81,8 @@ public class AleParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRVarDeclAccess().getGroup(), "rule__RVarDecl__Group__0");
 					put(grammarAccess.getRVarDeclAccess().getGroup_2(), "rule__RVarDecl__Group_2__0");
 					put(grammarAccess.getRAssignAccess().getGroup(), "rule__RAssign__Group__0");
+					put(grammarAccess.getRInsertAccess().getGroup(), "rule__RInsert__Group__0");
+					put(grammarAccess.getRRemoveAccess().getGroup(), "rule__RRemove__Group__0");
 					put(grammarAccess.getRForEachAccess().getGroup(), "rule__RForEach__Group__0");
 					put(grammarAccess.getRCollectionAccess().getGroup_0(), "rule__RCollection__Group_0__0");
 					put(grammarAccess.getRBlockAccess().getGroup(), "rule__RBlock__Group__0");

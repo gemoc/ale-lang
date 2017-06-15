@@ -43,8 +43,8 @@ open class EPackage {
 			}
 		}
 		else {
-			self.eClassifiers.add(self);
-			self.eClassifiers.remove(self);
+			self.eClassifiers +=self;
+			self.eClassifiers -= self;
 		}
 	}
 }

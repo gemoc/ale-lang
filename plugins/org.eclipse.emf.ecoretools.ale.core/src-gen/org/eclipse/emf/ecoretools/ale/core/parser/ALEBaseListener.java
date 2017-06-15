@@ -315,6 +315,19 @@ public class ALEBaseListener implements ALEListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterRInsert(@NotNull ALEParser.RInsertContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRInsert(@NotNull ALEParser.RInsertContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterRRoot(@NotNull ALEParser.RRootContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -322,6 +335,19 @@ public class ALEBaseListener implements ALEListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitRRoot(@NotNull ALEParser.RRootContext ctx) { }
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRRemove(@NotNull ALEParser.RRemoveContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRRemove(@NotNull ALEParser.RRemoveContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

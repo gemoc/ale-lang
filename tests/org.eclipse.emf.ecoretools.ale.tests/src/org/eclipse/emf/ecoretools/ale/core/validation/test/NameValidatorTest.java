@@ -668,7 +668,7 @@ public class NameValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 88, "The feature wrong is not defined", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 86, "The feature wrong is not defined", msg.get(0));
 	}
 	
 	/*
@@ -685,7 +685,7 @@ public class NameValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 67, 91, "The feature wrong is not defined", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 67, 89, "The feature wrong is not defined", msg.get(0));
 	}
 	
 	//Remove idem
@@ -752,7 +752,7 @@ public class NameValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 91, "The feature wrong is not defined", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 86, "The feature wrong is not defined", msg.get(0));
 	}
 	
 	/*
@@ -769,7 +769,7 @@ public class NameValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 67, 94, "The feature wrong is not defined", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 67, 89, "The feature wrong is not defined", msg.get(0));
 	}
 	
 	/*

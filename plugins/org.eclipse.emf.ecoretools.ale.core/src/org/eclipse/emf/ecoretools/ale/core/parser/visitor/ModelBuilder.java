@@ -209,7 +209,7 @@ public class ModelBuilder {
 	}
 	
 	public VariableDeclaration buildVariableDecl(String name, RExpressionContext exp, RTypeContext type, ParseResult<ModelUnit> parseRes) {
-		VariableDeclaration varDecl = implemFactory. createVariableDeclaration();
+		VariableDeclaration varDecl = implemFactory.createVariableDeclaration();
 		varDecl.setName(name);
 		if(exp != null){
 			varDecl.setInitialValue(parseExp(exp,parseRes));

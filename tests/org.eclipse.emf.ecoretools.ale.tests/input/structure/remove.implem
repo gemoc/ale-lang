@@ -1,0 +1,7 @@
+behavior test.remove;
+
+open class EObject {
+	override EClass eClass() {
+		self.eSuperTypes -= self;
+	}
+}

@@ -293,6 +293,17 @@ public interface ALEListener extends ParseTreeListener {
 	void exitRNewClass(@NotNull ALEParser.RNewClassContext ctx);
 
 	/**
+	 * Enter a parse tree produced by {@link ALEParser#rInsert}.
+	 * @param ctx the parse tree
+	 */
+	void enterRInsert(@NotNull ALEParser.RInsertContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rInsert}.
+	 * @param ctx the parse tree
+	 */
+	void exitRInsert(@NotNull ALEParser.RInsertContext ctx);
+
+	/**
 	 * Enter a parse tree produced by {@link ALEParser#rRoot}.
 	 * @param ctx the parse tree
 	 */
@@ -302,6 +313,17 @@ public interface ALEListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRRoot(@NotNull ALEParser.RRootContext ctx);
+
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rRemove}.
+	 * @param ctx the parse tree
+	 */
+	void enterRRemove(@NotNull ALEParser.RRemoveContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rRemove}.
+	 * @param ctx the parse tree
+	 */
+	void exitRRemove(@NotNull ALEParser.RRemoveContext ctx);
 
 	/**
 	 * Enter a parse tree produced by {@link ALEParser#rService}.

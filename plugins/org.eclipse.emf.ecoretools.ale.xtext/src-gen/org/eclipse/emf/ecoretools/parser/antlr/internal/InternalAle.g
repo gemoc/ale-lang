@@ -1052,44 +1052,66 @@ rulerStatement returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToke
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getRStatementAccess().getRForEachParserRuleCall_2());
+			newCompositeNode(grammarAccess.getRStatementAccess().getRInsertParserRuleCall_2());
 		}
-		this_rForEach_2=rulerForEach
+		this_rInsert_2=rulerInsert
 		{
-			$current.merge(this_rForEach_2);
-		}
-		{
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			newCompositeNode(grammarAccess.getRStatementAccess().getRWhileParserRuleCall_3());
-		}
-		this_rWhile_3=rulerWhile
-		{
-			$current.merge(this_rWhile_3);
+			$current.merge(this_rInsert_2);
 		}
 		{
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getRStatementAccess().getRIfParserRuleCall_4());
+			newCompositeNode(grammarAccess.getRStatementAccess().getRRemoveParserRuleCall_3());
 		}
-		this_rIf_4=rulerIf
+		this_rRemove_3=rulerRemove
 		{
-			$current.merge(this_rIf_4);
+			$current.merge(this_rRemove_3);
 		}
 		{
 			afterParserOrEnumRuleCall();
 		}
 		    |
 		{
-			newCompositeNode(grammarAccess.getRStatementAccess().getRExpressionParserRuleCall_5());
+			newCompositeNode(grammarAccess.getRStatementAccess().getRForEachParserRuleCall_4());
 		}
-		this_rExpression_5=rulerExpression
+		this_rForEach_4=rulerForEach
 		{
-			$current.merge(this_rExpression_5);
+			$current.merge(this_rForEach_4);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getRStatementAccess().getRWhileParserRuleCall_5());
+		}
+		this_rWhile_5=rulerWhile
+		{
+			$current.merge(this_rWhile_5);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getRStatementAccess().getRIfParserRuleCall_6());
+		}
+		this_rIf_6=rulerIf
+		{
+			$current.merge(this_rIf_6);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
+		    |
+		{
+			newCompositeNode(grammarAccess.getRStatementAccess().getRExpressionParserRuleCall_7());
+		}
+		this_rExpression_7=rulerExpression
+		{
+			$current.merge(this_rExpression_7);
 		}
 		{
 			afterParserOrEnumRuleCall();
@@ -1200,6 +1222,104 @@ rulerAssign returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()
 		{
 			$current.merge(kw);
 			newLeafNode(kw, grammarAccess.getRAssignAccess().getSemicolonKeyword_3());
+		}
+	)
+;
+
+// Entry rule entryRulerInsert
+entryRulerInsert returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getRInsertRule()); }
+	iv_rulerInsert=rulerInsert
+	{ $current=$iv_rulerInsert.current.getText(); }
+	EOF;
+
+// Rule rInsert
+rulerInsert returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		{
+			newCompositeNode(grammarAccess.getRInsertAccess().getExpressionParserRuleCall_0());
+		}
+		this_expression_0=ruleexpression
+		{
+			$current.merge(this_expression_0);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
+		kw='+='
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getRInsertAccess().getPlusSignEqualsSignKeyword_1());
+		}
+		{
+			newCompositeNode(grammarAccess.getRInsertAccess().getExpressionParserRuleCall_2());
+		}
+		this_expression_2=ruleexpression
+		{
+			$current.merge(this_expression_2);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
+		kw=';'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getRInsertAccess().getSemicolonKeyword_3());
+		}
+	)
+;
+
+// Entry rule entryRulerRemove
+entryRulerRemove returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getRRemoveRule()); }
+	iv_rulerRemove=rulerRemove
+	{ $current=$iv_rulerRemove.current.getText(); }
+	EOF;
+
+// Rule rRemove
+rulerRemove returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		{
+			newCompositeNode(grammarAccess.getRRemoveAccess().getExpressionParserRuleCall_0());
+		}
+		this_expression_0=ruleexpression
+		{
+			$current.merge(this_expression_0);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
+		kw='-='
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getRRemoveAccess().getHyphenMinusEqualsSignKeyword_1());
+		}
+		{
+			newCompositeNode(grammarAccess.getRRemoveAccess().getExpressionParserRuleCall_2());
+		}
+		this_expression_2=ruleexpression
+		{
+			$current.merge(this_expression_2);
+		}
+		{
+			afterParserOrEnumRuleCall();
+		}
+		kw=';'
+		{
+			$current.merge(kw);
+			newLeafNode(kw, grammarAccess.getRRemoveAccess().getSemicolonKeyword_3());
 		}
 	)
 ;

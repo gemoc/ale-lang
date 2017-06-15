@@ -1,6 +1,6 @@
 behavior test.featins;
 open class EClass {
 	def void op(){
-		self.eSuperTypes.add('foobar');
+		self.eSuperTypes += 'foobar';
 	}
 }

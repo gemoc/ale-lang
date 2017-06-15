@@ -450,7 +450,7 @@ public class TypeValidatorTest {
 		
 		assertEquals(2, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 64, "Expected Collection but was [EClassifier=EBoolean]", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 84, "Expected [EBoolean] but was [EClassifier=EClass]", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 82, "Expected [EBoolean] but was [EClassifier=EClass]", msg.get(1));
 	}
 	
 	/*
@@ -549,7 +549,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 91, "Expected [EClass] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 89, "Expected [EClass] but was [java.lang.String]", msg.get(0));
 	}
 	
 	/*
@@ -582,7 +582,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 85, 110, "Expected [EInt] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 85, 108, "Expected [EInt] but was [java.lang.String]", msg.get(0));
 	}
 	
 	/*
@@ -615,7 +615,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 88, 113, "Expected [EInt] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 88, 111, "Expected [EInt] but was [java.lang.String]", msg.get(0));
 	}
 	
 	/*
@@ -649,7 +649,7 @@ public class TypeValidatorTest {
 		
 		assertEquals(2, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 60, 63, "Expected Collection but was [EClassifier=EBoolean]", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 60, 86, "Expected [EBoolean] but was [EClassifier=EClass]", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 60, 81, "Expected [EBoolean] but was [EClassifier=EClass]", msg.get(1));
 	}
 	
 	/*
@@ -716,7 +716,7 @@ public class TypeValidatorTest {
 		
 		assertEquals(2, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 81, 84, "Expected Collection but was [EClassifier=EClass]", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 81, 105, "Expected [EClass] but was [EClassifier=MyRuntimeClass]", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 81, 100, "Expected [EClass] but was [EClassifier=MyRuntimeClass]", msg.get(1));
 	}
 	
 	/*
@@ -749,7 +749,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 60, 93, "Expected [EClass] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 60, 88, "Expected [EClass] but was [java.lang.String]", msg.get(0));
 	}
 	
 	/*
@@ -782,7 +782,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 85, 113, "Expected [EInt] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 85, 108, "Expected [EInt] but was [java.lang.String]", msg.get(0));
 	}
 	
 	/*
@@ -815,7 +815,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 88, 116, "Expected [EInt] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 88, 111, "Expected [EInt] but was [java.lang.String]", msg.get(0));
 	}
 	
 	/*

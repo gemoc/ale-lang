@@ -193,11 +193,25 @@ public interface ALEVisitor<T> extends ParseTreeVisitor<T> {
 	T visitRNewClass(@NotNull ALEParser.RNewClassContext ctx);
 
 	/**
+	 * Visit a parse tree produced by {@link ALEParser#rInsert}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRInsert(@NotNull ALEParser.RInsertContext ctx);
+
+	/**
 	 * Visit a parse tree produced by {@link ALEParser#rRoot}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitRRoot(@NotNull ALEParser.RRootContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link ALEParser#rRemove}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRRemove(@NotNull ALEParser.RRemoveContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link ALEParser#rService}.

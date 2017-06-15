@@ -59,6 +59,8 @@ rOpposite :
 
 rStatement : rVarDecl 
 		| rAssign
+		| rInsert
+		| rRemove
 		| rForEach
 		| rWhile
 		| rIf
@@ -69,6 +71,12 @@ rVarDecl : rType Ident (':=' expression)? ';'
 ;
 
 rAssign : expression ':=' expression ';'
+;
+
+rInsert : expression '+=' expression ';'
+;
+
+rRemove : expression '-=' expression ';'
 ;
 
 rForEach : 'for' '(' Ident  'in' rCollection ')' rBlock

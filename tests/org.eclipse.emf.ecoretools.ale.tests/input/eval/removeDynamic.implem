@@ -7,9 +7,9 @@ open class ClassA {
 	def int main() {
 		NewClass cls1 := removemany::NewClass.create();
 		NewClass cls2 := removemany::NewClass.create();
-		self.toNewClass.add(cls1);
-		self.toNewClass.add(cls2);
-		self.toNewClass.remove(cls1);
+		self.toNewClass += cls1;
+		self.toNewClass += cls2;
+		self.toNewClass -= cls1;
 		result := self.toNewClass->size();
 	}
 }

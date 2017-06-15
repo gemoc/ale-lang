@@ -1,6 +1,6 @@
 behavior test.assignfeat;
 class MyRuntimeClass {
 	def void op(){
-		self.wrong.add('foobar');
+		self.wrong += 'foobar';
 	}
 }

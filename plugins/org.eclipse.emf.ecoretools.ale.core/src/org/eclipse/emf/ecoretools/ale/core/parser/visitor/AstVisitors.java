@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.antlr.v4.runtime.RuleContext;
+import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
 import org.eclipse.emf.common.util.BasicDiagnostic;
@@ -37,12 +38,15 @@ import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RExpressionContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RExpressionStmtContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RForEachContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RIfContext;
+import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RInsertContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RNewClassContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.ROpenClassContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.ROperationContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RParametersContext;
+import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RRemoveContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RRootContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RServiceContext;
+import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RStatementContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RTypeContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RVarDeclContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RVariableContext;
@@ -96,11 +100,14 @@ public class AstVisitors {
 		@Override
 		public Block visitRBlock(RBlockContext ctx) {
 			StatementVisitor subVisitor = new StatementVisitor(parseRes);
+			List<RStatementContext> stmt = ctx
+					.rStatement();
 			List<Statement> body =
 					ctx
 					.rStatement()
 					.stream()
 					.map(s -> subVisitor.visit(s))
+					.filter(elem -> elem != null)
 					.collect(Collectors.toList());
 					
 			Block res =  ModelBuilder.singleton.buildBlock(body);
@@ -116,6 +123,11 @@ public class AstVisitors {
 		
 		public StatementVisitor(ParseResult<ModelUnit> parseRes) {
 			this.parseRes = parseRes;
+		}
+		
+		@Override
+		public Statement visitErrorNode(ErrorNode node) {
+			return null;
 		}
 		
 		@Override
@@ -166,6 +178,50 @@ public class AstVisitors {
 		}
 		
 		@Override
+		public Statement visitRInsert(RInsertContext ctx) {
+			ExpressionContext left = ctx.expression(); // epxression.feature or variable?
+			RExpressionContext value =  ctx.rExpression();
+			
+			Statement res = null;
+			if (left instanceof NavContext) {
+				NavContext navCtx = (NavContext) left;
+				NavigationSegmentContext navSegment = navCtx.navigationSegment();
+				if (navSegment instanceof FeatureContext) {
+					FeatureContext featCtx = (FeatureContext) navSegment;
+					String feature = featCtx.Ident().getText();
+					ExpressionContext target = navCtx.expression();
+					res = ModelBuilder.singleton.buildFeatureInsert(target, feature, value.expression(), parseRes);
+				}
+			}
+			 
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			return res;
+		}
+		
+		@Override
+		public Statement visitRRemove(RRemoveContext ctx) {
+			ExpressionContext left = ctx.expression(); // epxression.feature or variable?
+			RExpressionContext value =  ctx.rExpression();
+			
+			Statement res = null;
+			 if(left instanceof NavContext){
+				NavContext navCtx = (NavContext) left;
+				NavigationSegmentContext navSegment = navCtx.navigationSegment();
+				if(navSegment instanceof FeatureContext){
+					FeatureContext featCtx = (FeatureContext) navSegment;
+					String feature = featCtx.Ident().getText();
+					ExpressionContext target = navCtx.expression();
+					res = ModelBuilder.singleton.buildFeatureRemove(target,feature,value.expression(),parseRes);
+				}
+			}
+			 
+			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			return res;
+		}
+		
+		@Override
 		public Statement visitRIf(RIfContext ctx) {
 			RExpressionContext cond = ctx.rExpression();
 			Block then = (new BlockVisitor(parseRes)).visit(ctx.rBlock().get(0));
@@ -209,46 +265,8 @@ public class AstVisitors {
 	
 		@Override
 		public Statement visitRExpressionStmt(RExpressionStmtContext ctx) {
-			
-			ExpressionContext exp = ctx.rExpression().expression();
-			
-			Statement res =  null;
-			if(exp instanceof NavContext){
-				NavigationSegmentContext navSegment = ((NavContext)exp).navigationSegment();
-				if(navSegment instanceof CallOrApplyContext){
-					CallExpContext call = ((CallOrApplyContext)navSegment).callExp();
-					if(call instanceof ServiceCallContext){
-						String serviceName = ((ServiceCallContext)call).Ident().getText();
-						
-						ExpressionContext target = null;
-						String feature = "";
-						ExpressionContext beforeCall = ((NavContext)exp).expression();
-						if(beforeCall instanceof NavContext){
-							NavigationSegmentContext featurePart = ((NavContext)beforeCall).navigationSegment();
-							if(featurePart instanceof FeatureContext){
-								feature = ((FeatureContext)featurePart).Ident().getText();
-								target = ((NavContext)beforeCall).expression();
-							}
-						}
-						
-						List<ExpressionContext> params = ((ServiceCallContext)call).expressionSequence().expression();
-						
-						if(serviceName.equals("add") && params.size() == 1){
-							res = ModelBuilder.singleton.buildFeatureInsert(target,feature,params.get(0),parseRes);
-						}
-						else if(serviceName.equals("remove") && params.size() == 1){
-							res = ModelBuilder.singleton.buildFeatureRemove(target,feature,params.get(0),parseRes);
-						}
-						else if(serviceName.equals("put") && params.size() == 2){
-							res = ModelBuilder.singleton.buildFeaturePut(target,feature,params.get(0),params.get(1),parseRes);
-						}
-					}
-				}
-			}
-			
-			if(res == null){
-				res = ModelBuilder.singleton.buildExpressionStatement(ctx.rExpression(),parseRes);
-			}
+
+			Statement res = ModelBuilder.singleton.buildExpressionStatement(ctx.rExpression(),parseRes);
 			
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());

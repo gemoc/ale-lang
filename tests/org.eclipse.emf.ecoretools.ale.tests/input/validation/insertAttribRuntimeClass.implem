@@ -2,6 +2,6 @@ behavior test.declself;
 class MyRuntimeClass {
 	0..* int newAttrib;
 	def void foo() {
-		self.newAttrib.add(10);
+		self.newAttrib += 10;
 	}
 }
