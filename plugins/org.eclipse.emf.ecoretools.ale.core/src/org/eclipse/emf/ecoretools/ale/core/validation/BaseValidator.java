@@ -19,6 +19,7 @@ import org.eclipse.acceleo.query.runtime.IValidationResult;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.impl.ValidationResult;
 import org.eclipse.acceleo.query.runtime.impl.ValidationServices;
+import org.eclipse.acceleo.query.validation.type.AbstractCollectionType;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.common.util.BasicDiagnostic;
@@ -254,7 +255,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		Map<String,Set<IType>> loopScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
 		
 		validateAndStore(loop.getCollectionExpression(),getCurrentScope());
-		loopScope.put(loop.getVariable(), getPossibleTypes(loop.getCollectionExpression()));
+		loopScope.put(loop.getVariable(), getPossibleCollectionTypes(loop.getCollectionExpression()));
 		
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateForEach(loop)));
 		
@@ -398,6 +399,25 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		}
 		
 		return new HashSet<IType>();
+	}
+	
+	public Set<IType> getPossibleCollectionTypes(Expression exp) {
+		HashSet<IType> res = new HashSet<IType>();
+		
+		IValidationResult validRes = validations.get(exp);
+		if(validRes != null) {
+			Set<IType> types = validRes.getPossibleTypes(exp);
+			for (IType type : types) {
+				if(type instanceof AbstractCollectionType) {
+					res.add(((AbstractCollectionType)type).getCollectionType());
+				}
+				else {
+					res.add(type);
+				}
+			}
+		}
+		
+		return res;
 	}
 	
 	public List<ExtendedClass> findExtensions(EClass realType) {
