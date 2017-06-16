@@ -1,0 +1,7 @@
+behavior test.featureAccessTypes;
+open class EClass {
+	int newAttrib;
+	def void foo() {
+		self.newAttrib := self.wrong;
+	}
+}

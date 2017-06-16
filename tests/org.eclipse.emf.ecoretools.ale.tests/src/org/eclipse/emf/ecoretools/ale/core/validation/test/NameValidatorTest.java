@@ -841,6 +841,39 @@ public class NameValidatorTest {
 		assertMsgEquals(ValidationMessageLevel.ERROR, 83, 153, "The name localDef is already used", msg.get(0));
 	}
 	
+	/*
+	 * Test access to dynamic feature (in expression) doesn't rise 'Feature not found' error
+	 */
+	@Test
+	public void testFeatureAccessType() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureAccessTypes.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test access to dynamic feature (in expression) rises 'Feature not found' error
+	 */
+	@Test
+	public void testUnknownFeatureAccessType() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureAccessTypesError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(2, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 112, 117, "Feature wrong not found in EClass EClass", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 90, 118, "Expected [EInt] but was [Nothing(Feature wrong not found in EClass EClass)]", msg.get(1));
+	}
 	
 	private void assertMsgEquals(ValidationMessageLevel errorLvl, int startPos, int endPos, String text, IValidationMessage msg){
 		assertEquals(errorLvl, msg.getLevel());
