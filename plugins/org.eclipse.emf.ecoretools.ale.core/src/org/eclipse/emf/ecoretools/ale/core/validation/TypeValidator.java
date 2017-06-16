@@ -12,6 +12,7 @@ import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
 import org.eclipse.acceleo.query.runtime.impl.ValidationMessage;
+import org.eclipse.acceleo.query.validation.type.AbstractCollectionType;
 import org.eclipse.acceleo.query.validation.type.ClassType;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.ICollectionType;
@@ -21,6 +22,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
@@ -338,7 +340,12 @@ public class TypeValidator implements IValidator {
 			EClassifierType varType = new EClassifierType(base.getQryEnv(), varDecl.getType());
 			Set<IType> inferredTypes = base.getPossibleTypes(varDecl.getInitialValue());
 			if(inferredTypes != null) {
-				Optional<IType> existResult = inferredTypes.stream().filter(t -> varType.isAssignableFrom(t)).findAny();
+				Optional<IType> existResult =
+						inferredTypes
+						.stream()
+						.filter(t -> varType.isAssignableFrom(t) 
+								|| (t instanceof AbstractCollectionType && varDecl.getType() == EcorePackage.eINSTANCE.getEEList())) //TODO: check collection type parameter
+						.findAny();
 				if(!existResult.isPresent()){
 					String inferredToString = 
 							inferredTypes
