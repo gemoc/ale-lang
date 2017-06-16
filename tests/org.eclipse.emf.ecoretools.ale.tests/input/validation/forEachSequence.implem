@@ -1,0 +1,9 @@
+behavior test.foreach;
+open class EClass {
+	def void op(){
+		Sequence(String) local := Sequence{'val1','val2'};
+		for(i in local){
+			String s := i;
+		}
+	}
+}

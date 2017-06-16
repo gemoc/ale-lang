@@ -852,6 +852,39 @@ public class TypeValidatorTest {
 	}
 	
 	/*
+	 * Test type of ForEach variable is inferred
+	 */
+	@Test
+	public void testForEachSequence() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachSequence.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
+	 * Test type of ForEach variable is inferred
+	 */
+	@Test
+	public void testForEachSequenceError() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachSequenceError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 134, 144, "Expected EInt but was [java.lang.String]", msg.get(0));
+	}
+	
+	/*
 	 * Test If expression is a boolean
 	 */
 	@Test
