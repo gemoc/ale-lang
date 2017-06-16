@@ -10,16 +10,18 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.interpreter.services;
 
-import java.util.ArrayList;
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.eclipse.acceleo.query.parser.AstBuilderListener;
 import org.eclipse.acceleo.query.runtime.CrossReferenceProvider;
 import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IRootEObjectProvider;
+import org.eclipse.acceleo.query.runtime.IService;
 import org.eclipse.acceleo.query.services.EObjectServices;
 import org.eclipse.emf.common.util.AbstractTreeIterator;
 import org.eclipse.emf.common.util.BasicEMap;
@@ -139,5 +141,13 @@ public class DynamicEObjectServices extends EObjectServices{
 		}
 		
 		return result;
+	}
+	
+	@Override
+	protected IService getService(Method publicMethod) {
+		if (AstBuilderListener.FEATURE_ACCESS_SERVICE_NAME.equals(publicMethod.getName())) {
+			return new DynamicEObjectFeatureAccess(publicMethod, this, dynamicFeatures);
+		}
+		return super.getService(publicMethod);
 	}
 }
