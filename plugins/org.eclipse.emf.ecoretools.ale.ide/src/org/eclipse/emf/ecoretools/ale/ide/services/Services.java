@@ -220,7 +220,7 @@ public class Services {
 		        getEditorRegistry().getDefaultEditor(file.getName());
 		try {
 			IEditorPart oldEditor = page.getActiveEditor();
-			IEditorPart editor = page.openEditor(new FileEditorInput(file), desc.getId(),false);
+			IEditorPart editor = page.openEditor(new FileEditorInput(file), desc.getId());
 			
 			if(!hasXtextFocus(file.getProject())) {
 				page.activate(oldEditor);
@@ -244,7 +244,8 @@ public class Services {
 								.map(p -> p.getEType().getName()+" "+ p.getName())
 								.collect(Collectors.joining(",","(",")"));
 							String opName = op.getName();
-							String template = "\toverride "+returnType+" "+opName+" "+parameters+" {\n\t\t/* Write your code here */\n\t}\n";
+							String content = "/* Write your code here */";
+							String template = "\toverride "+returnType+" "+opName+" "+parameters+" {\n\t\t"+content+"\n\t}\n";
 							
 							EList<rClass> allXtdCls = root.getXtendedClasses();
 							Optional<rClass> search = allXtdCls.stream().filter(xtd -> xtd.getName().equals(op.getEContainingClass().getName())).findFirst();
@@ -258,7 +259,8 @@ public class Services {
 								if(!opSearch.isPresent()){
 									int endOffset = node.getEndOffset();
 									document.replace(endOffset-1, 0,	template);
-									xEditor.selectAndReveal(endOffset, template.length() -2);
+									int bodyOffset = endOffset + returnType.length() + opName .length() + parameters.length() + 16 ;
+									xEditor.selectAndReveal(bodyOffset, content.length());
 								}
 							}
 							else {
@@ -266,9 +268,9 @@ public class Services {
 								int endOffset = node.getEndOffset();
 								String newXtdClass = "\n\nopen class "+op.getEContainingClass().getName()+" {\n"+template+"}";
 								document.replace(endOffset, 0,	newXtdClass);
-								xEditor.selectAndReveal(endOffset, newXtdClass.length());
 								int templateOffset = endOffset + op.getEContainingClass().getName().length() + 16;
-								xEditor.selectAndReveal(templateOffset, template.length() -1);
+								int bodyOffset = templateOffset + returnType.length() + opName .length() + parameters.length() + 17;
+								xEditor.selectAndReveal(bodyOffset, content.length());
 							}
 						}
 					}
@@ -337,7 +339,8 @@ public class Services {
 								if(!opSearch.isPresent()){
 									int endOffset = node.getEndOffset();
 									document.replace(endOffset-1, 0, template);
-									xEditor.selectAndReveal(endOffset, template.length() -2);
+									int nameOffest = endOffset + returnType.length() + 5;
+									xEditor.selectAndReveal(nameOffest, opName.length());
 								}
 								else {
 									for(int i = 2; i <= xtdCls.getOperations().size()+1; i++) {
@@ -347,7 +350,8 @@ public class Services {
 											template = "\tdef "+returnType+" "+suffixedOpName+" "+parameters+" {\n\t\t/* Write your code here */\n\t\tresult := 0;\n\t}\n";
 											int endOffset = node.getEndOffset();
 											document.replace(endOffset-1, 0, template);
-											xEditor.selectAndReveal(endOffset, template.length() -2);
+											int nameOffest = endOffset + returnType.length() + 5;
+											xEditor.selectAndReveal(nameOffest, suffixedOpName.length());
 											break;
 										}
 									}
@@ -358,8 +362,8 @@ public class Services {
 								int endOffset = node.getEndOffset();
 								String newXtdClass = "\n\n"+keyword+" "+className+" {\n"+template+"}";
 								document.replace(endOffset, 0,	newXtdClass);
-								int templateOffset = endOffset + keyword.length() + className.length() + 6;
-								xEditor.selectAndReveal(templateOffset, template.length() -1);
+								int nameOffest = endOffset + keyword.length() + className.length() + returnType.length() + 12;
+								xEditor.selectAndReveal(nameOffest, opName.length());
 							}
 						}
 					}
@@ -442,7 +446,8 @@ public class Services {
 									}
 									
 									document.replace(endOffset-1, 0, template);
-									xEditor.selectAndReveal(endOffset+1, template.length() -3);
+									int nameOffest = endOffset + typeName.length() + 2;
+									xEditor.selectAndReveal(nameOffest, featureName.length());
 								}
 								else {
 									for(int i = 2; i <= xtdCls.getAttributes().size()+1; i++) {
@@ -465,7 +470,8 @@ public class Services {
 											
 											template = "\n\t"+typeName+" "+suffixedFeatureName+";\n";
 											document.replace(endOffset-1, 0, template);
-											xEditor.selectAndReveal(endOffset+1, template.length() -3);
+											int nameOffest = endOffset + typeName.length() + 2;
+											xEditor.selectAndReveal(nameOffest, suffixedFeatureName.length());
 											break;
 										}
 									}
@@ -476,8 +482,8 @@ public class Services {
 								int endOffset = node.getEndOffset();
 								String newXtdClass = "\n\n"+keyword+" "+className+" {\n"+template+"}";
 								document.replace(endOffset, 0,	newXtdClass);
-								int templateOffset = endOffset + keyword.length() + className.length() + 7;
-								xEditor.selectAndReveal(templateOffset, template.length() -2);
+								int nameOffest = endOffset + keyword.length() + className.length() + typeName.length() + 9;
+								xEditor.selectAndReveal(nameOffest, featureName.length());
 							}
 						}
 					}
@@ -525,7 +531,8 @@ public class Services {
 								int endOffset = node.getEndOffset();
 								document.replace(endOffset, 0,	newClass);
 								int templateOffset = endOffset + newClassName.length() + 13;
-								xEditor.selectAndReveal(templateOffset, template.length() -3);
+								int nameOffest = endOffset + 8;
+								xEditor.selectAndReveal(nameOffest, newClassName.length());
 							}
 							else {
 								for(int i = 2; i <= allXtdCls.size()+1; i++) {
@@ -537,7 +544,8 @@ public class Services {
 										int endOffset = node.getEndOffset();
 										document.replace(endOffset, 0,	newClass);
 										int templateOffset = endOffset + newClassName.length() + 13;
-										xEditor.selectAndReveal(templateOffset, template.length() -2);
+										int nameOffest = endOffset + 8;
+										xEditor.selectAndReveal(nameOffest, suffixedClassName.length());
 										break;
 									}
 								}
