@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarkerDelta;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecoretools.validation.AleValidator;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.common.tools.api.resource.ResourceSetSync;
 import org.eclipse.sirius.common.tools.api.resource.ResourceSetSync.ResourceStatus;
@@ -51,13 +53,19 @@ public class AleWorkspaceListener implements IResourceChangeListener {
 	}
 
 	private boolean isMatching(IResourceDelta delta) {
-		for (IFile file : files) {
+		
+		for (IFile file: files) {
 			IResourceDelta deltaTarget = delta.findMember(file.getFullPath());
-			if (deltaTarget != null) {
+			IMarkerDelta[] markerDeltas = deltaTarget.getMarkerDeltas();
+			boolean hasAleMarker = false;
+			for (IMarkerDelta markerDelta : markerDeltas) {
+				hasAleMarker = hasAleMarker || markerDelta.getType().equals(AleValidator.ALE_MARKER);
+			}
+			
+			if (deltaTarget != null && !hasAleMarker) {
 				return true;
 			}
 		}
 		return false;
 	}
-
 }

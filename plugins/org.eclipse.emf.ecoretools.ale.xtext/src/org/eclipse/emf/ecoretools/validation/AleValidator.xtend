@@ -31,7 +31,7 @@ class AleValidator extends AbstractAleValidator {
 	public static String ALE_MARKER = "org.eclipse.emf.ecoretools.ale.xtext.AleMarker";
 	
 	@Check
-	def checkGreetingStartsWithCapital(rRoot root) {
+	def checkIsValid(rRoot root) {
 		
 		val IFile aleFile = WorkspaceSynchronizer.getFile(root.eResource);
 		cleanUpMarkers(aleFile);
