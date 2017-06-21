@@ -56,10 +56,12 @@ public class AleWorkspaceListener implements IResourceChangeListener {
 		
 		for (IFile file: files) {
 			IResourceDelta deltaTarget = delta.findMember(file.getFullPath());
-			IMarkerDelta[] markerDeltas = deltaTarget.getMarkerDeltas();
 			boolean hasAleMarker = false;
-			for (IMarkerDelta markerDelta : markerDeltas) {
-				hasAleMarker = hasAleMarker || markerDelta.getType().equals(AleValidator.ALE_MARKER);
+			if(deltaTarget != null) {
+				IMarkerDelta[] markerDeltas = deltaTarget.getMarkerDeltas();
+				for (IMarkerDelta markerDelta : markerDeltas) {
+					hasAleMarker = hasAleMarker || markerDelta.getType().equals(AleValidator.ALE_MARKER);
+				}
 			}
 			
 			if (deltaTarget != null && !hasAleMarker) {
