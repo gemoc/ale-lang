@@ -417,6 +417,7 @@ public class AstVisitors {
 					.rOperation()
 					.stream()
 					.map(op -> subVisitor2.visit(op))
+					.filter(elem -> elem != null)
 					.collect(Collectors.toList());
 			List<String> extended = 
 				ctx
