@@ -1,0 +1,13 @@
+behavior test.forloop;
+
+open class EPackage {
+	
+	@main
+	def void entryPoint(int arg) {
+		for(i in self.eClassifiers())//{
+//		}
+//	}
+//}
+
+open class EClass {
+}

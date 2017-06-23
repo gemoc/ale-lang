@@ -215,6 +215,20 @@ public class BuildTest {
 	}
 	
 	@Test
+	public void testImplemError() {
+		ParseResult<ModelUnit> res = parse("input/structure/defImplemError.implem");
+		ModelUnit root = res.getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.defimpl",root.getName());
+		
+		ExtendedClass xtdCls = root.getClassExtensions().get(0);
+		assertEquals(0, xtdCls.getMethods().size());
+		assertEquals(EcorePackage.eINSTANCE.getEObject(), xtdCls.getBaseClass());
+		assertEquals(0, xtdCls.getAttributes().size());
+	}
+	
+	@Test
 	public void testFor(){
 		ParseResult<ModelUnit> res = parse("input/structure/for.implem");
 		ModelUnit root = res.getRoot();
@@ -318,6 +332,49 @@ public class BuildTest {
 		assertEquals(1, ((IntegerLiteral)reverseSequence.getValues().get(1)).getValue());
 		assertTrue(reverseSequence.getValues().get(2) instanceof IntegerLiteral);
 		assertEquals(0, ((IntegerLiteral)reverseSequence.getValues().get(2)).getValue());
+	}
+	
+	@Test
+	public void testForEmpty(){
+		ParseResult<ModelUnit> res = parse("input/structure/forEmpty.implem");
+		ModelUnit root = res.getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.forloop",root.getName());
+		
+		ExtendedClass xtdCls = root.getClassExtensions().get(0);
+		assertEquals(1, xtdCls.getMethods().size());
+		assertEquals(EcorePackage.eINSTANCE.getEPackage(), xtdCls.getBaseClass());
+		assertEquals(0, xtdCls.getAttributes().size());
+		
+		Method method = xtdCls.getMethods().get(0);
+		assertTrue(method instanceof Method);
+		EOperation eOperationDef = method.getOperationRef();
+		assertNotNull(eOperationDef);
+		assertEquals("entryPoint",eOperationDef.getName());
+		assertNull(eOperationDef.getEType());
+		assertEquals(1, eOperationDef.getEParameters().size());
+		assertEquals("arg", eOperationDef.getEParameters().get(0).getName());
+		assertEquals(EcorePackage.eINSTANCE.getEInt(), eOperationDef.getEParameters().get(0).getEType());
+		
+		Block body = ((Method)method).getBody();
+		assertNotNull(body);
+		assertEquals(1, body.getStatements().size());
+		
+		Statement loop1 = body.getStatements().get(0);
+		assertTrue(loop1 instanceof ForEach);
+		assertEquals("i", ((ForEach)loop1).getVariable());
+		Expression expression = ((ForEach)loop1).getCollectionExpression();
+		assertNotNull(expression);
+		assertTrue(expression instanceof Call);
+		assertEquals("eClassifiers", ((Call)expression).getServiceName());
+		assertEquals(1, ((Call)expression).getArguments().size());
+		Expression caller = ((Call)expression).getArguments().get(0);
+		assertTrue(caller instanceof VarRef);
+		assertEquals("self",((VarRef)caller).getVariableName());
+		Block loop1Body = ((ForEach)loop1).getBody();
+		assertNotNull(body);
+		assertEquals(0,loop1Body.getStatements().size());
 	}
 	
 	@Test

@@ -1,0 +1,6 @@
+behavior test.defimpl;
+
+open class EObject {
+	override EString eClass() {
+	}
+}
