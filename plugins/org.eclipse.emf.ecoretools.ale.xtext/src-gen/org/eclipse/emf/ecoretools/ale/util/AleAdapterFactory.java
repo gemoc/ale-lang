@@ -21,7 +21,66 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.emf.ecoretools.ale.*;
+import org.eclipse.emf.ecoretools.ale.Add;
+import org.eclipse.emf.ecoretools.ale.AlePackage;
+import org.eclipse.emf.ecoretools.ale.And;
+import org.eclipse.emf.ecoretools.ale.Apply;
+import org.eclipse.emf.ecoretools.ale.Assign;
+import org.eclipse.emf.ecoretools.ale.Attribute;
+import org.eclipse.emf.ecoretools.ale.BehavioredClass;
+import org.eclipse.emf.ecoretools.ale.Block;
+import org.eclipse.emf.ecoretools.ale.BoolType;
+import org.eclipse.emf.ecoretools.ale.Call;
+import org.eclipse.emf.ecoretools.ale.ClassifierSetType;
+import org.eclipse.emf.ecoretools.ale.ClassifierType;
+import org.eclipse.emf.ecoretools.ale.Collection;
+import org.eclipse.emf.ecoretools.ale.Comp;
+import org.eclipse.emf.ecoretools.ale.Conditional;
+import org.eclipse.emf.ecoretools.ale.Expression;
+import org.eclipse.emf.ecoretools.ale.ExpressionStmt;
+import org.eclipse.emf.ecoretools.ale.ExtendedClass;
+import org.eclipse.emf.ecoretools.ale.False;
+import org.eclipse.emf.ecoretools.ale.Feature;
+import org.eclipse.emf.ecoretools.ale.ForEach;
+import org.eclipse.emf.ecoretools.ale.If;
+import org.eclipse.emf.ecoretools.ale.Implie;
+import org.eclipse.emf.ecoretools.ale.Import;
+import org.eclipse.emf.ecoretools.ale.Insert;
+import org.eclipse.emf.ecoretools.ale.Int;
+import org.eclipse.emf.ecoretools.ale.IntType;
+import org.eclipse.emf.ecoretools.ale.Let;
+import org.eclipse.emf.ecoretools.ale.Lit;
+import org.eclipse.emf.ecoretools.ale.Min;
+import org.eclipse.emf.ecoretools.ale.Mult;
+import org.eclipse.emf.ecoretools.ale.Not;
+import org.eclipse.emf.ecoretools.ale.Null;
+import org.eclipse.emf.ecoretools.ale.Operation;
+import org.eclipse.emf.ecoretools.ale.Or;
+import org.eclipse.emf.ecoretools.ale.OrderedSet;
+import org.eclipse.emf.ecoretools.ale.Real;
+import org.eclipse.emf.ecoretools.ale.RealType;
+import org.eclipse.emf.ecoretools.ale.Remove;
+import org.eclipse.emf.ecoretools.ale.RuntimeClass;
+import org.eclipse.emf.ecoretools.ale.SeqType;
+import org.eclipse.emf.ecoretools.ale.Sequence;
+import org.eclipse.emf.ecoretools.ale.Service;
+import org.eclipse.emf.ecoretools.ale.SetType;
+import org.eclipse.emf.ecoretools.ale.Statement;
+import org.eclipse.emf.ecoretools.ale.StringType;
+import org.eclipse.emf.ecoretools.ale.Tag;
+import org.eclipse.emf.ecoretools.ale.True;
+import org.eclipse.emf.ecoretools.ale.Unit;
+import org.eclipse.emf.ecoretools.ale.VarDecl;
+import org.eclipse.emf.ecoretools.ale.VarRef;
+import org.eclipse.emf.ecoretools.ale.Variable;
+import org.eclipse.emf.ecoretools.ale.While;
+import org.eclipse.emf.ecoretools.ale.Xor;
+import org.eclipse.emf.ecoretools.ale.binding;
+import org.eclipse.emf.ecoretools.ale.classifierTypeRule;
+import org.eclipse.emf.ecoretools.ale.literal;
+import org.eclipse.emf.ecoretools.ale.rOpposite;
+import org.eclipse.emf.ecoretools.ale.rType;
+import org.eclipse.emf.ecoretools.ale.typeLiteral;
 
 /**
  * <!-- begin-user-doc -->
@@ -87,44 +146,304 @@ public class AleAdapterFactory extends AdapterFactoryImpl
     new AleSwitch<Adapter>()
     {
       @Override
-      public Adapter caserRoot(rRoot object)
+      public Adapter caseUnit(Unit object)
       {
-        return createrRootAdapter();
+        return createUnitAdapter();
       }
       @Override
-      public Adapter caserClass(rClass object)
+      public Adapter caseImport(Import object)
       {
-        return createrClassAdapter();
+        return createImportAdapter();
       }
       @Override
-      public Adapter caserOpenClass(rOpenClass object)
+      public Adapter caseService(Service object)
       {
-        return createrOpenClassAdapter();
+        return createServiceAdapter();
       }
       @Override
-      public Adapter caserNewClass(rNewClass object)
+      public Adapter caseBehavioredClass(BehavioredClass object)
       {
-        return createrNewClassAdapter();
+        return createBehavioredClassAdapter();
       }
       @Override
-      public Adapter caserOperation(rOperation object)
+      public Adapter caseExtendedClass(ExtendedClass object)
       {
-        return createrOperationAdapter();
+        return createExtendedClassAdapter();
       }
       @Override
-      public Adapter caserParameters(rParameters object)
+      public Adapter caseRuntimeClass(RuntimeClass object)
       {
-        return createrParametersAdapter();
+        return createRuntimeClassAdapter();
       }
       @Override
-      public Adapter caserVariable(rVariable object)
+      public Adapter caseOperation(Operation object)
       {
-        return createrVariableAdapter();
+        return createOperationAdapter();
       }
       @Override
-      public Adapter caserAttribute(rAttribute object)
+      public Adapter caseTag(Tag object)
       {
-        return createrAttributeAdapter();
+        return createTagAdapter();
+      }
+      @Override
+      public Adapter caseVariable(Variable object)
+      {
+        return createVariableAdapter();
+      }
+      @Override
+      public Adapter caseAttribute(Attribute object)
+      {
+        return createAttributeAdapter();
+      }
+      @Override
+      public Adapter caserOpposite(rOpposite object)
+      {
+        return createrOppositeAdapter();
+      }
+      @Override
+      public Adapter caseStatement(Statement object)
+      {
+        return createStatementAdapter();
+      }
+      @Override
+      public Adapter caseVarDecl(VarDecl object)
+      {
+        return createVarDeclAdapter();
+      }
+      @Override
+      public Adapter caseAssign(Assign object)
+      {
+        return createAssignAdapter();
+      }
+      @Override
+      public Adapter caseInsert(Insert object)
+      {
+        return createInsertAdapter();
+      }
+      @Override
+      public Adapter caseRemove(Remove object)
+      {
+        return createRemoveAdapter();
+      }
+      @Override
+      public Adapter caseForEach(ForEach object)
+      {
+        return createForEachAdapter();
+      }
+      @Override
+      public Adapter caseCollection(Collection object)
+      {
+        return createCollectionAdapter();
+      }
+      @Override
+      public Adapter caseBlock(Block object)
+      {
+        return createBlockAdapter();
+      }
+      @Override
+      public Adapter caseIf(If object)
+      {
+        return createIfAdapter();
+      }
+      @Override
+      public Adapter caseWhile(While object)
+      {
+        return createWhileAdapter();
+      }
+      @Override
+      public Adapter caseExpressionStmt(ExpressionStmt object)
+      {
+        return createExpressionStmtAdapter();
+      }
+      @Override
+      public Adapter caseExpression(Expression object)
+      {
+        return createExpressionAdapter();
+      }
+      @Override
+      public Adapter casebinding(binding object)
+      {
+        return createbindingAdapter();
+      }
+      @Override
+      public Adapter caseliteral(literal object)
+      {
+        return createliteralAdapter();
+      }
+      @Override
+      public Adapter casetypeLiteral(typeLiteral object)
+      {
+        return createtypeLiteralAdapter();
+      }
+      @Override
+      public Adapter caseclassifierTypeRule(classifierTypeRule object)
+      {
+        return createclassifierTypeRuleAdapter();
+      }
+      @Override
+      public Adapter caserType(rType object)
+      {
+        return createrTypeAdapter();
+      }
+      @Override
+      public Adapter caseCall(Call object)
+      {
+        return createCallAdapter();
+      }
+      @Override
+      public Adapter caseFeature(Feature object)
+      {
+        return createFeatureAdapter();
+      }
+      @Override
+      public Adapter caseApply(Apply object)
+      {
+        return createApplyAdapter();
+      }
+      @Override
+      public Adapter caseMult(Mult object)
+      {
+        return createMultAdapter();
+      }
+      @Override
+      public Adapter caseAdd(Add object)
+      {
+        return createAddAdapter();
+      }
+      @Override
+      public Adapter caseComp(Comp object)
+      {
+        return createCompAdapter();
+      }
+      @Override
+      public Adapter caseAnd(And object)
+      {
+        return createAndAdapter();
+      }
+      @Override
+      public Adapter caseOr(Or object)
+      {
+        return createOrAdapter();
+      }
+      @Override
+      public Adapter caseXor(Xor object)
+      {
+        return createXorAdapter();
+      }
+      @Override
+      public Adapter caseImplie(Implie object)
+      {
+        return createImplieAdapter();
+      }
+      @Override
+      public Adapter caseNot(Not object)
+      {
+        return createNotAdapter();
+      }
+      @Override
+      public Adapter caseMin(Min object)
+      {
+        return createMinAdapter();
+      }
+      @Override
+      public Adapter caseVarRef(VarRef object)
+      {
+        return createVarRefAdapter();
+      }
+      @Override
+      public Adapter caseLit(Lit object)
+      {
+        return createLitAdapter();
+      }
+      @Override
+      public Adapter caseConditional(Conditional object)
+      {
+        return createConditionalAdapter();
+      }
+      @Override
+      public Adapter caseLet(Let object)
+      {
+        return createLetAdapter();
+      }
+      @Override
+      public Adapter caseString(org.eclipse.emf.ecoretools.ale.String object)
+      {
+        return createStringAdapter();
+      }
+      @Override
+      public Adapter caseInt(Int object)
+      {
+        return createIntAdapter();
+      }
+      @Override
+      public Adapter caseReal(Real object)
+      {
+        return createRealAdapter();
+      }
+      @Override
+      public Adapter caseTrue(True object)
+      {
+        return createTrueAdapter();
+      }
+      @Override
+      public Adapter caseFalse(False object)
+      {
+        return createFalseAdapter();
+      }
+      @Override
+      public Adapter caseNull(Null object)
+      {
+        return createNullAdapter();
+      }
+      @Override
+      public Adapter caseSequence(Sequence object)
+      {
+        return createSequenceAdapter();
+      }
+      @Override
+      public Adapter caseOrderedSet(OrderedSet object)
+      {
+        return createOrderedSetAdapter();
+      }
+      @Override
+      public Adapter caseStringType(StringType object)
+      {
+        return createStringTypeAdapter();
+      }
+      @Override
+      public Adapter caseIntType(IntType object)
+      {
+        return createIntTypeAdapter();
+      }
+      @Override
+      public Adapter caseRealType(RealType object)
+      {
+        return createRealTypeAdapter();
+      }
+      @Override
+      public Adapter caseBoolType(BoolType object)
+      {
+        return createBoolTypeAdapter();
+      }
+      @Override
+      public Adapter caseSeqType(SeqType object)
+      {
+        return createSeqTypeAdapter();
+      }
+      @Override
+      public Adapter caseSetType(SetType object)
+      {
+        return createSetTypeAdapter();
+      }
+      @Override
+      public Adapter caseClassifierSetType(ClassifierSetType object)
+      {
+        return createClassifierSetTypeAdapter();
+      }
+      @Override
+      public Adapter caseClassifierType(ClassifierType object)
+      {
+        return createClassifierTypeAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -149,121 +468,901 @@ public class AleAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.rRoot <em>rRoot</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Unit <em>Unit</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.emf.ecoretools.ale.rRoot
+   * @see org.eclipse.emf.ecoretools.ale.Unit
    * @generated
    */
-  public Adapter createrRootAdapter()
+  public Adapter createUnitAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.rClass <em>rClass</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Import <em>Import</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.emf.ecoretools.ale.rClass
+   * @see org.eclipse.emf.ecoretools.ale.Import
    * @generated
    */
-  public Adapter createrClassAdapter()
+  public Adapter createImportAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.rOpenClass <em>rOpen Class</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Service <em>Service</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.emf.ecoretools.ale.rOpenClass
+   * @see org.eclipse.emf.ecoretools.ale.Service
    * @generated
    */
-  public Adapter createrOpenClassAdapter()
+  public Adapter createServiceAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.rNewClass <em>rNew Class</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.BehavioredClass <em>Behaviored Class</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.emf.ecoretools.ale.rNewClass
+   * @see org.eclipse.emf.ecoretools.ale.BehavioredClass
    * @generated
    */
-  public Adapter createrNewClassAdapter()
+  public Adapter createBehavioredClassAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.rOperation <em>rOperation</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.ExtendedClass <em>Extended Class</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.emf.ecoretools.ale.rOperation
+   * @see org.eclipse.emf.ecoretools.ale.ExtendedClass
    * @generated
    */
-  public Adapter createrOperationAdapter()
+  public Adapter createExtendedClassAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.rParameters <em>rParameters</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.RuntimeClass <em>Runtime Class</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.emf.ecoretools.ale.rParameters
+   * @see org.eclipse.emf.ecoretools.ale.RuntimeClass
    * @generated
    */
-  public Adapter createrParametersAdapter()
+  public Adapter createRuntimeClassAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.rVariable <em>rVariable</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Operation <em>Operation</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.emf.ecoretools.ale.rVariable
+   * @see org.eclipse.emf.ecoretools.ale.Operation
    * @generated
    */
-  public Adapter createrVariableAdapter()
+  public Adapter createOperationAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.rAttribute <em>rAttribute</em>}'.
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Tag <em>Tag</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.eclipse.emf.ecoretools.ale.rAttribute
+   * @see org.eclipse.emf.ecoretools.ale.Tag
    * @generated
    */
-  public Adapter createrAttributeAdapter()
+  public Adapter createTagAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Variable <em>Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Variable
+   * @generated
+   */
+  public Adapter createVariableAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Attribute <em>Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Attribute
+   * @generated
+   */
+  public Adapter createAttributeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.rOpposite <em>rOpposite</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.rOpposite
+   * @generated
+   */
+  public Adapter createrOppositeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Statement <em>Statement</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Statement
+   * @generated
+   */
+  public Adapter createStatementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.VarDecl <em>Var Decl</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.VarDecl
+   * @generated
+   */
+  public Adapter createVarDeclAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Assign <em>Assign</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Assign
+   * @generated
+   */
+  public Adapter createAssignAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Insert <em>Insert</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Insert
+   * @generated
+   */
+  public Adapter createInsertAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Remove <em>Remove</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Remove
+   * @generated
+   */
+  public Adapter createRemoveAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.ForEach <em>For Each</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.ForEach
+   * @generated
+   */
+  public Adapter createForEachAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Collection <em>Collection</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Collection
+   * @generated
+   */
+  public Adapter createCollectionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Block <em>Block</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Block
+   * @generated
+   */
+  public Adapter createBlockAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.If <em>If</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.If
+   * @generated
+   */
+  public Adapter createIfAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.While <em>While</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.While
+   * @generated
+   */
+  public Adapter createWhileAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.ExpressionStmt <em>Expression Stmt</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.ExpressionStmt
+   * @generated
+   */
+  public Adapter createExpressionStmtAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Expression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Expression
+   * @generated
+   */
+  public Adapter createExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.binding <em>binding</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.binding
+   * @generated
+   */
+  public Adapter createbindingAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.literal <em>literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.literal
+   * @generated
+   */
+  public Adapter createliteralAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.typeLiteral <em>type Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.typeLiteral
+   * @generated
+   */
+  public Adapter createtypeLiteralAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.classifierTypeRule <em>classifier Type Rule</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.classifierTypeRule
+   * @generated
+   */
+  public Adapter createclassifierTypeRuleAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.rType <em>rType</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.rType
+   * @generated
+   */
+  public Adapter createrTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Call <em>Call</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Call
+   * @generated
+   */
+  public Adapter createCallAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Feature <em>Feature</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Feature
+   * @generated
+   */
+  public Adapter createFeatureAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Apply <em>Apply</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Apply
+   * @generated
+   */
+  public Adapter createApplyAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Mult <em>Mult</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Mult
+   * @generated
+   */
+  public Adapter createMultAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Add <em>Add</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Add
+   * @generated
+   */
+  public Adapter createAddAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Comp <em>Comp</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Comp
+   * @generated
+   */
+  public Adapter createCompAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.And <em>And</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.And
+   * @generated
+   */
+  public Adapter createAndAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Or <em>Or</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Or
+   * @generated
+   */
+  public Adapter createOrAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Xor <em>Xor</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Xor
+   * @generated
+   */
+  public Adapter createXorAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Implie <em>Implie</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Implie
+   * @generated
+   */
+  public Adapter createImplieAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Not <em>Not</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Not
+   * @generated
+   */
+  public Adapter createNotAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Min <em>Min</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Min
+   * @generated
+   */
+  public Adapter createMinAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.VarRef <em>Var Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.VarRef
+   * @generated
+   */
+  public Adapter createVarRefAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Lit <em>Lit</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Lit
+   * @generated
+   */
+  public Adapter createLitAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Conditional <em>Conditional</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Conditional
+   * @generated
+   */
+  public Adapter createConditionalAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Let <em>Let</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Let
+   * @generated
+   */
+  public Adapter createLetAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.String <em>String</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.String
+   * @generated
+   */
+  public Adapter createStringAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Int <em>Int</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Int
+   * @generated
+   */
+  public Adapter createIntAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Real <em>Real</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Real
+   * @generated
+   */
+  public Adapter createRealAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.True <em>True</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.True
+   * @generated
+   */
+  public Adapter createTrueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.False <em>False</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.False
+   * @generated
+   */
+  public Adapter createFalseAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Null <em>Null</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Null
+   * @generated
+   */
+  public Adapter createNullAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Sequence <em>Sequence</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Sequence
+   * @generated
+   */
+  public Adapter createSequenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.OrderedSet <em>Ordered Set</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.OrderedSet
+   * @generated
+   */
+  public Adapter createOrderedSetAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.StringType <em>String Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.StringType
+   * @generated
+   */
+  public Adapter createStringTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.IntType <em>Int Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.IntType
+   * @generated
+   */
+  public Adapter createIntTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.RealType <em>Real Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.RealType
+   * @generated
+   */
+  public Adapter createRealTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.BoolType <em>Bool Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.BoolType
+   * @generated
+   */
+  public Adapter createBoolTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.SeqType <em>Seq Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.SeqType
+   * @generated
+   */
+  public Adapter createSeqTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.SetType <em>Set Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.SetType
+   * @generated
+   */
+  public Adapter createSetTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.ClassifierSetType <em>Classifier Set Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.ClassifierSetType
+   * @generated
+   */
+  public Adapter createClassifierSetTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.ClassifierType <em>Classifier Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.ClassifierType
+   * @generated
+   */
+  public Adapter createClassifierTypeAdapter()
   {
     return null;
   }

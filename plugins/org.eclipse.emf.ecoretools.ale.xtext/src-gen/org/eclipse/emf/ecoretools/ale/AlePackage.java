@@ -14,6 +14,8 @@
  */
 package org.eclipse.emf.ecoretools.ale;
 
+import java.lang.String;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -69,14 +71,14 @@ public interface AlePackage extends EPackage
   AlePackage eINSTANCE = org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl.init();
 
   /**
-   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.rRootImpl <em>rRoot</em>}' class.
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.UnitImpl <em>Unit</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.eclipse.emf.ecoretools.ale.impl.rRootImpl
-   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrRoot()
+   * @see org.eclipse.emf.ecoretools.ale.impl.UnitImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getUnit()
    * @generated
    */
-  int RROOT = 0;
+  int UNIT = 0;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -85,7 +87,25 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RROOT__NAME = 0;
+  int UNIT__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Imports</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNIT__IMPORTS = 1;
+
+  /**
+   * The feature id for the '<em><b>Services</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNIT__SERVICES = 2;
 
   /**
    * The feature id for the '<em><b>Xtended Classes</b></em>' containment reference list.
@@ -94,26 +114,26 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RROOT__XTENDED_CLASSES = 1;
+  int UNIT__XTENDED_CLASSES = 3;
 
   /**
-   * The number of structural features of the '<em>rRoot</em>' class.
+   * The number of structural features of the '<em>Unit</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RROOT_FEATURE_COUNT = 2;
+  int UNIT_FEATURE_COUNT = 4;
 
   /**
-   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.rClassImpl <em>rClass</em>}' class.
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.ImportImpl <em>Import</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.eclipse.emf.ecoretools.ale.impl.rClassImpl
-   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrClass()
+   * @see org.eclipse.emf.ecoretools.ale.impl.ImportImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getImport()
    * @generated
    */
-  int RCLASS = 1;
+  int IMPORT = 1;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -122,7 +142,72 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RCLASS__NAME = 0;
+  int IMPORT__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Alias</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPORT__ALIAS = 1;
+
+  /**
+   * The number of structural features of the '<em>Import</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPORT_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.ServiceImpl <em>Service</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.ServiceImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getService()
+   * @generated
+   */
+  int SERVICE = 2;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SERVICE__NAME = 0;
+
+  /**
+   * The number of structural features of the '<em>Service</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SERVICE_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.BehavioredClassImpl <em>Behaviored Class</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.BehavioredClassImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getBehavioredClass()
+   * @generated
+   */
+  int BEHAVIORED_CLASS = 3;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEHAVIORED_CLASS__NAME = 0;
 
   /**
    * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -131,7 +216,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RCLASS__ATTRIBUTES = 1;
+  int BEHAVIORED_CLASS__ATTRIBUTES = 1;
 
   /**
    * The feature id for the '<em><b>Operations</b></em>' containment reference list.
@@ -140,26 +225,26 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RCLASS__OPERATIONS = 2;
+  int BEHAVIORED_CLASS__OPERATIONS = 2;
 
   /**
-   * The number of structural features of the '<em>rClass</em>' class.
+   * The number of structural features of the '<em>Behaviored Class</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RCLASS_FEATURE_COUNT = 3;
+  int BEHAVIORED_CLASS_FEATURE_COUNT = 3;
 
   /**
-   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.rOpenClassImpl <em>rOpen Class</em>}' class.
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.ExtendedClassImpl <em>Extended Class</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.eclipse.emf.ecoretools.ale.impl.rOpenClassImpl
-   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrOpenClass()
+   * @see org.eclipse.emf.ecoretools.ale.impl.ExtendedClassImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getExtendedClass()
    * @generated
    */
-  int ROPEN_CLASS = 2;
+  int EXTENDED_CLASS = 4;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -168,7 +253,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int ROPEN_CLASS__NAME = RCLASS__NAME;
+  int EXTENDED_CLASS__NAME = BEHAVIORED_CLASS__NAME;
 
   /**
    * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -177,7 +262,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int ROPEN_CLASS__ATTRIBUTES = RCLASS__ATTRIBUTES;
+  int EXTENDED_CLASS__ATTRIBUTES = BEHAVIORED_CLASS__ATTRIBUTES;
 
   /**
    * The feature id for the '<em><b>Operations</b></em>' containment reference list.
@@ -186,26 +271,35 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int ROPEN_CLASS__OPERATIONS = RCLASS__OPERATIONS;
+  int EXTENDED_CLASS__OPERATIONS = BEHAVIORED_CLASS__OPERATIONS;
 
   /**
-   * The number of structural features of the '<em>rOpen Class</em>' class.
+   * The feature id for the '<em><b>Extends</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ROPEN_CLASS_FEATURE_COUNT = RCLASS_FEATURE_COUNT + 0;
+  int EXTENDED_CLASS__EXTENDS = BEHAVIORED_CLASS_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.rNewClassImpl <em>rNew Class</em>}' class.
+   * The number of structural features of the '<em>Extended Class</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.eclipse.emf.ecoretools.ale.impl.rNewClassImpl
-   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrNewClass()
+   * @generated
+   * @ordered
+   */
+  int EXTENDED_CLASS_FEATURE_COUNT = BEHAVIORED_CLASS_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.RuntimeClassImpl <em>Runtime Class</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.RuntimeClassImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getRuntimeClass()
    * @generated
    */
-  int RNEW_CLASS = 3;
+  int RUNTIME_CLASS = 5;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -214,7 +308,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RNEW_CLASS__NAME = RCLASS__NAME;
+  int RUNTIME_CLASS__NAME = BEHAVIORED_CLASS__NAME;
 
   /**
    * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -223,7 +317,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RNEW_CLASS__ATTRIBUTES = RCLASS__ATTRIBUTES;
+  int RUNTIME_CLASS__ATTRIBUTES = BEHAVIORED_CLASS__ATTRIBUTES;
 
   /**
    * The feature id for the '<em><b>Operations</b></em>' containment reference list.
@@ -232,35 +326,44 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RNEW_CLASS__OPERATIONS = RCLASS__OPERATIONS;
+  int RUNTIME_CLASS__OPERATIONS = BEHAVIORED_CLASS__OPERATIONS;
 
   /**
-   * The number of structural features of the '<em>rNew Class</em>' class.
+   * The number of structural features of the '<em>Runtime Class</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RNEW_CLASS_FEATURE_COUNT = RCLASS_FEATURE_COUNT + 0;
+  int RUNTIME_CLASS_FEATURE_COUNT = BEHAVIORED_CLASS_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.rOperationImpl <em>rOperation</em>}' class.
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.OperationImpl <em>Operation</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.eclipse.emf.ecoretools.ale.impl.rOperationImpl
-   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrOperation()
+   * @see org.eclipse.emf.ecoretools.ale.impl.OperationImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getOperation()
    * @generated
    */
-  int ROPERATION = 4;
+  int OPERATION = 6;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * The feature id for the '<em><b>Tag</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ROPERATION__TYPE = 0;
+  int OPERATION__TAG = 0;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPERATION__TYPE = 1;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -269,44 +372,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int ROPERATION__NAME = 1;
-
-  /**
-   * The feature id for the '<em><b>Param List</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ROPERATION__PARAM_LIST = 2;
-
-  /**
-   * The feature id for the '<em><b>Body</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ROPERATION__BODY = 3;
-
-  /**
-   * The number of structural features of the '<em>rOperation</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ROPERATION_FEATURE_COUNT = 4;
-
-  /**
-   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.rParametersImpl <em>rParameters</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.eclipse.emf.ecoretools.ale.impl.rParametersImpl
-   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrParameters()
-   * @generated
-   */
-  int RPARAMETERS = 5;
+  int OPERATION__NAME = 2;
 
   /**
    * The feature id for the '<em><b>Params</b></em>' containment reference list.
@@ -315,35 +381,35 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RPARAMETERS__PARAMS = 0;
+  int OPERATION__PARAMS = 3;
 
   /**
-   * The number of structural features of the '<em>rParameters</em>' class.
+   * The feature id for the '<em><b>Body</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RPARAMETERS_FEATURE_COUNT = 1;
+  int OPERATION__BODY = 4;
 
   /**
-   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.rVariableImpl <em>rVariable</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.eclipse.emf.ecoretools.ale.impl.rVariableImpl
-   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrVariable()
-   * @generated
-   */
-  int RVARIABLE = 6;
-
-  /**
-   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * The number of structural features of the '<em>Operation</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RVARIABLE__TYPE = 0;
+  int OPERATION_FEATURE_COUNT = 5;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.TagImpl <em>Tag</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.TagImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getTag()
+   * @generated
+   */
+  int TAG = 7;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -352,26 +418,63 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RVARIABLE__NAME = 1;
+  int TAG__NAME = 0;
 
   /**
-   * The number of structural features of the '<em>rVariable</em>' class.
+   * The number of structural features of the '<em>Tag</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RVARIABLE_FEATURE_COUNT = 2;
+  int TAG_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.rAttributeImpl <em>rAttribute</em>}' class.
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.VariableImpl <em>Variable</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.eclipse.emf.ecoretools.ale.impl.rAttributeImpl
-   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrAttribute()
+   * @see org.eclipse.emf.ecoretools.ale.impl.VariableImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getVariable()
    * @generated
    */
-  int RATTRIBUTE = 7;
+  int VARIABLE = 8;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE__TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE__NAME = 1;
+
+  /**
+   * The number of structural features of the '<em>Variable</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.AttributeImpl <em>Attribute</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.AttributeImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getAttribute()
+   * @generated
+   */
+  int ATTRIBUTE = 9;
 
   /**
    * The feature id for the '<em><b>Modifier</b></em>' attribute.
@@ -380,7 +483,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RATTRIBUTE__MODIFIER = 0;
+  int ATTRIBUTE__MODIFIER = 0;
 
   /**
    * The feature id for the '<em><b>Bounds</b></em>' attribute.
@@ -389,25 +492,25 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RATTRIBUTE__BOUNDS = 1;
+  int ATTRIBUTE__BOUNDS = 1;
 
   /**
-   * The feature id for the '<em><b>Opposite</b></em>' attribute.
+   * The feature id for the '<em><b>Opposite</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RATTRIBUTE__OPPOSITE = 2;
+  int ATTRIBUTE__OPPOSITE = 2;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RATTRIBUTE__TYPE = 3;
+  int ATTRIBUTE__TYPE = 3;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -416,284 +519,3301 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int RATTRIBUTE__NAME = 4;
+  int ATTRIBUTE__NAME = 4;
 
   /**
-   * The number of structural features of the '<em>rAttribute</em>' class.
+   * The feature id for the '<em><b>Exp</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RATTRIBUTE_FEATURE_COUNT = 5;
-
+  int ATTRIBUTE__EXP = 5;
 
   /**
-   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.rRoot <em>rRoot</em>}'.
+   * The number of structural features of the '<em>Attribute</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rRoot</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rRoot
    * @generated
+   * @ordered
    */
-  EClass getrRoot();
+  int ATTRIBUTE_FEATURE_COUNT = 6;
 
   /**
-   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rRoot#getName <em>Name</em>}'.
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.rOppositeImpl <em>rOpposite</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.rOppositeImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrOpposite()
+   * @generated
+   */
+  int ROPPOSITE = 10;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ROPPOSITE__NAME = 0;
+
+  /**
+   * The number of structural features of the '<em>rOpposite</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ROPPOSITE_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.StatementImpl <em>Statement</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.StatementImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getStatement()
+   * @generated
+   */
+  int STATEMENT = 11;
+
+  /**
+   * The number of structural features of the '<em>Statement</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STATEMENT_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.VarDeclImpl <em>Var Decl</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.VarDeclImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getVarDecl()
+   * @generated
+   */
+  int VAR_DECL = 12;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VAR_DECL__TYPE = STATEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VAR_DECL__NAME = STATEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VAR_DECL__EXP = STATEMENT_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Var Decl</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VAR_DECL_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.AssignImpl <em>Assign</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.AssignImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getAssign()
+   * @generated
+   */
+  int ASSIGN = 13;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSIGN__TARGET = STATEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSIGN__EXP = STATEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Assign</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ASSIGN_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.InsertImpl <em>Insert</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.InsertImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getInsert()
+   * @generated
+   */
+  int INSERT = 14;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSERT__TARGET = STATEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSERT__EXP = STATEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Insert</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSERT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.RemoveImpl <em>Remove</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.RemoveImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getRemove()
+   * @generated
+   */
+  int REMOVE = 15;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REMOVE__TARGET = STATEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REMOVE__EXP = STATEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Remove</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REMOVE_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.ForEachImpl <em>For Each</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.ForEachImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getForEach()
+   * @generated
+   */
+  int FOR_EACH = 16;
+
+  /**
+   * The feature id for the '<em><b>Iterator</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FOR_EACH__ITERATOR = STATEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Collection</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FOR_EACH__COLLECTION = STATEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FOR_EACH__BLOCK = STATEMENT_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>For Each</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FOR_EACH_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.CollectionImpl <em>Collection</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.CollectionImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getCollection()
+   * @generated
+   */
+  int COLLECTION = 17;
+
+  /**
+   * The feature id for the '<em><b>Min</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COLLECTION__MIN = 0;
+
+  /**
+   * The feature id for the '<em><b>Max</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COLLECTION__MAX = 1;
+
+  /**
+   * The feature id for the '<em><b>Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COLLECTION__EXP = 2;
+
+  /**
+   * The number of structural features of the '<em>Collection</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COLLECTION_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.BlockImpl <em>Block</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.BlockImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getBlock()
+   * @generated
+   */
+  int BLOCK = 18;
+
+  /**
+   * The feature id for the '<em><b>Statements</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BLOCK__STATEMENTS = 0;
+
+  /**
+   * The number of structural features of the '<em>Block</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BLOCK_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.IfImpl <em>If</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.IfImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getIf()
+   * @generated
+   */
+  int IF = 19;
+
+  /**
+   * The feature id for the '<em><b>Cond</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF__COND = STATEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Then</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF__THEN = STATEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Else</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF__ELSE = STATEMENT_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>If</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IF_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.WhileImpl <em>While</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.WhileImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getWhile()
+   * @generated
+   */
+  int WHILE = 20;
+
+  /**
+   * The feature id for the '<em><b>Cond</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WHILE__COND = STATEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WHILE__BLOCK = STATEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>While</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WHILE_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.ExpressionStmtImpl <em>Expression Stmt</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.ExpressionStmtImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getExpressionStmt()
+   * @generated
+   */
+  int EXPRESSION_STMT = 21;
+
+  /**
+   * The feature id for the '<em><b>Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPRESSION_STMT__EXP = STATEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Expression Stmt</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPRESSION_STMT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.ExpressionImpl <em>Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.ExpressionImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getExpression()
+   * @generated
+   */
+  int EXPRESSION = 22;
+
+  /**
+   * The number of structural features of the '<em>Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPRESSION_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.bindingImpl <em>binding</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.bindingImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getbinding()
+   * @generated
+   */
+  int BINDING = 23;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BINDING__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BINDING__TYPE = 1;
+
+  /**
+   * The feature id for the '<em><b>Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BINDING__EXP = 2;
+
+  /**
+   * The number of structural features of the '<em>binding</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BINDING_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.literalImpl <em>literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.literalImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getliteral()
+   * @generated
+   */
+  int LITERAL = 24;
+
+  /**
+   * The number of structural features of the '<em>literal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LITERAL_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.typeLiteralImpl <em>type Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.typeLiteralImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#gettypeLiteral()
+   * @generated
+   */
+  int TYPE_LITERAL = 25;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL__NAME = LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>type Literal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_LITERAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.classifierTypeRuleImpl <em>classifier Type Rule</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.classifierTypeRuleImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getclassifierTypeRule()
+   * @generated
+   */
+  int CLASSIFIER_TYPE_RULE = 26;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASSIFIER_TYPE_RULE__NAME = TYPE_LITERAL__NAME;
+
+  /**
+   * The number of structural features of the '<em>classifier Type Rule</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASSIFIER_TYPE_RULE_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.rTypeImpl <em>rType</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.rTypeImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrType()
+   * @generated
+   */
+  int RTYPE = 27;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RTYPE__NAME = 0;
+
+  /**
+   * The number of structural features of the '<em>rType</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RTYPE_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.CallImpl <em>Call</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.CallImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getCall()
+   * @generated
+   */
+  int CALL = 28;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CALL__TARGET = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CALL__NAME = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Params</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CALL__PARAMS = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Call</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CALL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.FeatureImpl <em>Feature</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.FeatureImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getFeature()
+   * @generated
+   */
+  int FEATURE = 29;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FEATURE__TARGET = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Feature</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FEATURE__FEATURE = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Feature</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FEATURE_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.ApplyImpl <em>Apply</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.ApplyImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getApply()
+   * @generated
+   */
+  int APPLY = 30;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int APPLY__TARGET = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int APPLY__NAME = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Var Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int APPLY__VAR_NAME = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Var Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int APPLY__VAR_TYPE = EXPRESSION_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Lambda</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int APPLY__LAMBDA = EXPRESSION_FEATURE_COUNT + 4;
+
+  /**
+   * The number of structural features of the '<em>Apply</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int APPLY_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 5;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.MultImpl <em>Mult</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.MultImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getMult()
+   * @generated
+   */
+  int MULT = 31;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MULT__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MULT__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Mult</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MULT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.AddImpl <em>Add</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.AddImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getAdd()
+   * @generated
+   */
+  int ADD = 32;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ADD__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ADD__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Add</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ADD_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.CompImpl <em>Comp</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.CompImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getComp()
+   * @generated
+   */
+  int COMP = 33;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMP__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMP__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Comp</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMP_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.AndImpl <em>And</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.AndImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getAnd()
+   * @generated
+   */
+  int AND = 34;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AND__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AND__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>And</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int AND_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.OrImpl <em>Or</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.OrImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getOr()
+   * @generated
+   */
+  int OR = 35;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OR__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OR__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Or</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OR_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.XorImpl <em>Xor</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.XorImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getXor()
+   * @generated
+   */
+  int XOR = 36;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XOR__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XOR__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Xor</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int XOR_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.ImplieImpl <em>Implie</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.ImplieImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getImplie()
+   * @generated
+   */
+  int IMPLIE = 37;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLIE__LEFT = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLIE__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Implie</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IMPLIE_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.NotImpl <em>Not</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.NotImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getNot()
+   * @generated
+   */
+  int NOT = 38;
+
+  /**
+   * The feature id for the '<em><b>Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NOT__EXP = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Not</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NOT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.MinImpl <em>Min</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.MinImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getMin()
+   * @generated
+   */
+  int MIN = 39;
+
+  /**
+   * The feature id for the '<em><b>Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MIN__EXP = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Min</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MIN_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.VarRefImpl <em>Var Ref</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.VarRefImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getVarRef()
+   * @generated
+   */
+  int VAR_REF = 40;
+
+  /**
+   * The feature id for the '<em><b>ID</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VAR_REF__ID = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Var Ref</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VAR_REF_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.LitImpl <em>Lit</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.LitImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getLit()
+   * @generated
+   */
+  int LIT = 41;
+
+  /**
+   * The feature id for the '<em><b>Literal</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LIT__LITERAL = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Lit</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LIT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.ConditionalImpl <em>Conditional</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.ConditionalImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getConditional()
+   * @generated
+   */
+  int CONDITIONAL = 42;
+
+  /**
+   * The feature id for the '<em><b>Cond</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONDITIONAL__COND = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Then</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONDITIONAL__THEN = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Else</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONDITIONAL__ELSE = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Conditional</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONDITIONAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.LetImpl <em>Let</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.LetImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getLet()
+   * @generated
+   */
+  int LET = 43;
+
+  /**
+   * The feature id for the '<em><b>Bindings</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LET__BINDINGS = EXPRESSION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Exp</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LET__EXP = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Let</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LET_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.StringImpl <em>String</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.StringImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getString()
+   * @generated
+   */
+  int STRING = 44;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRING__VALUE = LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>String</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRING_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.IntImpl <em>Int</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.IntImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getInt()
+   * @generated
+   */
+  int INT = 45;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INT__VALUE = LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Int</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INT_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.RealImpl <em>Real</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.RealImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getReal()
+   * @generated
+   */
+  int REAL = 46;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REAL__VALUE = LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Real</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REAL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.TrueImpl <em>True</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.TrueImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getTrue()
+   * @generated
+   */
+  int TRUE = 47;
+
+  /**
+   * The number of structural features of the '<em>True</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TRUE_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.FalseImpl <em>False</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.FalseImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getFalse()
+   * @generated
+   */
+  int FALSE = 48;
+
+  /**
+   * The number of structural features of the '<em>False</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FALSE_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.NullImpl <em>Null</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.NullImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getNull()
+   * @generated
+   */
+  int NULL = 49;
+
+  /**
+   * The number of structural features of the '<em>Null</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NULL_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.SequenceImpl <em>Sequence</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.SequenceImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getSequence()
+   * @generated
+   */
+  int SEQUENCE = 50;
+
+  /**
+   * The feature id for the '<em><b>Params</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SEQUENCE__PARAMS = LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Sequence</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SEQUENCE_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.OrderedSetImpl <em>Ordered Set</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.OrderedSetImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getOrderedSet()
+   * @generated
+   */
+  int ORDERED_SET = 51;
+
+  /**
+   * The feature id for the '<em><b>Params</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ORDERED_SET__PARAMS = LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Ordered Set</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ORDERED_SET_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.StringTypeImpl <em>String Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.StringTypeImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getStringType()
+   * @generated
+   */
+  int STRING_TYPE = 52;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRING_TYPE__NAME = TYPE_LITERAL__NAME;
+
+  /**
+   * The number of structural features of the '<em>String Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRING_TYPE_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.IntTypeImpl <em>Int Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.IntTypeImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getIntType()
+   * @generated
+   */
+  int INT_TYPE = 53;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INT_TYPE__NAME = TYPE_LITERAL__NAME;
+
+  /**
+   * The number of structural features of the '<em>Int Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INT_TYPE_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.RealTypeImpl <em>Real Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.RealTypeImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getRealType()
+   * @generated
+   */
+  int REAL_TYPE = 54;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REAL_TYPE__NAME = TYPE_LITERAL__NAME;
+
+  /**
+   * The number of structural features of the '<em>Real Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REAL_TYPE_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.BoolTypeImpl <em>Bool Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.BoolTypeImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getBoolType()
+   * @generated
+   */
+  int BOOL_TYPE = 55;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BOOL_TYPE__NAME = TYPE_LITERAL__NAME;
+
+  /**
+   * The number of structural features of the '<em>Bool Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BOOL_TYPE_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.SeqTypeImpl <em>Seq Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.SeqTypeImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getSeqType()
+   * @generated
+   */
+  int SEQ_TYPE = 56;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SEQ_TYPE__NAME = TYPE_LITERAL__NAME;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SEQ_TYPE__TYPE = TYPE_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Seq Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SEQ_TYPE_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.SetTypeImpl <em>Set Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.SetTypeImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getSetType()
+   * @generated
+   */
+  int SET_TYPE = 57;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SET_TYPE__NAME = TYPE_LITERAL__NAME;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SET_TYPE__TYPE = TYPE_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Set Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SET_TYPE_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.ClassifierSetTypeImpl <em>Classifier Set Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.ClassifierSetTypeImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getClassifierSetType()
+   * @generated
+   */
+  int CLASSIFIER_SET_TYPE = 58;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASSIFIER_SET_TYPE__NAME = TYPE_LITERAL__NAME;
+
+  /**
+   * The feature id for the '<em><b>Types</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASSIFIER_SET_TYPE__TYPES = TYPE_LITERAL_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Classifier Set Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASSIFIER_SET_TYPE_FEATURE_COUNT = TYPE_LITERAL_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.ClassifierTypeImpl <em>Classifier Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.ClassifierTypeImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getClassifierType()
+   * @generated
+   */
+  int CLASSIFIER_TYPE = 59;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASSIFIER_TYPE__NAME = CLASSIFIER_TYPE_RULE__NAME;
+
+  /**
+   * The number of structural features of the '<em>Classifier Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASSIFIER_TYPE_FEATURE_COUNT = CLASSIFIER_TYPE_RULE_FEATURE_COUNT + 0;
+
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Unit <em>Unit</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Unit</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Unit
+   * @generated
+   */
+  EClass getUnit();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Unit#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rRoot#getName()
-   * @see #getrRoot()
+   * @see org.eclipse.emf.ecoretools.ale.Unit#getName()
+   * @see #getUnit()
    * @generated
    */
-  EAttribute getrRoot_Name();
+  EAttribute getUnit_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.rRoot#getXtendedClasses <em>Xtended Classes</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.Unit#getImports <em>Imports</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Imports</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Unit#getImports()
+   * @see #getUnit()
+   * @generated
+   */
+  EReference getUnit_Imports();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.Unit#getServices <em>Services</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Services</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Unit#getServices()
+   * @see #getUnit()
+   * @generated
+   */
+  EReference getUnit_Services();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.Unit#getXtendedClasses <em>Xtended Classes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Xtended Classes</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rRoot#getXtendedClasses()
-   * @see #getrRoot()
+   * @see org.eclipse.emf.ecoretools.ale.Unit#getXtendedClasses()
+   * @see #getUnit()
    * @generated
    */
-  EReference getrRoot_XtendedClasses();
+  EReference getUnit_XtendedClasses();
 
   /**
-   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.rClass <em>rClass</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Import <em>Import</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rClass</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rClass
+   * @return the meta object for class '<em>Import</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Import
    * @generated
    */
-  EClass getrClass();
+  EClass getImport();
 
   /**
-   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rClass#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Import#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rClass#getName()
-   * @see #getrClass()
+   * @see org.eclipse.emf.ecoretools.ale.Import#getName()
+   * @see #getImport()
    * @generated
    */
-  EAttribute getrClass_Name();
+  EAttribute getImport_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.rClass#getAttributes <em>Attributes</em>}'.
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Import#getAlias <em>Alias</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Alias</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Import#getAlias()
+   * @see #getImport()
+   * @generated
+   */
+  EAttribute getImport_Alias();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Service <em>Service</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Service</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Service
+   * @generated
+   */
+  EClass getService();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Service#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Service#getName()
+   * @see #getService()
+   * @generated
+   */
+  EAttribute getService_Name();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.BehavioredClass <em>Behaviored Class</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Behaviored Class</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.BehavioredClass
+   * @generated
+   */
+  EClass getBehavioredClass();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.BehavioredClass#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.BehavioredClass#getName()
+   * @see #getBehavioredClass()
+   * @generated
+   */
+  EAttribute getBehavioredClass_Name();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.BehavioredClass#getAttributes <em>Attributes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Attributes</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rClass#getAttributes()
-   * @see #getrClass()
+   * @see org.eclipse.emf.ecoretools.ale.BehavioredClass#getAttributes()
+   * @see #getBehavioredClass()
    * @generated
    */
-  EReference getrClass_Attributes();
+  EReference getBehavioredClass_Attributes();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.rClass#getOperations <em>Operations</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.BehavioredClass#getOperations <em>Operations</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Operations</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rClass#getOperations()
-   * @see #getrClass()
+   * @see org.eclipse.emf.ecoretools.ale.BehavioredClass#getOperations()
+   * @see #getBehavioredClass()
    * @generated
    */
-  EReference getrClass_Operations();
+  EReference getBehavioredClass_Operations();
 
   /**
-   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.rOpenClass <em>rOpen Class</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.ExtendedClass <em>Extended Class</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rOpen Class</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rOpenClass
+   * @return the meta object for class '<em>Extended Class</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.ExtendedClass
    * @generated
    */
-  EClass getrOpenClass();
+  EClass getExtendedClass();
 
   /**
-   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.rNewClass <em>rNew Class</em>}'.
+   * Returns the meta object for the attribute list '{@link org.eclipse.emf.ecoretools.ale.ExtendedClass#getExtends <em>Extends</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rNew Class</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rNewClass
+   * @return the meta object for the attribute list '<em>Extends</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.ExtendedClass#getExtends()
+   * @see #getExtendedClass()
    * @generated
    */
-  EClass getrNewClass();
+  EAttribute getExtendedClass_Extends();
 
   /**
-   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.rOperation <em>rOperation</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.RuntimeClass <em>Runtime Class</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rOperation</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rOperation
+   * @return the meta object for class '<em>Runtime Class</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.RuntimeClass
    * @generated
    */
-  EClass getrOperation();
+  EClass getRuntimeClass();
 
   /**
-   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rOperation#getType <em>Type</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Operation <em>Operation</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Type</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rOperation#getType()
-   * @see #getrOperation()
+   * @return the meta object for class '<em>Operation</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Operation
    * @generated
    */
-  EAttribute getrOperation_Type();
+  EClass getOperation();
 
   /**
-   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rOperation#getName <em>Name</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.Operation#getTag <em>Tag</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Tag</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Operation#getTag()
+   * @see #getOperation()
+   * @generated
+   */
+  EReference getOperation_Tag();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Operation#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Operation#getType()
+   * @see #getOperation()
+   * @generated
+   */
+  EReference getOperation_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Operation#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rOperation#getName()
-   * @see #getrOperation()
+   * @see org.eclipse.emf.ecoretools.ale.Operation#getName()
+   * @see #getOperation()
    * @generated
    */
-  EAttribute getrOperation_Name();
+  EAttribute getOperation_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.rOperation#getParamList <em>Param List</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Param List</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rOperation#getParamList()
-   * @see #getrOperation()
-   * @generated
-   */
-  EReference getrOperation_ParamList();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rOperation#getBody <em>Body</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Body</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rOperation#getBody()
-   * @see #getrOperation()
-   * @generated
-   */
-  EAttribute getrOperation_Body();
-
-  /**
-   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.rParameters <em>rParameters</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rParameters</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rParameters
-   * @generated
-   */
-  EClass getrParameters();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.rParameters#getParams <em>Params</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.Operation#getParams <em>Params</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Params</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rParameters#getParams()
-   * @see #getrParameters()
+   * @see org.eclipse.emf.ecoretools.ale.Operation#getParams()
+   * @see #getOperation()
    * @generated
    */
-  EReference getrParameters_Params();
+  EReference getOperation_Params();
 
   /**
-   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.rVariable <em>rVariable</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Operation#getBody <em>Body</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rVariable</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rVariable
+   * @return the meta object for the containment reference '<em>Body</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Operation#getBody()
+   * @see #getOperation()
    * @generated
    */
-  EClass getrVariable();
+  EReference getOperation_Body();
 
   /**
-   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rVariable#getType <em>Type</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Tag <em>Tag</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Type</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rVariable#getType()
-   * @see #getrVariable()
+   * @return the meta object for class '<em>Tag</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Tag
    * @generated
    */
-  EAttribute getrVariable_Type();
+  EClass getTag();
 
   /**
-   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rVariable#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Tag#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rVariable#getName()
-   * @see #getrVariable()
+   * @see org.eclipse.emf.ecoretools.ale.Tag#getName()
+   * @see #getTag()
    * @generated
    */
-  EAttribute getrVariable_Name();
+  EAttribute getTag_Name();
 
   /**
-   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.rAttribute <em>rAttribute</em>}'.
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Variable <em>Variable</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>rAttribute</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rAttribute
+   * @return the meta object for class '<em>Variable</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Variable
    * @generated
    */
-  EClass getrAttribute();
+  EClass getVariable();
 
   /**
-   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rAttribute#getModifier <em>Modifier</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Variable#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Variable#getType()
+   * @see #getVariable()
+   * @generated
+   */
+  EReference getVariable_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Variable#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Variable#getName()
+   * @see #getVariable()
+   * @generated
+   */
+  EAttribute getVariable_Name();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Attribute <em>Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Attribute</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Attribute
+   * @generated
+   */
+  EClass getAttribute();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Attribute#getModifier <em>Modifier</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Modifier</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rAttribute#getModifier()
-   * @see #getrAttribute()
+   * @see org.eclipse.emf.ecoretools.ale.Attribute#getModifier()
+   * @see #getAttribute()
    * @generated
    */
-  EAttribute getrAttribute_Modifier();
+  EAttribute getAttribute_Modifier();
 
   /**
-   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rAttribute#getBounds <em>Bounds</em>}'.
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Attribute#getBounds <em>Bounds</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Bounds</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rAttribute#getBounds()
-   * @see #getrAttribute()
+   * @see org.eclipse.emf.ecoretools.ale.Attribute#getBounds()
+   * @see #getAttribute()
    * @generated
    */
-  EAttribute getrAttribute_Bounds();
+  EAttribute getAttribute_Bounds();
 
   /**
-   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rAttribute#getOpposite <em>Opposite</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Attribute#getOpposite <em>Opposite</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Opposite</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rAttribute#getOpposite()
-   * @see #getrAttribute()
+   * @return the meta object for the containment reference '<em>Opposite</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Attribute#getOpposite()
+   * @see #getAttribute()
    * @generated
    */
-  EAttribute getrAttribute_Opposite();
+  EReference getAttribute_Opposite();
 
   /**
-   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rAttribute#getType <em>Type</em>}'.
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Attribute#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Type</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rAttribute#getType()
-   * @see #getrAttribute()
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Attribute#getType()
+   * @see #getAttribute()
    * @generated
    */
-  EAttribute getrAttribute_Type();
+  EReference getAttribute_Type();
 
   /**
-   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rAttribute#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Attribute#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.eclipse.emf.ecoretools.ale.rAttribute#getName()
-   * @see #getrAttribute()
+   * @see org.eclipse.emf.ecoretools.ale.Attribute#getName()
+   * @see #getAttribute()
    * @generated
    */
-  EAttribute getrAttribute_Name();
+  EAttribute getAttribute_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Attribute#getExp <em>Exp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Exp</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Attribute#getExp()
+   * @see #getAttribute()
+   * @generated
+   */
+  EReference getAttribute_Exp();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.rOpposite <em>rOpposite</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>rOpposite</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.rOpposite
+   * @generated
+   */
+  EClass getrOpposite();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rOpposite#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.rOpposite#getName()
+   * @see #getrOpposite()
+   * @generated
+   */
+  EAttribute getrOpposite_Name();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Statement <em>Statement</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Statement</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Statement
+   * @generated
+   */
+  EClass getStatement();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.VarDecl <em>Var Decl</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Var Decl</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.VarDecl
+   * @generated
+   */
+  EClass getVarDecl();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.VarDecl#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.VarDecl#getType()
+   * @see #getVarDecl()
+   * @generated
+   */
+  EReference getVarDecl_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.VarDecl#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.VarDecl#getName()
+   * @see #getVarDecl()
+   * @generated
+   */
+  EAttribute getVarDecl_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.VarDecl#getExp <em>Exp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Exp</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.VarDecl#getExp()
+   * @see #getVarDecl()
+   * @generated
+   */
+  EReference getVarDecl_Exp();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Assign <em>Assign</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Assign</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Assign
+   * @generated
+   */
+  EClass getAssign();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Assign#getTarget <em>Target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Target</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Assign#getTarget()
+   * @see #getAssign()
+   * @generated
+   */
+  EReference getAssign_Target();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Assign#getExp <em>Exp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Exp</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Assign#getExp()
+   * @see #getAssign()
+   * @generated
+   */
+  EReference getAssign_Exp();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Insert <em>Insert</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Insert</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Insert
+   * @generated
+   */
+  EClass getInsert();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Insert#getTarget <em>Target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Target</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Insert#getTarget()
+   * @see #getInsert()
+   * @generated
+   */
+  EReference getInsert_Target();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Insert#getExp <em>Exp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Exp</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Insert#getExp()
+   * @see #getInsert()
+   * @generated
+   */
+  EReference getInsert_Exp();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Remove <em>Remove</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Remove</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Remove
+   * @generated
+   */
+  EClass getRemove();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Remove#getTarget <em>Target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Target</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Remove#getTarget()
+   * @see #getRemove()
+   * @generated
+   */
+  EReference getRemove_Target();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Remove#getExp <em>Exp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Exp</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Remove#getExp()
+   * @see #getRemove()
+   * @generated
+   */
+  EReference getRemove_Exp();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.ForEach <em>For Each</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>For Each</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.ForEach
+   * @generated
+   */
+  EClass getForEach();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.ForEach#getIterator <em>Iterator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Iterator</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.ForEach#getIterator()
+   * @see #getForEach()
+   * @generated
+   */
+  EAttribute getForEach_Iterator();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.ForEach#getCollection <em>Collection</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Collection</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.ForEach#getCollection()
+   * @see #getForEach()
+   * @generated
+   */
+  EReference getForEach_Collection();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.ForEach#getBlock <em>Block</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Block</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.ForEach#getBlock()
+   * @see #getForEach()
+   * @generated
+   */
+  EReference getForEach_Block();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Collection <em>Collection</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Collection</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Collection
+   * @generated
+   */
+  EClass getCollection();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Collection#getMin <em>Min</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Min</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Collection#getMin()
+   * @see #getCollection()
+   * @generated
+   */
+  EAttribute getCollection_Min();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Collection#getMax <em>Max</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Max</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Collection#getMax()
+   * @see #getCollection()
+   * @generated
+   */
+  EAttribute getCollection_Max();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Collection#getExp <em>Exp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Exp</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Collection#getExp()
+   * @see #getCollection()
+   * @generated
+   */
+  EReference getCollection_Exp();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Block <em>Block</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Block</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Block
+   * @generated
+   */
+  EClass getBlock();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.Block#getStatements <em>Statements</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Statements</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Block#getStatements()
+   * @see #getBlock()
+   * @generated
+   */
+  EReference getBlock_Statements();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.If <em>If</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>If</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.If
+   * @generated
+   */
+  EClass getIf();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.If#getCond <em>Cond</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Cond</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.If#getCond()
+   * @see #getIf()
+   * @generated
+   */
+  EReference getIf_Cond();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.If#getThen <em>Then</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Then</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.If#getThen()
+   * @see #getIf()
+   * @generated
+   */
+  EReference getIf_Then();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.If#getElse <em>Else</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Else</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.If#getElse()
+   * @see #getIf()
+   * @generated
+   */
+  EReference getIf_Else();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.While <em>While</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>While</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.While
+   * @generated
+   */
+  EClass getWhile();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.While#getCond <em>Cond</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Cond</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.While#getCond()
+   * @see #getWhile()
+   * @generated
+   */
+  EReference getWhile_Cond();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.While#getBlock <em>Block</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Block</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.While#getBlock()
+   * @see #getWhile()
+   * @generated
+   */
+  EReference getWhile_Block();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.ExpressionStmt <em>Expression Stmt</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Expression Stmt</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.ExpressionStmt
+   * @generated
+   */
+  EClass getExpressionStmt();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.ExpressionStmt#getExp <em>Exp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Exp</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.ExpressionStmt#getExp()
+   * @see #getExpressionStmt()
+   * @generated
+   */
+  EReference getExpressionStmt_Exp();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Expression <em>Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Expression</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Expression
+   * @generated
+   */
+  EClass getExpression();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.binding <em>binding</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>binding</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.binding
+   * @generated
+   */
+  EClass getbinding();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.binding#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.binding#getName()
+   * @see #getbinding()
+   * @generated
+   */
+  EAttribute getbinding_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.binding#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.binding#getType()
+   * @see #getbinding()
+   * @generated
+   */
+  EReference getbinding_Type();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.binding#getExp <em>Exp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Exp</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.binding#getExp()
+   * @see #getbinding()
+   * @generated
+   */
+  EReference getbinding_Exp();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.literal <em>literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>literal</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.literal
+   * @generated
+   */
+  EClass getliteral();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.typeLiteral <em>type Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>type Literal</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.typeLiteral
+   * @generated
+   */
+  EClass gettypeLiteral();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.classifierTypeRule <em>classifier Type Rule</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>classifier Type Rule</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.classifierTypeRule
+   * @generated
+   */
+  EClass getclassifierTypeRule();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.rType <em>rType</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>rType</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.rType
+   * @generated
+   */
+  EClass getrType();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.rType#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.rType#getName()
+   * @see #getrType()
+   * @generated
+   */
+  EAttribute getrType_Name();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Call <em>Call</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Call</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Call
+   * @generated
+   */
+  EClass getCall();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Call#getTarget <em>Target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Target</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Call#getTarget()
+   * @see #getCall()
+   * @generated
+   */
+  EReference getCall_Target();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Call#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Call#getName()
+   * @see #getCall()
+   * @generated
+   */
+  EAttribute getCall_Name();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.Call#getParams <em>Params</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Params</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Call#getParams()
+   * @see #getCall()
+   * @generated
+   */
+  EReference getCall_Params();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Feature <em>Feature</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Feature</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Feature
+   * @generated
+   */
+  EClass getFeature();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Feature#getTarget <em>Target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Target</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Feature#getTarget()
+   * @see #getFeature()
+   * @generated
+   */
+  EReference getFeature_Target();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Feature#getFeature <em>Feature</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Feature</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Feature#getFeature()
+   * @see #getFeature()
+   * @generated
+   */
+  EAttribute getFeature_Feature();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Apply <em>Apply</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Apply</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Apply
+   * @generated
+   */
+  EClass getApply();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Apply#getTarget <em>Target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Target</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Apply#getTarget()
+   * @see #getApply()
+   * @generated
+   */
+  EReference getApply_Target();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Apply#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Apply#getName()
+   * @see #getApply()
+   * @generated
+   */
+  EAttribute getApply_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Apply#getVarName <em>Var Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Var Name</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Apply#getVarName()
+   * @see #getApply()
+   * @generated
+   */
+  EAttribute getApply_VarName();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Apply#getVarType <em>Var Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Var Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Apply#getVarType()
+   * @see #getApply()
+   * @generated
+   */
+  EReference getApply_VarType();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Apply#getLambda <em>Lambda</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Lambda</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Apply#getLambda()
+   * @see #getApply()
+   * @generated
+   */
+  EReference getApply_Lambda();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Mult <em>Mult</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Mult</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Mult
+   * @generated
+   */
+  EClass getMult();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Mult#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Mult#getLeft()
+   * @see #getMult()
+   * @generated
+   */
+  EReference getMult_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Mult#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Mult#getRight()
+   * @see #getMult()
+   * @generated
+   */
+  EReference getMult_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Add <em>Add</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Add</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Add
+   * @generated
+   */
+  EClass getAdd();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Add#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Add#getLeft()
+   * @see #getAdd()
+   * @generated
+   */
+  EReference getAdd_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Add#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Add#getRight()
+   * @see #getAdd()
+   * @generated
+   */
+  EReference getAdd_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Comp <em>Comp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Comp</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Comp
+   * @generated
+   */
+  EClass getComp();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Comp#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Comp#getLeft()
+   * @see #getComp()
+   * @generated
+   */
+  EReference getComp_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Comp#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Comp#getRight()
+   * @see #getComp()
+   * @generated
+   */
+  EReference getComp_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.And <em>And</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>And</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.And
+   * @generated
+   */
+  EClass getAnd();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.And#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.And#getLeft()
+   * @see #getAnd()
+   * @generated
+   */
+  EReference getAnd_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.And#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.And#getRight()
+   * @see #getAnd()
+   * @generated
+   */
+  EReference getAnd_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Or <em>Or</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Or</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Or
+   * @generated
+   */
+  EClass getOr();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Or#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Or#getLeft()
+   * @see #getOr()
+   * @generated
+   */
+  EReference getOr_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Or#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Or#getRight()
+   * @see #getOr()
+   * @generated
+   */
+  EReference getOr_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Xor <em>Xor</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Xor</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Xor
+   * @generated
+   */
+  EClass getXor();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Xor#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Xor#getLeft()
+   * @see #getXor()
+   * @generated
+   */
+  EReference getXor_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Xor#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Xor#getRight()
+   * @see #getXor()
+   * @generated
+   */
+  EReference getXor_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Implie <em>Implie</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Implie</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Implie
+   * @generated
+   */
+  EClass getImplie();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Implie#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Implie#getLeft()
+   * @see #getImplie()
+   * @generated
+   */
+  EReference getImplie_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Implie#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Implie#getRight()
+   * @see #getImplie()
+   * @generated
+   */
+  EReference getImplie_Right();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Not <em>Not</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Not</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Not
+   * @generated
+   */
+  EClass getNot();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Not#getExp <em>Exp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Exp</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Not#getExp()
+   * @see #getNot()
+   * @generated
+   */
+  EReference getNot_Exp();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Min <em>Min</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Min</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Min
+   * @generated
+   */
+  EClass getMin();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Min#getExp <em>Exp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Exp</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Min#getExp()
+   * @see #getMin()
+   * @generated
+   */
+  EReference getMin_Exp();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.VarRef <em>Var Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Var Ref</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.VarRef
+   * @generated
+   */
+  EClass getVarRef();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.VarRef#getID <em>ID</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>ID</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.VarRef#getID()
+   * @see #getVarRef()
+   * @generated
+   */
+  EAttribute getVarRef_ID();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Lit <em>Lit</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Lit</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Lit
+   * @generated
+   */
+  EClass getLit();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Lit#getLiteral <em>Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Literal</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Lit#getLiteral()
+   * @see #getLit()
+   * @generated
+   */
+  EReference getLit_Literal();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Conditional <em>Conditional</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Conditional</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Conditional
+   * @generated
+   */
+  EClass getConditional();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Conditional#getCond <em>Cond</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Cond</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Conditional#getCond()
+   * @see #getConditional()
+   * @generated
+   */
+  EReference getConditional_Cond();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Conditional#getThen <em>Then</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Then</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Conditional#getThen()
+   * @see #getConditional()
+   * @generated
+   */
+  EReference getConditional_Then();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Conditional#getElse <em>Else</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Else</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Conditional#getElse()
+   * @see #getConditional()
+   * @generated
+   */
+  EReference getConditional_Else();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Let <em>Let</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Let</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Let
+   * @generated
+   */
+  EClass getLet();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.Let#getBindings <em>Bindings</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Bindings</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Let#getBindings()
+   * @see #getLet()
+   * @generated
+   */
+  EReference getLet_Bindings();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Let#getExp <em>Exp</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Exp</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Let#getExp()
+   * @see #getLet()
+   * @generated
+   */
+  EReference getLet_Exp();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.String <em>String</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>String</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.String
+   * @generated
+   */
+  EClass getString();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.String#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.String#getValue()
+   * @see #getString()
+   * @generated
+   */
+  EAttribute getString_Value();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Int <em>Int</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Int</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Int
+   * @generated
+   */
+  EClass getInt();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Int#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Int#getValue()
+   * @see #getInt()
+   * @generated
+   */
+  EAttribute getInt_Value();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Real <em>Real</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Real</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Real
+   * @generated
+   */
+  EClass getReal();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Real#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Real#getValue()
+   * @see #getReal()
+   * @generated
+   */
+  EAttribute getReal_Value();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.True <em>True</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>True</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.True
+   * @generated
+   */
+  EClass getTrue();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.False <em>False</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>False</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.False
+   * @generated
+   */
+  EClass getFalse();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Null <em>Null</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Null</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Null
+   * @generated
+   */
+  EClass getNull();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Sequence <em>Sequence</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Sequence</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Sequence
+   * @generated
+   */
+  EClass getSequence();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.Sequence#getParams <em>Params</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Params</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Sequence#getParams()
+   * @see #getSequence()
+   * @generated
+   */
+  EReference getSequence_Params();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.OrderedSet <em>Ordered Set</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Ordered Set</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.OrderedSet
+   * @generated
+   */
+  EClass getOrderedSet();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.OrderedSet#getParams <em>Params</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Params</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.OrderedSet#getParams()
+   * @see #getOrderedSet()
+   * @generated
+   */
+  EReference getOrderedSet_Params();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.StringType <em>String Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>String Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.StringType
+   * @generated
+   */
+  EClass getStringType();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.IntType <em>Int Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Int Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.IntType
+   * @generated
+   */
+  EClass getIntType();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.RealType <em>Real Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Real Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.RealType
+   * @generated
+   */
+  EClass getRealType();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.BoolType <em>Bool Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Bool Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.BoolType
+   * @generated
+   */
+  EClass getBoolType();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.SeqType <em>Seq Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Seq Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.SeqType
+   * @generated
+   */
+  EClass getSeqType();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.SeqType#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.SeqType#getType()
+   * @see #getSeqType()
+   * @generated
+   */
+  EReference getSeqType_Type();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.SetType <em>Set Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Set Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.SetType
+   * @generated
+   */
+  EClass getSetType();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.SetType#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.SetType#getType()
+   * @see #getSetType()
+   * @generated
+   */
+  EReference getSetType_Type();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.ClassifierSetType <em>Classifier Set Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Classifier Set Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.ClassifierSetType
+   * @generated
+   */
+  EClass getClassifierSetType();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.ClassifierSetType#getTypes <em>Types</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Types</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.ClassifierSetType#getTypes()
+   * @see #getClassifierSetType()
+   * @generated
+   */
+  EReference getClassifierSetType_Types();
+
+  /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.ClassifierType <em>Classifier Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Classifier Type</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.ClassifierType
+   * @generated
+   */
+  EClass getClassifierType();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -719,14 +3839,14 @@ public interface AlePackage extends EPackage
   interface Literals
   {
     /**
-     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.rRootImpl <em>rRoot</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.UnitImpl <em>Unit</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.eclipse.emf.ecoretools.ale.impl.rRootImpl
-     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrRoot()
+     * @see org.eclipse.emf.ecoretools.ale.impl.UnitImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getUnit()
      * @generated
      */
-    EClass RROOT = eINSTANCE.getrRoot();
+    EClass UNIT = eINSTANCE.getUnit();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -734,7 +3854,23 @@ public interface AlePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RROOT__NAME = eINSTANCE.getrRoot_Name();
+    EAttribute UNIT__NAME = eINSTANCE.getUnit_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference UNIT__IMPORTS = eINSTANCE.getUnit_Imports();
+
+    /**
+     * The meta object literal for the '<em><b>Services</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference UNIT__SERVICES = eINSTANCE.getUnit_Services();
 
     /**
      * The meta object literal for the '<em><b>Xtended Classes</b></em>' containment reference list feature.
@@ -742,17 +3878,17 @@ public interface AlePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference RROOT__XTENDED_CLASSES = eINSTANCE.getrRoot_XtendedClasses();
+    EReference UNIT__XTENDED_CLASSES = eINSTANCE.getUnit_XtendedClasses();
 
     /**
-     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.rClassImpl <em>rClass</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.ImportImpl <em>Import</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.eclipse.emf.ecoretools.ale.impl.rClassImpl
-     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrClass()
+     * @see org.eclipse.emf.ecoretools.ale.impl.ImportImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getImport()
      * @generated
      */
-    EClass RCLASS = eINSTANCE.getrClass();
+    EClass IMPORT = eINSTANCE.getImport();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -760,7 +3896,51 @@ public interface AlePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RCLASS__NAME = eINSTANCE.getrClass_Name();
+    EAttribute IMPORT__NAME = eINSTANCE.getImport_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Alias</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute IMPORT__ALIAS = eINSTANCE.getImport_Alias();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.ServiceImpl <em>Service</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.ServiceImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getService()
+     * @generated
+     */
+    EClass SERVICE = eINSTANCE.getService();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SERVICE__NAME = eINSTANCE.getService_Name();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.BehavioredClassImpl <em>Behaviored Class</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.BehavioredClassImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getBehavioredClass()
+     * @generated
+     */
+    EClass BEHAVIORED_CLASS = eINSTANCE.getBehavioredClass();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute BEHAVIORED_CLASS__NAME = eINSTANCE.getBehavioredClass_Name();
 
     /**
      * The meta object literal for the '<em><b>Attributes</b></em>' containment reference list feature.
@@ -768,7 +3948,7 @@ public interface AlePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference RCLASS__ATTRIBUTES = eINSTANCE.getrClass_Attributes();
+    EReference BEHAVIORED_CLASS__ATTRIBUTES = eINSTANCE.getBehavioredClass_Attributes();
 
     /**
      * The meta object literal for the '<em><b>Operations</b></em>' containment reference list feature.
@@ -776,45 +3956,61 @@ public interface AlePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference RCLASS__OPERATIONS = eINSTANCE.getrClass_Operations();
+    EReference BEHAVIORED_CLASS__OPERATIONS = eINSTANCE.getBehavioredClass_Operations();
 
     /**
-     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.rOpenClassImpl <em>rOpen Class</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.ExtendedClassImpl <em>Extended Class</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.eclipse.emf.ecoretools.ale.impl.rOpenClassImpl
-     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrOpenClass()
+     * @see org.eclipse.emf.ecoretools.ale.impl.ExtendedClassImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getExtendedClass()
      * @generated
      */
-    EClass ROPEN_CLASS = eINSTANCE.getrOpenClass();
+    EClass EXTENDED_CLASS = eINSTANCE.getExtendedClass();
 
     /**
-     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.rNewClassImpl <em>rNew Class</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.emf.ecoretools.ale.impl.rNewClassImpl
-     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrNewClass()
-     * @generated
-     */
-    EClass RNEW_CLASS = eINSTANCE.getrNewClass();
-
-    /**
-     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.rOperationImpl <em>rOperation</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.emf.ecoretools.ale.impl.rOperationImpl
-     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrOperation()
-     * @generated
-     */
-    EClass ROPERATION = eINSTANCE.getrOperation();
-
-    /**
-     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Extends</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ROPERATION__TYPE = eINSTANCE.getrOperation_Type();
+    EAttribute EXTENDED_CLASS__EXTENDS = eINSTANCE.getExtendedClass_Extends();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.RuntimeClassImpl <em>Runtime Class</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.RuntimeClassImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getRuntimeClass()
+     * @generated
+     */
+    EClass RUNTIME_CLASS = eINSTANCE.getRuntimeClass();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.OperationImpl <em>Operation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.OperationImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getOperation()
+     * @generated
+     */
+    EClass OPERATION = eINSTANCE.getOperation();
+
+    /**
+     * The meta object literal for the '<em><b>Tag</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OPERATION__TAG = eINSTANCE.getOperation_Tag();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OPERATION__TYPE = eINSTANCE.getOperation_Type();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -822,33 +4018,7 @@ public interface AlePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ROPERATION__NAME = eINSTANCE.getrOperation_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Param List</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ROPERATION__PARAM_LIST = eINSTANCE.getrOperation_ParamList();
-
-    /**
-     * The meta object literal for the '<em><b>Body</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ROPERATION__BODY = eINSTANCE.getrOperation_Body();
-
-    /**
-     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.rParametersImpl <em>rParameters</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.emf.ecoretools.ale.impl.rParametersImpl
-     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrParameters()
-     * @generated
-     */
-    EClass RPARAMETERS = eINSTANCE.getrParameters();
+    EAttribute OPERATION__NAME = eINSTANCE.getOperation_Name();
 
     /**
      * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
@@ -856,25 +4026,25 @@ public interface AlePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference RPARAMETERS__PARAMS = eINSTANCE.getrParameters_Params();
+    EReference OPERATION__PARAMS = eINSTANCE.getOperation_Params();
 
     /**
-     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.rVariableImpl <em>rVariable</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.eclipse.emf.ecoretools.ale.impl.rVariableImpl
-     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrVariable()
-     * @generated
-     */
-    EClass RVARIABLE = eINSTANCE.getrVariable();
-
-    /**
-     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RVARIABLE__TYPE = eINSTANCE.getrVariable_Type();
+    EReference OPERATION__BODY = eINSTANCE.getOperation_Body();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.TagImpl <em>Tag</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.TagImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getTag()
+     * @generated
+     */
+    EClass TAG = eINSTANCE.getTag();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -882,17 +4052,43 @@ public interface AlePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RVARIABLE__NAME = eINSTANCE.getrVariable_Name();
+    EAttribute TAG__NAME = eINSTANCE.getTag_Name();
 
     /**
-     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.rAttributeImpl <em>rAttribute</em>}' class.
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.VariableImpl <em>Variable</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.eclipse.emf.ecoretools.ale.impl.rAttributeImpl
-     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrAttribute()
+     * @see org.eclipse.emf.ecoretools.ale.impl.VariableImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getVariable()
      * @generated
      */
-    EClass RATTRIBUTE = eINSTANCE.getrAttribute();
+    EClass VARIABLE = eINSTANCE.getVariable();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VARIABLE__TYPE = eINSTANCE.getVariable_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VARIABLE__NAME = eINSTANCE.getVariable_Name();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.AttributeImpl <em>Attribute</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.AttributeImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getAttribute()
+     * @generated
+     */
+    EClass ATTRIBUTE = eINSTANCE.getAttribute();
 
     /**
      * The meta object literal for the '<em><b>Modifier</b></em>' attribute feature.
@@ -900,7 +4096,7 @@ public interface AlePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RATTRIBUTE__MODIFIER = eINSTANCE.getrAttribute_Modifier();
+    EAttribute ATTRIBUTE__MODIFIER = eINSTANCE.getAttribute_Modifier();
 
     /**
      * The meta object literal for the '<em><b>Bounds</b></em>' attribute feature.
@@ -908,23 +4104,23 @@ public interface AlePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RATTRIBUTE__BOUNDS = eINSTANCE.getrAttribute_Bounds();
+    EAttribute ATTRIBUTE__BOUNDS = eINSTANCE.getAttribute_Bounds();
 
     /**
-     * The meta object literal for the '<em><b>Opposite</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Opposite</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RATTRIBUTE__OPPOSITE = eINSTANCE.getrAttribute_Opposite();
+    EReference ATTRIBUTE__OPPOSITE = eINSTANCE.getAttribute_Opposite();
 
     /**
-     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RATTRIBUTE__TYPE = eINSTANCE.getrAttribute_Type();
+    EReference ATTRIBUTE__TYPE = eINSTANCE.getAttribute_Type();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -932,7 +4128,1059 @@ public interface AlePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RATTRIBUTE__NAME = eINSTANCE.getrAttribute_Name();
+    EAttribute ATTRIBUTE__NAME = eINSTANCE.getAttribute_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ATTRIBUTE__EXP = eINSTANCE.getAttribute_Exp();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.rOppositeImpl <em>rOpposite</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.rOppositeImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrOpposite()
+     * @generated
+     */
+    EClass ROPPOSITE = eINSTANCE.getrOpposite();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ROPPOSITE__NAME = eINSTANCE.getrOpposite_Name();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.StatementImpl <em>Statement</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.StatementImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getStatement()
+     * @generated
+     */
+    EClass STATEMENT = eINSTANCE.getStatement();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.VarDeclImpl <em>Var Decl</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.VarDeclImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getVarDecl()
+     * @generated
+     */
+    EClass VAR_DECL = eINSTANCE.getVarDecl();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VAR_DECL__TYPE = eINSTANCE.getVarDecl_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VAR_DECL__NAME = eINSTANCE.getVarDecl_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VAR_DECL__EXP = eINSTANCE.getVarDecl_Exp();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.AssignImpl <em>Assign</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.AssignImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getAssign()
+     * @generated
+     */
+    EClass ASSIGN = eINSTANCE.getAssign();
+
+    /**
+     * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSIGN__TARGET = eINSTANCE.getAssign_Target();
+
+    /**
+     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ASSIGN__EXP = eINSTANCE.getAssign_Exp();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.InsertImpl <em>Insert</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.InsertImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getInsert()
+     * @generated
+     */
+    EClass INSERT = eINSTANCE.getInsert();
+
+    /**
+     * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INSERT__TARGET = eINSTANCE.getInsert_Target();
+
+    /**
+     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INSERT__EXP = eINSTANCE.getInsert_Exp();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.RemoveImpl <em>Remove</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.RemoveImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getRemove()
+     * @generated
+     */
+    EClass REMOVE = eINSTANCE.getRemove();
+
+    /**
+     * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REMOVE__TARGET = eINSTANCE.getRemove_Target();
+
+    /**
+     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REMOVE__EXP = eINSTANCE.getRemove_Exp();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.ForEachImpl <em>For Each</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.ForEachImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getForEach()
+     * @generated
+     */
+    EClass FOR_EACH = eINSTANCE.getForEach();
+
+    /**
+     * The meta object literal for the '<em><b>Iterator</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FOR_EACH__ITERATOR = eINSTANCE.getForEach_Iterator();
+
+    /**
+     * The meta object literal for the '<em><b>Collection</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FOR_EACH__COLLECTION = eINSTANCE.getForEach_Collection();
+
+    /**
+     * The meta object literal for the '<em><b>Block</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FOR_EACH__BLOCK = eINSTANCE.getForEach_Block();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.CollectionImpl <em>Collection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.CollectionImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getCollection()
+     * @generated
+     */
+    EClass COLLECTION = eINSTANCE.getCollection();
+
+    /**
+     * The meta object literal for the '<em><b>Min</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute COLLECTION__MIN = eINSTANCE.getCollection_Min();
+
+    /**
+     * The meta object literal for the '<em><b>Max</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute COLLECTION__MAX = eINSTANCE.getCollection_Max();
+
+    /**
+     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference COLLECTION__EXP = eINSTANCE.getCollection_Exp();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.BlockImpl <em>Block</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.BlockImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getBlock()
+     * @generated
+     */
+    EClass BLOCK = eINSTANCE.getBlock();
+
+    /**
+     * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BLOCK__STATEMENTS = eINSTANCE.getBlock_Statements();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.IfImpl <em>If</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.IfImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getIf()
+     * @generated
+     */
+    EClass IF = eINSTANCE.getIf();
+
+    /**
+     * The meta object literal for the '<em><b>Cond</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference IF__COND = eINSTANCE.getIf_Cond();
+
+    /**
+     * The meta object literal for the '<em><b>Then</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference IF__THEN = eINSTANCE.getIf_Then();
+
+    /**
+     * The meta object literal for the '<em><b>Else</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference IF__ELSE = eINSTANCE.getIf_Else();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.WhileImpl <em>While</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.WhileImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getWhile()
+     * @generated
+     */
+    EClass WHILE = eINSTANCE.getWhile();
+
+    /**
+     * The meta object literal for the '<em><b>Cond</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference WHILE__COND = eINSTANCE.getWhile_Cond();
+
+    /**
+     * The meta object literal for the '<em><b>Block</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference WHILE__BLOCK = eINSTANCE.getWhile_Block();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.ExpressionStmtImpl <em>Expression Stmt</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.ExpressionStmtImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getExpressionStmt()
+     * @generated
+     */
+    EClass EXPRESSION_STMT = eINSTANCE.getExpressionStmt();
+
+    /**
+     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EXPRESSION_STMT__EXP = eINSTANCE.getExpressionStmt_Exp();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.ExpressionImpl <em>Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.ExpressionImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getExpression()
+     * @generated
+     */
+    EClass EXPRESSION = eINSTANCE.getExpression();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.bindingImpl <em>binding</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.bindingImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getbinding()
+     * @generated
+     */
+    EClass BINDING = eINSTANCE.getbinding();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute BINDING__NAME = eINSTANCE.getbinding_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BINDING__TYPE = eINSTANCE.getbinding_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BINDING__EXP = eINSTANCE.getbinding_Exp();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.literalImpl <em>literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.literalImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getliteral()
+     * @generated
+     */
+    EClass LITERAL = eINSTANCE.getliteral();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.typeLiteralImpl <em>type Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.typeLiteralImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#gettypeLiteral()
+     * @generated
+     */
+    EClass TYPE_LITERAL = eINSTANCE.gettypeLiteral();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.classifierTypeRuleImpl <em>classifier Type Rule</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.classifierTypeRuleImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getclassifierTypeRule()
+     * @generated
+     */
+    EClass CLASSIFIER_TYPE_RULE = eINSTANCE.getclassifierTypeRule();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.rTypeImpl <em>rType</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.rTypeImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getrType()
+     * @generated
+     */
+    EClass RTYPE = eINSTANCE.getrType();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RTYPE__NAME = eINSTANCE.getrType_Name();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.CallImpl <em>Call</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.CallImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getCall()
+     * @generated
+     */
+    EClass CALL = eINSTANCE.getCall();
+
+    /**
+     * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CALL__TARGET = eINSTANCE.getCall_Target();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CALL__NAME = eINSTANCE.getCall_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CALL__PARAMS = eINSTANCE.getCall_Params();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.FeatureImpl <em>Feature</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.FeatureImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getFeature()
+     * @generated
+     */
+    EClass FEATURE = eINSTANCE.getFeature();
+
+    /**
+     * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FEATURE__TARGET = eINSTANCE.getFeature_Target();
+
+    /**
+     * The meta object literal for the '<em><b>Feature</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FEATURE__FEATURE = eINSTANCE.getFeature_Feature();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.ApplyImpl <em>Apply</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.ApplyImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getApply()
+     * @generated
+     */
+    EClass APPLY = eINSTANCE.getApply();
+
+    /**
+     * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference APPLY__TARGET = eINSTANCE.getApply_Target();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute APPLY__NAME = eINSTANCE.getApply_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Var Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute APPLY__VAR_NAME = eINSTANCE.getApply_VarName();
+
+    /**
+     * The meta object literal for the '<em><b>Var Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference APPLY__VAR_TYPE = eINSTANCE.getApply_VarType();
+
+    /**
+     * The meta object literal for the '<em><b>Lambda</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference APPLY__LAMBDA = eINSTANCE.getApply_Lambda();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.MultImpl <em>Mult</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.MultImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getMult()
+     * @generated
+     */
+    EClass MULT = eINSTANCE.getMult();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MULT__LEFT = eINSTANCE.getMult_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MULT__RIGHT = eINSTANCE.getMult_Right();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.AddImpl <em>Add</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.AddImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getAdd()
+     * @generated
+     */
+    EClass ADD = eINSTANCE.getAdd();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ADD__LEFT = eINSTANCE.getAdd_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ADD__RIGHT = eINSTANCE.getAdd_Right();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.CompImpl <em>Comp</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.CompImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getComp()
+     * @generated
+     */
+    EClass COMP = eINSTANCE.getComp();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference COMP__LEFT = eINSTANCE.getComp_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference COMP__RIGHT = eINSTANCE.getComp_Right();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.AndImpl <em>And</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.AndImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getAnd()
+     * @generated
+     */
+    EClass AND = eINSTANCE.getAnd();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AND__LEFT = eINSTANCE.getAnd_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference AND__RIGHT = eINSTANCE.getAnd_Right();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.OrImpl <em>Or</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.OrImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getOr()
+     * @generated
+     */
+    EClass OR = eINSTANCE.getOr();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OR__LEFT = eINSTANCE.getOr_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OR__RIGHT = eINSTANCE.getOr_Right();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.XorImpl <em>Xor</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.XorImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getXor()
+     * @generated
+     */
+    EClass XOR = eINSTANCE.getXor();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XOR__LEFT = eINSTANCE.getXor_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference XOR__RIGHT = eINSTANCE.getXor_Right();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.ImplieImpl <em>Implie</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.ImplieImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getImplie()
+     * @generated
+     */
+    EClass IMPLIE = eINSTANCE.getImplie();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference IMPLIE__LEFT = eINSTANCE.getImplie_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference IMPLIE__RIGHT = eINSTANCE.getImplie_Right();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.NotImpl <em>Not</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.NotImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getNot()
+     * @generated
+     */
+    EClass NOT = eINSTANCE.getNot();
+
+    /**
+     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NOT__EXP = eINSTANCE.getNot_Exp();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.MinImpl <em>Min</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.MinImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getMin()
+     * @generated
+     */
+    EClass MIN = eINSTANCE.getMin();
+
+    /**
+     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MIN__EXP = eINSTANCE.getMin_Exp();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.VarRefImpl <em>Var Ref</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.VarRefImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getVarRef()
+     * @generated
+     */
+    EClass VAR_REF = eINSTANCE.getVarRef();
+
+    /**
+     * The meta object literal for the '<em><b>ID</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VAR_REF__ID = eINSTANCE.getVarRef_ID();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.LitImpl <em>Lit</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.LitImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getLit()
+     * @generated
+     */
+    EClass LIT = eINSTANCE.getLit();
+
+    /**
+     * The meta object literal for the '<em><b>Literal</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference LIT__LITERAL = eINSTANCE.getLit_Literal();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.ConditionalImpl <em>Conditional</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.ConditionalImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getConditional()
+     * @generated
+     */
+    EClass CONDITIONAL = eINSTANCE.getConditional();
+
+    /**
+     * The meta object literal for the '<em><b>Cond</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONDITIONAL__COND = eINSTANCE.getConditional_Cond();
+
+    /**
+     * The meta object literal for the '<em><b>Then</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONDITIONAL__THEN = eINSTANCE.getConditional_Then();
+
+    /**
+     * The meta object literal for the '<em><b>Else</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CONDITIONAL__ELSE = eINSTANCE.getConditional_Else();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.LetImpl <em>Let</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.LetImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getLet()
+     * @generated
+     */
+    EClass LET = eINSTANCE.getLet();
+
+    /**
+     * The meta object literal for the '<em><b>Bindings</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference LET__BINDINGS = eINSTANCE.getLet_Bindings();
+
+    /**
+     * The meta object literal for the '<em><b>Exp</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference LET__EXP = eINSTANCE.getLet_Exp();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.StringImpl <em>String</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.StringImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getString()
+     * @generated
+     */
+    EClass STRING = eINSTANCE.getString();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute STRING__VALUE = eINSTANCE.getString_Value();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.IntImpl <em>Int</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.IntImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getInt()
+     * @generated
+     */
+    EClass INT = eINSTANCE.getInt();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute INT__VALUE = eINSTANCE.getInt_Value();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.RealImpl <em>Real</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.RealImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getReal()
+     * @generated
+     */
+    EClass REAL = eINSTANCE.getReal();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute REAL__VALUE = eINSTANCE.getReal_Value();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.TrueImpl <em>True</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.TrueImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getTrue()
+     * @generated
+     */
+    EClass TRUE = eINSTANCE.getTrue();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.FalseImpl <em>False</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.FalseImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getFalse()
+     * @generated
+     */
+    EClass FALSE = eINSTANCE.getFalse();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.NullImpl <em>Null</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.NullImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getNull()
+     * @generated
+     */
+    EClass NULL = eINSTANCE.getNull();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.SequenceImpl <em>Sequence</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.SequenceImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getSequence()
+     * @generated
+     */
+    EClass SEQUENCE = eINSTANCE.getSequence();
+
+    /**
+     * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SEQUENCE__PARAMS = eINSTANCE.getSequence_Params();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.OrderedSetImpl <em>Ordered Set</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.OrderedSetImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getOrderedSet()
+     * @generated
+     */
+    EClass ORDERED_SET = eINSTANCE.getOrderedSet();
+
+    /**
+     * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ORDERED_SET__PARAMS = eINSTANCE.getOrderedSet_Params();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.StringTypeImpl <em>String Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.StringTypeImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getStringType()
+     * @generated
+     */
+    EClass STRING_TYPE = eINSTANCE.getStringType();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.IntTypeImpl <em>Int Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.IntTypeImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getIntType()
+     * @generated
+     */
+    EClass INT_TYPE = eINSTANCE.getIntType();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.RealTypeImpl <em>Real Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.RealTypeImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getRealType()
+     * @generated
+     */
+    EClass REAL_TYPE = eINSTANCE.getRealType();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.BoolTypeImpl <em>Bool Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.BoolTypeImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getBoolType()
+     * @generated
+     */
+    EClass BOOL_TYPE = eINSTANCE.getBoolType();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.SeqTypeImpl <em>Seq Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.SeqTypeImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getSeqType()
+     * @generated
+     */
+    EClass SEQ_TYPE = eINSTANCE.getSeqType();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SEQ_TYPE__TYPE = eINSTANCE.getSeqType_Type();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.SetTypeImpl <em>Set Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.SetTypeImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getSetType()
+     * @generated
+     */
+    EClass SET_TYPE = eINSTANCE.getSetType();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SET_TYPE__TYPE = eINSTANCE.getSetType_Type();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.ClassifierSetTypeImpl <em>Classifier Set Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.ClassifierSetTypeImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getClassifierSetType()
+     * @generated
+     */
+    EClass CLASSIFIER_SET_TYPE = eINSTANCE.getClassifierSetType();
+
+    /**
+     * The meta object literal for the '<em><b>Types</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CLASSIFIER_SET_TYPE__TYPES = eINSTANCE.getClassifierSetType_Types();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.ClassifierTypeImpl <em>Classifier Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.ClassifierTypeImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getClassifierType()
+     * @generated
+     */
+    EClass CLASSIFIER_TYPE = eINSTANCE.getClassifierType();
 
   }
 

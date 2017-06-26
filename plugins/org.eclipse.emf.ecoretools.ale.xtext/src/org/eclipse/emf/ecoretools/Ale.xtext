@@ -16,37 +16,45 @@ generate ale "http://www.eclipse.org/emf/ecoretools/Ale"
  *  ALE grammar  *
  *****************/
 
-rRoot : 'behavior' name=rQualified ';' rImport* rService* xtendedClasses+=rClass*
+rRoot returns Unit :
+	'behavior' name=rQualified ';' imports+=rImport* services+=rService* xtendedClasses+=rClass*
 ;
 
-rImport : 'import' rQualified 'as' Ident ';'
+rImport returns Import : 
+	'import' name=rQualified 'as' alias=Ident '
+;'
 ;
 
-rService : 'use' Ident ('.' Ident)* ';'
+rService returns Service :
+	'use' name=rQualified ';'
 ;
 
-rClass : rOpenClass | rNewClass
+rClass returns BehavioredClass :
+	rOpenClass | rNewClass
 ;
 
-rOpenClass : 'open' 'class' name=rQualified ('extends' rQualified (',' rQualified)* )? '{' attributes+=rAttribute* operations+=rOperation* '}'
+rOpenClass returns ExtendedClass :
+	'open' 'class' name=rQualified ('extends' extends+=rQualified (',' extends+=rQualified)* )? '{' attributes+=rAttribute* operations+=rOperation* '}'
 ;
 
-rNewClass : 'class' name=Ident '{' attributes+=rAttribute* operations+=rOperation* '}'
+rNewClass returns RuntimeClass :
+	'class' name=Ident '{' attributes+=rAttribute* operations+=rOperation* '}'
 ;
 
-rOperation : rTag* ('def' | 'override') type=rType name=Ident '(' paramList+=rParameters? ')' body=rBlock
+rOperation returns Operation :
+	tag+=rTag* ('def' | 'override') type=rType name=Ident '(' (params+=rVariable (',' params+=rVariable)*)? ')' body=rBlock
 ;
 
-rTag : '@'Ident
+rTag returns Tag :
+	'@' name=Ident
 ;
 
-rParameters : params+=rVariable (',' params+=rVariable)*
+rVariable returns Variable :
+	type=rType name=Ident
 ;
 
-rVariable : type=rType name=Ident
-;
-
-rAttribute : modifier=('contains' | 'unique')? bounds=rCardinality? opposite=rOpposite? type=rType name=Ident (':=' expression)? ';'
+rAttribute returns Attribute :
+	modifier=('contains' | 'unique')? bounds=rCardinality? opposite=rOpposite? type=rType name=Ident (':=' exp=expression)? ';'
 ;
 
 rCardinality :
@@ -54,10 +62,11 @@ rCardinality :
 ;
 
 rOpposite :
-	'opposite' Ident
+	'opposite' name=Ident
 ;
 
-rStatement : rVarDecl 
+rStatement returns Statement:
+		rVarDecl 
 		| rAssign
 		| rInsert
 		| rRemove
@@ -67,64 +76,81 @@ rStatement : rVarDecl
 		| rExpression
 ;
 
-rVarDecl : rType Ident (':=' expression)? ';'
+rVarDecl returns VarDecl :
+	type=rType name=Ident (':=' exp=expression)? ';'
 ;
 
-rAssign : expression ':=' expression ';'
+rAssign returns Assign :
+	target=expression ':=' exp=expression ';'
 ;
 
-rInsert : expression '+=' expression ';'
+rInsert returns Insert :
+	target=expression '+=' exp=expression ';'
 ;
 
-rRemove : expression '-=' expression ';'
+rRemove returns Remove :
+	target=expression '-=' exp=expression ';'
 ;
 
-rForEach : 'for' '(' Ident  'in' rCollection ')' rBlock
+rForEach returns ForEach :
+	'for' '(' iterator=Ident  'in' collection=rCollection ')' block=rBlock
 ;
 
-rCollection : '[' INT '..' INT ']' | expression
+rCollection returns Collection:
+	'[' min=INT '..' max=INT ']' | exp=expression
 ;
 
-rBlock : '{' (rStatement (rStatement)*)? '}'
+rBlock returns Block :
+	{Block}
+	'{' (statements+=rStatement (statements+=rStatement)*)? '}'
 ;
 
-rIf : 'if' '(' expression ')' rBlock ('else' rBlock)?
+rIf returns If :
+	'if' '(' cond=expression ')' then=rBlock ('else' else=rBlock)?
 ;
 
-rWhile : 'while' '(' expression ')' rBlock
+rWhile returns While :
+	'while' '(' cond=expression ')' block=rBlock
 ;
 
-rExpression : expression ';'
+rExpression returns ExpressionStmt :
+	exp=expression ';'
 ;
 
 /***************
  * AQL grammar *
  ***************/
 
-expression :
-	nonLeftRecExpression recExpression?
+expression returns Expression :
+	nonLeftRecExpression 
+	(
+		  {Call.target=current} '.' name=Ident'(' (params+=expression (',' params+=expression)*)? ')'
+		| {Feature.target=current} '.' feature=Ident
+	    | {Apply.target=current} '->' name=collectionIterator '(' varName=Ident (':' varType=typeLiteral)? '|' lambda=expression ')'
+	    
+		| {Mult.left=current} MultOp right=expression
+		| {Add.left=current} addOp right=expression
+		| {Comp.left=current} compOp right=expression
+		
+		| {And.left=current} 'and' right=expression
+		| {Or.left=current}'or' right=expression
+		| {Xor.left=current} 'xor' right=expression
+		| {Implie.left=current} 'implie' right=expression
+		
+	)*
 ;
 
-recExpression :
-	(navigationSegment | MultOp expression | addOp expression | compOp expression | 'and' expression | 'or' expression | 'xor' expression | 'implies' expression) recExpression?
+nonLeftRecExpression returns Expression:
+              {Not} 'not' exp=expression
+		     |{Min} '-' exp=expression
+		     |{VarRef} ID=Ident
+		     |{Lit} literal=literal
+		     |'(' expression ')'
+		     |{Conditional} 'if' cond=expression 'then' then=expression 'else' else=expression 'endif'
+		     |{Let} 'let' bindings+=binding (',' bindings+=binding)* 'in' exp=expression
 ;
 
-navigationSegment :     '.'Ident
-				      | '.' callExp
-				      | '->' callExp
-;    
-
-nonLeftRecExpression :
-              'not' expression
-		     | '-' expression
-		     | Ident
-		     | literal
-		     | '(' expression ')'
-		     | 'if' expression 'then' expression 'else' expression 'endif'
-		     | 'let' binding (',' binding)* 'in' expression
-;
-
-binding : Ident (':' typeLiteral)? '=' expression
+binding : name=Ident (':' type=typeLiteral)? '=' exp=expression
 ;
 
 addOp: '+' | '-'
@@ -140,51 +166,37 @@ compOp :     '<='
 	  		|'>'
 ;
 
-
-callExp :     collectionIterator '(' variableDefinition lambdaExpression ')'
-			| Ident'(' expressionSequence ')'
-;
-
-lambdaExpression : expression
-;
-
 collectionIterator : 'select' | 'reject' | 'collect' | 'any' | 'exists' | 'forAll' | 'isUnique' | 'one' | 'sortedBy' | 'closure'
 ;
 
-expressionSequence : (expression (',' expression)*)?
-;
-
-variableDefinition : Ident (':' typeLiteral)? '|'
-;
-
-literal :    STRING
-		   | INT
-		   | Real
-		   |'true'
-		   |'false'
-		   |'null'
-		   |'Sequence{' expressionSequence '}'
-		   |'OrderedSet{' expressionSequence '}'
-		   | Ident '::' Ident '::' Ident
-		   | Ident '::' Ident ':'
+literal :    {String} value=STRING
+		   | {Int} value=INT
+		   | {Real} value= Real
+		   | {True}'true'
+		   | {False}'false'
+		   | {Null} 'null'
+		   | {Sequence} 'Sequence{' (params+=expression (',' params+=expression)*)? '}'
+		   | {OrderedSet} 'OrderedSet{' (params+=expression (',' params+=expression)*)? '}'
+//		   | Ident '::' Ident '::' Ident
+//		   | Ident '::' Ident ':'
 		   | typeLiteral
 ;
 
-typeLiteral :   'String'
-		      | 'Integer'
-		      | 'Real'
-		      | 'Boolean'
-		      | 'Sequence(' typeLiteral')'
-		      | 'OrderedSet(' typeLiteral')'
+typeLiteral :   {StringType}'String'
+		      | {IntType}'Integer'
+		      | {RealType}'Real'
+		      | {BoolType}'Boolean'
+		      | {SeqType} 'Sequence(' type=typeLiteral')'
+		      | {SetType} 'OrderedSet(' type=typeLiteral')'
 		      | classifierTypeRule
-		      | '{' classifierTypeRule ('|' classifierTypeRule)* '}'
+		      | {ClassifierSetType}'{' types+=classifierTypeRule ('|' types+=classifierTypeRule)* '}'
 ;
 
-classifierTypeRule :   Ident '::' Ident
-				     | Ident ':' 
+classifierTypeRule :   {ClassifierType} Ident '::' Ident
+//				     | Ident ':' 
 ;
 
-rType: rQualified | typeLiteral
+rType: name=rQualified | typeLiteral
 ;
 
 rQualified : Ident ('.'Ident)*

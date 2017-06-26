@@ -17,11 +17,11 @@ import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit
-import org.eclipse.emf.ecoretools.ale.rRoot
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer
 import org.eclipse.xtext.validation.Check
 import java.util.ArrayList
 import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecoretools.ale.Unit
 
 /**
  * Delegate validation to ALE validator
@@ -31,7 +31,7 @@ class AleValidator extends AbstractAleValidator {
 	public static String ALE_MARKER = "org.eclipse.emf.ecoretools.ale.xtext.AleMarker";
 	
 	@Check
-	def checkIsValid(rRoot root) {
+	def checkIsValid(Unit root) {
 		
 		val IFile aleFile = WorkspaceSynchronizer.getFile(root.eResource);
 		cleanUpMarkers(aleFile);
