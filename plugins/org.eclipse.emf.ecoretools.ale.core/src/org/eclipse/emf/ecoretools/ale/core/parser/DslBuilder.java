@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.parser;
 
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -45,17 +46,8 @@ public class DslBuilder {
      * Setup the eval environment & parse semantic files
      */
     public List<ParseResult<ModelUnit>> parse(Dsl dsl) { //TODO: add an option to clear services & epackages before
-    	/*
-    	 * Clean up existing Runtime EPackages
-    	 */
-    	List<EPackage> toRemove = 
-    		queryEnvironment
-			.getEPackageProvider()
-			.getRegisteredEPackages()
-			.stream()
-			.filter(p -> p.getNsURI().startsWith(ModelBuilder.RUNTIME_ALE_NSURI))
-			.collect(Collectors.toList());
-    	toRemove.forEach(p -> queryEnvironment.removeEPackage(p));
+    	
+    	cleanUp();
     	
     	/*
     	 * Register EPackages
@@ -65,16 +57,7 @@ public class DslBuilder {
     		.stream()
     		.forEach(syntaxURI -> {
     			List<EPackage> pkgImports = load(syntaxURI, rs);
-    			pkgImports
-	    			.stream()
-	    			.forEach(pkg -> {
-	    				//Register if not already there
-	    				Collection<EPackage> matchingPkgs = queryEnvironment.getEPackageProvider().getEPackage(pkg.getName());
-	    				Optional<EPackage> existingPkg = matchingPkgs.stream().filter(p -> p.getNsURI().equals(pkg.getNsURI())).findFirst();
-	    				if(!existingPkg.isPresent()){
-	    					queryEnvironment.registerEPackage(pkg);
-	    				}
-	    			});
+    			register(pkgImports);
     		});
     	
     	/*
@@ -86,6 +69,17 @@ public class DslBuilder {
     	return parsedSemantics;
     }
     
+    /**
+     * Setup the eval environment & parse inputs streams
+     */
+    public List<ParseResult<ModelUnit>> parse(List<EPackage> context, List<InputStream> inputs) {
+    	cleanUp();
+    	register(context);
+    	List<ParseResult<ModelUnit>> parsedSemantics = (new AstBuilder(queryEnvironment)).parseFromInputStreams(inputs);
+    	return parsedSemantics;
+    	
+    }
+    
     public List<EPackage> getSyntaxes(Dsl dsl) {
     	return
 	    	dsl
@@ -93,6 +87,35 @@ public class DslBuilder {
 			.stream()
 			.flatMap(syntaxURI -> load(syntaxURI, rs).stream())
 			.collect(Collectors.toList());
+    }
+    
+    /**
+     * Clean up existing Runtime EPackages
+     */
+    private void cleanUp() {
+    	List<EPackage> toRemove = 
+    		queryEnvironment
+			.getEPackageProvider()
+			.getRegisteredEPackages()
+			.stream()
+			.filter(p -> p.getNsURI().startsWith(ModelBuilder.RUNTIME_ALE_NSURI))
+			.collect(Collectors.toList());
+    	toRemove.forEach(p -> queryEnvironment.removeEPackage(p));
+    }
+    
+    /**
+     * Register EPackages if not already there
+     */
+    private void register(List<EPackage> packages) {
+    	packages
+		.stream()
+		.forEach(pkg -> {
+			Collection<EPackage> matchingPkgs = queryEnvironment.getEPackageProvider().getEPackage(pkg.getName());
+			Optional<EPackage> existingPkg = matchingPkgs.stream().filter(p -> p.getNsURI().equals(pkg.getNsURI())).findFirst();
+			if(!existingPkg.isPresent()){
+				queryEnvironment.registerEPackage(pkg);
+			}
+		});
     }
 	
     private List<EPackage> load(String ecoreURI, ResourceSet rs) {

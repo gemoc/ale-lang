@@ -11,6 +11,7 @@
 package org.eclipse.emf.ecoretools.ale.core.parser;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.antlr.v4.runtime.ANTLRFileStream;
+import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenFactory;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
@@ -51,9 +53,24 @@ public class AstBuilder {
 		ModelBuilder.createSingleton(qryEnv);
 	}
 	
-	public List<ParseResult<ModelUnit>> parseFromFiles(List<String> files) {
-		List<ParseResult<ModelUnit>> build = new ArrayList<ParseResult<ModelUnit>>();
+	public List<ParseResult<ModelUnit>> parseFromInputStreams(List<InputStream> inputs) {
 		
+		List<RRootContext> parses = new ArrayList<RRootContext>();
+		inputs
+			.stream()
+			.forEach(f -> {
+				try {
+					RRootContext parseRes = doParse(f);
+					parses.add(parseRes);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+		
+		return makeModel(parses,new HashMap<RRootContext,String>());
+	}
+	
+	public List<ParseResult<ModelUnit>> parseFromFiles(List<String> files) {
 		List<RRootContext> parses = new ArrayList<RRootContext>();
 		Map<RRootContext,String> sourceFiles = new HashMap<RRootContext,String>(); 
 		files
@@ -68,11 +85,20 @@ public class AstBuilder {
 				}
 			});
 		
+		return makeModel(parses,sourceFiles);
+	}
+	
+	/**
+	 * Transform ANTLR parse result to proper ALE model
+	 */
+	private List<ParseResult<ModelUnit>> makeModel(List<RRootContext> rawParses, Map<RRootContext,String> sourceFiles){
+		List<ParseResult<ModelUnit>> build = new ArrayList<ParseResult<ModelUnit>>();
+		
 		/*
 		 * Create & declare new EClasses
 		 */
 		Map<String,List<EClass>> allNewClasses = new HashMap<String,List<EClass>>();
-		parses
+		rawParses
 			.stream()
 			.forEach(implemParse -> {
 				List<EClass> newOnes = AstVisitors.preVisit(implemParse);
@@ -98,7 +124,7 @@ public class AstBuilder {
 		/*
 		 * Build class extensions
 		 */
-		parses
+		rawParses
 		.stream()
 		.forEach(p -> {
 			ParseResult<ModelUnit> parseRes = AstVisitors.visit(p);
@@ -233,6 +259,15 @@ public class AstBuilder {
     	});
 		
 		return build;
+	}
+	
+	private RRootContext doParse(InputStream fileContent) throws IOException {
+		ANTLRInputStream input = new ANTLRInputStream(fileContent);
+		ALELexer lexer = new ALELexer(input);
+		lexer.setTokenFactory(new CommonTokenFactory(true));
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
+		ALEParser parser = new ALEParser(tokens);
+		return  parser.rRoot();
 	}
 	
 	private RRootContext doParse(String fileName) throws IOException {
