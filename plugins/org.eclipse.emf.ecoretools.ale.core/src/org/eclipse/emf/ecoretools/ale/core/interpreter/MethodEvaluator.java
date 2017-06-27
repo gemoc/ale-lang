@@ -54,6 +54,7 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 	
 	public static final String PLUGIN_ID = "interpreter"; //FIXME: set real name
 	public static final String AQL_ERROR = "An error occured during evaluation of a query";
+	public static final String MTD_ERROR = "Can't eval null method on %s";
 	
 	IQueryEvaluationEngine aqlEngine;
 	DynamicFeatureRegistry dynamicFeatureAccess;
@@ -75,18 +76,31 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 		
 		EOperation opDefinition = operation.getOperationRef();
 		
-		for(int i = 0; i < opDefinition.getEParameters().size(); i++) {
-			EParameter param = opDefinition.getEParameters().get(i);
-			variables.put(param.getName(), parameters.get(i));
+		if(opDefinition != null) {
+			for(int i = 0; i < opDefinition.getEParameters().size(); i++) {
+				EParameter param = opDefinition.getEParameters().get(i);
+				variables.put(param.getName(), parameters.get(i));
+			}
+			
+			variablesStack.push(variables);
+			diagnostic = new BasicDiagnostic();
+			doSwitch(operation.getBody());
+			Object result =  variables.get("result");
+			variablesStack.pop();
+			
+			return new EvaluationResult(result, diagnostic);
 		}
-		
-		variablesStack.push(variables);
-		diagnostic = new BasicDiagnostic();
-		doSwitch(operation.getBody());
-		Object result =  variables.get("result");
-		variablesStack.pop();
-		
-		return new EvaluationResult(result, diagnostic);
+		else {
+			Diagnostic child = new BasicDiagnostic(
+					Diagnostic.ERROR,
+					MethodEvaluator.PLUGIN_ID,
+					0,
+					String.format(MethodEvaluator.MTD_ERROR,target),
+					new Object[] {}
+					);
+			diagnostic.add(child);
+			return new EvaluationResult(null, diagnostic);
+		}
 	}
 	
 	@Override

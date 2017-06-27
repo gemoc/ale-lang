@@ -263,33 +263,35 @@ public class TypeValidator implements IValidator {
 		if(varAssign.getName().equals("result")) {
 			Method op = base.getContainingOperation(varAssign);
 			EOperation eOp = ((Method)op).getOperationRef();
-			boolean isVoidOp = eOp.getEType() == null && eOp.getEGenericType() == null;
-			
-			if(isVoidOp) {
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(VOID_RESULT_ASSIGN,varAssign.getName()),
-						base.getStartOffset(varAssign),
-						base.getEndOffset(varAssign)
-						));
-			}
-			else {
-				EClassifier returnType = eOp.getEType();
-				EClassifierType declaredType = new EClassifierType(base.getQryEnv(), returnType);
-				Set<IType> inferredTypes = base.getPossibleTypes(varAssign.getValue());
-				Optional<IType> matchingType = inferredTypes.stream().filter(type -> declaredType.isAssignableFrom(type)).findAny();
-				if(!matchingType.isPresent()) {
-					String types = 
-							inferredTypes
-							.stream()
-							.map(type -> type.toString())
-							.collect(Collectors.joining(",","[","]"));
+			if(eOp != null) {
+				boolean isVoidOp = eOp.getEType() == null && eOp.getEGenericType() == null;
+				
+				if(isVoidOp) {
 					msgs.add(new ValidationMessage(
 							ValidationMessageLevel.ERROR,
-							String.format(INCOMPATIBLE_TYPE,returnType.getName(),types),
+							String.format(VOID_RESULT_ASSIGN,varAssign.getName()),
 							base.getStartOffset(varAssign),
 							base.getEndOffset(varAssign)
 							));
+				}
+				else {
+					EClassifier returnType = eOp.getEType();
+					EClassifierType declaredType = new EClassifierType(base.getQryEnv(), returnType);
+					Set<IType> inferredTypes = base.getPossibleTypes(varAssign.getValue());
+					Optional<IType> matchingType = inferredTypes.stream().filter(type -> declaredType.isAssignableFrom(type)).findAny();
+					if(!matchingType.isPresent()) {
+						String types = 
+								inferredTypes
+								.stream()
+								.map(type -> type.toString())
+								.collect(Collectors.joining(",","[","]"));
+						msgs.add(new ValidationMessage(
+								ValidationMessageLevel.ERROR,
+								String.format(INCOMPATIBLE_TYPE,returnType.getName(),types),
+								base.getStartOffset(varAssign),
+								base.getEndOffset(varAssign)
+								));
+					}
 				}
 			}
 		}

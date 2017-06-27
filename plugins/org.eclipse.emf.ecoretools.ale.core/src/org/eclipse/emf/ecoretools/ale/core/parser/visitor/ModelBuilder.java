@@ -28,6 +28,8 @@ import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.impl.QueryBuilderEngine;
 import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
@@ -82,8 +84,8 @@ public class ModelBuilder {
 	public static final String PARSER_EXTENDS_KEY = "extends";
 	public static final String PARSER_OPPOSITE_KEY = "opposite";
 	public static final String RUNTIME_ALE_NSURI = "http://ale/runtime/";
-	
-	
+	public static final String PARSER_ID = "org.eclipse.emf.ecoretools.ale";
+
 	public static ModelBuilder createSingleton(IQueryEnvironment qryEnv) {
 		ModelBuilder.singleton = new ModelBuilder(qryEnv);
 		return singleton;
@@ -157,8 +159,7 @@ public class ModelBuilder {
 		Optional<EOperation> existingOperation = resolve(containingClass, name, params.size(), returnType);
 		
 		if(!existingOperation.isPresent()){
-			//TODO: error
-			return null;
+			return buildMethod(null,body,tags);
 		}
 		
 		return buildMethod(existingOperation.get(),body,tags);
@@ -418,9 +419,11 @@ public class ModelBuilder {
 		.getMethods()
 		.stream()
 		.forEach(mtd -> {
-			EOperation newOp = EcoreUtil.copy(mtd.getOperationRef());
-			cls.getEOperations().add(newOp);
-			mtd.setOperationRef(newOp);
+			if(mtd.getOperationRef() != null) {
+				EOperation newOp = EcoreUtil.copy(mtd.getOperationRef());
+				cls.getEOperations().add(newOp);
+				mtd.setOperationRef(newOp);
+			}
 		});
 	}
 	

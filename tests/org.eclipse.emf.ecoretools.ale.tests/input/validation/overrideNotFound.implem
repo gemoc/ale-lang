@@ -1,0 +1,4 @@
+behavior test.overrideNotFound;
+open class EClass {
+	override void getFeatureCount() {}
+}

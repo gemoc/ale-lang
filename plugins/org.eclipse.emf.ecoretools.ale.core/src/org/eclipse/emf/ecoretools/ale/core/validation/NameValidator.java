@@ -45,6 +45,7 @@ public class NameValidator implements IValidator {
 	public static final String VARIABLE_UNDEFINED = "The variable %s is not defined";
 	public static final String PARAM_ASSIGN = "%s is a parameter and can't be assigned";
 	public static final String SELF_ASSIGN = "'self' can't be assigned";
+	public static final String OVERRIDE_UNDEFINED = "Can't find matching EOperation in %s";
 	
 	BaseValidator base;
 	
@@ -145,7 +146,7 @@ public class NameValidator implements IValidator {
 		EList<EOperation> allEOperations = xtdClass.getBaseClass().getEAllOperations();
 		for (Method mtd : xtdClass.getMethods()) {
 			EOperation opRef = mtd.getOperationRef();
-			if(opRef.getEContainingClass() != xtdClass.getBaseClass()) {
+			if(opRef!= null && opRef.getEContainingClass() != xtdClass.getBaseClass()) {
 				if(allEOperations.stream().anyMatch(op -> isMatching(opRef, op))){
 					msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
@@ -238,35 +239,45 @@ public class NameValidator implements IValidator {
 		 * Check parameter name
 		 */
 		List<String> declarations = new ArrayList<String>();
-		for (EParameter param : mtd.getOperationRef().getEParameters()) {
-			String name = param.getName();
-			if(declarations.contains(name)) {
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(NAME_ALREADY_USED,param.getName()),
-						base.getStartOffset(mtd),
-						base.getEndOffset(mtd)
-						));
+		if(mtd.getOperationRef() != null) {
+			for (EParameter param : mtd.getOperationRef().getEParameters()) {
+				String name = param.getName();
+				if(declarations.contains(name)) {
+					msgs.add(new ValidationMessage(
+							ValidationMessageLevel.ERROR,
+							String.format(NAME_ALREADY_USED,param.getName()),
+							base.getStartOffset(mtd),
+							base.getEndOffset(mtd)
+							));
+				}
+				else if(param.getName().equals("result")){
+					msgs.add(new ValidationMessage(
+							ValidationMessageLevel.ERROR,
+							String.format(RESULT_RESERVED,param.getName()),
+							base.getStartOffset(mtd),
+							base.getEndOffset(mtd)
+							));
+				}
+				else if(param.getName().equals("self")){
+					msgs.add(new ValidationMessage(
+							ValidationMessageLevel.ERROR,
+							String.format(SELF_RESERVED,param.getName()),
+							base.getStartOffset(mtd),
+							base.getEndOffset(mtd)
+							));
+				}
+				else {
+					declarations.add(name);
+				}
 			}
-			else if(param.getName().equals("result")){
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(RESULT_RESERVED,param.getName()),
-						base.getStartOffset(mtd),
-						base.getEndOffset(mtd)
-						));
-			}
-			else if(param.getName().equals("self")){
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(SELF_RESERVED,param.getName()),
-						base.getStartOffset(mtd),
-						base.getEndOffset(mtd)
-						));
-			}
-			else {
-				declarations.add(name);
-			}
+		}
+		else {
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					String.format(OVERRIDE_UNDEFINED, ((BehavioredClass)mtd.eContainer()).getName()),
+					base.getStartOffset(mtd),
+					base.getEndOffset(mtd)
+					));
 		}
 		
 		return msgs;
@@ -430,19 +441,21 @@ public class NameValidator implements IValidator {
 		}
 		else {
 			Method op = base.getContainingOperation(varAssign);
-			List<EParameter> params = op.getOperationRef().getEParameters();
-			Optional<EParameter> matchingParam = 
-				params
-				.stream()
-				.filter(param -> param.getName().equals(varAssign.getName()))
-				.findFirst();
-			if(matchingParam.isPresent()){
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(PARAM_ASSIGN,varAssign.getName()),
-						base.getStartOffset(varAssign),
-						base.getEndOffset(varAssign)
-						));
+			if(op.getOperationRef() != null) {
+				List<EParameter> params = op.getOperationRef().getEParameters();
+				Optional<EParameter> matchingParam = 
+						params
+						.stream()
+						.filter(param -> param.getName().equals(varAssign.getName()))
+						.findFirst();
+				if(matchingParam.isPresent()){
+					msgs.add(new ValidationMessage(
+							ValidationMessageLevel.ERROR,
+							String.format(PARAM_ASSIGN,varAssign.getName()),
+							base.getStartOffset(varAssign),
+							base.getEndOffset(varAssign)
+							));
+				}
 			}
 		}
 		
@@ -530,15 +543,17 @@ public class NameValidator implements IValidator {
 	
 	private String getSignature(Method op) {
 		EOperation eOp = ((Method)op).getOperationRef();
-		
-		String paramsToString = 
-			eOp
-			.getEParameters()
-			.stream()
-			.map(param -> param.getEType().getName())
-			.collect(Collectors.joining(",","(",")"));
-		
-		return eOp.getName() + paramsToString; 
+		if(eOp != null) {
+			String paramsToString = 
+					eOp
+					.getEParameters()
+					.stream()
+					.map(param -> param.getEType().getName())
+					.collect(Collectors.joining(",","(",")"));
+			
+			return eOp.getName() + paramsToString; 
+		}
+		return "undefined";
 	}
 	
 	private boolean isMatching(Method op1, Method op2) {
@@ -549,6 +564,11 @@ public class NameValidator implements IValidator {
 	}
 	
 	private boolean isMatching(EOperation eOp1, EOperation eOp2) {
+		
+		if(eOp1 == null || eOp2 == null) {
+			return false;
+		}
+		
 		boolean isMatchingName = eOp1.getName().equals(eOp2.getName());
 		boolean isMatchingArgsSize = (eOp1.getEParameters().size() == eOp2.getEParameters().size());
 		

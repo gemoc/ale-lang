@@ -57,7 +57,15 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	ParseResult<ModelUnit> currentModel;
 	Stack<Map<String, Set<IType>>> variableTypesStack;
 	
+	/**
+	 * Store the types computed by the validation of expressions
+	 */
 	Map<Expression,IValidationResult> validations;
+	
+	/**
+	 * Store the types of the variables used for the validation of expressions
+	 */
+	Map<Expression,Map<String, Set<IType>>> validationContexts;
 	
 	AstValidator expValidator;
 	IQueryEnvironment qryEnv;
@@ -78,6 +86,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		
 		this.msgs = new ArrayList<IValidationMessage>();
 		this.validations = new HashMap<Expression,IValidationResult>();
+		this.validationContexts = new HashMap<Expression, Map<String,Set<IType>>>();
 		this.allModels = roots;
 		
 		List<ModelUnit> allUnits =
@@ -180,11 +189,13 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	public Object caseMethod(Method mtd) {
 		Map<String,Set<IType>> methodScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
 		
-		for (EParameter param : mtd.getOperationRef().getEParameters()) {
-			Set<IType> previousDeclaration = methodScope.get(param.getName());
-			if(previousDeclaration == null) {
-				EClassifierType type = new EClassifierType(qryEnv, param.getEType());
-				methodScope.put(param.getName(), Sets.newHashSet(type));
+		if(mtd.getOperationRef() != null) {
+			for (EParameter param : mtd.getOperationRef().getEParameters()) {
+				Set<IType> previousDeclaration = methodScope.get(param.getName());
+				if(previousDeclaration == null) {
+					EClassifierType type = new EClassifierType(qryEnv, param.getEType());
+					methodScope.put(param.getName(), Sets.newHashSet(type));
+				}
 			}
 		}
 		
@@ -389,6 +400,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		IValidationResult expValidation = validateExpression(exp, context);
 		msgs.addAll(expValidation.getMessages());
 		validations.put(exp,expValidation);
+		validationContexts.put(exp, context);
 	}
 	
 	public Set<IType> getPossibleTypes(Expression exp) {
@@ -439,5 +451,16 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			parent = parent.eContainer();
 		}
 		return (Method)parent;
+	}
+	
+	/**
+	 * Get the type of the variables used for the validation of the expression 
+	 */
+	public Map<String, Set<IType>> getValidationContext(Expression exp) {
+		Map<String, Set<IType>> res = validationContexts.get(exp);
+		if(res != null) {
+			return res;
+		}
+		return new HashMap<String, Set<IType>>();
 	}
 }

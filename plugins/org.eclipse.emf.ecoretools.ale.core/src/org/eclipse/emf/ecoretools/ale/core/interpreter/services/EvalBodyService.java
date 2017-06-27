@@ -77,7 +77,7 @@ public class EvalBodyService extends AbstractService {
 	
 	@Override
 	public String getName() {
-		if(implem instanceof Method){
+		if(implem instanceof Method && implem.getOperationRef() != null){
 			return implem.getOperationRef().getName();
 		}
 		else
@@ -86,7 +86,7 @@ public class EvalBodyService extends AbstractService {
 	
 	@Override
 	public int getNumberOfParameters() {
-		if(implem instanceof Method){
+		if(implem instanceof Method && implem.getOperationRef() != null){
 			return implem.getOperationRef().getEParameters().size() + 1;
 		}
 		else
@@ -117,12 +117,14 @@ public class EvalBodyService extends AbstractService {
 				}
 			}
 			
-			for (EParameter parameter : ((Method)implem).getOperationRef().getEParameters()) {
-				EClassifierType rawType = new EClassifierType(queryEnvironment, parameter.getEType());
-				if (parameter.isMany()) {
-					result.add(new SequenceType(queryEnvironment, rawType));
-				} else {
-					result.add(rawType);
+			if(implem.getOperationRef() != null) {
+				for (EParameter parameter : ((Method)implem).getOperationRef().getEParameters()) {
+					EClassifierType rawType = new EClassifierType(queryEnvironment, parameter.getEType());
+					if (parameter.isMany()) {
+						result.add(new SequenceType(queryEnvironment, rawType));
+					} else {
+						result.add(rawType);
+					}
 				}
 			}
 		return result;
@@ -172,11 +174,13 @@ public class EvalBodyService extends AbstractService {
 
 		EOperation eOperation = ((Method)implem).getOperationRef();
 				
-		IType eClassifierType = new EClassifierType(queryEnvironment, eOperation.getEType());
-		if (eOperation.isMany()) {
-			result.add(new SequenceType(queryEnvironment, eClassifierType));
-		} else if(eClassifierType.getType() != null){
-			result.add(eClassifierType);
+		if(eOperation != null) {
+			IType eClassifierType = new EClassifierType(queryEnvironment, eOperation.getEType());
+			if (eOperation.isMany()) {
+				result.add(new SequenceType(queryEnvironment, eClassifierType));
+			} else if(eClassifierType.getType() != null){
+				result.add(eClassifierType);
+			}
 		}
 
 		return result;

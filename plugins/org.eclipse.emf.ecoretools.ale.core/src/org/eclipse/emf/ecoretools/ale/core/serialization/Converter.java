@@ -61,11 +61,13 @@ public class Converter {
 				allImplem.forEach(mtd -> {
 					EOperation opRef = mtd.getOperationRef();
 					Optional<String> body = parseUnit.getText(mtd.getBody());
-					if(body.isPresent()){
-						EcoreUtil.setAnnotation(opRef, ImplementationPackage.eNS_URI, "body", body.get());
+					if(opRef != null) {
+						if(body.isPresent()){
+							EcoreUtil.setAnnotation(opRef, ImplementationPackage.eNS_URI, "body", body.get());
+						}
+						EcoreUtil.setAnnotation(opRef.getEContainingClass().getEPackage(),
+								"http://www.eclipse.org/emf/2002/Ecore", "invocationDelegates", ImplementationPackage.eNS_URI);
 					}
-					EcoreUtil.setAnnotation(opRef.getEContainingClass().getEPackage(),
-							"http://www.eclipse.org/emf/2002/Ecore", "invocationDelegates", ImplementationPackage.eNS_URI);
 				});
 				
 				//Add runtime classes
@@ -79,7 +81,7 @@ public class Converter {
 					.forEach(mtd -> {
 						EOperation opRef = mtd.getOperationRef();
 						Optional<String> body = parseUnit.getText(mtd.getBody());
-						if(body.isPresent()){
+						if(body.isPresent() && opRef != null){
 							EcoreUtil.setAnnotation(opRef, ImplementationPackage.eNS_URI, "body", body.get());
 						}
 					});
@@ -222,9 +224,12 @@ public class Converter {
 	
 	private boolean isImplementation(Method mtd) {
 		EOperation opRef = mtd.getOperationRef();
-		String nsURI = opRef.getEContainingClass().getEPackage().getNsURI();
-		boolean isRuntime = nsURI == null || nsURI.startsWith(ModelBuilder.RUNTIME_ALE_NSURI);
-		return !isRuntime;
+		if(opRef != null) {
+			String nsURI = opRef.getEContainingClass().getEPackage().getNsURI();
+			boolean isRuntime = nsURI == null || nsURI.startsWith(ModelBuilder.RUNTIME_ALE_NSURI);
+			return !isRuntime;
+		}
+		return false;
 	}
 	
 	/*
