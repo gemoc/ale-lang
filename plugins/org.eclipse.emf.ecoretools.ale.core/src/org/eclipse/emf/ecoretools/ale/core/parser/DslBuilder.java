@@ -118,7 +118,7 @@ public class DslBuilder {
 		});
     }
 	
-    private List<EPackage> load(String ecoreURI, ResourceSet rs) {
+    public static List<EPackage> load(String ecoreURI, ResourceSet rs) {
     	URI uri = URI.createURI(ecoreURI);
     	Resource res  = rs.getResource(uri, true);
     	

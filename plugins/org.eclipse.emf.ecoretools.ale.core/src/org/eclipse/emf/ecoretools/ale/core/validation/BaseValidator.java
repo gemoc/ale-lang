@@ -67,6 +67,11 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	 */
 	Map<Expression,Map<String, Set<IType>>> validationContexts;
 	
+	/**
+	 * Store the types of the variables available inside blocks
+	 */
+	Map<Block,Map<String, Set<IType>>> blockContexts;
+	
 	AstValidator expValidator;
 	IQueryEnvironment qryEnv;
 	List<IValidator> validators;
@@ -87,6 +92,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		this.msgs = new ArrayList<IValidationMessage>();
 		this.validations = new HashMap<Expression,IValidationResult>();
 		this.validationContexts = new HashMap<Expression, Map<String,Set<IType>>>();
+		this.blockContexts = new HashMap<Block, Map<String,Set<IType>>>();
 		this.allModels = roots;
 		
 		List<ModelUnit> allUnits =
@@ -213,6 +219,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		Map<String,Set<IType>> blockScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
 		
 		variableTypesStack.push(blockScope);
+		blockContexts.put(block, blockScope);
 		for(Statement stmt: block.getStatements()){
 			doSwitch(stmt);
 		}
@@ -458,6 +465,17 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	 */
 	public Map<String, Set<IType>> getValidationContext(Expression exp) {
 		Map<String, Set<IType>> res = validationContexts.get(exp);
+		if(res != null) {
+			return res;
+		}
+		return new HashMap<String, Set<IType>>();
+	}
+	
+	/**
+	 * Get the type of the variables available in a block
+	 */
+	public Map<String, Set<IType>> getValidationContext(Block block) {
+		Map<String, Set<IType>> res = blockContexts.get(block);
 		if(res != null) {
 			return res;
 		}

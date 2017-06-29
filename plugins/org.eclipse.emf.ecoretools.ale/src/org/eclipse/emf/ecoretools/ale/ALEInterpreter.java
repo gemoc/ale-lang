@@ -342,6 +342,4 @@ public class ALEInterpreter {
     	URI uri = URI.createURI(modelURI);
 		return modelRs.getResource(uri, true);
     }
-    
-    
 }
