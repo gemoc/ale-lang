@@ -1058,15 +1058,15 @@ rulerOpposite returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRulerStatement
-entryRulerStatement returns [EObject current=null]:
-	{ newCompositeNode(grammarAccess.getRStatementRule()); }
-	iv_rulerStatement=rulerStatement
-	{ $current=$iv_rulerStatement.current; }
+// Entry rule entryRulerSimpleStatement
+entryRulerSimpleStatement returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getRSimpleStatementRule()); }
+	iv_rulerSimpleStatement=rulerSimpleStatement
+	{ $current=$iv_rulerSimpleStatement.current; }
 	EOF;
 
-// Rule rStatement
-rulerStatement returns [EObject current=null]
+// Rule rSimpleStatement
+rulerSimpleStatement returns [EObject current=null]
 @init {
 	enterRule();
 }
@@ -1078,7 +1078,7 @@ rulerStatement returns [EObject current=null]
 			/* */
 		}
 		{
-			newCompositeNode(grammarAccess.getRStatementAccess().getRVarDeclParserRuleCall_0());
+			newCompositeNode(grammarAccess.getRSimpleStatementAccess().getRVarDeclParserRuleCall_0());
 		}
 		this_rVarDecl_0=rulerVarDecl
 		{
@@ -1090,11 +1090,11 @@ rulerStatement returns [EObject current=null]
 			/* */
 		}
 		{
-			newCompositeNode(grammarAccess.getRStatementAccess().getRAssignParserRuleCall_1());
+			newCompositeNode(grammarAccess.getRSimpleStatementAccess().getRExpressionParserRuleCall_1());
 		}
-		this_rAssign_1=rulerAssign
+		this_rExpression_1=rulerExpression
 		{
-			$current = $this_rAssign_1.current;
+			$current = $this_rExpression_1.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
@@ -1102,11 +1102,11 @@ rulerStatement returns [EObject current=null]
 			/* */
 		}
 		{
-			newCompositeNode(grammarAccess.getRStatementAccess().getRInsertParserRuleCall_2());
+			newCompositeNode(grammarAccess.getRSimpleStatementAccess().getRAssignParserRuleCall_2());
 		}
-		this_rInsert_2=rulerInsert
+		this_rAssign_2=rulerAssign
 		{
-			$current = $this_rInsert_2.current;
+			$current = $this_rAssign_2.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
@@ -1114,11 +1114,11 @@ rulerStatement returns [EObject current=null]
 			/* */
 		}
 		{
-			newCompositeNode(grammarAccess.getRStatementAccess().getRRemoveParserRuleCall_3());
+			newCompositeNode(grammarAccess.getRSimpleStatementAccess().getRInsertParserRuleCall_3());
 		}
-		this_rRemove_3=rulerRemove
+		this_rInsert_3=rulerInsert
 		{
-			$current = $this_rRemove_3.current;
+			$current = $this_rInsert_3.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
@@ -1126,11 +1126,41 @@ rulerStatement returns [EObject current=null]
 			/* */
 		}
 		{
-			newCompositeNode(grammarAccess.getRStatementAccess().getRForEachParserRuleCall_4());
+			newCompositeNode(grammarAccess.getRSimpleStatementAccess().getRRemoveParserRuleCall_4());
 		}
-		this_rForEach_4=rulerForEach
+		this_rRemove_4=rulerRemove
 		{
-			$current = $this_rForEach_4.current;
+			$current = $this_rRemove_4.current;
+			afterParserOrEnumRuleCall();
+		}
+	)
+;
+
+// Entry rule entryRulerBlockStatement
+entryRulerBlockStatement returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getRBlockStatementRule()); }
+	iv_rulerBlockStatement=rulerBlockStatement
+	{ $current=$iv_rulerBlockStatement.current; }
+	EOF;
+
+// Rule rBlockStatement
+rulerBlockStatement returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		{
+			/* */
+		}
+		{
+			newCompositeNode(grammarAccess.getRBlockStatementAccess().getRForEachParserRuleCall_0());
+		}
+		this_rForEach_0=rulerForEach
+		{
+			$current = $this_rForEach_0.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
@@ -1138,11 +1168,11 @@ rulerStatement returns [EObject current=null]
 			/* */
 		}
 		{
-			newCompositeNode(grammarAccess.getRStatementAccess().getRWhileParserRuleCall_5());
+			newCompositeNode(grammarAccess.getRBlockStatementAccess().getRWhileParserRuleCall_1());
 		}
-		this_rWhile_5=rulerWhile
+		this_rWhile_1=rulerWhile
 		{
-			$current = $this_rWhile_5.current;
+			$current = $this_rWhile_1.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
@@ -1150,23 +1180,11 @@ rulerStatement returns [EObject current=null]
 			/* */
 		}
 		{
-			newCompositeNode(grammarAccess.getRStatementAccess().getRIfParserRuleCall_6());
+			newCompositeNode(grammarAccess.getRBlockStatementAccess().getRIfParserRuleCall_2());
 		}
-		this_rIf_6=rulerIf
+		this_rIf_2=rulerIf
 		{
-			$current = $this_rIf_6.current;
-			afterParserOrEnumRuleCall();
-		}
-		    |
-		{
-			/* */
-		}
-		{
-			newCompositeNode(grammarAccess.getRStatementAccess().getRExpressionParserRuleCall_7());
-		}
-		this_rExpression_7=rulerExpression
-		{
-			$current = $this_rExpression_7.current;
+			$current = $this_rIf_2.current;
 			afterParserOrEnumRuleCall();
 		}
 	)
@@ -1250,10 +1268,6 @@ rulerVarDecl returns [EObject current=null]
 				)
 			)
 		)?
-		otherlv_4=';'
-		{
-			newLeafNode(otherlv_4, grammarAccess.getRVarDeclAccess().getSemicolonKeyword_3());
-		}
 	)
 ;
 
@@ -1315,10 +1329,6 @@ rulerAssign returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_3=';'
-		{
-			newLeafNode(otherlv_3, grammarAccess.getRAssignAccess().getSemicolonKeyword_3());
-		}
 	)
 ;
 
@@ -1380,10 +1390,6 @@ rulerInsert returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_3=';'
-		{
-			newLeafNode(otherlv_3, grammarAccess.getRInsertAccess().getSemicolonKeyword_3());
-		}
 	)
 ;
 
@@ -1445,10 +1451,6 @@ rulerRemove returns [EObject current=null]
 				}
 			)
 		)
-		otherlv_3=';'
-		{
-			newLeafNode(otherlv_3, grammarAccess.getRRemoveAccess().getSemicolonKeyword_3());
-		}
 	)
 ;
 
@@ -1665,46 +1667,102 @@ rulerBlock returns [EObject current=null]
 		(
 			(
 				(
+					(
+						(
+							{
+								newCompositeNode(grammarAccess.getRBlockAccess().getStatementsRSimpleStatementParserRuleCall_2_0_0_0_0());
+							}
+							lv_statements_2_0=rulerSimpleStatement
+							{
+								if ($current==null) {
+									$current = createModelElementForParent(grammarAccess.getRBlockRule());
+								}
+								add(
+									$current,
+									"statements",
+									lv_statements_2_0,
+									"org.eclipse.emf.ecoretools.Ale.rSimpleStatement");
+								afterParserOrEnumRuleCall();
+							}
+						)
+					)
+					otherlv_3=';'
 					{
-						newCompositeNode(grammarAccess.getRBlockAccess().getStatementsRStatementParserRuleCall_2_0_0());
+						newLeafNode(otherlv_3, grammarAccess.getRBlockAccess().getSemicolonKeyword_2_0_0_1());
 					}
-					lv_statements_2_0=rulerStatement
-					{
-						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getRBlockRule());
+				)
+				    |
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getRBlockAccess().getStatementsRBlockStatementParserRuleCall_2_0_1_0());
 						}
-						add(
-							$current,
-							"statements",
-							lv_statements_2_0,
-							"org.eclipse.emf.ecoretools.Ale.rStatement");
-						afterParserOrEnumRuleCall();
-					}
+						lv_statements_4_0=rulerBlockStatement
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getRBlockRule());
+							}
+							add(
+								$current,
+								"statements",
+								lv_statements_4_0,
+								"org.eclipse.emf.ecoretools.Ale.rBlockStatement");
+							afterParserOrEnumRuleCall();
+						}
+					)
 				)
 			)
 			(
 				(
+					(
+						(
+							{
+								newCompositeNode(grammarAccess.getRBlockAccess().getStatementsRSimpleStatementParserRuleCall_2_1_0_0_0());
+							}
+							lv_statements_5_0=rulerSimpleStatement
+							{
+								if ($current==null) {
+									$current = createModelElementForParent(grammarAccess.getRBlockRule());
+								}
+								add(
+									$current,
+									"statements",
+									lv_statements_5_0,
+									"org.eclipse.emf.ecoretools.Ale.rSimpleStatement");
+								afterParserOrEnumRuleCall();
+							}
+						)
+					)
+					otherlv_6=';'
 					{
-						newCompositeNode(grammarAccess.getRBlockAccess().getStatementsRStatementParserRuleCall_2_1_0());
+						newLeafNode(otherlv_6, grammarAccess.getRBlockAccess().getSemicolonKeyword_2_1_0_1());
 					}
-					lv_statements_3_0=rulerStatement
-					{
-						if ($current==null) {
-							$current = createModelElementForParent(grammarAccess.getRBlockRule());
+				)
+				    |
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getRBlockAccess().getStatementsRBlockStatementParserRuleCall_2_1_1_0());
 						}
-						add(
-							$current,
-							"statements",
-							lv_statements_3_0,
-							"org.eclipse.emf.ecoretools.Ale.rStatement");
-						afterParserOrEnumRuleCall();
-					}
+						lv_statements_7_0=rulerBlockStatement
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getRBlockRule());
+							}
+							add(
+								$current,
+								"statements",
+								lv_statements_7_0,
+								"org.eclipse.emf.ecoretools.Ale.rBlockStatement");
+							afterParserOrEnumRuleCall();
+						}
+					)
 				)
 			)*
 		)?
-		otherlv_4='}'
+		otherlv_8='}'
 		{
-			newLeafNode(otherlv_4, grammarAccess.getRBlockAccess().getRightCurlyBracketKeyword_3());
+			newLeafNode(otherlv_8, grammarAccess.getRBlockAccess().getRightCurlyBracketKeyword_3());
 		}
 	)
 ;
@@ -1889,28 +1947,22 @@ rulerExpression returns [EObject current=null]
 }:
 	(
 		(
-			(
-				{
-					newCompositeNode(grammarAccess.getRExpressionAccess().getExpExpressionParserRuleCall_0_0());
+			{
+				newCompositeNode(grammarAccess.getRExpressionAccess().getExpExpressionParserRuleCall_0());
+			}
+			lv_exp_0_0=ruleexpression
+			{
+				if ($current==null) {
+					$current = createModelElementForParent(grammarAccess.getRExpressionRule());
 				}
-				lv_exp_0_0=ruleexpression
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getRExpressionRule());
-					}
-					set(
-						$current,
-						"exp",
-						lv_exp_0_0,
-						"org.eclipse.emf.ecoretools.Ale.expression");
-					afterParserOrEnumRuleCall();
-				}
-			)
+				set(
+					$current,
+					"exp",
+					lv_exp_0_0,
+					"org.eclipse.emf.ecoretools.Ale.expression");
+				afterParserOrEnumRuleCall();
+			}
 		)
-		otherlv_1=';'
-		{
-			newLeafNode(otherlv_1, grammarAccess.getRExpressionAccess().getSemicolonKeyword_1());
-		}
 	)
 ;
 

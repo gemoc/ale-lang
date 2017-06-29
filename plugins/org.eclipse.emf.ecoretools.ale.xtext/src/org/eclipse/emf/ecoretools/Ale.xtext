@@ -65,31 +65,34 @@ rOpposite :
 	'opposite' name=Ident
 ;
 
-rStatement returns Statement:
-		rVarDecl 
+rSimpleStatement returns Statement:
+		  rVarDecl 
+		| rExpression
 		| rAssign
 		| rInsert
 		| rRemove
-		| rForEach
+;
+
+rBlockStatement returns Statement:
+		  rForEach
 		| rWhile
 		| rIf
-		| rExpression
 ;
 
 rVarDecl returns VarDecl :
-	type=rType name=Ident (':=' exp=expression)? ';'
+	type=rType name=Ident (':=' exp=expression)?
 ;
 
 rAssign returns Assign :
-	target=expression ':=' exp=expression ';'
+	target=expression ':=' exp=expression
 ;
 
 rInsert returns Insert :
-	target=expression '+=' exp=expression ';'
+	target=expression '+=' exp=expression
 ;
 
 rRemove returns Remove :
-	target=expression '-=' exp=expression ';'
+	target=expression '-=' exp=expression
 ;
 
 rForEach returns ForEach :
@@ -102,7 +105,11 @@ rCollection returns Collection:
 
 rBlock returns Block :
 	{Block}
-	'{' (statements+=rStatement (statements+=rStatement)*)? '}'
+	'{' 
+	( 
+		(statements+=rSimpleStatement ';' | statements+=rBlockStatement) ((statements+=rSimpleStatement ';' | statements+=rBlockStatement))*
+	)? 
+	'}'
 ;
 
 rIf returns If :
@@ -114,7 +121,7 @@ rWhile returns While :
 ;
 
 rExpression returns ExpressionStmt :
-	exp=expression ';'
+	exp=expression
 ;
 
 /***************

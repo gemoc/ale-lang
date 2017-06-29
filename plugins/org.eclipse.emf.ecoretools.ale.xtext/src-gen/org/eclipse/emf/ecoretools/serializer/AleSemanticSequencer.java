@@ -879,7 +879,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     rStatement returns Assign
+	 *     rSimpleStatement returns Assign
 	 *     rAssign returns Assign
 	 *
 	 * Constraint:
@@ -923,7 +923,11 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     rBlock returns Block
 	 *
 	 * Constraint:
-	 *     (statements+=rStatement statements+=rStatement*)?
+	 *     (
+	 *         (statements+=rSimpleStatement | statements+=rBlockStatement) 
+	 *         statements+=rSimpleStatement? 
+	 *         (statements+=rBlockStatement? statements+=rSimpleStatement?)*
+	 *     )?
 	 */
 	protected void sequence_rBlock(ISerializationContext context, Block semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -944,7 +948,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     rStatement returns ExpressionStmt
+	 *     rSimpleStatement returns ExpressionStmt
 	 *     rExpression returns ExpressionStmt
 	 *
 	 * Constraint:
@@ -956,14 +960,14 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.EXPRESSION_STMT__EXP));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getRExpressionAccess().getExpExpressionParserRuleCall_0_0(), semanticObject.getExp());
+		feeder.accept(grammarAccess.getRExpressionAccess().getExpExpressionParserRuleCall_0(), semanticObject.getExp());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Contexts:
-	 *     rStatement returns ForEach
+	 *     rBlockStatement returns ForEach
 	 *     rForEach returns ForEach
 	 *
 	 * Constraint:
@@ -988,7 +992,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     rStatement returns If
+	 *     rBlockStatement returns If
 	 *     rIf returns If
 	 *
 	 * Constraint:
@@ -1022,7 +1026,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     rStatement returns Insert
+	 *     rSimpleStatement returns Insert
 	 *     rInsert returns Insert
 	 *
 	 * Constraint:
@@ -1100,7 +1104,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     rStatement returns Remove
+	 *     rSimpleStatement returns Remove
 	 *     rRemove returns Remove
 	 *
 	 * Constraint:
@@ -1188,7 +1192,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     rStatement returns VarDecl
+	 *     rSimpleStatement returns VarDecl
 	 *     rVarDecl returns VarDecl
 	 *
 	 * Constraint:
@@ -1222,7 +1226,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     rStatement returns While
+	 *     rBlockStatement returns While
 	 *     rWhile returns While
 	 *
 	 * Constraint:
