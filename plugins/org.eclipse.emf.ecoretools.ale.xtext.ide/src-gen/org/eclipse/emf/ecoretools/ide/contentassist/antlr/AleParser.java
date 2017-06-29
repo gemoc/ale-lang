@@ -136,6 +136,8 @@ public class AleParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTypeLiteralAccess().getGroup_7(), "rule__TypeLiteral__Group_7__0");
 					put(grammarAccess.getTypeLiteralAccess().getGroup_7_3(), "rule__TypeLiteral__Group_7_3__0");
 					put(grammarAccess.getClassifierTypeRuleAccess().getGroup(), "rule__ClassifierTypeRule__Group__0");
+					put(grammarAccess.getRQIdentAccess().getGroup(), "rule__RQIdent__Group__0");
+					put(grammarAccess.getRQIdentAccess().getGroup_1(), "rule__RQIdent__Group_1__0");
 					put(grammarAccess.getRQualifiedAccess().getGroup(), "rule__RQualified__Group__0");
 					put(grammarAccess.getRQualifiedAccess().getGroup_1(), "rule__RQualified__Group_1__0");
 					put(grammarAccess.getRRootAccess().getNameAssignment_1(), "rule__RRoot__NameAssignment_1");
@@ -233,7 +235,7 @@ public class AleParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTypeLiteralAccess().getTypeAssignment_5_2(), "rule__TypeLiteral__TypeAssignment_5_2");
 					put(grammarAccess.getTypeLiteralAccess().getTypesAssignment_7_2(), "rule__TypeLiteral__TypesAssignment_7_2");
 					put(grammarAccess.getTypeLiteralAccess().getTypesAssignment_7_3_1(), "rule__TypeLiteral__TypesAssignment_7_3_1");
-					put(grammarAccess.getRTypeAccess().getNameAssignment_0(), "rule__RType__NameAssignment_0");
+					put(grammarAccess.getRTypeAccess().getNameAssignment_1(), "rule__RType__NameAssignment_1");
 				}
 			};
 		}

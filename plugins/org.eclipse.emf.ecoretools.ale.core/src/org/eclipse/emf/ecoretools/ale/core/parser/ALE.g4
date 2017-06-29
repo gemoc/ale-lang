@@ -127,7 +127,7 @@ rExpressionStmt : rExpression ';'
 rExpression : rSwitch | expression
 ;
 
-rType: rQualified | typeLiteral
+rType: typeLiteral | Ident ('::' Ident)*
 ;
 
 rQualified : Ident ('.'Ident)*

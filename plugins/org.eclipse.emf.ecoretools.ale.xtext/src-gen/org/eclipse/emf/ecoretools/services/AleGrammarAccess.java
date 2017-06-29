@@ -2161,25 +2161,52 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 	public class RTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.rType");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Assignment cNameAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
-		private final RuleCall cNameRQualifiedParserRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
-		private final RuleCall cTypeLiteralParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cTypeLiteralParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final RuleCall cNameRQIdentParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		
 		//rType:
-		//	name=rQualified | typeLiteral;
+		//	typeLiteral | name=rQIdent;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=rQualified | typeLiteral
+		//typeLiteral | name=rQIdent
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//name=rQualified
-		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
-		
-		//rQualified
-		public RuleCall getNameRQualifiedParserRuleCall_0_0() { return cNameRQualifiedParserRuleCall_0_0; }
-		
 		//typeLiteral
-		public RuleCall getTypeLiteralParserRuleCall_1() { return cTypeLiteralParserRuleCall_1; }
+		public RuleCall getTypeLiteralParserRuleCall_0() { return cTypeLiteralParserRuleCall_0; }
+		
+		//name=rQIdent
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		
+		//rQIdent
+		public RuleCall getNameRQIdentParserRuleCall_1_0() { return cNameRQIdentParserRuleCall_1_0; }
+	}
+	public class RQIdentElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.rQIdent");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cIdentTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cColonColonKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final RuleCall cIdentTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		
+		//rQIdent:
+		//	Ident ('::' Ident)*;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//Ident ('::' Ident)*
+		public Group getGroup() { return cGroup; }
+		
+		//Ident
+		public RuleCall getIdentTerminalRuleCall_0() { return cIdentTerminalRuleCall_0; }
+		
+		//('::' Ident)*
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//'::'
+		public Keyword getColonColonKeyword_1_0() { return cColonColonKeyword_1_0; }
+		
+		//Ident
+		public RuleCall getIdentTerminalRuleCall_1_1() { return cIdentTerminalRuleCall_1_1; }
 	}
 	public class RQualifiedElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.rQualified");
@@ -2244,6 +2271,7 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 	private final TypeLiteralElements pTypeLiteral;
 	private final ClassifierTypeRuleElements pClassifierTypeRule;
 	private final RTypeElements pRType;
+	private final RQIdentElements pRQIdent;
 	private final RQualifiedElements pRQualified;
 	private final TerminalRule tMultOp;
 	private final TerminalRule tReal;
@@ -2293,6 +2321,7 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 		this.pTypeLiteral = new TypeLiteralElements();
 		this.pClassifierTypeRule = new ClassifierTypeRuleElements();
 		this.pRType = new RTypeElements();
+		this.pRQIdent = new RQIdentElements();
 		this.pRQualified = new RQualifiedElements();
 		this.tMultOp = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.MultOp");
 		this.tReal = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.Real");
@@ -2717,13 +2746,23 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//rType:
-	//	name=rQualified | typeLiteral;
+	//	typeLiteral | name=rQIdent;
 	public RTypeElements getRTypeAccess() {
 		return pRType;
 	}
 	
 	public ParserRule getRTypeRule() {
 		return getRTypeAccess().getRule();
+	}
+	
+	//rQIdent:
+	//	Ident ('::' Ident)*;
+	public RQIdentElements getRQIdentAccess() {
+		return pRQIdent;
+	}
+	
+	public ParserRule getRQIdentRule() {
+		return getRQIdentAccess().getRule();
 	}
 	
 	//rQualified:

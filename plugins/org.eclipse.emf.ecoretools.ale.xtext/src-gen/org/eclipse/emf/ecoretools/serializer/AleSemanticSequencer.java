@@ -1177,7 +1177,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     rType returns rType
 	 *
 	 * Constraint:
-	 *     name=rQualified
+	 *     name=rQIdent
 	 */
 	protected void sequence_rType(ISerializationContext context, rType semanticObject) {
 		if (errorAcceptor != null) {
@@ -1185,7 +1185,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.RTYPE__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getRTypeAccess().getNameRQualifiedParserRuleCall_0_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getRTypeAccess().getNameRQIdentParserRuleCall_1_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	

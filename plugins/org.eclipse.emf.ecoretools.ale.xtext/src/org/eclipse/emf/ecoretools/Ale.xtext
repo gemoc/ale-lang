@@ -203,8 +203,10 @@ classifierTypeRule :   {ClassifierType} Ident '::' Ident
 //				     | Ident ':' 
 ;
 
-rType: name=rQualified | typeLiteral
+rType: typeLiteral | name=rQIdent
 ;
+
+rQIdent : Ident ('::' Ident)*;
 
 rQualified : Ident ('.'Ident)*
 ;

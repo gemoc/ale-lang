@@ -5828,7 +5828,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             	        case 1 :
             	            // InternalAle.g:2178:6: otherlv_17= ':' ( (lv_varType_18_0= ruletypeLiteral ) )
             	            {
-            	            otherlv_17=(Token)match(input,48,FOLLOW_17); if (state.failed) return current;
+            	            otherlv_17=(Token)match(input,48,FOLLOW_40); if (state.failed) return current;
             	            if ( state.backtracking==0 ) {
 
             	              						newLeafNode(otherlv_17, grammarAccess.getExpressionAccess().getColonKeyword_1_2_5_0());
@@ -5845,7 +5845,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             	              								newCompositeNode(grammarAccess.getExpressionAccess().getVarTypeTypeLiteralParserRuleCall_1_2_5_1_0());
             	              							
             	            }
-            	            pushFollow(FOLLOW_40);
+            	            pushFollow(FOLLOW_41);
             	            lv_varType_18_0=ruletypeLiteral();
 
             	            state._fsp--;
@@ -6585,11 +6585,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                 {
                 int LA34_3 = input.LA(2);
 
-                if ( (LA34_3==EOF||LA34_3==RULE_MULTOP||LA34_3==16||LA34_3==24||LA34_3==26||LA34_3==30||LA34_3==34||(LA34_3>=37 && LA34_3<=38)||LA34_3==40||LA34_3==44||(LA34_3>=46 && LA34_3<=47)||(LA34_3>=50 && LA34_3<=53)||(LA34_3>=55 && LA34_3<=57)||(LA34_3>=59 && LA34_3<=67)) ) {
-                    alt34=3;
-                }
-                else if ( (LA34_3==89) ) {
+                if ( (LA34_3==89) ) {
                     alt34=4;
+                }
+                else if ( (LA34_3==EOF||LA34_3==RULE_MULTOP||LA34_3==16||LA34_3==24||LA34_3==26||LA34_3==30||LA34_3==34||(LA34_3>=37 && LA34_3<=38)||LA34_3==40||LA34_3==44||(LA34_3>=46 && LA34_3<=47)||(LA34_3>=50 && LA34_3<=53)||(LA34_3>=55 && LA34_3<=57)||(LA34_3>=59 && LA34_3<=67)) ) {
+                    alt34=3;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return current;}
@@ -6996,7 +6996,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       						newCompositeNode(grammarAccess.getNonLeftRecExpressionAccess().getCondExpressionParserRuleCall_5_2_0());
                       					
                     }
-                    pushFollow(FOLLOW_41);
+                    pushFollow(FOLLOW_42);
                     lv_cond_15_0=ruleexpression();
 
                     state._fsp--;
@@ -7037,7 +7037,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       						newCompositeNode(grammarAccess.getNonLeftRecExpressionAccess().getThenExpressionParserRuleCall_5_4_0());
                       					
                     }
-                    pushFollow(FOLLOW_42);
+                    pushFollow(FOLLOW_43);
                     lv_then_17_0=ruleexpression();
 
                     state._fsp--;
@@ -7078,7 +7078,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       						newCompositeNode(grammarAccess.getNonLeftRecExpressionAccess().getElseExpressionParserRuleCall_5_6_0());
                       					
                     }
-                    pushFollow(FOLLOW_43);
+                    pushFollow(FOLLOW_44);
                     lv_else_19_0=ruleexpression();
 
                     state._fsp--;
@@ -7155,7 +7155,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       						newCompositeNode(grammarAccess.getNonLeftRecExpressionAccess().getBindingsBindingParserRuleCall_6_2_0());
                       					
                     }
-                    pushFollow(FOLLOW_44);
+                    pushFollow(FOLLOW_45);
                     lv_bindings_23_0=rulebinding();
 
                     state._fsp--;
@@ -7211,7 +7211,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     	      							newCompositeNode(grammarAccess.getNonLeftRecExpressionAccess().getBindingsBindingParserRuleCall_6_3_1_0());
                     	      						
                     	    }
-                    	    pushFollow(FOLLOW_44);
+                    	    pushFollow(FOLLOW_45);
                     	    lv_bindings_25_0=rulebinding();
 
                     	    state._fsp--;
@@ -7384,7 +7384,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             // InternalAle.g:2860:4: (lv_name_0_0= RULE_IDENT )
             // InternalAle.g:2861:5: lv_name_0_0= RULE_IDENT
             {
-            lv_name_0_0=(Token)match(input,RULE_IDENT,FOLLOW_45); if (state.failed) return current;
+            lv_name_0_0=(Token)match(input,RULE_IDENT,FOLLOW_46); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               					newLeafNode(lv_name_0_0, grammarAccess.getBindingAccess().getNameIdentTerminalRuleCall_0_0());
@@ -7419,7 +7419,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // InternalAle.g:2878:4: otherlv_1= ':' ( (lv_type_2_0= ruletypeLiteral ) )
                     {
-                    otherlv_1=(Token)match(input,48,FOLLOW_17); if (state.failed) return current;
+                    otherlv_1=(Token)match(input,48,FOLLOW_40); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				newLeafNode(otherlv_1, grammarAccess.getBindingAccess().getColonKeyword_1_0());
@@ -7436,7 +7436,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       						newCompositeNode(grammarAccess.getBindingAccess().getTypeTypeLiteralParserRuleCall_1_1_0());
                       					
                     }
-                    pushFollow(FOLLOW_46);
+                    pushFollow(FOLLOW_47);
                     lv_type_2_0=ruletypeLiteral();
 
                     state._fsp--;
@@ -8608,7 +8608,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_13=(Token)match(input,81,FOLLOW_47); if (state.failed) return current;
+                    otherlv_13=(Token)match(input,81,FOLLOW_48); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				newLeafNode(otherlv_13, grammarAccess.getLiteralAccess().getSequenceKeyword_6_1());
@@ -8636,7 +8636,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                               							newCompositeNode(grammarAccess.getLiteralAccess().getParamsExpressionParserRuleCall_6_2_0_0());
                               						
                             }
-                            pushFollow(FOLLOW_48);
+                            pushFollow(FOLLOW_49);
                             lv_params_14_0=ruleexpression();
 
                             state._fsp--;
@@ -8692,7 +8692,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                             	      								newCompositeNode(grammarAccess.getLiteralAccess().getParamsExpressionParserRuleCall_6_2_1_1_0());
                             	      							
                             	    }
-                            	    pushFollow(FOLLOW_48);
+                            	    pushFollow(FOLLOW_49);
                             	    lv_params_16_0=ruleexpression();
 
                             	    state._fsp--;
@@ -8767,7 +8767,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_19=(Token)match(input,82,FOLLOW_47); if (state.failed) return current;
+                    otherlv_19=(Token)match(input,82,FOLLOW_48); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				newLeafNode(otherlv_19, grammarAccess.getLiteralAccess().getOrderedSetKeyword_7_1());
@@ -8795,7 +8795,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                               							newCompositeNode(grammarAccess.getLiteralAccess().getParamsExpressionParserRuleCall_7_2_0_0());
                               						
                             }
-                            pushFollow(FOLLOW_48);
+                            pushFollow(FOLLOW_49);
                             lv_params_20_0=ruleexpression();
 
                             state._fsp--;
@@ -8851,7 +8851,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                             	      								newCompositeNode(grammarAccess.getLiteralAccess().getParamsExpressionParserRuleCall_7_2_1_1_0());
                             	      							
                             	    }
-                            	    pushFollow(FOLLOW_48);
+                            	    pushFollow(FOLLOW_49);
                             	    lv_params_22_0=ruleexpression();
 
                             	    state._fsp--;
@@ -9247,7 +9247,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_9=(Token)match(input,87,FOLLOW_17); if (state.failed) return current;
+                    otherlv_9=(Token)match(input,87,FOLLOW_40); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				newLeafNode(otherlv_9, grammarAccess.getTypeLiteralAccess().getSequenceKeyword_4_1());
@@ -9324,7 +9324,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_13=(Token)match(input,88,FOLLOW_17); if (state.failed) return current;
+                    otherlv_13=(Token)match(input,88,FOLLOW_40); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       				newLeafNode(otherlv_13, grammarAccess.getTypeLiteralAccess().getOrderedSetKeyword_5_1());
@@ -9445,7 +9445,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       						newCompositeNode(grammarAccess.getTypeLiteralAccess().getTypesClassifierTypeRuleParserRuleCall_7_2_0());
                       					
                     }
-                    pushFollow(FOLLOW_49);
+                    pushFollow(FOLLOW_50);
                     lv_types_19_0=ruleclassifierTypeRule();
 
                     state._fsp--;
@@ -9501,7 +9501,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                     	      							newCompositeNode(grammarAccess.getTypeLiteralAccess().getTypesClassifierTypeRuleParserRuleCall_7_3_1_0());
                     	      						
                     	    }
-                    	    pushFollow(FOLLOW_49);
+                    	    pushFollow(FOLLOW_50);
                     	    lv_types_21_0=ruleclassifierTypeRule();
 
                     	    state._fsp--;
@@ -9647,7 +9647,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
             }
 
-            this_Ident_1=(Token)match(input,RULE_IDENT,FOLLOW_50); if (state.failed) return current;
+            this_Ident_1=(Token)match(input,RULE_IDENT,FOLLOW_51); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(this_Ident_1, grammarAccess.getClassifierTypeRuleAccess().getIdentTerminalRuleCall_1());
@@ -9730,45 +9730,70 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerType"
-    // InternalAle.g:3702:1: rulerType returns [EObject current=null] : ( ( (lv_name_0_0= rulerQualified ) ) | this_typeLiteral_1= ruletypeLiteral ) ;
+    // InternalAle.g:3702:1: rulerType returns [EObject current=null] : (this_typeLiteral_0= ruletypeLiteral | ( (lv_name_1_0= rulerQIdent ) ) ) ;
     public final EObject rulerType() throws RecognitionException {
         EObject current = null;
 
-        AntlrDatatypeRuleToken lv_name_0_0 = null;
+        EObject this_typeLiteral_0 = null;
 
-        EObject this_typeLiteral_1 = null;
+        AntlrDatatypeRuleToken lv_name_1_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalAle.g:3708:2: ( ( ( (lv_name_0_0= rulerQualified ) ) | this_typeLiteral_1= ruletypeLiteral ) )
-            // InternalAle.g:3709:2: ( ( (lv_name_0_0= rulerQualified ) ) | this_typeLiteral_1= ruletypeLiteral )
+            // InternalAle.g:3708:2: ( (this_typeLiteral_0= ruletypeLiteral | ( (lv_name_1_0= rulerQIdent ) ) ) )
+            // InternalAle.g:3709:2: (this_typeLiteral_0= ruletypeLiteral | ( (lv_name_1_0= rulerQIdent ) ) )
             {
-            // InternalAle.g:3709:2: ( ( (lv_name_0_0= rulerQualified ) ) | this_typeLiteral_1= ruletypeLiteral )
+            // InternalAle.g:3709:2: (this_typeLiteral_0= ruletypeLiteral | ( (lv_name_1_0= rulerQIdent ) ) )
             int alt46=2;
             int LA46_0 = input.LA(1);
 
-            if ( (LA46_0==RULE_IDENT) ) {
-                int LA46_1 = input.LA(2);
+            if ( (LA46_0==25||(LA46_0>=83 && LA46_0<=88)) ) {
+                alt46=1;
+            }
+            else if ( (LA46_0==RULE_IDENT) ) {
+                int LA46_2 = input.LA(2);
 
-                if ( (LA46_1==EOF||LA46_1==RULE_IDENT||LA46_1==46) ) {
-                    alt46=1;
+                if ( (LA46_2==89) ) {
+                    int LA46_3 = input.LA(3);
+
+                    if ( (LA46_3==RULE_IDENT) ) {
+                        int LA46_5 = input.LA(4);
+
+                        if ( (synpred92_InternalAle()) ) {
+                            alt46=1;
+                        }
+                        else if ( (true) ) {
+                            alt46=2;
+                        }
+                        else {
+                            if (state.backtracking>0) {state.failed=true; return current;}
+                            NoViableAltException nvae =
+                                new NoViableAltException("", 46, 5, input);
+
+                            throw nvae;
+                        }
+                    }
+                    else {
+                        if (state.backtracking>0) {state.failed=true; return current;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 46, 3, input);
+
+                        throw nvae;
+                    }
                 }
-                else if ( (LA46_1==89) ) {
+                else if ( (LA46_2==EOF||LA46_2==RULE_IDENT) ) {
                     alt46=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return current;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 46, 1, input);
+                        new NoViableAltException("", 46, 2, input);
 
                     throw nvae;
                 }
-            }
-            else if ( (LA46_0==25||(LA46_0>=83 && LA46_0<=88)) ) {
-                alt46=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
@@ -9779,21 +9804,48 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             }
             switch (alt46) {
                 case 1 :
-                    // InternalAle.g:3710:3: ( (lv_name_0_0= rulerQualified ) )
-                    {
-                    // InternalAle.g:3710:3: ( (lv_name_0_0= rulerQualified ) )
-                    // InternalAle.g:3711:4: (lv_name_0_0= rulerQualified )
-                    {
-                    // InternalAle.g:3711:4: (lv_name_0_0= rulerQualified )
-                    // InternalAle.g:3712:5: lv_name_0_0= rulerQualified
+                    // InternalAle.g:3710:3: this_typeLiteral_0= ruletypeLiteral
                     {
                     if ( state.backtracking==0 ) {
 
-                      					newCompositeNode(grammarAccess.getRTypeAccess().getNameRQualifiedParserRuleCall_0_0());
+                      			/* */
+                      		
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      			newCompositeNode(grammarAccess.getRTypeAccess().getTypeLiteralParserRuleCall_0());
+                      		
+                    }
+                    pushFollow(FOLLOW_2);
+                    this_typeLiteral_0=ruletypeLiteral();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      			current = this_typeLiteral_0;
+                      			afterParserOrEnumRuleCall();
+                      		
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // InternalAle.g:3722:3: ( (lv_name_1_0= rulerQIdent ) )
+                    {
+                    // InternalAle.g:3722:3: ( (lv_name_1_0= rulerQIdent ) )
+                    // InternalAle.g:3723:4: (lv_name_1_0= rulerQIdent )
+                    {
+                    // InternalAle.g:3723:4: (lv_name_1_0= rulerQIdent )
+                    // InternalAle.g:3724:5: lv_name_1_0= rulerQIdent
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      					newCompositeNode(grammarAccess.getRTypeAccess().getNameRQIdentParserRuleCall_1_0());
                       				
                     }
                     pushFollow(FOLLOW_2);
-                    lv_name_0_0=rulerQualified();
+                    lv_name_1_0=rulerQIdent();
 
                     state._fsp--;
                     if (state.failed) return current;
@@ -9805,8 +9857,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       					set(
                       						current,
                       						"name",
-                      						lv_name_0_0,
-                      						"org.eclipse.emf.ecoretools.Ale.rQualified");
+                      						lv_name_1_0,
+                      						"org.eclipse.emf.ecoretools.Ale.rQIdent");
                       					afterParserOrEnumRuleCall();
                       				
                     }
@@ -9816,33 +9868,6 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
                     }
 
-
-                    }
-                    break;
-                case 2 :
-                    // InternalAle.g:3730:3: this_typeLiteral_1= ruletypeLiteral
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      			/* */
-                      		
-                    }
-                    if ( state.backtracking==0 ) {
-
-                      			newCompositeNode(grammarAccess.getRTypeAccess().getTypeLiteralParserRuleCall_1());
-                      		
-                    }
-                    pushFollow(FOLLOW_2);
-                    this_typeLiteral_1=ruletypeLiteral();
-
-                    state._fsp--;
-                    if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      			current = this_typeLiteral_1;
-                      			afterParserOrEnumRuleCall();
-                      		
-                    }
 
                     }
                     break;
@@ -9870,8 +9895,144 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
     // $ANTLR end "rulerType"
 
 
+    // $ANTLR start "entryRulerQIdent"
+    // InternalAle.g:3745:1: entryRulerQIdent returns [String current=null] : iv_rulerQIdent= rulerQIdent EOF ;
+    public final String entryRulerQIdent() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_rulerQIdent = null;
+
+
+        try {
+            // InternalAle.g:3745:47: (iv_rulerQIdent= rulerQIdent EOF )
+            // InternalAle.g:3746:2: iv_rulerQIdent= rulerQIdent EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getRQIdentRule()); 
+            }
+            pushFollow(FOLLOW_1);
+            iv_rulerQIdent=rulerQIdent();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_rulerQIdent.getText(); 
+            }
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRulerQIdent"
+
+
+    // $ANTLR start "rulerQIdent"
+    // InternalAle.g:3752:1: rulerQIdent returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_Ident_0= RULE_IDENT (kw= '::' this_Ident_2= RULE_IDENT )* ) ;
+    public final AntlrDatatypeRuleToken rulerQIdent() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token this_Ident_0=null;
+        Token kw=null;
+        Token this_Ident_2=null;
+
+
+        	enterRule();
+
+        try {
+            // InternalAle.g:3758:2: ( (this_Ident_0= RULE_IDENT (kw= '::' this_Ident_2= RULE_IDENT )* ) )
+            // InternalAle.g:3759:2: (this_Ident_0= RULE_IDENT (kw= '::' this_Ident_2= RULE_IDENT )* )
+            {
+            // InternalAle.g:3759:2: (this_Ident_0= RULE_IDENT (kw= '::' this_Ident_2= RULE_IDENT )* )
+            // InternalAle.g:3760:3: this_Ident_0= RULE_IDENT (kw= '::' this_Ident_2= RULE_IDENT )*
+            {
+            this_Ident_0=(Token)match(input,RULE_IDENT,FOLLOW_52); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			current.merge(this_Ident_0);
+              		
+            }
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(this_Ident_0, grammarAccess.getRQIdentAccess().getIdentTerminalRuleCall_0());
+              		
+            }
+            // InternalAle.g:3767:3: (kw= '::' this_Ident_2= RULE_IDENT )*
+            loop47:
+            do {
+                int alt47=2;
+                int LA47_0 = input.LA(1);
+
+                if ( (LA47_0==89) ) {
+                    alt47=1;
+                }
+
+
+                switch (alt47) {
+            	case 1 :
+            	    // InternalAle.g:3768:4: kw= '::' this_Ident_2= RULE_IDENT
+            	    {
+            	    kw=(Token)match(input,89,FOLLOW_3); if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      				current.merge(kw);
+            	      				newLeafNode(kw, grammarAccess.getRQIdentAccess().getColonColonKeyword_1_0());
+            	      			
+            	    }
+            	    this_Ident_2=(Token)match(input,RULE_IDENT,FOLLOW_52); if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      				current.merge(this_Ident_2);
+            	      			
+            	    }
+            	    if ( state.backtracking==0 ) {
+
+            	      				newLeafNode(this_Ident_2, grammarAccess.getRQIdentAccess().getIdentTerminalRuleCall_1_1());
+            	      			
+            	    }
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop47;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "rulerQIdent"
+
+
     // $ANTLR start "entryRulerQualified"
-    // InternalAle.g:3745:1: entryRulerQualified returns [String current=null] : iv_rulerQualified= rulerQualified EOF ;
+    // InternalAle.g:3785:1: entryRulerQualified returns [String current=null] : iv_rulerQualified= rulerQualified EOF ;
     public final String entryRulerQualified() throws RecognitionException {
         String current = null;
 
@@ -9879,8 +10040,8 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalAle.g:3745:50: (iv_rulerQualified= rulerQualified EOF )
-            // InternalAle.g:3746:2: iv_rulerQualified= rulerQualified EOF
+            // InternalAle.g:3785:50: (iv_rulerQualified= rulerQualified EOF )
+            // InternalAle.g:3786:2: iv_rulerQualified= rulerQualified EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getRQualifiedRule()); 
@@ -9911,7 +10072,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulerQualified"
-    // InternalAle.g:3752:1: rulerQualified returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* ) ;
+    // InternalAle.g:3792:1: rulerQualified returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* ) ;
     public final AntlrDatatypeRuleToken rulerQualified() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -9923,13 +10084,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalAle.g:3758:2: ( (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* ) )
-            // InternalAle.g:3759:2: (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* )
+            // InternalAle.g:3798:2: ( (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* ) )
+            // InternalAle.g:3799:2: (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* )
             {
-            // InternalAle.g:3759:2: (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* )
-            // InternalAle.g:3760:3: this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )*
+            // InternalAle.g:3799:2: (this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )* )
+            // InternalAle.g:3800:3: this_Ident_0= RULE_IDENT (kw= '.' this_Ident_2= RULE_IDENT )*
             {
-            this_Ident_0=(Token)match(input,RULE_IDENT,FOLLOW_51); if (state.failed) return current;
+            this_Ident_0=(Token)match(input,RULE_IDENT,FOLLOW_53); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			current.merge(this_Ident_0);
@@ -9940,20 +10101,20 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
               			newLeafNode(this_Ident_0, grammarAccess.getRQualifiedAccess().getIdentTerminalRuleCall_0());
               		
             }
-            // InternalAle.g:3767:3: (kw= '.' this_Ident_2= RULE_IDENT )*
-            loop47:
+            // InternalAle.g:3807:3: (kw= '.' this_Ident_2= RULE_IDENT )*
+            loop48:
             do {
-                int alt47=2;
-                int LA47_0 = input.LA(1);
+                int alt48=2;
+                int LA48_0 = input.LA(1);
 
-                if ( (LA47_0==46) ) {
-                    alt47=1;
+                if ( (LA48_0==46) ) {
+                    alt48=1;
                 }
 
 
-                switch (alt47) {
+                switch (alt48) {
             	case 1 :
-            	    // InternalAle.g:3768:4: kw= '.' this_Ident_2= RULE_IDENT
+            	    // InternalAle.g:3808:4: kw= '.' this_Ident_2= RULE_IDENT
             	    {
             	    kw=(Token)match(input,46,FOLLOW_3); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
@@ -9962,7 +10123,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             	      				newLeafNode(kw, grammarAccess.getRQualifiedAccess().getFullStopKeyword_1_0());
             	      			
             	    }
-            	    this_Ident_2=(Token)match(input,RULE_IDENT,FOLLOW_51); if (state.failed) return current;
+            	    this_Ident_2=(Token)match(input,RULE_IDENT,FOLLOW_53); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      				current.merge(this_Ident_2);
@@ -9978,7 +10139,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop47;
+            	    break loop48;
                 }
             } while (true);
 
@@ -10263,13 +10424,13 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
 
         otherlv_4=(Token)match(input,29,FOLLOW_37); if (state.failed) return ;
         // InternalAle.g:2034:5: ( ( (lv_params_5_0= ruleexpression ) ) (otherlv_6= ',' ( (lv_params_7_0= ruleexpression ) ) )* )?
-        int alt55=2;
-        int LA55_0 = input.LA(1);
+        int alt56=2;
+        int LA56_0 = input.LA(1);
 
-        if ( ((LA55_0>=RULE_IDENT && LA55_0<=RULE_INT)||(LA55_0>=RULE_STRING && LA55_0<=RULE_REAL)||LA55_0==25||LA55_0==29||LA55_0==43||(LA55_0>=54 && LA55_0<=55)||LA55_0==58||(LA55_0>=78 && LA55_0<=88)) ) {
-            alt55=1;
+        if ( ((LA56_0>=RULE_IDENT && LA56_0<=RULE_INT)||(LA56_0>=RULE_STRING && LA56_0<=RULE_REAL)||LA56_0==25||LA56_0==29||LA56_0==43||(LA56_0>=54 && LA56_0<=55)||LA56_0==58||(LA56_0>=78 && LA56_0<=88)) ) {
+            alt56=1;
         }
-        switch (alt55) {
+        switch (alt56) {
             case 1 :
                 // InternalAle.g:2035:6: ( (lv_params_5_0= ruleexpression ) ) (otherlv_6= ',' ( (lv_params_7_0= ruleexpression ) ) )*
                 {
@@ -10296,17 +10457,17 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                 }
 
                 // InternalAle.g:2054:6: (otherlv_6= ',' ( (lv_params_7_0= ruleexpression ) ) )*
-                loop54:
+                loop55:
                 do {
-                    int alt54=2;
-                    int LA54_0 = input.LA(1);
+                    int alt55=2;
+                    int LA55_0 = input.LA(1);
 
-                    if ( (LA54_0==24) ) {
-                        alt54=1;
+                    if ( (LA55_0==24) ) {
+                        alt55=1;
                     }
 
 
-                    switch (alt54) {
+                    switch (alt55) {
                 	case 1 :
                 	    // InternalAle.g:2055:7: otherlv_6= ',' ( (lv_params_7_0= ruleexpression ) )
                 	    {
@@ -10338,7 +10499,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                 	    break;
 
                 	default :
-                	    break loop54;
+                	    break loop55;
                     }
                 } while (true);
 
@@ -10471,17 +10632,17 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         }
 
         // InternalAle.g:2177:5: (otherlv_17= ':' ( (lv_varType_18_0= ruletypeLiteral ) ) )?
-        int alt56=2;
-        int LA56_0 = input.LA(1);
+        int alt57=2;
+        int LA57_0 = input.LA(1);
 
-        if ( (LA56_0==48) ) {
-            alt56=1;
+        if ( (LA57_0==48) ) {
+            alt57=1;
         }
-        switch (alt56) {
+        switch (alt57) {
             case 1 :
                 // InternalAle.g:2178:6: otherlv_17= ':' ( (lv_varType_18_0= ruletypeLiteral ) )
                 {
-                otherlv_17=(Token)match(input,48,FOLLOW_17); if (state.failed) return ;
+                otherlv_17=(Token)match(input,48,FOLLOW_40); if (state.failed) return ;
                 // InternalAle.g:2182:6: ( (lv_varType_18_0= ruletypeLiteral ) )
                 // InternalAle.g:2183:7: (lv_varType_18_0= ruletypeLiteral )
                 {
@@ -10493,7 +10654,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                   								newCompositeNode(grammarAccess.getExpressionAccess().getVarTypeTypeLiteralParserRuleCall_1_2_5_1_0());
                   							
                 }
-                pushFollow(FOLLOW_40);
+                pushFollow(FOLLOW_41);
                 lv_varType_18_0=ruletypeLiteral();
 
                 state._fsp--;
@@ -10926,6 +11087,29 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
     }
     // $ANTLR end synpred46_InternalAle
 
+    // $ANTLR start synpred92_InternalAle
+    public final void synpred92_InternalAle_fragment() throws RecognitionException {   
+        EObject this_typeLiteral_0 = null;
+
+
+        // InternalAle.g:3710:3: (this_typeLiteral_0= ruletypeLiteral )
+        // InternalAle.g:3710:3: this_typeLiteral_0= ruletypeLiteral
+        {
+        if ( state.backtracking==0 ) {
+
+          			/* */
+          		
+        }
+        pushFollow(FOLLOW_2);
+        this_typeLiteral_0=ruletypeLiteral();
+
+        state._fsp--;
+        if (state.failed) return ;
+
+        }
+    }
+    // $ANTLR end synpred92_InternalAle
+
     // Delegated rules
 
     public final boolean synpred37_InternalAle() {
@@ -11003,6 +11187,20 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         int start = input.mark();
         try {
             synpred46_InternalAle_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred92_InternalAle() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred92_InternalAle_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -11178,7 +11376,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
     static final String dfa_4s = "\26\uffff\1\1\1\2\1\3\1\4\1\5";
     static final String dfa_5s = "\1\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24\5\uffff}>";
     static final String[] dfa_6s = {
-            "\1\1\1\14\1\uffff\1\13\1\15\20\uffff\1\10\3\uffff\1\23\15\uffff\1\24\12\uffff\1\11\1\12\2\uffff\1\25\23\uffff\1\16\1\17\1\20\1\21\1\22\1\2\1\3\1\4\1\5\1\6\1\7",
+            "\1\7\1\14\1\uffff\1\13\1\15\20\uffff\1\10\3\uffff\1\23\15\uffff\1\24\12\uffff\1\11\1\12\2\uffff\1\25\23\uffff\1\16\1\17\1\20\1\21\1\22\1\1\1\2\1\3\1\4\1\5\1\6",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
@@ -11827,7 +12025,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
     static final String dfa_21s = "\1\6\1\uffff\21\0\12\uffff";
     static final String dfa_22s = "\1\103\1\uffff\21\0\12\uffff";
     static final String dfa_23s = "\1\uffff\1\13\21\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12";
-    static final String dfa_24s = "\2\uffff\1\17\1\2\1\6\1\10\1\15\1\20\1\0\1\12\1\14\1\4\1\7\1\1\1\5\1\11\1\13\1\3\1\16\12\uffff}>";
+    static final String dfa_24s = "\2\uffff\1\14\1\7\1\17\1\0\1\5\1\13\1\15\1\6\1\10\1\1\1\4\1\20\1\2\1\11\1\3\1\12\1\16\12\uffff}>";
     static final String[] dfa_25s = {
             "\1\4\11\uffff\1\1\7\uffff\1\1\1\uffff\1\1\3\uffff\1\1\3\uffff\1\1\2\uffff\2\1\1\uffff\1\1\3\uffff\1\1\1\uffff\1\2\1\3\2\uffff\1\17\1\20\1\21\1\22\1\uffff\1\6\2\1\1\uffff\1\13\1\5\1\7\1\10\1\11\1\12\1\14\1\15\1\16",
             "",
@@ -11889,66 +12087,21 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA32_8 = input.LA(1);
+                        int LA32_5 = input.LA(1);
 
                          
-                        int index32_8 = input.index();
+                        int index32_5 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred42_InternalAle()) ) {s = 24;}
+                        if ( (synpred41_InternalAle()) ) {s = 23;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index32_8);
+                        input.seek(index32_5);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA32_13 = input.LA(1);
-
-                         
-                        int index32_13 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred42_InternalAle()) ) {s = 24;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index32_13);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA32_3 = input.LA(1);
-
-                         
-                        int index32_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred39_InternalAle()) ) {s = 21;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index32_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA32_17 = input.LA(1);
-
-                         
-                        int index32_17 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred45_InternalAle()) ) {s = 27;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index32_17);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
                         int LA32_11 = input.LA(1);
 
                          
@@ -11963,7 +12116,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                         input.seek(index32_11);
                         if ( s>=0 ) return s;
                         break;
-                    case 5 : 
+                    case 2 : 
                         int LA32_14 = input.LA(1);
 
                          
@@ -11978,22 +12131,22 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                         input.seek(index32_14);
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
-                        int LA32_4 = input.LA(1);
+                    case 3 : 
+                        int LA32_16 = input.LA(1);
 
                          
-                        int index32_4 = input.index();
+                        int index32_16 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred40_InternalAle()) ) {s = 22;}
+                        if ( (synpred44_InternalAle()) ) {s = 26;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index32_4);
+                        input.seek(index32_16);
                         if ( s>=0 ) return s;
                         break;
-                    case 7 : 
+                    case 4 : 
                         int LA32_12 = input.LA(1);
 
                          
@@ -12008,11 +12161,11 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                         input.seek(index32_12);
                         if ( s>=0 ) return s;
                         break;
-                    case 8 : 
-                        int LA32_5 = input.LA(1);
+                    case 5 : 
+                        int LA32_6 = input.LA(1);
 
                          
-                        int index32_5 = input.index();
+                        int index32_6 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred41_InternalAle()) ) {s = 23;}
@@ -12020,7 +12173,52 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index32_5);
+                        input.seek(index32_6);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA32_9 = input.LA(1);
+
+                         
+                        int index32_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred42_InternalAle()) ) {s = 24;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index32_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA32_3 = input.LA(1);
+
+                         
+                        int index32_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred39_InternalAle()) ) {s = 21;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index32_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA32_10 = input.LA(1);
+
+                         
+                        int index32_10 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred42_InternalAle()) ) {s = 24;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index32_10);
                         if ( s>=0 ) return s;
                         break;
                     case 9 : 
@@ -12039,40 +12237,25 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                         if ( s>=0 ) return s;
                         break;
                     case 10 : 
-                        int LA32_9 = input.LA(1);
+                        int LA32_17 = input.LA(1);
 
                          
-                        int index32_9 = input.index();
+                        int index32_17 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred42_InternalAle()) ) {s = 24;}
+                        if ( (synpred45_InternalAle()) ) {s = 27;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index32_9);
+                        input.seek(index32_17);
                         if ( s>=0 ) return s;
                         break;
                     case 11 : 
-                        int LA32_16 = input.LA(1);
+                        int LA32_7 = input.LA(1);
 
                          
-                        int index32_16 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred44_InternalAle()) ) {s = 26;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index32_16);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 12 : 
-                        int LA32_10 = input.LA(1);
-
-                         
-                        int index32_10 = input.index();
+                        int index32_7 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred42_InternalAle()) ) {s = 24;}
@@ -12080,22 +12263,39 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index32_10);
+                        input.seek(index32_7);
                         if ( s>=0 ) return s;
                         break;
-                    case 13 : 
-                        int LA32_6 = input.LA(1);
+                    case 12 : 
+                        int LA32_2 = input.LA(1);
 
                          
-                        int index32_6 = input.index();
+                        int index32_2 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred41_InternalAle()) ) {s = 23;}
+                        if ( (synpred36_InternalAle()) ) {s = 19;}
+
+                        else if ( (synpred37_InternalAle()) ) {s = 20;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index32_6);
+                        input.seek(index32_2);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA32_8 = input.LA(1);
+
+                         
+                        int index32_8 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred42_InternalAle()) ) {s = 24;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index32_8);
                         if ( s>=0 ) return s;
                         break;
                     case 14 : 
@@ -12114,27 +12314,25 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                         if ( s>=0 ) return s;
                         break;
                     case 15 : 
-                        int LA32_2 = input.LA(1);
+                        int LA32_4 = input.LA(1);
 
                          
-                        int index32_2 = input.index();
+                        int index32_4 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred36_InternalAle()) ) {s = 19;}
-
-                        else if ( (synpred37_InternalAle()) ) {s = 20;}
+                        if ( (synpred40_InternalAle()) ) {s = 22;}
 
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index32_2);
+                        input.seek(index32_4);
                         if ( s>=0 ) return s;
                         break;
                     case 16 : 
-                        int LA32_7 = input.LA(1);
+                        int LA32_13 = input.LA(1);
 
                          
-                        int index32_7 = input.index();
+                        int index32_13 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred42_InternalAle()) ) {s = 24;}
@@ -12142,7 +12340,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index32_7);
+                        input.seek(index32_13);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -12176,7 +12374,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000001342000030L,0x0000000001F80000L});
     public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000041000000L});
     public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000400010000L});
-    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x04C00813220001B0L,0x0000000001FFC000L});
+    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x04C00800220001B0L,0x0000000001FFC000L});
     public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000800000000L});
     public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000000060L});
     public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000400000002L});
@@ -12184,27 +12382,29 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000002000000000L});
     public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000004000000000L});
     public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000010000000000L});
-    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x04C00A13220001B0L,0x0000000001FFC000L});
+    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x04C00A00220001B0L,0x0000000001FFC000L});
     public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000000040000000L});
     public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000040000000000L});
     public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x04C02893260001B0L,0x0000000001FFC000L});
     public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0000100000000002L});
     public static final BitSet FOLLOW_36 = new BitSet(new long[]{0xF8BCC00000000042L,0x000000000000000FL});
-    public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x04C00813620001B0L,0x0000000001FFC000L});
+    public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x04C00800620001B0L,0x0000000001FFC000L});
     public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x0000000000000000L,0x0000000000003FF0L});
     public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x0003000000000000L});
-    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0002000000000000L});
-    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0200000000000000L});
-    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0000010001000000L});
-    public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0801000000000000L});
-    public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x0800000000000000L});
-    public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x04C00813260001B0L,0x0000000001FFC000L});
-    public static final BitSet FOLLOW_48 = new BitSet(new long[]{0x0000000005000000L});
-    public static final BitSet FOLLOW_49 = new BitSet(new long[]{0x0002000004000000L});
-    public static final BitSet FOLLOW_50 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
-    public static final BitSet FOLLOW_51 = new BitSet(new long[]{0x0000400000000002L});
+    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0000000002000010L,0x0000000001F80000L});
+    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x0002000000000000L});
+    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0200000000000000L});
+    public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0000010001000000L});
+    public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x0801000000000000L});
+    public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x0800000000000000L});
+    public static final BitSet FOLLOW_48 = new BitSet(new long[]{0x04C00800260001B0L,0x0000000001FFC000L});
+    public static final BitSet FOLLOW_49 = new BitSet(new long[]{0x0000000005000000L});
+    public static final BitSet FOLLOW_50 = new BitSet(new long[]{0x0002000004000000L});
+    public static final BitSet FOLLOW_51 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
+    public static final BitSet FOLLOW_52 = new BitSet(new long[]{0x0000000000000002L,0x0000000002000000L});
+    public static final BitSet FOLLOW_53 = new BitSet(new long[]{0x0000400000000002L});
 
 }

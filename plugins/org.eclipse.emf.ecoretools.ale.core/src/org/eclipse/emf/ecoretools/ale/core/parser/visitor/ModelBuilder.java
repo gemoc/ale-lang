@@ -445,7 +445,8 @@ public class ModelBuilder {
 		return eOperation;
 	}
 	
-	public EClassifier resolve(String className) {
+	public EClassifier resolve(String typeName) {
+		String className = typeName.replaceAll("::", ".");
 		
 		int lastDotIndex = className.lastIndexOf(".");
 		if(lastDotIndex != -1 && lastDotIndex < className.length()) {

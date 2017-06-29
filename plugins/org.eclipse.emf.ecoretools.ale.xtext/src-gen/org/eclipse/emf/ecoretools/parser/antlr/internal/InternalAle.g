@@ -3707,12 +3707,24 @@ rulerType returns [EObject current=null]
 	leaveRule();
 }:
 	(
+		{
+			/* */
+		}
+		{
+			newCompositeNode(grammarAccess.getRTypeAccess().getTypeLiteralParserRuleCall_0());
+		}
+		this_typeLiteral_0=ruletypeLiteral
+		{
+			$current = $this_typeLiteral_0.current;
+			afterParserOrEnumRuleCall();
+		}
+		    |
 		(
 			(
 				{
-					newCompositeNode(grammarAccess.getRTypeAccess().getNameRQualifiedParserRuleCall_0_0());
+					newCompositeNode(grammarAccess.getRTypeAccess().getNameRQIdentParserRuleCall_1_0());
 				}
-				lv_name_0_0=rulerQualified
+				lv_name_1_0=rulerQIdent
 				{
 					if ($current==null) {
 						$current = createModelElementForParent(grammarAccess.getRTypeRule());
@@ -3720,24 +3732,52 @@ rulerType returns [EObject current=null]
 					set(
 						$current,
 						"name",
-						lv_name_0_0,
-						"org.eclipse.emf.ecoretools.Ale.rQualified");
+						lv_name_1_0,
+						"org.eclipse.emf.ecoretools.Ale.rQIdent");
 					afterParserOrEnumRuleCall();
 				}
 			)
 		)
-		    |
+	)
+;
+
+// Entry rule entryRulerQIdent
+entryRulerQIdent returns [String current=null]:
+	{ newCompositeNode(grammarAccess.getRQIdentRule()); }
+	iv_rulerQIdent=rulerQIdent
+	{ $current=$iv_rulerQIdent.current.getText(); }
+	EOF;
+
+// Rule rQIdent
+rulerQIdent returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		this_Ident_0=RULE_IDENT
 		{
-			/* */
+			$current.merge(this_Ident_0);
 		}
 		{
-			newCompositeNode(grammarAccess.getRTypeAccess().getTypeLiteralParserRuleCall_1());
+			newLeafNode(this_Ident_0, grammarAccess.getRQIdentAccess().getIdentTerminalRuleCall_0());
 		}
-		this_typeLiteral_1=ruletypeLiteral
-		{
-			$current = $this_typeLiteral_1.current;
-			afterParserOrEnumRuleCall();
-		}
+		(
+			kw='::'
+			{
+				$current.merge(kw);
+				newLeafNode(kw, grammarAccess.getRQIdentAccess().getColonColonKeyword_1_0());
+			}
+			this_Ident_2=RULE_IDENT
+			{
+				$current.merge(this_Ident_2);
+			}
+			{
+				newLeafNode(this_Ident_2, grammarAccess.getRQIdentAccess().getIdentTerminalRuleCall_1_1());
+			}
+		)*
 	)
 ;
 
