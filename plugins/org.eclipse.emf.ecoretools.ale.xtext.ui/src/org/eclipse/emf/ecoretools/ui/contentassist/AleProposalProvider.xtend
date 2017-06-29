@@ -3,24 +3,296 @@
  */
 package org.eclipse.emf.ecoretools.ui.contentassist
 
+import java.io.ByteArrayInputStream
+import java.nio.charset.StandardCharsets
+import java.util.Arrays
+import java.util.List
+import java.util.Map
+import java.util.Set
+import org.eclipse.acceleo.query.ast.Expression
+import org.eclipse.acceleo.query.runtime.ICompletionResult
+import org.eclipse.acceleo.query.runtime.impl.BasicFilter
+import org.eclipse.acceleo.query.runtime.impl.QueryCompletionEngine
+import org.eclipse.acceleo.query.validation.type.IType
+import org.eclipse.core.resources.IFile
+import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
+import org.eclipse.emf.ecoretools.ale.ALEInterpreter
+import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder
+import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult
+import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator
+import org.eclipse.emf.ecoretools.ale.implementation.Block
+import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer
+import org.eclipse.jface.viewers.StyledString
+import org.eclipse.xtext.Assignment
 import org.eclipse.xtext.RuleCall
+import org.eclipse.xtext.nodemodel.INode
+import org.eclipse.xtext.nodemodel.impl.AbstractNode
+import org.eclipse.xtext.nodemodel.impl.CompositeNode
+import org.eclipse.xtext.nodemodel.impl.CompositeNodeWithSemanticElement
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
-import org.eclipse.xtext.Assignment
 
-/**
- * See https://www.eclipse.org/Xtext/documentation/304_ide_concepts.html#content-assist
- * on how to customize the content assistant.
- */
 class AleProposalProvider extends AbstractAleProposalProvider {
 	
-	override completeCallExp_Name(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		println("test")
+	override completeExpression_Feature(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		val candidate = getOffsetPrefix(context)
+		addProposals(candidate,model,context,acceptor)
+//		acceptor.accept(doCreateProposal("[DEBUG] feature", null, null, getPriorityHelper().getDefaultPriority()+1,context))
+	}
+	
+	override completeExpression_Name(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		val candidate = getOffsetPrefix(context)
+		addProposals(candidate,model,context,acceptor)
+//		acceptor.accept(doCreateProposal("[DEBUG] name", null, null, getPriorityHelper().getDefaultPriority()+1,context))
 	}
 	
 	override complete_expression(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		println("debug")
+		val candidate = getOffsetPrefix(context)
+		addProposals(candidate,model,context,acceptor)
+//		acceptor.accept(doCreateProposal("[DEBUG] expression", null, null, getPriorityHelper().getDefaultPriority()+1,context))
 	}
 	
+	private def void addProposals(String expression, EObject model, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+			
+			if(expression.isEmpty) {
+				return
+			}
+			
+			/*
+			 * Metamodel input
+			 */
+			val IFile aleFile = WorkspaceSynchronizer.getFile(model.eResource);
+			val IPath dslPath = aleFile.getFullPath().removeFileExtension().addFileExtension("ecore");
+	    	val rs = new ResourceSetImpl();
+	    	rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
+	    	val ecorePkgs = DslBuilder.load(dslPath.toString,rs);
+			
+			/*
+			 * ALE input
+			 */
+			val stream = new ByteArrayInputStream(context.document.get().getBytes(StandardCharsets.UTF_8));
+			
+			/*
+			 * Parse result
+			 */
+			val ALEInterpreter interpreter = new ALEInterpreter();
+			val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(ecorePkgs,Arrays.asList(stream));
+			
+			
+			var Map<String, Set<IType>> variableTypes = newHashMap();
+			val contextExp = getExpression(parsedSemantics,context.offset-1)
+			val validator = new ALEValidator(interpreter.getQueryEnvironment())
+			if(contextExp !== null) {
+				variableTypes = validator.getValidationContext(contextExp,parsedSemantics)
+			}
+			if(variableTypes.entrySet.isEmpty) { //default: get block context
+				val block = getBlock(parsedSemantics,context.offset)
+				variableTypes = validator.getValidationContext(block,parsedSemantics)
+			}
+			
+			val QueryCompletionEngine engine = new QueryCompletionEngine(interpreter.getQueryEnvironment());
+			val ICompletionResult completionResult = engine.getCompletion(expression, expression.length, variableTypes);
+			val proposals = completionResult.getProposals(new BasicFilter(completionResult));
+					
+			proposals.forEach[proposal |
+				val styledText = new StyledString(proposal.proposal)
+				styledText.setStyle(0, proposal.proposal.length, StyledString.QUALIFIER_STYLER);
+				acceptor.accept(doCreateProposal(proposal.proposal, styledText, null, getPriorityHelper().getDefaultPriority()+1,context))
+			]
+	}
+	
+	
+	/**
+	 * Return the top containing Expression
+	 */
+	private def org.eclipse.emf.ecoretools.ale.Expression rootExpression(EObject element) {
+		var org.eclipse.emf.ecoretools.ale.Expression res = null
+
+		var current = element;
+		while(current !== null) {
+			if(current instanceof org.eclipse.emf.ecoretools.ale.Expression) {
+				res = current
+			}
+			current = current.eContainer
+		}
+		
+		return res
+	}
+	
+	/**
+	 * Search in the AST for an ALE Expression at the given offset.
+	 * 
+	 * Return null if not found
+	 */
+	private def Expression getExpression(List<ParseResult<ModelUnit>> parsedSemantics, int offset) {
+		
+		var Expression res = null;
+		var start = 0;
+		var end = 0;
+		
+		if(!parsedSemantics.isEmpty) {
+			//FIXME: search in all units
+			val unit = parsedSemantics.head;
+			val allExps = unit.startPositions.keySet.filter(Expression)
+			val candidate = 
+				allExps
+				.findFirst[exp |
+					 unit.startPositions.get(exp) <= offset && unit.endPositions.get(exp) >= offset
+				]
+				
+			if(candidate !== null) {
+				res = candidate
+				start = unit.startPositions.get(candidate)
+				end = unit.endPositions.get(candidate)
+			
+				while(res.eContainer instanceof Expression){
+					res = res.eContainer as Expression
+				}
+			}
+		}
+		
+		return res
+	}
+	
+	/**
+	 * Search in the AST for an ALE Block at the given offset.
+	 * 
+	 * Return null if not found
+	 */
+	private def Block getBlock(List<ParseResult<ModelUnit>> parsedSemantics, int offset) {
+		var Block res = null;
+		var start = 0;
+		var end = 0;
+		
+		if(!parsedSemantics.isEmpty) {
+			//FIXME: search in all units
+			val unit = parsedSemantics.head;
+			val allExps = unit.startPositions.keySet.filter(Block)
+			val candidate = 
+				allExps
+				.findFirst[block |
+					 unit.startPositions.get(block) <= offset && unit.endPositions.get(block) >= offset
+				]
+				
+			if(candidate !== null) {
+				res = candidate
+				start = unit.startPositions.get(candidate)
+				end = unit.endPositions.get(candidate)
+			
+				for(block : allExps.drop(1)) {
+					 start <= unit.startPositions.get(block) && unit.endPositions.get(block) <= end
+					 start = unit.startPositions.get(block) 
+					 end = unit.endPositions.get(block)
+				}
+			}
+		}
+		
+		return res
+	}
+	
+	/**
+	 * Find the Block node containing this node
+	 * 
+	 * Return null if not found
+	 */
+	private def CompositeNode getBlockNode(INode node) {
+		//val debugDump = NodeModelUtils.compactDump(node.rootNode,true)
+		var current = node;
+		while(current != null) {
+			if(current instanceof CompositeNodeWithSemanticElement) {
+				if(current.semanticElement instanceof org.eclipse.emf.ecoretools.ale.Block){
+					return current;
+				}
+			}
+			current = current.parent
+		}
+		return null;
+	}
+	
+	/**
+	 * Find the Statement node at the offset
+	 * 
+	 * Return null if not found
+	 */
+	private def AbstractNode findStatementNode(INode node, int offset) {
+		val block = getBlockNode(node)
+		//val debugDump = NodeModelUtils.compactDump(block,true)
+		if(block != null) {
+			val candidate = block.basicGetChildren.findFirst[child |
+				child.textRegion.contains(offset)
+			]
+			return candidate;
+		}
+		return null;
+	}
+	
+	/**
+	 * Assuming {@link text} is a statement, try to find the start of the expression around the offset
+	 */
+	private def int findStart(String text, int offset) {
+		
+		/*
+		 * Assign case
+		 */
+		var i = offset
+		while(i > 0) {
+			val frame = text.substring(i-1,i+1);
+			if(frame == ':=' || frame == '+=' || frame == '-=' || frame == 'in') {
+				if(i == offset) {
+					return offset;
+				}
+				else {
+					return i + 1;
+				}
+			}
+			i--
+		}
+		
+		/*
+		 * While case
+		 */
+		val whileIndex = text.indexOf('while')
+		if(whileIndex != -1) {
+			val openIndex = text.indexOf('(',whileIndex)
+			if(openIndex != -1) {
+				return openIndex;
+			}
+		}
+		 
+		 
+		/*
+		 * If case
+		 */
+		val ifIndex = text.indexOf('if')
+		if(ifIndex != -1) {
+			val openIndex = text.indexOf('(',ifIndex)
+			val thenIndex = text.indexOf('then',ifIndex)
+			if(openIndex != -1 && (thenIndex == -1 || openIndex < thenIndex)) { //check 'if' is not an 'if expression'
+				return openIndex
+			}
+		}
+		 
+		/*
+		 * Simple expression / default case
+		 */
+		return 0
+	}
+	
+	/**
+	 * Return the beginning of the expression before the offset
+	 */
+	private def String getOffsetPrefix(ContentAssistContext context) {
+		val stmtNode = findStatementNode(context.currentNode, context.offset-1)
+		if(stmtNode !== null) {
+			val stmtText = context.document.get(stmtNode.offset,stmtNode.length)
+			val startIndex = findStart(stmtText,context.offset-1-stmtNode.offset)
+			val startOffset = stmtNode.offset + startIndex
+			return context.document.get(startOffset,context.offset-startOffset)
+		}
+		return ""
+	}
 }

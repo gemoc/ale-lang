@@ -58,7 +58,7 @@ class AleValidator extends AbstractAleValidator {
 	}
 	
 	// copied from WorkbenchDsl (which introduce cyclic dependency if used)
-	private def void resolveUris(Dsl dsl) {
+	static def void resolveUris(Dsl dsl) {
 		val newSemantics = new ArrayList<String>();
 		val ws = ResourcesPlugin.getWorkspace();
 		dsl.getAllSemantics()
