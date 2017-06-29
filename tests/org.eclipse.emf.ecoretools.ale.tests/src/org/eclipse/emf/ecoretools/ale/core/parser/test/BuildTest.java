@@ -34,7 +34,9 @@ import org.eclipse.acceleo.query.ast.TypeLiteral;
 import org.eclipse.acceleo.query.ast.VarRef;
 import org.eclipse.acceleo.query.parser.AstBuilderListener;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
+import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.runtime.Query;
+import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -42,6 +44,8 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecoretools.ale.core.parser.AstBuilder;
+import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
+import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.implementation.Assignment;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
@@ -212,20 +216,6 @@ public class BuildTest {
 		Expression value = ((VariableAssignment)local1).getValue();
 		assertTrue(value instanceof TypeLiteral);
 		assertEquals(EcorePackage.eINSTANCE.getEModelElement(),((TypeLiteral)value).getValue());
-	}
-	
-	@Test
-	public void testImplemError() {
-		ParseResult<ModelUnit> res = parse("input/structure/defImplemError.implem");
-		ModelUnit root = res.getRoot();
-		
-		assertNotNull(root);
-		assertEquals("test.defimpl",root.getName());
-		
-		ExtendedClass xtdCls = root.getClassExtensions().get(0);
-		assertEquals(0, xtdCls.getMethods().size());
-		assertEquals(EcorePackage.eINSTANCE.getEObject(), xtdCls.getBaseClass());
-		assertEquals(0, xtdCls.getAttributes().size());
 	}
 	
 	@Test
@@ -934,6 +924,29 @@ public class BuildTest {
 		assertEquals(EcorePackage.eINSTANCE.getEModelElement(), ((TypeLiteral)expression).getValue());
 	}
 	
+	@Test
+	public void testQualified() {
+		Dsl environment = new Dsl(Arrays.asList("model/subPkg.ecore"),Arrays.asList("input/structure/qualifiedType.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(queryEnvironment)).parse(environment);
+		
+		ModelUnit root = parsedSemantics.get(0).getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.typeliteral",root.getName());
+		assertEquals(0, root.getServices().size());
+		assertEquals(1, root.getClassExtensions().size());
+		
+		ExtendedClass xtdCls = root.getClassExtensions().get(0);
+		assertEquals(0, xtdCls.getMethods().size());
+		assertEquals("ClassA", xtdCls.getBaseClass().getName());
+		assertEquals(1, xtdCls.getAttributes().size());
+		
+		Attribute attrib0 = xtdCls.getAttributes().get(0);
+		assertEquals("clsAttr", attrib0.getFeatureRef().getName());
+		assertEquals("ClassA", attrib0.getFeatureRef().getEType().getName());
+		assertNull(attrib0.getInitialValue());
+	}
+	
 	private static String getFileContent(String implementionPath){
 		String fileContent = "";
 		try {
@@ -952,5 +965,4 @@ public class BuildTest {
 		}
 		return null;
 	}
-
 }
