@@ -1117,6 +1117,33 @@ public class TypeValidatorTest {
 		assertEquals(0, msg.size());
 	}
 	
+	@Test
+	public void testAssignCreate() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignCreate.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	@Test
+	public void testAssignCreateError() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignCreateError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 66, 106, "Expected EClass but was [EClassifierLiteral=EOperation]", msg.get(0));
+	}
+	
 	private void assertMsgEquals(ValidationMessageLevel errorLvl, int startPos, int endPos, String text, IValidationMessage msg){
 		assertEquals(errorLvl, msg.getLevel());
 		assertEquals(startPos, msg.getStartPosition());

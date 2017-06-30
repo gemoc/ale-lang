@@ -1,0 +1,7 @@
+behavior test.assignCreate;
+open class EClass {
+	def void op(){
+		EClass cls := ecore::EClass.create();
+		ecore::EOperation op := ecore::EOperation.create();
+	}
+}

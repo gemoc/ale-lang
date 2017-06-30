@@ -12,6 +12,7 @@ package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
 //import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,13 +21,17 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.eclipse.acceleo.query.ast.Call;
 import org.eclipse.acceleo.query.runtime.CrossReferenceProvider;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
+import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IRootEObjectProvider;
 import org.eclipse.acceleo.query.runtime.IService;
+import org.eclipse.acceleo.query.runtime.IValidationResult;
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
 import org.eclipse.acceleo.query.runtime.impl.JavaMethodService;
 import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
+import org.eclipse.acceleo.query.runtime.impl.ValidationServices;
 import org.eclipse.acceleo.query.services.AnyServices;
 import org.eclipse.acceleo.query.services.BooleanServices;
 import org.eclipse.acceleo.query.services.CollectionServices;
@@ -36,6 +41,7 @@ import org.eclipse.acceleo.query.services.NumberServices;
 import org.eclipse.acceleo.query.services.ResourceServices;
 import org.eclipse.acceleo.query.services.StringServices;
 import org.eclipse.acceleo.query.services.XPathServices;
+import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EClass;
@@ -120,8 +126,7 @@ public class EvalEnvironment {
 		try {
 			java.lang.reflect.Method logMethod = LogService.class.getMethod("log",Object.class);
 			qryEnv.registerService(new JavaMethodService(logMethod, null));
-			java.lang.reflect.Method createMethod = FactoryService.class.getMethod("create",EClass.class);
-			qryEnv.registerService(new JavaMethodService(createMethod, new FactoryService(this)));
+			qryEnv.registerService(newCreateService());
 			java.lang.reflect.Method cosMethod = TrigoServices.class.getMethod("cosinus",Double.class);
 			qryEnv.registerService(new JavaMethodService(cosMethod, null));
 			java.lang.reflect.Method sinMethod = TrigoServices.class.getMethod("sinus",Double.class);
@@ -266,6 +271,27 @@ public class EvalEnvironment {
 					);
 			logger.notify(initError);
 		}
+	}
+	
+	private JavaMethodService newCreateService() throws NoSuchMethodException, SecurityException {
+		java.lang.reflect.Method createMethod = FactoryService.class.getMethod("create",EClass.class);
+		return 
+			new JavaMethodService(createMethod, new FactoryService(this)){
+				/**
+				 * The create() service is typed by its caller
+				 */
+				@Override
+				public Set<IType> getType(Call call, ValidationServices services, IValidationResult validationResult,
+						IReadOnlyQueryEnvironment queryEnvironment, List<IType> argTypes) {
+					Set<IType> res = super.getType(call, services, validationResult, queryEnvironment, argTypes);
+					if(argTypes.size() > 0) {
+						return Sets.newHashSet(argTypes.get(0));
+					}
+					else {
+						return res;
+					}
+				}
+			};
 	}
 	
 }
