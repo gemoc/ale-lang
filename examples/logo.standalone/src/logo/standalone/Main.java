@@ -10,6 +10,7 @@
  *******************************************************************************/
 package logo.standalone;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
@@ -41,7 +42,13 @@ public class Main {
 		/*
 		 * Eval
 		 */
-		IEvaluationResult result = interpreter.eval(modelFile, new ArrayList(), new Dsl(dslFile));
-		interpreter.getLogger().diagnosticForHuman();
+		try {
+			IEvaluationResult result = interpreter.eval(modelFile, new ArrayList(), new Dsl(dslFile));
+			interpreter.getLogger().diagnosticForHuman();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("DONE");
 	}
 }
