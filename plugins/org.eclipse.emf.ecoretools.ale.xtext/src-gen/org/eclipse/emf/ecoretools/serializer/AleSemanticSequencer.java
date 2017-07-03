@@ -367,7 +367,10 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     nonLeftRecExpression returns Apply
 	 *
 	 * Constraint:
-	 *     (target=expression_Apply_1_2_0 name=collectionIterator varName=Ident varType=typeLiteral? lambda=expression)
+	 *     (
+	 *         target=expression_Apply_1_2_0 
+	 *         ((name=collectionIterator varName=Ident varType=typeLiteral? lambda=expression) | (name=Ident (params+=expression params+=expression*)?))
+	 *     )
 	 */
 	protected void sequence_expression(ISerializationContext context, Apply semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

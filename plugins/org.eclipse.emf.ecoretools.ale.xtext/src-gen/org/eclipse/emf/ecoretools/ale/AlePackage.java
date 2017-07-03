@@ -1281,13 +1281,22 @@ public interface AlePackage extends EPackage
   int APPLY__LAMBDA = EXPRESSION_FEATURE_COUNT + 4;
 
   /**
+   * The feature id for the '<em><b>Params</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int APPLY__PARAMS = EXPRESSION_FEATURE_COUNT + 5;
+
+  /**
    * The number of structural features of the '<em>Apply</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int APPLY_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 5;
+  int APPLY_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.MultImpl <em>Mult</em>}' class.
@@ -3185,6 +3194,17 @@ public interface AlePackage extends EPackage
   EReference getApply_Lambda();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.Apply#getParams <em>Params</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Params</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Apply#getParams()
+   * @see #getApply()
+   * @generated
+   */
+  EReference getApply_Params();
+
+  /**
    * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Mult <em>Mult</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4643,6 +4663,14 @@ public interface AlePackage extends EPackage
      * @generated
      */
     EReference APPLY__LAMBDA = eINSTANCE.getApply_Lambda();
+
+    /**
+     * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference APPLY__PARAMS = eINSTANCE.getApply_Params();
 
     /**
      * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.MultImpl <em>Mult</em>}' class.

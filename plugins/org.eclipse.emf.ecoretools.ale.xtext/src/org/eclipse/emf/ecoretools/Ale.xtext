@@ -67,10 +67,10 @@ rOpposite :
 
 rSimpleStatement returns Statement:
 		  rVarDecl 
-		| rExpression
 		| rAssign
 		| rInsert
 		| rRemove
+		| rExpression
 ;
 
 rBlockStatement returns Statement:
@@ -133,7 +133,13 @@ expression returns Expression :
 	(
 		  {Call.target=current} '.' name=Ident'(' (params+=expression (',' params+=expression)*)? ')'
 		| {Feature.target=current} '.' feature=Ident
-	    | {Apply.target=current} '->' name=collectionIterator '(' varName=Ident (':' varType=typeLiteral)? '|' lambda=expression ')'
+	    | {Apply.target=current} '->' 
+	    	(
+	    	  (name=collectionIterator '(' varName=Ident (':' varType=typeLiteral)? '|' lambda=expression ')' ) 
+	    	| (name=Ident'(' (params+=expression (',' params+=expression)*)? ')'
+	    		
+	    	)
+	    )
 	    
 		| {Mult.left=current} MultOp right=expression
 		| {Add.left=current} addOp right=expression

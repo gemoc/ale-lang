@@ -1509,6 +1509,16 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getApply_Params()
+  {
+    return (EReference)applyEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getMult()
   {
     return multEClass;
@@ -2257,6 +2267,7 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     createEAttribute(applyEClass, APPLY__VAR_NAME);
     createEReference(applyEClass, APPLY__VAR_TYPE);
     createEReference(applyEClass, APPLY__LAMBDA);
+    createEReference(applyEClass, APPLY__PARAMS);
 
     multEClass = createEClass(MULT);
     createEReference(multEClass, MULT__LEFT);
@@ -2547,6 +2558,7 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     initEAttribute(getApply_VarName(), ecorePackage.getEString(), "varName", null, 0, 1, Apply.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getApply_VarType(), this.gettypeLiteral(), null, "varType", null, 0, 1, Apply.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getApply_Lambda(), this.getExpression(), null, "lambda", null, 0, 1, Apply.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getApply_Params(), this.getExpression(), null, "params", null, 0, -1, Apply.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(multEClass, Mult.class, "Mult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getMult_Left(), this.getExpression(), null, "left", null, 0, 1, Mult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

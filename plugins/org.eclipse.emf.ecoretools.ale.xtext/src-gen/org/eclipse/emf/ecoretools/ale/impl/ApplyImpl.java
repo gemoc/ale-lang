@@ -16,13 +16,20 @@ package org.eclipse.emf.ecoretools.ale.impl;
 
 import java.lang.String;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.emf.ecoretools.ale.AlePackage;
 import org.eclipse.emf.ecoretools.ale.Apply;
@@ -42,6 +49,7 @@ import org.eclipse.emf.ecoretools.ale.typeLiteral;
  *   <li>{@link org.eclipse.emf.ecoretools.ale.impl.ApplyImpl#getVarName <em>Var Name</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.impl.ApplyImpl#getVarType <em>Var Type</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.impl.ApplyImpl#getLambda <em>Lambda</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.impl.ApplyImpl#getParams <em>Params</em>}</li>
  * </ul>
  *
  * @generated
@@ -117,6 +125,16 @@ public class ApplyImpl extends ExpressionImpl implements Apply
    * @ordered
    */
   protected Expression lambda;
+
+  /**
+   * The cached value of the '{@link #getParams() <em>Params</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getParams()
+   * @generated
+   * @ordered
+   */
+  protected EList<Expression> params;
 
   /**
    * <!-- begin-user-doc -->
@@ -334,6 +352,20 @@ public class ApplyImpl extends ExpressionImpl implements Apply
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Expression> getParams()
+  {
+    if (params == null)
+    {
+      params = new EObjectContainmentEList<Expression>(Expression.class, this, AlePackage.APPLY__PARAMS);
+    }
+    return params;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -345,6 +377,8 @@ public class ApplyImpl extends ExpressionImpl implements Apply
         return basicSetVarType(null, msgs);
       case AlePackage.APPLY__LAMBDA:
         return basicSetLambda(null, msgs);
+      case AlePackage.APPLY__PARAMS:
+        return ((InternalEList<?>)getParams()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -369,6 +403,8 @@ public class ApplyImpl extends ExpressionImpl implements Apply
         return getVarType();
       case AlePackage.APPLY__LAMBDA:
         return getLambda();
+      case AlePackage.APPLY__PARAMS:
+        return getParams();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -378,6 +414,7 @@ public class ApplyImpl extends ExpressionImpl implements Apply
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -397,6 +434,10 @@ public class ApplyImpl extends ExpressionImpl implements Apply
         return;
       case AlePackage.APPLY__LAMBDA:
         setLambda((Expression)newValue);
+        return;
+      case AlePackage.APPLY__PARAMS:
+        getParams().clear();
+        getParams().addAll((Collection<? extends Expression>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -427,6 +468,9 @@ public class ApplyImpl extends ExpressionImpl implements Apply
       case AlePackage.APPLY__LAMBDA:
         setLambda((Expression)null);
         return;
+      case AlePackage.APPLY__PARAMS:
+        getParams().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -451,6 +495,8 @@ public class ApplyImpl extends ExpressionImpl implements Apply
         return varType != null;
       case AlePackage.APPLY__LAMBDA:
         return lambda != null;
+      case AlePackage.APPLY__PARAMS:
+        return params != null && !params.isEmpty();
     }
     return super.eIsSet(featureID);
   }

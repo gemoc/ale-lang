@@ -54,6 +54,7 @@ public class AleParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRBlockAccess().getAlternatives_2_0(), "rule__RBlock__Alternatives_2_0");
 					put(grammarAccess.getRBlockAccess().getAlternatives_2_1(), "rule__RBlock__Alternatives_2_1");
 					put(grammarAccess.getExpressionAccess().getAlternatives_1(), "rule__Expression__Alternatives_1");
+					put(grammarAccess.getExpressionAccess().getAlternatives_1_2_2(), "rule__Expression__Alternatives_1_2_2");
 					put(grammarAccess.getNonLeftRecExpressionAccess().getAlternatives(), "rule__NonLeftRecExpression__Alternatives");
 					put(grammarAccess.getAddOpAccess().getAlternatives(), "rule__AddOp__Alternatives");
 					put(grammarAccess.getCompOpAccess().getAlternatives(), "rule__CompOp__Alternatives");
@@ -97,7 +98,11 @@ public class AleParser extends AbstractContentAssistParser {
 					put(grammarAccess.getExpressionAccess().getGroup_1_0_4_1(), "rule__Expression__Group_1_0_4_1__0");
 					put(grammarAccess.getExpressionAccess().getGroup_1_1(), "rule__Expression__Group_1_1__0");
 					put(grammarAccess.getExpressionAccess().getGroup_1_2(), "rule__Expression__Group_1_2__0");
-					put(grammarAccess.getExpressionAccess().getGroup_1_2_5(), "rule__Expression__Group_1_2_5__0");
+					put(grammarAccess.getExpressionAccess().getGroup_1_2_2_0(), "rule__Expression__Group_1_2_2_0__0");
+					put(grammarAccess.getExpressionAccess().getGroup_1_2_2_0_3(), "rule__Expression__Group_1_2_2_0_3__0");
+					put(grammarAccess.getExpressionAccess().getGroup_1_2_2_1(), "rule__Expression__Group_1_2_2_1__0");
+					put(grammarAccess.getExpressionAccess().getGroup_1_2_2_1_2(), "rule__Expression__Group_1_2_2_1_2__0");
+					put(grammarAccess.getExpressionAccess().getGroup_1_2_2_1_2_1(), "rule__Expression__Group_1_2_2_1_2_1__0");
 					put(grammarAccess.getExpressionAccess().getGroup_1_3(), "rule__Expression__Group_1_3__0");
 					put(grammarAccess.getExpressionAccess().getGroup_1_4(), "rule__Expression__Group_1_4__0");
 					put(grammarAccess.getExpressionAccess().getGroup_1_5(), "rule__Expression__Group_1_5__0");
@@ -200,10 +205,13 @@ public class AleParser extends AbstractContentAssistParser {
 					put(grammarAccess.getExpressionAccess().getParamsAssignment_1_0_4_0(), "rule__Expression__ParamsAssignment_1_0_4_0");
 					put(grammarAccess.getExpressionAccess().getParamsAssignment_1_0_4_1_1(), "rule__Expression__ParamsAssignment_1_0_4_1_1");
 					put(grammarAccess.getExpressionAccess().getFeatureAssignment_1_1_2(), "rule__Expression__FeatureAssignment_1_1_2");
-					put(grammarAccess.getExpressionAccess().getNameAssignment_1_2_2(), "rule__Expression__NameAssignment_1_2_2");
-					put(grammarAccess.getExpressionAccess().getVarNameAssignment_1_2_4(), "rule__Expression__VarNameAssignment_1_2_4");
-					put(grammarAccess.getExpressionAccess().getVarTypeAssignment_1_2_5_1(), "rule__Expression__VarTypeAssignment_1_2_5_1");
-					put(grammarAccess.getExpressionAccess().getLambdaAssignment_1_2_7(), "rule__Expression__LambdaAssignment_1_2_7");
+					put(grammarAccess.getExpressionAccess().getNameAssignment_1_2_2_0_0(), "rule__Expression__NameAssignment_1_2_2_0_0");
+					put(grammarAccess.getExpressionAccess().getVarNameAssignment_1_2_2_0_2(), "rule__Expression__VarNameAssignment_1_2_2_0_2");
+					put(grammarAccess.getExpressionAccess().getVarTypeAssignment_1_2_2_0_3_1(), "rule__Expression__VarTypeAssignment_1_2_2_0_3_1");
+					put(grammarAccess.getExpressionAccess().getLambdaAssignment_1_2_2_0_5(), "rule__Expression__LambdaAssignment_1_2_2_0_5");
+					put(grammarAccess.getExpressionAccess().getNameAssignment_1_2_2_1_0(), "rule__Expression__NameAssignment_1_2_2_1_0");
+					put(grammarAccess.getExpressionAccess().getParamsAssignment_1_2_2_1_2_0(), "rule__Expression__ParamsAssignment_1_2_2_1_2_0");
+					put(grammarAccess.getExpressionAccess().getParamsAssignment_1_2_2_1_2_1_1(), "rule__Expression__ParamsAssignment_1_2_2_1_2_1_1");
 					put(grammarAccess.getExpressionAccess().getRightAssignment_1_3_2(), "rule__Expression__RightAssignment_1_3_2");
 					put(grammarAccess.getExpressionAccess().getRightAssignment_1_4_2(), "rule__Expression__RightAssignment_1_4_2");
 					put(grammarAccess.getExpressionAccess().getRightAssignment_1_5_2(), "rule__Expression__RightAssignment_1_5_2");

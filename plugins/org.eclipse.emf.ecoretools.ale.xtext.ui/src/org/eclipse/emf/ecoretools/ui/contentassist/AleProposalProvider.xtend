@@ -35,6 +35,7 @@ import org.eclipse.xtext.nodemodel.impl.CompositeNode
 import org.eclipse.xtext.nodemodel.impl.CompositeNodeWithSemanticElement
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 
 class AleProposalProvider extends AbstractAleProposalProvider {
 	
@@ -82,10 +83,21 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 			val ALEInterpreter interpreter = new ALEInterpreter();
 			val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(ecorePkgs,Arrays.asList(stream));
 			
+			/*
+	    	 * Register services
+	    	 */
+	    	val List<java.lang.String> services = 
+	    		parsedSemantics
+		    	.map[getRoot()]
+		    	.filterNull
+		    	.map[getServices()]
+		    	.flatten
+		    	.toList
+	    	interpreter.registerServices(services)
 			
 			var Map<String, Set<IType>> variableTypes = newHashMap();
 			val contextExp = getExpression(parsedSemantics,context.offset-1)
-			val validator = new ALEValidator(interpreter.getQueryEnvironment())
+			val validator = new ALEValidator(interpreter.queryEnvironment)
 			if(contextExp !== null) {
 				variableTypes = validator.getValidationContext(contextExp,parsedSemantics)
 			}
@@ -200,7 +212,7 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 	 * Return null if not found
 	 */
 	private def CompositeNode getBlockNode(INode node) {
-		//val debugDump = NodeModelUtils.compactDump(node.rootNode,true)
+		val debugDump = NodeModelUtils.compactDump(node.rootNode,true)
 		var current = node;
 		while(current != null) {
 			if(current instanceof CompositeNodeWithSemanticElement) {

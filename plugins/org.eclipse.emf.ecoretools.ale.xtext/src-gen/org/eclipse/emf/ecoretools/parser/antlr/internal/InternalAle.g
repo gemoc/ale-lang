@@ -1090,11 +1090,11 @@ rulerSimpleStatement returns [EObject current=null]
 			/* */
 		}
 		{
-			newCompositeNode(grammarAccess.getRSimpleStatementAccess().getRExpressionParserRuleCall_1());
+			newCompositeNode(grammarAccess.getRSimpleStatementAccess().getRAssignParserRuleCall_1());
 		}
-		this_rExpression_1=rulerExpression
+		this_rAssign_1=rulerAssign
 		{
-			$current = $this_rExpression_1.current;
+			$current = $this_rAssign_1.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
@@ -1102,11 +1102,11 @@ rulerSimpleStatement returns [EObject current=null]
 			/* */
 		}
 		{
-			newCompositeNode(grammarAccess.getRSimpleStatementAccess().getRAssignParserRuleCall_2());
+			newCompositeNode(grammarAccess.getRSimpleStatementAccess().getRInsertParserRuleCall_2());
 		}
-		this_rAssign_2=rulerAssign
+		this_rInsert_2=rulerInsert
 		{
-			$current = $this_rAssign_2.current;
+			$current = $this_rInsert_2.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
@@ -1114,11 +1114,11 @@ rulerSimpleStatement returns [EObject current=null]
 			/* */
 		}
 		{
-			newCompositeNode(grammarAccess.getRSimpleStatementAccess().getRInsertParserRuleCall_3());
+			newCompositeNode(grammarAccess.getRSimpleStatementAccess().getRRemoveParserRuleCall_3());
 		}
-		this_rInsert_3=rulerInsert
+		this_rRemove_3=rulerRemove
 		{
-			$current = $this_rInsert_3.current;
+			$current = $this_rRemove_3.current;
 			afterParserOrEnumRuleCall();
 		}
 		    |
@@ -1126,11 +1126,11 @@ rulerSimpleStatement returns [EObject current=null]
 			/* */
 		}
 		{
-			newCompositeNode(grammarAccess.getRSimpleStatementAccess().getRRemoveParserRuleCall_4());
+			newCompositeNode(grammarAccess.getRSimpleStatementAccess().getRExpressionParserRuleCall_4());
 		}
-		this_rRemove_4=rulerRemove
+		this_rExpression_4=rulerExpression
 		{
-			$current = $this_rRemove_4.current;
+			$current = $this_rExpression_4.current;
 			afterParserOrEnumRuleCall();
 		}
 	)
@@ -2135,97 +2135,176 @@ ruleexpression returns [EObject current=null]
 				}
 				(
 					(
+						(
+							(
+								{
+									newCompositeNode(grammarAccess.getExpressionAccess().getNameCollectionIteratorParserRuleCall_1_2_2_0_0_0());
+								}
+								lv_name_14_0=rulecollectionIterator
+								{
+									if ($current==null) {
+										$current = createModelElementForParent(grammarAccess.getExpressionRule());
+									}
+									set(
+										$current,
+										"name",
+										lv_name_14_0,
+										"org.eclipse.emf.ecoretools.Ale.collectionIterator");
+									afterParserOrEnumRuleCall();
+								}
+							)
+						)
+						otherlv_15='('
 						{
-							newCompositeNode(grammarAccess.getExpressionAccess().getNameCollectionIteratorParserRuleCall_1_2_2_0());
+							newLeafNode(otherlv_15, grammarAccess.getExpressionAccess().getLeftParenthesisKeyword_1_2_2_0_1());
 						}
-						lv_name_14_0=rulecollectionIterator
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getExpressionRule());
+						(
+							(
+								lv_varName_16_0=RULE_IDENT
+								{
+									newLeafNode(lv_varName_16_0, grammarAccess.getExpressionAccess().getVarNameIdentTerminalRuleCall_1_2_2_0_2_0());
+								}
+								{
+									if ($current==null) {
+										$current = createModelElement(grammarAccess.getExpressionRule());
+									}
+									setWithLastConsumed(
+										$current,
+										"varName",
+										lv_varName_16_0,
+										"org.eclipse.emf.ecoretools.Ale.Ident");
+								}
+							)
+						)
+						(
+							otherlv_17=':'
+							{
+								newLeafNode(otherlv_17, grammarAccess.getExpressionAccess().getColonKeyword_1_2_2_0_3_0());
 							}
-							set(
-								$current,
-								"name",
-								lv_name_14_0,
-								"org.eclipse.emf.ecoretools.Ale.collectionIterator");
-							afterParserOrEnumRuleCall();
+							(
+								(
+									{
+										newCompositeNode(grammarAccess.getExpressionAccess().getVarTypeTypeLiteralParserRuleCall_1_2_2_0_3_1_0());
+									}
+									lv_varType_18_0=ruletypeLiteral
+									{
+										if ($current==null) {
+											$current = createModelElementForParent(grammarAccess.getExpressionRule());
+										}
+										set(
+											$current,
+											"varType",
+											lv_varType_18_0,
+											"org.eclipse.emf.ecoretools.Ale.typeLiteral");
+										afterParserOrEnumRuleCall();
+									}
+								)
+							)
+						)?
+						otherlv_19='|'
+						{
+							newLeafNode(otherlv_19, grammarAccess.getExpressionAccess().getVerticalLineKeyword_1_2_2_0_4());
+						}
+						(
+							(
+								{
+									newCompositeNode(grammarAccess.getExpressionAccess().getLambdaExpressionParserRuleCall_1_2_2_0_5_0());
+								}
+								lv_lambda_20_0=ruleexpression
+								{
+									if ($current==null) {
+										$current = createModelElementForParent(grammarAccess.getExpressionRule());
+									}
+									set(
+										$current,
+										"lambda",
+										lv_lambda_20_0,
+										"org.eclipse.emf.ecoretools.Ale.expression");
+									afterParserOrEnumRuleCall();
+								}
+							)
+						)
+						otherlv_21=')'
+						{
+							newLeafNode(otherlv_21, grammarAccess.getExpressionAccess().getRightParenthesisKeyword_1_2_2_0_6());
 						}
 					)
-				)
-				otherlv_15='('
-				{
-					newLeafNode(otherlv_15, grammarAccess.getExpressionAccess().getLeftParenthesisKeyword_1_2_3());
-				}
-				(
-					(
-						lv_varName_16_0=RULE_IDENT
-						{
-							newLeafNode(lv_varName_16_0, grammarAccess.getExpressionAccess().getVarNameIdentTerminalRuleCall_1_2_4_0());
-						}
-						{
-							if ($current==null) {
-								$current = createModelElement(grammarAccess.getExpressionRule());
-							}
-							setWithLastConsumed(
-								$current,
-								"varName",
-								lv_varName_16_0,
-								"org.eclipse.emf.ecoretools.Ale.Ident");
-						}
-					)
-				)
-				(
-					otherlv_17=':'
-					{
-						newLeafNode(otherlv_17, grammarAccess.getExpressionAccess().getColonKeyword_1_2_5_0());
-					}
+					    |
 					(
 						(
-							{
-								newCompositeNode(grammarAccess.getExpressionAccess().getVarTypeTypeLiteralParserRuleCall_1_2_5_1_0());
-							}
-							lv_varType_18_0=ruletypeLiteral
-							{
-								if ($current==null) {
-									$current = createModelElementForParent(grammarAccess.getExpressionRule());
+							(
+								lv_name_22_0=RULE_IDENT
+								{
+									newLeafNode(lv_name_22_0, grammarAccess.getExpressionAccess().getNameIdentTerminalRuleCall_1_2_2_1_0_0());
 								}
-								set(
-									$current,
-									"varType",
-									lv_varType_18_0,
-									"org.eclipse.emf.ecoretools.Ale.typeLiteral");
-								afterParserOrEnumRuleCall();
-							}
+								{
+									if ($current==null) {
+										$current = createModelElement(grammarAccess.getExpressionRule());
+									}
+									setWithLastConsumed(
+										$current,
+										"name",
+										lv_name_22_0,
+										"org.eclipse.emf.ecoretools.Ale.Ident");
+								}
+							)
 						)
-					)
-				)?
-				otherlv_19='|'
-				{
-					newLeafNode(otherlv_19, grammarAccess.getExpressionAccess().getVerticalLineKeyword_1_2_6());
-				}
-				(
-					(
+						otherlv_23='('
 						{
-							newCompositeNode(grammarAccess.getExpressionAccess().getLambdaExpressionParserRuleCall_1_2_7_0());
+							newLeafNode(otherlv_23, grammarAccess.getExpressionAccess().getLeftParenthesisKeyword_1_2_2_1_1());
 						}
-						lv_lambda_20_0=ruleexpression
+						(
+							(
+								(
+									{
+										newCompositeNode(grammarAccess.getExpressionAccess().getParamsExpressionParserRuleCall_1_2_2_1_2_0_0());
+									}
+									lv_params_24_0=ruleexpression
+									{
+										if ($current==null) {
+											$current = createModelElementForParent(grammarAccess.getExpressionRule());
+										}
+										add(
+											$current,
+											"params",
+											lv_params_24_0,
+											"org.eclipse.emf.ecoretools.Ale.expression");
+										afterParserOrEnumRuleCall();
+									}
+								)
+							)
+							(
+								otherlv_25=','
+								{
+									newLeafNode(otherlv_25, grammarAccess.getExpressionAccess().getCommaKeyword_1_2_2_1_2_1_0());
+								}
+								(
+									(
+										{
+											newCompositeNode(grammarAccess.getExpressionAccess().getParamsExpressionParserRuleCall_1_2_2_1_2_1_1_0());
+										}
+										lv_params_26_0=ruleexpression
+										{
+											if ($current==null) {
+												$current = createModelElementForParent(grammarAccess.getExpressionRule());
+											}
+											add(
+												$current,
+												"params",
+												lv_params_26_0,
+												"org.eclipse.emf.ecoretools.Ale.expression");
+											afterParserOrEnumRuleCall();
+										}
+									)
+								)
+							)*
+						)?
+						otherlv_27=')'
 						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getExpressionRule());
-							}
-							set(
-								$current,
-								"lambda",
-								lv_lambda_20_0,
-								"org.eclipse.emf.ecoretools.Ale.expression");
-							afterParserOrEnumRuleCall();
+							newLeafNode(otherlv_27, grammarAccess.getExpressionAccess().getRightParenthesisKeyword_1_2_2_1_3());
 						}
 					)
 				)
-				otherlv_21=')'
-				{
-					newLeafNode(otherlv_21, grammarAccess.getExpressionAccess().getRightParenthesisKeyword_1_2_8());
-				}
 			)
 			    |
 			(
@@ -2239,16 +2318,16 @@ ruleexpression returns [EObject current=null]
 							$current);
 					}
 				)
-				this_MultOp_23=RULE_MULTOP
+				this_MultOp_29=RULE_MULTOP
 				{
-					newLeafNode(this_MultOp_23, grammarAccess.getExpressionAccess().getMultOpTerminalRuleCall_1_3_1());
+					newLeafNode(this_MultOp_29, grammarAccess.getExpressionAccess().getMultOpTerminalRuleCall_1_3_1());
 				}
 				(
 					(
 						{
 							newCompositeNode(grammarAccess.getExpressionAccess().getRightExpressionParserRuleCall_1_3_2_0());
 						}
-						lv_right_24_0=ruleexpression
+						lv_right_30_0=ruleexpression
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getExpressionRule());
@@ -2256,7 +2335,7 @@ ruleexpression returns [EObject current=null]
 							set(
 								$current,
 								"right",
-								lv_right_24_0,
+								lv_right_30_0,
 								"org.eclipse.emf.ecoretools.Ale.expression");
 							afterParserOrEnumRuleCall();
 						}
@@ -2290,7 +2369,7 @@ ruleexpression returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getExpressionAccess().getRightExpressionParserRuleCall_1_4_2_0());
 						}
-						lv_right_27_0=ruleexpression
+						lv_right_33_0=ruleexpression
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getExpressionRule());
@@ -2298,7 +2377,7 @@ ruleexpression returns [EObject current=null]
 							set(
 								$current,
 								"right",
-								lv_right_27_0,
+								lv_right_33_0,
 								"org.eclipse.emf.ecoretools.Ale.expression");
 							afterParserOrEnumRuleCall();
 						}
@@ -2332,78 +2411,6 @@ ruleexpression returns [EObject current=null]
 						{
 							newCompositeNode(grammarAccess.getExpressionAccess().getRightExpressionParserRuleCall_1_5_2_0());
 						}
-						lv_right_30_0=ruleexpression
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getExpressionRule());
-							}
-							set(
-								$current,
-								"right",
-								lv_right_30_0,
-								"org.eclipse.emf.ecoretools.Ale.expression");
-							afterParserOrEnumRuleCall();
-						}
-					)
-				)
-			)
-			    |
-			(
-				(
-					{
-						/* */
-					}
-					{
-						$current = forceCreateModelElementAndSet(
-							grammarAccess.getExpressionAccess().getAndLeftAction_1_6_0(),
-							$current);
-					}
-				)
-				otherlv_32='and'
-				{
-					newLeafNode(otherlv_32, grammarAccess.getExpressionAccess().getAndKeyword_1_6_1());
-				}
-				(
-					(
-						{
-							newCompositeNode(grammarAccess.getExpressionAccess().getRightExpressionParserRuleCall_1_6_2_0());
-						}
-						lv_right_33_0=ruleexpression
-						{
-							if ($current==null) {
-								$current = createModelElementForParent(grammarAccess.getExpressionRule());
-							}
-							set(
-								$current,
-								"right",
-								lv_right_33_0,
-								"org.eclipse.emf.ecoretools.Ale.expression");
-							afterParserOrEnumRuleCall();
-						}
-					)
-				)
-			)
-			    |
-			(
-				(
-					{
-						/* */
-					}
-					{
-						$current = forceCreateModelElementAndSet(
-							grammarAccess.getExpressionAccess().getOrLeftAction_1_7_0(),
-							$current);
-					}
-				)
-				otherlv_35='or'
-				{
-					newLeafNode(otherlv_35, grammarAccess.getExpressionAccess().getOrKeyword_1_7_1());
-				}
-				(
-					(
-						{
-							newCompositeNode(grammarAccess.getExpressionAccess().getRightExpressionParserRuleCall_1_7_2_0());
-						}
 						lv_right_36_0=ruleexpression
 						{
 							if ($current==null) {
@@ -2427,18 +2434,18 @@ ruleexpression returns [EObject current=null]
 					}
 					{
 						$current = forceCreateModelElementAndSet(
-							grammarAccess.getExpressionAccess().getXorLeftAction_1_8_0(),
+							grammarAccess.getExpressionAccess().getAndLeftAction_1_6_0(),
 							$current);
 					}
 				)
-				otherlv_38='xor'
+				otherlv_38='and'
 				{
-					newLeafNode(otherlv_38, grammarAccess.getExpressionAccess().getXorKeyword_1_8_1());
+					newLeafNode(otherlv_38, grammarAccess.getExpressionAccess().getAndKeyword_1_6_1());
 				}
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getExpressionAccess().getRightExpressionParserRuleCall_1_8_2_0());
+							newCompositeNode(grammarAccess.getExpressionAccess().getRightExpressionParserRuleCall_1_6_2_0());
 						}
 						lv_right_39_0=ruleexpression
 						{
@@ -2463,18 +2470,18 @@ ruleexpression returns [EObject current=null]
 					}
 					{
 						$current = forceCreateModelElementAndSet(
-							grammarAccess.getExpressionAccess().getImplieLeftAction_1_9_0(),
+							grammarAccess.getExpressionAccess().getOrLeftAction_1_7_0(),
 							$current);
 					}
 				)
-				otherlv_41='implie'
+				otherlv_41='or'
 				{
-					newLeafNode(otherlv_41, grammarAccess.getExpressionAccess().getImplieKeyword_1_9_1());
+					newLeafNode(otherlv_41, grammarAccess.getExpressionAccess().getOrKeyword_1_7_1());
 				}
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getExpressionAccess().getRightExpressionParserRuleCall_1_9_2_0());
+							newCompositeNode(grammarAccess.getExpressionAccess().getRightExpressionParserRuleCall_1_7_2_0());
 						}
 						lv_right_42_0=ruleexpression
 						{
@@ -2485,6 +2492,78 @@ ruleexpression returns [EObject current=null]
 								$current,
 								"right",
 								lv_right_42_0,
+								"org.eclipse.emf.ecoretools.Ale.expression");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
+			)
+			    |
+			(
+				(
+					{
+						/* */
+					}
+					{
+						$current = forceCreateModelElementAndSet(
+							grammarAccess.getExpressionAccess().getXorLeftAction_1_8_0(),
+							$current);
+					}
+				)
+				otherlv_44='xor'
+				{
+					newLeafNode(otherlv_44, grammarAccess.getExpressionAccess().getXorKeyword_1_8_1());
+				}
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getExpressionAccess().getRightExpressionParserRuleCall_1_8_2_0());
+						}
+						lv_right_45_0=ruleexpression
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getExpressionRule());
+							}
+							set(
+								$current,
+								"right",
+								lv_right_45_0,
+								"org.eclipse.emf.ecoretools.Ale.expression");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
+			)
+			    |
+			(
+				(
+					{
+						/* */
+					}
+					{
+						$current = forceCreateModelElementAndSet(
+							grammarAccess.getExpressionAccess().getImplieLeftAction_1_9_0(),
+							$current);
+					}
+				)
+				otherlv_47='implie'
+				{
+					newLeafNode(otherlv_47, grammarAccess.getExpressionAccess().getImplieKeyword_1_9_1());
+				}
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getExpressionAccess().getRightExpressionParserRuleCall_1_9_2_0());
+						}
+						lv_right_48_0=ruleexpression
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getExpressionRule());
+							}
+							set(
+								$current,
+								"right",
+								lv_right_48_0,
 								"org.eclipse.emf.ecoretools.Ale.expression");
 							afterParserOrEnumRuleCall();
 						}

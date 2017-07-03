@@ -123,6 +123,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//Apply/varName"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//Apply/varType"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//Apply/lambda"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//Apply/params"/>
     </genClasses>
     <genClasses ecoreClass="Ale.ecore#//Mult">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//Mult/left"/>
