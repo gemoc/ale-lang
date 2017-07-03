@@ -256,18 +256,14 @@ public class ALEInterpreter {
     	/*
     	 * Register services
     	 */
-    	parsedSemantics
+    	List<String> services = 
+    		parsedSemantics
 	    	.stream()
-	    	.forEach(sem -> {
-	    		ModelUnit root = sem.getRoot();
-	    		if(root != null) {
-	    			root
-	    			.getServices()
-	        		.stream()
-	        		.forEach(srv -> javaExtensions.addImport(srv));
-	    		}
-	    	});
-    	javaExtensions.reloadIfNeeded();
+	    	.map(unit -> unit.getRoot())
+	    	.filter(root -> root != null)
+	    	.flatMap(root -> root.getServices().stream())
+	    	.collect(Collectors.toList());
+	    registerServices(services);
     	
     	EvalEnvironment env = new EvalEnvironment(queryEnvironment, allBehaviors, logger);
     	List<Object> inputElems = new ArrayList<Object>();
@@ -341,5 +337,20 @@ public class ALEInterpreter {
 	    	});
     	URI uri = URI.createURI(modelURI);
 		return modelRs.getResource(uri, true);
+    }
+    
+    /**
+     * Register services for each methods from a list of qualified class names
+     */
+    public void registerServices(List<java.lang.String> services) {
+    	services.forEach(srv -> javaExtensions.addImport(srv));
+    	javaExtensions.reloadIfNeeded();
+    }
+    
+    /**
+     * Declare plugins & projects where to find services
+     */
+    public void initScope(Set<java.lang.String> plugins, Set<java.lang.String> project) {
+    	javaExtensions.updateScope(plugins, project);
     }
 }

@@ -22,6 +22,8 @@ import org.eclipse.xtext.validation.Check
 import java.util.ArrayList
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecoretools.ale.Unit
+import com.google.common.collect.Sets
+import java.util.Set
 
 /**
  * Delegate validation to ALE validator
@@ -38,12 +40,26 @@ class AleValidator extends AbstractAleValidator {
 		
 		val IPath dslPath = aleFile.getFullPath().removeFileExtension().addFileExtension("dsl");
 		val IWorkspaceRoot ws = ResourcesPlugin.getWorkspace().getRoot();
-		val dsl = new Dsl(ws.getFile(dslPath).contents);
+		val dslFile = ws.getFile(dslPath)
+		val dsl = new Dsl(dslFile.contents);
 		dsl.resolveUris
 		val ALEInterpreter interpreter = new ALEInterpreter();
 		val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(dsl);
 		
-		val ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		/*
+    	 * Register services
+    	 */
+    	val List<java.lang.String> services = 
+    		parsedSemantics
+	    	.map[getRoot()]
+	    	.filterNull
+	    	.map[getServices()]
+	    	.flatten
+	    	.toList
+		interpreter.initScope(Sets.newHashSet(),Sets.newHashSet(#[dslFile.project.name]))
+    	interpreter.registerServices(services)
+		
+		val ALEValidator validator = new ALEValidator(interpreter.queryEnvironment);
 		validator.validate(parsedSemantics);
 		val List<IValidationMessage> msgs = validator.getMessages();
 		
