@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+ <extension
+        point="org.eclipse.ui.newWizards">
+     <category
+           id="org.eclipse.emf.ecoretools.ale.ide.category.example"
+           name="ALE Examples"
+           parentCategory="org.eclipse.ui.Examples">
+     </category>
+     <wizard
+           category="org.eclipse.ui.Examples/org.eclipse.emf.ecoretools.ale.ide.category.example"
+           class="org.eclipse.emf.common.ui.wizard.ExampleInstallerWizard"
+           icon="icons/ALE.gif"
+           id="org.eclipse.emf.ecoretools.ale.example.helloworld"
+           name="Hello world!"
+           project="true">
+      <description>Basic example of EOperation implementation</description>
+    </wizard>
+  </extension>
+  <extension point="org.eclipse.emf.common.ui.examples">
+  	<example wizardID="org.eclipse.emf.ecoretools.ale.example.helloworld">
+      <projectDescriptor name="helloworld"
+                         contentURI="examples/helloworld/"
+                         description="Basic example of EOperation implementation"/>
+  	</example>
+  </extension>
+</plugin>

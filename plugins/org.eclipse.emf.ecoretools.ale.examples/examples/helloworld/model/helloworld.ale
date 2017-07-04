@@ -1,0 +1,12 @@
+behavior helloworld;
+
+open class HelloWorld {
+	
+	String msg := 'Hello world!';
+	
+	@main
+	override void greeting () {
+		self.msg.log();
+	}
+
+}
