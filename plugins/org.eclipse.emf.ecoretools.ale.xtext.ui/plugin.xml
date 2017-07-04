@@ -4,12 +4,13 @@
 	<extension
 		point="org.eclipse.ui.editors">
 		<editor
-			class="org.eclipse.emf.ecoretools.ui.AleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
-			contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
-			default="true"
-			extensions="ale"
-			id="org.eclipse.emf.ecoretools.Ale"
-			name="Ale Editor">
+        class="org.eclipse.emf.ecoretools.ui.AleExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
+        contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+        default="true"
+        extensions="ale"
+        icon="icons/ALE.gif"
+        id="org.eclipse.emf.ecoretools.Ale"
+        name="Ale Editor">
 		</editor>
 	</extension>
 	<extension
