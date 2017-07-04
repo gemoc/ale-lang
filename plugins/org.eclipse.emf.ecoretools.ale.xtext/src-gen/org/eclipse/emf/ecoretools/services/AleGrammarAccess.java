@@ -2335,6 +2335,7 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 	private final TerminalRule tReal;
 	private final TerminalRule tIdent;
 	private final TerminalRule tLetter;
+	private final TerminalRule tSTRING;
 	
 	private final Grammar grammar;
 	
@@ -2385,6 +2386,7 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 		this.tReal = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.Real");
 		this.tIdent = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.Ident");
 		this.tLetter = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.Letter");
+		this.tSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.eclipse.emf.ecoretools.Ale.STRING");
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -2857,6 +2859,12 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 		return tLetter;
 	}
 	
+	//terminal STRING:
+	//	"'" ('\\' . | !('\\' | "'"))* "'";
+	public TerminalRule getSTRINGRule() {
+		return tSTRING;
+	}
+	
 	//terminal ID:
 	//	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
 	public TerminalRule getIDRule() {
@@ -2867,13 +2875,6 @@ public class AleGrammarAccess extends AbstractGrammarElementFinder {
 	//	'0'..'9'+;
 	public TerminalRule getINTRule() {
 		return gaTerminals.getINTRule();
-	}
-	
-	//terminal STRING:
-	//	'"' ('\\' . | !('\\' | '"'))* '"' |
-	//	"'" ('\\' . | !('\\' | "'"))* "'";
-	public TerminalRule getSTRINGRule() {
-		return gaTerminals.getSTRINGRule();
 	}
 	
 	//terminal ML_COMMENT:

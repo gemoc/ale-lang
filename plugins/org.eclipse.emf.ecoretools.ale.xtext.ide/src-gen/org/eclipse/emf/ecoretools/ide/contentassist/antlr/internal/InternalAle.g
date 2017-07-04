@@ -10276,11 +10276,11 @@ RULE_IDENT : (RULE_LETTER|'_') (RULE_LETTER|'0'..'9'|'_')*;
 
 fragment RULE_LETTER : ('a'..'z'|'A'..'Z');
 
+RULE_STRING : '\'' ('\\' .|~(('\\'|'\'')))* '\'';
+
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
 RULE_INT : ('0'..'9')+;
-
-RULE_STRING : ('"' ('\\' .|~(('\\'|'"')))* '"'|'\'' ('\\' .|~(('\\'|'\'')))* '\'');
 
 RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*'*/';
 

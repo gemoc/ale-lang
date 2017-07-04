@@ -8553,7 +8553,7 @@ public class InternalAleParser extends AbstractInternalAntlrParser {
                       							current,
                       							"value",
                       							lv_value_1_0,
-                      							"org.eclipse.xtext.common.Terminals.STRING");
+                      							"org.eclipse.emf.ecoretools.Ale.STRING");
                       					
                     }
 

@@ -229,3 +229,6 @@ terminal Ident : (Letter | '_') (Letter | '0'..'9' | '_')*
 terminal Letter : ('a'..'z'|'A'..'Z')
 ;
 
+terminal STRING	: 
+			"'" ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|"'") )* "'"
+;
