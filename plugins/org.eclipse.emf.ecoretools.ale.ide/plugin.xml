@@ -74,6 +74,7 @@
            class="org.eclipse.emf.ecoretools.ale.ide.launchconfig.LaunchShortcut"
            id="org.eclipse.emf.ecoretools.ale.ide.shortcut"
            label="ALE launch"
+           icon="icons/ALE.gif"
            modes="run">
         <contextualLaunch>
            <enablement>
@@ -101,5 +102,11 @@
            type="org.eclipse.emf.ecoretools.ale.ide.launchConfigurationType">
      </launchConfigurationTabGroup>
   </extension>
-  
+     <extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+    <launchConfigurationTypeImage
+        icon="icons/ALE.gif"
+        configTypeID="org.eclipse.emf.ecoretools.ale.ide.launchConfigurationType"
+        id="org.eclipse.emf.ecoretools.ale.ide.launcher.image">
+    </launchConfigurationTypeImage>
+  </extension>
 </plugin>
