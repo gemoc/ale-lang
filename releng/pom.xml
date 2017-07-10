@@ -16,6 +16,7 @@
 	<modules>
       <module>org.eclipse.emf.ecoretools.ale.feature</module>
 		<module>org.eclipse.emf.ecoretools.ale.updatesite</module>
+		<module>org.eclipse.emf.ecoretools.ale.target-platform</module>
 	</modules>
 
 	<build>

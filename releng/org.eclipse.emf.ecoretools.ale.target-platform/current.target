@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?><target name="Running Platform" sequenceNumber="8">
+<locations>
+<location path="/home/fcoulon/eclipses/eclipse-modeling-oxygen-R-linux-gtk-x86_64" type="Profile"/>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.acceleo.query.feature.group" version="6.0.0.201610150614"/>
+<unit id="org.eclipse.acceleo.query.source.feature.group" version="6.0.0.201610150614"/>
+<repository location="http://download.eclipse.org/acceleo/updates/releases/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.emf.sdk.feature.group" version="2.13.0.v20170609-0928"/>
+<repository location="http://download.eclipse.org/releases/oxygen"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.emf.ecoretools.design.feature.group" version="3.2.0.201610181347"/>
+<unit id="org.eclipse.emf.ecoretools.sdk.feature.group" version="3.2.0.201610181347"/>
+<repository location="http://download.eclipse.org/ecoretools/updates/releases/3.2.0/neon/"/>
+</location>
+</locations>
+<environment>
+<os>linux</os>
+<ws>gtk</ws>
+<arch>x86_64</arch>
+<nl>en_GB</nl>
+</environment>
+</target>

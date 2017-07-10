@@ -122,14 +122,55 @@
 				</executions>
 			</plugin>
 			<!-- enable plugin tests -->
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-surefire-plugin</artifactId>
-				<version>${tycho.version}</version>
-				<configuration>
-					<argLine>-Xmx1024m -XX:MaxPermSize=1024m</argLine>
-				</configuration>
-			</plugin>
+			 <plugin>
+              <groupId>org.eclipse.tycho</groupId>
+              <artifactId>tycho-surefire-plugin</artifactId>
+              <version>${tycho.version}</version>
+              <configuration>
+                <useUIHarness>true</useUIHarness>
+                <useUIThread>false</useUIThread>
+                <product>org.eclipse.platform.ide</product>
+                <application>org.eclipse.ui.ide.workbench</application>
+              </configuration>
+          </plugin>
+ 
+<plugin>
+   <groupId>org.eclipse.tycho</groupId>
+   <artifactId>target-platform-configuration</artifactId>
+   <version>${tycho.version}</version>
+   <configuration>
+      <dependency-resolution>
+         <extraRequirements>
+ 
+<requirement>
+                        <type>eclipse-feature</type>
+                        <id>org.eclipse.rcp</id>
+                        <versionRange>0.0.0</versionRange>
+</requirement>
+ 
+<requirement>
+                        <type>eclipse-feature</type>
+                        <id>org.eclipse.xtext.sdk</id>
+                        <versionRange>0.0.0</versionRange>
+</requirement>
+ 
+<requirement>
+                        <type>eclipse-feature</type>
+                        <id>org.eclipse.emf.ecoretools.sdk</id>
+                        <versionRange>0.0.0</versionRange>
+</requirement>
+ 
+         </extraRequirements>
+      </dependency-resolution>
+      <target>
+                     <artifact>
+                         <groupId>org.eclipse.emf.ecoretools.ale</groupId>
+                         <artifactId>org.eclipse.emf.ecoretools.ale.target-platform</artifactId>
+                         <version>0.0.1-SNAPSHOT</version>
+                     </artifact>
+                 </target>
+   </configuration>
+</plugin>
 		</plugins>
 	</build>
 </project>
