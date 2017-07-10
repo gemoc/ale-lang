@@ -5,7 +5,7 @@
 
    <parent>
        <groupId>org.eclipse.emf.ecoretools.ale</groupId>
-       <artifactId>org.eclipse.emf.ecoretools.ale.testsuites</artifactId>
+       <artifactId>org.eclipse.emf.ecoretools.ale.releng</artifactId>
        <version>0.0.1-SNAPSHOT</version>
    </parent>
 
