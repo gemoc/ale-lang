@@ -1,5 +1,6 @@
 package org.eclipse.emf.ecoretools.ale.ide.helloworld.tests;
 
+import static org.eclipse.swtbot.swt.finder.SWTBotAssert.assertTextContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -10,10 +11,14 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
+import org.eclipse.swtbot.eclipse.finder.matchers.WidgetMatcherFactory;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
@@ -90,7 +95,13 @@ public class HelloworldTest {
 		bot.textWithLabel("Select a resource to open (? = any character, * = any string):").setText("*xmi");
 		bot.button("OK").click();
 		
-		assertConsoleContains("\nRun helloworld.dsl\n------------\nHello world!\n");
+		
+		SWTBotView view = bot.viewById("org.eclipse.ui.console.ConsoleView");
+		Widget consoleViewComposite = view.getWidget();
+		StyledText console = bot.widget(WidgetMatcherFactory.widgetOfType(StyledText.class), consoleViewComposite);
+		SWTBotStyledText styledText = new SWTBotStyledText(console);
+		assertTextContains("\nRun helloworld.dsl\n------------\nHello world!\n", styledText);
+//		assertConsoleContains("\nRun helloworld.dsl\n------------\nHello world!\n");
 	}
 	
 	private void assertNoMarkers() throws CoreException {
