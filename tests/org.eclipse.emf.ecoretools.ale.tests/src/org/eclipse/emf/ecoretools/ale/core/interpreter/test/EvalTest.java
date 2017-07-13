@@ -21,12 +21,14 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.acceleo.query.runtime.IService;
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.services.ServiceCallListener;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
@@ -910,5 +912,33 @@ public class EvalTest {
 		
 		assertEquals(null,res.getValue());
 		assertEquals("No operation with @main found", res.getDiagnostic().getMessage());
+	}
+	
+	@Test
+	public void testListener(){
+		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
+
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/attributeCall.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		
+		interpreter.addListener(new ServiceCallListener() {
+			@Override
+			public void preCall(IService service, Object[] arguments) {
+				System.out.println("In:"+service.getName());
+			}
+			
+			@Override
+			public void postCall(IService service, Object[] arguments, Object result) {
+				System.out.println("Out:"+service.getName());
+			}
+		});
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals(3,res.getValue());
+		assertEquals("In:aqlFeatureAccess\nOut:aqlFeatureAccess\nIn:getSelf\nOut:getSelf\n", outContent.toString());
+		
+		System.setOut(null);
 	}
 }

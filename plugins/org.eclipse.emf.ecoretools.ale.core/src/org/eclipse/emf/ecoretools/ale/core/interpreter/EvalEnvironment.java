@@ -51,6 +51,7 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.FactoryService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.LogService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.SelectedCallService;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.services.ServiceCallListener;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.TrigoServices;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
@@ -86,9 +87,15 @@ public class EvalEnvironment {
 	 */
 	DiagnosticLogger logger;
 	
-	public EvalEnvironment (IQueryEnvironment qryEnv, List<ModelUnit> allImplem, DiagnosticLogger logger) {
+	/**
+	 * Listeners for service calls
+	 */
+	List<ServiceCallListener> listeners;
+	
+	public EvalEnvironment (IQueryEnvironment qryEnv, List<ModelUnit> allImplem, DiagnosticLogger logger, List<ServiceCallListener> listeners) {
 		this.qryEnv = qryEnv;
 		this.logger = logger;
+		this.listeners = listeners;
 		registerImplem(allImplem);
 		populateEnvironmentWithDefaultServices(null,null);
 	}
@@ -294,4 +301,10 @@ public class EvalEnvironment {
 			};
 	}
 	
+	public List<ServiceCallListener> getListeners() {
+		if(listeners == null) {
+			listeners = new ArrayList<ServiceCallListener>();
+		}
+		return listeners;
+	}
 }

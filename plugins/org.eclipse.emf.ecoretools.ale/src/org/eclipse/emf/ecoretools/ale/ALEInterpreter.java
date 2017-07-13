@@ -41,6 +41,7 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.ExtensionEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.MethodEvaluator;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.ALEEngine;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.services.ServiceCallListener;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
@@ -104,6 +105,12 @@ public class ALEInterpreter {
      */
     DiagnosticLogger logger;
     
+    
+    /**
+	 * Listeners for service calls
+	 */
+	List<ServiceCallListener> serviceListeners;
+    
     /**
      * The environment is setup with default services & EPackages
      */
@@ -130,6 +137,7 @@ public class ALEInterpreter {
         this.javaExtensions = JavaExtensionsManager.createManagerWithOverride();
         this.javaExtensions.addClassLoadingCallBack(callback);
         this.javaExtensions.addEPackageCallBack(ePackageCallBack);
+        this.serviceListeners = new ArrayList<ServiceCallListener>();
 	}
     
     private IQueryEnvironment createQueryEnvironment(boolean isDebug, CrossReferenceProvider xRefProvider) {
@@ -265,7 +273,7 @@ public class ALEInterpreter {
 	    	.collect(Collectors.toList());
 	    registerServices(services);
     	
-    	EvalEnvironment env = new EvalEnvironment(queryEnvironment, allBehaviors, logger);
+    	EvalEnvironment env = new EvalEnvironment(queryEnvironment, allBehaviors, logger, serviceListeners);
     	List<Object> inputElems = new ArrayList<Object>();
     	inputElems.add(caller);
     	inputElems.addAll(args);
@@ -353,4 +361,12 @@ public class ALEInterpreter {
     public void initScope(Set<java.lang.String> plugins, Set<java.lang.String> project) {
     	javaExtensions.updateScope(plugins, project);
     }
+    
+    public void addListener(ServiceCallListener listener) {
+    	this.serviceListeners.add(listener);
+    }
+    
+    public List<ServiceCallListener> getServiceListeners() {
+		return serviceListeners;
+	}
 }

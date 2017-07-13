@@ -76,7 +76,7 @@ public class ALEInvocationDelegateFactory implements Factory {
 			    	.map(sem -> sem.getRoot())
 			    	.collect(Collectors.toList());
 			DiagnosticLogger logger = new DiagnosticLogger(parsedSemantics);
-			EvalEnvironment env = new EvalEnvironment(qryEnv, allBehaviors, logger);
+			EvalEnvironment env = new EvalEnvironment(qryEnv, allBehaviors, logger, null);
 			engine = new ALEEngine(env);
 		}
 		return engine;

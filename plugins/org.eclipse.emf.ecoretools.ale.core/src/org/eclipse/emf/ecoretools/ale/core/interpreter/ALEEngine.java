@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
-import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 
@@ -26,7 +26,7 @@ public class ALEEngine {
 	}
 	
 	public EvaluationResult eval(EObject target, Method mainOp, List<Object> args) {
-		MethodEvaluator evaluator = new MethodEvaluator(new ExpressionEvaluationEngine(implemEnv.getQueryEnvironment()), implemEnv.getFeatureAccess());
+		MethodEvaluator evaluator = new MethodEvaluator(new ExpressionEvaluationEngine(implemEnv.getQueryEnvironment(),implemEnv.getListeners()), implemEnv.getFeatureAccess());
 		return evaluator.eval(target,mainOp,args);
 	}
 }
