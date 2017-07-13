@@ -11,6 +11,7 @@
 package org.eclipse.emf.ecoretools.ale.core.parser;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +58,19 @@ public class DslBuilder {
     		.stream()
     		.forEach(syntaxURI -> {
     			List<EPackage> pkgImports = load(syntaxURI, rs);
-    			register(pkgImports);
+    			List<EPackage> toRegister = new ArrayList<>();
+    			for(EPackage pkg : pkgImports) {
+    				EPackage registryPkg = rs.getPackageRegistry().getEPackage(pkg.getNsURI());
+    				
+    				//Give priority to EPackages from the registry
+    				if(registryPkg == null) {
+    					toRegister.add(pkg);
+    				}
+    				else {
+    					toRegister.add(registryPkg);
+    				}
+    			}
+    			register(toRegister);
     		});
     	
     	/*
