@@ -23,13 +23,13 @@ import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.TextConsole;
+import org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -99,6 +99,7 @@ public class HelloworldTest {
 		bot.tree().getTreeItem("helloworld").getNode("model").getNode("helloworld.ale").doubleClick();
 		bot.editorByTitle("helloworld.ale").show();
 		
+		IResourcesSetupUtil.reallyWaitForAutoBuild();
 		assertNoMarkers();
 		
 		bot.viewByTitle("Model Explorer").show();
