@@ -8,8 +8,10 @@ import static org.junit.Assert.assertTrue;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Display;
@@ -88,6 +90,9 @@ public class HelloworldTest {
 		bot.button("Next >").click();
 		bot.button("Finish").click();
 		
+		ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
+		IResourcesSetupUtil.reallyWaitForAutoBuild();
+		
 		assertNotNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/model/helloworld.ale"));
 		assertNotNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/model/helloworld.dsl"));
 		assertNotNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/model/HelloWorld.xmi"));
@@ -99,7 +104,6 @@ public class HelloworldTest {
 		bot.tree().getTreeItem("helloworld").getNode("model").getNode("helloworld.ale").doubleClick();
 		bot.editorByTitle("helloworld.ale").show();
 		
-		IResourcesSetupUtil.reallyWaitForAutoBuild();
 		assertNoMarkers();
 		
 		bot.viewByTitle("Model Explorer").show();
