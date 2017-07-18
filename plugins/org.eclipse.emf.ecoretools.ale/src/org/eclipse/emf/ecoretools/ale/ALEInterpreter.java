@@ -110,6 +110,11 @@ public class ALEInterpreter {
 	 * Listeners for service calls
 	 */
 	List<ServiceCallListener> serviceListeners;
+
+	/**
+	 * Reference the engine used by the ongoing evaluation
+	 */
+	ALEEngine currentEngine;
     
     /**
      * The environment is setup with default services & EPackages
@@ -280,6 +285,7 @@ public class ALEInterpreter {
     	initDynamicFeatures(inputElems,env);
     	
     	ALEEngine engine = new ALEEngine(env);
+    	this.currentEngine = engine;
     	return engine.eval(caller, operation, args);
     }
     
@@ -368,5 +374,13 @@ public class ALEInterpreter {
     
     public List<ServiceCallListener> getServiceListeners() {
 		return serviceListeners;
+	}
+    
+    /**
+     * Return the engine used by the ongoing evaluation.
+     * Return null if eval() wasn't called before
+     */
+    public ALEEngine getCurrentEngine() {
+		return currentEngine;
 	}
 }

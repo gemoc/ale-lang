@@ -29,4 +29,8 @@ public class ALEEngine {
 		MethodEvaluator evaluator = new MethodEvaluator(new ExpressionEvaluationEngine(implemEnv.getQueryEnvironment(),implemEnv.getListeners()), implemEnv.getFeatureAccess());
 		return evaluator.eval(target,mainOp,args);
 	}
+	
+	public EvalEnvironment getEvalEnvironment() {
+		return implemEnv;
+	}
 }
