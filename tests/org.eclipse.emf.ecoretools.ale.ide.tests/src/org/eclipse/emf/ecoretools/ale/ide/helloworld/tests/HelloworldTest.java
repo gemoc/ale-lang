@@ -118,7 +118,6 @@ public class HelloworldTest {
 		StyledText console = bot.widget(WidgetMatcherFactory.widgetOfType(StyledText.class), consoleViewComposite);
 		SWTBotStyledText styledText = new SWTBotStyledText(console);
 		assertTextContains("\nRun helloworld.dsl\n------------\nHello world!\n", styledText);
-//		assertConsoleContains("\nRun helloworld.dsl\n------------\nHello world!\n");
 	}
 	
 	private void assertNoMarkers() throws CoreException {
