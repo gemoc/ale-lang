@@ -6,20 +6,20 @@ order: 0
 Action Language for EMF
 =======================
 
-ALE is a language to make Ecore metamodel executable.
-Concretely, ALE allows to "re-open" the EClasses from Ecore metamodels to implements existing EOperations and weave new features or new operations.
+ALE is a language to make Ecore metamodels executable.
+Concretely, ALE allows to "re-open" the EClasses from Ecore metamodels to implement existing EOperations and weave new features or new operations.
 
 Main features of ALE include:
- * Executable metamodeling: Re-open existing EClass to insert new methods with their implementation
+ * Executable metamodeling: Re-open existing EClasses to insert new methods with their implementations
  * Metamodel extension: The very same mechanism can be used to extend existing Ecore metamodels and insert new features (eg. attributes) in a non-intrusive way
- * Interpreted: No need to deploy Eclipse plugin, just run the behavior on a model
- * Extensible: If ALE doesn't fit your needs, register Java class as service and invoke it inside your implementations of EOperations.
+ * Interpreted: No need to deploy Eclipse plugins, just run the behavior on a model directly in your modeling environment
+ * Extensible: If ALE doesn't fit your needs, register Java classes as services and invoke them inside your implementations of EOperations.
 
-Breathe life into you metamodel
+Breathe life into your metamodels!
 ===============================
 
-ALE make it easy to address a wide range of activities related to model element manipulation. This includes activites such as:
- * weaving operational semantics in metamodel definition
+ALE make it easy to address a wide range of activities related to model elements manipulation. This includes activities such as:
+ * weaving operational semantics in metamodel definitions
  * defining model checkers
  * defining model-to-model transformations
  * defining model-to-text transformations
