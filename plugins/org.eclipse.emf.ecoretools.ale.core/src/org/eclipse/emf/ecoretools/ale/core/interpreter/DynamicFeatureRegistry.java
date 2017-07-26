@@ -23,11 +23,16 @@ import org.eclipse.acceleo.query.runtime.AcceleoQueryEvaluationException;
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEvaluationEngine;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationWrapper;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.DynamicEObjectServices;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.RuntimeInstanceHelper;
@@ -202,12 +207,42 @@ public class DynamicFeatureRegistry {
 	private EObject getOrCreateRuntimeExtension(EObject instance) {
 		EObject extendedInstance = instanceToRuntime.get(instance);
 		
-		if(extendedInstance == null){
+		if(extendedInstance == null) {
 			EClass runtimeExtensionClass = baseToRuntime.get(instance.eClass());
 			if(runtimeExtensionClass != null){
 				extendedInstance = EcoreUtil.create(runtimeExtensionClass);
 				instanceToRuntime.put(instance,extendedInstance);
 				runtimeToInstance.put(extendedInstance, instance);
+				
+				// Register Adapters for the Runtime part and pretend that
+				// notifications comes from the instance object
+				for(Adapter adapter : instance.eAdapters()) {
+					if(adapter instanceof EContentAdapter) {
+						Adapter runtimeAdapter = new Adapter(){
+							final Adapter originalAdapter = adapter;
+							@Override
+							public void notifyChanged(Notification notification) {
+								originalAdapter.notifyChanged(new NotificationWrapper(instance,notification));
+							}
+							
+							@Override
+							public Notifier getTarget() {
+								return originalAdapter.getTarget();
+							}
+							
+							@Override
+							public void setTarget(Notifier newTarget) {
+								//keep original target
+							}
+							
+							@Override
+							public boolean isAdapterForType(Object type) {
+								return originalAdapter.isAdapterForType(type);
+							}
+						};
+						extendedInstance.eAdapters().add(runtimeAdapter);
+					}
+				}
 			}
 		}
 		
