@@ -416,6 +416,16 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		if(validRes != null) {
 			return validRes.getPossibleTypes(exp);
 		}
+		else {
+			EObject parent = exp.eContainer();
+			while(parent instanceof Expression) {
+				if(validations.get(parent) != null) {
+					return validations.get(parent).getPossibleTypes(exp);
+				}
+				parent = parent.eContainer();
+			}
+			
+		}
 		
 		return new HashSet<IType>();
 	}
