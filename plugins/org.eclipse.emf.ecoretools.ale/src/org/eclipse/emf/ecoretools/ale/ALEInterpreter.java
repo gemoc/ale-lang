@@ -196,20 +196,30 @@ public class ALEInterpreter {
 		
     }
     
-	/**
+    /**
      * Search in {@link dslFile}'s semantics
      * for the first operation tagged 'main' and apply it to {@link caller}
      */
     public IEvaluationResult eval(EObject caller, List<Object> args, List<ParseResult<ModelUnit>> parsedSemantics) {
+    	return eval(caller, null, args, parsedSemantics);
+    }
+    
+    /**
+     * Apply {@link calledOp} on {@caller}.
+     */
+    public IEvaluationResult eval(EObject caller, Method calledOp, List<Object> args, List<ParseResult<ModelUnit>> parsedSemantics) {
     	
-    	Optional<Method> mainOp =
-    		parsedSemantics
-	    	.stream()
-	    	.filter(sem -> sem.getRoot() != null)
-	    	.map(sem -> getMainOp(sem.getRoot()))
-	    	.filter(op -> op.isPresent())
-	    	.map(op -> op.get())
-	    	.findFirst();
+    	Optional<Method> mainOp = Optional.ofNullable(calledOp);
+    	if(calledOp == null) {
+    		mainOp =
+        		parsedSemantics
+    	    	.stream()
+    	    	.filter(sem -> sem.getRoot() != null)
+    	    	.map(sem -> getMainOp(sem.getRoot()))
+    	    	.filter(op -> op.isPresent())
+    	    	.map(op -> op.get())
+    	    	.findFirst();
+    	}
     	
     	final BasicDiagnostic diagnostic = new BasicDiagnostic();
     	parsedSemantics
@@ -221,7 +231,7 @@ public class ALEInterpreter {
     	
     	Object value = null;
 		if (mainOp.isPresent()) {
-			EvaluationResult evalResult = eval(caller, mainOp.get(), args, parsedSemantics);
+			EvaluationResult evalResult = doEval(caller, mainOp.get(), args, parsedSemantics);
 			if (Diagnostic.OK != evalResult.getDiagnostic().getSeverity()) {
 				diagnostic.merge(evalResult.getDiagnostic());
 			}
@@ -258,7 +268,7 @@ public class ALEInterpreter {
 		};
     }
     
-    private EvaluationResult eval(EObject caller, Method operation, List<Object> args, List<ParseResult<ModelUnit>> parsedSemantics) {
+    private EvaluationResult doEval(EObject caller, Method operation, List<Object> args, List<ParseResult<ModelUnit>> parsedSemantics) {
     	List<ModelUnit> allBehaviors = 
 				parsedSemantics
 		    	.stream()
