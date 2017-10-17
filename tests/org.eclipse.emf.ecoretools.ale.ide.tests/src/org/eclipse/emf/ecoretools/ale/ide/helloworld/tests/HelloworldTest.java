@@ -60,8 +60,11 @@ public class HelloworldTest {
 	
 	@BeforeClass
 	public static void beforeClass() throws Exception {
+		
 	    bot = new SWTWorkbenchBot();
 	   
+	    IResourcesSetupUtil.cleanWorkspace();
+	    
 	    //Close Welcome page
 	    for (SWTBotView view : bot.views()) {
             if (view.getTitle().equals("Welcome")) {
