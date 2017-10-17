@@ -22,4 +22,5 @@ Require-Bundle: org.junit,
  org.eclipse.emf.ecoretools.ale.xtext,
  org.eclipse.emf.ecoretools.ale.xtext.ide,
  org.eclipse.emf.ecoretools.ale.xtext.ui,
- org.eclipse.xtext.ui.testing
+ org.eclipse.xtext.ui.testing,
+ org.eclipse.sirius.diagram
