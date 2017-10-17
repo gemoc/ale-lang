@@ -44,13 +44,6 @@ public class WorkbenchDsl extends Dsl {
 			.forEach(elem -> newSemantics.add(URI.createFileURI(convertToFile(elem)).toFileString()));//expect system file path
 		getAllSemantics().clear();
 		getAllSemantics().addAll(newSemantics);
-		
-		ArrayList<String> newSyntaxes = new ArrayList<String>();
-		getAllSyntaxes()
-			.stream()
-			.forEach(elem -> newSyntaxes.add(URI.createFileURI(convertToFile(elem)).toString()));//expect file protocol
-		getAllSyntaxes().clear();
-		getAllSyntaxes().addAll(newSyntaxes);
 	}
 	
 	/**
