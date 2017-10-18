@@ -17,13 +17,17 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecoretools.ale.ide.services.Services;
 import org.eclipse.sirius.business.api.dialect.DialectManager;
 import org.eclipse.sirius.business.api.modelingproject.AbstractRepresentationsFileJob;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionManager;
+import org.eclipse.sirius.diagram.EdgeStyle;
 import org.eclipse.sirius.diagram.business.internal.metamodel.spec.DEdgeSpec;
+import org.eclipse.sirius.diagram.business.internal.metamodel.spec.DNodeListElementSpec;
+import org.eclipse.sirius.viewpoint.BasicLabelStyle;
 import org.eclipse.sirius.viewpoint.DRepresentation;
 import org.eclipse.sirius.viewpoint.DRepresentationElement;
 import org.eclipse.swt.widgets.Display;
@@ -78,19 +82,8 @@ public class BehaviorLayerTest {
 				}
 	        }
 	    });
-	}
-	
-	@Before
-	public void setUp() throws Exception {
-		UIThreadRunnable.syncExec(new VoidResult() {
-			public void run() {
-				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().forceActive();
-			}
-		});
-	}
-	
-	@Test
-	public void testCreateReference() throws Exception {
+	    
+	    //Open HelloWorld diagram
 		bot.menu("File").menu("New").menu("Example...").click();
 		bot.tree().getTreeItem("ALE Examples").getNode("Hello world!").select();
 		bot.button("Next >").click();
@@ -114,9 +107,23 @@ public class BehaviorLayerTest {
 		bot.editorByTitle("helloworld class diagram").show();
 		bot.toolbarDropDownButtonWithTooltip("Layers").menuItem("Behavior").click();
 		
-		assertNoMarkers();
+	}
+	
+	@Before
+	public void setUp() throws Exception {
 		
-		//Reopen the class and add a new reference
+		UIThreadRunnable.syncExec(new VoidResult() {
+			public void run() {
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().forceActive();
+			}
+		});
+		
+		assertNoMarkers();
+	}
+	
+	@Test
+	public void testCreateReference() throws Exception {
+		
 		Session session = SessionManager.INSTANCE.getSessions().iterator().next();
 		EPackage pkg = (EPackage) session.getSemanticResources().iterator().next().getContents().get(0);
 		EClass cls = (EClass) pkg.getEClassifiers().get(0);
@@ -140,10 +147,112 @@ public class BehaviorLayerTest {
 
 		assertTrue(edge.isPresent());
 		assertEquals("newRef",edge.get().getName());
+		assertEquals(3, (int) ((EdgeStyle) edge.get().getStyle()).getSize());
 		assertEquals(cls.getName(), ((DRepresentationElement)edge.get().basicGetSourceNode()).getName());
 		assertEquals(cls.getName(), ((DRepresentationElement)edge.get().basicGetTargetNode()).getName());
 		
-		System.out.println();
+	}
+	
+	@Test
+	public void testCreateAttribute() throws Exception {
+		
+		Session session = SessionManager.INSTANCE.getSessions().iterator().next();
+		EPackage pkg = (EPackage) session.getSemanticResources().iterator().next().getContents().get(0);
+		EClass cls = (EClass) pkg.getEClassifiers().get(0);
+		
+		Display.getDefault().asyncExec(new Runnable() {
+	        @Override
+	        public void run() {
+	            try {
+	            	(new Services()).addDynamicFeature(cls);
+		        } catch (Exception e) {
+					e.printStackTrace();
+		        }
+	        }
+	    });
+		
+		bot.editorByTitle("helloworld class diagram").show();
+		
+		Collection<DRepresentation> rep = DialectManager.INSTANCE.getRepresentations(session.getSemanticResources().iterator().next().getContents().get(0), session);
+		EList<DRepresentationElement> diagramElements = rep.iterator().next().getRepresentationElements();
+		Optional<DNodeListElementSpec> attribute = 
+				diagramElements
+				.stream()
+				.filter(elem -> elem instanceof DNodeListElementSpec)
+				.map(elem -> (DNodeListElementSpec) elem)
+				.filter(elem -> elem.getName().contentEquals("newFeature : EInt"))
+				.findFirst();
+		
+		assertTrue(attribute.isPresent());
+		assertEquals("bold",((BasicLabelStyle)attribute.get().getStyle()).getLabelFormat().get(0).getLiteral());
+	}
+	
+	@Test
+	public void testCreateOperation() throws Exception {
+		
+		Session session = SessionManager.INSTANCE.getSessions().iterator().next();
+		EPackage pkg = (EPackage) session.getSemanticResources().iterator().next().getContents().get(0);
+		EClass cls = (EClass) pkg.getEClassifiers().get(0);
+		
+		Display.getDefault().asyncExec(new Runnable() {
+	        @Override
+	        public void run() {
+	            try {
+	            	(new Services()).addMethod(cls);
+		        } catch (Exception e) {
+					e.printStackTrace();
+		        }
+	        }
+	    });
+		
+		bot.editorByTitle("helloworld class diagram").show();
+		
+		Collection<DRepresentation> rep = DialectManager.INSTANCE.getRepresentations(session.getSemanticResources().iterator().next().getContents().get(0), session);
+		EList<DRepresentationElement> diagramElements = rep.iterator().next().getRepresentationElements();
+		Optional<DNodeListElementSpec> operation = 
+				diagramElements
+				.stream()
+				.filter(elem -> elem instanceof DNodeListElementSpec)
+				.map(elem -> (DNodeListElementSpec) elem)
+				.filter(elem -> elem.getName().contentEquals("newMethod() : EInt"))
+				.findFirst();
+		
+		assertTrue(operation.isPresent());
+		assertEquals("bold",((BasicLabelStyle)operation.get().getStyle()).getLabelFormat().get(0).getLiteral());
+	}
+	
+	@Test
+	public void testImplementOperation() throws Exception {
+		Session session = SessionManager.INSTANCE.getSessions().iterator().next();
+		EPackage pkg = (EPackage) session.getSemanticResources().iterator().next().getContents().get(0);
+		EClass cls = (EClass) pkg.getEClassifiers().get(0);
+		EOperation op = cls.getEOperations().get(0);
+        
+		Display.getDefault().asyncExec(new Runnable() {
+	        @Override
+	        public void run() {
+	            try {
+	            	(new Services()).editImplementation(op);
+		        } catch (Exception e) {
+					e.printStackTrace();
+		        }
+	        }
+	    });
+		
+		bot.editorByTitle("helloworld class diagram").show();
+		
+		Collection<DRepresentation> rep = DialectManager.INSTANCE.getRepresentations(session.getSemanticResources().iterator().next().getContents().get(0), session);
+		EList<DRepresentationElement> diagramElements = rep.iterator().next().getRepresentationElements();
+		Optional<DNodeListElementSpec> operation = 
+				diagramElements
+				.stream()
+				.filter(elem -> elem instanceof DNodeListElementSpec)
+				.map(elem -> (DNodeListElementSpec) elem)
+				.filter(elem -> elem.getName().contentEquals("greeting()"))
+				.findFirst();
+		
+		assertTrue(operation.isPresent());
+		assertEquals("bold",((BasicLabelStyle)operation.get().getStyle()).getLabelFormat().get(0).getLiteral());
 	}
 	
 	private void assertNoMarkers() throws CoreException {
@@ -158,5 +267,4 @@ public class BehaviorLayerTest {
 			}
 		}
 	}
-	
 }
