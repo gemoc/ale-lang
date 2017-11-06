@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
@@ -27,6 +28,11 @@ import org.osgi.framework.Bundle;
 
 public class WorkbenchDsl extends Dsl {
 
+	public WorkbenchDsl(List<String> syntaxes, List<String> semantics) {
+		super(syntaxes,semantics);
+		resolveUris();
+	}
+	
 	public WorkbenchDsl(String dslFile) throws FileNotFoundException {
 		super(convertToFile(dslFile));
 		resolveUris();
@@ -49,7 +55,7 @@ public class WorkbenchDsl extends Dsl {
 	/**
 	 * Convert platform URI to file path
 	 */
-	private static String convertToFile(String path) {
+	public static String convertToFile(String path) {
 		URI uri = URI.createURI(path);
 		
 		String res = null;

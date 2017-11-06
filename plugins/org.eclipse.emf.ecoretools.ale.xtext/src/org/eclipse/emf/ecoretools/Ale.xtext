@@ -54,7 +54,7 @@ rVariable returns Variable :
 ;
 
 rAttribute returns Attribute :
-	modifier=('contains' | 'unique')? bounds=rCardinality? opposite=rOpposite? type=rType name=Ident (':=' exp=expression)? ';'
+	modifier=('contains' | 'unique')? bounds=rCardinality? opposite=rOpposite? type=rType name=Ident (':=' exp=rExpression)? ';'
 ;
 
 rCardinality :
@@ -80,19 +80,19 @@ rBlockStatement returns Statement:
 ;
 
 rVarDecl returns VarDecl :
-	type=rType name=Ident (':=' exp=expression)?
+	type=rType name=Ident (':=' exp=rExpression)?
 ;
 
 rAssign returns Assign :
-	target=expression ':=' exp=expression
+	target=expression ':=' exp=rExpression
 ;
 
 rInsert returns Insert :
-	target=expression '+=' exp=expression
+	target=expression '+=' exp=rExpression
 ;
 
 rRemove returns Remove :
-	target=expression '-=' exp=expression
+	target=expression '-=' exp=rExpression
 ;
 
 rForEach returns ForEach :
@@ -100,7 +100,7 @@ rForEach returns ForEach :
 ;
 
 rCollection returns Collection:
-	'[' min=INT '..' max=INT ']' | exp=expression
+	'[' min=INT '..' max=INT ']' | exp=rExpression
 ;
 
 rBlock returns Block :
@@ -113,15 +113,25 @@ rBlock returns Block :
 ;
 
 rIf returns If :
-	'if' '(' cond=expression ')' then=rBlock ('else' else=rBlock)?
+	'if' '(' cond=rExpression ')' then=rBlock ('else' else=rBlock)?
 ;
 
 rWhile returns While :
-	'while' '(' cond=expression ')' block=rBlock
+	'while' '(' cond=rExpression ')' block=rBlock
+;
+
+rSwitch : 
+	'switch' '(' (paramName=Ident ':')? paramVal=rExpression')' '{'
+		cases+=rCase+
+		'default' ':' other=rExpression
+	'}'
+;
+
+rCase : guard=rType? ('case' match=rExpression)? ':' value=rExpression
 ;
 
 rExpression returns ExpressionStmt :
-	exp=expression
+	exp=(rSwitch | expression)
 ;
 
 /***************
