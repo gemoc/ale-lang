@@ -32,7 +32,7 @@ public class RuntimeInstanceHelper {
 	public static final String ALE_RUNTIME = "ALE_RUNTIME_";
 	public static final String ALE_RUNTIME_PKG = "ALE_RUNTIME_PKG";
 	
-	public static Map<EClass,EClass> getBaseToRuntime(List<ModelUnit> allModelUnits) {
+	public static Map<EClass,EClass> getBaseToRuntime(List<ModelUnit> allModelUnits, List<EClass> domain) {
 		
 		Map<EClass,EClass> baseToRuntime = new HashMap<EClass,EClass>();
 		
@@ -64,12 +64,18 @@ public class RuntimeInstanceHelper {
 			});
 		});
 		
+		//Avoid null value
+		domain.forEach(cls -> {
+			if(baseToFragments.get(cls) == null) {
+				baseToFragments.put(cls, new ArrayList<EClass>());
+			}
+		});
+		
 		/*
 		 * Finish collect with super classes
 		 */
-		Set<EClass> domain = baseToFragments.keySet();
 		domain.forEach(cls -> {
-			baseToRuntime.put(cls, merge(cls,allFragments(cls,baseToFragments)));
+			baseToRuntime.put(cls, merge(cls,allFragments(cls,baseToFragments,domain)));
 		});
 		
 		/*
@@ -83,7 +89,7 @@ public class RuntimeInstanceHelper {
 		return baseToRuntime;
 	}
 	
-	private static List<EClass> allSupers(EClass cls, Set<EClass> domain) {
+	private static List<EClass> allSupers(EClass cls, List<EClass> domain) {
 		return
 			domain
 			.stream()
@@ -99,9 +105,8 @@ public class RuntimeInstanceHelper {
 		}
 	}
 	
-	private static Set<EClass> allFragments(EClass baseClass, Map<EClass,List<EClass>> baseToFragments) {
+	private static Set<EClass> allFragments(EClass baseClass, Map<EClass,List<EClass>> baseToFragments, List<EClass> domain) {
 		
-		Set<EClass> domain = baseToFragments.keySet();
 		List<EClass> allSuperClasses = allSupers(baseClass, domain);
 		
 		return

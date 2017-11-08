@@ -51,9 +51,9 @@ public class DynamicFeatureRegistry {
 	Map<EObject,EObject> instanceToRuntime; //instance -> runtime content
 	Map<EObject,EObject> runtimeToInstance;
 	
-	public DynamicFeatureRegistry (List<ModelUnit> allImplemModels){
+	public DynamicFeatureRegistry (List<ModelUnit> allImplemModels, List<EClass> domain){
 		this.allImplemModels = allImplemModels;
-		this.baseToRuntime = RuntimeInstanceHelper.getBaseToRuntime(allImplemModels);
+		this.baseToRuntime = RuntimeInstanceHelper.getBaseToRuntime(allImplemModels,domain);
 		instanceToRuntime = new HashMap<EObject,EObject>();
 		runtimeToInstance = new HashMap<EObject,EObject>();
 	}

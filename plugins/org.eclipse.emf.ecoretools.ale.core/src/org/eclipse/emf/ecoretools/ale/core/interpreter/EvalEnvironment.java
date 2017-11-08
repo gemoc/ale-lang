@@ -152,7 +152,15 @@ public class EvalEnvironment {
 	 */
 	public void registerImplem(List<ModelUnit> allImplemModels) {
 		this.allImplemModels = allImplemModels;
-		this.dynamicFeatures = new DynamicFeatureRegistry(allImplemModels);
+		List<EClass> domain = 
+				qryEnv
+				.getEPackageProvider()
+				.getEClassifiers()
+				.stream()
+				.filter(cls -> cls instanceof EClass)
+				.map(cls -> (EClass) cls)
+				.collect(Collectors.toList());
+		this.dynamicFeatures = new DynamicFeatureRegistry(allImplemModels, domain);
 		createServices(allImplemModels)
 			.stream()
 			.forEach(opService -> qryEnv.registerService(opService));
