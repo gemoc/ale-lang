@@ -1,0 +1,11 @@
+behavior test.lookup.inherits;
+
+open class A {
+
+	Integer attrib := 42;
+
+	@main
+	def String main() {
+		result := self.attrib;
+	}
+}

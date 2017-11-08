@@ -207,6 +207,26 @@ public class LookupTest {
 		assertEquals("b.foo(a)",res.getValue());
 	}
 	
+	@Test
+	public void testInheritGetter() {
+		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inheritGetter.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/B.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals(42,res.getValue());
+	}
+	
+	@Test
+	public void testInheritSetter() {
+		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inheritSetter.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/B.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals(43,res.getValue());
+	}
+	
 	private EObject create(String className) {
 		EClassifier cls = interpreter.getQueryEnvironment().getEPackageProvider().getTypes(className).iterator().next();
 		return EcoreUtil.create((EClass) cls);
