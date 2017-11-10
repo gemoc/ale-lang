@@ -133,6 +133,7 @@ public class AleParser extends AbstractContentAssistParser {
 					put(grammarAccess.getLiteralAccess().getGroup_7(), "rule__Literal__Group_7__0");
 					put(grammarAccess.getLiteralAccess().getGroup_7_2(), "rule__Literal__Group_7_2__0");
 					put(grammarAccess.getLiteralAccess().getGroup_7_2_1(), "rule__Literal__Group_7_2_1__0");
+					put(grammarAccess.getLiteralAccess().getGroup_8(), "rule__Literal__Group_8__0");
 					put(grammarAccess.getTypeLiteralAccess().getGroup_0(), "rule__TypeLiteral__Group_0__0");
 					put(grammarAccess.getTypeLiteralAccess().getGroup_1(), "rule__TypeLiteral__Group_1__0");
 					put(grammarAccess.getTypeLiteralAccess().getGroup_2(), "rule__TypeLiteral__Group_2__0");

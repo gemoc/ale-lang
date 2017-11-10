@@ -200,7 +200,7 @@ literal :    {String} value=STRING
 		   | {Null} 'null'
 		   | {Sequence} 'Sequence{' (params+=expression (',' params+=expression)*)? '}'
 		   | {OrderedSet} 'OrderedSet{' (params+=expression (',' params+=expression)*)? '}'
-//		   | Ident '::' Ident '::' Ident
+		   | {Enum} Ident '::' Ident '::' Ident
 //		   | Ident '::' Ident ':'
 		   | typeLiteral
 ;

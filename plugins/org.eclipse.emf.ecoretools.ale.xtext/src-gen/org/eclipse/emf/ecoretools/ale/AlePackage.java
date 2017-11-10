@@ -2051,6 +2051,25 @@ public interface AlePackage extends EPackage
   int ORDERED_SET_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.EnumImpl <em>Enum</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecoretools.ale.impl.EnumImpl
+   * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getEnum()
+   * @generated
+   */
+  int ENUM = 54;
+
+  /**
+   * The number of structural features of the '<em>Enum</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM_FEATURE_COUNT = LITERAL_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.StringTypeImpl <em>String Type</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2058,7 +2077,7 @@ public interface AlePackage extends EPackage
    * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getStringType()
    * @generated
    */
-  int STRING_TYPE = 54;
+  int STRING_TYPE = 55;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2086,7 +2105,7 @@ public interface AlePackage extends EPackage
    * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getIntType()
    * @generated
    */
-  int INT_TYPE = 55;
+  int INT_TYPE = 56;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2114,7 +2133,7 @@ public interface AlePackage extends EPackage
    * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getRealType()
    * @generated
    */
-  int REAL_TYPE = 56;
+  int REAL_TYPE = 57;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2142,7 +2161,7 @@ public interface AlePackage extends EPackage
    * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getBoolType()
    * @generated
    */
-  int BOOL_TYPE = 57;
+  int BOOL_TYPE = 58;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2170,7 +2189,7 @@ public interface AlePackage extends EPackage
    * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getSeqType()
    * @generated
    */
-  int SEQ_TYPE = 58;
+  int SEQ_TYPE = 59;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2207,7 +2226,7 @@ public interface AlePackage extends EPackage
    * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getSetType()
    * @generated
    */
-  int SET_TYPE = 59;
+  int SET_TYPE = 60;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2244,7 +2263,7 @@ public interface AlePackage extends EPackage
    * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getClassifierSetType()
    * @generated
    */
-  int CLASSIFIER_SET_TYPE = 60;
+  int CLASSIFIER_SET_TYPE = 61;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2281,7 +2300,7 @@ public interface AlePackage extends EPackage
    * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getClassifierType()
    * @generated
    */
-  int CLASSIFIER_TYPE = 61;
+  int CLASSIFIER_TYPE = 62;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3921,6 +3940,16 @@ public interface AlePackage extends EPackage
   EReference getOrderedSet_Params();
 
   /**
+   * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.Enum <em>Enum</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Enum</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Enum
+   * @generated
+   */
+  EClass getEnum();
+
+  /**
    * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.StringType <em>String Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5379,6 +5408,16 @@ public interface AlePackage extends EPackage
      * @generated
      */
     EReference ORDERED_SET__PARAMS = eINSTANCE.getOrderedSet_Params();
+
+    /**
+     * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.EnumImpl <em>Enum</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.eclipse.emf.ecoretools.ale.impl.EnumImpl
+     * @see org.eclipse.emf.ecoretools.ale.impl.AlePackageImpl#getEnum()
+     * @generated
+     */
+    EClass ENUM = eINSTANCE.getEnum();
 
     /**
      * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.impl.StringTypeImpl <em>String Type</em>}' class.

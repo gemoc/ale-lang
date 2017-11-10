@@ -134,6 +134,9 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case AlePackage.CONDITIONAL:
 				sequence_nonLeftRecExpression(context, (Conditional) semanticObject); 
 				return; 
+			case AlePackage.ENUM:
+				sequence_literal(context, (org.eclipse.emf.ecoretools.ale.Enum) semanticObject); 
+				return; 
 			case AlePackage.EXPRESSION_STMT:
 				sequence_rExpression(context, (ExpressionStmt) semanticObject); 
 				return; 
@@ -597,6 +600,18 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		feeder.accept(grammarAccess.getExpressionAccess().getXorLeftAction_1_8_0(), semanticObject.getLeft());
 		feeder.accept(grammarAccess.getExpressionAccess().getRightExpressionParserRuleCall_1_8_2_0(), semanticObject.getRight());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     literal returns Enum
+	 *
+	 * Constraint:
+	 *     {Enum}
+	 */
+	protected void sequence_literal(ISerializationContext context, org.eclipse.emf.ecoretools.ale.Enum semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

@@ -269,6 +269,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="params" upperBound="-1"
         eType="#//Expression" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Enum" eSuperTypes="#//literal"/>
   <eClassifiers xsi:type="ecore:EClass" name="StringType" eSuperTypes="#//typeLiteral"/>
   <eClassifiers xsi:type="ecore:EClass" name="IntType" eSuperTypes="#//typeLiteral"/>
   <eClassifiers xsi:type="ecore:EClass" name="RealType" eSuperTypes="#//typeLiteral"/>

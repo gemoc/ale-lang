@@ -192,6 +192,7 @@ public class AleFactoryImpl extends EFactoryImpl implements AleFactory
       case AlePackage.NULL: return createNull();
       case AlePackage.SEQUENCE: return createSequence();
       case AlePackage.ORDERED_SET: return createOrderedSet();
+      case AlePackage.ENUM: return createEnum();
       case AlePackage.STRING_TYPE: return createStringType();
       case AlePackage.INT_TYPE: return createIntType();
       case AlePackage.REAL_TYPE: return createRealType();
@@ -797,6 +798,17 @@ public class AleFactoryImpl extends EFactoryImpl implements AleFactory
   {
     OrderedSetImpl orderedSet = new OrderedSetImpl();
     return orderedSet;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public org.eclipse.emf.ecoretools.ale.Enum createEnum()
+  {
+    EnumImpl enum_ = new EnumImpl();
+    return enum_;
   }
 
   /**

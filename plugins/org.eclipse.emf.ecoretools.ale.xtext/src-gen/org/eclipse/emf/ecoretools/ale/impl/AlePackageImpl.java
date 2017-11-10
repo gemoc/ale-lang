@@ -476,6 +476,13 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass enumEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass stringTypeEClass = null;
 
   /**
@@ -2115,6 +2122,16 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getEnum()
+  {
+    return enumEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getStringType()
   {
     return stringTypeEClass;
@@ -2456,6 +2473,8 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     orderedSetEClass = createEClass(ORDERED_SET);
     createEReference(orderedSetEClass, ORDERED_SET__PARAMS);
 
+    enumEClass = createEClass(ENUM);
+
     stringTypeEClass = createEClass(STRING_TYPE);
 
     intTypeEClass = createEClass(INT_TYPE);
@@ -2542,6 +2561,7 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     nullEClass.getESuperTypes().add(this.getliteral());
     sequenceEClass.getESuperTypes().add(this.getliteral());
     orderedSetEClass.getESuperTypes().add(this.getliteral());
+    enumEClass.getESuperTypes().add(this.getliteral());
     stringTypeEClass.getESuperTypes().add(this.gettypeLiteral());
     intTypeEClass.getESuperTypes().add(this.gettypeLiteral());
     realTypeEClass.getESuperTypes().add(this.gettypeLiteral());
@@ -2757,6 +2777,8 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
 
     initEClass(orderedSetEClass, OrderedSet.class, "OrderedSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getOrderedSet_Params(), this.getExpression(), null, "params", null, 0, -1, OrderedSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(enumEClass, org.eclipse.emf.ecoretools.ale.Enum.class, "Enum", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(stringTypeEClass, StringType.class, "StringType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

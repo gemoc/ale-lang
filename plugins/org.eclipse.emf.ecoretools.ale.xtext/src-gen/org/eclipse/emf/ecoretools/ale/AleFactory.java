@@ -521,6 +521,15 @@ public interface AleFactory extends EFactory
   OrderedSet createOrderedSet();
 
   /**
+   * Returns a new object of class '<em>Enum</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Enum</em>'.
+   * @generated
+   */
+  Enum createEnum();
+
+  /**
    * Returns a new object of class '<em>String Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

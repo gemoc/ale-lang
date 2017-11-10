@@ -3704,15 +3704,48 @@ ruleliteral returns [EObject current=null]
 			}
 		)
 		    |
+		(
+			(
+				{
+					/* */
+				}
+				{
+					$current = forceCreateModelElement(
+						grammarAccess.getLiteralAccess().getEnumAction_8_0(),
+						$current);
+				}
+			)
+			this_Ident_25=RULE_IDENT
+			{
+				newLeafNode(this_Ident_25, grammarAccess.getLiteralAccess().getIdentTerminalRuleCall_8_1());
+			}
+			otherlv_26='::'
+			{
+				newLeafNode(otherlv_26, grammarAccess.getLiteralAccess().getColonColonKeyword_8_2());
+			}
+			this_Ident_27=RULE_IDENT
+			{
+				newLeafNode(this_Ident_27, grammarAccess.getLiteralAccess().getIdentTerminalRuleCall_8_3());
+			}
+			otherlv_28='::'
+			{
+				newLeafNode(otherlv_28, grammarAccess.getLiteralAccess().getColonColonKeyword_8_4());
+			}
+			this_Ident_29=RULE_IDENT
+			{
+				newLeafNode(this_Ident_29, grammarAccess.getLiteralAccess().getIdentTerminalRuleCall_8_5());
+			}
+		)
+		    |
 		{
 			/* */
 		}
 		{
-			newCompositeNode(grammarAccess.getLiteralAccess().getTypeLiteralParserRuleCall_8());
+			newCompositeNode(grammarAccess.getLiteralAccess().getTypeLiteralParserRuleCall_9());
 		}
-		this_typeLiteral_24=ruletypeLiteral
+		this_typeLiteral_30=ruletypeLiteral
 		{
-			$current = $this_typeLiteral_24.current;
+			$current = $this_typeLiteral_30.current;
 			afterParserOrEnumRuleCall();
 		}
 	)

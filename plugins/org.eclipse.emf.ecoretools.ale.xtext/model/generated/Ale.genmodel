@@ -203,6 +203,7 @@
     <genClasses ecoreClass="Ale.ecore#//OrderedSet">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//OrderedSet/params"/>
     </genClasses>
+    <genClasses ecoreClass="Ale.ecore#//Enum"/>
     <genClasses ecoreClass="Ale.ecore#//StringType"/>
     <genClasses ecoreClass="Ale.ecore#//IntType"/>
     <genClasses ecoreClass="Ale.ecore#//RealType"/>

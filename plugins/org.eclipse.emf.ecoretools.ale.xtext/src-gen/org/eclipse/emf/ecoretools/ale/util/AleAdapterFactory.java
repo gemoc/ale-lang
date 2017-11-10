@@ -418,6 +418,11 @@ public class AleAdapterFactory extends AdapterFactoryImpl
         return createOrderedSetAdapter();
       }
       @Override
+      public Adapter caseEnum(org.eclipse.emf.ecoretools.ale.Enum object)
+      {
+        return createEnumAdapter();
+      }
+      @Override
       public Adapter caseStringType(StringType object)
       {
         return createStringTypeAdapter();
@@ -1285,6 +1290,21 @@ public class AleAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createOrderedSetAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.Enum <em>Enum</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.eclipse.emf.ecoretools.ale.Enum
+   * @generated
+   */
+  public Adapter createEnumAdapter()
   {
     return null;
   }
