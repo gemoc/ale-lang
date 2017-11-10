@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
+import org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureInsert;
@@ -273,9 +274,17 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 	
 	@Override
 	public Object caseIf(If ifStmt) {
-		Boolean condition = (Boolean) aqlEval(ifStmt.getCondition()); //TODO: check type
-		if(condition){
-			doSwitch(ifStmt.getThen());
+		Block selectedBlock = null;
+		for (ConditionalBlock conditionalBlock : ifStmt.getBlocks()) {
+			Object resEval = aqlEval(conditionalBlock.getCondition());
+			if(resEval instanceof Boolean && ((Boolean)resEval)) {
+				selectedBlock = conditionalBlock.getBlock();
+				break;
+			}
+		}
+		
+		if(selectedBlock != null){
+			doSwitch(selectedBlock);
 		}
 		else if(ifStmt.getElse() != null){
 			doSwitch(ifStmt.getElse());

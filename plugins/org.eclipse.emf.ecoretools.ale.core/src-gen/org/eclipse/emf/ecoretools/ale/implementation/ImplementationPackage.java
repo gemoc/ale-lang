@@ -1138,22 +1138,13 @@ public interface ImplementationPackage extends EPackage {
 	int IF = 18;
 
 	/**
-	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
+	 * The feature id for the '<em><b>Blocks</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IF__CONDITION = STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Then</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IF__THEN = STATEMENT_FEATURE_COUNT + 1;
+	int IF__BLOCKS = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Else</b></em>' containment reference.
@@ -1162,7 +1153,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IF__ELSE = STATEMENT_FEATURE_COUNT + 2;
+	int IF__ELSE = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>If</em>' class.
@@ -1171,7 +1162,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IF_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
+	int IF_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>If</em>' class.
@@ -1183,6 +1174,52 @@ public interface ImplementationPackage extends EPackage {
 	int IF_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ConditionalBlockImpl <em>Conditional Block</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ConditionalBlockImpl
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getConditionalBlock()
+	 * @generated
+	 */
+	int CONDITIONAL_BLOCK = 19;
+
+	/**
+	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITIONAL_BLOCK__CONDITION = STATEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Block</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITIONAL_BLOCK__BLOCK = STATEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Conditional Block</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITIONAL_BLOCK_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Conditional Block</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITIONAL_BLOCK_OPERATION_COUNT = STATEMENT_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ExpressionStatementImpl <em>Expression Statement</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1190,7 +1227,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getExpressionStatement()
 	 * @generated
 	 */
-	int EXPRESSION_STATEMENT = 19;
+	int EXPRESSION_STATEMENT = 20;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -1228,7 +1265,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getSwitch()
 	 * @generated
 	 */
-	int SWITCH = 20;
+	int SWITCH = 21;
 
 	/**
 	 * The feature id for the '<em><b>Param</b></em>' containment reference.
@@ -1283,7 +1320,7 @@ public interface ImplementationPackage extends EPackage {
 	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getCase()
 	 * @generated
 	 */
-	int CASE = 21;
+	int CASE = 22;
 
 	/**
 	 * The feature id for the '<em><b>Guard</b></em>' reference.
@@ -1929,26 +1966,15 @@ public interface ImplementationPackage extends EPackage {
 	EClass getIf();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.implementation.If#getCondition <em>Condition</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.emf.ecoretools.ale.implementation.If#getBlocks <em>Blocks</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Condition</em>'.
-	 * @see org.eclipse.emf.ecoretools.ale.implementation.If#getCondition()
+	 * @return the meta object for the reference list '<em>Blocks</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.If#getBlocks()
 	 * @see #getIf()
 	 * @generated
 	 */
-	EReference getIf_Condition();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.implementation.If#getThen <em>Then</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Then</em>'.
-	 * @see org.eclipse.emf.ecoretools.ale.implementation.If#getThen()
-	 * @see #getIf()
-	 * @generated
-	 */
-	EReference getIf_Then();
+	EReference getIf_Blocks();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.implementation.If#getElse <em>Else</em>}'.
@@ -1960,6 +1986,38 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getIf_Else();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock <em>Conditional Block</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Conditional Block</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock
+	 * @generated
+	 */
+	EClass getConditionalBlock();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock#getCondition <em>Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Condition</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock#getCondition()
+	 * @see #getConditionalBlock()
+	 * @generated
+	 */
+	EReference getConditionalBlock_Condition();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock#getBlock <em>Block</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Block</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock#getBlock()
+	 * @see #getConditionalBlock()
+	 * @generated
+	 */
+	EReference getConditionalBlock_Block();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement <em>Expression Statement</em>}'.
@@ -2578,20 +2636,12 @@ public interface ImplementationPackage extends EPackage {
 		EClass IF = eINSTANCE.getIf();
 
 		/**
-		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Blocks</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference IF__CONDITION = eINSTANCE.getIf_Condition();
-
-		/**
-		 * The meta object literal for the '<em><b>Then</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference IF__THEN = eINSTANCE.getIf_Then();
+		EReference IF__BLOCKS = eINSTANCE.getIf_Blocks();
 
 		/**
 		 * The meta object literal for the '<em><b>Else</b></em>' containment reference feature.
@@ -2600,6 +2650,32 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference IF__ELSE = eINSTANCE.getIf_Else();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ConditionalBlockImpl <em>Conditional Block</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ConditionalBlockImpl
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getConditionalBlock()
+		 * @generated
+		 */
+		EClass CONDITIONAL_BLOCK = eINSTANCE.getConditionalBlock();
+
+		/**
+		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONDITIONAL_BLOCK__CONDITION = eINSTANCE.getConditionalBlock_Condition();
+
+		/**
+		 * The meta object literal for the '<em><b>Block</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONDITIONAL_BLOCK__BLOCK = eINSTANCE.getConditionalBlock_Block();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ExpressionStatementImpl <em>Expression Statement</em>}' class.

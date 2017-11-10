@@ -52,6 +52,7 @@ import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.TypeLiteralContext;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.Case;
+import org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
@@ -226,12 +227,19 @@ public class ModelBuilder {
 		return varAssign; 
 	}
 	
-	public If buildIf(RExpressionContext condition, Block thenBlock, Block elseBlock, ParseResult<ModelUnit> parseRes) {
+	public If buildIf(List<ConditionalBlock> cBlocks, Block elseBlock, ParseResult<ModelUnit> parseRes) {
 		If ifStmt = implemFactory.createIf();
-		ifStmt.setCondition(parseExp(condition,parseRes));
-		ifStmt.setThen(thenBlock);
+		ifStmt.getBlocks().addAll(cBlocks);
 		ifStmt.setElse(elseBlock);
 		return ifStmt;
+	}
+	
+	public ConditionalBlock buildConditionalBlock(RExpressionContext condition, Block block, ParseResult<ModelUnit> parseRes) {
+		ConditionalBlock cBlock = implemFactory.createConditionalBlock();
+		cBlock.setCondition(parseExp(condition,parseRes));
+		cBlock.setBlock(block);
+		return cBlock;
+		
 	}
 	
 	public Block buildBlock(List<Statement> statements) {

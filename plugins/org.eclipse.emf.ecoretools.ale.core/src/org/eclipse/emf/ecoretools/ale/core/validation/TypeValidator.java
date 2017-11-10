@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass;
+import org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureInsert;
@@ -411,7 +412,11 @@ public class TypeValidator implements IValidator {
 	
 	@Override
 	public List<IValidationMessage> validateIf(If ifStmt) {
-		return validateIsBoolean(ifStmt.getCondition());
+		List<IValidationMessage> res = new ArrayList<>();
+		for (ConditionalBlock cBlock : ifStmt.getBlocks()) {
+			res.addAll(validateIsBoolean(cBlock.getCondition()));
+		}
+		return res;
 	}
 	
 	@Override

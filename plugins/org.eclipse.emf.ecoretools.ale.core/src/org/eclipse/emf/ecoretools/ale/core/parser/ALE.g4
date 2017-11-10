@@ -115,7 +115,7 @@ rCollection : '[' Integer '..' Integer ']' | rExpression
 rBlock : '{' (rStatement (rStatement)*)? '}'
 ;
 
-rIf : 'if' '(' rExpression ')' rBlock ('else' rBlock)?
+rIf : 'if' '(' rExpression ')' rBlock ('else' (rBlock | nestedIf=rIf))?
 ;
 
 rWhile : 'while' '(' rExpression ')' rBlock

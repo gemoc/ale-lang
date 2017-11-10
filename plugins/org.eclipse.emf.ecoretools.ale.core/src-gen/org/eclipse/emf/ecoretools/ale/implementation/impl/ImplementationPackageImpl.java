@@ -26,6 +26,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.Case;
+import org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
@@ -198,6 +199,13 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass conditionalBlockEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass expressionStatementEClass = null;
 
 	/**
@@ -262,6 +270,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 
 		// Initialize simple dependencies
 		AstPackage.eINSTANCE.eClass();
+		EcorePackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theImplementationPackage.createPackageContents();
@@ -787,7 +796,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIf_Condition() {
+	public EReference getIf_Blocks() {
 		return (EReference)ifEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -796,7 +805,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIf_Then() {
+	public EReference getIf_Else() {
 		return (EReference)ifEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -805,8 +814,26 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIf_Else() {
-		return (EReference)ifEClass.getEStructuralFeatures().get(2);
+	public EClass getConditionalBlock() {
+		return conditionalBlockEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConditionalBlock_Condition() {
+		return (EReference)conditionalBlockEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConditionalBlock_Block() {
+		return (EReference)conditionalBlockEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1001,9 +1028,12 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		createEReference(whileEClass, WHILE__BODY);
 
 		ifEClass = createEClass(IF);
-		createEReference(ifEClass, IF__CONDITION);
-		createEReference(ifEClass, IF__THEN);
+		createEReference(ifEClass, IF__BLOCKS);
 		createEReference(ifEClass, IF__ELSE);
+
+		conditionalBlockEClass = createEClass(CONDITIONAL_BLOCK);
+		createEReference(conditionalBlockEClass, CONDITIONAL_BLOCK__CONDITION);
+		createEReference(conditionalBlockEClass, CONDITIONAL_BLOCK__BLOCK);
 
 		expressionStatementEClass = createEClass(EXPRESSION_STATEMENT);
 		createEReference(expressionStatementEClass, EXPRESSION_STATEMENT__EXPRESSION);
@@ -1067,6 +1097,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		forEachEClass.getESuperTypes().add(this.getStatement());
 		whileEClass.getESuperTypes().add(this.getStatement());
 		ifEClass.getESuperTypes().add(this.getStatement());
+		conditionalBlockEClass.getESuperTypes().add(this.getStatement());
 		expressionStatementEClass.getESuperTypes().add(this.getStatement());
 		switchEClass.getESuperTypes().add(theAstPackage.getExpression());
 
@@ -1145,9 +1176,12 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		initEReference(getWhile_Body(), this.getBlock(), null, "body", null, 1, 1, While.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(ifEClass, If.class, "If", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getIf_Condition(), theAstPackage.getExpression(), null, "condition", null, 1, 1, If.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIf_Then(), this.getBlock(), null, "then", null, 1, 1, If.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIf_Blocks(), this.getConditionalBlock(), null, "blocks", null, 1, -1, If.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIf_Else(), this.getBlock(), null, "else", null, 0, 1, If.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(conditionalBlockEClass, ConditionalBlock.class, "ConditionalBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getConditionalBlock_Condition(), theAstPackage.getExpression(), null, "condition", null, 1, 1, ConditionalBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConditionalBlock_Block(), this.getBlock(), null, "block", null, 1, 1, ConditionalBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(expressionStatementEClass, ExpressionStatement.class, "ExpressionStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExpressionStatement_Expression(), theAstPackage.getExpression(), null, "expression", null, 1, 1, ExpressionStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

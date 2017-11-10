@@ -90,6 +90,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 			case ImplementationPackage.FOR_EACH: return createForEach();
 			case ImplementationPackage.WHILE: return createWhile();
 			case ImplementationPackage.IF: return createIf();
+			case ImplementationPackage.CONDITIONAL_BLOCK: return createConditionalBlock();
 			case ImplementationPackage.EXPRESSION_STATEMENT: return createExpressionStatement();
 			case ImplementationPackage.SWITCH: return createSwitch();
 			case ImplementationPackage.CASE: return createCase();
@@ -276,6 +277,16 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	public If createIf() {
 		IfImpl if_ = new IfImpl();
 		return if_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConditionalBlock createConditionalBlock() {
+		ConditionalBlockImpl conditionalBlock = new ConditionalBlockImpl();
+		return conditionalBlock;
 	}
 
 	/**

@@ -11,6 +11,7 @@
 package org.eclipse.emf.ecoretools.ale.core.parser.visitor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +57,7 @@ import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.VarRefContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ModelBuilder.Parameter;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
+import org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
@@ -225,10 +227,21 @@ public class AstVisitors {
 		public Statement visitRIf(RIfContext ctx) {
 			RExpressionContext cond = ctx.rExpression();
 			Block then = (new BlockVisitor(parseRes)).visit(ctx.rBlock().get(0));
-			Block elseB = null;
-			if(ctx.rBlock().size() > 1)
-				elseB = (new BlockVisitor(parseRes)).visit(ctx.rBlock().get(1));
-			If res = ModelBuilder.singleton.buildIf(cond,then,elseB,parseRes);
+			ConditionalBlock cBlock = ModelBuilder.singleton.buildConditionalBlock(cond, then, parseRes);
+			
+			If res = null;
+			if(ctx.nestedIf != null) {
+				res = (If) visitRIf(ctx.nestedIf);
+				res.getBlocks().add(0, cBlock);
+			}
+			else {
+				Block elseB = null;
+				if(ctx.rBlock().size() > 1) {
+					elseB = (new BlockVisitor(parseRes)).visit(ctx.rBlock().get(1));
+				}
+				res = ModelBuilder.singleton.buildIf(Arrays.asList(cBlock),elseB,parseRes);
+			}
+			
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
 			return res;

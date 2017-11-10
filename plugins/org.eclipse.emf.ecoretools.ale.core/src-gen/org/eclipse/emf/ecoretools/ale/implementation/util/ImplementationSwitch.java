@@ -225,6 +225,13 @@ public class ImplementationSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ImplementationPackage.CONDITIONAL_BLOCK: {
+				ConditionalBlock conditionalBlock = (ConditionalBlock)theEObject;
+				T result = caseConditionalBlock(conditionalBlock);
+				if (result == null) result = caseStatement(conditionalBlock);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ImplementationPackage.EXPRESSION_STATEMENT: {
 				ExpressionStatement expressionStatement = (ExpressionStatement)theEObject;
 				T result = caseExpressionStatement(expressionStatement);
@@ -531,6 +538,21 @@ public class ImplementationSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseIf(If object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Conditional Block</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Conditional Block</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConditionalBlock(ConditionalBlock object) {
 		return null;
 	}
 

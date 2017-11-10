@@ -26,7 +26,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//Method/tags"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//ModelUnit">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//ModelUnit/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//ModelUnit/services"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ModelUnit/classExtensions"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ModelUnit/classDefinitions"/>
@@ -34,7 +33,6 @@
     <genClasses image="false" ecoreClass="Implementation.ecore#//BehavioredClass">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//BehavioredClass/methods"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//BehavioredClass/attributes"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//BehavioredClass/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//BehavioredClass/fragment"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//Attribute">
@@ -84,9 +82,12 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//While/body"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//If">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//If/condition"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//If/then"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//If/blocks"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//If/else"/>
+    </genClasses>
+    <genClasses ecoreClass="Implementation.ecore#//ConditionalBlock">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ConditionalBlock/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ConditionalBlock/block"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//ExpressionStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ExpressionStatement/expression"/>

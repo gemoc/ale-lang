@@ -200,6 +200,15 @@ public interface ImplementationFactory extends EFactory {
 	If createIf();
 
 	/**
+	 * Returns a new object of class '<em>Conditional Block</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Conditional Block</em>'.
+	 * @generated
+	 */
+	ConditionalBlock createConditionalBlock();
+
+	/**
 	 * Returns a new object of class '<em>Expression Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

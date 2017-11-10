@@ -41,6 +41,7 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.EvalEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
+import org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
@@ -297,32 +298,50 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	@Override
 	public Object caseIf(If ifStmt) {
 		
-		validateAndStore(ifStmt.getCondition(),getCurrentScope());
+		for (ConditionalBlock cBlock : ifStmt.getBlocks()) {
+			validateAndStore(cBlock.getCondition(),getCurrentScope());
+		}
 		
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateIf(ifStmt)));
 		
 		/*
-		 * Then
+		 * Conditional blocks
 		 */
-		Map<String,Set<IType>> thenScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
-		IValidationResult validRes = validations.get(ifStmt.getCondition());
-		if(validRes != null) {
-			Map<String, Set<IType>> vartypes = validRes.getInferredVariableTypes(ifStmt.getCondition(), true);
-			thenScope.putAll(vartypes);
+		for (ConditionalBlock cBlock : ifStmt.getBlocks()) {
+			Map<String,Set<IType>> blockScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
+			IValidationResult validRes = validations.get(cBlock.getCondition());
+			if(validRes != null) {
+				Map<String, Set<IType>> vartypes = validRes.getInferredVariableTypes(cBlock.getCondition(), true);
+				blockScope.putAll(vartypes);
+			}
+			variableTypesStack.push(blockScope);
+			doSwitch(cBlock.getBlock());
+			variableTypesStack.pop();
 		}
-		variableTypesStack.push(thenScope);
-		doSwitch(ifStmt.getThen());
-		variableTypesStack.pop();
 		
 		/*
 		 * Else
 		 */
-		if(ifStmt.getElse() != null){
+		if(ifStmt.getElse() != null) {
 			Map<String,Set<IType>> elseScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
-			if(validRes != null) {
-				Map<String, Set<IType>> vartypes = validRes.getInferredVariableTypes(ifStmt.getCondition(), false);
-				elseScope.putAll(vartypes);
+			Map<String, Set<IType>> vartypes = new HashMap<>();
+			//Gather inferred types from previous conditionals
+			for (ConditionalBlock cBlock : ifStmt.getBlocks()) {
+				IValidationResult validRes = validations.get(cBlock.getCondition());
+				if(validRes != null) {
+					Map<String, Set<IType>> previousVartypes = validRes.getInferredVariableTypes(cBlock.getCondition(), false);
+					for(String varName : previousVartypes.keySet()) {
+						Set<IType> types = vartypes.get(varName);
+						if(types == null) {
+							vartypes.put(varName, previousVartypes.get(varName));
+						}
+						else {
+							types.addAll(previousVartypes.get(varName));
+						}
+					}
+				}
 			}
+			elseScope.putAll(vartypes);
 			variableTypesStack.push(elseScope);
 			doSwitch(ifStmt.getElse());
 			variableTypesStack.pop();

@@ -163,6 +163,10 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 				return createIfAdapter();
 			}
 			@Override
+			public Adapter caseConditionalBlock(ConditionalBlock object) {
+				return createConditionalBlockAdapter();
+			}
+			@Override
 			public Adapter caseExpressionStatement(ExpressionStatement object) {
 				return createExpressionStatementAdapter();
 			}
@@ -469,6 +473,20 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createIfAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock <em>Conditional Block</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock
+	 * @generated
+	 */
+	public Adapter createConditionalBlockAdapter() {
 		return null;
 	}
 
