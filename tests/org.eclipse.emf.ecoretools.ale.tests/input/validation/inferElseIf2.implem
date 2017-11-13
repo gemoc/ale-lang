@@ -1,0 +1,23 @@
+behavior test.infer;
+
+open class A {
+	def void foo(){
+		EObject localVar;
+		if(not localVar.oclIsTypeOf(abc::A)) {
+			localVar.foo(); //not valid
+			localVar.bar(); //not valid
+		}
+		else if(localVar.oclIsTypeOf(abc::B)) {
+			localVar.foo(); //valid
+			localVar.bar(); //valid
+		}
+		else {
+			localVar.foo(); //valid
+			localVar.bar(); //not valid
+		}
+	}
+}
+
+open class B {
+	def void bar() {}
+}

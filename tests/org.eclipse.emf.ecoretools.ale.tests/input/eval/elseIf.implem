@@ -1,0 +1,20 @@
+behavior test.elseif;
+open class ClassA {
+	
+	@main
+	def int main() {
+		result := self.elseif(1)+''+self.elseif(2)+''+self.elseif(3);
+	}
+	
+	def int elseif(int cond) {
+		if(cond = 1) {
+			result := 3;
+		}
+		else if(cond = 2) {
+			result := 4;
+		}
+		else {
+			result := 5;
+		}
+	}
+}

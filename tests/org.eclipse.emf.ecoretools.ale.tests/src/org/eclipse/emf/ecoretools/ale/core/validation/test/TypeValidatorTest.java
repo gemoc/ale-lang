@@ -1078,6 +1078,38 @@ public class TypeValidatorTest {
 	}
 	
 	@Test
+	public void testInferElseIf() {
+		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferElseIf.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(3, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 249, 254, "Couldn't find the 'bar(EClassifier=A)' service", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 293, 298, "Couldn't find the 'foo(EClassifier=EObject)' service", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 324, 329, "Couldn't find the 'bar(EClassifier=EObject)' service", msg.get(2));
+	}
+	
+	@Test
+	public void testInferNotElseIf() {
+		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferElseIf2.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(3, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 126, 131, "Couldn't find the 'foo(EClassifier=EObject)' service", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 157, 162, "Couldn't find the 'bar(EClassifier=EObject)' service", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 328, 333, "Couldn't find the 'bar(EClassifier=A)' service\nCouldn't find the 'bar(EClassifier=EObject)' service", msg.get(2));
+	}
+	
+	@Test
 	public void testInferWhile() {
 		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferWhile.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);

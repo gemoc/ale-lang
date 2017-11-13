@@ -518,6 +518,16 @@ public class EvalTest {
 	}
 	
 	@Test
+	public void testElseIf(){
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/elseIf.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals("345",res.getValue());
+	}
+	
+	@Test
 	public void testAdd(){
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/add.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
