@@ -1138,7 +1138,7 @@ public interface ImplementationPackage extends EPackage {
 	int IF = 18;
 
 	/**
-	 * The feature id for the '<em><b>Blocks</b></em>' reference list.
+	 * The feature id for the '<em><b>Blocks</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1966,10 +1966,10 @@ public interface ImplementationPackage extends EPackage {
 	EClass getIf();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.emf.ecoretools.ale.implementation.If#getBlocks <em>Blocks</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.implementation.If#getBlocks <em>Blocks</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Blocks</em>'.
+	 * @return the meta object for the containment reference list '<em>Blocks</em>'.
 	 * @see org.eclipse.emf.ecoretools.ale.implementation.If#getBlocks()
 	 * @see #getIf()
 	 * @generated
@@ -2636,7 +2636,7 @@ public interface ImplementationPackage extends EPackage {
 		EClass IF = eINSTANCE.getIf();
 
 		/**
-		 * The meta object literal for the '<em><b>Blocks</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Blocks</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

@@ -21,7 +21,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
@@ -50,7 +51,7 @@ public class IfImpl extends StatementImpl implements If {
 	public static final String copyright = " Copyright (c) 2017 Inria and Obeo.\n All rights reserved. This program and the accompanying materials\n are made available under the terms of the Eclipse Public License v1.0\n which accompanies this distribution, and is available at\n http://www.eclipse.org/legal/epl-v10.html\n\n Contributors:\n     Inria - initial API and implementation\n";
 
 	/**
-	 * The cached value of the '{@link #getBlocks() <em>Blocks</em>}' reference list.
+	 * The cached value of the '{@link #getBlocks() <em>Blocks</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getBlocks()
@@ -95,7 +96,7 @@ public class IfImpl extends StatementImpl implements If {
 	 */
 	public EList<ConditionalBlock> getBlocks() {
 		if (blocks == null) {
-			blocks = new EObjectResolvingEList<ConditionalBlock>(ConditionalBlock.class, this, ImplementationPackage.IF__BLOCKS);
+			blocks = new EObjectContainmentEList<ConditionalBlock>(ConditionalBlock.class, this, ImplementationPackage.IF__BLOCKS);
 		}
 		return blocks;
 	}
@@ -151,6 +152,8 @@ public class IfImpl extends StatementImpl implements If {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case ImplementationPackage.IF__BLOCKS:
+				return ((InternalEList<?>)getBlocks()).basicRemove(otherEnd, msgs);
 			case ImplementationPackage.IF__ELSE:
 				return basicSetElse(null, msgs);
 		}

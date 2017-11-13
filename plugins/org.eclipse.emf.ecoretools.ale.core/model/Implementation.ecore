@@ -112,7 +112,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="If" eSuperTypes="#//Statement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="blocks" lowerBound="1"
-        upperBound="-1" eType="#//ConditionalBlock"/>
+        upperBound="-1" eType="#//ConditionalBlock" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="else" eType="#//Block"
         containment="true"/>
   </eClassifiers>

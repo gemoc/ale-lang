@@ -39,7 +39,7 @@ public interface If extends Statement {
 	String copyright = " Copyright (c) 2017 Inria and Obeo.\n All rights reserved. This program and the accompanying materials\n are made available under the terms of the Eclipse Public License v1.0\n which accompanies this distribution, and is available at\n http://www.eclipse.org/legal/epl-v10.html\n\n Contributors:\n     Inria - initial API and implementation\n";
 
 	/**
-	 * Returns the value of the '<em><b>Blocks</b></em>' reference list.
+	 * Returns the value of the '<em><b>Blocks</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -47,9 +47,9 @@ public interface If extends Statement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Blocks</em>' reference list.
+	 * @return the value of the '<em>Blocks</em>' containment reference list.
 	 * @see org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage#getIf_Blocks()
-	 * @model required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	EList<ConditionalBlock> getBlocks();
