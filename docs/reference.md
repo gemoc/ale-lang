@@ -18,8 +18,8 @@ This file descibes a Domain Specific Language made executable with ALE.
 It defines a scope containing all declared elements of a DSL, which are the abstract syntax files (.ecore files) and the semantic files (.ale files) <br>
 It is mainly used for the execution and the validation (type checking, name conflicts...).
 
-It uses the file extension *dsl*. <br>
-It is a standard Java properties file (i.e a textual file where each line follows the syntax \<key\>=\<value\>)
+It is a standard Java properties file (i.e a textual file where each line follows the syntax \<key\>=\<value\>) <br>
+It uses the file extension *properties*.
 
 We use the special keys:
  * syntax = Comma separated list of paths to .ecore files.
@@ -28,7 +28,7 @@ We use the special keys:
 
 Examples:
 
-*logo-standalone.dsl*
+*logo-standalone.properties*
 
 ```
 syntax=../logo.model/model/ASMLogo.ecore,../logo.model/model/VMLogo.ecore
@@ -38,7 +38,7 @@ behavior=../logo.example/data/LogoProgram.ale
 We also suport Eclipse Platform URL that ease the location of files within a workspace.
 It follows the syntax : platform:/resource/\<project\>/\<path to file.ale\>
 
-*logo.dsl*
+*logo.properties*
 
 ```
 syntax=platform:/resource/logo.model/model/ASMLogo.ecore,platform:/resource/logo.model/model/VMLogo.ecore

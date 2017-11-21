@@ -49,7 +49,7 @@ public class AleSessionManagerListener implements SessionManagerListener {
 	public static final String BEHAVIOR_LAYER = "Behavior";
 	public static final String ECORE_VP_EXTENSION = "BehaviorEntities";
 	public static final String IMPLEM_EXTENSION = "ale";
-	public static final String DSL_EXTENSION = "dsl";
+	public static final String DSL_EXTENSION = "properties";
 	
 	AleWorkspaceListener wsListener;
 
@@ -103,7 +103,7 @@ public class AleSessionManagerListener implements SessionManagerListener {
 		ALEInterpreter interpreter = new ALEInterpreter();
 		rs.getResourceFactoryRegistry()
 			.getExtensionToFactoryMap()
-			.put("dsl", new AleResourceFactory(interpreter.getQueryEnvironment(),rs));
+			.put("properties", new AleResourceFactory(interpreter.getQueryEnvironment(),rs));
 	}
 	
 	private Optional<Resource> getDsl(Session session) {
@@ -127,7 +127,7 @@ public class AleSessionManagerListener implements SessionManagerListener {
 			return Optional.of(dslRes.get(0));
 		}
 		else {
-			// TODO: raise error (only one .dsl file)
+			// TODO: raise error (only one .properties file)
 			return Optional.of(dslRes.get(0));
 		}
 	}

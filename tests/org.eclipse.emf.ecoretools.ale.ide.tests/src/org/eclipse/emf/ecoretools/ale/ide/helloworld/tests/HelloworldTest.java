@@ -107,7 +107,7 @@ public class HelloworldTest {
 		IResourcesSetupUtil.reallyWaitForAutoBuild();
 		
 		assertNotNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/model/helloworld.ale"));
-		assertNotNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/model/helloworld.dsl"));
+		assertNotNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/model/helloworld.properties"));
 		assertNotNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/model/HelloWorld.xmi"));
 		assertNotNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/model/helloworld.aird"));
 		assertNotNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/model/helloworld.ecore"));
@@ -120,7 +120,7 @@ public class HelloworldTest {
 		assertNoMarkers();
 		
 		bot.viewByTitle("Model Explorer").show();
-		SWTBotTreeItem dslItem = bot.tree().getTreeItem("helloworld").getNode("model").getNode("helloworld.dsl").select();
+		SWTBotTreeItem dslItem = bot.tree().getTreeItem("helloworld").getNode("model").getNode("helloworld.properties").select();
 		dslItem.contextMenu("Run As").menu("1 ALE launch").click();
 		bot.textWithLabel("Select a resource to open (? = any character, * = any string):").setText("*xmi");
 		bot.button("OK").click();
@@ -130,7 +130,7 @@ public class HelloworldTest {
 		Widget consoleViewComposite = view.getWidget();
 		StyledText console = bot.widget(WidgetMatcherFactory.widgetOfType(StyledText.class), consoleViewComposite);
 		SWTBotStyledText styledText = new SWTBotStyledText(console);
-		assertTextContains("\nRun helloworld.dsl\n------------\nHello world!\n", styledText);
+		assertTextContains("\nRun helloworld.properties\n------------\nHello world!\n", styledText);
 	}
 	
 	private void assertNoMarkers() throws CoreException {

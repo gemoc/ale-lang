@@ -24,7 +24,7 @@ public class Main {
 		/*
 		 * Input files
 		 */
-		String dslFile = "logo-standalone.dsl";
+		String dslFile = "logo-standalone.properties";
 		String modelFile = "../logo.example/data/LogoProgram.xmi";
 		
 		/*

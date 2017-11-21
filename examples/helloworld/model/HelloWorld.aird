@@ -3,7 +3,7 @@
   <viewpoint:DAnalysis xmi:id="_uZE5QE-AEeeTs_NIVZhgJA" selectedViews="_uaToUE-AEeeTs_NIVZhgJA _uagcoE-AEeeTs_NIVZhgJA _x5-NIE-AEeeTs_NIVZhgJA" version="11.1.0.201608251200">
     <semanticResources>HelloWorld.ecore</semanticResources>
     <semanticResources>http://www.eclipse.org/emf/2002/Ecore</semanticResources>
-    <semanticResources>HelloWorld.dsl</semanticResources>
+    <semanticResources>HelloWorld.properties</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_uaToUE-AEeeTs_NIVZhgJA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_u5p2wE-AEeeTs_NIVZhgJA" name="helloworld class diagram" representation="_u5p2wU-AEeeTs_NIVZhgJA">
@@ -80,8 +80,8 @@
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']"/>
       </ownedElements>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_5otacE-AEeeTs_NIVZhgJA" name="msg : EString">
-        <target xmi:type="implementation:Attribute" href="HelloWorld.dsl#//HelloWorld/@attributes.0"/>
-        <semanticElements xmi:type="implementation:Attribute" href="HelloWorld.dsl#//HelloWorld/@attributes.0"/>
+        <target xmi:type="implementation:Attribute" href="HelloWorld.properties#//HelloWorld/@attributes.0"/>
+        <semanticElements xmi:type="implementation:Attribute" href="HelloWorld.properties#//HelloWorld/@attributes.0"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_5ouBgE-AEeeTs_NIVZhgJA" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EAttribute.gif" labelAlignment="LEFT" labelPosition="node">
           <labelFormat>bold</labelFormat>
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']/@style"/>
@@ -89,8 +89,8 @@
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']"/>
       </ownedElements>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_BEIDIE-BEeeTs_NIVZhgJA" name="entryPoint()">
-        <target xmi:type="implementation:Method" href="HelloWorld.dsl#//HelloWorld/@methods.1"/>
-        <semanticElements xmi:type="implementation:Method" href="HelloWorld.dsl#//HelloWorld/@methods.1"/>
+        <target xmi:type="implementation:Method" href="HelloWorld.properties#//HelloWorld/@methods.1"/>
+        <semanticElements xmi:type="implementation:Method" href="HelloWorld.properties#//HelloWorld/@methods.1"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_BEIqME-BEeeTs_NIVZhgJA" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EOperation.gif" labelAlignment="LEFT" labelPosition="node">
           <labelFormat>bold</labelFormat>
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']/@style"/>

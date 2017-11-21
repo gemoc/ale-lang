@@ -22,7 +22,7 @@ The interesting files of the `helloworld` project are inside the folder `model`:
   Graphical representation of `HelloWorld.ecore`
 * `HelloWorld.ale`<br>
   Semantic for `HelloWolrd.ecore`
-* `HelloWorld.dsl`<br>
+* `HelloWorld.properties`<br>
   Do the link between `HelloWolrd.ecore` and `HelloWorld.ale`
 * `HelloWorld.ecore`<br>
   Metamodel scribing the EClass HelloWorld
@@ -60,13 +60,13 @@ We are implementing the EOperation `greeting()` by returning the value of `msg`.
 Run!
 ----
 
-To launch the execution do a right click on `HelloWolrd.dsl` and select `Run As > Ale Launch`<br>
+To launch the execution do a right click on `HelloWolrd.properties` and select `Run As > Ale Launch`<br>
 Then type `*xmi` and select `HelloWorld.xmi`
 
 The console will show the result:
 
 ```
-Run HelloWorld.dsl
+Run HelloWorld.properties
 ------------
 Hello world!
 ```
