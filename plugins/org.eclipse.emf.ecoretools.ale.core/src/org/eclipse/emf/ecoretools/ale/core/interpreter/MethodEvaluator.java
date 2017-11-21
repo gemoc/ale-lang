@@ -43,6 +43,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
+import org.eclipse.emf.ecoretools.ale.implementation.Statement;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
@@ -63,9 +64,19 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 	BasicDiagnostic diagnostic;
 	Stack<Map<String, Object>> variablesStack;
 	
+	List<StatementListener> listeners;
+	
 	public MethodEvaluator (IQueryEvaluationEngine aqlEngine, DynamicFeatureRegistry dynamicFeatureAccess) {
 		this.aqlEngine = aqlEngine;
 		this.dynamicFeatureAccess = dynamicFeatureAccess;
+		this.listeners = new ArrayList<>();
+	}
+	
+	public MethodEvaluator (IQueryEvaluationEngine aqlEngine, DynamicFeatureRegistry dynamicFeatureAccess, List<StatementListener> listeners) {
+		this(aqlEngine,dynamicFeatureAccess);
+		if(listeners != null) {
+			this.listeners = listeners;
+		}
 	}
 	
 	public EvaluationResult eval(EObject target, Method operation, List<Object> parameters) {
@@ -106,17 +117,20 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 	
 	@Override
 	public Object caseBlock(Block block) {
+		preExec(block);
 		Map<String, Object> newScope = new HashMap<String, Object>();
 		variablesStack.push(newScope);
 		block.getStatements()
 			.stream()
 			.forEach(stmt -> doSwitch(stmt));
 		variablesStack.pop();
+		postExec(block);
 		return null;
 	}
 	
 	@Override
 	public Object caseVariableDeclaration(VariableDeclaration varDecl) {
+		preExec(varDecl);
 		Object value = aqlEval(varDecl.getInitialValue());
 		variablesStack.peek().put(varDecl.getName(), value);
 		return null;
@@ -124,6 +138,7 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 	
 	@Override
 	public Object caseVariableAssignment(VariableAssignment varAssign) {
+		preExec(varAssign);
 		Map<String,Object> scope = findScope(varAssign.getName());
 		if(scope != null) {
 			Object value = aqlEval(varAssign.getValue());
@@ -136,11 +151,13 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 			
 			//TODO: error: var not def	
 		}
+		postExec(varAssign);
 		return null;
 	}
 	
 	@Override
 	public Object caseFeatureAssignment(FeatureAssignment featAssign) {
+		preExec(featAssign);
 		Object assigned = aqlEval(featAssign.getTarget());
 		Object value = aqlEval(featAssign.getValue());
 
@@ -186,11 +203,13 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 				}
 			}
 		}
+		postExec(featAssign);
 		return null;
 	}
 	
 	@Override
 	public Object caseFeatureInsert(FeatureInsert featInsert) {
+		preExec(featInsert);
 		Object assigned = aqlEval(featInsert.getTarget());
 		Object value = aqlEval(featInsert.getValue());
 		
@@ -207,11 +226,13 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 				dynamicFeatureAccess.insertDynamicFeatureValue(((EObject)assigned),featInsert.getTargetFeature(),value);
 			}
 		}
+		postExec(featInsert);
 		return null;
 	}
 	
 	@Override
 	public Object caseFeatureRemove(FeatureRemove featRemove) {
+		preExec(featRemove);
 		Object assigned = aqlEval(featRemove.getTarget());
 		Object value = aqlEval(featRemove.getValue());
 			
@@ -227,11 +248,13 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 				dynamicFeatureAccess.removeDynamicFeatureValue(((EObject)assigned),featRemove.getTargetFeature(),value);
 			}
 		}
+		postExec(featRemove);
 		return null;
 	}
 	
 	@Override
 	public Object caseFeaturePut(FeaturePut featPut) {
+		preExec(featPut);
 		Object assigned = aqlEval(featPut.getTarget());
 		Object key = aqlEval(featPut.getKey());
 		Object value = aqlEval(featPut.getValue());
@@ -243,11 +266,13 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 				((EMap)featureValue).put(key,value);
 			}
 		}
+		postExec(featPut);
 		return null;
 	}
 	
 	@Override
 	public Object caseForEach(ForEach forEach) {
+		preExec(forEach);
 		Collection<?> collection = (Collection<?>) aqlEval(forEach.getCollectionExpression());//TODO: check type
 		Map<String,Object> newScope = new HashMap<String,Object>();
 		variablesStack.push(newScope);
@@ -259,21 +284,25 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 			});
 		
 		variablesStack.pop();
+		postExec(forEach);
 		return null;
 	}
 	
 	@Override
 	public Object caseWhile(While loop) {
+		preExec(loop);
 		Object conditionValue = aqlEval(loop.getCondition());
 		while(conditionValue instanceof Boolean && conditionValue.equals(true)){
 			doSwitch(loop.getBody());
 			conditionValue = aqlEval(loop.getCondition());
 		}
+		postExec(loop);
 		return null;
 	}
 	
 	@Override
 	public Object caseIf(If ifStmt) {
+		preExec(ifStmt);
 		Block selectedBlock = null;
 		for (ConditionalBlock conditionalBlock : ifStmt.getBlocks()) {
 			Object resEval = aqlEval(conditionalBlock.getCondition());
@@ -289,12 +318,16 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 		else if(ifStmt.getElse() != null){
 			doSwitch(ifStmt.getElse());
 		}
+		postExec(ifStmt);
 		return null;
 	}
 	
 	@Override
 	public Object caseExpressionStatement(ExpressionStatement stmt) {
-		return aqlEval(stmt.getExpression());
+		preExec(stmt);
+		Object res = aqlEval(stmt.getExpression());
+		postExec(stmt);
+		return res;
 	}
 	
 	/*
@@ -338,4 +371,11 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 		return null;
 	}
 	
+	private void preExec(Statement stmt) {
+		listeners.forEach(listener -> listener.preExec(stmt,variablesStack));
+	}
+	
+	private void postExec(Statement stmt) {
+		listeners.forEach(listener -> listener.postExec(stmt,variablesStack));
+	}
 }

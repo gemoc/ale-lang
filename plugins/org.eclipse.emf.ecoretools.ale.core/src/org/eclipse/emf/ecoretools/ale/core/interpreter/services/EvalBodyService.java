@@ -66,7 +66,7 @@ public class EvalBodyService extends AbstractService {
 	@Override
 	public Object internalInvoke(Object[] arguments) throws Exception {
 		EObject caller = (EObject) arguments[0];
-		MethodEvaluator evaluator = new MethodEvaluator(new ExpressionEvaluationEngine(evalEnv.getQueryEnvironment(),evalEnv.getListeners()), evalEnv.getFeatureAccess());
+		MethodEvaluator evaluator = new MethodEvaluator(new ExpressionEvaluationEngine(evalEnv.getQueryEnvironment(),evalEnv.getCallListeners()), evalEnv.getFeatureAccess(), evalEnv.getStatementListeners());
 		List<Object> args = new ArrayList<Object>();
 		for(int i = 1; i < arguments.length; i++)
 			args.add(arguments[i]);

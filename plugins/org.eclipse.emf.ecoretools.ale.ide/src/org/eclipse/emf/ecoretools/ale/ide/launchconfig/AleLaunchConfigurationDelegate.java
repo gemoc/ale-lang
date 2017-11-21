@@ -10,14 +10,29 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.ide.launchconfig;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.StatementListener;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.services.ServiceCallListener;
+import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
+import org.eclipse.emf.ecoretools.ale.ide.debug.AleDebugTarget;
+import org.eclipse.emf.ecoretools.ale.ide.debug.AleSourceLookupDirector;
+import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDelegate {
 	
@@ -34,7 +49,20 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IResource dslFile = workspace.getRoot().findMember(dslLocation);
 		IResource modelFile = workspace.getRoot().findMember(modelLocation);
-		 
-		RunModelAction.launch(dslFile, modelFile);
+		
+		ALEInterpreter interpreter = RunModelAction.createInterpreter(dslFile,modelFile,new ArrayList<>(),new ArrayList<>());
+		List<ParseResult<ModelUnit>> parsedSemantics = RunModelAction.loadSemantics(interpreter, dslFile);
+		EObject caller = RunModelAction.loadCaller(interpreter, modelFile);
+		
+		Job evalJob = RunModelAction.createEvalJob(dslFile.getName(),interpreter,caller,parsedSemantics);
+		
+		if (ILaunchManager.DEBUG_MODE.equals(mode)) {
+			AleDebugTarget target = new AleDebugTarget(launch,evalJob,parsedSemantics, interpreter);
+	        launch.addDebugTarget(target);
+	        interpreter.addServiceListener(target.getDebugger());
+	        interpreter.addStatementListener(target.getDebugger());
+	    }
+		
+		evalJob.schedule();
 	}
 }

@@ -334,4 +334,13 @@ public class DynamicFeatureRegistry {
 				
 			});
     }
+    
+    /**
+     * Return Base->Runtime associations
+     * 
+     * Runtime classes are fragments computed from re-opened classes
+     */
+    public Map<EClass, EClass> getBaseToRuntime() {
+		return baseToRuntime;
+	}
 }

@@ -113,7 +113,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			.filter(u->u != null)
 			.collect(Collectors.toList());
 		
-		new EvalEnvironment(qryEnv, allUnits, null, null); //add runtime services to qryEnv
+		new EvalEnvironment(qryEnv, allUnits, null, null, null); //add runtime services to qryEnv
 
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateModelBehavior(allUnits)));
 		

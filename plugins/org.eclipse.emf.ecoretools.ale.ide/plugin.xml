@@ -64,8 +64,10 @@
      <launchConfigurationType
            delegate="org.eclipse.emf.ecoretools.ale.ide.launchconfig.AleLaunchConfigurationDelegate"
            id="org.eclipse.emf.ecoretools.ale.ide.launchConfigurationType"
-           modes="run"
-           name="ALE launch">
+           modes="run,debug"
+           name="ALE launch"
+           sourceLocatorId="org.eclipse.emf.ecoretools.ale.ide.aleSourceLocator"
+           sourcePathComputerId="org.eclipse.emf.ecoretools.ale.ide.aleSourcePathComputer">
      </launchConfigurationType>
   </extension>
   <extension
@@ -109,4 +111,68 @@
         id="org.eclipse.emf.ecoretools.ale.ide.launcher.image">
     </launchConfigurationTypeImage>
   </extension>
+     <extension
+           point="org.eclipse.debug.core.sourceLocators">
+        <sourceLocator
+              class="org.eclipse.emf.ecoretools.ale.ide.debug.AleSourceLookupDirector"
+              id="org.eclipse.emf.ecoretools.ale.ide.aleSourceLocator"
+              name="AleSourceLocator">
+        </sourceLocator>
+     </extension>
+     <extension
+           point="org.eclipse.debug.core.sourcePathComputers">
+        <sourcePathComputer
+              class="org.eclipse.emf.ecoretools.ale.ide.debug.AleSourcePathComputerDelegate"
+              id="org.eclipse.emf.ecoretools.ale.ide.aleSourcePathComputer">
+        </sourcePathComputer>
+     </extension>
+     <extension
+           point="org.eclipse.debug.ui.debugModelPresentations">
+        <debugModelPresentation
+              class="org.eclipse.emf.ecoretools.ale.ide.debug.AleDebugModelPresentation"
+              id="org.eclipse.emf.ecoretools.ale.ide">
+        </debugModelPresentation>
+     </extension>
+     <extension
+           id="aleBreakpointMarker"
+           name="ALE Breakpoint Marker"
+           point="org.eclipse.core.resources.markers">
+        <super
+              type="org.eclipse.debug.core.lineBreakpointMarker">
+        </super>
+        <persistent value="true"/>
+     </extension>
+     <extension
+           point="org.eclipse.debug.core.breakpoints">
+        <breakpoint
+              class="org.eclipse.emf.ecoretools.ale.ide.debug.AleLineBreakpoint"
+              id="org.eclipse.emf.ecoretools.ale.ide.breakpoint"
+              markerType="org.eclipse.emf.ecoretools.ale.ide.aleBreakpointMarker"
+              name="ALE Breakpoint">
+        </breakpoint>
+     </extension>
+     <extension
+           point="org.eclipse.core.runtime.adapters">
+        <factory
+              adaptableType="org.eclipse.xtext.ui.editor.XtextEditor"
+              class="org.eclipse.emf.ecoretools.ale.ide.debug.AleBreakpointAdapterFactory">
+           <adapter
+                 type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+           </adapter>
+        </factory>
+     </extension>
+     <extension
+           point="org.eclipse.ui.editorActions">
+        <editorContribution
+              id="org.eclipse.emf.ecoretools.ale.ide.rulerActions"
+              targetID="org.eclipse.emf.ecoretools.Ale">
+           <action
+                 actionID="RulerDoubleClick"
+                 class="org.eclipse.emf.ecoretools.ale.ide.debug.RulerToggleBreakpointAction"
+                 id="org.eclipse.emf.ecoretools.ale.ide.doubleClickBreakpointAction"
+                 label="label"
+                 style="push">
+           </action>
+        </editorContribution>
+     </extension>
 </plugin>

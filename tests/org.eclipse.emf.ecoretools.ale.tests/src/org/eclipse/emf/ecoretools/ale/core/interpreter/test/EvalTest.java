@@ -933,7 +933,7 @@ public class EvalTest {
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		
-		interpreter.addListener(new ServiceCallListener() {
+		interpreter.addServiceListener(new ServiceCallListener() {
 			@Override
 			public void preCall(IService service, Object[] arguments) {
 				System.out.println("In:"+service.getName());
@@ -947,7 +947,7 @@ public class EvalTest {
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
 		assertEquals(3,res.getValue());
-		assertEquals("In:aqlFeatureAccess\nOut:aqlFeatureAccess\nIn:getSelf\nOut:getSelf\n", outContent.toString());
+		assertEquals("In:main\nIn:aqlFeatureAccess\nOut:aqlFeatureAccess\nIn:getSelf\nOut:getSelf\nOut:main\n", outContent.toString());
 		
 		System.setOut(null);
 	}

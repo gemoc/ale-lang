@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IResource;
@@ -22,8 +23,15 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.StatementListener;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.services.ServiceCallListener;
+import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
+import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.ide.WorkbenchDsl;
+import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.console.ConsolePlugin;
@@ -31,6 +39,8 @@ import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.dialogs.ResourceListSelectionDialog;
+
+import com.google.common.collect.Lists;
 
 public class RunModelAction {
 
@@ -48,22 +58,25 @@ public class RunModelAction {
 		Object[] selected = dialog.getResult();
 		
 		if(selected != null && selected.length == 1 && selected[0] instanceof IResource) {
-			launch(dslFile,(IResource)selected[0]);
+			launch(dslFile,(IResource)selected[0], Lists.newArrayList(), Lists.newArrayList());
 		}
 	}
 	
 	/**
 	 * Execute a DSL on a model
 	 */
-	public static void launch(IResource dslFile, IResource modelFile) {
-		
+	public static void launch(IResource dslFile, IResource modelFile, List<ServiceCallListener> callListeners, List<StatementListener> stmtListeners) {
+		ALEInterpreter interpreter = createInterpreter(dslFile,modelFile,callListeners,stmtListeners);
+		List<ParseResult<ModelUnit>> parsedSemantics = loadSemantics(interpreter, dslFile);
+		EObject caller = loadCaller(interpreter, modelFile);
+		Job evalJob = createEvalJob(dslFile.getName(),interpreter,caller,parsedSemantics);
+		evalJob.schedule();
+	}
+	
+	public static ALEInterpreter createInterpreter(IResource dslFile, IResource modelFile, List<ServiceCallListener> callListeners, List<StatementListener> stmtListeners) {
 		String dslProject = dslFile.getProject().getName();
-		String modelLocation = modelFile.getLocationURI().toString();
 		String modelProject = modelFile.getProject().getName();
 		
-		/*
-		 * Init interpreter
-		 */
 		Set<String> projects = new HashSet<String>();
 		Set<String> plugins = new HashSet<String>();
 		projects.add(dslProject);
@@ -71,10 +84,34 @@ public class RunModelAction {
 		ALEInterpreter interpreter = new ALEInterpreter();
 		interpreter.javaExtensions.updateScope(plugins,projects);
 		interpreter.javaExtensions.reloadIfNeeded();
+		callListeners.forEach(callListener -> interpreter.addServiceListener(callListener));
+		stmtListeners.forEach(stmtListener -> interpreter.addStatementListener(stmtListener));
 		
-		/*
-		 * Eval
-		 */
+		return interpreter;
+	}
+	
+	/**
+	 * Should be called after loadSemantics() to use EClasses loaded in the interpreter environment
+	 */
+	public static EObject loadCaller(ALEInterpreter interpreter, IResource modelFile) {
+		String modelURI = modelFile.getLocationURI().toString();
+    	Resource model = interpreter.loadModel(modelURI);
+		return model.getContents().get(0);
+	}
+	
+	public static List<ParseResult<ModelUnit>> loadSemantics(ALEInterpreter interpreter, IResource dslFile) {
+		List<ParseResult<ModelUnit>> parsedSemantics = new ArrayList<>();
+		try {
+			WorkbenchDsl dsl = new WorkbenchDsl(dslFile.getLocationURI().getPath().toString());
+			parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(dsl);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return parsedSemantics;
+	}
+	
+	public static Job createEvalJob(String dslFileName, ALEInterpreter interpreter, EObject caller, List<ParseResult<ModelUnit>> parsedSemantics) {
+		
 		Job evalJob = new Job("AQL Eval") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
@@ -83,21 +120,17 @@ public class RunModelAction {
 				PrintStream oldOut = System.out;
 				System.setOut(new PrintStream(console.newMessageStream()));
 				
-				System.out.println("\nRun "+dslFile.getName());
+				System.out.println("\nRun "+dslFileName);
 				System.out.println("------------");
 				
 				Thread execThread = new Thread("Aql eval thread"){
 					@Override
 					public void run() {
-						try {
-							IEvaluationResult result = interpreter.eval(modelLocation, new ArrayList(), new WorkbenchDsl(dslFile.getLocationURI().getPath().toString()));
-							interpreter.getLogger().diagnosticForHuman();
-							
-							if(result.getDiagnostic().getMessage() != null) {
-								System.out.println(result.getDiagnostic().getMessage());
-							}
-						} catch (FileNotFoundException e) {
-							e.printStackTrace();
+						IEvaluationResult result = interpreter.eval(caller, new ArrayList(), parsedSemantics);
+						interpreter.getLogger().diagnosticForHuman();
+						
+						if(result.getDiagnostic().getMessage() != null) {
+							System.out.println(result.getDiagnostic().getMessage());
 						}
 						this.stop();
 					}
@@ -124,7 +157,7 @@ public class RunModelAction {
 				return Status.OK_STATUS;
 			}
 		};
-		evalJob.schedule();
+		return evalJob;
 	}
 	
 	private static MessageConsole findConsole(String name) {

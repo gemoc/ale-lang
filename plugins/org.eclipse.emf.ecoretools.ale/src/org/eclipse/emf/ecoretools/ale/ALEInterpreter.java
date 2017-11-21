@@ -39,6 +39,7 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.DiagnosticLogger;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.EvalEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.ExtensionEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.MethodEvaluator;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.StatementListener;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.ALEEngine;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.ServiceCallListener;
@@ -110,6 +111,11 @@ public class ALEInterpreter {
 	 * Listeners for service calls
 	 */
 	List<ServiceCallListener> serviceListeners;
+	
+	/**
+	 * Listeners for statement execution
+	 */
+	List<StatementListener> stmtListeners;
 
 	/**
 	 * Reference the engine used by the ongoing evaluation
@@ -143,6 +149,7 @@ public class ALEInterpreter {
         this.javaExtensions.addClassLoadingCallBack(callback);
         this.javaExtensions.addEPackageCallBack(ePackageCallBack);
         this.serviceListeners = new ArrayList<ServiceCallListener>();
+        this.stmtListeners = new ArrayList<StatementListener>();
 	}
     
     private IQueryEnvironment createQueryEnvironment(boolean isDebug, CrossReferenceProvider xRefProvider) {
@@ -288,7 +295,7 @@ public class ALEInterpreter {
 	    	.collect(Collectors.toList());
 	    registerServices(services);
     	
-    	EvalEnvironment env = new EvalEnvironment(queryEnvironment, allBehaviors, logger, serviceListeners);
+    	EvalEnvironment env = new EvalEnvironment(queryEnvironment, allBehaviors, logger, serviceListeners, stmtListeners);
     	List<Object> inputElems = new ArrayList<Object>();
     	inputElems.add(caller);
     	inputElems.addAll(args);
@@ -378,13 +385,17 @@ public class ALEInterpreter {
     	javaExtensions.updateScope(plugins, project);
     }
     
-    public void addListener(ServiceCallListener listener) {
+    public void addServiceListener(ServiceCallListener listener) {
     	this.serviceListeners.add(listener);
     }
     
     public List<ServiceCallListener> getServiceListeners() {
 		return serviceListeners;
 	}
+    
+    public void addStatementListener(StatementListener listener) {
+    	this.stmtListeners.add(listener);
+    }
     
     /**
      * Return the engine used by the ongoing evaluation.

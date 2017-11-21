@@ -90,12 +90,18 @@ public class EvalEnvironment {
 	/**
 	 * Listeners for service calls
 	 */
-	List<ServiceCallListener> listeners;
+	List<ServiceCallListener> callListeners;
 	
-	public EvalEnvironment (IQueryEnvironment qryEnv, List<ModelUnit> allImplem, DiagnosticLogger logger, List<ServiceCallListener> listeners) {
+	/**
+	 * Listeners for statement executions
+	 */
+	List<StatementListener> stmtListeners;
+	
+	public EvalEnvironment (IQueryEnvironment qryEnv, List<ModelUnit> allImplem, DiagnosticLogger logger, List<ServiceCallListener> callListeners, List<StatementListener> stmtListeners) {
 		this.qryEnv = qryEnv;
 		this.logger = logger;
-		this.listeners = listeners;
+		this.callListeners = callListeners;
+		this.stmtListeners = stmtListeners;
 		registerImplem(allImplem);
 		populateEnvironmentWithDefaultServices(null,null);
 	}
@@ -309,10 +315,17 @@ public class EvalEnvironment {
 			};
 	}
 	
-	public List<ServiceCallListener> getListeners() {
-		if(listeners == null) {
-			listeners = new ArrayList<ServiceCallListener>();
+	public List<ServiceCallListener> getCallListeners() {
+		if(callListeners == null) {
+			callListeners = new ArrayList<ServiceCallListener>();
 		}
-		return listeners;
+		return callListeners;
+	}
+	
+	public List<StatementListener> getStatementListeners() {
+		if(stmtListeners == null) {
+			stmtListeners = new ArrayList<StatementListener>();
+		}
+		return stmtListeners;
 	}
 }
