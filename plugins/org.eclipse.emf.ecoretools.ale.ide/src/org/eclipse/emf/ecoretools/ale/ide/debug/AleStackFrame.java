@@ -1,6 +1,8 @@
 package org.eclipse.emf.ecoretools.ale.ide.debug;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.eclipse.debug.core.DebugException;
@@ -18,11 +20,13 @@ public class AleStackFrame implements IStackFrame {
 	AleThread thread;
 	Method calledOp;
 	EObject caller;
+	Map<String,Object> variables;
 	
 	public AleStackFrame(Method calledOp, EObject caller, AleThread thread) {
 		this.thread =  thread;
 		this.calledOp = calledOp;
 		this.caller = caller;
+		this.variables = new HashMap<>();
 	}
 
 	@Override
@@ -128,11 +132,11 @@ public class AleStackFrame implements IStackFrame {
 
 	@Override
 	public IVariable[] getVariables() throws DebugException {
-		ArrayList<IVariable> variables = new ArrayList<>();
-		for(Entry<String, Object> entry : thread.getDebugger().getCurrentScope().entrySet()) { //FIXME: get frame specific scope
-			variables.add(new AleVariable(entry.getKey(), entry.getValue(), this));
+		ArrayList<IVariable> res = new ArrayList<>();
+		for(Entry<String, Object> entry : variables.entrySet()) {
+			res.add(new AleVariable(entry.getKey(), entry.getValue(), this));
 		}
-		return variables.toArray(new IVariable[variables.size()]);
+		return res.toArray(new IVariable[res.size()]);
 	}
 
 	@Override
@@ -175,5 +179,9 @@ public class AleStackFrame implements IStackFrame {
 
 	public String getSourceFile() {
 		return thread.findSourceFor(calledOp);
+	}
+	
+	public void updateVariables(Map<String, Object> variables) {
+		this.variables = variables;
 	}
 }

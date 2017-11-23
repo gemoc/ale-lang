@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import org.eclipse.debug.core.DebugEvent;
@@ -37,14 +38,14 @@ public class AleThread implements IThread {
 	AleDebugTarget debugTarget;
 	AleDebugger debugger;
 	
-	Stack<IStackFrame> callStack;
+	Stack<AleStackFrame> callStack;
 	List<ParseResult<ModelUnit>> parsedSemantics;
 
 	public AleThread(ALEInterpreter interpreter, AleDebugTarget debugTarget, List<ParseResult<ModelUnit>> parsedSemantics) {
 		this.debugTarget = debugTarget;
 		this.debugger = new AleDebugger(interpreter, this);
 		this.currentState = State.SUSPENDED;
-		this.callStack = new Stack<IStackFrame>();
+		this.callStack = new Stack<AleStackFrame>();
 		this.parsedSemantics = parsedSemantics;
 	}
 
@@ -209,7 +210,7 @@ public class AleThread implements IThread {
 	
 	public void pushStackFrameFor(Method calledOp, EObject caller) {
 		Resource res = calledOp.eResource();
-		callStack.push(new AleStackFrame(calledOp, caller, this));
+		callStack.push(new AleStackFrame(calledOp,caller, this));
 	}
 	
 	public void popStackFrame() {
@@ -355,6 +356,13 @@ public class AleThread implements IThread {
 			return getLine(stopOffset, unit.getSourceFile());
 		}
 		return -1;
+	}
+	
+	public void updateCurrentFrame(Map<String,Object> variables) {
+		AleStackFrame currentFrame = callStack.peek();
+		if(currentFrame != null) {
+			currentFrame.updateVariables(variables);
+		}
 	}
 
 }

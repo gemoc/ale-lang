@@ -130,6 +130,7 @@ public class AleDebugger implements ServiceCallListener, StatementListener {
 	public void preExec(Statement stmt, Stack<Map<String, Object>> variablesStack) {
 		
 		currentStack = variablesStack;
+		thread.updateCurrentFrame(getCurrentScope());
 		
 		if(isBreakpoint(stmt)) {
 			notifySuspendOn(stmt);
