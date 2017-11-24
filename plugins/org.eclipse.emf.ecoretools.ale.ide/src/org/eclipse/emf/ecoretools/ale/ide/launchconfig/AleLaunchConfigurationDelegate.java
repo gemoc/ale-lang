@@ -12,26 +12,25 @@ package org.eclipse.emf.ecoretools.ale.ide.launchconfig;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
+import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.StatementListener;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.services.ServiceCallListener;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.ide.debug.AleDebugTarget;
-import org.eclipse.emf.ecoretools.ale.ide.debug.AleSourceLookupDirector;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDelegate {
@@ -61,6 +60,31 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 	        launch.addDebugTarget(target);
 	        interpreter.addServiceListener(target.getDebugger());
 	        interpreter.addStatementListener(target.getDebugger());
+	        evalJob.addJobChangeListener(new IJobChangeListener() {
+				@Override
+				public void sleeping(IJobChangeEvent event) {}
+				@Override
+				public void scheduled(IJobChangeEvent event) {}
+				@Override
+				public void running(IJobChangeEvent event) {}
+				@Override
+				public void done(IJobChangeEvent event) {
+					IStatus result = event.getResult();
+					if(result != null) {
+						if( result.getSeverity() == IStatus.OK || result.getSeverity() == IStatus.CANCEL || result.getSeverity() == IStatus.ERROR) {
+							try {
+								target.terminate();
+							} catch (DebugException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				}
+				@Override
+				public void awake(IJobChangeEvent event) {}
+				@Override
+				public void aboutToRun(IJobChangeEvent event) {}
+			});
 	    }
 		
 		evalJob.schedule();
