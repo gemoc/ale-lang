@@ -37,6 +37,16 @@
       </factory>
    </extension>
   <extension
+        point="org.eclipse.ui.editors">
+     <editor
+           class="org.eclipse.jdt.internal.ui.propertiesfileeditor.PropertiesFileEditor"
+           default="true"
+           extensions="dsl"
+           id="org.eclipse.emf.ecoretools.ale.ide.dsl"
+           name="DSL editor">
+     </editor>
+  </extension>
+  <extension
         point="org.eclipse.ui.propertyPages">
      <page
            class="org.eclipse.emf.ecoretools.ale.ide.AlePropertyPage"
@@ -76,7 +86,7 @@
                  <iterate>
                     <test
                           property="org.eclipse.debug.ui.matchesPattern"
-                          value="*.properties">
+                          value="*.dsl">
                     </test>
                  </iterate>
               </with>

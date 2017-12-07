@@ -121,7 +121,7 @@ A new selection `Behavior` is activated in the `Palette` at the right<br>
 
 
 Two new files are also created:
- * minifsm.properties (We will ignore it in this tutorial)
+ * minifsm.dsl (We will ignore it in this tutorial)
  * minifsm.ale (It will contain the implementations)
 
 Add Dynamic features
@@ -252,7 +252,7 @@ Your FSM model should look like:
 
 Now we can test!
 
-1. Right click on `minifsm.properties`
+1. Right click on `minifsm.dsl`
 2. Select `Run As > ALE launch`
 3. Enter `*xmi`
 4. Select `FSM.xmi` 
@@ -261,7 +261,7 @@ Now we can test!
 Console output:
 
 ```
-Run minifsm.properties
+Run minifsm.dsl
 ------------
 Start
   Execute First

@@ -38,7 +38,7 @@ class AleValidator extends AbstractAleValidator {
 		val IFile aleFile = WorkspaceSynchronizer.getFile(root.eResource);
 		cleanUpMarkers(aleFile);
 		
-		val IPath dslPath = aleFile.getFullPath().removeFileExtension().addFileExtension("properties");
+		val IPath dslPath = aleFile.getFullPath().removeFileExtension().addFileExtension("dsl");
 		val IWorkspaceRoot ws = ResourcesPlugin.getWorkspace().getRoot();
 		val dslFile = ws.getFile(dslPath)
 		val dsl = new Dsl(dslFile.contents);

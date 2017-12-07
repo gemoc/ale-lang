@@ -3,7 +3,7 @@
   <viewpoint:DAnalysis xmi:id="_5FdSIFaAEeeNirHAPP47Aw" selectedViews="_5G6qsFaAEeeNirHAPP47Aw _5HJUMFaAEeeNirHAPP47Aw _rXbWYFf1Eeec4tn4rC23Ig" version="11.1.0.201608251200">
     <semanticResources>helloworld.ecore</semanticResources>
     <semanticResources>http://www.eclipse.org/emf/2002/Ecore</semanticResources>
-    <semanticResources>helloworld.properties</semanticResources>
+    <semanticResources>helloworld.dsl</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_5G6qsFaAEeeNirHAPP47Aw">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_54fRkFaAEeeNirHAPP47Aw" name="helloworld class diagram" representation="_54f4oFaAEeeNirHAPP47Aw">

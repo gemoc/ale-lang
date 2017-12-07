@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:diagram="http://www.eclipse.org/sirius/diagram/1.1.0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:implementation="http://implementation/" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xsi:schemaLocation="http://www.eclipse.org/sirius/description/1.1.0 http://www.eclipse.org/sirius/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/style/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description/style">
   <viewpoint:DAnalysis xmi:id="_rZdvgE9qEeeXAN0Yp2lY_A" selectedViews="_rogREE9qEeeXAN0Yp2lY_A _rotscE9qEeeXAN0Yp2lY_A _YTd5kE9rEeeXAN0Yp2lY_A" version="11.1.0.201608251200">
     <semanticResources>MiniFsm.ecore</semanticResources>
-    <semanticResources>MiniFsm.properties</semanticResources>
+    <semanticResources>MiniFsm.dsl</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_rogREE9qEeeXAN0Yp2lY_A">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_sX_0UE9qEeeXAN0Yp2lY_A" name=" class diagram" representation="_sX_0UU9qEeeXAN0Yp2lY_A">
@@ -259,8 +259,8 @@
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']"/>
       </ownedElements>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_9Nj74E9tEeer2eLwosGesA" name="currentEvent : EString">
-        <target xmi:type="implementation:Attribute" href="MiniFsm.properties#//FSM/@attributes.1"/>
-        <semanticElements xmi:type="implementation:Attribute" href="MiniFsm.properties#//FSM/@attributes.1"/>
+        <target xmi:type="implementation:Attribute" href="MiniFsm.dsl#//FSM/@attributes.1"/>
+        <semanticElements xmi:type="implementation:Attribute" href="MiniFsm.dsl#//FSM/@attributes.1"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_9NlKAE9tEeer2eLwosGesA" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EAttribute.gif" labelAlignment="LEFT" labelPosition="node">
           <labelFormat>bold</labelFormat>
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']/@style"/>
@@ -268,8 +268,8 @@
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']"/>
       </ownedElements>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_uI_7EE9uEeer2eLwosGesA" name="entryPoint()">
-        <target xmi:type="implementation:Method" href="MiniFsm.properties#//FSM/@methods.1"/>
-        <semanticElements xmi:type="implementation:Method" href="MiniFsm.properties#//FSM/@methods.1"/>
+        <target xmi:type="implementation:Method" href="MiniFsm.dsl#//FSM/@methods.1"/>
+        <semanticElements xmi:type="implementation:Method" href="MiniFsm.dsl#//FSM/@methods.1"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_uJAiIE9uEeer2eLwosGesA" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EOperation.gif" labelAlignment="LEFT" labelPosition="node">
           <labelFormat>bold</labelFormat>
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']/@style"/>
@@ -420,8 +420,8 @@
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='Bi-directional%20EC_EReference%20']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_dFDZQE9rEeeXAN0Yp2lY_A" name="currentState" sourceNode="_x0XWYE9qEeeXAN0Yp2lY_A" targetNode="_zFGlgE9qEeeXAN0Yp2lY_A">
-      <target xmi:type="implementation:Attribute" href="MiniFsm.properties#//FSM/@attributes.0"/>
-      <semanticElements xmi:type="implementation:Attribute" href="MiniFsm.properties#//FSM/@attributes.0"/>
+      <target xmi:type="implementation:Attribute" href="MiniFsm.dsl#//FSM/@attributes.0"/>
+      <semanticElements xmi:type="implementation:Attribute" href="MiniFsm.dsl#//FSM/@attributes.0"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_dFEAUE9rEeeXAN0Yp2lY_A" size="3" routingStyle="manhattan" strokeColor="0,0,0">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@edgeMappings[name='Runtime%20reference']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_dFEAUU9rEeeXAN0Yp2lY_A" showIcon="false">

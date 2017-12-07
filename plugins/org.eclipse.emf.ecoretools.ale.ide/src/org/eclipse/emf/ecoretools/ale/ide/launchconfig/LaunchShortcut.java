@@ -36,7 +36,7 @@ public class LaunchShortcut implements ILaunchShortcut {
 
 	@Override
 	public void launch(IEditorPart editor, String mode) {
-		//TODO: launch from ALE editor -> find corresponding .properties
+		//TODO: launch from ALE editor -> find corresponding .dsl
 		
 //		 IFile dslFile = ResourceUtil.getFile(editor.getEditorInput());
 //		 Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();

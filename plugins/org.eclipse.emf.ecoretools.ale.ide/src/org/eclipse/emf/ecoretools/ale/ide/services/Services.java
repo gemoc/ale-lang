@@ -64,7 +64,7 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 public class Services {
 	
 	public static final String IMPLEM_EXTENSION = "ale";
-	public static final String DSL_EXTENSION = "properties";
+	public static final String DSL_EXTENSION = "dsl";
 	
     public boolean isImplemented(EObject elem) {
     	if(elem instanceof EOperation) {
