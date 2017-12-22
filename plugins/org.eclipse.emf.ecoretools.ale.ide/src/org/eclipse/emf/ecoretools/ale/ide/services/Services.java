@@ -30,6 +30,8 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecoretools.ale.BehavioredClass;
 import org.eclipse.emf.ecoretools.ale.Operation;
@@ -582,6 +584,16 @@ public class Services {
 		}
 		
 		return type;
+	}
+	
+	public boolean isContainment(Attribute attrib) {
+		
+		EStructuralFeature feature = attrib.getFeatureRef();
+		if(feature instanceof EReference) {
+			return ((EReference)feature).isContainment();
+		}
+		
+		return false;
 	}
 	
 	private boolean hasXtextFocus(IProject project) {
