@@ -501,8 +501,34 @@ Misc
 
 ### External Java Service
 
-Declare a Java service usable from an operation implemented in ALE.
+ALE offer the possibility to call static methods written in Java from the body of an EOperation.
+
+For example if you have a Java class `MyService` providing the method `foo()`
 
 ```
-use qualified.name.MyService;
+package some.packagename;
+
+public class MyService {
+
+	//By convention the caller object is the first argument
+	public static void foo(EObject caller) {
+		System.out.println("Foo: "+ caller.eClass().getName());
+	}
+
+}
 ```
+
+You can call `foo()` on any EObject just by importing the class `MyService` with the keyword `use` at the begining of your `.ale` file.
+The only requirement is that `MyService` has to be in the classpath of your project.
+
+```
+use some.packagename.MyService; //Import external Java services
+
+	open class FSM {
+		def void callJavaFoo() {
+			self.states.forAll(state | state.foo());
+		}
+	}
+
+```
+
