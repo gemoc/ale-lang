@@ -499,11 +499,11 @@ Sequence{'a', 'b', 'c'}->union(Sequence{'d', 'c'})
 Misc
 ----
 
-### External Java Service
+### Call Java code
 
 ALE offer the possibility to call static methods written in Java from the body of an EOperation.
 
-For example if you have a Java class `MyService` providing the method `foo()`
+For example let's assume that you have a Java class `MyService` providing the method `foo()`
 
 ```
 package some.packagename;
