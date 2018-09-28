@@ -18,7 +18,7 @@ What we have inside
 
 The interesting files of the `helloworld` project are inside the folder `model`:
 
-* `HelloWorld.aid`<br>
+* `HelloWorld.aird`<br>
   Graphical representation of `HelloWorld.ecore`
 * `HelloWorld.ale`<br>
   Semantic for `HelloWolrd.ecore`
@@ -29,7 +29,7 @@ The interesting files of the `helloworld` project are inside the folder `model`:
 * `HelloWorld.xmi`<br>
   Instance of the EClass HelloWorld
 
-By openning `HelloWorld.aid` you will see:
+By openning `HelloWorld.aird` you will see:
 
 ![HelloWorld](img/HelloWorld.png)
 
