@@ -6,13 +6,6 @@ open class kmLogo.ASM.LogoProgram {
 
 	@main
 	def Turtle eval() {
-//		logo::Toto.create().printMe();
-		/*for(i in [0..5]){
-		 i.log();
-		}
-		for(i in [10..5]){
-		 i.log();
-		}*/
 		Turtle turtle :=  self.createTurtle();
 		result := turtle;
 		
@@ -35,12 +28,6 @@ open class kmLogo.ASM.LogoProgram {
 	}
 }
 
-class Toto {
-	def void printMe() {
-		'I am Toto !'.log();
-	}
-}
-
 open class Instruction {
 	def double eval(Turtle turtle) {
 		result := 0.0;
@@ -50,22 +37,18 @@ open class Instruction {
 open class PenDown {
 	def double eval(Turtle turtle) {
 		turtle.penUp := false;
-//		('Log from PenDown : ' + turtle.penUp).log() ;
 	}
 }
 
 open class PenUp {
 	def double eval(Turtle turtle) {
 		turtle.penUp := true;
-//		('Log from PenUp : ' + turtle.penUp).log() ;
 	}
 }
 
 
 open class Repeat {
 	def double eval(Turtle turtle) {
-//		'Log from Repeat'.log() ;
-		
 		double time := self.condition.eval(turtle);
 		while( time > 0.0 ){
 			self.block.eval(turtle);
@@ -79,13 +62,13 @@ open class While {
 		while(self.condition.eval(turtle) > 0){
 			self.block.eval(turtle);
 		}
-		result := 0;
+		result := 0.0;
 	}
 }
 
 open class If {
 	def double eval(Turtle turtle) {
-		if (self.condition.eval(turtle) != 0) {
+		if (self.condition.eval(turtle) != 0.0) {
 			result := self.thenPart.eval(turtle);
 		}
 		else{
@@ -96,14 +79,12 @@ open class If {
 
 open class Constant {
 	def double eval(Turtle turtle) {
-		//('Log from Constant '+self.value).log();
 		result := self.value;
 	}
 }
 
 open class Block {
 	def double eval(Turtle turtle) {
-//		'Log from Block'.log();
 		for(inst in self.instructions){
 			inst.eval(turtle);
 		}
@@ -119,7 +100,6 @@ open class kmLogo.ASM.Forward {
 	def double eval(Turtle turtle) {
 		double move := self.steps.eval(turtle);
 		turtle.forward(move);
-//		('Log from Forward : ' + move).log();
 	}
 }
 
@@ -127,7 +107,6 @@ open class Back {
 	def double eval(Turtle turtle) {
 		double move := self.steps.eval(turtle);
 		turtle.forward(-move);
-//		('Log from Back : ' + move).log();
 	}
 }
 
@@ -135,7 +114,6 @@ open class Left {
 	def double eval(Turtle turtle) {
 		double angle := self.angle.eval(turtle);
 		turtle.rotate(angle);
-//		('Log from Left : ' + turtle.heading).log();
 	}
 }
 
@@ -143,7 +121,6 @@ open class Right {
 	def double eval(Turtle turtle) {
 		double angle := self.angle.eval(turtle);
 		turtle.rotate(-angle);
-//		('Log from Right : ' + turtle.heading).log();
 	}
 }
 
@@ -163,26 +140,22 @@ open class Expression {
 open class Minus {
 	def double eval(Turtle turtle) {
 		result := self.lhs.eval(turtle) - self.rhs.eval(turtle);
-		//('Minus ' + result).log();
 	}
 }
 
 open class Mult {
 	def double eval(Turtle turtle) {
-//	self.lhs.eval(turtle).log();
-//	self.rhs.eval(turtle).log();
 		result := self.lhs.eval(turtle) * self.rhs.eval(turtle);
 	}
 }
 
 open class Div {
 	def double eval(Turtle turtle) {
-		//('Div ' + self.lhs).log();
-		if(self.rhs.eval(turtle) != 0){
+		if(self.rhs.eval(turtle) != 0.0){
 			result := self.lhs.eval(turtle) / self.rhs.eval(turtle);
 		}
 		else{
-			result := 0;
+			result := 0.0;
 		}
 	}
 }
@@ -190,10 +163,10 @@ open class Div {
 open class Equals {
 	def double eval(Turtle turtle) {
 		if(self.lhs.eval(turtle) = self.rhs.eval(turtle)){
-			result := 1;
+			result := 1.0;
 		}
 		else{
-			result := 0;
+			result := 0.0;
 		}
 	}
 }
@@ -201,10 +174,10 @@ open class Equals {
 open class Lower {
 	def double eval(Turtle turtle) {
 		if(self.lhs.eval(turtle) < self.rhs.eval(turtle)){
-			result := 1;
+			result := 1.0;
 		}
 		else{
-			result := 0;
+			result := 0.0;
 		}
 	}
 }
@@ -212,17 +185,16 @@ open class Lower {
 open class Greater {
 	def double eval(Turtle turtle) {
 		if(self.lhs.eval(turtle) > self.rhs.eval(turtle)){
-			result := 1;
+			result := 1.0;
 		}
 		else{
-			result := 0;
+			result := 0.0;
 		}
 	}
 }
 
 open class Cos {
 	def double eval(Turtle turtle) {
-//		self.expression.eval(turtle).log();
 		result := self.expression.eval(turtle).cosinus();
 	}
 }
@@ -242,7 +214,6 @@ open class Tan {
 open class ProcCall {
 	def double eval(Turtle turtle) {
 		('Calling '+self.declaration.name).log();
-//(turtle.heading +' '+turtle.position.x+' '+ turtle.position.y).log();
 	
 		StackFrame newFrame := vmlogo::StackFrame.create();
 		int i := 1;
@@ -252,11 +223,10 @@ open class ProcCall {
 			newVar.value := exp.eval(turtle);
 			newFrame.variables += newVar;
 			i := i+1;
-			//(newVar.value).log();
 		}
 		turtle.callStack.frames += newFrame;
 		
-		result := 0;
+		result := 0.0;
 		for(instr in self.declaration.instructions){
 			result := instr.eval(turtle);
 		}
@@ -277,7 +247,6 @@ open class ParameterCall {
 			for(var in frame.variables){
 				if(var.name = self.parameter.name){
 					result := var.value;
-//					(var.name + ' ' + var.value).log();
 				}
 			}
 		}
@@ -291,15 +260,12 @@ open class Turtle {
 	double anotherAttrib := 0.0;
 	
 	def void move(double dx, double dy) {
-//		'debug move'.log();
 		Point newPos := vmlogo::Point.create();
 		newPos.x := self.position.x + dx;
 		newPos.y := self.position.y  + dy;
 		if(self.penUp) {
-//			('Turtle move to '+ newPos.x +':'+newPos.y).log();
 		}
 		else {
-//			('Turtle trace '+ self.position.x +':'+self.position.y +' to '+ newPos.x +':'+newPos.y +' head '+ self.heading).log();
 			Segment newSegment := vmlogo::Segment.create();
 			newSegment.begin := self.position;
 			newSegment.end := newPos;
