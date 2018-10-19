@@ -12,7 +12,7 @@ open class FSM {
 	}
 	
 	@main
-	def void entryPoint() 
+	def void entryPoint() {
 		
 		Sequence(String) events := Sequence{'event1','event2'};
 		
