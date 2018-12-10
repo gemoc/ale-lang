@@ -1,0 +1,11 @@
+behavior test.add;
+open class ClassA {
+	
+	@main
+	def int main() {
+		Sequence(testale::ClassA) seq := Sequence{};
+		seq += test::ClassA.create();
+		seq += Sequence{test::ClassA.create(),test::ClassA.create()};
+		result := seq;
+	}
+}

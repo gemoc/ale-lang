@@ -63,6 +63,8 @@ import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Statement;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
 import org.junit.Before;
 import org.junit.Test;
@@ -854,6 +856,86 @@ public class BuildTest {
 		assertEquals("self", ((VarRef)((FeatureInsert)insertion).getTarget()).getVariableName());
 		assertEquals("eSuperTypes",((FeatureInsert)insertion).getTargetFeature());
 		Expression value = ((FeatureInsert)insertion).getValue();
+		assertTrue(value instanceof VarRef);
+		assertEquals("self", ((VarRef)value).getVariableName());
+	}
+	
+	@Test
+	public void testInsertLocalVariable() {
+		ParseResult<ModelUnit> res = parse("input/structure/insertLocalVariable.implem");
+		ModelUnit root = res.getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.insert",root.getName());
+		
+		ExtendedClass xtdCls = root.getClassExtensions().get(0);
+		assertEquals(1, xtdCls.getMethods().size());
+		assertEquals(EcorePackage.eINSTANCE.getEObject(), xtdCls.getBaseClass());
+		assertEquals(0, xtdCls.getAttributes().size());
+		
+		Method method = xtdCls.getMethods().get(0);
+		assertTrue(method instanceof Method);
+		EOperation eOperationDef = method.getOperationRef();
+		assertNotNull(eOperationDef);
+		assertEquals("main",eOperationDef.getName());
+		assertEquals(null,eOperationDef.getEType());
+		assertEquals(0, eOperationDef.getEParameters().size());
+		
+		Block body = ((Method)method).getBody();
+		assertNotNull(body);
+		assertEquals(2, body.getStatements().size());
+		
+		Statement localDeclaration = body.getStatements().get(0);
+		assertTrue(localDeclaration instanceof VariableDeclaration);
+		assertEquals(EcorePackage.eINSTANCE.getEEList(), ((VariableDeclaration)localDeclaration).getType());
+		assertEquals("local",((VariableDeclaration)localDeclaration).getName());
+		assertTrue(((VariableDeclaration)localDeclaration).getInitialValue() instanceof SequenceInExtensionLiteral);
+		assertEquals(0, ((SequenceInExtensionLiteral)((VariableDeclaration)localDeclaration).getInitialValue()).getValues().size());
+		
+		Statement insertion = body.getStatements().get(1);
+		assertTrue(insertion instanceof VariableInsert);
+		assertEquals("local", ((VariableInsert)insertion).getName());
+		Expression value = ((VariableInsert)insertion).getValue();
+		assertTrue(value instanceof VarRef);
+		assertEquals("self", ((VarRef)value).getVariableName());
+	}
+	
+	@Test
+	public void testRemovetLocalVariable() {
+		ParseResult<ModelUnit> res = parse("input/structure/removeLocalVariable.implem");
+		ModelUnit root = res.getRoot();
+		
+		assertNotNull(root);
+		assertEquals("test.insert",root.getName());
+		
+		ExtendedClass xtdCls = root.getClassExtensions().get(0);
+		assertEquals(1, xtdCls.getMethods().size());
+		assertEquals(EcorePackage.eINSTANCE.getEObject(), xtdCls.getBaseClass());
+		assertEquals(0, xtdCls.getAttributes().size());
+		
+		Method method = xtdCls.getMethods().get(0);
+		assertTrue(method instanceof Method);
+		EOperation eOperationDef = method.getOperationRef();
+		assertNotNull(eOperationDef);
+		assertEquals("main",eOperationDef.getName());
+		assertEquals(null,eOperationDef.getEType());
+		assertEquals(0, eOperationDef.getEParameters().size());
+		
+		Block body = ((Method)method).getBody();
+		assertNotNull(body);
+		assertEquals(2, body.getStatements().size());
+		
+		Statement localDeclaration = body.getStatements().get(0);
+		assertTrue(localDeclaration instanceof VariableDeclaration);
+		assertEquals(EcorePackage.eINSTANCE.getEEList(), ((VariableDeclaration)localDeclaration).getType());
+		assertEquals("local",((VariableDeclaration)localDeclaration).getName());
+		assertTrue(((VariableDeclaration)localDeclaration).getInitialValue() instanceof SequenceInExtensionLiteral);
+		assertEquals(1, ((SequenceInExtensionLiteral)((VariableDeclaration)localDeclaration).getInitialValue()).getValues().size());
+		
+		Statement insertion = body.getStatements().get(1);
+		assertTrue(insertion instanceof VariableRemove);
+		assertEquals("local", ((VariableRemove)insertion).getName());
+		Expression value = ((VariableRemove)insertion).getValue();
 		assertTrue(value instanceof VarRef);
 		assertEquals("self", ((VarRef)value).getVariableName());
 	}

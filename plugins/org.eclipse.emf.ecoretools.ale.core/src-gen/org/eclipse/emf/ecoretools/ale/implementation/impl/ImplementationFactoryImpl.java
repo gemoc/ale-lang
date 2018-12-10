@@ -86,6 +86,8 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 			case ImplementationPackage.FEATURE_ASSIGNMENT: return createFeatureAssignment();
 			case ImplementationPackage.FEATURE_INSERT: return createFeatureInsert();
 			case ImplementationPackage.FEATURE_REMOVE: return createFeatureRemove();
+			case ImplementationPackage.VARIABLE_INSERT: return createVariableInsert();
+			case ImplementationPackage.VARIABLE_REMOVE: return createVariableRemove();
 			case ImplementationPackage.FEATURE_PUT: return createFeaturePut();
 			case ImplementationPackage.FOR_EACH: return createForEach();
 			case ImplementationPackage.WHILE: return createWhile();
@@ -237,6 +239,26 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	public FeatureRemove createFeatureRemove() {
 		FeatureRemoveImpl featureRemove = new FeatureRemoveImpl();
 		return featureRemove;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VariableInsert createVariableInsert() {
+		VariableInsertImpl variableInsert = new VariableInsertImpl();
+		return variableInsert;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VariableRemove createVariableRemove() {
+		VariableRemoveImpl variableRemove = new VariableRemoveImpl();
+		return variableRemove;
 	}
 
 	/**

@@ -1,0 +1,8 @@
+behavior test.insert;
+
+open class EObject {
+	def void main() {
+		Sequence(ecore::EObject) local := Sequence{};
+		local += self;
+	}
+}

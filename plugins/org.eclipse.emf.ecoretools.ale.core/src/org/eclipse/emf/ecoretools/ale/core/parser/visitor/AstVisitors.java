@@ -195,6 +195,10 @@ public class AstVisitors {
 					res = ModelBuilder.singleton.buildFeatureInsert(target, feature, value.expression(), parseRes);
 				}
 			}
+			else if(left instanceof VarRefContext) {
+				VarRefContext varRef = (VarRefContext) left;
+				res = ModelBuilder.singleton.buildVariableInsert(varRef.Ident().getText(),value,parseRes);
+			}
 			 
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
@@ -216,6 +220,10 @@ public class AstVisitors {
 					ExpressionContext target = navCtx.expression();
 					res = ModelBuilder.singleton.buildFeatureRemove(target,feature,value.expression(),parseRes);
 				}
+			}
+			else if(left instanceof VarRefContext) {
+				VarRefContext varRef = (VarRefContext) left;
+				res = ModelBuilder.singleton.buildVariableRemove(varRef.Ident().getText(),value,parseRes);
 			}
 			 
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());

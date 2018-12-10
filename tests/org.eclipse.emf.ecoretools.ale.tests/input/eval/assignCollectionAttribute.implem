@@ -1,0 +1,13 @@
+behavior test.assignCollection;
+open class ClassA {
+
+	Sequence(testale::ClassA) seq;
+	
+	@main
+	def int main() {
+		ClassA a := test::ClassA.create();
+		a.seq := Sequence{test::ClassA.create()};
+		a.collection := a.seq;
+		result := a->size() + ' '+ a.collection->size();
+	}
+}

@@ -955,12 +955,39 @@ public class EvalTest {
 	}
 	
 	@Test
-	public void testAssignCollectionAttribute(){
+	public void testAssignCollectionAttribute() {
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/assignCollectionAttribute.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
 		assertEquals("1 1", res.getValue());
+	}
+	
+	@Test
+	public void testInsertLocalVariable() {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/insertLocalVariable.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertTrue(res.getValue() instanceof List);
+		assertEquals(3, ((List)res.getValue()).size());
+		assertEquals(caller.eClass(), ((EObject)((List)res.getValue()).get(0)).eClass());
+		assertEquals(caller.eClass(), ((EObject)((List)res.getValue()).get(1)).eClass());
+		assertEquals(caller.eClass(), ((EObject)((List)res.getValue()).get(2)).eClass());
+	}
+	
+	@Test
+	public void testRemoveLocalVariable() {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/removeLocalVariable.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertTrue(res.getValue() instanceof List);
+		assertEquals(2, ((List)res.getValue()).size());
+		assertEquals(caller.eClass(), ((EObject)((List)res.getValue()).get(0)).eClass());
+		assertEquals(caller.eClass(), ((EObject)((List)res.getValue()).get(1)).eClass());
 	}
 }

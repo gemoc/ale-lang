@@ -45,6 +45,8 @@ import org.eclipse.emf.ecoretools.ale.implementation.If;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
 import org.eclipse.emf.ecoretools.ale.implementation.util.ImplementationSwitch;
 
@@ -186,6 +188,52 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 				}
 			}
 		}
+		return null;
+	}
+	
+	@Override
+	public Object caseVariableInsert(VariableInsert varInsert) {
+		Map<String,Object> scope = findScope(varInsert.getName());
+		if(scope != null) {
+			Object insertedValue = aqlEval(varInsert.getValue());
+			Object variableValue = scope.get(varInsert.getName());
+			
+			if(variableValue instanceof List) {
+				if(insertedValue instanceof List) {
+					((List)variableValue).addAll((List) insertedValue);
+				}
+				else {
+					((List)variableValue).add(insertedValue);
+				}
+			}
+			else {
+				//TOOD: error: try to insert in  non-list variable
+			}
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public Object caseVariableRemove(VariableRemove varInsert) {
+		Map<String,Object> scope = findScope(varInsert.getName());
+		if(scope != null) {
+			Object insertedValue = aqlEval(varInsert.getValue());
+			Object variableValue = scope.get(varInsert.getName());
+			
+			if(variableValue instanceof List) {
+				if(insertedValue instanceof List) {
+					((List)variableValue).removeAll((List) insertedValue);
+				}
+				else {
+					((List)variableValue).remove(insertedValue);
+				}
+			}
+			else {
+				//TOOD: error: try to insert in  non-list variable
+			}
+		}
+		
 		return null;
 	}
 	

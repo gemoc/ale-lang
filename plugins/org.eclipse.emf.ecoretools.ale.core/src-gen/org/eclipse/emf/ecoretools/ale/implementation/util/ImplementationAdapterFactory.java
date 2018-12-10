@@ -147,6 +147,14 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 				return createFeatureRemoveAdapter();
 			}
 			@Override
+			public Adapter caseVariableInsert(VariableInsert object) {
+				return createVariableInsertAdapter();
+			}
+			@Override
+			public Adapter caseVariableRemove(VariableRemove object) {
+				return createVariableRemoveAdapter();
+			}
+			@Override
 			public Adapter caseFeaturePut(FeaturePut object) {
 				return createFeaturePutAdapter();
 			}
@@ -417,6 +425,34 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFeatureRemoveAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.implementation.VariableInsert <em>Variable Insert</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.VariableInsert
+	 * @generated
+	 */
+	public Adapter createVariableInsertAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.implementation.VariableRemove <em>Variable Remove</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.VariableRemove
+	 * @generated
+	 */
+	public Adapter createVariableRemoveAdapter() {
 		return null;
 	}
 

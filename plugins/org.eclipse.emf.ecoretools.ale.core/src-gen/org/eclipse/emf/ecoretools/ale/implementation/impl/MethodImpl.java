@@ -300,7 +300,7 @@ public class MethodImpl extends MinimalEObjectImpl.Container implements Method {
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (tags: ");
 		result.append(tags);
 		result.append(')');

@@ -164,6 +164,24 @@ public interface ImplementationFactory extends EFactory {
 	FeatureRemove createFeatureRemove();
 
 	/**
+	 * Returns a new object of class '<em>Variable Insert</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Variable Insert</em>'.
+	 * @generated
+	 */
+	VariableInsert createVariableInsert();
+
+	/**
+	 * Returns a new object of class '<em>Variable Remove</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Variable Remove</em>'.
+	 * @generated
+	 */
+	VariableRemove createVariableRemove();
+
+	/**
 	 * Returns a new object of class '<em>Feature Put</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

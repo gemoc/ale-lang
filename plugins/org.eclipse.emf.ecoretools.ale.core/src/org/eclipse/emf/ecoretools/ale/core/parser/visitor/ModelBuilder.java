@@ -69,6 +69,8 @@ import org.eclipse.emf.ecoretools.ale.implementation.Statement;
 import org.eclipse.emf.ecoretools.ale.implementation.Switch;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
 
 import com.google.common.collect.Lists;
@@ -275,6 +277,21 @@ public class ModelBuilder {
 		loop.setCondition(parseExp(expression,parseRes));
 		loop.setBody(body);
 		return loop;
+	}
+	
+	
+	public VariableInsert buildVariableInsert(String name, RExpressionContext exp, ParseResult<ModelUnit> parseRes) {
+		VariableInsert varInsert = implemFactory. createVariableInsert();
+		varInsert.setName(name);
+		varInsert.setValue(parseExp(exp,parseRes));
+		return varInsert; 
+	}
+	
+	public VariableRemove buildVariableRemove(String name, RExpressionContext exp, ParseResult<ModelUnit> parseRes) {
+		VariableRemove varRemove = implemFactory. createVariableRemove();
+		varRemove.setName(name);
+		varRemove.setValue(parseExp(exp,parseRes));
+		return varRemove; 
 	}
 	
 	public FeatureAssignment buildFeatureAssign(ExpressionContext target, String feature, RExpressionContext valueExp, ParseResult<ModelUnit> parseRes) {

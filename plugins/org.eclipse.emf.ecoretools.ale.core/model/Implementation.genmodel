@@ -66,6 +66,12 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//FeatureRemove/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//FeatureRemove/targetFeature"/>
     </genClasses>
+    <genClasses ecoreClass="Implementation.ecore#//VariableInsert">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//VariableInsert/name"/>
+    </genClasses>
+    <genClasses ecoreClass="Implementation.ecore#//VariableRemove">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//VariableRemove/name"/>
+    </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//FeaturePut">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//FeaturePut/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//FeaturePut/targetFeature"/>

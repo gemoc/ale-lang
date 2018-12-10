@@ -197,6 +197,22 @@ public class ImplementationSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ImplementationPackage.VARIABLE_INSERT: {
+				VariableInsert variableInsert = (VariableInsert)theEObject;
+				T result = caseVariableInsert(variableInsert);
+				if (result == null) result = caseAssignment(variableInsert);
+				if (result == null) result = caseStatement(variableInsert);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ImplementationPackage.VARIABLE_REMOVE: {
+				VariableRemove variableRemove = (VariableRemove)theEObject;
+				T result = caseVariableRemove(variableRemove);
+				if (result == null) result = caseAssignment(variableRemove);
+				if (result == null) result = caseStatement(variableRemove);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ImplementationPackage.FEATURE_PUT: {
 				FeaturePut featurePut = (FeaturePut)theEObject;
 				T result = caseFeaturePut(featurePut);
@@ -478,6 +494,36 @@ public class ImplementationSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseFeatureRemove(FeatureRemove object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Variable Insert</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Variable Insert</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseVariableInsert(VariableInsert object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Variable Remove</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Variable Remove</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseVariableRemove(VariableRemove object) {
 		return null;
 	}
 
