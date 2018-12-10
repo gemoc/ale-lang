@@ -28,6 +28,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationWrapper;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -114,7 +115,13 @@ public class DynamicFeatureRegistry {
 		if(extendedInstance != null) {
 			EStructuralFeature feature = extendedInstance.eClass().getEStructuralFeature(featureName);
 			if(feature != null) {
-				extendedInstance.eSet(feature, newValue);
+				if(newValue instanceof List) {
+					BasicEList<EObject> newList = new BasicEList<EObject>((List)newValue);
+					extendedInstance.eSet(feature, newList);
+				}
+				else {
+					extendedInstance.eSet(feature, newValue);
+				}
 			}
 			else {
 				//TODO: error feature not found
