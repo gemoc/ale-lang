@@ -1,13 +1,16 @@
-behavior test.assignCollection;
+behavior assignCollection;
+
+class Foo {
+	Sequence(test::ClassA) seq;
+}
+
+
 open class ClassA {
 
-	Sequence(testale::ClassA) seq;
-	
 	@main
 	def int main() {
-		ClassA a := test::ClassA.create();
-		a.seq := Sequence{test::ClassA.create()};
-		a.collection := a.seq;
-		result := a->size() + ' '+ a.collection->size();
+		Foo f := (assignCollection::Foo).create();
+		f.seq := Sequence{test::ClassA.create()};
+		result := f.seq->size() + ' '+ f.seq->at(1).eClass().name;
 	}
 }

@@ -24,6 +24,7 @@ import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEvaluationEngine;
 import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
@@ -149,7 +150,13 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 		if(assigned instanceof EObject){
 			EStructuralFeature feature = ((EObject)assigned).eClass().getEStructuralFeature(featAssign.getTargetFeature());
 			if(feature != null){
-				((EObject)assigned).eSet(feature,value);
+				if(value instanceof List) {
+					BasicEList<EObject> newList = new BasicEList<EObject>((List)value);
+					((EObject)assigned).eSet(feature, newList);
+				}
+				else {
+					((EObject)assigned).eSet(feature, value);
+				}
 			}
 			else{
 				dynamicFeatureAccess.setDynamicFeatureValue(((EObject)assigned),featAssign.getTargetFeature(),value);

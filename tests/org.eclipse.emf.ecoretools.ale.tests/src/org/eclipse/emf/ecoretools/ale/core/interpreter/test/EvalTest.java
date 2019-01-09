@@ -955,13 +955,23 @@ public class EvalTest {
 	}
 	
 	@Test
+	public void testAssignDynamicCollectionAttribute() {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/assignDynamicCollectionAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals("1 1", res.getValue());
+	}
+	
+	@Test
 	public void testAssignCollectionAttribute() {
 		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/assignCollectionAttribute.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
 		
-		assertEquals("1 1", res.getValue());
+		assertEquals("1 ClassA", res.getValue());
 	}
 	
 	@Test
