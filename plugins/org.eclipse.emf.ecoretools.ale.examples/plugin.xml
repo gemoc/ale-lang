@@ -5,7 +5,7 @@
         point="org.eclipse.ui.newWizards">
      <category
            id="org.eclipse.emf.ecoretools.ale.ide.category.example"
-           name="ALE Examples"
+           name="EcoreTools ALE Examples"
            parentCategory="org.eclipse.ui.Examples">
      </category>
      <wizard

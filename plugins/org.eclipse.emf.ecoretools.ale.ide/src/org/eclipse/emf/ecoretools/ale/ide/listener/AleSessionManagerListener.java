@@ -29,9 +29,9 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
-import org.eclipse.emf.ecoretools.ale.ide.Activator;
 import org.eclipse.emf.ecoretools.ale.ide.resource.AleResource;
 import org.eclipse.emf.ecoretools.ale.ide.resource.AleResourceFactory;
+import org.eclipse.emf.ecoretools.design.service.EcoreToolsDesignPlugin;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
@@ -167,7 +167,7 @@ public class AleSessionManagerListener implements SessionManagerListener {
 				CommandStack commandStack = session.getTransactionalEditingDomain().getCommandStack();
 				commandStack.execute(cmd);
 			} catch (Exception e) {
-				Activator.getDefault().error(e);
+				EcoreToolsDesignPlugin.INSTANCE.log(e);
 			}
 		}
 		else {
@@ -245,7 +245,7 @@ public class AleSessionManagerListener implements SessionManagerListener {
 				dslFile.create(source, true, new NullProgressMonitor());
 			}
 		} catch (CoreException e) {
-			Activator.getDefault().error(e);
+			EcoreToolsDesignPlugin.INSTANCE.log(e);
 		}
 	}
 }

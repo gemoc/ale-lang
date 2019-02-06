@@ -16,7 +16,8 @@ Require-Bundle: org.eclipse.xtext,
  org.antlr.runtime,
  org.eclipse.emf.ecoretools.ale.core,
  org.eclipse.emf.ecoretools.ale,
- org.eclipse.emf.workspace
+ org.eclipse.emf.workspace,
+ org.eclipse.acceleo.query
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.emf.ecoretools,
  org.eclipse.emf.ecoretools.ale,

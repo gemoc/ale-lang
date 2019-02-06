@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+    Copyright (c) 2017 Inria and Obeo.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        Inria - initial API and implementation
+ -->
+
+<!--
+-->
+
+<plugin>
+
+  <extension point="org.eclipse.sirius.componentization">
+    <component class="org.eclipse.emf.ecoretools.ale.ide.ui.Activator"
+               id="org.eclipse.emf.ecoretools.ale.ide.ui"
+	       name="org.eclipse.emf.ecoretools.ale">
+    </component>
+  </extension>
+  <extension point="org.eclipse.emf.ecore.invocation_delegate">
+      <factory
+            class="org.eclipse.emf.ecoretools.ale.core.delegate.ALEInvocationDelegateFactory"
+            uri="http://implementation/">
+      </factory>
+   </extension>
+  <extension
+        point="org.eclipse.ui.editors">
+     <editor
+           class="org.eclipse.jdt.internal.ui.propertiesfileeditor.PropertiesFileEditor"
+           default="true"
+           extensions="dsl"
+           id="org.eclipse.emf.ecoretools.ale.ide.dsl"
+           name="Editor for .dsl file">
+     </editor>
+  </extension>
+  <extension
+        point="org.eclipse.ui.propertyPages">
+     <page
+           class="org.eclipse.emf.ecoretools.ale.ide.ui.AlePropertyPage"
+           id="org.eclipse.emf.ecoretools.ale.ide.ui.propertypage"
+           name="ALE settings">
+        <enabledWhen>
+           <adapt
+                 type="org.eclipse.core.resources.IProject">
+           </adapt>
+        </enabledWhen>
+     </page>
+  </extension>
+  <extension
+        point="org.eclipse.debug.core.launchConfigurationTypes">
+     <launchConfigurationType
+           delegate="org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.AleLaunchConfigurationDelegate"
+           id="org.eclipse.emf.ecoretools.ale.ide.ui.launchConfigurationType"
+           modes="run"
+           name="ALE launch">
+     </launchConfigurationType>
+  </extension>
+  <extension
+        point="org.eclipse.debug.ui.launchShortcuts">
+     <shortcut
+           class="org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.LaunchShortcut"
+           id="org.eclipse.emf.ecoretools.ale.ide.ui.shortcut"
+           label="ALE launch"
+           icon="icons/ALE.gif"
+           modes="run">
+        <contextualLaunch>
+           <enablement>
+              <with
+                    variable="selection">
+                 <count
+                       value="1">
+                 </count>
+                 <iterate>
+                    <test
+                          property="org.eclipse.debug.ui.matchesPattern"
+                          value="*.dsl">
+                    </test>
+                 </iterate>
+              </with>
+           </enablement>
+        </contextualLaunch>
+     </shortcut>
+  </extension>
+  <extension
+        point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+     <launchConfigurationTabGroup
+           class="org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.AleLaunchConfigurationTabGroup"
+           id="org.eclipse.emf.ecoretools.ale.ide.ui.launchConfigurationTabGroup"
+           type="org.eclipse.emf.ecoretools.ale.ide.ui.launchConfigurationType">
+     </launchConfigurationTabGroup>
+  </extension>
+     <extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+    <launchConfigurationTypeImage
+        icon="icons/ALE.gif"
+        configTypeID="org.eclipse.emf.ecoretools.ale.ide.ui.launchConfigurationType"
+        id="org.eclipse.emf.ecoretools.ale.ide.ui.launcher.image">
+    </launchConfigurationTypeImage>
+  </extension>
+</plugin>

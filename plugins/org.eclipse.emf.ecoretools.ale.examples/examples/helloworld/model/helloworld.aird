@@ -21,7 +21,7 @@
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Generation']"/>
     </ownedViews>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_rXbWYFf1Eeec4tn4rC23Ig">
-      <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']"/>
+      <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide.ui/description/ale.odesign#//@ownedViewpoints[name='Behavior']"/>
     </ownedViews>
   </viewpoint:DAnalysis>
   <diagram:DSemanticDiagram xmi:id="_54f4oFaAEeeNirHAPP47Aw" name="helloworld class diagram">

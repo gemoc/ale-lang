@@ -15,7 +15,7 @@
 
 	<modules>
 		<module>org.eclipse.emf.ecoretools.ale.tests</module>
-		<module>org.eclipse.emf.ecoretools.ale.ide.tests</module>
+		<module>org.eclipse.emf.ecoretools.ale.ide.ui.tests</module>
 	</modules>
 
 	<build>
