@@ -53,7 +53,7 @@ public class DslBuilder {
     	/*
     	 * Register EPackages
     	 */
-    	rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
+    	rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore", new XMIResourceFactoryImpl());
     	dsl.getAllSyntaxes()
     		.stream()
     		.forEach(syntaxURI -> {
