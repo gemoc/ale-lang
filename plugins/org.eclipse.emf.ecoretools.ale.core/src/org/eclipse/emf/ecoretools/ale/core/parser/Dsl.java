@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 public class Dsl {
 	
@@ -53,8 +54,8 @@ public class Dsl {
 			String[] syntaxes = allSyntaxes.split(",");
 			String[] behaviors = allBehaviors.split(",");
 			
-			this.allSyntaxes.addAll(Arrays.asList(syntaxes));
-			this.allSemantics.addAll(Arrays.asList(behaviors));
+			this.allSyntaxes.addAll(trim(syntaxes));
+			this.allSemantics.addAll(trim(behaviors));
 		}
 		else {
 			//TODO: Malformed file error
@@ -87,5 +88,9 @@ public class Dsl {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	protected List<String> trim(String[] uris) {
+		return Arrays.asList(uris).stream().map(s->s.trim()).collect(Collectors.toList());
 	}
 }
