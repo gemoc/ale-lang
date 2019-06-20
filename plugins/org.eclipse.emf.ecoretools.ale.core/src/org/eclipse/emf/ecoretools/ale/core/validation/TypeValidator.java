@@ -310,7 +310,7 @@ public class TypeValidator implements IValidator {
 		}
 		else if(declaringTypes != null && !varAssign.getName().equals("self")) {
 			Set<IType> inferredTypes = base.getPossibleTypes(varAssign.getValue());
-			if(inferredTypes != null) {
+			if(inferredTypes != null && !declaringTypes.isEmpty()) {
 				Optional<IType> existResult = 
 					declaringTypes
 					.stream()
