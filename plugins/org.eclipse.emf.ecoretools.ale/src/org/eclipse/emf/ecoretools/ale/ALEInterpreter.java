@@ -376,6 +376,7 @@ public class ALEInterpreter {
      */
     public void initScope(Set<java.lang.String> plugins, Set<java.lang.String> project) {
     	javaExtensions.updateScope(plugins, project);
+    	javaExtensions.reloadIfNeeded();
     }
     
     public void addListener(ServiceCallListener listener) {

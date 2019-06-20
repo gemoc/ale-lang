@@ -44,6 +44,7 @@ class AleValidator extends AbstractAleValidator {
 		val dsl = new Dsl(dslFile.contents);
 		dsl.resolveUris
 		val ALEInterpreter interpreter = new ALEInterpreter();
+		interpreter.initScope(Sets.newHashSet(),Sets.newHashSet(#[dslFile.project.name]))
 		val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(dsl);
 		
 		/*
@@ -56,7 +57,6 @@ class AleValidator extends AbstractAleValidator {
 	    	.map[getServices()]
 	    	.flatten
 	    	.toList
-		interpreter.initScope(Sets.newHashSet(),Sets.newHashSet(#[dslFile.project.name]))
     	interpreter.registerServices(services)
 		
 		val ALEValidator validator = new ALEValidator(interpreter.queryEnvironment);
