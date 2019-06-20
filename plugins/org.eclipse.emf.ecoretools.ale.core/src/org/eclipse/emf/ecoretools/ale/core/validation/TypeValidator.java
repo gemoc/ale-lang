@@ -30,11 +30,13 @@ import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass;
+import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
@@ -270,7 +272,7 @@ public class TypeValidator implements IValidator {
 	public List<IValidationMessage> validateVariableAssignment(VariableAssignment varAssign) {
 		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
 		
-		Set<IType> declaringTypes = base.getCurrentScope().get(varAssign.getName());
+		Set<IType> declaringTypes = findDeclaration(varAssign);
 		if(varAssign.getName().equals("result")) {
 			Method op = base.getContainingOperation(varAssign);
 			EOperation eOp = ((Method)op).getOperationRef();
@@ -472,5 +474,79 @@ public class TypeValidator implements IValidator {
 		}
 		
 		return false;
+	}
+	
+	private Set<IType> findDeclaration(VariableAssignment varAssign) {
+		
+		Set<IType> res = new HashSet<IType>();
+		String variableName = varAssign.getName();
+		
+		// Look at extended EClass attributes
+		EObject currentObject = varAssign;
+		EObject currentScope = varAssign.eContainer();
+		
+		while(currentScope != null) {
+			
+			// Look at previous statement in the same block
+			if(currentScope instanceof Block) {
+				Block block = (Block) currentScope;
+				int index = block.getStatements().indexOf(currentObject);
+				if(index != -1) {
+					Optional<VariableDeclaration> candidate =
+						block.getStatements()
+						.stream()
+						.limit(index)
+						.filter(stmt -> stmt instanceof VariableDeclaration)
+						.map(stmt -> (VariableDeclaration) stmt)
+						.filter(varDecl -> varDecl.getName().equals(variableName))
+						.findFirst();
+					if(candidate.isPresent()) {
+						EClassifier type = candidate.get().getType();
+						res.add(new EClassifierType(base.getQryEnv(), type));
+						return res;
+					}
+				}
+			}
+			
+			// Look at loop's variable
+			else if(currentScope instanceof ForEach) {
+				ForEach loop = (ForEach) currentScope;
+				if(loop.getVariable().equals(variableName)) {
+					Set<IType> inferredTypes = base.getPossibleTypes(loop.getCollectionExpression());
+					return inferredTypes;
+				}
+			}
+			
+			// Look at class extension
+			else if(currentScope instanceof BehavioredClass) {
+				BehavioredClass cls = (BehavioredClass) currentScope;
+				Optional<Attribute> candidate = cls.getAttributes().stream().filter(attr -> attr.getFeatureRef().getName().equals(variableName)).findFirst();
+				if(candidate.isPresent()) {
+					EClassifier type = candidate.get().getFeatureRef().getEType();
+					res.add(new EClassifierType(base.getQryEnv(), type));
+					return res;
+				}
+			}
+			
+			// Look at extended class
+			else if(currentScope instanceof ExtendedClass) {
+				ExtendedClass extension = (ExtendedClass) currentScope;
+				Optional<EStructuralFeature> feature = 
+						extension.getBaseClass().getEAllStructuralFeatures()
+						.stream()
+						.filter(feat -> feat.getName().equals(variableName))
+						.findFirst();
+				if(feature.isPresent()) {
+					EClassifier type = feature.get().getEType();
+					res.add(new EClassifierType(base.getQryEnv(), type));
+					return res;
+				}
+			}
+			
+			currentObject = currentScope;
+			currentScope = currentScope.eContainer();
+		}
+		
+		return res;
 	}
 }

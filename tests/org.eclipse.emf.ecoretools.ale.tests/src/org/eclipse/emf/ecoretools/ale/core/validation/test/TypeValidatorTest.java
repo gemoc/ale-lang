@@ -1176,6 +1176,19 @@ public class TypeValidatorTest {
 		assertMsgEquals(ValidationMessageLevel.ERROR, 66, 106, "Expected EClass but was [EClassifierLiteral=EOperation]", msg.get(0));
 	}
 	
+	@Test
+	public void testAssignSubtype() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignSubtype.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
 	private void assertMsgEquals(ValidationMessageLevel errorLvl, int startPos, int endPos, String text, IValidationMessage msg){
 		assertEquals(errorLvl, msg.getLevel());
 		assertEquals(startPos, msg.getStartPosition());
