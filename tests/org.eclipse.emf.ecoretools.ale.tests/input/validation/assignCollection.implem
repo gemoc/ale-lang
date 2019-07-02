@@ -1,0 +1,6 @@
+behavior test.assigncollection;
+open class EClass {
+	def void op(){
+		self.eSuperTypes := Sequence{self};
+	}
+}

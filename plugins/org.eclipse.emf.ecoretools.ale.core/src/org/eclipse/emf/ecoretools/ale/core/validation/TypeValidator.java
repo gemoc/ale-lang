@@ -179,7 +179,7 @@ public class TypeValidator implements IValidator {
 		return validateAssignment(featRemove, featRemove.getTarget(), featRemove.getTargetFeature(), featRemove.getValue(), true);
 	}
 	
-	private List<IValidationMessage> validateAssignment(Statement stmt, Expression targetExp, String featureName, Expression valueExp, boolean checkIsCollection) {
+	private List<IValidationMessage> validateAssignment(Statement stmt, Expression targetExp, String featureName, Expression valueExp, boolean isInsert) {
 		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
 		
 		/*
@@ -219,7 +219,7 @@ public class TypeValidator implements IValidator {
 		/*
 		 * Check targetExp.featureName is collection
 		 */
-		if(checkIsCollection && !isCollection && !featureTypes.isEmpty()) {
+		if(isInsert && !isCollection && !featureTypes.isEmpty()) {
 			String inferredToString = 
 					featureTypes
 					.stream()
@@ -236,35 +236,80 @@ public class TypeValidator implements IValidator {
 		/*
 		 * Check assignment type
 		 */
-		if(!featureTypes.isEmpty()){
+		if(!featureTypes.isEmpty()) {
+			
 			Set<IType> inferredTypes = base.getPossibleTypes(valueExp);
-			boolean isAnyAssignable = false;
-			for(IType featureType: featureTypes){
-				Optional<IType> existResult = inferredTypes.stream().filter(t -> featureType.isAssignableFrom(t)).findAny();
-				if(existResult.isPresent()){
-					isAnyAssignable = true;
-					break;
+
+			if(!isInsert && isCollection) {
+				for(IType inferredType: inferredTypes){
+					if(inferredType instanceof AbstractCollectionType) {
+						IType collectionType = ((AbstractCollectionType)inferredType).getCollectionType();
+					}
+				}
+				boolean isAnyAssignable = false;
+				for(IType featureType: featureTypes) {
+					Optional<IType> existResult = 
+							inferredTypes
+							.stream()
+							.filter(t -> t instanceof AbstractCollectionType)
+							.map(t -> ((AbstractCollectionType)t).getCollectionType())
+							.filter(t -> featureType.isAssignableFrom(t))
+							.findAny();
+					if(existResult.isPresent()){
+						isAnyAssignable = true;
+						break;
+					}
+				}
+				if(!isAnyAssignable) {
+					String inferredToString = 
+							featureTypes
+							.stream()
+							.map(type -> getQualifiedName(type))
+							.collect(Collectors.joining(",","[","]"));
+					String featureToString = 
+							featureTypes
+							.stream()
+							.map(type -> getQualifiedName(type.getType()))
+							.collect(Collectors.joining(",","(",")"));
+					msgs.add(new ValidationMessage(
+							ValidationMessageLevel.ERROR,
+							String.format(INCOMPATIBLE_TYPE,"Collection"+featureToString,inferredToString),
+							base.getStartOffset(targetExp),
+							base.getEndOffset(targetExp)
+							));
 				}
 			}
-			if(!isAnyAssignable){
-				String inferredToString = 
-					inferredTypes
-					.stream()
-					.map(type -> getQualifiedName(type))
-					.collect(Collectors.joining(",","[","]"));
-				String featureToString = 
-						featureTypes
-						.stream()
-						.map(type -> getQualifiedName(type.getType()))
-						.collect(Collectors.joining(",","[","]"));
+			else {
+				boolean isAnyAssignable = false;
+				for(IType featureType: featureTypes){
+					Optional<IType> existResult = inferredTypes.stream().filter(t -> featureType.isAssignableFrom(t)).findAny();
+					if(existResult.isPresent()){
+						isAnyAssignable = true;
+						break;
+					}
+				}
+				if(!isAnyAssignable){
+					String inferredToString = 
+							inferredTypes
+							.stream()
+							.map(type -> getQualifiedName(type))
+							.collect(Collectors.joining(",","[","]"));
+					String featureToString = 
+							featureTypes
+							.stream()
+							.map(type -> getQualifiedName(type.getType()))
+							.collect(Collectors.joining(",","[","]"));
+					
+					msgs.add(new ValidationMessage(
+							ValidationMessageLevel.ERROR,
+							String.format(INCOMPATIBLE_TYPE,featureToString,inferredToString),
+							base.getStartOffset(stmt),
+							base.getEndOffset(stmt)
+							));
+				}
 				
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(INCOMPATIBLE_TYPE,featureToString,inferredToString),
-						base.getStartOffset(stmt),
-						base.getEndOffset(stmt)
-						));
 			}
+			
 		}
 		
 		return msgs;
