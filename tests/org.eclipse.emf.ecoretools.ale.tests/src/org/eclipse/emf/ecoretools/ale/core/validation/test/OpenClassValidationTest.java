@@ -87,7 +87,7 @@ public class OpenClassValidationTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 212, 282, "Can't extend B since it is not a direct super type of C", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 212, 282, "Can't extend diamon::B since it is not a direct super type of diamon::C", msg.get(0));
 	}
 	
 	@Test
@@ -100,7 +100,7 @@ public class OpenClassValidationTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 212, 282, "Can't extend A since it is not a direct super type of D", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 212, 282, "Can't extend diamon::A since it is not a direct super type of diamon::D", msg.get(0));
 	}
 	
 	@Test
