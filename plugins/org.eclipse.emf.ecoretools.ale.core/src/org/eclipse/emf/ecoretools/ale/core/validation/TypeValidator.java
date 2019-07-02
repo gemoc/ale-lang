@@ -262,7 +262,7 @@ public class TypeValidator implements IValidator {
 				}
 				if(!isAnyAssignable) {
 					String inferredToString = 
-							featureTypes
+							inferredTypes
 							.stream()
 							.map(type -> getQualifiedName(type))
 							.collect(Collectors.joining(",","[","]"));

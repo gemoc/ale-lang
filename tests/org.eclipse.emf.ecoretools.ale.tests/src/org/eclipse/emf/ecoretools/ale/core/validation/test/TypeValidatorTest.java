@@ -1216,6 +1216,20 @@ public class TypeValidatorTest {
 		assertMsgEquals(ValidationMessageLevel.ERROR, 70, 73, "Expected Collection(ecore::EClass) but was [ecore::EClass]", msg.get(0));
 	}
 	
+	@Test
+	public void testAssignCollectionError2() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignCollectionError2.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 70, 73, "Expected Collection(ecore::EClass) but was [java.lang.Integer]", msg.get(0));
+	}
+	
 	private void assertMsgEquals(ValidationMessageLevel errorLvl, int startPos, int endPos, String text, IValidationMessage msg){
 		assertEquals(errorLvl, msg.getLevel());
 		assertEquals(startPos, msg.getStartPosition());
