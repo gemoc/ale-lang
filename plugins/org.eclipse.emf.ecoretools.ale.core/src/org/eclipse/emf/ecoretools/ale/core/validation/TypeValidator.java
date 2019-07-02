@@ -373,12 +373,12 @@ public class TypeValidator implements IValidator {
 					String declaredToString = 
 							declaringTypes
 							.stream()
-							.map(type -> type.toString())
+							.map(type -> getQualifiedName(type))
 							.collect(Collectors.joining(",","[","]"));
 					String inferredToString = 
 							inferredTypes
 							.stream()
-							.map(type -> type.toString())
+							.map(type -> getQualifiedName(type))
 							.collect(Collectors.joining(",","[","]"));
 					
 					msgs.add(new ValidationMessage(

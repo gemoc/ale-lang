@@ -234,7 +234,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 78, 95, "Expected [EClassifier=EInt] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 78, 95, "Expected [ecore::EInt] but was [java.lang.String]", msg.get(0));
 	}
 	
 	/*
@@ -267,7 +267,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 92, 109, "Expected [EClassifier=EInt] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 92, 109, "Expected [ecore::EInt] but was [java.lang.String]", msg.get(0));
 	}
 	
 	/*
