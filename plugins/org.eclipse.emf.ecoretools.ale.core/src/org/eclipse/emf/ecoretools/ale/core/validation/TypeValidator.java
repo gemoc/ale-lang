@@ -12,6 +12,7 @@ package org.eclipse.emf.ecoretools.ale.core.validation;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -32,6 +33,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
@@ -57,7 +59,7 @@ import com.google.common.collect.Lists;
 public class TypeValidator implements IValidator {
 
 	public static final String INCOMPATIBLE_TYPE = "Expected %s but was %s";
-	public static final String BOOLEAN_TYPE = "Expected Boolean but was %s";
+	public static final String BOOLEAN_TYPE = "Expected ecore::EBoolean but was %s";
 	public static final String COLLECTION_TYPE = "Expected Collection but was %s";
 	public static final String VOID_RESULT_ASSIGN = "'result' is assigned in void operation";
 	public static final String EXTENDS_ITSELF = "Reopened %s is extending itself";
@@ -88,7 +90,7 @@ public class TypeValidator implements IValidator {
 		if(isExtendingItself(xtdClass)) {
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
-					String.format(EXTENDS_ITSELF, xtdClass.getBaseClass().getName()),
+					String.format(EXTENDS_ITSELF, getQualifiedName(xtdClass.getBaseClass())),
 					base.getStartOffset(xtdClass),
 					base.getEndOffset(xtdClass)
 					));
@@ -108,7 +110,7 @@ public class TypeValidator implements IValidator {
 			if(!superTypes.contains(superBase) && baseCls != superBase) {
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
-						String.format(INDIRECT_EXTENSION, superBase.getName(), baseCls.getName()),
+						String.format(INDIRECT_EXTENSION, getQualifiedName(superBase), getQualifiedName(baseCls)),
 						this.base.getStartOffset(xtdClass),
 						this.base.getEndOffset(xtdClass)
 						));
@@ -142,11 +144,11 @@ public class TypeValidator implements IValidator {
 				String types = 
 					inferredTypes
 					.stream()
-					.map(type -> type.toString())
+					.map(type -> getQualifiedName(type))
 					.collect(Collectors.joining(",","[","]"));
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
-						String.format(INCOMPATIBLE_TYPE, att.getFeatureRef().getEType().getName(),types),
+						String.format(INCOMPATIBLE_TYPE, getQualifiedName(att.getFeatureRef().getEType()),types),
 						base.getStartOffset(att),
 						base.getEndOffset(att)
 						));
@@ -221,7 +223,7 @@ public class TypeValidator implements IValidator {
 			String inferredToString = 
 					featureTypes
 					.stream()
-					.map(type -> type.toString())
+					.map(type -> getQualifiedName(type))
 					.collect(Collectors.joining(",","[","]"));
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
@@ -248,12 +250,12 @@ public class TypeValidator implements IValidator {
 				String inferredToString = 
 					inferredTypes
 					.stream()
-					.map(type -> type.toString())
+					.map(type -> getQualifiedName(type))
 					.collect(Collectors.joining(",","[","]"));
 				String featureToString = 
 						featureTypes
 						.stream()
-						.map(type -> type.getType().getName())
+						.map(type -> getQualifiedName(type.getType()))
 						.collect(Collectors.joining(",","[","]"));
 				
 				msgs.add(new ValidationMessage(
@@ -296,11 +298,11 @@ public class TypeValidator implements IValidator {
 						String types = 
 								inferredTypes
 								.stream()
-								.map(type -> type.toString())
+								.map(type -> getQualifiedName(type))
 								.collect(Collectors.joining(",","[","]"));
 						msgs.add(new ValidationMessage(
 								ValidationMessageLevel.ERROR,
-								String.format(INCOMPATIBLE_TYPE,returnType.getName(),types),
+								String.format(INCOMPATIBLE_TYPE,getQualifiedName(returnType),types),
 								base.getStartOffset(varAssign),
 								base.getEndOffset(varAssign)
 								));
@@ -365,12 +367,12 @@ public class TypeValidator implements IValidator {
 					String inferredToString = 
 							inferredTypes
 							.stream()
-							.map(type -> type.toString())
+							.map(type -> getQualifiedName(type))
 							.collect(Collectors.joining(",","[","]"));
 					
 					msgs.add(new ValidationMessage(
 							ValidationMessageLevel.ERROR,
-							String.format(INCOMPATIBLE_TYPE,varDecl.getType().getName(),inferredToString),
+							String.format(INCOMPATIBLE_TYPE,getQualifiedName(varDecl.getType()),inferredToString),
 							base.getStartOffset(varDecl),
 							base.getEndOffset(varDecl)
 							));
@@ -399,7 +401,7 @@ public class TypeValidator implements IValidator {
 					base
 					.getPossibleTypes(loop.getCollectionExpression())
 					.stream()
-					.map(type -> type.toString())
+					.map(type -> getQualifiedName(type))
 					.collect(Collectors.joining(",","[","]"));
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
@@ -442,7 +444,7 @@ public class TypeValidator implements IValidator {
 			String inferredToString = 
 					selectorTypes
 					.stream()
-					.map(type -> type.toString())
+					.map(type -> getQualifiedName(type))
 					.collect(Collectors.joining(",","[","]"));
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
@@ -548,5 +550,33 @@ public class TypeValidator implements IValidator {
 		}
 		
 		return res;
+	}
+	
+	private static String getQualifiedName(EClassifier cls) {
+		return getQualifiedName(cls.getEPackage()) + "::" + cls.getName(); 
+	}
+	
+	private static String getQualifiedName(EPackage pkg) {
+		LinkedList<EPackage> pkgs = new LinkedList<>();
+		EPackage current = pkg;
+		while(current != null) {
+			pkgs.addFirst(current);
+			current = current.getESuperPackage();
+		}
+		
+		return pkgs
+			.stream()
+			.map(p -> p.getName())
+			.collect(Collectors.joining("::"));
+	}
+	
+	private static String getQualifiedName(IType type) {
+		
+		if(type instanceof EClassifierType) {
+			EClassifier cls = ((EClassifierType) type).getType();
+			return getQualifiedName(cls);
+		}
+		
+		return type.toString();
 	}
 }

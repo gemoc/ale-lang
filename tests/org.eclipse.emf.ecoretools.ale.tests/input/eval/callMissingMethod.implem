@@ -1,0 +1,8 @@
+behavior test.callattr;
+open class ClassA {
+	
+	@main
+	def int main() {
+		result := self.foo();
+	}
+}

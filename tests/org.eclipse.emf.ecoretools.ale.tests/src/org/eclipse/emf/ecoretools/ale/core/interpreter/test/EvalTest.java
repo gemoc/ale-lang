@@ -1000,4 +1000,15 @@ public class EvalTest {
 		assertEquals(caller.eClass(), ((EObject)((List)res.getValue()).get(0)).eClass());
 		assertEquals(caller.eClass(), ((EObject)((List)res.getValue()).get(1)).eClass());
 	}
+	
+	@Test
+	public void testCallMissingMethod() {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/callMissingMethod.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals(Diagnostic.WARNING, res.getDiagnostic().getSeverity());	
+		assertEquals("An error occured during evaluation of a query", res.getDiagnostic().getMessage());
+	}
 }

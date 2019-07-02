@@ -899,7 +899,7 @@ public class NameValidatorTest {
 		
 		assertEquals(2, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 112, 117, "Feature wrong not found in EClass EClass", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 90, 118, "Expected [EInt] but was [Nothing(Feature wrong not found in EClass EClass)]", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 90, 118, "Expected [ecore::EInt] but was [Nothing(Feature wrong not found in EClass EClass)]", msg.get(1));
 	}
 	
 	private void assertMsgEquals(ValidationMessageLevel errorLvl, int startPos, int endPos, String text, IValidationMessage msg){
