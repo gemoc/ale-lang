@@ -23,23 +23,30 @@ import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.ast.IntegerLiteral;
 import org.eclipse.acceleo.query.ast.Let;
 import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
+import org.eclipse.acceleo.query.ast.TypeLiteral;
+import org.eclipse.acceleo.query.ast.impl.CollectionTypeLiteralImpl;
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.impl.QueryBuilderEngine;
 import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
 import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.ETypeParameter;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -218,7 +225,14 @@ public class ModelBuilder {
 		if(exp != null){
 			varDecl.setInitialValue(parseExp(exp,parseRes));
 		}
-		varDecl.setType(resolve(type));
+		EClassifier declaredType = resolve(type);
+		varDecl.setType(declaredType);
+		
+		if(declaredType == EcorePackage.eINSTANCE.getEEList()) {
+			EClassifier parameterType = resolveParameterType(type);
+			varDecl.setTypeParameter(parameterType);
+		}
+		
 		return varDecl;
 	}
 	
@@ -542,6 +556,35 @@ public class ModelBuilder {
 		
 		return resolve(type.getText()); //default
 	}
+	
+	public EClassifier resolveParameterType(RTypeContext type) {
+		AstResult astResult = builder.build(type.getText());
+		if(astResult.getAst() instanceof CollectionTypeLiteralImpl ) {
+			CollectionTypeLiteralImpl collectionType = (CollectionTypeLiteralImpl) astResult.getAst();
+			TypeLiteral paramTypeLiteral = collectionType.getElementType();
+			Object paramType = paramTypeLiteral.getValue();
+			
+			if(paramType == java.lang.String.class)
+				return EcorePackage.eINSTANCE.getEString();
+			else if(paramType == java.lang.Integer.class)
+				return EcorePackage.eINSTANCE.getEInt();
+			else if(paramType == java.lang.Double.class)
+				return EcorePackage.eINSTANCE.getEDouble();
+			else if(paramType == java.lang.Boolean.class)
+				return EcorePackage.eINSTANCE.getEBoolean();
+			else if(paramType == List.class)
+				return EcorePackage.eINSTANCE.getEEList();
+			else if(paramType == Set.class)
+				return EcorePackage.eINSTANCE.getEEList();
+			else if(paramType instanceof EClassifier) {
+				return (EClassifier) paramType;
+			}
+
+		}
+		
+		return null;
+	}
+		
 	
 	public static String getQualifiedName(EClassifier cls) {
 		

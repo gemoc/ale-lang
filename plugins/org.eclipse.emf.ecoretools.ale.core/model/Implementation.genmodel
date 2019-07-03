@@ -47,6 +47,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//VariableDeclaration/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//VariableDeclaration/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//VariableDeclaration/initialValue"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//VariableDeclaration/typeParameter"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//Assignment">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Assignment/value"/>

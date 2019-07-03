@@ -1230,6 +1230,72 @@ public class TypeValidatorTest {
 		assertMsgEquals(ValidationMessageLevel.ERROR, 70, 73, "Expected Collection(ecore::EClass) but was [java.lang.Integer]", msg.get(0));
 	}
 	
+	@Test
+	public void testDeclareCollection() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareCollection.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	@Test
+	public void testDeclareCollection2() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareCollection2.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	@Test
+	public void testDeclareCollectionError() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareCollectionError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 71, 101, "Expected Collection(ecore::EInt) but was [java.lang.Integer]", msg.get(0));
+	}
+	
+	@Test
+	public void testAssignCollectionType() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignCollectionType.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	@Test
+	public void testAssignCollectionTypeError() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignCollectionTypeError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 118, 143, "Expected Collection(ecore::EInt) but was [Sequence(java.lang.String)]", msg.get(0));
+	}
+	
 	private void assertMsgEquals(ValidationMessageLevel errorLvl, int startPos, int endPos, String text, IValidationMessage msg){
 		assertEquals(errorLvl, msg.getLevel());
 		assertEquals(startPos, msg.getStartPosition());

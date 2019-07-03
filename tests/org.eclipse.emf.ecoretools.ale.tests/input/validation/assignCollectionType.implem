@@ -1,0 +1,7 @@
+behavior test.assigncollection;
+open class EClass {
+	def void op(){
+		Sequence(ecore::EInt) seq := Sequence{1,2,3};
+		seq := Sequence{1,2,3};
+	}
+}

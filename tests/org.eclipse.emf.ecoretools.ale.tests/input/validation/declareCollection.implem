@@ -1,0 +1,6 @@
+behavior test.declarecollection;
+open class EClass {
+	def void op(){
+		Sequence(ecore::EInt) seq := Sequence{1,2,3};
+	}
+}

@@ -1,0 +1,6 @@
+behavior test.declarecollection;
+open class EClass {
+	def void op(){
+		Sequence(ecore::EClass) seq := Sequence{ecore::EClass.create()};
+	}
+}

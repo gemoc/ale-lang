@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EClassifier;
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration#getType <em>Type</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration#getInitialValue <em>Initial Value</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration#getTypeParameter <em>Type Parameter</em>}</li>
  * </ul>
  *
  * @see org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage#getVariableDeclaration()
@@ -118,5 +119,31 @@ public interface VariableDeclaration extends Statement {
 	 * @generated
 	 */
 	void setInitialValue(Expression value);
+
+	/**
+	 * Returns the value of the '<em><b>Type Parameter</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Type Parameter</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type Parameter</em>' reference.
+	 * @see #setTypeParameter(EClassifier)
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage#getVariableDeclaration_TypeParameter()
+	 * @model required="true"
+	 * @generated
+	 */
+	EClassifier getTypeParameter();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration#getTypeParameter <em>Type Parameter</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Type Parameter</em>' reference.
+	 * @see #getTypeParameter()
+	 * @generated
+	 */
+	void setTypeParameter(EClassifier value);
 
 } // VariableDeclaration

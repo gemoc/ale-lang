@@ -36,6 +36,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.VariableDeclarationImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.VariableDeclarationImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.VariableDeclarationImpl#getInitialValue <em>Initial Value</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.VariableDeclarationImpl#getTypeParameter <em>Type Parameter</em>}</li>
  * </ul>
  *
  * @generated
@@ -87,6 +88,16 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * @ordered
 	 */
 	protected Expression initialValue;
+
+	/**
+	 * The cached value of the '{@link #getTypeParameter() <em>Type Parameter</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTypeParameter()
+	 * @generated
+	 * @ordered
+	 */
+	protected EClassifier typeParameter;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -214,6 +225,44 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClassifier getTypeParameter() {
+		if (typeParameter != null && typeParameter.eIsProxy()) {
+			InternalEObject oldTypeParameter = (InternalEObject)typeParameter;
+			typeParameter = (EClassifier)eResolveProxy(oldTypeParameter);
+			if (typeParameter != oldTypeParameter) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ImplementationPackage.VARIABLE_DECLARATION__TYPE_PARAMETER, oldTypeParameter, typeParameter));
+			}
+		}
+		return typeParameter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClassifier basicGetTypeParameter() {
+		return typeParameter;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTypeParameter(EClassifier newTypeParameter) {
+		EClassifier oldTypeParameter = typeParameter;
+		typeParameter = newTypeParameter;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.VARIABLE_DECLARATION__TYPE_PARAMETER, oldTypeParameter, typeParameter));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -238,6 +287,9 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 				return basicGetType();
 			case ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
 				return getInitialValue();
+			case ImplementationPackage.VARIABLE_DECLARATION__TYPE_PARAMETER:
+				if (resolve) return getTypeParameter();
+				return basicGetTypeParameter();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -258,6 +310,9 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 				return;
 			case ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
 				setInitialValue((Expression)newValue);
+				return;
+			case ImplementationPackage.VARIABLE_DECLARATION__TYPE_PARAMETER:
+				setTypeParameter((EClassifier)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -280,6 +335,9 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 			case ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
 				setInitialValue((Expression)null);
 				return;
+			case ImplementationPackage.VARIABLE_DECLARATION__TYPE_PARAMETER:
+				setTypeParameter((EClassifier)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -298,6 +356,8 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 				return type != null;
 			case ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
 				return initialValue != null;
+			case ImplementationPackage.VARIABLE_DECLARATION__TYPE_PARAMETER:
+				return typeParameter != null;
 		}
 		return super.eIsSet(featureID);
 	}
