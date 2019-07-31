@@ -1,0 +1,9 @@
+behavior test.assignSequenceVarDeclError;
+open class ecore.EClass {
+	def int op(){
+		Sequence(ecore::EClass) mySequence1 := self;
+		mySequence1 := self;
+		Sequence(ecore::EClass) mySequence2 := ecore::EClass.create();
+		mySequence2 := ecore::EClass.create();
+	}
+}

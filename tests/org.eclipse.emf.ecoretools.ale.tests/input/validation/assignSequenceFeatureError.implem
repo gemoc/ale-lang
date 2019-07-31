@@ -1,0 +1,9 @@
+behavior test.assignSequenceFeatureError;
+open class ecore.EClass {
+	Sequence(ecore::EClass) mySequence;
+	
+	def int op(){
+		self.mySequence := self;
+		self.mySequence := ecore::EClass.create();
+	}
+}

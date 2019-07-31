@@ -1213,7 +1213,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 70, 73, "Expected Collection(ecore::EClass) but was [ecore::EClass]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 70, 94, "Expected Collection(ecore::EClass) but was [ecore::EClass]", msg.get(0));
 	}
 	
 	@Test
@@ -1227,7 +1227,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 70, 73, "Expected Collection(ecore::EClass) but was [java.lang.Integer]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 70, 91, "Expected Collection(ecore::EClass) but was [java.lang.Integer]", msg.get(0));
 	}
 	
 	@Test
@@ -1294,6 +1294,60 @@ public class TypeValidatorTest {
 		
 		assertEquals(1, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 118, 143, "Expected Collection(ecore::EInt) but was [Sequence(java.lang.String)]", msg.get(0));
+	}
+	@Test
+	public void testAssignSequenceFeature() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignSequenceFeature.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	@Test
+	public void testAssignSequenceFeatureError() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignSequenceFeatureError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(2, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 124, 147, "Expected [ecore::EEList] but was [ecore::EClass]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 151, 192, "Expected [ecore::EEList] but was [ecore::EClass]", msg.get(1));
+	}
+	@Test
+	public void testAssignSequenceVarDecl() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignSequenceVarDecl.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	@Test
+	public void testAssignSequenceVarDeclError() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignSequenceVarDeclError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(4, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 85, 128, "Expected Collection(ecore::EClass) but was [ecore::EClass]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 132, 151, "Expected Collection(ecore::EClass) but was [ecore::EClass]", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 155, 216, "Expected Collection(ecore::EClass) but was [ecore::EClass]", msg.get(2));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 220, 257, "Expected Collection(ecore::EClass) but was [ecore::EClass]", msg.get(3));
 	}
 	
 	private void assertMsgEquals(ValidationMessageLevel errorLvl, int startPos, int endPos, String text, IValidationMessage msg){

@@ -28,6 +28,7 @@ import org.eclipse.acceleo.query.validation.type.ClassType;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.ICollectionType;
 import org.eclipse.acceleo.query.validation.type.IType;
+import org.eclipse.acceleo.query.validation.type.NothingType;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -274,15 +275,20 @@ public class TypeValidator implements IValidator {
 					msgs.add(new ValidationMessage(
 							ValidationMessageLevel.ERROR,
 							String.format(INCOMPATIBLE_TYPE,"Collection"+featureToString,inferredToString),
-							base.getStartOffset(targetExp),
-							base.getEndOffset(targetExp)
+							base.getStartOffset(stmt),
+							base.getEndOffset(stmt)
 							));
 				}
 			}
 			else {
 				boolean isAnyAssignable = false;
 				for(IType featureType: featureTypes){
-					Optional<IType> existResult = inferredTypes.stream().filter(t -> featureType.isAssignableFrom(t)).findAny();
+					Optional<IType> existResult = inferredTypes
+							.stream()
+							.filter(t -> 
+								featureType.isAssignableFrom(t)
+								|| (featureType.getType()  == EcorePackage.eINSTANCE.getEEList() && t instanceof AbstractCollectionType )) // TODO should be able to be more precise
+							.findAny();
 					if(existResult.isPresent()){
 						isAnyAssignable = true;
 						break;
@@ -370,7 +376,7 @@ public class TypeValidator implements IValidator {
 								.stream()
 								.filter(t -> t instanceof AbstractCollectionType)
 								.map(t -> ((AbstractCollectionType)t).getCollectionType())
-								.filter(t -> varTypeParam.isAssignableFrom(t))
+								.filter(t -> varTypeParam.isAssignableFrom(t) || t instanceof NothingType)
 								.findAny();
 						if(!existResult.isPresent()) {
 							String inferredToString = 
@@ -424,6 +430,7 @@ public class TypeValidator implements IValidator {
 		
 		return msgs;
 	}
+
 	
 	@Override
 	public List<IValidationMessage> validateVariableDeclaration(VariableDeclaration varDecl) {
@@ -443,7 +450,7 @@ public class TypeValidator implements IValidator {
 							.stream()
 							.filter(t -> t instanceof AbstractCollectionType)
 							.map(t -> ((AbstractCollectionType)t).getCollectionType())
-							.filter(t -> varTypeParam.isAssignableFrom(t))
+							.filter(t -> varTypeParam.isAssignableFrom(t) || t instanceof NothingType)
 							.findAny();
 					if(!existResult.isPresent()) {
 						String inferredToString = 
