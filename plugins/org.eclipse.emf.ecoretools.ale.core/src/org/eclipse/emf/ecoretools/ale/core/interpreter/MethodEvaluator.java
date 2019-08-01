@@ -44,6 +44,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
+import org.eclipse.emf.ecoretools.ale.implementation.Statement;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
@@ -54,7 +55,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.util.ImplementationSwitch;
 /**
  * This class evaluate the body of an operation.
  */
-public class MethodEvaluator extends ImplementationSwitch<Object> {
+public class MethodEvaluator {
 	
 	public static final String PLUGIN_ID = "interpreter"; //FIXME: set real name
 	public static final String AQL_ERROR = "An error occured during evaluation of a query";
@@ -71,7 +72,7 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 		this.dynamicFeatureAccess = dynamicFeatureAccess;
 	}
 	
-	public EvaluationResult eval(EObject target, Method operation, List<Object> parameters) {
+	public EvaluationResult eval(EObject target, Method operation, List<Object> parameters) throws CriticalFailure {
 		variablesStack = new Stack();
 		//Init variables
 		Map<String, Object> variables = new HashMap<String, Object>();
@@ -88,7 +89,7 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 			
 			variablesStack.push(variables);
 			diagnostic = new BasicDiagnostic();
-			doSwitch(operation.getBody());
+			throwableSwitch(operation.getBody());
 			Object result =  variables.get("result");
 			variablesStack.pop();
 			
@@ -107,26 +108,23 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 		}
 	}
 	
-	@Override
-	public Object caseBlock(Block block) {
+	public Object caseBlock(Block block) throws CriticalFailure {
 		Map<String, Object> newScope = new HashMap<String, Object>();
 		variablesStack.push(newScope);
-		block.getStatements()
-			.stream()
-			.forEach(stmt -> doSwitch(stmt));
+		for(Statement stmt : block.getStatements()) {
+			throwableSwitch(stmt);
+		}
 		variablesStack.pop();
 		return null;
 	}
 	
-	@Override
-	public Object caseVariableDeclaration(VariableDeclaration varDecl) {
+	public Object caseVariableDeclaration(VariableDeclaration varDecl) throws CriticalFailure {
 		Object value = aqlEval(varDecl.getInitialValue());
 		variablesStack.peek().put(varDecl.getName(), value);
 		return null;
 	}
 	
-	@Override
-	public Object caseVariableAssignment(VariableAssignment varAssign) {
+	public Object caseVariableAssignment(VariableAssignment varAssign) throws CriticalFailure {
 		Map<String,Object> scope = findScope(varAssign.getName());
 		if(scope != null) {
 			Object value = aqlEval(varAssign.getValue());
@@ -141,9 +139,8 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 		}
 		return null;
 	}
-	
-	@Override
-	public Object caseFeatureAssignment(FeatureAssignment featAssign) {
+
+	public Object caseFeatureAssignment(FeatureAssignment featAssign) throws CriticalFailure {
 		Object assigned = aqlEval(featAssign.getTarget());
 		Object value = aqlEval(featAssign.getValue());
 
@@ -198,8 +195,7 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 		return null;
 	}
 	
-	@Override
-	public Object caseVariableInsert(VariableInsert varInsert) {
+	public Object caseVariableInsert(VariableInsert varInsert) throws CriticalFailure {
 		Map<String,Object> scope = findScope(varInsert.getName());
 		if(scope != null) {
 			Object insertedValue = aqlEval(varInsert.getValue());
@@ -221,8 +217,7 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 		return null;
 	}
 	
-	@Override
-	public Object caseVariableRemove(VariableRemove varInsert) {
+	public Object caseVariableRemove(VariableRemove varInsert) throws CriticalFailure {
 		Map<String,Object> scope = findScope(varInsert.getName());
 		if(scope != null) {
 			Object insertedValue = aqlEval(varInsert.getValue());
@@ -244,8 +239,7 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 		return null;
 	}
 	
-	@Override
-	public Object caseFeatureInsert(FeatureInsert featInsert) {
+	public Object caseFeatureInsert(FeatureInsert featInsert) throws CriticalFailure {
 		Object assigned = aqlEval(featInsert.getTarget());
 		Object value = aqlEval(featInsert.getValue());
 		
@@ -265,8 +259,7 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 		return null;
 	}
 	
-	@Override
-	public Object caseFeatureRemove(FeatureRemove featRemove) {
+	public Object caseFeatureRemove(FeatureRemove featRemove) throws CriticalFailure {
 		Object assigned = aqlEval(featRemove.getTarget());
 		Object value = aqlEval(featRemove.getValue());
 			
@@ -285,8 +278,7 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 		return null;
 	}
 	
-	@Override
-	public Object caseFeaturePut(FeaturePut featPut) {
+	public Object caseFeaturePut(FeaturePut featPut) throws CriticalFailure {
 		Object assigned = aqlEval(featPut.getTarget());
 		Object key = aqlEval(featPut.getKey());
 		Object value = aqlEval(featPut.getValue());
@@ -301,34 +293,29 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 		return null;
 	}
 	
-	@Override
-	public Object caseForEach(ForEach forEach) {
+	public Object caseForEach(ForEach forEach) throws CriticalFailure {
 		Collection<?> collection = (Collection<?>) aqlEval(forEach.getCollectionExpression());//TODO: check type
 		Map<String,Object> newScope = new HashMap<String,Object>();
 		variablesStack.push(newScope);
-		collection
-			.stream()
-			.forEach(elem -> {
-				newScope.put(forEach.getVariable(),elem);
-				doSwitch(forEach.getBody());
-			});
+		for(Object elem : collection) {
+			newScope.put(forEach.getVariable(),elem);
+			throwableSwitch(forEach.getBody());
+		}
 		
 		variablesStack.pop();
 		return null;
 	}
 	
-	@Override
-	public Object caseWhile(While loop) {
+	public Object caseWhile(While loop) throws CriticalFailure {
 		Object conditionValue = aqlEval(loop.getCondition());
 		while(conditionValue instanceof Boolean && conditionValue.equals(true)){
-			doSwitch(loop.getBody());
+			throwableSwitch(loop.getBody());
 			conditionValue = aqlEval(loop.getCondition());
 		}
 		return null;
 	}
 	
-	@Override
-	public Object caseIf(If ifStmt) {
+	public Object caseIf(If ifStmt) throws CriticalFailure {
 		Block selectedBlock = null;
 		for (ConditionalBlock conditionalBlock : ifStmt.getBlocks()) {
 			Object resEval = aqlEval(conditionalBlock.getCondition());
@@ -339,16 +326,15 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 		}
 		
 		if(selectedBlock != null){
-			doSwitch(selectedBlock);
+			throwableSwitch(selectedBlock);
 		}
 		else if(ifStmt.getElse() != null){
-			doSwitch(ifStmt.getElse());
+			throwableSwitch(ifStmt.getElse());
 		}
 		return null;
 	}
 	
-	@Override
-	public Object caseExpressionStatement(ExpressionStatement stmt) {
+	public Object caseExpressionStatement(ExpressionStatement stmt) throws CriticalFailure {
 		return aqlEval(stmt.getExpression());
 	}
 	
@@ -365,7 +351,7 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 		return scope;
 	}
 	
-	private Object aqlEval(Expression expression) {
+	private Object aqlEval(Expression expression) throws CriticalFailure {
 		AstResult dummyAstResult = new AstResult(expression, new HashMap(), new HashMap(), new ArrayList(), new BasicDiagnostic());
 		EvaluationResult result = aqlEngine.eval(dummyAstResult, getCurrentScope());
 		
@@ -378,6 +364,7 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 					new Object[] { expression , result.getDiagnostic()}
 					);
 			diagnostic.add(child);
+			stopExecution("AQL evalution failed");
 		}
 		
 		return result.getResult();
@@ -389,6 +376,53 @@ public class MethodEvaluator extends ImplementationSwitch<Object> {
 			if(scope.keySet().contains(variable)){
 				return scope;
 			}
+		}
+		return null;
+	}
+	
+	private void stopExecution(String message) throws CriticalFailure {
+		throw new CriticalFailure(message,diagnostic);
+	}
+	
+	private Object throwableSwitch(Object obj) throws CriticalFailure {
+		if(obj instanceof Block) {
+			return caseBlock((Block) obj);
+		}
+		else if(obj instanceof ExpressionStatement) {
+			return caseExpressionStatement((ExpressionStatement) obj);
+		}
+		else if(obj instanceof FeatureAssignment) {
+			return caseFeatureAssignment((FeatureAssignment) obj);
+		}
+		else if(obj instanceof FeatureInsert) {
+			return caseFeatureInsert((FeatureInsert) obj);
+		}
+		else if(obj instanceof FeaturePut) {
+			return caseFeaturePut((FeaturePut) obj);
+		}
+		else if(obj instanceof FeatureRemove) {
+			return caseFeatureRemove((FeatureRemove) obj);
+		}
+		else if(obj instanceof ForEach) {
+			return caseForEach((ForEach) obj);
+		}
+		else if(obj instanceof If) {
+			return caseIf((If) obj);
+		}
+		else if(obj instanceof VariableAssignment) {
+			return caseVariableAssignment((VariableAssignment) obj);
+		}
+		else if(obj instanceof VariableDeclaration) {
+			return caseVariableDeclaration((VariableDeclaration) obj);
+		}
+		else if(obj instanceof VariableInsert) {
+			return caseVariableInsert((VariableInsert) obj);
+		}
+		else if(obj instanceof VariableRemove) {
+			return caseVariableRemove((VariableRemove) obj);
+		}
+		else if(obj instanceof While) {
+			return caseWhile((While) obj);
 		}
 		return null;
 	}
