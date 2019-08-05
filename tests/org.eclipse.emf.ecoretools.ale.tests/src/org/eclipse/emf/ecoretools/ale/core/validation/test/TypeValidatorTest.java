@@ -55,6 +55,22 @@ public class TypeValidatorTest {
 	}
 	
 	/*
+	 * Test ExtendedClass extending another with the same baseClass
+	 */
+	@Test
+	public void testExtendTypeTreeWithAttributes() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/extendTypeTreeWithAttributes.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/*
 	 * Test ExtendedClass extending another based on a super type of its baseClass
 	 */
 	@Test
