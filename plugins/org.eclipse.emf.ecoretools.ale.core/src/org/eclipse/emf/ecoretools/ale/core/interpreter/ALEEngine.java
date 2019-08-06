@@ -33,6 +33,7 @@ public class ALEEngine {
 		}
 		catch(CriticalFailure e) {
 			res = new EvaluationResult(null, e.diagnostics);
+			this.implemEnv.logger.notify(e.diagnostics);
 		}
 		return res;
 	}
