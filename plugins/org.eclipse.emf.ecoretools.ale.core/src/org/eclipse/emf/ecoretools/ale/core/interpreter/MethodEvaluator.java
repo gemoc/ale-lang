@@ -364,7 +364,7 @@ public class MethodEvaluator {
 					new Object[] { expression , result.getDiagnostic()}
 					);
 			diagnostic.add(child);
-			stopExecution("AQL evalution failed");
+			stopExecution("AQL evaluation failed");
 		}
 		
 		return result.getResult();

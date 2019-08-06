@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
