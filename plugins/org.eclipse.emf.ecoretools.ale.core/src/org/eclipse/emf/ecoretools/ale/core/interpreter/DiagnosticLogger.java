@@ -21,7 +21,6 @@ import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
-import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 public class DiagnosticLogger {
@@ -45,21 +44,37 @@ public class DiagnosticLogger {
 		.stream()
 		.forEach(diagnotic -> {
 			if(diagnotic instanceof BasicDiagnostic){
-				BasicDiagnostic chain = (BasicDiagnostic) diagnotic;
-				chain
-					.getChildren()
-					.stream()
-					.forEach(
-						diag -> {
-							if(diag.getSource().equals(MethodEvaluator.PLUGIN_ID)){
-								Expression failedExp = (Expression) diag.getData().get(0);
-								Diagnostic diagExp = (Diagnostic) diag.getData().get(1);
-								printError(failedExp, diagExp.toString());
-							}
-						}
-					);
+				diagnosticForHuman((BasicDiagnostic) diagnotic);
 			}
 		});
+	}
+	
+	public void diagnosticForHuman( BasicDiagnostic diagnotic) {
+		diagnotic
+			.getChildren()
+			.stream()
+			.forEach(
+				diag -> {
+					if(diag.getSource().equals(MethodEvaluator.PLUGIN_ID)){
+						Expression failedExp = (Expression) diag.getData().get(0);
+						Diagnostic diagExp = (Diagnostic) diag.getData().get(1);
+						printError(failedExp, diagExp.toString());
+						if(diagExp instanceof BasicDiagnostic) {
+							diagnosticForHuman((BasicDiagnostic) diagExp);
+						}
+					} else {
+						if(!diag.getData().isEmpty() && diag.getData().get(0) instanceof Exception) {
+							Exception e = (Exception) diag.getData().get(0);
+							if(e.getCause() != null && e.getCause() instanceof CriticalFailure) {
+								CriticalFailure interpreterFailure = (CriticalFailure) e.getCause();
+								diagnosticForHuman(interpreterFailure.diagnostics);
+							} else if(e.getCause() != null){
+								e.getCause().printStackTrace();
+							}
+						}
+					}
+				}
+			);
 	}
 	
 	private void printError(Expression expr, String errorMsg) {
