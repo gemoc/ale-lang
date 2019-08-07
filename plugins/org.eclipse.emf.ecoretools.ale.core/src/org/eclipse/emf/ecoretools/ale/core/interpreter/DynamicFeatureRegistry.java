@@ -180,24 +180,23 @@ public class DynamicFeatureRegistry {
 		}
 	}
 	
+	/**
+	 * returns the first feature in the extended class hieararchy that applies to this type that declares a feature with this name
+	 * @param type
+	 * @param featureName
+	 * @return
+	 */
 	public Optional<Attribute> findFeature(EClass type, String featureName) {
-		Optional<ExtendedClass> xtdClass = //FIXME:look type hierarchy 
-				allImplemModels
-				.stream()
-				.flatMap(m -> m.getClassExtensions().stream())
-				.filter(cls -> cls.getBaseClass().isSuperTypeOf(type))
+		// FIXME: does it deal with all situations ?  for eg. inheritance between open classes ?
+		List<ExtendedClass> extendedClasses = allImplemModels
+			.stream()
+			.flatMap(m -> m.getClassExtensions().stream())
+			.filter(cls -> cls.getBaseClass().isSuperTypeOf(type)).collect(Collectors.toList());
+		for(ExtendedClass extendedClass : extendedClasses) {
+			Optional<Attribute> featureDeclaration = extendedClass.getAttributes().stream()
+				.filter(attr -> attr.getFeatureRef().getName().equals(featureName))
 				.findFirst();
-		
-		if(xtdClass.isPresent()){
-			Optional<Attribute> featureDeclaration = 
-					xtdClass
-					.get()
-					.getAttributes()
-					.stream()
-					.filter(attr -> attr.getFeatureRef().getName().equals(featureName))
-					.findFirst();
-			
-			return featureDeclaration;
+			if(featureDeclaration.isPresent()) return featureDeclaration;
 		}
 		return Optional.empty();
 	}

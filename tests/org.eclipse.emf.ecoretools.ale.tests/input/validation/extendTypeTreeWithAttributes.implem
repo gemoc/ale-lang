@@ -1,0 +1,23 @@
+behavior test.extendTypeTreeWithAttributes;
+
+open class ecore.EClass {
+	Integer attrOnEClass;
+	
+	def void fooEClass(Integer p){
+		self.fooEClass(self.attrOnEClass);
+		self.fooEClass(self.attrOnEClassifier);
+		
+		self.fooEClass(self.attrOnEClassifier);
+		self.attrOnEClass := self.attrOnEClass;
+		self.attrOnEClass := self.attrOnEClassifier;
+		self.attrOnEClassifier := self.attrOnEClass;
+	}
+}
+
+open class ecore.EClassifier {
+	Integer attrOnEClassifier;
+	
+	def void foo(){
+		self.attrOnEClassifier := self.attrOnEClassifier;
+	}
+}

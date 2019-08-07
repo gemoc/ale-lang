@@ -1,0 +1,7 @@
+behavior test.assignSequenceVarDecl;
+open class ecore.EClass {
+	def Sequence(ecore::EClass) op(){
+		result := Sequence{}; 
+		result := Sequence{ecore::EClass.create()}; 
+	}
+}
