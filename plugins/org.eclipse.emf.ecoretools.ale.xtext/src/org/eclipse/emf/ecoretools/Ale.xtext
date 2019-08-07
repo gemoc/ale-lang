@@ -113,7 +113,7 @@ rBlock returns Block :
 ;
 
 rIf returns If :
-	'if' '(' cond=rExpression ')' then=rBlock ('else' else=rBlock)?
+	'if' '(' cond=rExpression ')' then=rBlock ('else' (else=rBlock | nestedIf=rIf))?
 ;
 
 rWhile returns While :
