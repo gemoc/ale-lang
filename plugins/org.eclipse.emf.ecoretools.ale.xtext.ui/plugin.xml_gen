@@ -204,6 +204,15 @@
 			</activeWhen>
 		</handler>
 	</extension>
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type
+			base-type="org.eclipse.core.runtime.text"
+			file-extensions="ale"
+			id="org.eclipse.emf.ecoretools.Ale.contenttype"
+			name="Ale File"
+			priority="normal">
+		</content-type>
+	</extension>
 	<!-- adding resource factories -->
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
@@ -239,6 +248,15 @@
 			point="org.eclipse.core.resources.markers">
 		<super type="org.eclipse.xtext.ui.check.expensive"/>
 		<persistent value="true"/>
+	</extension>
+	<extension point="org.eclipse.ui.preferencePages">
+		<page
+			category="org.eclipse.emf.ecoretools.Ale"
+			class="org.eclipse.emf.ecoretools.ui.AleExecutableExtensionFactory:org.eclipse.xtext.ui.validation.ValidatorPreferencePage"
+			id="org.eclipse.emf.ecoretools.Ale.validator.preferencePage"
+			name="Errors/Warnings">
+			<keywordReference id="org.eclipse.emf.ecoretools.ui.keyword_Ale"/>
+		</page>
 	</extension>
 	<extension point="org.eclipse.xtext.builder.participant">
 		<participant
@@ -388,12 +406,18 @@
 			class="org.eclipse.emf.ecoretools.ui.AleExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="ale">
 		</viewer>
+		<contentTypeBinding
+			contentTypeId="org.eclipse.emf.ecoretools.Ale.contenttype"
+			contentViewerId="org.eclipse.emf.ecoretools.Ale.compare.contentViewers" />
 	</extension>
 	<extension point="org.eclipse.compare.contentMergeViewers">
 		<viewer id="org.eclipse.emf.ecoretools.Ale.compare.contentMergeViewers"
 			class="org.eclipse.emf.ecoretools.ui.AleExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="ale" label="Ale Compare">
 		</viewer>
+		<contentTypeBinding
+			contentTypeId="org.eclipse.emf.ecoretools.Ale.contenttype"
+			contentMergeViewerId="org.eclipse.emf.ecoretools.Ale.compare.contentMergeViewers" />
 	</extension>
 	<extension point="org.eclipse.ui.editors.documentProviders">
 		<provider id="org.eclipse.emf.ecoretools.Ale.editors.documentProviders"
