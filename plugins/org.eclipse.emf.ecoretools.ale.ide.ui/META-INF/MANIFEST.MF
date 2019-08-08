@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Ui
+Bundle-Name: ALE IDE Ui
 Bundle-SymbolicName: org.eclipse.emf.ecoretools.ale.ide.ui;singleton:=true
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 1.0.0.qualifier
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.eclipse.emf.ecoretools.ale.ide.ui.Activator
 Export-Package: org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig,
@@ -22,3 +22,4 @@ Require-Bundle: org.eclipse.emf.ecoretools.ale.ide,
  org.eclipse.sirius.common.acceleo.aql,
  org.eclipse.emf.ecoretools.ale.xtext,
  org.eclipse.emf.ecoretools.design
+Bundle-Vendor: Inria/Obeo

@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Ide
+Bundle-Name: ALE Ide
 Bundle-SymbolicName: org.eclipse.emf.ecoretools.ale.ide;singleton:=true
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 1.0.0.qualifier
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.emf.ecoretools.ale,
  org.eclipse.emf.ecoretools.ale.core,
@@ -17,3 +17,4 @@ Import-Package: org.eclipse.emf.common.util,
 Export-Package: org.eclipse.emf.ecoretools.ale.ide,
  org.eclipse.emf.ecoretools.ale.ide.listener,
  org.eclipse.emf.ecoretools.ale.ide.resource
+Bundle-Vendor: Inria/Obeo

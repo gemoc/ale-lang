@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.eclipse.emf.ecoretools.ale.xtext
-Bundle-Vendor: My Company
-Bundle-Version: 0.0.1.qualifier
+Bundle-Name: ALE Xtext
+Bundle-Vendor: Inria/Obeo
+Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: org.eclipse.emf.ecoretools.ale.xtext; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext,
