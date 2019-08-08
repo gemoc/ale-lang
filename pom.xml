@@ -11,21 +11,15 @@
 
 
 	<properties>
-		<tycho.version>0.26.0</tycho.version>
-		<xtend.version>2.10.0</xtend.version>
+		<tycho.version>1.2.0</tycho.version>
+		<xtend.version>2.14.0</xtend.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<eclipse-repo.url>http://download.eclipse.org/releases/neon</eclipse-repo.url>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<tycho.scmUrl>scm:git:https://github.com/gemoc/ale-lang.git</tycho.scmUrl>
 	</properties>
 
 	<repositories>
-		<repository>
-			<id>eclipse-repo</id>
-			<url>${eclipse-repo.url}</url>
-			<layout>p2</layout>
-		</repository>
 		<repository>
 			<id>acceleo</id>
 			<url>http://download.eclipse.org/acceleo/updates/releases/</url>
