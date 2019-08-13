@@ -77,7 +77,7 @@ public class DynamicEObjectServices extends EObjectServices{
 
 		EObject current = eContainer(eObject);
 		while (current != null && !type.isSuperTypeOf(current.eClass()) && !type.isInstance(current)) {
-			current = eContainer(eObject);
+			current = eContainer(current);
 		}
 		if (current != null && (type.isSuperTypeOf(current.eClass()) || type.isInstance(current))) {
 			result = current;
