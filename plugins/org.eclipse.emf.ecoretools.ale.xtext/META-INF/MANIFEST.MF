@@ -29,5 +29,6 @@ Export-Package: org.eclipse.emf.ecoretools,
  org.eclipse.emf.ecoretools.generator,
  org.eclipse.emf.ecoretools.ale.util,
  org.eclipse.emf.ecoretools.parser.antlr,
- org.eclipse.emf.ecoretools.parser.antlr.internal
+ org.eclipse.emf.ecoretools.parser.antlr.internal,
+ org.eclipse.emf.ecoretools.formatting2
 Import-Package: org.apache.log4j
