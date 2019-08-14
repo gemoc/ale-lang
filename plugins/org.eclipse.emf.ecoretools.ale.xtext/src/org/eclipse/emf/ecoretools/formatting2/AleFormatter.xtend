@@ -50,6 +50,9 @@ class AleFormatter extends AbstractFormatter2 {
 		for (xtendedClass : unit.xtendedClasses) {
 			xtendedClass.format
 		}
+		
+		unit.allRegionsFor.keyword("Sequence").append[noSpace; highPriority]
+		unit.allRegionsFor.keyword("OrderedSet").append[noSpace; highPriority]
 	}
 	
 	def dispatch void format(BehavioredClass xtendedClass, extension IFormattableDocument document) {
