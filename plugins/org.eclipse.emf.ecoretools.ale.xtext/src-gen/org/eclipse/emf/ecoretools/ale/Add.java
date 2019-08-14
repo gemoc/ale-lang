@@ -14,6 +14,7 @@
  */
 package org.eclipse.emf.ecoretools.ale;
 
+import java.lang.String;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,6 +26,7 @@ package org.eclipse.emf.ecoretools.ale;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.Add#getLeft <em>Left</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.Add#getOp <em>Op</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.Add#getRight <em>Right</em>}</li>
  * </ul>
  *
@@ -59,6 +61,32 @@ public interface Add extends Expression
    * @generated
    */
   void setLeft(Expression value);
+
+  /**
+   * Returns the value of the '<em><b>Op</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Op</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Op</em>' attribute.
+   * @see #setOp(String)
+   * @see org.eclipse.emf.ecoretools.ale.AlePackage#getAdd_Op()
+   * @model
+   * @generated
+   */
+  String getOp();
+
+  /**
+   * Sets the value of the '{@link org.eclipse.emf.ecoretools.ale.Add#getOp <em>Op</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Op</em>' attribute.
+   * @see #getOp()
+   * @generated
+   */
+  void setOp(String value);
 
   /**
    * Returns the value of the '<em><b>Right</b></em>' containment reference.

@@ -151,9 +151,9 @@ expression returns Expression :
 	    	)
 	    )
 	    
-		| {Mult.left=current} MultOp right=expression
-		| {Add.left=current} addOp right=expression
-		| {Comp.left=current} compOp right=expression
+		| {Mult.left=current} op=MultOp right=expression
+		| {Add.left=current} op=addOp right=expression
+		| {Comp.left=current} op=compOp right=expression
 		
 		| {And.left=current} 'and' right=expression
 		| {Or.left=current}'or' right=expression
@@ -198,8 +198,8 @@ literal :    {String} value=STRING
 		   | {True}'true'
 		   | {False}'false'
 		   | {Null} 'null'
-		   | {Sequence} 'Sequence{' (params+=expression (',' params+=expression)*)? '}'
-		   | {OrderedSet} 'OrderedSet{' (params+=expression (',' params+=expression)*)? '}'
+		   | {Sequence} 'Sequence' '{' (params+=expression (',' params+=expression)*)? '}'
+		   | {OrderedSet} 'OrderedSet' '{' (params+=expression (',' params+=expression)*)? '}'
 		   | {Enum} Ident '::' Ident '::' Ident
 //		   | Ident '::' Ident ':'
 		   | typeLiteral
@@ -209,13 +209,13 @@ typeLiteral :   {StringType}'String'
 		      | {IntType}'Integer'
 		      | {RealType}'Real'
 		      | {BoolType}'Boolean'
-		      | {SeqType} 'Sequence(' type=typeLiteral')'
-		      | {SetType} 'OrderedSet(' type=typeLiteral')'
+		      | {SeqType} 'Sequence' '(' type=typeLiteral')'
+		      | {SetType} 'OrderedSet' '(' type=typeLiteral')'
 		      | classifierTypeRule
 		      | {ClassifierSetType}'{' types+=classifierTypeRule ('|' types+=classifierTypeRule)* '}'
 ;
 
-classifierTypeRule :   {ClassifierType} Ident '::' Ident
+classifierTypeRule :   {ClassifierType} packageName=Ident '::' className=Ident
 //				     | Ident ':' 
 ;
 
@@ -224,7 +224,7 @@ rType: typeLiteral | name=rQIdent
 
 rQIdent : Ident ('::' Ident)*;
 
-rQualified : Ident ('.'Ident)*
+rQualified : Ident ('.' Ident)*
 ;
 
 terminal MultOp : '*' | '/'

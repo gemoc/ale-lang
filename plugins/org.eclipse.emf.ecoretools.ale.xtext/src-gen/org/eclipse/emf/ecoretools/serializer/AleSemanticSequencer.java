@@ -291,10 +291,19 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     rType returns ClassifierType
 	 *
 	 * Constraint:
-	 *     {ClassifierType}
+	 *     (packageName=Ident className=Ident)
 	 */
 	protected void sequence_classifierTypeRule(ISerializationContext context, ClassifierType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.CLASSIFIER_TYPE__PACKAGE_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.CLASSIFIER_TYPE__PACKAGE_NAME));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.CLASSIFIER_TYPE__CLASS_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.CLASSIFIER_TYPE__CLASS_NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getClassifierTypeRuleAccess().getPackageNameIdentTerminalRuleCall_1_0(), semanticObject.getPackageName());
+		feeder.accept(grammarAccess.getClassifierTypeRuleAccess().getClassNameIdentTerminalRuleCall_3_0(), semanticObject.getClassName());
+		feeder.finish();
 	}
 	
 	
@@ -314,17 +323,20 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     nonLeftRecExpression returns Add
 	 *
 	 * Constraint:
-	 *     (left=expression_Add_1_4_0 right=expression)
+	 *     (left=expression_Add_1_4_0 op=addOp right=expression)
 	 */
 	protected void sequence_expression(ISerializationContext context, Add semanticObject) {
 		if (errorAcceptor != null) {
 			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.ADD__LEFT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.ADD__LEFT));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.ADD__OP) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.ADD__OP));
 			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.ADD__RIGHT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.ADD__RIGHT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getExpressionAccess().getAddLeftAction_1_4_0(), semanticObject.getLeft());
+		feeder.accept(grammarAccess.getExpressionAccess().getOpAddOpParserRuleCall_1_4_1_0(), semanticObject.getOp());
 		feeder.accept(grammarAccess.getExpressionAccess().getRightExpressionParserRuleCall_1_4_2_0(), semanticObject.getRight());
 		feeder.finish();
 	}
@@ -427,17 +439,20 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     nonLeftRecExpression returns Comp
 	 *
 	 * Constraint:
-	 *     (left=expression_Comp_1_5_0 right=expression)
+	 *     (left=expression_Comp_1_5_0 op=compOp right=expression)
 	 */
 	protected void sequence_expression(ISerializationContext context, Comp semanticObject) {
 		if (errorAcceptor != null) {
 			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.COMP__LEFT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.COMP__LEFT));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.COMP__OP) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.COMP__OP));
 			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.COMP__RIGHT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.COMP__RIGHT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getExpressionAccess().getCompLeftAction_1_5_0(), semanticObject.getLeft());
+		feeder.accept(grammarAccess.getExpressionAccess().getOpCompOpParserRuleCall_1_5_1_0(), semanticObject.getOp());
 		feeder.accept(grammarAccess.getExpressionAccess().getRightExpressionParserRuleCall_1_5_2_0(), semanticObject.getRight());
 		feeder.finish();
 	}
@@ -523,17 +538,20 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     nonLeftRecExpression returns Mult
 	 *
 	 * Constraint:
-	 *     (left=expression_Mult_1_3_0 right=expression)
+	 *     (left=expression_Mult_1_3_0 op=MultOp right=expression)
 	 */
 	protected void sequence_expression(ISerializationContext context, Mult semanticObject) {
 		if (errorAcceptor != null) {
 			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.MULT__LEFT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.MULT__LEFT));
+			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.MULT__OP) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.MULT__OP));
 			if (transientValues.isValueTransient(semanticObject, AlePackage.Literals.MULT__RIGHT) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.MULT__RIGHT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getExpressionAccess().getMultLeftAction_1_3_0(), semanticObject.getLeft());
+		feeder.accept(grammarAccess.getExpressionAccess().getOpMultOpTerminalRuleCall_1_3_1_0(), semanticObject.getOp());
 		feeder.accept(grammarAccess.getExpressionAccess().getRightExpressionParserRuleCall_1_3_2_0(), semanticObject.getRight());
 		feeder.finish();
 	}
@@ -1361,7 +1379,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.SEQ_TYPE__TYPE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getTypeLiteralAccess().getTypeTypeLiteralParserRuleCall_4_2_0(), semanticObject.getType());
+		feeder.accept(grammarAccess.getTypeLiteralAccess().getTypeTypeLiteralParserRuleCall_4_3_0(), semanticObject.getType());
 		feeder.finish();
 	}
 	
@@ -1381,7 +1399,7 @@ public class AleSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AlePackage.Literals.SET_TYPE__TYPE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getTypeLiteralAccess().getTypeTypeLiteralParserRuleCall_5_2_0(), semanticObject.getType());
+		feeder.accept(grammarAccess.getTypeLiteralAccess().getTypeTypeLiteralParserRuleCall_5_3_0(), semanticObject.getType());
 		feeder.finish();
 	}
 	

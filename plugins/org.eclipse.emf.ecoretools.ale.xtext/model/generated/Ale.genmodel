@@ -139,14 +139,17 @@
     </genClasses>
     <genClasses ecoreClass="Ale.ecore#//Mult">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//Mult/left"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//Mult/op"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//Mult/right"/>
     </genClasses>
     <genClasses ecoreClass="Ale.ecore#//Add">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//Add/left"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//Add/op"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//Add/right"/>
     </genClasses>
     <genClasses ecoreClass="Ale.ecore#//Comp">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//Comp/left"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//Comp/op"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//Comp/right"/>
     </genClasses>
     <genClasses ecoreClass="Ale.ecore#//And">
@@ -218,6 +221,9 @@
     <genClasses ecoreClass="Ale.ecore#//ClassifierSetType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Ale.ecore#//ClassifierSetType/types"/>
     </genClasses>
-    <genClasses ecoreClass="Ale.ecore#//ClassifierType"/>
+    <genClasses ecoreClass="Ale.ecore#//ClassifierType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//ClassifierType/packageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Ale.ecore#//ClassifierType/className"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

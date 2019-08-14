@@ -129,11 +129,11 @@ public class AleParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getLiteralAccess().getGroup_4(), "rule__Literal__Group_4__0");
 			builder.put(grammarAccess.getLiteralAccess().getGroup_5(), "rule__Literal__Group_5__0");
 			builder.put(grammarAccess.getLiteralAccess().getGroup_6(), "rule__Literal__Group_6__0");
-			builder.put(grammarAccess.getLiteralAccess().getGroup_6_2(), "rule__Literal__Group_6_2__0");
-			builder.put(grammarAccess.getLiteralAccess().getGroup_6_2_1(), "rule__Literal__Group_6_2_1__0");
+			builder.put(grammarAccess.getLiteralAccess().getGroup_6_3(), "rule__Literal__Group_6_3__0");
+			builder.put(grammarAccess.getLiteralAccess().getGroup_6_3_1(), "rule__Literal__Group_6_3_1__0");
 			builder.put(grammarAccess.getLiteralAccess().getGroup_7(), "rule__Literal__Group_7__0");
-			builder.put(grammarAccess.getLiteralAccess().getGroup_7_2(), "rule__Literal__Group_7_2__0");
-			builder.put(grammarAccess.getLiteralAccess().getGroup_7_2_1(), "rule__Literal__Group_7_2_1__0");
+			builder.put(grammarAccess.getLiteralAccess().getGroup_7_3(), "rule__Literal__Group_7_3__0");
+			builder.put(grammarAccess.getLiteralAccess().getGroup_7_3_1(), "rule__Literal__Group_7_3_1__0");
 			builder.put(grammarAccess.getLiteralAccess().getGroup_8(), "rule__Literal__Group_8__0");
 			builder.put(grammarAccess.getTypeLiteralAccess().getGroup_0(), "rule__TypeLiteral__Group_0__0");
 			builder.put(grammarAccess.getTypeLiteralAccess().getGroup_1(), "rule__TypeLiteral__Group_1__0");
@@ -223,8 +223,11 @@ public class AleParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getExpressionAccess().getNameAssignment_1_2_2_1_0(), "rule__Expression__NameAssignment_1_2_2_1_0");
 			builder.put(grammarAccess.getExpressionAccess().getParamsAssignment_1_2_2_1_2_0(), "rule__Expression__ParamsAssignment_1_2_2_1_2_0");
 			builder.put(grammarAccess.getExpressionAccess().getParamsAssignment_1_2_2_1_2_1_1(), "rule__Expression__ParamsAssignment_1_2_2_1_2_1_1");
+			builder.put(grammarAccess.getExpressionAccess().getOpAssignment_1_3_1(), "rule__Expression__OpAssignment_1_3_1");
 			builder.put(grammarAccess.getExpressionAccess().getRightAssignment_1_3_2(), "rule__Expression__RightAssignment_1_3_2");
+			builder.put(grammarAccess.getExpressionAccess().getOpAssignment_1_4_1(), "rule__Expression__OpAssignment_1_4_1");
 			builder.put(grammarAccess.getExpressionAccess().getRightAssignment_1_4_2(), "rule__Expression__RightAssignment_1_4_2");
+			builder.put(grammarAccess.getExpressionAccess().getOpAssignment_1_5_1(), "rule__Expression__OpAssignment_1_5_1");
 			builder.put(grammarAccess.getExpressionAccess().getRightAssignment_1_5_2(), "rule__Expression__RightAssignment_1_5_2");
 			builder.put(grammarAccess.getExpressionAccess().getRightAssignment_1_6_2(), "rule__Expression__RightAssignment_1_6_2");
 			builder.put(grammarAccess.getExpressionAccess().getRightAssignment_1_7_2(), "rule__Expression__RightAssignment_1_7_2");
@@ -246,14 +249,16 @@ public class AleParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getLiteralAccess().getValueAssignment_0_1(), "rule__Literal__ValueAssignment_0_1");
 			builder.put(grammarAccess.getLiteralAccess().getValueAssignment_1_1(), "rule__Literal__ValueAssignment_1_1");
 			builder.put(grammarAccess.getLiteralAccess().getValueAssignment_2_1(), "rule__Literal__ValueAssignment_2_1");
-			builder.put(grammarAccess.getLiteralAccess().getParamsAssignment_6_2_0(), "rule__Literal__ParamsAssignment_6_2_0");
-			builder.put(grammarAccess.getLiteralAccess().getParamsAssignment_6_2_1_1(), "rule__Literal__ParamsAssignment_6_2_1_1");
-			builder.put(grammarAccess.getLiteralAccess().getParamsAssignment_7_2_0(), "rule__Literal__ParamsAssignment_7_2_0");
-			builder.put(grammarAccess.getLiteralAccess().getParamsAssignment_7_2_1_1(), "rule__Literal__ParamsAssignment_7_2_1_1");
-			builder.put(grammarAccess.getTypeLiteralAccess().getTypeAssignment_4_2(), "rule__TypeLiteral__TypeAssignment_4_2");
-			builder.put(grammarAccess.getTypeLiteralAccess().getTypeAssignment_5_2(), "rule__TypeLiteral__TypeAssignment_5_2");
+			builder.put(grammarAccess.getLiteralAccess().getParamsAssignment_6_3_0(), "rule__Literal__ParamsAssignment_6_3_0");
+			builder.put(grammarAccess.getLiteralAccess().getParamsAssignment_6_3_1_1(), "rule__Literal__ParamsAssignment_6_3_1_1");
+			builder.put(grammarAccess.getLiteralAccess().getParamsAssignment_7_3_0(), "rule__Literal__ParamsAssignment_7_3_0");
+			builder.put(grammarAccess.getLiteralAccess().getParamsAssignment_7_3_1_1(), "rule__Literal__ParamsAssignment_7_3_1_1");
+			builder.put(grammarAccess.getTypeLiteralAccess().getTypeAssignment_4_3(), "rule__TypeLiteral__TypeAssignment_4_3");
+			builder.put(grammarAccess.getTypeLiteralAccess().getTypeAssignment_5_3(), "rule__TypeLiteral__TypeAssignment_5_3");
 			builder.put(grammarAccess.getTypeLiteralAccess().getTypesAssignment_7_2(), "rule__TypeLiteral__TypesAssignment_7_2");
 			builder.put(grammarAccess.getTypeLiteralAccess().getTypesAssignment_7_3_1(), "rule__TypeLiteral__TypesAssignment_7_3_1");
+			builder.put(grammarAccess.getClassifierTypeRuleAccess().getPackageNameAssignment_1(), "rule__ClassifierTypeRule__PackageNameAssignment_1");
+			builder.put(grammarAccess.getClassifierTypeRuleAccess().getClassNameAssignment_3(), "rule__ClassifierTypeRule__ClassNameAssignment_3");
 			builder.put(grammarAccess.getRTypeAccess().getNameAssignment_1(), "rule__RType__NameAssignment_1");
 		}
 	}

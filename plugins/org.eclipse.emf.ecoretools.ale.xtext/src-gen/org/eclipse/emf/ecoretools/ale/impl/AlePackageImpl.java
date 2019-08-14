@@ -1662,9 +1662,19 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getMult_Op()
+  {
+    return (EAttribute)multEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getMult_Right()
   {
-    return (EReference)multEClass.getEStructuralFeatures().get(1);
+    return (EReference)multEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1692,9 +1702,19 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getAdd_Op()
+  {
+    return (EAttribute)addEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getAdd_Right()
   {
-    return (EReference)addEClass.getEStructuralFeatures().get(1);
+    return (EReference)addEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1722,9 +1742,19 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getComp_Op()
+  {
+    return (EAttribute)compEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getComp_Right()
   {
-    return (EReference)compEClass.getEStructuralFeatures().get(1);
+    return (EReference)compEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2252,6 +2282,26 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getClassifierType_PackageName()
+  {
+    return (EAttribute)classifierTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getClassifierType_ClassName()
+  {
+    return (EAttribute)classifierTypeEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public AleFactory getAleFactory()
   {
     return (AleFactory)getEFactoryInstance();
@@ -2416,14 +2466,17 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
 
     multEClass = createEClass(MULT);
     createEReference(multEClass, MULT__LEFT);
+    createEAttribute(multEClass, MULT__OP);
     createEReference(multEClass, MULT__RIGHT);
 
     addEClass = createEClass(ADD);
     createEReference(addEClass, ADD__LEFT);
+    createEAttribute(addEClass, ADD__OP);
     createEReference(addEClass, ADD__RIGHT);
 
     compEClass = createEClass(COMP);
     createEReference(compEClass, COMP__LEFT);
+    createEAttribute(compEClass, COMP__OP);
     createEReference(compEClass, COMP__RIGHT);
 
     andEClass = createEClass(AND);
@@ -2504,6 +2557,8 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     createEReference(classifierSetTypeEClass, CLASSIFIER_SET_TYPE__TYPES);
 
     classifierTypeEClass = createEClass(CLASSIFIER_TYPE);
+    createEAttribute(classifierTypeEClass, CLASSIFIER_TYPE__PACKAGE_NAME);
+    createEAttribute(classifierTypeEClass, CLASSIFIER_TYPE__CLASS_NAME);
   }
 
   /**
@@ -2722,14 +2777,17 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
 
     initEClass(multEClass, Mult.class, "Mult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getMult_Left(), this.getExpression(), null, "left", null, 0, 1, Mult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMult_Op(), ecorePackage.getEString(), "op", null, 0, 1, Mult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMult_Right(), this.getExpression(), null, "right", null, 0, 1, Mult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(addEClass, Add.class, "Add", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAdd_Left(), this.getExpression(), null, "left", null, 0, 1, Add.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAdd_Op(), ecorePackage.getEString(), "op", null, 0, 1, Add.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAdd_Right(), this.getExpression(), null, "right", null, 0, 1, Add.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(compEClass, Comp.class, "Comp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getComp_Left(), this.getExpression(), null, "left", null, 0, 1, Comp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getComp_Op(), ecorePackage.getEString(), "op", null, 0, 1, Comp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getComp_Right(), this.getExpression(), null, "right", null, 0, 1, Comp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(andEClass, And.class, "And", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2810,6 +2868,8 @@ public class AlePackageImpl extends EPackageImpl implements AlePackage
     initEReference(getClassifierSetType_Types(), this.getclassifierTypeRule(), null, "types", null, 0, -1, ClassifierSetType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(classifierTypeEClass, ClassifierType.class, "ClassifierType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getClassifierType_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, ClassifierType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getClassifierType_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, ClassifierType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

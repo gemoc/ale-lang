@@ -14,6 +14,8 @@
  */
 package org.eclipse.emf.ecoretools.ale.impl;
 
+import java.lang.String;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -35,6 +37,7 @@ import org.eclipse.emf.ecoretools.ale.Expression;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.impl.CompImpl#getLeft <em>Left</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.impl.CompImpl#getOp <em>Op</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.impl.CompImpl#getRight <em>Right</em>}</li>
  * </ul>
  *
@@ -51,6 +54,26 @@ public class CompImpl extends ExpressionImpl implements Comp
    * @ordered
    */
   protected Expression left;
+
+  /**
+   * The default value of the '{@link #getOp() <em>Op</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOp()
+   * @generated
+   * @ordered
+   */
+  protected static final String OP_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getOp() <em>Op</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOp()
+   * @generated
+   * @ordered
+   */
+  protected String op = OP_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
@@ -136,6 +159,29 @@ public class CompImpl extends ExpressionImpl implements Comp
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getOp()
+  {
+    return op;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setOp(String newOp)
+  {
+    String oldOp = op;
+    op = newOp;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AlePackage.COMP__OP, oldOp, op));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Expression getRight()
   {
     return right;
@@ -209,6 +255,8 @@ public class CompImpl extends ExpressionImpl implements Comp
     {
       case AlePackage.COMP__LEFT:
         return getLeft();
+      case AlePackage.COMP__OP:
+        return getOp();
       case AlePackage.COMP__RIGHT:
         return getRight();
     }
@@ -227,6 +275,9 @@ public class CompImpl extends ExpressionImpl implements Comp
     {
       case AlePackage.COMP__LEFT:
         setLeft((Expression)newValue);
+        return;
+      case AlePackage.COMP__OP:
+        setOp((String)newValue);
         return;
       case AlePackage.COMP__RIGHT:
         setRight((Expression)newValue);
@@ -248,6 +299,9 @@ public class CompImpl extends ExpressionImpl implements Comp
       case AlePackage.COMP__LEFT:
         setLeft((Expression)null);
         return;
+      case AlePackage.COMP__OP:
+        setOp(OP_EDEFAULT);
+        return;
       case AlePackage.COMP__RIGHT:
         setRight((Expression)null);
         return;
@@ -267,10 +321,29 @@ public class CompImpl extends ExpressionImpl implements Comp
     {
       case AlePackage.COMP__LEFT:
         return left != null;
+      case AlePackage.COMP__OP:
+        return OP_EDEFAULT == null ? op != null : !OP_EDEFAULT.equals(op);
       case AlePackage.COMP__RIGHT:
         return right != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (op: ");
+    result.append(op);
+    result.append(')');
+    return result.toString();
   }
 
 } //CompImpl

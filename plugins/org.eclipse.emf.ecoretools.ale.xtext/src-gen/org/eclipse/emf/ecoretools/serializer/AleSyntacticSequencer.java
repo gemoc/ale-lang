@@ -46,12 +46,6 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (ruleCall.getRule() == grammarAccess.getIdentRule())
 			return getIdentToken(semanticObject, ruleCall, node);
-		else if (ruleCall.getRule() == grammarAccess.getMultOpRule())
-			return getMultOpToken(semanticObject, ruleCall, node);
-		else if (ruleCall.getRule() == grammarAccess.getAddOpRule())
-			return getaddOpToken(semanticObject, ruleCall, node);
-		else if (ruleCall.getRule() == grammarAccess.getCompOpRule())
-			return getcompOpToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
@@ -63,43 +57,6 @@ public class AleSyntacticSequencer extends AbstractSyntacticSequencer {
 		if (node != null)
 			return getTokenText(node);
 		return "";
-	}
-	
-	/**
-	 * terminal MultOp : '*' | '/'
-	 * ;
-	 */
-	protected String getMultOpToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "*";
-	}
-	
-	/**
-	 * addOp: '+' | '-'
-	 * ;
-	 */
-	protected String getaddOpToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "+";
-	}
-	
-	/**
-	 * compOp :     '<='
-	 * 	    	|'>='
-	 * 	  		|'!='
-	 * 	  		|'<>'
-	 * 	  		|'='
-	 * 	  		|'=='
-	 * 	 		|'<'
-	 * 	  		|'>'
-	 * ;
-	 */
-	protected String getcompOpToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "<=";
 	}
 	
 	@Override

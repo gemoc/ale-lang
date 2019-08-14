@@ -1428,13 +1428,22 @@ public interface AlePackage extends EPackage
   int MULT__LEFT = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Op</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MULT__OP = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MULT__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+  int MULT__RIGHT = EXPRESSION_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Mult</em>' class.
@@ -1443,7 +1452,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int MULT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+  int MULT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.AddImpl <em>Add</em>}' class.
@@ -1465,13 +1474,22 @@ public interface AlePackage extends EPackage
   int ADD__LEFT = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Op</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ADD__OP = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ADD__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+  int ADD__RIGHT = EXPRESSION_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Add</em>' class.
@@ -1480,7 +1498,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int ADD_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+  int ADD_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.CompImpl <em>Comp</em>}' class.
@@ -1502,13 +1520,22 @@ public interface AlePackage extends EPackage
   int COMP__LEFT = EXPRESSION_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Op</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMP__OP = EXPRESSION_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int COMP__RIGHT = EXPRESSION_FEATURE_COUNT + 1;
+  int COMP__RIGHT = EXPRESSION_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Comp</em>' class.
@@ -1517,7 +1544,7 @@ public interface AlePackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMP_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
+  int COMP_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.impl.AndImpl <em>And</em>}' class.
@@ -2321,13 +2348,31 @@ public interface AlePackage extends EPackage
   int CLASSIFIER_TYPE__NAME = CLASSIFIER_TYPE_RULE__NAME;
 
   /**
+   * The feature id for the '<em><b>Package Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASSIFIER_TYPE__PACKAGE_NAME = CLASSIFIER_TYPE_RULE_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Class Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLASSIFIER_TYPE__CLASS_NAME = CLASSIFIER_TYPE_RULE_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Classifier Type</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLASSIFIER_TYPE_FEATURE_COUNT = CLASSIFIER_TYPE_RULE_FEATURE_COUNT + 0;
+  int CLASSIFIER_TYPE_FEATURE_COUNT = CLASSIFIER_TYPE_RULE_FEATURE_COUNT + 2;
 
 
   /**
@@ -3463,6 +3508,17 @@ public interface AlePackage extends EPackage
   EReference getMult_Left();
 
   /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Mult#getOp <em>Op</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Op</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Mult#getOp()
+   * @see #getMult()
+   * @generated
+   */
+  EAttribute getMult_Op();
+
+  /**
    * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Mult#getRight <em>Right</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3495,6 +3551,17 @@ public interface AlePackage extends EPackage
   EReference getAdd_Left();
 
   /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Add#getOp <em>Op</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Op</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Add#getOp()
+   * @see #getAdd()
+   * @generated
+   */
+  EAttribute getAdd_Op();
+
+  /**
    * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Add#getRight <em>Right</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3525,6 +3592,17 @@ public interface AlePackage extends EPackage
    * @generated
    */
   EReference getComp_Left();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.Comp#getOp <em>Op</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Op</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.Comp#getOp()
+   * @see #getComp()
+   * @generated
+   */
+  EAttribute getComp_Op();
 
   /**
    * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.Comp#getRight <em>Right</em>}'.
@@ -4081,6 +4159,28 @@ public interface AlePackage extends EPackage
    * @generated
    */
   EClass getClassifierType();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.ClassifierType#getPackageName <em>Package Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Package Name</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.ClassifierType#getPackageName()
+   * @see #getClassifierType()
+   * @generated
+   */
+  EAttribute getClassifierType_PackageName();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.ClassifierType#getClassName <em>Class Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Class Name</em>'.
+   * @see org.eclipse.emf.ecoretools.ale.ClassifierType#getClassName()
+   * @see #getClassifierType()
+   * @generated
+   */
+  EAttribute getClassifierType_ClassName();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -5022,6 +5122,14 @@ public interface AlePackage extends EPackage
     EReference MULT__LEFT = eINSTANCE.getMult_Left();
 
     /**
+     * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MULT__OP = eINSTANCE.getMult_Op();
+
+    /**
      * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5048,6 +5156,14 @@ public interface AlePackage extends EPackage
     EReference ADD__LEFT = eINSTANCE.getAdd_Left();
 
     /**
+     * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ADD__OP = eINSTANCE.getAdd_Op();
+
+    /**
      * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5072,6 +5188,14 @@ public interface AlePackage extends EPackage
      * @generated
      */
     EReference COMP__LEFT = eINSTANCE.getComp_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute COMP__OP = eINSTANCE.getComp_Op();
 
     /**
      * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
@@ -5550,6 +5674,22 @@ public interface AlePackage extends EPackage
      * @generated
      */
     EClass CLASSIFIER_TYPE = eINSTANCE.getClassifierType();
+
+    /**
+     * The meta object literal for the '<em><b>Package Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CLASSIFIER_TYPE__PACKAGE_NAME = eINSTANCE.getClassifierType_PackageName();
+
+    /**
+     * The meta object literal for the '<em><b>Class Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CLASSIFIER_TYPE__CLASS_NAME = eINSTANCE.getClassifierType_ClassName();
 
   }
 
