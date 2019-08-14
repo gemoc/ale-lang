@@ -24,6 +24,15 @@ import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecoretools.ale.Unit
 import com.google.common.collect.Sets
 import java.util.Set
+import org.eclipse.emf.ecoretools.ale.Sequence
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
+import org.eclipse.xtext.Keyword
+import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode
+import org.eclipse.emf.ecoretools.ale.AlePackage
+import org.eclipse.emf.ecoretools.ale.OrderedSet
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecoretools.ale.SeqType
+import org.eclipse.emf.ecoretools.ale.SetType
 
 /**
  * Delegate validation to ALE validator
@@ -71,6 +80,36 @@ class AleValidator extends AbstractAleValidator {
 			marker.setAttribute(IMarker.CHAR_END, msg.endPosition);
 		]
 		
+	}
+	
+	@Check
+	def checkSequenceInitialization(Sequence sequence) {
+		checkNoExtraSpaceAfterKeyword(sequence, "Sequence", "Sequence initialization")
+	}
+	
+	@Check
+	def checkOrderedSetInitialization(OrderedSet orderedSet) {
+		checkNoExtraSpaceAfterKeyword(orderedSet, "OrderedSet", "OrderedSet initialization")
+	}
+	
+	@Check
+	def checkSequenceTypeDeclaration(SeqType seqType) {
+		checkNoExtraSpaceAfterKeyword(seqType, "Sequence", "Sequence type declaration")
+	}
+	
+	@Check
+	def checkOrderedSetTypeDeclaration(SetType setType) {
+		checkNoExtraSpaceAfterKeyword(setType, "OrderedSet", "OrderedSet type declaration")
+	}
+	
+	def checkNoExtraSpaceAfterKeyword(EObject grammarElement, String keyword, String message) {		
+		val node = NodeModelUtils.getNode(grammarElement)
+		val keywordNode = node.children.findFirst[it.grammarElement instanceof Keyword
+				&& (it.grammarElement as Keyword).value.equals(keyword)]
+		if (keywordNode.nextSibling instanceof HiddenLeafNode) {
+			messageAcceptor.acceptError("Extra space in " + message, grammarElement,
+				keywordNode.endOffset, keywordNode.nextSibling.length, "")
+		}
 	}
 	
 	// copied from WorkbenchDsl (which introduce cyclic dependency if used)
