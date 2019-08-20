@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.ide.resource;
 
+import static java.util.stream.Collectors.toList;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
@@ -45,7 +46,7 @@ public class AleResource extends ResourceImpl {
 		if(newParseResult != null) { //TODO: check no parse error
 			unload();
 			parseResult = newParseResult;
-			List<ModelUnit> newContent = parseResult.stream().map(pr -> pr.getRoot()).collect(Collectors.toList());
+			List<ModelUnit> newContent = parseResult.stream().map(pr -> pr.getRoot()).collect(toList());
 			
 			isNotifyEnabled = false;
 			getContents().addAll(newContent);

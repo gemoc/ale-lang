@@ -27,8 +27,8 @@ import org.eclipse.emf.common.util.Diagnostic;
  */
 public class ParseResult<T> {
 	private String sourceFile;
-	private final Map<Object, Integer> startPositions = new HashMap<Object, Integer>();
-	private final Map<Object, Integer> endPositions = new HashMap<Object, Integer>();
+	private final Map<Object, Integer> startPositions = new HashMap<>();
+	private final Map<Object, Integer> endPositions = new HashMap<>();
 	private Diagnostic diagnostic;
 	private T root;
 	

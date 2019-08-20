@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
 import org.eclipse.emf.ecoretools.ale.ide.WorkbenchDsl;
+import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.console.ConsolePlugin;
@@ -63,9 +64,11 @@ public class RunModelAction {
 		
 		/*
 		 * Init interpreter
+		 * 
+		 * TODO Consider moving initialization in 'AQL Eval' run's body to reduce scope?
 		 */
-		Set<String> projects = new HashSet<String>();
-		Set<String> plugins = new HashSet<String>();
+		Set<String> projects = new HashSet<>();
+		Set<String> plugins = new HashSet<>();
 		projects.add(dslProject);
 		projects.add(modelProject);
 		ALEInterpreter interpreter = new ALEInterpreter();
@@ -81,46 +84,54 @@ public class RunModelAction {
 				
 				MessageConsole console = findConsole("ALE Console");
 				PrintStream oldOut = System.out;
-				System.setOut(new PrintStream(console.newMessageStream()));
-				
-				System.out.println("\nRun "+dslFile.getName());
-				System.out.println("------------");
-				
-				Thread execThread = new Thread("Aql eval thread"){
-					@Override
-					public void run() {
-						try {
-							IEvaluationResult result = interpreter.eval(modelLocation, new ArrayList(), new WorkbenchDsl(dslFile.getLocationURI().getPath().toString()));
-							interpreter.getLogger().diagnosticForHuman();
-							
-							if(result.getDiagnostic().getMessage() != null) {
-								System.out.println(result.getDiagnostic().getMessage());
+				try {
+					System.setOut(new PrintStream(console.newMessageStream()));
+					
+					System.out.println("\nRun "+dslFile.getName());
+					System.out.println("------------");
+					
+					Thread execThread = new Thread("Aql eval thread"){
+						@Override
+						public void run() {
+							try {
+								IEvaluationResult result = interpreter.eval(modelLocation, new ArrayList<>(), new WorkbenchDsl(dslFile.getLocationURI().getPath()));
+								interpreter.getLogger().diagnosticForHuman();
+								
+								if(result.getDiagnostic().getMessage() != null) {
+									System.out.println(result.getDiagnostic().getMessage());
+								}
+							} catch (FileNotFoundException e) {
+								e.printStackTrace();
 							}
-						} catch (FileNotFoundException e) {
-							e.printStackTrace();
+							this.stop();
 						}
-						this.stop();
+					};
+					execThread.start();
+					
+					while(execThread.isAlive()){
+						if(monitor.isCanceled()){
+							execThread.stop();
+							return Status.CANCEL_STATUS;
+						}
+						 try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							Thread.currentThread().interrupt();
+							
+							// Main thread has been interrupted: let's stop the evaluation and move on
+							execThread.stop();
+							return new Status(IStatus.CANCEL, Activator.PLUGIN_ID, "Execution thread has been interrupted", e);
+						}
 					}
-				};
-				execThread.start();
-				
-				while(execThread.isAlive()){
-					if(monitor.isCanceled()){
+					
+					if(execThread.isAlive()){
 						execThread.stop();
-						return Status.CANCEL_STATUS;
 					}
-					 try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+					
+				} finally {
+					// Ensure output stream is always reset
+					System.setOut(oldOut);
 				}
-				
-				if(execThread.isAlive()){
-					execThread.stop();
-				}
-				
-				System.setOut(oldOut);
 				return Status.OK_STATUS;
 			}
 		};

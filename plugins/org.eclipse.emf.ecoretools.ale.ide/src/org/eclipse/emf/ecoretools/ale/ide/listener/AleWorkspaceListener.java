@@ -38,7 +38,7 @@ public class AleWorkspaceListener implements IResourceChangeListener {
 
 	public AleWorkspaceListener(Session session, Resource dslRes) {
 		this.session = session;
-		this.files = new LinkedHashSet<IFile>();
+		this.files = new LinkedHashSet<>();
 		this.dslRes = dslRes;
 	}
 

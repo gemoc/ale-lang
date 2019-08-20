@@ -10,10 +10,12 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.ide.ui.services;
 
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -85,9 +87,7 @@ public class Services {
     			return xtdClass
     				.getMethods()
     				.stream()
-    				.filter(mtd -> mtd.getOperationRef() != null && mtd.getOperationRef().getName().equals(op.getName()) && mtd.getOperationRef().getEContainingClass() == xtdClass.getBaseClass())
-    				.findAny()
-    				.isPresent();
+    				.anyMatch(mtd -> mtd.getOperationRef() != null && mtd.getOperationRef().getName().equals(op.getName()) && mtd.getOperationRef().getEContainingClass() == xtdClass.getBaseClass());
     		}
     	}
     	
@@ -114,10 +114,10 @@ public class Services {
 				.stream()
 				.filter(elem -> elem instanceof ModelUnit)
 				.map(elm -> (ModelUnit) elm)
-				.collect(Collectors.toList());
+				.collect(toList());
     	}
     	
-    	return new ArrayList<ModelUnit>();
+    	return new ArrayList<>();
     }
     
     public List<Attribute> getDynaAttrib(EClass cls){
@@ -134,10 +134,10 @@ public class Services {
 				.getAttributes()
 				.stream()
 				.filter(att -> att.getFeatureRef() instanceof EAttribute) //FIXME: show also not displayed EReferences
-				.collect(Collectors.toList());
+				.collect(toList());
 		}
     	
-    	return new ArrayList<Attribute>();
+    	return new ArrayList<>();
     }
     
     public List<Attribute> getDynaAttrib(RuntimeClass cls){
@@ -146,7 +146,7 @@ public class Services {
 			.getAttributes()
 			.stream()
 			.filter(att -> att.getFeatureRef() instanceof EAttribute) //FIXME: show also not displayed EReferences
-			.collect(Collectors.toList());
+			.collect(toList());
     }
     
     public List<Method> getMethod(EClass cls) {
@@ -165,10 +165,10 @@ public class Services {
 				.filter(op -> op instanceof Method)
 				.map(op -> (Method) op)
 				.filter(op -> !isImplemented(op.getOperationRef())) //TODO: improve
-				.collect(Collectors.toList());
+				.collect(toList());
 		}
     	
-    	return new ArrayList<Method>();
+    	return new ArrayList<>();
     }
     
     public List<Method> getMethod(RuntimeClass cls) {
@@ -178,7 +178,7 @@ public class Services {
 			.stream()
 			.filter(op -> op instanceof Method)
 			.map(op -> (Method) op)
-			.collect(Collectors.toList());
+			.collect(toList());
     }
     
     public ModelUnit getModelUnit(EPackage pkg) {
@@ -210,7 +210,7 @@ public class Services {
 				document.modify(new IUnitOfWork.Void<XtextResource>() {
 					@Override
 					public void process(XtextResource state) throws Exception {
-						if(state.getContents().size() > 0) {
+						if(!state.getContents().isEmpty()) {
 							Unit root = (Unit) state.getContents().get(0);
 							
 							String returnType = "void";
@@ -220,7 +220,7 @@ public class Services {
 							String parameters = op.getEParameters()
 								.stream()
 								.map(p -> p.getEType().getName()+" "+ p.getName())
-								.collect(Collectors.joining(",","(",")"));
+								.collect(joining(",","(",")"));
 							String opName = op.getName();
 							String content = "/* Write your code here */";
 							String template = "\toverride "+returnType+" "+opName+" "+parameters+" {\n\t\t"+content+"\n\t}\n";
@@ -297,7 +297,7 @@ public class Services {
 				document.modify(new IUnitOfWork.Void<XtextResource>() {
 					@Override
 					public void process(XtextResource state) throws Exception {
-						if(state.getContents().size() > 0) {
+						if(!state.getContents().isEmpty()) {
 							Unit root = (Unit) state.getContents().get(0);
 							
 							String returnType = "int";
@@ -394,7 +394,7 @@ public class Services {
 				document.modify(new IUnitOfWork.Void<XtextResource>() {
 					@Override
 					public void process(XtextResource state) throws Exception {
-						if(state.getContents().size() > 0) {
+						if(!state.getContents().isEmpty()) {
 							Unit root = (Unit) state.getContents().get(0);
 							
 							String template = "\n\t"+typeName+" "+featureName+";\n";
@@ -411,7 +411,7 @@ public class Services {
 								if(!attrSearch.isPresent()){
 									int endOffset = node.getEndOffset();
 									Iterable<ILeafNode> leafs = node.getLeafNodes();
-									ArrayList<ILeafNode> l = new ArrayList<ILeafNode>();
+									ArrayList<ILeafNode> l = new ArrayList<>();
 									leafs.forEach(e -> l.add(e));
 									
 									Optional<ILeafNode> openBraceSearch = l.stream()
@@ -434,7 +434,7 @@ public class Services {
 										if(!attrSearch.isPresent()){
 											int endOffset = node.getEndOffset();
 											Iterable<ILeafNode> leafs = node.getLeafNodes();
-											ArrayList<ILeafNode> l = new ArrayList<ILeafNode>();
+											ArrayList<ILeafNode> l = new ArrayList<>();
 											leafs.forEach(e -> l.add(e));
 											
 											Optional<ILeafNode> openBraceSearch = l.stream()
@@ -495,7 +495,7 @@ public class Services {
 				document.modify(new IUnitOfWork.Void<XtextResource>() {
 					@Override
 					public void process(XtextResource state) throws Exception {
-						if(state.getContents().size() > 0) {
+						if(!state.getContents().isEmpty()) {
 							Unit root = (Unit) state.getContents().get(0);
 							
 							String newClassName = "NewRuntimeClass";
@@ -569,7 +569,7 @@ public class Services {
 				.stream()
 				.filter(elem -> elem instanceof ModelUnit)
 				.map(elm -> (ModelUnit) elm)
-				.collect(Collectors.toList());
+				.collect(toList());
 			
 			
 	    	Optional<RuntimeClass> searchCls = 

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.debug.ui.ILaunchShortcut;
 import org.eclipse.jface.viewers.ISelection;
@@ -18,7 +17,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.ide.ResourceUtil;
 
 public class LaunchShortcut implements ILaunchShortcut {
 

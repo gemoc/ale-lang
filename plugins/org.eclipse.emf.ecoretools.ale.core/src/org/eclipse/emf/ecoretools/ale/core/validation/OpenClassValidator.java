@@ -42,7 +42,7 @@ public class OpenClassValidator implements IValidator {
 	public static final String EXTENDS_ORDER = "The extended EClass %s have to be after %s";
 	
 	BaseValidator base;
-	List<ExtendedClass> duplicatedExensions = new ArrayList<ExtendedClass>();
+	List<ExtendedClass> duplicatedExensions = new ArrayList<>();
 
 	@Override
 	public void setBase(BaseValidator baseValidator) {
@@ -51,7 +51,7 @@ public class OpenClassValidator implements IValidator {
 
 	@Override
 	public List<IValidationMessage> validateModelBehavior(List<ModelUnit> units) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		duplicatedExensions.clear();
 		
 		Multimap<EClass, ExtendedClass> extensionByBase = ArrayListMultimap.create();
@@ -69,7 +69,7 @@ public class OpenClassValidator implements IValidator {
 				extensions
 				.stream()
 				.skip(1)
-				.filter(xtd -> xtd.getExtends().size() == 0)
+				.filter(xtd -> xtd.getExtends().isEmpty())
 				.forEach(xtd -> duplicatedExensions.add(xtd));
 			}
 		});
@@ -79,14 +79,14 @@ public class OpenClassValidator implements IValidator {
 
 	@Override
 	public List<IValidationMessage> validateModelUnit(ModelUnit unit) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		return msgs;
 	}
 
 	@Override
 	public List<IValidationMessage> validateExtendedClass(ExtendedClass xtdClass) {
 		
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		if(duplicatedExensions.contains(xtdClass)) {
 			msgs.add(new ValidationMessage(
@@ -130,52 +130,52 @@ public class OpenClassValidator implements IValidator {
 
 	@Override
 	public List<IValidationMessage> validateRuntimeClass(RuntimeClass classDef) {
-		return new ArrayList<IValidationMessage>();
+		return new ArrayList<>();
 	}
 
 	@Override
 	public List<IValidationMessage> validateMethod(Method mtd) {
-		return new ArrayList<IValidationMessage>();
+		return new ArrayList<>();
 	}
 
 	@Override
 	public List<IValidationMessage> validateFeatureAssignment(FeatureAssignment featAssign) {
-		return new ArrayList<IValidationMessage>();
+		return new ArrayList<>();
 	}
 
 	@Override
 	public List<IValidationMessage> validateFeatureInsert(FeatureInsert featInsert) {
-		return new ArrayList<IValidationMessage>();
+		return new ArrayList<>();
 	}
 
 	@Override
 	public List<IValidationMessage> validateFeatureRemove(FeatureRemove featRemove) {
-		return new ArrayList<IValidationMessage>();
+		return new ArrayList<>();
 	}
 
 	@Override
 	public List<IValidationMessage> validateVariableAssignment(VariableAssignment varAssign) {
-		return new ArrayList<IValidationMessage>();
+		return new ArrayList<>();
 	}
 
 	@Override
 	public List<IValidationMessage> validateVariableDeclaration(VariableDeclaration varDecl) {
-		return new ArrayList<IValidationMessage>();
+		return new ArrayList<>();
 	}
 
 	@Override
 	public List<IValidationMessage> validateForEach(ForEach loop) {
-		return new ArrayList<IValidationMessage>();
+		return new ArrayList<>();
 	}
 
 	@Override
 	public List<IValidationMessage> validateIf(If ifStmt) {
-		return new ArrayList<IValidationMessage>();
+		return new ArrayList<>();
 	}
 
 	@Override
 	public List<IValidationMessage> validateWhile(While loop) {
-		return new ArrayList<IValidationMessage>();
+		return new ArrayList<>();
 	}
 
 }

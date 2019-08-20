@@ -26,7 +26,7 @@ public class DebugLookupEngine implements ILookupEngine{
 	
 	public DebugLookupEngine(ILookupEngine wrapped) {
 		this.wrapped = wrapped;
-		this.listeners = new ArrayList<ILookupEngineListener>();
+		this.listeners = new ArrayList<>();
 	}
 	
 	public void registerListener(ILookupEngineListener listener) {

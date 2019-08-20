@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.parser;
 
+import static java.util.stream.Collectors.toList;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.emf.common.util.URI;
@@ -44,7 +45,9 @@ public class DslBuilder {
 	}
 
 	/**
-     * Setup the eval environment & parse semantic files
+     * Setups the eval environment & parse semantic files.
+     * <p>
+     * Dynamically loads the ECore metamodels specified in {@link Dsl#getAllSemantics() dsl' semantics}.
      */
     public List<ParseResult<ModelUnit>> parse(Dsl dsl) { //TODO: add an option to clear services & epackages before
     	
@@ -99,7 +102,7 @@ public class DslBuilder {
 	    	.getAllSyntaxes()
 			.stream()
 			.flatMap(syntaxURI -> load(syntaxURI, rs).stream())
-			.collect(Collectors.toList());
+			.collect(toList());
     }
     
     /**
@@ -112,7 +115,7 @@ public class DslBuilder {
 			.getRegisteredEPackages()
 			.stream()
 			.filter(p -> p.getNsURI().startsWith(ModelBuilder.RUNTIME_ALE_NSURI))
-			.collect(Collectors.toList());
+			.collect(toList());
     	toRemove.forEach(p -> queryEnvironment.removeEPackage(p));
     }
     
@@ -141,6 +144,6 @@ public class DslBuilder {
 	    	.stream()
 	    	.filter(o -> o instanceof EPackage)
 	    	.map(o -> (EPackage) o)
-	    	.collect(Collectors.toList());
+	    	.collect(toList());
     }
 }

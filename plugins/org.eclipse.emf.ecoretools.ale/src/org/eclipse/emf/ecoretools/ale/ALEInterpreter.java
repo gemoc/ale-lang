@@ -10,12 +10,14 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale;
 
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.eclipse.acceleo.query.ast.AstPackage;
 import org.eclipse.acceleo.query.runtime.CrossReferenceProvider;
@@ -35,11 +37,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.ALEEngine;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.DiagnosticLogger;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.EvalEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.ExtensionEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.MethodEvaluator;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.ALEEngine;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.ServiceCallListener;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
@@ -56,7 +58,7 @@ import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnosti
 import org.eclipse.sirius.common.tools.api.interpreter.JavaExtensionsManager;
 
 /**
- * This class is an interpreter for the 'Lang' Language.
+ * This class is an interpreter for the 'ALE' Language.
  */
 public class ALEInterpreter {
 	
@@ -64,7 +66,7 @@ public class ALEInterpreter {
 	
 	/**
 	 * Environment of the evaluation. It contains declared EPackages & services.
-	 * Mainly used to evalute AQL expression and to resolve types. 
+	 * Mainly used to evaluate AQL expression and to resolve types. 
 	 */
 	IQueryEnvironment queryEnvironment;
 	
@@ -142,7 +144,7 @@ public class ALEInterpreter {
         this.javaExtensions = JavaExtensionsManager.createManagerWithOverride();
         this.javaExtensions.addClassLoadingCallBack(callback);
         this.javaExtensions.addEPackageCallBack(ePackageCallBack);
-        this.serviceListeners = new ArrayList<ServiceCallListener>();
+        this.serviceListeners = new ArrayList<>();
 	}
     
     private IQueryEnvironment createQueryEnvironment(boolean isDebug, CrossReferenceProvider xRefProvider) {
@@ -209,18 +211,6 @@ public class ALEInterpreter {
      */
     public IEvaluationResult eval(EObject caller, Method calledOp, List<Object> args, List<ParseResult<ModelUnit>> parsedSemantics) {
     	
-    	Optional<Method> mainOp = Optional.ofNullable(calledOp);
-    	if(calledOp == null) {
-    		mainOp =
-        		parsedSemantics
-    	    	.stream()
-    	    	.filter(sem -> sem.getRoot() != null)
-    	    	.map(sem -> getMainOp(sem.getRoot()))
-    	    	.filter(op -> op.isPresent())
-    	    	.map(op -> op.get())
-    	    	.findFirst();
-    	}
-    	
     	final BasicDiagnostic diagnostic = new BasicDiagnostic();
     	parsedSemantics
     	.stream()
@@ -229,9 +219,12 @@ public class ALEInterpreter {
     	
     	logger = new DiagnosticLogger(parsedSemantics);
     	
+    	if (calledOp == null) {
+    		calledOp = firstOperationTaggedMain(parsedSemantics);
+    	}
     	Object value = null;
-		if (mainOp.isPresent()) {
-			EvaluationResult evalResult = doEval(caller, mainOp.get(), args, parsedSemantics);
+		if (calledOp != null) {
+			EvaluationResult evalResult = doEval(caller, calledOp, args, parsedSemantics);
 			if (Diagnostic.OK != evalResult.getDiagnostic().getSeverity()) {
 				diagnostic.merge(evalResult.getDiagnostic());
 			}
@@ -274,7 +267,7 @@ public class ALEInterpreter {
 		    	.stream()
 		    	.filter(sem -> sem.getRoot() != null)
 		    	.map(sem -> sem.getRoot())
-		    	.collect(Collectors.toList());
+		    	.collect(toList());
     	
     	/*
     	 * Register services
@@ -285,11 +278,11 @@ public class ALEInterpreter {
 	    	.map(unit -> unit.getRoot())
 	    	.filter(root -> root != null)
 	    	.flatMap(root -> root.getServices().stream())
-	    	.collect(Collectors.toList());
+	    	.collect(toList());
 	    registerServices(services);
     	
     	EvalEnvironment env = new EvalEnvironment(queryEnvironment, allBehaviors, logger, serviceListeners);
-    	List<Object> inputElems = new ArrayList<Object>();
+    	List<Object> inputElems = new ArrayList<>();
     	inputElems.add(caller);
     	inputElems.addAll(args);
     	initDynamicFeatures(inputElems,env);
@@ -298,10 +291,30 @@ public class ALEInterpreter {
     	this.currentEngine = engine;
     	return engine.eval(caller, operation, args);
     }
+
+    /**
+     * Searches {@code semantics} for the first method annotated with '@main'.
+     * 
+     * @param semantics
+     * 			Available semantics.
+     * 
+     * @return the first method annotated with '@main' found,
+     * 		   or null if none is found.
+     */
+	private Method firstOperationTaggedMain(List<ParseResult<ModelUnit>> semantics) {
+		return semantics
+			.stream()
+			.filter(sem -> sem.getRoot() != null)
+			.map(sem -> getMainOp(sem.getRoot()))
+			.filter(op -> op.isPresent())
+			.map(op -> op.get())
+			.findFirst()
+			.orElse(null);
+	}
     
     private void initDynamicFeatures(List<Object> inputElems, EvalEnvironment env) {
     	
-    	Set<EObject> accessibleInputElements = new HashSet<EObject>();
+    	Set<EObject> accessibleInputElements = new HashSet<>();
     	
     	Set<Resource> allResources = 
     		inputElems
@@ -309,7 +322,7 @@ public class ALEInterpreter {
 	    	.filter(elem -> elem instanceof EObject)
 	    	.map(elem -> ((EObject)elem).eResource())
 	    	.filter(res -> res != null)
-	    	.collect(Collectors.toSet());
+	    	.collect(toSet());
     	
     	//EObject from accessible resources
     	allResources

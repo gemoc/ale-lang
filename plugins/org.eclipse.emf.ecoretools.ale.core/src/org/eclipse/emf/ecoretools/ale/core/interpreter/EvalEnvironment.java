@@ -12,7 +12,6 @@ package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
 //import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -36,7 +35,6 @@ import org.eclipse.acceleo.query.services.AnyServices;
 import org.eclipse.acceleo.query.services.BooleanServices;
 import org.eclipse.acceleo.query.services.CollectionServices;
 import org.eclipse.acceleo.query.services.ComparableServices;
-import org.eclipse.acceleo.query.services.EObjectServices;
 import org.eclipse.acceleo.query.services.NumberServices;
 import org.eclipse.acceleo.query.services.ResourceServices;
 import org.eclipse.acceleo.query.services.StringServices;
@@ -68,7 +66,7 @@ public class EvalEnvironment {
 	
 	/**
 	 * It contains declared EPackages & services.
-	 * Mainly used to evalute AQL expression and to resolve types
+	 * Mainly used to evaluate AQL expression and to resolve types
 	 */
 	IQueryEnvironment qryEnv;
 	
@@ -175,7 +173,7 @@ public class EvalEnvironment {
 	}
 	
 	private List<EvalBodyService> createServices(List<ModelUnit> allImplemModels) {
-		Map<Method, EvalBodyService> res = new LinkedHashMap<Method, EvalBodyService>();
+		Map<Method, EvalBodyService> res = new LinkedHashMap<>();
 		
 		/*
 		 * Create services
@@ -190,7 +188,7 @@ public class EvalEnvironment {
 				.forEach(implemOp -> res.put(implemOp,(new EvalBodyService(implemOp,this,logger))));
 			});
 		
-		List<EvalBodyService> newClassOperations = new ArrayList<EvalBodyService>();
+		List<EvalBodyService> newClassOperations = new ArrayList<>();
 		allImplemModels
 			.stream()
 			.forEach(implemModel -> {
@@ -232,7 +230,7 @@ public class EvalEnvironment {
 	
 	private Map<ExtendedClass,Integer> getPriorities(List<ExtendedClass> allCls) {
 		
-		Map<ExtendedClass,Integer> priorities = new HashMap<ExtendedClass,Integer>();
+		Map<ExtendedClass,Integer> priorities = new HashMap<>();
 		allCls
 			.stream()
 			.forEach(cls -> getPriority(cls,priorities));
@@ -311,7 +309,7 @@ public class EvalEnvironment {
 	
 	public List<ServiceCallListener> getListeners() {
 		if(listeners == null) {
-			listeners = new ArrayList<ServiceCallListener>();
+			listeners = new ArrayList<>();
 		}
 		return listeners;
 	}
