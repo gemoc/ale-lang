@@ -152,7 +152,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			}
 		}
 		
-		Set<IType> selfTypeSet = new HashSet<IType>();
+		Set<IType> selfTypeSet = new HashSet<>();
 		EClassifierType selfType = new EClassifierType(qryEnv, xtdClass.getBaseClass());
 		selfTypeSet.add(selfType);
 		classScope.put("self", selfTypeSet);

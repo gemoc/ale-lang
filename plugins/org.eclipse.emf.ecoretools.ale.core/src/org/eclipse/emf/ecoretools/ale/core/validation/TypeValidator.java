@@ -11,6 +11,7 @@
 package org.eclipse.emf.ecoretools.ale.core.validation;
 
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,7 +19,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.IValidationMessage;
@@ -107,7 +107,7 @@ public class TypeValidator implements IValidator {
 				.getExtends()
 				.stream()
 				.map(xtd -> xtd.getBaseClass())
-				.collect(Collectors.toList());
+				.collect(toList());
 		
 		extendsBaseClasses.forEach(superBase -> {
 			if(!superTypes.contains(superBase) && baseCls != superBase) {
@@ -186,7 +186,7 @@ public class TypeValidator implements IValidator {
 		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		/*
-		 * Collect feature types
+		 * Collect feature types to perform tests thereafter
 		 */
 		Set<IType> targetTypes = base.getPossibleTypes(targetExp);
 		Set<EClassifierType> featureTypes = new HashSet<>();
@@ -220,9 +220,15 @@ public class TypeValidator implements IValidator {
 		}
 		
 		/*
-		 * Check targetExp.featureName is collection
+		 * Check that targetExp.featureName is a collection
+		 * 
+		 * Provides an error message when the user attempts to insert
+		 * an object within a variable that is not a collection, e.g.:
+		 * 
+		 * 		self.notACollection += anObject
 		 */
-		if(isInsert && !isCollection && !featureTypes.isEmpty()) {
+		boolean isTryingToInsertSomeValueWithinAScalar = isInsert && !isCollection && !featureTypes.isEmpty();
+		if(isTryingToInsertSomeValueWithinAScalar) {
 			String inferredToString = 
 					featureTypes
 					.stream()
@@ -241,6 +247,11 @@ public class TypeValidator implements IValidator {
 		 */
 		if(!featureTypes.isEmpty()) {
 			
+			/*
+			 * Those are the types returned by the expression at the right of the '=' symbol.
+			 * We are now going to ensure that the feature targeted by the assignment is compatible
+			 * with at least one of them.
+			 */
 			Set<IType> inferredTypes = base.getPossibleTypes(valueExp);
 
 			if(!isInsert && isCollection) {
@@ -290,7 +301,7 @@ public class TypeValidator implements IValidator {
 					Optional<IType> existResult = inferredTypes
 							.stream()
 							.filter(t -> 
-								featureType.isAssignableFrom(t)
+								isAssignable(featureType, t)
 								|| (featureType.getType()  == EcorePackage.eINSTANCE.getEEList() && t instanceof AbstractCollectionType )) // TODO should be able to be more precise
 							.findAny();
 					if(existResult.isPresent()){
@@ -413,6 +424,52 @@ public class TypeValidator implements IValidator {
 		}
 		
 		return msgs;
+	}
+	
+	/**
+	 * Determines whether an instance of a given type can be assigned to a variable of another type. 
+	 * <p>
+	 * This function is required because {@link IType#isAssignableFrom(IType)} does not work as expected
+	 * when its parameter represents a metaclass defined within user's metamodel. Reasons are the following:
+	 * <ul>
+	 * 	<li>when the package is registered, EMF does not register the type as a subtype of EClass. This is
+	 * 		likely expected since not explicitly stated in the metamodel, but still surprising. Hence, given:
+	 * 		<ul>
+	 * 			<li>target = EClass
+	 * 			<li>value = Greet (a custom EClass)
+	 * 		</ul>
+	 * 		Acceleo is not able to determine that Greet inherits from EClass and returns false when 
+	 * 		{@code target.isAssignableFrom(value)} is called.
+	 * 
+	 * 	<li>when no corresponding Java class is registered for the user class (which happens at least when 
+	 * 		the user has defined a metamodel but didn't generate any code) then the method returns true most
+	 *      of the time. That's because, since Acceleo is not able to determine that user's class inherits internally the algorithm is close to:
+	 * 		<pre>boolean isAssignableFrom(otherType) {
+	 *    if (getJavaClass(otherType) == null) {
+	 *        return this.isAssignable(null); 
+	 *    }
+	 *    return getJavaClass(this).isAssignableFrom(getJavaClass(otherType);
+	 *}</pre>
+	 * </ul>
+	 * This method performs checks corresponding to the previous cases then calls {@link IType#isAssignableFrom(IType)}.
+	 * 
+	 * @param targetType
+	 * 			The type of the variable to which a value should be assigned
+	 * @param valueType
+	 * 			The type of the expression to assign to the variable
+	 * 
+	 * @return whether a value of type {@code valueType} can be assigned to a variable of type {@code target}
+	 */
+	private boolean isAssignable(IType targetType, IType valueType) {
+		// FIXME Check the types somehow. The algorithm could be:
+		//			1. Check whether either targetType or valueType correspond to a class defined in user's metamodel
+		//			2. If yes, then somehow ensure types are coherent
+		//			3. If not, then delegate to IType#isAssignableFrom
+		//
+		// It would also worth considering adding EObject as a super type of user's classes to help IType to do its
+		// job well. This could be done in DslBuilder#register(List<EPackages>).
+		
+		return targetType.isAssignableFrom(valueType);
 	}
 
 	private String getTypeQualifiedNameForOperationResult(IType declaredType, Optional<EOperation> eOperation) {

@@ -209,7 +209,15 @@ public class MethodEvaluator {
 				}
 			}
 			else {
-				//TOOD: error: try to insert in  non-list variable
+				BasicDiagnostic child = new BasicDiagnostic(
+						Diagnostic.ERROR,
+						MethodEvaluator.PLUGIN_ID,
+						0,
+						String.format("Variable '%s' is not a list, cannot insert %s", varInsert.getName(), insertedValue),
+						new Object[] {varInsert.getValue()}
+				);
+				diagnostic.add(child);
+				throw new CriticalFailure("Unable to insert a value in " + varInsert.getName(), diagnostic);
 			}
 		}
 		
@@ -231,7 +239,15 @@ public class MethodEvaluator {
 				}
 			}
 			else {
-				//TOOD: error: try to insert in  non-list variable
+				BasicDiagnostic child = new BasicDiagnostic(
+						Diagnostic.ERROR,
+						MethodEvaluator.PLUGIN_ID,
+						0,
+						String.format("Variable '%s' is not a list, cannot remove %s", varInsert.getName(), insertedValue),
+						new Object[] {varInsert.getValue()}
+				);
+				diagnostic.add(child);
+				throw new CriticalFailure("Unable to remove a value from " + varInsert.getName(), diagnostic);
 			}
 		}
 		
@@ -252,7 +268,20 @@ public class MethodEvaluator {
 				}
 			}
 			else {
-				dynamicFeatureAccess.insertDynamicFeatureValue(((EObject)assigned),featInsert.getTargetFeature(),value);
+				try {
+					dynamicFeatureAccess.insertDynamicFeatureValue(((EObject)assigned),featInsert.getTargetFeature(),value);
+				
+				} catch (ArrayStoreException e) {
+					BasicDiagnostic child = new BasicDiagnostic(
+							Diagnostic.ERROR,
+							MethodEvaluator.PLUGIN_ID,
+							0,
+							String.format("Cannot add the value to '%s': types mismatch", featInsert.getTargetFeature()),
+							new Object[] {featInsert.getTarget()}
+					);
+					diagnostic.add(child);
+					throw new CriticalFailure("Cannot add the value to '" + featInsert.getTargetFeature() + "': types mismatch", diagnostic);
+				}
 			}
 		}
 		return null;
@@ -271,7 +300,20 @@ public class MethodEvaluator {
 				}
 			}
 			else {
-				dynamicFeatureAccess.removeDynamicFeatureValue(((EObject)assigned),featRemove.getTargetFeature(),value);
+				try {
+					dynamicFeatureAccess.removeDynamicFeatureValue(((EObject)assigned),featRemove.getTargetFeature(),value);
+					
+				} catch (ArrayStoreException e) {
+					BasicDiagnostic child = new BasicDiagnostic(
+							Diagnostic.ERROR,
+							MethodEvaluator.PLUGIN_ID,
+							0,
+							String.format("Cannot remove the value from '%s': types mismatch", featRemove.getTargetFeature()),
+							new Object[] {featRemove.getTarget()}
+					);
+					diagnostic.add(child);
+					throw new CriticalFailure("Cannot remove the value from '" + featRemove.getTargetFeature() + "': types mismatch", diagnostic);
+				}
 			}
 		}
 		return null;
