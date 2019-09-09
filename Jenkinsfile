@@ -1,7 +1,7 @@
 // Pipeline using declarative syntax
 // you can fall down to script syntax using the script { } command 
 pipeline {
-
+	agent any
 	options {
 		buildDiscarder( logRotator(numToKeepStr:'60', artifactNumToKeepStr: '1'))
 	}
