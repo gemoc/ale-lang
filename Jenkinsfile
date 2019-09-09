@@ -38,7 +38,7 @@ pipeline {
         fixed { // back to normal
             emailext 	subject: 'Build $BUILD_STATUS $PROJECT_NAME #$BUILD_NUMBER!', 
 			            body: '''Check console output at $BUILD_URL to view the results.''',
-			            recipientProviders: [culprits(), requestor()], 
+			            recipientProviders: [[$class: 'CulpritsRecipientProvider'],[$class: 'RequesterRecipientProvider']], 
 			            to: 'didier.vojtisek@inria.fr'
         }
 		// changed { }
@@ -46,14 +46,14 @@ pipeline {
 			echo 'Unstable' 
             emailext 	subject: 'Build $BUILD_STATUS $PROJECT_NAME #$BUILD_NUMBER!', 
 			            body: '''Check console output at $BUILD_URL to view the results.''',
-			            recipientProviders: [culprits(), requestor()], 
+			            recipientProviders: [[$class: 'CulpritsRecipientProvider'],[$class: 'RequesterRecipientProvider']], 
 			            to: 'didier.vojtisek@inria.fr'
 		}
 		failure {
 			echo 'Failure' 
             emailext 	subject: 'Build $BUILD_STATUS $PROJECT_NAME #$BUILD_NUMBER!', 
 			            body: '''Check console output at $BUILD_URL to view the results.''',
-			            recipientProviders: [culprits(), requestor()], 
+			            recipientProviders: [[$class: 'CulpritsRecipientProvider'],[$class: 'RequesterRecipientProvider']], 
 			            to: 'didier.vojtisek@inria.fr'
 		}
 	}
