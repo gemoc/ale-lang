@@ -33,11 +33,8 @@ pipeline {
 		stage("Deploy") {
 			when { tag "release-*"}
 			steps{
-				ant {
-					target('upload')
-					prop('key.file','/builds/.ssh/id_rsa')
-					buildFile('releng/promotion_build.xml')
-					antInstallation('Ant_1.8.4')
+				withAnt(installation: 'Ant_1.8.4') {
+				    sh "ant -Dkey.file=/builds/.ssh/id_rsa -f releng/promotion_build.xml upload"
 				}
 			}
 		}
