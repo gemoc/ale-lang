@@ -22,9 +22,6 @@ pipeline {
 				success {
 					junit 'tests/**/target/surefire-reports/TEST-*.xml' 
 				}
-				always {
-					sh "./gemoc-studio/dev_support/jenkins/showGitBranches.sh ."
-				}
 			}
 	 	}
 		stage("Archive in Jenkins") {
