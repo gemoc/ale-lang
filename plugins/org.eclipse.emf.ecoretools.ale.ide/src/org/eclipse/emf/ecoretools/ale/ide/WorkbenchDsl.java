@@ -10,11 +10,12 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.ide;
 
+import static java.util.stream.Collectors.toList;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IResource;
@@ -44,10 +45,10 @@ public class WorkbenchDsl extends Dsl {
 }
 	
 	private void resolveUris() {
-		ArrayList<String> newSemantics = new ArrayList<String>();
-		getAllSemantics()
+		List<String> newSemantics = getAllSemantics()
 			.stream()
-			.forEach(elem -> newSemantics.add(URI.createFileURI(convertToFile(elem)).toFileString()));//expect system file path
+			.map(elem -> URI.createFileURI(convertToFile(elem)).toFileString())
+			.collect(toList());
 		getAllSemantics().clear();
 		getAllSemantics().addAll(newSemantics);
 	}
@@ -109,6 +110,6 @@ public class WorkbenchDsl extends Dsl {
 	 * Convert platform:/resource/ to platform:/plugin/
 	 */
 	private static URI resourceToPlugin(URI uri) {
-		return uri.createPlatformPluginURI(uri.toPlatformString(true), true);
+		return URI.createPlatformPluginURI(uri.toPlatformString(true), true);
 	}
 }

@@ -23,10 +23,10 @@ import java.util.stream.Collectors;
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.parser.AstValidator;
 import org.eclipse.acceleo.query.runtime.AcceleoQueryValidationException;
+import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.runtime.IValidationResult;
-import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.impl.ValidationResult;
 import org.eclipse.acceleo.query.runtime.impl.ValidationServices;
 import org.eclipse.acceleo.query.validation.type.AbstractCollectionType;
@@ -91,7 +91,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		this.qryEnv = qryEnv;
 		this.expValidator = new AstValidator(new ValidationServices(qryEnv));
 		
-		this.validators = new ArrayList<IValidator>();
+		this.validators = new ArrayList<>();
 		validators.forEach(validator -> {
 			this.validators.add(validator);
 			validator.setBase(this);
@@ -100,10 +100,10 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	
 	public List<IValidationMessage> validate(List<ParseResult<ModelUnit>> roots) {
 		
-		this.msgs = new ArrayList<IValidationMessage>();
-		this.validations = new HashMap<Expression,IValidationResult>();
-		this.validationContexts = new HashMap<Expression, Map<String,Set<IType>>>();
-		this.blockContexts = new HashMap<Block, Map<String,Set<IType>>>();
+		this.msgs = new ArrayList<>();
+		this.validations = new HashMap<>();
+		this.validationContexts = new HashMap<>();
+		this.blockContexts = new HashMap<>();
 		this.allModels = roots;
 		
 		List<ModelUnit> allUnits =
@@ -119,7 +119,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		
 		roots.forEach(root -> {
 			this.currentModel = root;
-			this.variableTypesStack = new Stack<Map<String, Set<IType>>>();
+			this.variableTypesStack = new Stack<>();
 			doSwitch(currentModel.getRoot());
 		});
 		
@@ -145,7 +145,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	@Override
 	public Object caseExtendedClass(ExtendedClass xtdClass) {
 		
-		Map<String,Set<IType>> classScope = new HashMap<String,Set<IType>>();
+		Map<String,Set<IType>> classScope = new HashMap<>();
 		for(Attribute attrib : xtdClass.getAttributes()) {
 			if(attrib.getInitialValue() != null) {
 				validateAndStore(attrib.getInitialValue(),new HashMap<String,Set<IType>>());
@@ -171,10 +171,10 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	@Override
 	public Object caseRuntimeClass(RuntimeClass runtimeCls) {
 		
-		Map<String,Set<IType>> classScope = new HashMap<String,Set<IType>>();
+		Map<String,Set<IType>> classScope = new HashMap<>();
 		for(Attribute attrib : runtimeCls.getAttributes()) {
 			if(attrib.getInitialValue() != null) {
-				validateAndStore(attrib.getInitialValue(),new HashMap<String,Set<IType>>());
+				validateAndStore(attrib.getInitialValue(),new HashMap<>());
 			}
 		}
 		
@@ -204,7 +204,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	
 	@Override
 	public Object caseMethod(Method mtd) {
-		Map<String,Set<IType>> methodScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
+		Map<String,Set<IType>> methodScope = new HashMap<>(variableTypesStack.peek());
 		
 		if(mtd.getOperationRef() != null) {
 			for (EParameter param : mtd.getOperationRef().getEParameters()) {
@@ -227,7 +227,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	
 	@Override
 	public Object caseBlock(Block block) {
-		Map<String,Set<IType>> blockScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
+		Map<String,Set<IType>> blockScope = new HashMap<>(variableTypesStack.peek());
 		
 		variableTypesStack.push(blockScope);
 		blockContexts.put(block, blockScope);
@@ -281,7 +281,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	@Override
 	public Object caseForEach(ForEach loop) {
 		
-		Map<String,Set<IType>> loopScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
+		Map<String,Set<IType>> loopScope = new HashMap<>(variableTypesStack.peek());
 		
 		validateAndStore(loop.getCollectionExpression(),getCurrentScope());
 		loopScope.put(loop.getVariable(), getPossibleCollectionTypes(loop.getCollectionExpression()));
@@ -308,7 +308,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		 * Conditional blocks
 		 */
 		for (ConditionalBlock cBlock : ifStmt.getBlocks()) {
-			Map<String,Set<IType>> blockScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
+			Map<String,Set<IType>> blockScope = new HashMap<>(variableTypesStack.peek());
 			IValidationResult validRes = validations.get(cBlock.getCondition());
 			if(validRes != null) {
 				Map<String, Set<IType>> vartypes = validRes.getInferredVariableTypes(cBlock.getCondition(), true);
@@ -323,7 +323,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		 * Else
 		 */
 		if(ifStmt.getElse() != null) {
-			Map<String,Set<IType>> elseScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
+			Map<String,Set<IType>> elseScope = new HashMap<>(variableTypesStack.peek());
 			Map<String, Set<IType>> vartypes = new HashMap<>();
 			//Gather inferred types from previous conditionals
 			for (ConditionalBlock cBlock : ifStmt.getBlocks()) {
@@ -385,7 +385,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateWhile(loop)));
 		
-		Map<String,Set<IType>> loopScope = new HashMap<String,Set<IType>>(variableTypesStack.peek());
+		Map<String,Set<IType>> loopScope = new HashMap<>(variableTypesStack.peek());
 		IValidationResult validRes = validations.get(loop.getCondition());
 		if(validRes != null) {
 			Map<String, Set<IType>> vartypes = validRes.getInferredVariableTypes(loop.getCondition(), true);
@@ -411,7 +411,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 				exp,
 				currentModel.getStartPositions(),
 				currentModel.getEndPositions(),
-				new ArrayList(),
+				new ArrayList<>(),
 				new BasicDiagnostic()
 				);
 		try {
@@ -456,11 +456,11 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			
 		}
 		
-		return new HashSet<IType>();
+		return new HashSet<>();
 	}
 	
 	public Set<IType> getPossibleCollectionTypes(Expression exp) {
-		HashSet<IType> res = new HashSet<IType>();
+		HashSet<IType> res = new HashSet<>();
 		
 		IValidationResult validRes = validations.get(exp);
 		if(validRes != null) {
@@ -507,7 +507,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		if(res != null) {
 			return res;
 		}
-		return new HashMap<String, Set<IType>>();
+		return new HashMap<>();
 	}
 	
 	/**
@@ -518,6 +518,6 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		if(res != null) {
 			return res;
 		}
-		return new HashMap<String, Set<IType>>();
+		return new HashMap<>();
 	}
 }

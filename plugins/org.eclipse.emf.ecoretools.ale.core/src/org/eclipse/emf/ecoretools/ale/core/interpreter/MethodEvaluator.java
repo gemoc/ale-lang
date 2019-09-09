@@ -50,10 +50,9 @@ import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
-import org.eclipse.emf.ecoretools.ale.implementation.util.ImplementationSwitch;
 
 /**
- * This class evaluate the body of an operation.
+ * An instance of this class evaluates the body of an {@link Method operation}
  */
 public class MethodEvaluator {
 	
@@ -73,9 +72,9 @@ public class MethodEvaluator {
 	}
 	
 	public EvaluationResult eval(EObject target, Method operation, List<Object> parameters) throws CriticalFailure {
-		variablesStack = new Stack();
+		variablesStack = new Stack<>();
 		//Init variables
-		Map<String, Object> variables = new HashMap<String, Object>();
+		Map<String, Object> variables = new HashMap<>();
 		variables.put("self", target);
 		variables.put("result", null);
 		
@@ -109,7 +108,7 @@ public class MethodEvaluator {
 	}
 	
 	public Object caseBlock(Block block) throws CriticalFailure {
-		Map<String, Object> newScope = new HashMap<String, Object>();
+		Map<String, Object> newScope = new HashMap<>();
 		variablesStack.push(newScope);
 		for(Statement stmt : block.getStatements()) {
 			throwableSwitch(stmt);
@@ -148,7 +147,7 @@ public class MethodEvaluator {
 			EStructuralFeature feature = ((EObject)assigned).eClass().getEStructuralFeature(featAssign.getTargetFeature());
 			if(feature != null){
 				if(value instanceof List) {
-					BasicEList<EObject> newList = new BasicEList<EObject>((List)value);
+					BasicEList<EObject> newList = new BasicEList<>((List)value);
 					((EObject)assigned).eSet(feature, newList);
 				}
 				else {
@@ -295,7 +294,7 @@ public class MethodEvaluator {
 	
 	public Object caseForEach(ForEach forEach) throws CriticalFailure {
 		Collection<?> collection = (Collection<?>) aqlEval(forEach.getCollectionExpression());//TODO: check type
-		Map<String,Object> newScope = new HashMap<String,Object>();
+		Map<String,Object> newScope = new HashMap<>();
 		variablesStack.push(newScope);
 		for(Object elem : collection) {
 			newScope.put(forEach.getVariable(),elem);
@@ -342,7 +341,7 @@ public class MethodEvaluator {
 	 * Flatten stack
 	 */
 	private Map<String,Object> getCurrentScope() {
-		Map<String,Object> scope = new HashMap<String,Object>();
+		Map<String,Object> scope = new HashMap<>();
 		variablesStack
 		.stream()
 		.flatMap(scp -> scp.entrySet().stream())
@@ -352,7 +351,7 @@ public class MethodEvaluator {
 	}
 	
 	private Object aqlEval(Expression expression) throws CriticalFailure {
-		AstResult dummyAstResult = new AstResult(expression, new HashMap(), new HashMap(), new ArrayList(), new BasicDiagnostic());
+		AstResult dummyAstResult = new AstResult(expression, new HashMap<>(), new HashMap<>(), new ArrayList<>(), new BasicDiagnostic());
 		EvaluationResult result = aqlEngine.eval(dummyAstResult, getCurrentScope());
 		
 		if(result.getDiagnostic().getSeverity() != Diagnostic.OK){

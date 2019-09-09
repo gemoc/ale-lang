@@ -10,17 +10,16 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.parser;
 
+import static java.util.stream.Collectors.toList;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -34,15 +33,15 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RRootContext;
+import org.eclipse.emf.ecoretools.ale.core.parser.visitor.AstVisitors;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ModelBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.AstVisitors;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 /**
- * This class parse ".ale" file and produce model intance of Implementation metamodel
+ * An instance of this class parses ".ale" files and produces model instances of Implementation metamodels
  */
 public class AstBuilder {
 	
@@ -55,7 +54,7 @@ public class AstBuilder {
 	
 	public List<ParseResult<ModelUnit>> parseFromInputStreams(List<InputStream> inputs) {
 		
-		List<RRootContext> parses = new ArrayList<RRootContext>();
+		List<RRootContext> parses = new ArrayList<>();
 		inputs
 			.stream()
 			.forEach(f -> {
@@ -71,8 +70,8 @@ public class AstBuilder {
 	}
 	
 	public List<ParseResult<ModelUnit>> parseFromFiles(List<String> files) {
-		List<RRootContext> parses = new ArrayList<RRootContext>();
-		Map<RRootContext,String> sourceFiles = new HashMap<RRootContext,String>(); 
+		List<RRootContext> parses = new ArrayList<>();
+		Map<RRootContext,String> sourceFiles = new HashMap<>(); 
 		files
 			.stream()
 			.forEach(f -> {
@@ -92,12 +91,12 @@ public class AstBuilder {
 	 * Transform ANTLR parse result to proper ALE model
 	 */
 	private List<ParseResult<ModelUnit>> makeModel(List<RRootContext> rawParses, Map<RRootContext,String> sourceFiles){
-		List<ParseResult<ModelUnit>> build = new ArrayList<ParseResult<ModelUnit>>();
+		List<ParseResult<ModelUnit>> build = new ArrayList<>();
 		
 		/*
 		 * Create & declare new EClasses
 		 */
-		Map<String,List<EClass>> allNewClasses = new HashMap<String,List<EClass>>();
+		Map<String,List<EClass>> allNewClasses = new HashMap<>();
 		rawParses
 			.stream()
 			.forEach(implemParse -> {
@@ -161,14 +160,14 @@ public class AstBuilder {
 		/*
     	 * Resolve extends
     	 */
-    	Map<String,List<ExtendedClass>> behaviorToClass = new HashMap<String,List<ExtendedClass>>();
-    	List<ExtendedClass> allExtensions = new ArrayList<ExtendedClass>();
+    	Map<String,List<ExtendedClass>> behaviorToClass = new HashMap<>();
+    	List<ExtendedClass> allExtensions = new ArrayList<>();
     	build
     	.stream()
     	.forEach(sem -> {
     		ModelUnit root = sem.getRoot();
     		if(root != null) {
-    			List<ExtendedClass> xtdCls =  root.getClassExtensions().stream().collect(Collectors.toList());
+    			List<ExtendedClass> xtdCls =  root.getClassExtensions().stream().collect(toList());
     			behaviorToClass.put(root.getName(), xtdCls);
     			allExtensions.addAll(xtdCls);
     		}
@@ -182,7 +181,7 @@ public class AstBuilder {
 				.stream()
 				.filter(a -> a.getSource().equals(ModelBuilder.PARSER_SOURCE))
 				.filter(a -> a.getDetails().get(ModelBuilder.PARSER_EXTENDS_KEY) != null)
-				.collect(Collectors.toList());
+				.collect(toList());
     		toResolve
 	    		.stream()
 	    		.forEach(annot -> {
@@ -215,7 +214,7 @@ public class AstBuilder {
     	/*
     	 * Resolve opposites
     	 */
-    	List<Attribute> allAttributes = new ArrayList<Attribute>();
+    	List<Attribute> allAttributes = new ArrayList<>();
     	build
     	.stream()
     	.forEach(sem -> {
@@ -294,15 +293,5 @@ public class AstBuilder {
 		ParseResult<ModelUnit> parseRes = parse(filePath);
 		parseRes.setSourceFile(filePath);
 		return parseRes;
-	}
-	
-    private static String getFileContent(String implementionPath) {
-		String fileContent = "";
-		try {
-			fileContent = new String(Files.readAllBytes(Paths.get(implementionPath)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return fileContent;
 	}
 }

@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.parser;
 
+import static java.util.stream.Collectors.toList;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -19,13 +21,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 public class Dsl {
 	
 	String sourceFile;
-	List<String> allSyntaxes = new ArrayList<String>();
-	List<String> allSemantics = new ArrayList<String>();
+	List<String> allSyntaxes = new ArrayList<>();
+	List<String> allSemantics = new ArrayList<>();
 	
 	public Dsl(List<String> syntaxes, List<String> semantics) {
 		this.allSyntaxes.addAll(syntaxes);
@@ -44,6 +45,7 @@ public class Dsl {
 			dslProp.load(input);
 			input.close();
 		} catch (IOException e) {
+			// TODO Throw the exception: it cannot be handled here
 			e.printStackTrace();
 		}
 		
@@ -80,17 +82,16 @@ public class Dsl {
 			Properties dslProp = new Properties();
 			dslProp.put("syntax", String.join(",", allSyntaxes));
 			dslProp.put("behavior", String.join(",", allSemantics));
-			try {
-				FileOutputStream output = new FileOutputStream(sourceFile);
+			try (FileOutputStream output = new FileOutputStream(sourceFile)) {
 				dslProp.store(output,"");
-				output.close();
 			} catch (IOException e) {
+				// TODO Throw the exception: it cannot be handled here
 				e.printStackTrace();
 			}
 		}
 	}
 	
 	protected List<String> trim(String[] uris) {
-		return Arrays.asList(uris).stream().map(s->s.trim()).collect(Collectors.toList());
+		return Arrays.asList(uris).stream().map(s->s.trim()).collect(toList());
 	}
 }

@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.validation;
 
+import static java.util.stream.Collectors.joining;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -74,17 +76,17 @@ public class TypeValidator implements IValidator {
 	
 	@Override
 	public List<IValidationMessage> validateModelBehavior(List<ModelUnit> units) {
-		return new ArrayList<IValidationMessage>();
+		return new ArrayList<>();
 	}
 	
 	@Override
 	public List<IValidationMessage> validateModelUnit(ModelUnit unit) {
-		return new ArrayList<IValidationMessage>();
+		return new ArrayList<>();
 	}
 	
 	@Override
 	public List<IValidationMessage> validateExtendedClass(ExtendedClass xtdClass) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		msgs.addAll(validateBehavioredClass(xtdClass));
 		
@@ -123,7 +125,7 @@ public class TypeValidator implements IValidator {
 	
 	@Override
 	public List<IValidationMessage> validateRuntimeClass(RuntimeClass classDef) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		msgs.addAll(validateBehavioredClass(classDef));
 		
@@ -131,7 +133,7 @@ public class TypeValidator implements IValidator {
 	}
 	
 	private List<IValidationMessage> validateBehavioredClass(BehavioredClass clazz) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		clazz
 		.getAttributes()
@@ -146,7 +148,7 @@ public class TypeValidator implements IValidator {
 					inferredTypes
 					.stream()
 					.map(type -> getQualifiedName(type))
-					.collect(Collectors.joining(",","[","]"));
+					.collect(joining(",","[","]"));
 				msgs.add(new ValidationMessage(
 						ValidationMessageLevel.ERROR,
 						String.format(INCOMPATIBLE_TYPE, getQualifiedName(att.getFeatureRef().getEType()),types),
@@ -161,7 +163,7 @@ public class TypeValidator implements IValidator {
 	
 	@Override
 	public List<IValidationMessage> validateMethod(Method mtd) {
-		return new ArrayList<IValidationMessage>();
+		return new ArrayList<>();
 	}
 	
 	@Override
@@ -181,13 +183,13 @@ public class TypeValidator implements IValidator {
 	}
 	
 	private List<IValidationMessage> validateAssignment(Statement stmt, Expression targetExp, String featureName, Expression valueExp, boolean isInsert) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		/*
 		 * Collect feature types
 		 */
 		Set<IType> targetTypes = base.getPossibleTypes(targetExp);
-		Set<EClassifierType> featureTypes = new HashSet<EClassifierType>();
+		Set<EClassifierType> featureTypes = new HashSet<>();
 		boolean isCollection = false;
 		for(IType type: targetTypes){
 			if(type.getType() instanceof EClass){
@@ -225,7 +227,7 @@ public class TypeValidator implements IValidator {
 					featureTypes
 					.stream()
 					.map(type -> getQualifiedName(type))
-					.collect(Collectors.joining(",","[","]"));
+					.collect(joining(",","[","]"));
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(COLLECTION_TYPE,inferredToString),
@@ -245,6 +247,8 @@ public class TypeValidator implements IValidator {
 				for(IType inferredType: inferredTypes){
 					if(inferredType instanceof AbstractCollectionType) {
 						IType collectionType = ((AbstractCollectionType)inferredType).getCollectionType();
+						
+						// FIXME Is something missing here?
 					}
 				}
 				boolean isAnyAssignable = false;
@@ -266,12 +270,12 @@ public class TypeValidator implements IValidator {
 							inferredTypes
 							.stream()
 							.map(type -> getQualifiedName(type))
-							.collect(Collectors.joining(",","[","]"));
+							.collect(joining(",","[","]"));
 					String featureToString = 
 							featureTypes
 							.stream()
 							.map(type -> getQualifiedName(type.getType()))
-							.collect(Collectors.joining(",","(",")"));
+							.collect(joining(",","(",")"));
 					msgs.add(new ValidationMessage(
 							ValidationMessageLevel.ERROR,
 							String.format(INCOMPATIBLE_TYPE,"[Collection"+featureToString+"]",inferredToString),
@@ -299,12 +303,12 @@ public class TypeValidator implements IValidator {
 							inferredTypes
 							.stream()
 							.map(type -> getQualifiedName(type))
-							.collect(Collectors.joining(",","[","]"));
+							.collect(joining(",","[","]"));
 					String featureToString = 
 							featureTypes
 							.stream()
 							.map(type -> getQualifiedName(type.getType()))
-							.collect(Collectors.joining(",","[","]"));
+							.collect(joining(",","[","]"));
 					
 					msgs.add(new ValidationMessage(
 							ValidationMessageLevel.ERROR,
@@ -323,7 +327,7 @@ public class TypeValidator implements IValidator {
 	
 	@Override
 	public List<IValidationMessage> validateVariableAssignment(VariableAssignment varAssign) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		Set<IType> declaringTypes = findDeclaredTypes(varAssign);
 		if(varAssign.getName().equals("result")) {
@@ -356,7 +360,7 @@ public class TypeValidator implements IValidator {
 								inferredTypes
 								.stream()
 								.map(type -> getQualifiedName(type))
-								.collect(Collectors.joining(",","[","]"));
+								.collect(joining(",","[","]"));
 						msgs.add(new ValidationMessage(
 								ValidationMessageLevel.ERROR,
 								String.format(INCOMPATIBLE_TYPE,"["+getTypeQualifiedNameForOperationResult(declaredType, eOperation)+"]",types),
@@ -390,12 +394,12 @@ public class TypeValidator implements IValidator {
 							declaringTypes
 							.stream()
 							.map(type -> getTypeQualifiedNameForVar(type,declaration))
-							.collect(Collectors.joining(",","[","]"));
+							.collect(joining(",","[","]"));
 					String inferredToString = 
 							inferredTypes
 							.stream()
 							.map(type -> getQualifiedName(type))
-							.collect(Collectors.joining(",","[","]"));
+							.collect(joining(",","[","]"));
 					
 					msgs.add(new ValidationMessage(
 							ValidationMessageLevel.ERROR,
@@ -483,7 +487,7 @@ public class TypeValidator implements IValidator {
 	
 	@Override
 	public List<IValidationMessage> validateVariableDeclaration(VariableDeclaration varDecl) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		if(varDecl.getInitialValue() != null) {
 			
@@ -505,7 +509,7 @@ public class TypeValidator implements IValidator {
 								inferredTypes
 								.stream()
 								.map(type -> getQualifiedName(type))
-								.collect(Collectors.joining(",","[","]"));
+								.collect(joining(",","[","]"));
 
 						msgs.add(new ValidationMessage(
 								ValidationMessageLevel.ERROR,
@@ -528,7 +532,7 @@ public class TypeValidator implements IValidator {
 								inferredTypes
 								.stream()
 								.map(type -> getQualifiedName(type))
-								.collect(Collectors.joining(",","[","]"));
+								.collect(joining(",","[","]"));
 						
 						msgs.add(new ValidationMessage(
 								ValidationMessageLevel.ERROR,
@@ -546,7 +550,7 @@ public class TypeValidator implements IValidator {
 	
 	@Override
 	public List<IValidationMessage> validateForEach(ForEach loop) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		/*
 		 * Check expression is collection
@@ -563,7 +567,7 @@ public class TypeValidator implements IValidator {
 					.getPossibleTypes(loop.getCollectionExpression())
 					.stream()
 					.map(type -> getQualifiedName(type))
-					.collect(Collectors.joining(",","[","]"));
+					.collect(joining(",","[","]"));
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(COLLECTION_TYPE,inferredToString),
@@ -590,7 +594,7 @@ public class TypeValidator implements IValidator {
 	}
 	
 	private List<IValidationMessage> validateIsBoolean(Expression exp) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 
 		Set<IType> selectorTypes = base.getPossibleTypes(exp);
 		boolean onlyNotBoolean = true;
@@ -606,7 +610,7 @@ public class TypeValidator implements IValidator {
 					selectorTypes
 					.stream()
 					.map(type -> getQualifiedName(type))
-					.collect(Collectors.joining(",","[","]"));
+					.collect(joining(",","[","]"));
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(BOOLEAN_TYPE,inferredToString),
@@ -780,7 +784,7 @@ public class TypeValidator implements IValidator {
 		return pkgs
 			.stream()
 			.map(p -> p.getName())
-			.collect(Collectors.joining("::"));
+			.collect(joining("::"));
 	}
 	
 	private static String getQualifiedName(IType type) {

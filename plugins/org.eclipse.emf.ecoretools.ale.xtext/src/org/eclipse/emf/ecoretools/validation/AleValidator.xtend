@@ -3,6 +3,8 @@
  */
 package org.eclipse.emf.ecoretools.validation
 
+import com.google.common.collect.Sets
+import java.util.ArrayList
 import java.util.List
 import org.eclipse.acceleo.query.runtime.IValidationMessage
 import org.eclipse.core.resources.IFile
@@ -11,28 +13,24 @@ import org.eclipse.core.resources.IResource
 import org.eclipse.core.resources.IWorkspaceRoot
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.core.runtime.IPath
+import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter
+import org.eclipse.emf.ecoretools.ale.OrderedSet
+import org.eclipse.emf.ecoretools.ale.SeqType
+import org.eclipse.emf.ecoretools.ale.Sequence
+import org.eclipse.emf.ecoretools.ale.SetType
+import org.eclipse.emf.ecoretools.ale.Unit
+import org.eclipse.emf.ecoretools.ale.core.parser.Dsl
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer
-import org.eclipse.xtext.validation.Check
-import java.util.ArrayList
-import org.eclipse.emf.common.util.URI
-import org.eclipse.emf.ecoretools.ale.Unit
-import com.google.common.collect.Sets
-import java.util.Set
-import org.eclipse.emf.ecoretools.ale.Sequence
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode
-import org.eclipse.emf.ecoretools.ale.AlePackage
-import org.eclipse.emf.ecoretools.ale.OrderedSet
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecoretools.ale.SeqType
-import org.eclipse.emf.ecoretools.ale.SetType
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
+import org.eclipse.xtext.validation.Check
 
 /**
  * Delegate validation to ALE validator
@@ -59,7 +57,7 @@ class AleValidator extends AbstractAleValidator {
 		/*
     	 * Register services
     	 */
-    	val List<java.lang.String> services = 
+    	val List<String> services = 
     		parsedSemantics
 	    	.map[getRoot()]
 	    	.filterNull
@@ -119,7 +117,7 @@ class AleValidator extends AbstractAleValidator {
 		dsl.getAllSemantics()
 			.forEach[elem |
 				val uri = URI.createURI(elem);
-				if(ws != null && uri.isPlatform()) {
+				if(ws !== null && uri.isPlatform()) {
 					val file = ws.getRoot().findMember(uri.toPlatformString(true));
 					val path = file.getLocationURI().getRawPath();
 					newSemantics.add(path);

@@ -10,9 +10,10 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.validation;
 
+import static java.util.stream.Collectors.joining;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -64,12 +65,12 @@ public class NameValidator implements IValidator {
 	}
 	
 	public List<IValidationMessage> validateModelBehavior(List<ModelUnit> units) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		/*
 		 * Check ModelUnit names are unique
 		 */
-		List<String> declarations = new ArrayList<String>();
+		List<String> declarations = new ArrayList<>();
 		units
 		.stream()
 		.forEach(unit -> {
@@ -93,12 +94,12 @@ public class NameValidator implements IValidator {
 	@Override
 	public List<IValidationMessage> validateModelUnit(ModelUnit unit) {
 		
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		/*
 		 * Check duplication of RuntimeClass
 		 */
-		List<String> declarations = new ArrayList<String>(); 
+		List<String> declarations = new ArrayList<>(); 
 		unit
 		.getClassDefinitions()
 		.stream()
@@ -121,7 +122,7 @@ public class NameValidator implements IValidator {
 	
 	@Override
 	public List<IValidationMessage> validateExtendedClass(ExtendedClass xtdClass) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		//TODO: check cycles in 'extends'
 		msgs.addAll(validateBehavioredClass(xtdClass));
@@ -173,7 +174,7 @@ public class NameValidator implements IValidator {
 	
 	@Override
 	public List<IValidationMessage> validateRuntimeClass(RuntimeClass classDef) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		msgs.addAll(validateBehavioredClass(classDef));
 		
@@ -181,12 +182,12 @@ public class NameValidator implements IValidator {
 	}
 	
 	private List<IValidationMessage> validateBehavioredClass(BehavioredClass clazz) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		/*
 		 * Check attributes names
 		 */
-		List<String> declarations = new ArrayList<String>(); 
+		List<String> declarations = new ArrayList<>(); 
 		clazz
 		.getAttributes()
 		.stream()
@@ -224,7 +225,7 @@ public class NameValidator implements IValidator {
 		/*
 		 * Check operation duplication
 		 */
-		List<Method> previousOp = new ArrayList<Method>(); 
+		List<Method> previousOp = new ArrayList<>(); 
 		for (Method mtd : clazz.getMethods()) {
 			boolean isConflict = previousOp.stream().anyMatch(prevOp -> isMatching(mtd, prevOp));
 			if(isConflict) {
@@ -243,12 +244,12 @@ public class NameValidator implements IValidator {
 	
 	@Override
 	public List<IValidationMessage> validateMethod(Method mtd) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		/*
 		 * Check parameter name
 		 */
-		List<String> declarations = new ArrayList<String>();
+		List<String> declarations = new ArrayList<>();
 		if(mtd.getOperationRef() != null) {
 			for (EParameter param : mtd.getOperationRef().getEParameters()) {
 				String name = param.getName();
@@ -295,7 +296,7 @@ public class NameValidator implements IValidator {
 	
 	@Override
 	public List<IValidationMessage> validateFeatureAssignment(FeatureAssignment featAssign) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		/*
 		 * Check the assigned feature exist 
@@ -339,7 +340,7 @@ public class NameValidator implements IValidator {
 	
 	@Override
 	public List<IValidationMessage> validateFeatureInsert(FeatureInsert featInsert) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		/*
 		 * Check the assigned feature exist 
@@ -383,7 +384,7 @@ public class NameValidator implements IValidator {
 	
 	@Override
 	public List<IValidationMessage> validateFeatureRemove(FeatureRemove featRemove) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		/*
 		 * Check the assigned feature exist 
@@ -427,7 +428,7 @@ public class NameValidator implements IValidator {
 	
 	@Override
 	public List<IValidationMessage> validateVariableAssignment(VariableAssignment varAssign) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		/*
 		 * Check name
@@ -473,7 +474,7 @@ public class NameValidator implements IValidator {
 	}
 	
 	public List<IValidationMessage> validateVariableDeclaration(VariableDeclaration varDecl) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		/*
 		 * Check name
@@ -510,7 +511,7 @@ public class NameValidator implements IValidator {
 	}
 	
 	public List<IValidationMessage> validateForEach(ForEach loop) {
-		List<IValidationMessage> msgs = new ArrayList<IValidationMessage>();
+		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		if(loop.getVariable().equals("result")){
 			msgs.add(new ValidationMessage(
@@ -544,22 +545,22 @@ public class NameValidator implements IValidator {
 	}
 	
 	public List<IValidationMessage> validateIf(If ifStmt) {
-		return new ArrayList<IValidationMessage>();
+		return new ArrayList<>();
 	}
 	
 	public List<IValidationMessage> validateWhile(While loop) {
-		return new ArrayList<IValidationMessage>();
+		return new ArrayList<>();
 	}
 	
 	private String getSignature(Method op) {
-		EOperation eOp = ((Method)op).getOperationRef();
+		EOperation eOp = op.getOperationRef();
 		if(eOp != null) {
 			String paramsToString = 
 					eOp
 					.getEParameters()
 					.stream()
 					.map(param -> param.getEType().getName())
-					.collect(Collectors.joining(",","(",")"));
+					.collect(joining(",","(",")"));
 			
 			return eOp.getName() + paramsToString; 
 		}

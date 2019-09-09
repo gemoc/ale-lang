@@ -18,8 +18,6 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -129,12 +127,9 @@ public class AleLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 	private void createModelWidgets(Composite parent) {
 		modelSelection = new Text(parent, SWT.SINGLE | SWT.BORDER);
 		modelSelection.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		modelSelection.addModifyListener(new ModifyListener() {
-			@Override
-			public void modifyText(ModifyEvent e) {
-				updateLaunchConfigurationDialog();
-			}
-		});
+		modelSelection.addModifyListener(modifyEvent ->
+				updateLaunchConfigurationDialog()
+		);
 		
 		Button modelLocationButton = createPushButton(parent, "Browse", null);
 		modelLocationButton.addSelectionListener(new SelectionAdapter() {
@@ -154,12 +149,9 @@ public class AleLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 	private void createDslWidgets(Composite parent) {
 		dslSelection = new Text(parent, SWT.SINGLE | SWT.BORDER);
 		dslSelection.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		dslSelection.addModifyListener(new ModifyListener() {
-			@Override
-			public void modifyText(ModifyEvent e) {
-				updateLaunchConfigurationDialog();
-			}
-		});
+		dslSelection.addModifyListener(modifyEvent ->
+				updateLaunchConfigurationDialog()
+		);
 		
 		Button dslLocationButton = createPushButton(parent, "Browse", null);
 		dslLocationButton.addSelectionListener(new SelectionAdapter() {

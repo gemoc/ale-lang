@@ -19,7 +19,6 @@ import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.ui.IWorkbenchPropertyPage;
-import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 public class AlePropertyPage extends FieldEditorPreferencePage implements IWorkbenchPropertyPage {
 	
@@ -44,8 +43,7 @@ public class AlePropertyPage extends FieldEditorPreferencePage implements IWorkb
 	
 	@Override
 	protected IPreferenceStore doGetPreferenceStore() {
-		ScopedPreferenceStore store = new AlePreferenceStore(new ProjectScope(project), Activator.PLUGIN_ID); 
-		return store;
+		return new AlePreferenceStore(new ProjectScope(project), Activator.PLUGIN_ID); 
     }
 
 }
