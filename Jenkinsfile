@@ -30,6 +30,17 @@ pipeline {
 				archiveArtifacts 'releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/**, **/screenshots/**'
 			}
 		}
+		stage("Deploy") {
+			when { tag "release-*"}
+			steps{
+				ant {
+					target('upload')
+					prop('key.file','/builds/.ssh/id_rsa')
+					buildFile('releng/promotion_build.xml')
+					antInstallation('Ant_1.8.4')
+				}
+			}
+		}
 	}
 	post { 
         fixed { // back to normal
