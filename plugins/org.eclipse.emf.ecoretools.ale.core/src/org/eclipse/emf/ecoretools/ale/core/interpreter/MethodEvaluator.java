@@ -211,6 +211,10 @@ public class MethodEvaluator {
 			else if(variableValue instanceof String) {
 				scope.put(varInsert.getName(), variableValue + "" + insertedValue);
 			}
+			else if(variableValue instanceof Integer && insertedValue instanceof Integer) {
+				Integer sum = (Integer) variableValue + (Integer) insertedValue;
+				scope.put(varInsert.getName(), sum);
+			}
 			else {
 				BasicDiagnostic child = new BasicDiagnostic(
 						Diagnostic.ERROR,
@@ -239,6 +243,10 @@ public class MethodEvaluator {
 				else {
 					((List)variableValue).remove(insertedValue);
 				}
+			}
+			else if(variableValue instanceof Integer && insertedValue instanceof Integer) {
+				Integer substraction = (Integer) variableValue - (Integer) insertedValue;
+				scope.put(varInsert.getName(), substraction);
 			}
 			else {
 				BasicDiagnostic child = new BasicDiagnostic(

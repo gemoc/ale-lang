@@ -366,6 +366,22 @@ public class TypeValidator implements IValidator {
 						}
 					}
 				}
+				
+				// If both are Integers then we can insert the second one by adding its value to the first one
+				
+				if(int.class.equals(eDataType.getInstanceClass())) {
+					for(IType iType : possibleTypes) {
+						Object type = iType.getType();
+						// Match adding a primitive (e.g. a += 2)
+						if(Integer.class.equals(type)) {
+							return true;
+						}
+						// Match adding a variable (e.g. a += b)
+						if(type instanceof EDataType) {
+							return int.class.equals(((EDataType) type).getInstanceClass());
+						}
+					}
+				}
 			}
 		}
 		return false;
