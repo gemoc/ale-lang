@@ -14,7 +14,6 @@ import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -57,6 +56,8 @@ import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Statement;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
 
 import com.google.common.collect.Lists;
@@ -70,6 +71,8 @@ public class TypeValidator implements IValidator {
 	public static final String VOID_RESULT_ASSIGN = "'result' is assigned in void operation";
 	public static final String EXTENDS_ITSELF = "Reopened %s is extending itself";
 	public static final String INDIRECT_EXTENSION = "Can't extend %s since it is not a direct super type of %s";
+	public static final String SELF_INSERT = "Cannot insert anything into 'self'";
+	public static final String SELF_REMOVE = "Cannot remove anything from 'self'";
 	
 	BaseValidator base;
 	
@@ -657,6 +660,52 @@ public class TypeValidator implements IValidator {
 	}
 	
 	@Override
+	public List<IValidationMessage> validateVariableInsert(VariableInsert varInsert) {
+		List<IValidationMessage> msgs = new ArrayList<>();
+		
+		if(varInsert.getName().equals("self")) {
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					SELF_INSERT,
+					base.getStartOffset(varInsert),
+					base.getEndOffset(varInsert)
+					));
+		}
+		else {
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.WARNING,
+					String.format("Unable to ensure that %s supports '+=' operator here", varInsert.getName()),
+					base.getStartOffset(varInsert),
+					base.getEndOffset(varInsert)
+					));
+		}
+		return msgs;
+	}
+	
+	@Override
+	public List<IValidationMessage> validateVariableRemove(VariableRemove varInsert) {
+		List<IValidationMessage> msgs = new ArrayList<>();
+		
+		if(varInsert.getName().equals("self")) {
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					SELF_REMOVE,
+					base.getStartOffset(varInsert),
+					base.getEndOffset(varInsert)
+					));
+		}
+		else {
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.WARNING,
+					String.format("Unable to ensure that %s supports '-=' operator here", varInsert.getName()),
+					base.getStartOffset(varInsert),
+					base.getEndOffset(varInsert)
+					));
+		}
+		return msgs;
+	}
+	
+	@Override
 	public List<IValidationMessage> validateForEach(ForEach loop) {
 		List<IValidationMessage> msgs = new ArrayList<>();
 		
@@ -805,7 +854,7 @@ public class TypeValidator implements IValidator {
 	
 	private Set<IType> findDeclaredTypes(VariableAssignment varAssign) {
 		
-		Set<IType> res = new HashSet<IType>();
+		Set<IType> res = new HashSet<>();
 		String variableName = varAssign.getName();
 		
 		// Look at extended EClass attributes

@@ -55,6 +55,8 @@ import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Statement;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
 import org.eclipse.emf.ecoretools.ale.implementation.util.ImplementationSwitch;
 
@@ -375,6 +377,26 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			EClassifierType declaredType = new EClassifierType(qryEnv, varDecl.getType());
 			lastScope.put(varDecl.getName(), Sets.newHashSet(declaredType));
 		}
+		
+		return null;
+	}
+	
+	@Override
+	public Object caseVariableInsert(VariableInsert insert) {
+		Map<String, Set<IType>> scope = getCurrentScope();
+		validateAndStore(insert.getValue(),scope);
+		
+		validators.stream().forEach(validator -> msgs.addAll(validator.validateVariableInsert(insert)));
+		
+		return null;
+	}
+	
+	@Override
+	public Object caseVariableRemove(VariableRemove remove) {
+		Map<String, Set<IType>> scope = getCurrentScope();
+		validateAndStore(remove.getValue(),scope);
+		
+		validators.stream().forEach(validator -> msgs.addAll(validator.validateVariableRemove(remove)));
 		
 		return null;
 	}
