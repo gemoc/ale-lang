@@ -208,6 +208,9 @@ public class MethodEvaluator {
 					((List)variableValue).add(insertedValue);
 				}
 			}
+			else if(variableValue instanceof String) {
+				scope.put(varInsert.getName(), variableValue + "" + insertedValue);
+			}
 			else {
 				BasicDiagnostic child = new BasicDiagnostic(
 						Diagnostic.ERROR,
@@ -220,7 +223,6 @@ public class MethodEvaluator {
 				throw new CriticalFailure("Unable to insert a value in " + varInsert.getName(), diagnostic);
 			}
 		}
-		
 		return null;
 	}
 	
@@ -300,20 +302,7 @@ public class MethodEvaluator {
 				}
 			}
 			else {
-				try {
-					dynamicFeatureAccess.removeDynamicFeatureValue(((EObject)assigned),featRemove.getTargetFeature(),value);
-					
-				} catch (ArrayStoreException e) {
-					BasicDiagnostic child = new BasicDiagnostic(
-							Diagnostic.ERROR,
-							MethodEvaluator.PLUGIN_ID,
-							0,
-							String.format("Cannot remove the value from '%s': types mismatch", featRemove.getTargetFeature()),
-							new Object[] {featRemove.getTarget()}
-					);
-					diagnostic.add(child);
-					throw new CriticalFailure("Cannot remove the value from '" + featRemove.getTargetFeature() + "': types mismatch", diagnostic);
-				}
+				dynamicFeatureAccess.removeDynamicFeatureValue(((EObject)assigned),featRemove.getTargetFeature(),value);
 			}
 		}
 		return null;

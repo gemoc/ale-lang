@@ -143,8 +143,9 @@ public class DynamicFeatureRegistry {
 				if(featureValue instanceof List){
 					((List)featureValue).add(newValue);
 				}
-				else {
-					//error
+				else if(featureValue instanceof String){
+					String concat = featureValue + "" + newValue;
+					extendedInstance.eSet(feature, concat);
 				}
 			}
 			else {

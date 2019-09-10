@@ -14,6 +14,7 @@ import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,6 +34,7 @@ import org.eclipse.acceleo.query.validation.type.NothingType;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
@@ -59,6 +61,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.While;
 
 import com.google.common.collect.Lists;
 
+// FIXME This class becomes too complex; it should be split into simpler ones
 public class TypeValidator implements IValidator {
 
 	public static final String INCOMPATIBLE_TYPE = "Expected %s but was %s";
@@ -229,17 +232,20 @@ public class TypeValidator implements IValidator {
 		 */
 		boolean isTryingToInsertSomeValueWithinAScalar = isInsert && !isCollection && !featureTypes.isEmpty();
 		if(isTryingToInsertSomeValueWithinAScalar) {
-			String inferredToString = 
-					featureTypes
-					.stream()
-					.map(type -> getQualifiedName(type))
-					.collect(joining(",","[","]"));
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(COLLECTION_TYPE,inferredToString),
-					base.getStartOffset(targetExp),
-					base.getEndOffset(targetExp)
-					));
+			boolean scalarAcceptsInsertion = canInsert(featureTypes, base.getPossibleTypes(valueExp));
+			if(!scalarAcceptsInsertion) {
+				String inferredToString = 
+						featureTypes
+						.stream()
+						.map(type -> getQualifiedName(type))
+						.collect(joining(",","[","]"));
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(COLLECTION_TYPE,inferredToString),
+						base.getStartOffset(targetExp),
+						base.getEndOffset(targetExp)
+						));
+			}
 		}
 		
 		/*
@@ -336,6 +342,35 @@ public class TypeValidator implements IValidator {
 		return msgs;
 	}
 	
+	/**
+	 * Determines whether a value of a given types can be inserted to a variable of another types.
+	 * 
+	 * @param featureTypes
+	 * 			The types of the variable to which a value could be inserted.
+	 * @param possibleTypes
+	 * 			The types of the value to insert.
+	 * 
+	 * @return true if a value of a given types can be inserted to a variable of another types
+	 */
+	private boolean canInsert(Set<EClassifierType> featureTypes, Set<IType> possibleTypes) {
+		for(EClassifierType eClassifierType : featureTypes) {
+			if(eClassifierType.getType() instanceof EDataType) {
+				EDataType eDataType = (EDataType) eClassifierType.getType();
+				
+				// If both are String then we can insert the second one by concatenating the strings
+				
+				if(String.class.equals(eDataType.getInstanceClass())) {
+					for(IType iType : possibleTypes) {
+						if(String.class.equals(iType.getType())) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public List<IValidationMessage> validateVariableAssignment(VariableAssignment varAssign) {
 		List<IValidationMessage> msgs = new ArrayList<>();
