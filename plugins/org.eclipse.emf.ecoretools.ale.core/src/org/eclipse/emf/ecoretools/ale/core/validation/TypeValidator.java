@@ -11,6 +11,7 @@
 package org.eclipse.emf.ecoretools.ale.core.validation;
 
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,7 +19,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.IValidationMessage;
@@ -33,6 +33,7 @@ import org.eclipse.acceleo.query.validation.type.NothingType;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
@@ -55,10 +56,13 @@ import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Statement;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
 
 import com.google.common.collect.Lists;
 
+// FIXME This class becomes too complex; it should be split into simpler ones
 public class TypeValidator implements IValidator {
 
 	public static final String INCOMPATIBLE_TYPE = "Expected %s but was %s";
@@ -67,6 +71,8 @@ public class TypeValidator implements IValidator {
 	public static final String VOID_RESULT_ASSIGN = "'result' is assigned in void operation";
 	public static final String EXTENDS_ITSELF = "Reopened %s is extending itself";
 	public static final String INDIRECT_EXTENSION = "Can't extend %s since it is not a direct super type of %s";
+	public static final String SELF_INSERT = "Cannot insert anything into 'self'";
+	public static final String SELF_REMOVE = "Cannot remove anything from 'self'";
 	
 	BaseValidator base;
 	
@@ -107,7 +113,7 @@ public class TypeValidator implements IValidator {
 				.getExtends()
 				.stream()
 				.map(xtd -> xtd.getBaseClass())
-				.collect(Collectors.toList());
+				.collect(toList());
 		
 		extendsBaseClasses.forEach(superBase -> {
 			if(!superTypes.contains(superBase) && baseCls != superBase) {
@@ -186,7 +192,7 @@ public class TypeValidator implements IValidator {
 		List<IValidationMessage> msgs = new ArrayList<>();
 		
 		/*
-		 * Collect feature types
+		 * Collect feature types to perform tests thereafter
 		 */
 		Set<IType> targetTypes = base.getPossibleTypes(targetExp);
 		Set<EClassifierType> featureTypes = new HashSet<>();
@@ -220,20 +226,29 @@ public class TypeValidator implements IValidator {
 		}
 		
 		/*
-		 * Check targetExp.featureName is collection
+		 * Check that targetExp.featureName is a collection
+		 * 
+		 * Provides an error message when the user attempts to insert
+		 * an object within a variable that is not a collection, e.g.:
+		 * 
+		 * 		self.notACollection += anObject
 		 */
-		if(isInsert && !isCollection && !featureTypes.isEmpty()) {
-			String inferredToString = 
-					featureTypes
-					.stream()
-					.map(type -> getQualifiedName(type))
-					.collect(joining(",","[","]"));
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(COLLECTION_TYPE,inferredToString),
-					base.getStartOffset(targetExp),
-					base.getEndOffset(targetExp)
-					));
+		boolean isTryingToInsertSomeValueWithinAScalar = isInsert && !isCollection && !featureTypes.isEmpty();
+		if(isTryingToInsertSomeValueWithinAScalar) {
+			boolean scalarAcceptsInsertion = canInsert(featureTypes, base.getPossibleTypes(valueExp));
+			if(!scalarAcceptsInsertion) {
+				String inferredToString = 
+						featureTypes
+						.stream()
+						.map(type -> getQualifiedName(type))
+						.collect(joining(",","[","]"));
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						String.format(COLLECTION_TYPE,inferredToString),
+						base.getStartOffset(targetExp),
+						base.getEndOffset(targetExp)
+						));
+			}
 		}
 		
 		/*
@@ -241,6 +256,11 @@ public class TypeValidator implements IValidator {
 		 */
 		if(!featureTypes.isEmpty()) {
 			
+			/*
+			 * Those are the types returned by the expression at the right of the '=' symbol.
+			 * We are now going to ensure that the feature targeted by the assignment is compatible
+			 * with at least one of them.
+			 */
 			Set<IType> inferredTypes = base.getPossibleTypes(valueExp);
 
 			if(!isInsert && isCollection) {
@@ -290,7 +310,7 @@ public class TypeValidator implements IValidator {
 					Optional<IType> existResult = inferredTypes
 							.stream()
 							.filter(t -> 
-								featureType.isAssignableFrom(t)
+								isAssignable(featureType, t)
 								|| (featureType.getType()  == EcorePackage.eINSTANCE.getEEList() && t instanceof AbstractCollectionType )) // TODO should be able to be more precise
 							.findAny();
 					if(existResult.isPresent()){
@@ -325,6 +345,51 @@ public class TypeValidator implements IValidator {
 		return msgs;
 	}
 	
+	/**
+	 * Determines whether a value of a given types can be inserted to a variable of another types.
+	 * 
+	 * @param featureTypes
+	 * 			The types of the variable to which a value could be inserted.
+	 * @param possibleTypes
+	 * 			The types of the value to insert.
+	 * 
+	 * @return true if a value of a given types can be inserted to a variable of another types
+	 */
+	private boolean canInsert(Set<EClassifierType> featureTypes, Set<IType> possibleTypes) {
+		for(EClassifierType eClassifierType : featureTypes) {
+			if(eClassifierType.getType() instanceof EDataType) {
+				EDataType eDataType = (EDataType) eClassifierType.getType();
+				
+				// If both are String then we can insert the second one by concatenating the strings
+				
+				if(String.class.equals(eDataType.getInstanceClass())) {
+					for(IType iType : possibleTypes) {
+						if(String.class.equals(iType.getType())) {
+							return true;
+						}
+					}
+				}
+				
+				// If both are Integers then we can insert the second one by adding its value to the first one
+				
+				if(int.class.equals(eDataType.getInstanceClass())) {
+					for(IType iType : possibleTypes) {
+						Object type = iType.getType();
+						// Match adding a primitive (e.g. a += 2)
+						if(Integer.class.equals(type)) {
+							return true;
+						}
+						// Match adding a variable (e.g. a += b)
+						if(type instanceof EDataType) {
+							return int.class.equals(((EDataType) type).getInstanceClass());
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public List<IValidationMessage> validateVariableAssignment(VariableAssignment varAssign) {
 		List<IValidationMessage> msgs = new ArrayList<>();
@@ -413,6 +478,52 @@ public class TypeValidator implements IValidator {
 		}
 		
 		return msgs;
+	}
+	
+	/**
+	 * Determines whether an instance of a given type can be assigned to a variable of another type. 
+	 * <p>
+	 * This function is required because {@link IType#isAssignableFrom(IType)} does not work as expected
+	 * when its parameter represents a metaclass defined within user's metamodel. Reasons are the following:
+	 * <ul>
+	 * 	<li>when the package is registered, EMF does not register the type as a subtype of EClass. This is
+	 * 		likely expected since not explicitly stated in the metamodel, but still surprising. Hence, given:
+	 * 		<ul>
+	 * 			<li>target = EClass
+	 * 			<li>value = Greet (a custom EClass)
+	 * 		</ul>
+	 * 		Acceleo is not able to determine that Greet inherits from EClass and returns false when 
+	 * 		{@code target.isAssignableFrom(value)} is called.
+	 * 
+	 * 	<li>when no corresponding Java class is registered for the user class (which happens at least when 
+	 * 		the user has defined a metamodel but didn't generate any code) then the method returns true most
+	 *      of the time. That's because, since Acceleo is not able to determine that user's class inherits internally the algorithm is close to:
+	 * 		<pre>boolean isAssignableFrom(otherType) {
+	 *    if (getJavaClass(otherType) == null) {
+	 *        return this.isAssignable(null); 
+	 *    }
+	 *    return getJavaClass(this).isAssignableFrom(getJavaClass(otherType);
+	 *}</pre>
+	 * </ul>
+	 * This method performs checks corresponding to the previous cases then calls {@link IType#isAssignableFrom(IType)}.
+	 * 
+	 * @param targetType
+	 * 			The type of the variable to which a value should be assigned
+	 * @param valueType
+	 * 			The type of the expression to assign to the variable
+	 * 
+	 * @return whether a value of type {@code valueType} can be assigned to a variable of type {@code target}
+	 */
+	private boolean isAssignable(IType targetType, IType valueType) {
+		// FIXME Check the types somehow. The algorithm could be:
+		//			1. Check whether either targetType or valueType correspond to a class defined in user's metamodel
+		//			2. If yes, then somehow ensure types are coherent
+		//			3. If not, then delegate to IType#isAssignableFrom
+		//
+		// It would also worth considering adding EObject as a super type of user's classes to help IType to do its
+		// job well. This could be done in DslBuilder#register(List<EPackages>).
+		
+		return targetType.isAssignableFrom(valueType);
 	}
 
 	private String getTypeQualifiedNameForOperationResult(IType declaredType, Optional<EOperation> eOperation) {
@@ -545,6 +656,52 @@ public class TypeValidator implements IValidator {
 			}
 		}
 		
+		return msgs;
+	}
+	
+	@Override
+	public List<IValidationMessage> validateVariableInsert(VariableInsert varInsert) {
+		List<IValidationMessage> msgs = new ArrayList<>();
+		
+		if(varInsert.getName().equals("self")) {
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					SELF_INSERT,
+					base.getStartOffset(varInsert),
+					base.getEndOffset(varInsert)
+					));
+		}
+		else {
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.WARNING,
+					String.format("Unable to ensure that %s supports '+=' operator here", varInsert.getName()),
+					base.getStartOffset(varInsert),
+					base.getEndOffset(varInsert)
+					));
+		}
+		return msgs;
+	}
+	
+	@Override
+	public List<IValidationMessage> validateVariableRemove(VariableRemove varInsert) {
+		List<IValidationMessage> msgs = new ArrayList<>();
+		
+		if(varInsert.getName().equals("self")) {
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					SELF_REMOVE,
+					base.getStartOffset(varInsert),
+					base.getEndOffset(varInsert)
+					));
+		}
+		else {
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.WARNING,
+					String.format("Unable to ensure that %s supports '-=' operator here", varInsert.getName()),
+					base.getStartOffset(varInsert),
+					base.getEndOffset(varInsert)
+					));
+		}
 		return msgs;
 	}
 	
@@ -697,7 +854,7 @@ public class TypeValidator implements IValidator {
 	
 	private Set<IType> findDeclaredTypes(VariableAssignment varAssign) {
 		
-		Set<IType> res = new HashSet<IType>();
+		Set<IType> res = new HashSet<>();
 		String variableName = varAssign.getName();
 		
 		// Look at extended EClass attributes

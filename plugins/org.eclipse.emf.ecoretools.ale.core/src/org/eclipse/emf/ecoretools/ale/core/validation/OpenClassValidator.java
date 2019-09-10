@@ -31,6 +31,8 @@ import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
 
 import com.google.common.collect.ArrayListMultimap;
@@ -160,6 +162,16 @@ public class OpenClassValidator implements IValidator {
 
 	@Override
 	public List<IValidationMessage> validateVariableDeclaration(VariableDeclaration varDecl) {
+		return new ArrayList<>();
+	}
+	
+	@Override
+	public List<IValidationMessage> validateVariableInsert(VariableInsert varInsert) {
+		return new ArrayList<>();
+	}
+	
+	@Override
+	public List<IValidationMessage> validateVariableRemove(VariableRemove varRemove) {
 		return new ArrayList<>();
 	}
 

@@ -143,8 +143,13 @@ public class DynamicFeatureRegistry {
 				if(featureValue instanceof List){
 					((List)featureValue).add(newValue);
 				}
-				else {
-					//error
+				else if(featureValue instanceof String){
+					String concat = featureValue + "" + newValue;
+					extendedInstance.eSet(feature, concat);
+				}
+				else if(featureValue instanceof Integer && newValue instanceof Integer) {
+					Integer sum = (Integer) featureValue + (Integer) newValue;
+					extendedInstance.eSet(feature, sum);
 				}
 			}
 			else {
@@ -166,6 +171,10 @@ public class DynamicFeatureRegistry {
 				Object featureValue = extendedInstance.eGet(feature);
 				if(featureValue instanceof List){
 					((List)featureValue).remove(newValue);
+				}
+				else if(featureValue instanceof Integer && newValue instanceof Integer) {
+					Integer substraction = (Integer) featureValue - (Integer) newValue;
+					extendedInstance.eSet(feature, substraction);
 				}
 				else {
 					//TODO: Error

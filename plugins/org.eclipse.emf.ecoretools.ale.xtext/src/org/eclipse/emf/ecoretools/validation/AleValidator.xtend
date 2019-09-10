@@ -31,6 +31,7 @@ import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
+import org.eclipse.acceleo.query.runtime.ValidationMessageLevel
 
 /**
  * Delegate validation to ALE validator
@@ -73,11 +74,20 @@ class AleValidator extends AbstractAleValidator {
 		msgs.forEach[msg |
 			val marker = aleFile.createMarker(ALE_MARKER);
 			marker.setAttribute(IMarker.MESSAGE, msg.getMessage());
-			marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
+			marker.setAttribute(IMarker.SEVERITY, severityOf(msg));
 			marker.setAttribute(IMarker.CHAR_START, msg.startPosition);
 			marker.setAttribute(IMarker.CHAR_END, msg.endPosition);
 		]
 		
+	}
+	
+	private def severityOf(IValidationMessage message) {
+		switch message.level {
+			case ValidationMessageLevel.INFO: IMarker.SEVERITY_INFO
+			case ValidationMessageLevel.WARNING: IMarker.SEVERITY_WARNING
+			case ValidationMessageLevel.ERROR: IMarker.SEVERITY_ERROR
+			default: ValidationMessageLevel.ERROR
+		}
 	}
 	
 	@Check

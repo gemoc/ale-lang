@@ -24,6 +24,8 @@ import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
 
 public interface IValidator {
@@ -41,6 +43,8 @@ public interface IValidator {
 	public List<IValidationMessage> validateFeatureRemove(FeatureRemove featRemove);
 	public List<IValidationMessage> validateVariableAssignment(VariableAssignment varAssign);
 	public List<IValidationMessage> validateVariableDeclaration(VariableDeclaration varDecl);
+	public List<IValidationMessage> validateVariableInsert(VariableInsert varInsert);
+	public List<IValidationMessage> validateVariableRemove(VariableRemove varRemove);
 	public List<IValidationMessage> validateForEach(ForEach loop);
 	public List<IValidationMessage> validateIf(If ifStmt);
 	public List<IValidationMessage> validateWhile(While loop);

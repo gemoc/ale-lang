@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
@@ -24,7 +23,7 @@ import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 public class DiagnosticLogger {
-	List<Diagnostic> log = new ArrayList<Diagnostic>();
+	List<Diagnostic> log = new ArrayList<>();
 	List<ParseResult<ModelUnit>> parseResults;
 	
 	public DiagnosticLogger(List<ParseResult<ModelUnit>> parseResults) {
@@ -49,15 +48,20 @@ public class DiagnosticLogger {
 		});
 	}
 	
-	public void diagnosticForHuman( BasicDiagnostic diagnotic) {
-		diagnotic
+	public void diagnosticForHuman( BasicDiagnostic diagnostic) {
+		diagnostic
 			.getChildren()
 			.stream()
 			.forEach(
 				diag -> {
 					if(diag.getSource().equals(MethodEvaluator.PLUGIN_ID)){
 						Expression failedExp = (Expression) diag.getData().get(0);
-						Diagnostic diagExp = (Diagnostic) diag.getData().get(1);
+						Diagnostic diagExp = diag;
+						
+						// Check whether a more accurate diagnostic is available
+						if(diag.getData().size() > 1) {
+							diagExp = (Diagnostic) diag.getData().get(1);
+						}
 						printError(failedExp, diagExp.toString());
 						if(diagExp instanceof BasicDiagnostic) {
 							diagnosticForHuman((BasicDiagnostic) diagExp);
@@ -65,7 +69,7 @@ public class DiagnosticLogger {
 					} else {
 						if(!diag.getData().isEmpty() && diag.getData().get(0) instanceof Exception) {
 							Exception e = (Exception) diag.getData().get(0);
-							if(e.getCause() != null && e.getCause() instanceof CriticalFailure) {
+							if(e.getCause() instanceof CriticalFailure) {
 								CriticalFailure interpreterFailure = (CriticalFailure) e.getCause();
 								diagnosticForHuman(interpreterFailure.diagnostics);
 							} else if(e.getCause() != null){
@@ -101,8 +105,6 @@ public class DiagnosticLogger {
 		    } else {
 		        System.out.println("File is not long enough");
 		    }
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

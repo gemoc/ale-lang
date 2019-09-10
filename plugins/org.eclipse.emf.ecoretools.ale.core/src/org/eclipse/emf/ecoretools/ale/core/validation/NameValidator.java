@@ -40,6 +40,8 @@ import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
 
 /**
@@ -507,6 +509,44 @@ public class NameValidator implements IValidator {
 			}
 		}
 		
+		return msgs;
+	}
+	
+	@Override
+	public List<IValidationMessage> validateVariableInsert(VariableInsert varInsert) {
+		List<IValidationMessage> msgs = new ArrayList<>();
+		
+		/*
+		 * Check name
+		 */
+		Set<IType> declaringTypes = base.getCurrentScope().get(varInsert.getName());
+		if(declaringTypes == null && !varInsert.getName().equals("result")){
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					String.format(VARIABLE_UNDEFINED,varInsert.getName()),
+					base.getStartOffset(varInsert),
+					base.getEndOffset(varInsert)
+					));
+		}
+		return msgs;
+	}
+	
+	@Override
+	public List<IValidationMessage> validateVariableRemove(VariableRemove varRemove) {
+		List<IValidationMessage> msgs = new ArrayList<>();
+		
+		/*
+		 * Check name
+		 */
+		Set<IType> declaringTypes = base.getCurrentScope().get(varRemove.getName());
+		if(declaringTypes == null && !varRemove.getName().equals("result")){
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					String.format(VARIABLE_UNDEFINED,varRemove.getName()),
+					base.getStartOffset(varRemove),
+					base.getEndOffset(varRemove)
+					));
+		}
 		return msgs;
 	}
 	
