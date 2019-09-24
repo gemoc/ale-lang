@@ -45,7 +45,6 @@ import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
@@ -80,17 +79,14 @@ public class BehaviorLayerTest {
 	    }
 	    
 	    //Display Console view
-	    Display.getDefault().asyncExec(new Runnable() {
-	        @Override
-	        public void run() {
-	            try {
-	            	IWorkbench workbench = PlatformUI.getWorkbench();
-	            	workbench.showPerspective("org.eclipse.sirius.ui.tools.perspective.modeling", workbench.getActiveWorkbenchWindow());
-	            	workbench.getActiveWorkbenchWindow().getActivePage().showView("org.eclipse.ui.console.ConsoleView");
-				} catch (WorkbenchException e) {
-					e.printStackTrace();
-				}
-	        }
+	    Display.getDefault().syncExec(() -> {
+            try {
+            	IWorkbench workbench = PlatformUI.getWorkbench();
+            	workbench.showPerspective("org.eclipse.sirius.ui.tools.perspective.modeling", workbench.getActiveWorkbenchWindow());
+            	workbench.getActiveWorkbenchWindow().getActivePage().showView("org.eclipse.ui.console.ConsoleView");
+			} catch (WorkbenchException e) {
+				e.printStackTrace();
+			}
 	    });
 	    
 	    //Open HelloWorld diagram
@@ -122,11 +118,9 @@ public class BehaviorLayerTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		UIThreadRunnable.syncExec(new VoidResult() {
-			public void run() {
-				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().forceActive();
-			}
-		});
+		UIThreadRunnable.syncExec(() ->
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().forceActive()
+		);
 		
 		assertNoMarkers();
 	}
@@ -138,14 +132,11 @@ public class BehaviorLayerTest {
 		EPackage pkg = (EPackage) session.getSemanticResources().iterator().next().getContents().get(0);
 		EClass cls = (EClass) pkg.getEClassifiers().get(0);
 		
-		Display.getDefault().asyncExec(new Runnable() {
-	        @Override
-	        public void run() {
-	            try {
-	            	(new Services()).addDynamicFeature(cls,"newRef",cls.getName());
-		        } catch (Exception e) {
-					e.printStackTrace();
-		        }
+		Display.getDefault().asyncExec(() -> {
+            try {
+            	(new Services()).addDynamicFeature(cls,"newRef",cls.getName());
+	        } catch (Exception e) {
+				e.printStackTrace();
 	        }
 	    });
 		
@@ -170,14 +161,11 @@ public class BehaviorLayerTest {
 		EPackage pkg = (EPackage) session.getSemanticResources().iterator().next().getContents().get(0);
 		EClass cls = (EClass) pkg.getEClassifiers().get(0);
 		
-		Display.getDefault().asyncExec(new Runnable() {
-	        @Override
-	        public void run() {
-	            try {
-	            	(new Services()).addDynamicFeature(cls);
-		        } catch (Exception e) {
-					e.printStackTrace();
-		        }
+		Display.getDefault().asyncExec(() -> {
+            try {
+            	new Services().addDynamicFeature(cls);
+	        } catch (Exception e) {
+				e.printStackTrace();
 	        }
 	    });
 		
@@ -204,14 +192,11 @@ public class BehaviorLayerTest {
 		EPackage pkg = (EPackage) session.getSemanticResources().iterator().next().getContents().get(0);
 		EClass cls = (EClass) pkg.getEClassifiers().get(0);
 		
-		Display.getDefault().asyncExec(new Runnable() {
-	        @Override
-	        public void run() {
-	            try {
-	            	(new Services()).addMethod(cls);
-		        } catch (Exception e) {
-					e.printStackTrace();
-		        }
+		Display.getDefault().asyncExec(() -> {
+            try {
+            	new Services().addMethod(cls);
+	        } catch (Exception e) {
+				e.printStackTrace();
 	        }
 	    });
 		
@@ -238,14 +223,11 @@ public class BehaviorLayerTest {
 		EClass cls = (EClass) pkg.getEClassifiers().get(0);
 		EOperation op = cls.getEOperations().get(0);
         
-		Display.getDefault().asyncExec(new Runnable() {
-	        @Override
-	        public void run() {
-	            try {
-	            	(new Services()).editImplementation(op);
-		        } catch (Exception e) {
-					e.printStackTrace();
-		        }
+		Display.getDefault().asyncExec(() -> {
+            try {
+            	new Services().editImplementation(op);
+	        } catch (Exception e) {
+				e.printStackTrace();
 	        }
 	    });
 		
@@ -258,11 +240,12 @@ public class BehaviorLayerTest {
 				.stream()
 				.filter(elem -> elem instanceof DNodeListElementSpec)
 				.map(elem -> (DNodeListElementSpec) elem)
-				.filter(elem -> elem.getName().contentEquals("greeting()"))
+				.filter(elem -> elem.getName().contentEquals("greeting() : EString"))
 				.findFirst();
 		
-		assertTrue(operation.isPresent());
-		assertEquals("bold",((BasicLabelStyle)operation.get().getStyle()).getLabelFormat().get(0).getLiteral());
+		assertTrue("The \"greeting() : EString\" operation should be shown in the diagram", operation.isPresent());
+		assertEquals("The greeting() operation should be displayed in a bold font",
+					 "bold", ((BasicLabelStyle)operation.get().getStyle()).getLabelFormat().get(0).getLiteral());
 	}
 	
 	private void assertNoMarkers() throws CoreException {

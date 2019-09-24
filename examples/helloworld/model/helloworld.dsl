@@ -1,2 +1,2 @@
-syntax=platform:/resource/helloworld/model/HelloWorld.ecore
-behavior=platform:/resource/helloworld/model/HelloWorld.ale
+syntax=platform:/resource/helloworld/model/helloworld.ecore
+behavior=platform:/resource/helloworld/model/helloworld.ale
