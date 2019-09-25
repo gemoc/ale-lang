@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:diagram="http://www.eclipse.org/sirius/diagram/1.1.0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:implementation="http://implementation/" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xsi:schemaLocation="http://www.eclipse.org/sirius/description/1.1.0 http://www.eclipse.org/sirius/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/style/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description/style">
   <viewpoint:DAnalysis xmi:id="_uZE5QE-AEeeTs_NIVZhgJA" selectedViews="_uaToUE-AEeeTs_NIVZhgJA _uagcoE-AEeeTs_NIVZhgJA _x5-NIE-AEeeTs_NIVZhgJA" version="11.1.0.201608251200">
-    <semanticResources>HelloWorld.ecore</semanticResources>
+    <semanticResources>helloworld.ecore</semanticResources>
     <semanticResources>http://www.eclipse.org/emf/2002/Ecore</semanticResources>
-    <semanticResources>HelloWorld.dsl</semanticResources>
+    <semanticResources>helloworld.dsl</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_uaToUE-AEeeTs_NIVZhgJA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_u5p2wE-AEeeTs_NIVZhgJA" name="helloworld class diagram" representation="_u5p2wU-AEeeTs_NIVZhgJA">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
-        <target xmi:type="ecore:EPackage" href="HelloWorld.ecore#/"/>
+        <target xmi:type="ecore:EPackage" href="helloworld.ecore#/"/>
       </ownedRepresentationDescriptors>
     </ownedViews>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_uaa9EE-AEeeTs_NIVZhgJA">
@@ -62,8 +62,8 @@
       </data>
     </ownedAnnotationEntries>
     <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_vUMdsE-AEeeTs_NIVZhgJA" name="HelloWorld" tooltipText="" width="12" height="10">
-      <target xmi:type="ecore:EClass" href="HelloWorld.ecore#//HelloWorld"/>
-      <semanticElements xmi:type="ecore:EClass" href="HelloWorld.ecore#//HelloWorld"/>
+      <target xmi:type="ecore:EClass" href="helloworld.ecore#//HelloWorld"/>
+      <semanticElements xmi:type="ecore:EClass" href="helloworld.ecore#//HelloWorld"/>
       <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
       <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
@@ -72,16 +72,16 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMappingImport" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']"/>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_vUSkUE-AEeeTs_NIVZhgJA" name="greeting() : EString" tooltipText="greeting() : EString">
-        <target xmi:type="ecore:EOperation" href="HelloWorld.ecore#//HelloWorld/greeting"/>
-        <semanticElements xmi:type="ecore:EOperation" href="HelloWorld.ecore#//HelloWorld/greeting"/>
+        <target xmi:type="ecore:EOperation" href="helloworld.ecore#//HelloWorld/greeting"/>
+        <semanticElements xmi:type="ecore:EOperation" href="helloworld.ecore#//HelloWorld/greeting"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_0YihUE-AEeeTs_NIVZhgJA" labelAlignment="LEFT" description="_0Yh6QE-AEeeTs_NIVZhgJA">
           <labelFormat>bold</labelFormat>
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='Operation']"/>
       </ownedElements>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_5otacE-AEeeTs_NIVZhgJA" name="msg : EString">
-        <target xmi:type="implementation:Attribute" href="HelloWorld.dsl#//HelloWorld/@attributes.0"/>
-        <semanticElements xmi:type="implementation:Attribute" href="HelloWorld.dsl#//HelloWorld/@attributes.0"/>
+        <target xmi:type="implementation:Attribute" href="helloworld.dsl#//HelloWorld/@attributes.0"/>
+        <semanticElements xmi:type="implementation:Attribute" href="helloworld.dsl#//HelloWorld/@attributes.0"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_5ouBgE-AEeeTs_NIVZhgJA" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EAttribute.gif" labelAlignment="LEFT" labelPosition="node">
           <labelFormat>bold</labelFormat>
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']/@style"/>
@@ -89,8 +89,8 @@
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Runtime%20feature']"/>
       </ownedElements>
       <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_BEIDIE-BEeeTs_NIVZhgJA" name="entryPoint()">
-        <target xmi:type="implementation:Method" href="HelloWorld.dsl#//HelloWorld/@methods.1"/>
-        <semanticElements xmi:type="implementation:Method" href="HelloWorld.dsl#//HelloWorld/@methods.1"/>
+        <target xmi:type="implementation:Method" href="helloworld.dsl#//HelloWorld/@methods.1"/>
+        <semanticElements xmi:type="implementation:Method" href="helloworld.dsl#//HelloWorld/@methods.1"/>
         <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_BEIqME-BEeeTs_NIVZhgJA" iconPath="/org.eclipse.emf.ecore.edit/icons/full/obj16/EOperation.gif" labelAlignment="LEFT" labelPosition="node">
           <labelFormat>bold</labelFormat>
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']/@containerMappings[name='ExtendedClass']/@subNodeMappings[name='Method']/@style"/>
@@ -104,6 +104,6 @@
     <activatedLayers xmi:type="description_1:AdditionalLayer" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@additionalLayers[name='Package']"/>
     <activatedLayers xmi:type="description_1:AdditionalLayer" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@additionalLayers[name='Validation']"/>
     <activatedLayers xmi:type="description_1:AdditionalLayer" href="platform:/plugin/org.eclipse.emf.ecoretools.ale.ide/description/ale.odesign#//@ownedViewpoints[name='Behavior']/@ownedRepresentationExtensions[name='BehaviorEntities']/@layers[name='Behavior']"/>
-    <target xmi:type="ecore:EPackage" href="HelloWorld.ecore#/"/>
+    <target xmi:type="ecore:EPackage" href="helloworld.ecore#/"/>
   </diagram:DSemanticDiagram>
 </xmi:XMI>

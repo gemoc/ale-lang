@@ -73,27 +73,22 @@ public class HelloworldTest {
 	    }
 	    
 	    //Display Console view
-	    Display.getDefault().asyncExec(new Runnable() {
-	        @Override
-	        public void run() {
-	            try {
-	            	IWorkbench workbench = PlatformUI.getWorkbench();
-	            	workbench.showPerspective("org.eclipse.sirius.ui.tools.perspective.modeling", workbench.getActiveWorkbenchWindow());
-	            	workbench.getActiveWorkbenchWindow().getActivePage().showView("org.eclipse.ui.console.ConsoleView");
-				} catch (WorkbenchException e) {
-					e.printStackTrace();
-				}
-	        }
-	    });
+	    Display.getDefault().asyncExec(() -> {
+            try {
+            	IWorkbench workbench = PlatformUI.getWorkbench();
+            	workbench.showPerspective("org.eclipse.sirius.ui.tools.perspective.modeling", workbench.getActiveWorkbenchWindow());
+            	workbench.getActiveWorkbenchWindow().getActivePage().showView("org.eclipse.ui.console.ConsoleView");
+			} catch (WorkbenchException e) {
+				e.printStackTrace();
+			}
+        });
 	}
 	
 	@Before
 	public void setUp() throws Exception {
-		UIThreadRunnable.syncExec(new VoidResult() {
-			public void run() {
-				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().forceActive();
-			}
-		});
+		UIThreadRunnable.syncExec(() -> 
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().forceActive()
+		);
 	}
 	
 	@Test
@@ -122,7 +117,6 @@ public class HelloworldTest {
 		bot.viewByTitle("Model Explorer").show();
 		SWTBotTreeItem dslItem = bot.tree().getTreeItem("helloworld").getNode("model").getNode("helloworld.dsl").select();
 		dslItem.contextMenu("Run As").menu("1 ALE launch").click();
-		bot.textWithLabel("Select a resource to open (? = any character, * = any string):").setText("*xmi");
 		bot.button("OK").click();
 		
 		

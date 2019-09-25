@@ -1,10 +1,10 @@
-behavior HelloWorld;
+behavior helloworld;
 
 open class HelloWorld {
 	
 	String msg := 'Hello world!';
 	
-	override EString greeting () {
+	override EString greeting() {
 		result := self.msg;
 	}
 	

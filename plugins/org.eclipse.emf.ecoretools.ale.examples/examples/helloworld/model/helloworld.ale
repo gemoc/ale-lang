@@ -4,9 +4,12 @@ open class HelloWorld {
 	
 	String msg := 'Hello world!';
 	
-	@main
-	override void greeting () {
-		self.msg.log();
+	override EString greeting() {
+		result := self.msg;
 	}
-
+	
+	@main
+	def void entryPoint() {
+		self.greeting().log();
+	}
 }
