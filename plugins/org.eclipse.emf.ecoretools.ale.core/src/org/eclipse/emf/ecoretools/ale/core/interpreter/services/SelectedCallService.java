@@ -84,6 +84,7 @@ public class SelectedCallService {
 		
 		//TODO: behave like EvaluationServices.call for errors
 		List<Object> allArgs = Arrays.asList(caller);
+		allArgs = new ArrayList<>(allArgs);
 		Collections.addAll(allArgs, args);
 		
 		IType[] types = getArgumentTypes(allArgs.toArray());
