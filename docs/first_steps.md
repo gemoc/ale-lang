@@ -6,70 +6,101 @@ order: 2
 First steps
 ===========
 
+Requirements
+-------------
+
+* Have at least a basic knowledge of [EMF (Eclipse Modeling Framework)](https://www.eclipse.org/modeling/emf/).
+* Have [installed ALE]({{ site.baseurl }}{% link getting_started.md %}).
+
+Objectives
+----------
+
+ * Discover the structure of an ALE project through a built-in example.
+ * Launch your first ALE program.
+
 Get the HelloWorld example
 --------------------------
 
-Available here: https://github.com/gemoc/ale-lang/tree/master/examples/helloworld
+ALE provides an `Hello world!` project template:
 
-//TODO: make a downloadable .zip
+1. `File > New > Example...`
+2. `EcoreTools ALE Examples > Hello world!`
+3. Select `helloworld`
+4. `Finish`
+
+After a few seconds a new project called *helloworld* should be created in your workspace. This project defines a simple `HelloWorld` EClass able to print "Hello world!". The content of the project is presented below.
 
 What we have inside
 -------------------
 
 The interesting files of the `helloworld` project are inside the folder `model`:
 
-* `HelloWorld.aird`<br>
-  Graphical representation of `HelloWorld.ecore`
-* `HelloWorld.ale`<br>
-  Semantic for `HelloWolrd.ecore`
-* `HelloWorld.dsl`<br>
-  Do the link between `HelloWolrd.ecore` and `HelloWorld.ale`
-* `HelloWorld.ecore`<br>
-  Metamodel scribing the EClass HelloWorld
-* `HelloWorld.xmi`<br>
-  Instance of the EClass HelloWorld
+| File               | Defines                                                                                 |
+| ------------------ | --------------------------------------------------------------------------------------- |
+| _HelloWorld.aird_  | Graphical representation of _HelloWorld.ecore_                                          |
+| _HelloWorld.ale_   | Semantics of _HelloWorld.ecore_                                                         |
+| _HelloWorld.dsl_   | Binding between the metamodel (_HelloWolrd.ecore_) and its semantics (_HelloWorld.ale_) |
+| _HelloWorld.ecore_ | Metamodel describing the EClass HelloWorld                                              |
+| _HelloWorld.xmi_   | Instance of the EClass HelloWorld                                                       |
 
-By openning `HelloWorld.aird` you will see:
+By opening _HelloWorld.aird_ you will see the `HelloWorld` EClass and its properties:
 
-![HelloWorld](img/HelloWorld.png)
+<div align="center">
+	<img alt="HelloWorld EClass" src="img/HelloWorld.png"/>
+</div>
 
-All members of HelloWorld are bold since they are defined inside `HelloWorld.ale` which looks like:
+As you can see, all the members of `HelloWorld` are displayed in a bold font. That indicates that they are defined inside _HelloWorld.ale_.
+
+> ***Note:** if the members are not shown make sure that [the Behavior layer is activated]({{ site.baseurl }}{% link tutorial.md %}#implementation).*
+
+ _HelloWorld.ale_ contains the following code:
 
 ```
 behavior HelloWorld;
 
-open class HelloWorld {
-	
-	String msg := 'Hello world!';
-	
-	override EString greeting () {
-		result := self.msg;
-	}
-	
-	@main
-	def void entryPoint() {
-		self.greeting().log();
-	}
+open class HelloWorld {             // 1
+
+    String msg := 'Hello world!';   // 2
+
+    override EString greeting() {   // 3
+        result := self.msg;         // 4
+    }
+
+    @main                           // 5
+    def void entryPoint() {
+        self.greeting().log();      // 6
+    }
 }
 ```
-We are implementing the EOperation `greeting()` by returning the value of `msg`.<br>
-`msg` is a runtime data since it is defined inside `HelloWorld.ale` and not `HelloWorld.ecore`
+<ul style="list-style:none">
+ <li>① Indicates that modify the <code>HelloWorld</code> EClass.</li> 
+ <li>② Declare a <i>new</i> attribute of type <code>String</code>. Defining <code>msg</code> within <i>HelloWorls.ale</i> makes it a runtime data. In other words, it does not exist in the metamodel and will be created by the ALE interpreter during the execution.</li>
+ <li>③ Specify the semantics of the <code>greeting</code> operation.</li>
+ <li>④ Return the value of the <code>msg</code> attribute (there is no <code>return</code> statement in ALE).</li>
+ <li>⑤ Indicate that the <code>entryPoint</code> operation is the entry point of the execution and should be called by the ALE interpreter.</li>
+ <li>⑥ Print "Hello world!".</li>
+</ul>
 
-`entryPoint()` is a new operation added to the EClass `HelloWorld` and is declared as the entry point for the execution thanks to `@main`
+> ***Tip:** see the [Reference page]({{ site.baseurl }}{% link reference.md %}) for a detailed overview of ALE's syntax.*
 
 Run!
 ----
 
-To launch the execution do a right click on `HelloWolrd.dsl` and select `Run As > Ale Launch`<br>
-Then type `*xmi` and select `HelloWorld.xmi`
+The execution can be launched through the contextual menu:
 
-The console will show the result:
+1. Right-click on _HelloWorld.dsl_
+2. Select `Run As > ALE launch`, a dialog should open asking you to select the model to interpret
+3. Make sure _HelloWorld.xmi_ is selected then click on `OK`.
+4. Witness the result on the console:
 
 ```
-Run HelloWorld.dsl
+Run helloworld.dsl
 ------------
 Hello world!
 ```
 
-To go further have a look to the [MiniFsm tutorial](tutorial.html) or the [Reference page](reference.html)
+Conclusion
+----------
+
+Now that we covered the basics of ALE you're ready to go further with the [MiniFsm tutorial]({{ site.baseurl }}{% link tutorial.md %}).
 
