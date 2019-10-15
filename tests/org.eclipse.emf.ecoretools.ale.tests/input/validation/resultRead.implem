@@ -1,0 +1,7 @@
+behavior test.declself;
+open class EClass {
+	def boolean foo() {
+		result := false;
+		('result is: ' + result);
+	}
+}
