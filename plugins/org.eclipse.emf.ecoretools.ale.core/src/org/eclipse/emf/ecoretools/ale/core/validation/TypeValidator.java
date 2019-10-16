@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Inria and Obeo.
+ * Copyright (c) 2017-2019 Inria and Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@ package org.eclipse.emf.ecoretools.ale.core.validation;
 
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
+import static org.eclipse.emf.ecoretools.ale.core.validation.QualifiedNames.getQualifiedName;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -924,33 +925,5 @@ public class TypeValidator implements IValidator {
 		}
 		
 		return res;
-	}
-	
-	private static String getQualifiedName(EClassifier cls) {
-		return getQualifiedName(cls.getEPackage()) + "::" + cls.getName(); 
-	}
-	
-	private static String getQualifiedName(EPackage pkg) {
-		LinkedList<EPackage> pkgs = new LinkedList<>();
-		EPackage current = pkg;
-		while(current != null) {
-			pkgs.addFirst(current);
-			current = current.getESuperPackage();
-		}
-		
-		return pkgs
-			.stream()
-			.map(p -> p.getName())
-			.collect(joining("::"));
-	}
-	
-	private static String getQualifiedName(IType type) {
-		
-		if(type instanceof EClassifierType) {
-			EClassifier cls = ((EClassifierType) type).getType();
-			return getQualifiedName(cls);
-		}
-		
-		return type.toString();
 	}
 }

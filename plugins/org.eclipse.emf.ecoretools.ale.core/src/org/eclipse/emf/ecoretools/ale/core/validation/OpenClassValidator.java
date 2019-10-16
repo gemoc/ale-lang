@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Inria and Obeo.
+ * Copyright (c) 2017-2019 Inria and Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,8 @@
  *     Inria - initial API and implementation
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.validation;
+
+import static org.eclipse.emf.ecoretools.ale.core.validation.QualifiedNames.getQualifiedName;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,6 +22,7 @@ import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
 import org.eclipse.acceleo.query.runtime.impl.ValidationMessage;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureInsert;
@@ -42,6 +45,7 @@ public class OpenClassValidator implements IValidator {
 	
 	public static final String OPENCLASS_DUPLICATION = "The EClass %s is already opened (need explicit extends)";
 	public static final String EXTENDS_ORDER = "The extended EClass %s have to be after %s";
+	public static final String NOT_AN_OPENABLE_CLASS = "Cannot open class %s: the class must be defined in an Ecore metamodel";
 	
 	BaseValidator base;
 	List<ExtendedClass> duplicatedExensions = new ArrayList<>();
@@ -98,12 +102,18 @@ public class OpenClassValidator implements IValidator {
 					this.base.getEndOffset(xtdClass)
 					));
 		}
-
-		
-		
 		EClass base = xtdClass.getBaseClass();
-		EList<EClass> superTypes = base.getESuperTypes();
 		
+		boolean baseClassIsNotDefinedInAMetamodel = EClassifier.class.equals(base.getInstanceClass());
+		if (baseClassIsNotDefinedInAMetamodel) {
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					String.format(NOT_AN_OPENABLE_CLASS, xtdClass.getName()),
+					this.base.getStartOffset(xtdClass),
+					this.base.getStartOffset(xtdClass) + "open class ".length() + xtdClass.getName().length()
+			));
+		}
+		EList<EClass> superTypes = base.getESuperTypes();
 		List<EClass> extendsBaseClasses =
 			xtdClass
 			.getExtends()

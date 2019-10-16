@@ -11,6 +11,7 @@
 package org.eclipse.emf.ecoretools.ale.core.validation.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -113,6 +114,31 @@ public class OpenClassValidationTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
+	}
+	
+	@Test
+	public void testOpeningNonExistingClass() {
+		Dsl environment = new Dsl(Arrays.asList("model/abc.ecore"),Arrays.asList("input/validation/openingNonExistingClass.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 27, 49, "Cannot open class NonExisting: the class must be defined in an Ecore metamodel", msg.get(0));
+	}
+	
+	@Test
+	public void testOpeningLocallyDefinedRuntimeClass() {
+		Dsl environment = new Dsl(Arrays.asList("model/abc.ecore"),Arrays.asList("input/validation/openingLocallyDefinedRuntimeClass.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertTrue("Opening a locally defined class should not raise any error", msg.isEmpty());
 	}
 	
 	private EObject create(String className) {
