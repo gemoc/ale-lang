@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.validation;
 
+import static java.util.stream.Collectors.toList;
 import static org.eclipse.emf.ecoretools.ale.core.validation.QualifiedNames.getQualifiedName;
 
 import java.util.ArrayList;
@@ -46,6 +47,9 @@ public class OpenClassValidator implements IValidator {
 	public static final String OPENCLASS_DUPLICATION = "The EClass %s is already opened (need explicit extends)";
 	public static final String EXTENDS_ORDER = "The extended EClass %s have to be after %s";
 	public static final String NOT_AN_OPENABLE_CLASS = "Cannot open class %s: the class must be defined in an Ecore metamodel";
+	public static final String OPENED_CLASS_HAS_NAMESAKE = "Opening %s, which has namesakes. Make sure you're opening the right class.\n" +
+														   " - Opened: %s\n" +
+														   " - Namesakes: %s";
 	
 	BaseValidator base;
 	List<ExtendedClass> duplicatedExensions = new ArrayList<>();
@@ -104,15 +108,9 @@ public class OpenClassValidator implements IValidator {
 		}
 		EClass base = xtdClass.getBaseClass();
 		
-		boolean baseClassIsNotDefinedInAMetamodel = EClassifier.class.equals(base.getInstanceClass());
-		if (baseClassIsNotDefinedInAMetamodel) {
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(NOT_AN_OPENABLE_CLASS, xtdClass.getName()),
-					this.base.getStartOffset(xtdClass),
-					this.base.getStartOffset(xtdClass) + "open class ".length() + xtdClass.getName().length()
-			));
-		}
+		validateExtendedClassHasNoNamesake(xtdClass, msgs);
+		validateExtendedClassExists(xtdClass, base, msgs);
+		
 		EList<EClass> superTypes = base.getESuperTypes();
 		List<EClass> extendsBaseClasses =
 			xtdClass
@@ -138,6 +136,36 @@ public class OpenClassValidator implements IValidator {
 		}
 		
 		return msgs;
+	}
+
+	private void validateExtendedClassExists(ExtendedClass xtdClass, EClass base, List<IValidationMessage> msgs) {
+		boolean baseClassDoesntExist = EClassifier.class.equals(base.getInstanceClass());
+		if (baseClassDoesntExist) {
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					String.format(NOT_AN_OPENABLE_CLASS, xtdClass.getName()),
+					this.base.getStartOffset(xtdClass),
+					this.base.getStartOffset(xtdClass) + "open class ".length() + xtdClass.getName().length()
+			));
+		}
+	}
+
+	private void validateExtendedClassHasNoNamesake(ExtendedClass xtdClass, List<IValidationMessage> msgs) {
+		Collection<EClassifier> potentialNamesakes = this.base.qryEnv.getEPackageProvider().getTypes(xtdClass.getName());
+		Collection<String> namesakes = potentialNamesakes
+												  .stream()
+												  .filter(classi -> !classi.getEPackage().equals(xtdClass.getBaseClass().getEPackage()))
+												  .map(QualifiedNames::getQualifiedName)
+												  .collect(toList());
+		
+		if (!namesakes.isEmpty()) {
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.WARNING,
+					String.format(OPENED_CLASS_HAS_NAMESAKE, xtdClass.getName(), getQualifiedName(xtdClass.getBaseClass().getEPackage()), namesakes),
+					this.base.getStartOffset(xtdClass),
+					this.base.getEndOffset(xtdClass)
+			));
+		}
 	}
 
 	@Override

@@ -126,7 +126,7 @@ public class OpenClassValidationTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 27, 49, "Cannot open class NonExisting: the class must be defined in an Ecore metamodel", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 29, 51, "Cannot open class NonExisting: the class must be defined in an Ecore metamodel", msg.get(0));
 	}
 	
 	@Test
