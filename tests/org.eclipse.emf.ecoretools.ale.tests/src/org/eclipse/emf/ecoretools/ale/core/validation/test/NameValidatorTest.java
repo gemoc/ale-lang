@@ -900,6 +900,23 @@ public class NameValidatorTest {
 		
 		assertEquals(2, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 112, 117, "Feature wrong not found in EClass EClass", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 90, 118, "Expected [ecore::EInt] but was [Nothing(Feature wrong not found in EClass EClass)]", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 108, 118, "Type mismatch: cannot assign [Nothing(Feature wrong not found in EClass EClass)] to [ecore::EInt]", msg.get(1));
+	}
+	
+	/*
+	 * Test value of result conflict the return type void
+	 */
+	@Test
+	public void testReturnAssignVoid() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignVoid.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 65, 76, "Cannot assign 'result' in a void operation", msg.get(0));
 	}
 }

@@ -1,0 +1,7 @@
+behavior test.declself;
+open class EClass {
+	String str;
+	def void foo() {
+		self.str += 'hello';
+	}
+}

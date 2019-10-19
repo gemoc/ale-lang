@@ -1,0 +1,7 @@
+behavior test.featins;
+open class EClass {
+	def void op(){
+		Boolean supportsOperator := false;
+		supportsOperator += true;
+	}
+}

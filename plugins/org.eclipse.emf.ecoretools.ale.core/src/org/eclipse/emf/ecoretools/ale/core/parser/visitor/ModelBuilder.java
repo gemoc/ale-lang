@@ -19,6 +19,7 @@ import java.util.Set;
 import org.antlr.v4.runtime.misc.Interval;
 import org.eclipse.acceleo.query.ast.AstFactory;
 import org.eclipse.acceleo.query.ast.Binding;
+import org.eclipse.acceleo.query.ast.CollectionTypeLiteral;
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.ast.IntegerLiteral;
 import org.eclipse.acceleo.query.ast.Let;
@@ -151,7 +152,10 @@ public class ModelBuilder {
 		});
 		
 		EClassifier type = resolve(returnType);
-		operation.setEType(type);
+		operation.setEType(type); // also set EGenericType
+		resolveGenericTypeParameter(type, returnType.getText())
+			.ifPresent(t -> operation.getEGenericType().getETypeArguments().add(t));
+
 		fragment.getEOperations().add(operation);
 		
 		return buildMethod(operation,body,tags);
@@ -197,7 +201,10 @@ public class ModelBuilder {
 		}
 		
 		feature.setName(name);
-		feature.setEType(featureType);
+		feature.setEType(featureType); // also set EGenericType
+		resolveGenericTypeParameter(featureType, type.getText())
+			.ifPresent(t -> feature.getEGenericType().getETypeArguments().add(t));
+
 		attribute.setFeatureRef(feature);
 		
 		if(exp != null){
@@ -232,6 +239,7 @@ public class ModelBuilder {
 		if(declaredType == EcorePackage.eINSTANCE.getEEList()) {
 			EClassifier parameterType = resolveParameterType(type);
 			varDecl.setTypeParameter(parameterType);
+			// FIXME add generic type
 		}
 		
 		return varDecl;
@@ -558,6 +566,7 @@ public class ModelBuilder {
 		return resolve(type.getText()); //default
 	}
 	
+	// TODO [Refactor] Can this method be made private safely?
 	public EClassifier resolveParameterType(RTypeContext type) {
 		AstResult astResult = builder.build(type.getText());
 		if(astResult.getAst() instanceof CollectionTypeLiteralImpl ) {
@@ -584,6 +593,36 @@ public class ModelBuilder {
 		}
 		
 		return null;
+	}
+	
+	private Optional<EGenericType> resolveGenericTypeParameter(EClassifier type, String code) {
+		if (type != null && EList.class.equals(type.getInstanceClass())) {
+			AstResult ast = builder.build(code);
+			if (ast.getAst() instanceof CollectionTypeLiteral) {
+				CollectionTypeLiteral collectionTypeLiteral = (CollectionTypeLiteral) ast.getAst();
+				
+				EClassifier classifier;
+				
+				if (collectionTypeLiteral.getElementType().getValue() instanceof Class<?>) {
+					classifier = EcoreFactory.eINSTANCE.createEDataType();
+					classifier.setInstanceClass((Class<?>) collectionTypeLiteral.getElementType().getValue());
+					classifier.setName(classifier.getInstanceClass().getSimpleName());
+					classifier.setInstanceTypeName(classifier.getInstanceClass().getName());
+					classifier.setInstanceClassName(classifier.getInstanceClass().getName());
+				}
+				else if (collectionTypeLiteral.getElementType().getValue() instanceof EClass) {
+					classifier = (EClass) collectionTypeLiteral.getElementType().getValue();
+				}
+				else {
+					classifier = null;
+				}
+				EGenericType generic = EcoreFactory.eINSTANCE.createEGenericType();
+				generic.setEClassifier(classifier);
+				
+				return Optional.of(generic);
+			}
+		}
+		return Optional.empty();
 	}
 		
 	

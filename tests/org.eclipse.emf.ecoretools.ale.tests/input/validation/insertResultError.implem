@@ -1,0 +1,16 @@
+behavior test.featins;
+open class EClass {
+	def String name(){
+		result += 18;
+	}
+	
+	def Boolean isAdult() {
+		result += true;
+	}
+	
+	def Sequence(Integer) numbers() {
+		result += 'string';
+		result += Sequence{true, false};
+	}
+	
+}

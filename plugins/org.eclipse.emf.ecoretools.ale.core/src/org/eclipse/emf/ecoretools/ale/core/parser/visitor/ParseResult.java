@@ -37,6 +37,7 @@ public class ParseResult<T> {
 	}
 	
 	public Map<Object, Integer> getEndPositions() {
+		// FIXME It looks like some end position are missing the last character in source code
 		return endPositions;
 	}
 	

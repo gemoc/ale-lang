@@ -1,0 +1,14 @@
+behavior test.featins;
+open class EClass {
+	def void op(){
+		Sequence(Integer) numbers := Sequence{1, 2, 3};
+		Sequence(String) strings := Sequence{};
+		
+		for (number in numbers) {
+			Sequence(String) strings2 := Sequence{};
+			
+			strings -= number;
+			strings2 -= number;
+		}
+	}
+}

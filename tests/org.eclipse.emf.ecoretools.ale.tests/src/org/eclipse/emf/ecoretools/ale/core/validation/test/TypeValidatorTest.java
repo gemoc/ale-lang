@@ -219,7 +219,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 73, 90, "Expected ecore::EString but was [java.lang.Integer]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 73, 90, "Expected [ecore::EString] but was [java.lang.Integer]", msg.get(0));
 	}
 	
 	/*
@@ -252,7 +252,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 78, 95, "Expected [ecore::EInt] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 87, 95, "Type mismatch: cannot assign [java.lang.String] to [ecore::EInt]", msg.get(0));
 	}
 	
 	/*
@@ -285,7 +285,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 92, 109, "Expected [ecore::EInt] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 104, 109, "Type mismatch: cannot assign [java.lang.String] to [ecore::EInt]", msg.get(0));
 	}
 	
 	/*
@@ -318,7 +318,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 66, 77, "Expected [ecore::EString] but was [java.lang.Integer]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 76, 77, "Type mismatch: cannot assign [java.lang.Integer] to [ecore::EString]", msg.get(0));
 	}
 	
 	/*
@@ -335,7 +335,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 65, 76, "'result' is assigned in void operation", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 65, 76, "Cannot assign 'result' in a void operation", msg.get(0));
 	}
 	
 	/*
@@ -368,7 +368,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 83, "Expected [ecore::EPackage] but was [java.lang.Integer]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 81, 83, "Type mismatch: cannot assign [java.lang.Integer] to [ecore::EPackage]", msg.get(0));
 	}
 	
 	/*
@@ -401,7 +401,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 82, 101, "Expected [ecore::EString] but was [java.lang.Integer]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 99, 101, "Type mismatch: cannot assign [java.lang.Integer] to [ecore::EString]", msg.get(0));
 	}
 	
 	/*
@@ -434,7 +434,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 83, 106, "Expected [ecore::EInt] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 101, 106, "Type mismatch: cannot assign [java.lang.String] to [ecore::EInt]", msg.get(0));
 	}
 	
 	/*
@@ -466,9 +466,8 @@ public class TypeValidatorTest {
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
-		assertEquals(2, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 64, "Expected Collection but was [ecore::EBoolean]", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 82, "Expected [ecore::EBoolean] but was [ecore::EClass]", msg.get(1));
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 74, "[ecore::EBoolean] does not support the '+=' operator", msg.get(0));
 	}
 	
 	/*
@@ -501,7 +500,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 79, 82, "Expected Collection but was [ecore::EClass]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 79, 90, "[ecore::EClass] does not support the '+=' operator", msg.get(0));
 	}
 	
 	/*
@@ -534,7 +533,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 82, 85, "Expected Collection but was [ecore::EClass]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 82, 93, "[ecore::EClass] does not support the '+=' operator", msg.get(0));
 	}
 	
 	/*
@@ -567,7 +566,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 89, "Expected [ecore::EClass] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 81, 89, "[java.lang.String] cannot be added to [Collection(ecore::EClass)] (expected [Collection(ecore::EClass),ecore::EClass])", msg.get(0));
 	}
 	
 	/*
@@ -600,7 +599,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 85, 108, "Expected [ecore::EInt] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 103, 108, "[java.lang.String] cannot be added to [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(0));
 	}
 	
 	/*
@@ -633,7 +632,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 88, 111, "Expected [ecore::EInt] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 106, 111, "[java.lang.String] cannot be added to [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(0));
 	}
 	
 	/*
@@ -665,9 +664,8 @@ public class TypeValidatorTest {
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
-		assertEquals(2, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 60, 63, "Expected Collection but was [ecore::EBoolean]", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 60, 81, "Expected [ecore::EBoolean] but was [ecore::EClass]", msg.get(1));
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 60, 73, "[ecore::EBoolean] does not support the '-=' operator", msg.get(0));
 	}
 	
 	/*
@@ -700,7 +698,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 78, 81, "Expected Collection but was [ecore::EClass]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 78, 89, "[ecore::EClass] does not support the '-=' operator", msg.get(0));
 	}
 	
 	/*
@@ -732,9 +730,8 @@ public class TypeValidatorTest {
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
-		assertEquals(2, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 81, 84, "Expected Collection but was [ecore::EClass]", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 81, 100, "Expected [ecore::EClass] but was [test::featrm::MyRuntimeClass]", msg.get(1));
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 81, 92, "[ecore::EClass] does not support the '-=' operator", msg.get(0));
 	}
 	
 	/*
@@ -767,7 +764,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 60, 88, "Expected [ecore::EClass] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 80, 88, "[java.lang.String] cannot be removed from [Collection(ecore::EClass)] (expected [Collection(ecore::EClass),ecore::EClass])", msg.get(0));
 	}
 	
 	/*
@@ -800,7 +797,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 85, 108, "Expected [ecore::EInt] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 103, 108, "[java.lang.String] cannot be removed from [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(0));
 	}
 	
 	/*
@@ -827,13 +824,325 @@ public class TypeValidatorTest {
 		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeAttribRuntimeClassError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 106, 111, "[java.lang.String] cannot be removed from [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(0));
+	}
+	
+	/**
+	 * Test using the '+=' on self raise an error
+	 */
+	@Test
+	public void testInsertSelf() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertSelf.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 88, 111, "Expected [ecore::EInt] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 65, "'self' does not support the '+=' operator", msg.get(0));
+	}
+	
+	/**
+	 * Test that a value can be inserted into a local Collection
+	 */
+	@Test
+	public void testInsertIntoLocalCollection() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertLocalCollection.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/**
+	 * Test that a value cannot be inserted into a local Collection if their types mismatch
+	 */
+	@Test
+	public void testInsertIntoLocalCollectionError() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertLocalCollectionError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(3, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 177, 178, "[java.lang.Integer] cannot be added to [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 193, 201, "[Collection(java.lang.Integer)] cannot be added to [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 216, 230, "[Collection(java.lang.Integer)] cannot be added to [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(2));
+	}
+	
+	/**
+	 * Test that the iterator of a for-each loop can be inserted into a local collection
+	 */
+	@Test
+	public void testInsertIntoLocalCollectionInForEachLoop() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertLocalCollectionInForEachLoop.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/**
+	 * Test that the iterator of a for-each loop cannot be inserted into a local collection if their types mismatch
+	 */
+	@Test
+	public void testInsertIntoLocalCollectionInForEachLoopError() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertLocalCollectionInForEachLoopError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(2, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 244, 250, "[java.lang.Integer] cannot be added to [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 267, 273, "[java.lang.Integer] cannot be added to [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(1));
+	}
+	
+	/**
+	 * Test that some do not support the '-=' operator
+	 */
+	@Test
+	public void testInsertIntoLocalVariableError() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertIntoLocalBooleanError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 98, 114, "[ecore::EBoolean] does not support the '+=' operator", msg.get(0));
+	}
+	
+	/**
+	 * Test that the result special variable supports the '+=' operator
+	 */
+	@Test
+	public void testInsertResult() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertResult.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/**
+	 * Test that using '+=' with the result special variable produces an error when types mismatch
+	 */
+	@Test
+	public void testInsertResultError() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertResultError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(4, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 75, 77, "[java.lang.Integer] cannot be added to [ecore::EString] (expected [ecore::EString])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 111, 117, "[ecore::EBoolean] does not support the '+=' operator", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 179, 187, "[java.lang.String] cannot be added to [Collection(java.lang.Integer)] (expected [Collection(java.lang.Integer),java.lang.Integer])", msg.get(2));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 201, 222, "[Collection(java.lang.Boolean)] cannot be added to [Collection(java.lang.Integer)] (expected [Collection(java.lang.Integer),java.lang.Integer])", msg.get(3));
+	}
+	
+	/**
+	 * Test that the result special variable supports the '-=' operator
+	 */
+	@Test
+	public void testRemoveResult() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeResult.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/**
+	 * Test that using '-=' with the result special variable produces an error when types mismatch
+	 */
+	@Test
+	public void testRemoveResultError() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeResultError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(4, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 75, 79, "[java.lang.String] cannot be removed from [ecore::EInt] (expected [ecore::EInt])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 113, 119, "[ecore::EBoolean] does not support the '-=' operator", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 181, 189, "[java.lang.String] cannot be removed from [Collection(java.lang.Integer)] (expected [Collection(java.lang.Integer),java.lang.Integer])", msg.get(2));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 203, 224, "[Collection(java.lang.Boolean)] cannot be removed from [Collection(java.lang.Integer)] (expected [Collection(java.lang.Integer),java.lang.Integer])", msg.get(3));
+	}
+	
+	@Test
+	public void testInsertStringToString() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertStringToString.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	@Test
+	public void testInsertIntToString() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertIntToString.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 89, 91, "[java.lang.Integer] cannot be added to [ecore::EString] (expected [ecore::EString])", msg.get(0));
+	}
+	
+	@Test
+	public void testInsertStringToInt() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertStringToInt.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 86, 93, "[java.lang.String] cannot be added to [ecore::EInt] (expected [ecore::EInt])", msg.get(0));
+	}
+	
+	@Test
+	public void testInsertIntToInt() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertIntToInt.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/**
+	 * Test using the '-=' on self raise an error
+	 */
+	@Test
+	public void testRemoveFromSelf() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeSelf.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 65, "'self' does not support the '-=' operator", msg.get(0));
+	}
+	
+	/**
+	 * Test that a value can be removed from a local Collection
+	 */
+	@Test
+	public void testRemoveFromLocalCollection() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeLocalCollection.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/**
+	 * Test that a value cannot be removed from a local Collection if their types mismatch
+	 */
+	@Test
+	public void testRemoveFromLocalCollectionError() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeLocalCollectionError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(3, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 177, 178, "[java.lang.Integer] cannot be removed from [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 193, 201, "[Collection(java.lang.Integer)] cannot be removed from [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 216, 230, "[Collection(java.lang.Integer)] cannot be removed from [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(2));
+	}
+	
+	/**
+	 * Test that the iterator of a for-each loop can be removed from a local collection
+	 */
+	@Test
+	public void testRemoveFromLocalCollectionInForEachLoop() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeLocalCollectionInForEachLoop.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(0, msg.size());
+	}
+	
+	/**
+	 * Test that the iterator of a for-each loop cannot be removed from a local collection if their types mismatch
+	 */
+	@Test
+	public void testRemoveFromLocalCollectionInForEachLoopError() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeLocalCollectionInForEachLoopError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(2, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 244, 250, "[java.lang.Integer] cannot be removed from [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 267, 273, "[java.lang.Integer] cannot be removed from [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(1));
+	}
+	
+	/**
+	 * Test that some types do not support the '-=' operator
+	 */
+	@Test
+	public void testRemoveFromLocalVariableError() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeLocalVariablesError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(2, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 98, 114, "[ecore::EBoolean] does not support the '-=' operator", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 158, 164, "[ecore::EString] does not support the '-=' operator", msg.get(1));
 	}
 	
 	/*
@@ -899,7 +1208,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 134, 144, "Expected ecore::EInt but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 134, 144, "Expected [ecore::EInt] but was [java.lang.String]", msg.get(0));
 	}
 	
 	/*
@@ -932,7 +1241,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 63, 69, "Expected ecore::EBoolean but was [java.lang.Integer]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 63, 69, "Expected a boolean expression but was [java.lang.Integer]", msg.get(0));
 	}
 	
 	/*
@@ -965,7 +1274,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 69, 78, "Expected ecore::EBoolean but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 69, 78, "Expected a boolean expression but was [java.lang.String]", msg.get(0));
 	}
 	
 	/*
@@ -1191,7 +1500,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 66, 106, "Expected ecore::EClass but was [ecore::EOperation]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 66, 106, "Expected [ecore::EClass] but was [ecore::EOperation]", msg.get(0));
 	}
 	
 	@Test
@@ -1231,7 +1540,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 70, 94, "Expected [Collection(ecore::EClass)] but was [ecore::EClass]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 90, 94, "Type mismatch: cannot assign [ecore::EClass] to [Collection(ecore::EClass)]", msg.get(0));
 	}
 	
 	@Test
@@ -1245,7 +1554,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 70, 91, "Expected [Collection(ecore::EClass)] but was [java.lang.Integer]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 90, 91, "Type mismatch: cannot assign [java.lang.Integer] to [Collection(ecore::EClass)]", msg.get(0));
 	}
 	
 	@Test
@@ -1284,7 +1593,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 71, 101, "Expected Collection(ecore::EInt) but was [java.lang.Integer]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 71, 101, "Expected [Collection(ecore::EInt)] but was [java.lang.Integer]", msg.get(0));
 	}
 	
 	@Test
@@ -1311,7 +1620,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 118, 143, "Expected [Collection(ecore::EInt)] but was [Sequence(java.lang.String)]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 125, 143, "Type mismatch: cannot assign [Collection(java.lang.String)] to [Collection(ecore::EInt)]", msg.get(0));
 	}
 	@Test
 	public void testAssignSequenceFeature() {
@@ -1336,8 +1645,8 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(2, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 124, 147, "Expected [ecore::EEList] but was [ecore::EClass]", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 151, 192, "Expected [ecore::EEList] but was [ecore::EClass]", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 143, 147, "Type mismatch: cannot assign [ecore::EClass] to [Collection(ecore::EClass)]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 170, 192, "Type mismatch: cannot assign [ecore::EClass] to [Collection(ecore::EClass)]", msg.get(1));
 	}
 	@Test
 	public void testAssignSequenceVarDecl() {
@@ -1362,10 +1671,10 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(4, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 85, 128, "Expected Collection(ecore::EClass) but was [ecore::EClass]", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 132, 151, "Expected [Collection(ecore::EClass)] but was [ecore::EClass]", msg.get(1));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 155, 216, "Expected Collection(ecore::EClass) but was [ecore::EClass]", msg.get(2));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 220, 257, "Expected [Collection(ecore::EClass)] but was [ecore::EClass]", msg.get(3));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 85, 128, "Expected [Collection(ecore::EClass)] but was [ecore::EClass]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 147, 151, "Type mismatch: cannot assign [ecore::EClass] to [Collection(ecore::EClass)]", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 155, 216, "Expected [Collection(ecore::EClass)] but was [ecore::EClass]", msg.get(2));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 235, 257, "Type mismatch: cannot assign [ecore::EClass] to [Collection(ecore::EClass)]", msg.get(3));
 	}
 	
 	@Test
@@ -1391,7 +1700,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 100, 132, "Expected [Collection(?)] but was [ecore::EClass]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 110, 132, "Type mismatch: cannot assign [ecore::EClass] to [Collection(ecore::EClass)]", msg.get(0));
 	}
 	
 

@@ -62,6 +62,9 @@ import org.eclipse.emf.ecoretools.ale.implementation.util.ImplementationSwitch;
 
 import com.google.common.collect.Sets;
 
+/**
+ * Visits an ALE program's AST delegating validation of each element to given {@link IValidator validators}. 
+ */
 public class BaseValidator extends ImplementationSwitch<Object> {
 
 	List<IValidationMessage> msgs;
