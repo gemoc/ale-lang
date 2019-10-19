@@ -1,0 +1,16 @@
+behavior test.featins;
+open class EClass {
+	def String name(){
+		result += 'Smith';
+	}
+	
+	def Integer age() {
+		result += 18;
+	}
+	
+	def Sequence(Integer) numbers() {
+		result += 42;
+		result += Sequence{56, 84};
+	}
+	
+}

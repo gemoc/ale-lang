@@ -3,4 +3,12 @@ open class EClass {
 	def String op2(){
 		result := 'foobar';
 	}
+	
+	def Boolean op3() {
+		result := false;
+	}
+	
+	def Integer op4() {
+		result := 42;
+	}
 }

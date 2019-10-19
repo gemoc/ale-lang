@@ -1,0 +1,11 @@
+behavior test.featins;
+open class EClass {
+	def void op(){
+		Sequence(Integer) fourFive := Sequence{4, 5};
+		
+		Sequence(String) numbers := Sequence{'one', 'two'};
+		numbers += 3;
+		numbers += fourFive;
+		numbers += Sequence{6, 7};
+	}
+}

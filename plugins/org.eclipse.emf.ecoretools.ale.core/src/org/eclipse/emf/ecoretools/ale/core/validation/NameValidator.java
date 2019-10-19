@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Inria and Obeo.
+ * Copyright (c) 2017-2019 Inria and Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecoretools.ale.core.validation.impl.ValidationMessageFactory;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
@@ -62,8 +63,11 @@ public class NameValidator implements IValidator {
 	
 	BaseValidator base;
 	
+	private IValidationMessageFactory messages;
+	
 	public void setBase(BaseValidator base) {
 		this.base = base;
+		this.messages = new ValidationMessageFactory(base);
 	}
 	
 	public List<IValidationMessage> validateModelBehavior(List<ModelUnit> units) {
@@ -453,9 +457,13 @@ public class NameValidator implements IValidator {
 					));
 		}
 		else {
-			Method op = base.getContainingOperation(varAssign);
-			if(op.getOperationRef() != null) {
-				List<EParameter> params = op.getOperationRef().getEParameters();
+			Method method = base.getContainingOperation(varAssign);
+			EOperation enclosingOperation = method.getOperationRef();
+			if(enclosingOperation != null) {
+				
+				// Check whether the variable is a parameter of the operation
+				
+				List<EParameter> params = enclosingOperation.getEParameters();
 				Optional<EParameter> matchingParam = 
 						params
 						.stream()
@@ -468,6 +476,18 @@ public class NameValidator implements IValidator {
 							base.getStartOffset(varAssign),
 							base.getEndOffset(varAssign)
 							));
+				}
+				
+				// Check attempts to assign 'result' in a void operation
+				
+				boolean assigningToResult = "result".equals(varAssign.getName());
+				boolean isVoidOperation = enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null;
+				if(assigningToResult && isVoidOperation) {
+					// A void operation should not return anything
+					// FIXME Should be in the NameValidator
+					IValidationMessage invalidAssignment = messages.assignmentToResultInVoidOperation(varAssign);
+					msgs.add(invalidAssignment);
+					return msgs;
 				}
 			}
 		}

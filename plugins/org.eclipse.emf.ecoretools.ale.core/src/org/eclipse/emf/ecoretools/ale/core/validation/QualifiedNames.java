@@ -14,21 +14,27 @@ import static java.util.stream.Collectors.joining;
 
 import java.util.LinkedList;
 
+import org.eclipse.acceleo.query.validation.type.AbstractCollectionType;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
+import org.eclipse.acceleo.query.validation.type.SetType;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 
 /**
- * Utility methods to compute qualified names. 
+ * Utility methods to compute qualified names.
  */
-final class QualifiedNames {
+final public class QualifiedNames {
 	
 	private QualifiedNames() {
 		// utility class should not be instantiated
 	}
-
+	
 	public static String getQualifiedName(EClassifier cls) {
+		if (cls.getEPackage() == null) {
+			return cls.getInstanceClassName().isEmpty() ? cls.getName()
+														: cls.getInstanceClassName();
+		}
 		return getQualifiedName(cls.getEPackage()) + "::" + cls.getName(); 
 	}
 	
@@ -45,11 +51,19 @@ final class QualifiedNames {
 	}
 	
 	public static String getQualifiedName(IType type) {
+		if(type instanceof SetType) {
+			AbstractCollectionType collectionType = (AbstractCollectionType) type;
+			return "Set(" + getQualifiedName(collectionType.getCollectionType()) + ")";
+		}
+		if(type instanceof AbstractCollectionType) {
+			AbstractCollectionType collectionType = (AbstractCollectionType) type;
+			return "Collection(" + getQualifiedName(collectionType.getCollectionType()) + ")";
+		}
 		if(type instanceof EClassifierType) {
 			EClassifier cls = ((EClassifierType) type).getType();
 			return getQualifiedName(cls);
 		}
-		return type.toString();
+		return String.valueOf(type);
 	}
 	
 }

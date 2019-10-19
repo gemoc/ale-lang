@@ -70,7 +70,7 @@ public class BaseValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 67, 92, "Expected [ecore::EBoolean] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 77, 92, "Type mismatch: cannot assign [java.lang.String] to [ecore::EBoolean]", msg.get(0));
 	}
 
 }

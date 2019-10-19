@@ -10,39 +10,30 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.validation;
 
-import static java.util.stream.Collectors.joining;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
+import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
-import static org.eclipse.emf.ecoretools.ale.core.validation.QualifiedNames.getQualifiedName;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.IValidationMessage;
-import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
-import org.eclipse.acceleo.query.runtime.impl.ValidationMessage;
-import org.eclipse.acceleo.query.validation.type.AbstractCollectionType;
-import org.eclipse.acceleo.query.validation.type.ClassType;
-import org.eclipse.acceleo.query.validation.type.EClassifierType;
-import org.eclipse.acceleo.query.validation.type.ICollectionType;
 import org.eclipse.acceleo.query.validation.type.IType;
-import org.eclipse.acceleo.query.validation.type.NothingType;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
+import org.eclipse.emf.ecoretools.ale.core.validation.impl.AstLookup;
+import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
+import org.eclipse.emf.ecoretools.ale.core.validation.impl.TypeChecker;
+import org.eclipse.emf.ecoretools.ale.core.validation.impl.ValidationMessageFactory;
+import org.eclipse.emf.ecoretools.ale.implementation.Assignment;
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass;
-import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
@@ -50,47 +41,65 @@ import org.eclipse.emf.ecoretools.ale.implementation.FeatureInsert;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
-import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
-import org.eclipse.emf.ecoretools.ale.implementation.Statement;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
 
-import com.google.common.collect.Lists;
-
-// FIXME This class becomes too complex; it should be split into simpler ones
+/**
+ * Enforces static typing in an ALE program.
+ */
 public class TypeValidator implements IValidator {
-
-	public static final String INCOMPATIBLE_TYPE = "Expected %s but was %s";
-	public static final String BOOLEAN_TYPE = "Expected ecore::EBoolean but was %s";
-	public static final String COLLECTION_TYPE = "Expected Collection but was %s";
-	public static final String VOID_RESULT_ASSIGN = "'result' is assigned in void operation";
-	public static final String EXTENDS_ITSELF = "Reopened %s is extending itself";
-	public static final String INDIRECT_EXTENSION = "Can't extend %s since it is not a direct super type of %s";
-	public static final String SELF_INSERT = "Cannot insert anything into 'self'";
-	public static final String SELF_REMOVE = "Cannot remove anything from 'self'";
-	public static final String UNRESOLVED_TYPE = "Unresolved type %s";
-	public static final String UNRESOLVED_TYPE_EXT = "Unresolved type %s, it cannot be found in any of the declared packages: %s";
 	
-	BaseValidator base;
+	/** 
+	 * Indicates that no problem have been found.
+	 * Returned by validation messages when appropriated. 
+	 */
+	private static final List<IValidationMessage> NO_PROBLEM = emptyList();
+	/**
+	 * Indicates that a problem have been found but that it's up to another validator to handle it.
+	 * Returned by validation messages when appropriated.
+	 */
+	private static final List<IValidationMessage> PROBLEM_HANDLED_BY_ANOTHER_VALIDATOR = emptyList();
+	/** 
+	 * Used to create appropriate messages applied to the user. 
+	 */
+	private IValidationMessageFactory messages;
+	/** 
+	 * Used to validate the types of the variables and expressions. 
+	 */
+	private ITypeChecker typeChecker;
+	/** 
+	 * Used to turn turn EMF types into AQL ones and vice-versa.
+	 * Needed because the AST contains a lot of EMF types whereas
+	 * a ITypeChecker can only reason on AQL types.
+	 */
+	private IConvertType convert;
+	/** 
+	 * Used to lookup the types of some variables in the program's AST. 
+	 */
+	private IAstLookup lookup;
 	
+	@Override
 	public void setBase(BaseValidator base) {
-		this.base = base;
+		this.messages = new ValidationMessageFactory(base);
+		this.typeChecker = new TypeChecker(base);
+		this.convert = new ConvertType(base.getQryEnv());
+		this.lookup = new AstLookup(base, convert);
 	}
 	
 	@Override
 	public List<IValidationMessage> validateModelBehavior(List<ModelUnit> units) {
-		return new ArrayList<>();
+		return NO_PROBLEM;
 	}
 	
 	@Override
 	public List<IValidationMessage> validateModelUnit(ModelUnit unit) {
-		return new ArrayList<>();
+		return NO_PROBLEM;
 	}
 	
 	@Override
@@ -100,14 +109,8 @@ public class TypeValidator implements IValidator {
 		msgs.addAll(validateBehavioredClass(xtdClass));
 		
 		if(isExtendingItself(xtdClass)) {
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(EXTENDS_ITSELF, getQualifiedName(xtdClass.getBaseClass())),
-					base.getStartOffset(xtdClass),
-					base.getEndOffset(xtdClass)
-					));
+			msgs.add(messages.extendingItself(xtdClass));
 		}
-		
 		EClass baseCls = xtdClass.getBaseClass();
 		EList<EClass> superTypes = baseCls.getESuperTypes();
 		
@@ -118,655 +121,284 @@ public class TypeValidator implements IValidator {
 				.map(xtd -> xtd.getBaseClass())
 				.collect(toList());
 		
-		extendsBaseClasses.forEach(superBase -> {
-			if(!superTypes.contains(superBase) && baseCls != superBase) {
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(INDIRECT_EXTENSION, getQualifiedName(superBase), getQualifiedName(baseCls)),
-						this.base.getStartOffset(xtdClass),
-						this.base.getEndOffset(xtdClass)
-						));
-			}
-		});
-		
+		extendsBaseClasses.stream()
+						  .filter(noneOf(superTypes, baseCls))
+						  .map(superBase -> messages.indirectExtension(xtdClass, superBase, baseCls))
+						  .forEach(msgs::add);
 		return msgs;
+	}
+
+	private static Predicate<EClass> noneOf(List<EClass> superTypes, EClass baseCls) {
+		return superBase -> !superTypes.contains(superBase) && baseCls != superBase;
 	}
 	
 	@Override
 	public List<IValidationMessage> validateRuntimeClass(RuntimeClass classDef) {
-		List<IValidationMessage> msgs = new ArrayList<>();
-		
-		msgs.addAll(validateBehavioredClass(classDef));
-		
-		return msgs;
+		return validateBehavioredClass(classDef);
 	}
 	
 	private List<IValidationMessage> validateBehavioredClass(BehavioredClass clazz) {
 		List<IValidationMessage> msgs = new ArrayList<>();
 		
-		clazz
-		.getAttributes()
-		.stream()
-		.filter(att -> att.getInitialValue() != null)
-		.forEach(att -> {
-			Set<IType> inferredTypes = base.getPossibleTypes(att.getInitialValue());
-			EClassifierType declaredType = new EClassifierType(base.getQryEnv(), att.getFeatureRef().getEType());
-			Optional<IType> existResult = inferredTypes.stream().filter(type -> declaredType.isAssignableFrom(type)).findAny();
-			if(!existResult.isPresent()){
-				String types = 
-					inferredTypes
-					.stream()
-					.map(type -> getQualifiedName(type))
-					.collect(joining(",","[","]"));
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(INCOMPATIBLE_TYPE, getQualifiedName(att.getFeatureRef().getEType()),types),
-						base.getStartOffset(att),
-						base.getEndOffset(att)
-						));
-			}
-		});
-		
-		
+		// Check whether the types of the attributes can be resolved
 		
 		clazz.getAttributes().stream()
-			.filter(att -> isUnresolvedType(att.getFeatureRef().getEType()))
-			.forEach(att -> {
-				String declaredPackages = base.qryEnv.getEPackageProvider().getRegisteredEPackages().stream()
-						.map(p -> p.getName())
-						.collect(joining(", ","[","]")); 		
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						// TODO implement a contextual UnresolvedType to get better name. cf. https://github.com/gemoc/ale-lang/issues/78
-						String.format(UNRESOLVED_TYPE_EXT, ""/*getQualifiedName(att.getFeatureRef().getEType())*/,declaredPackages),
-						base.getStartOffset(att),
-						base.getEndOffset(att)
-						));
-				
-				
-			});
+		.filter(att -> typeChecker.isUnresolved(att.getFeatureRef().getEType()))
+		.map(messages::unresolvedType)
+		.forEach(msgs::add);
+		
+		// Check whether attributes have an initial value that can be assigned to them 
+		
+		clazz
+		.getAttributes().stream()
+		.filter(att -> att.getInitialValue() != null)
+		.forEach(att -> {
+			Set<IType> valueTypes = lookup.inferredTypesOf(att.getInitialValue());
+			IType declaredType = convert.toAQL(att.getFeatureRef());
+			boolean initialValueCanBeAssigned = valueTypes.stream().anyMatch(declaredType::isAssignableFrom);
+			if(!initialValueCanBeAssigned){
+				msgs.add(messages.incompatibleTypes(att, valueTypes));
+			}
+		});
 		return msgs;
 	}
 	
 	@Override
 	public List<IValidationMessage> validateMethod(Method mtd) {
-		return new ArrayList<>();
+		return NO_PROBLEM;
 	}
 	
 	@Override
-	public List<IValidationMessage> validateFeatureAssignment(FeatureAssignment featAssign) {
-		return validateAssignment(featAssign, featAssign.getTarget(), featAssign.getTargetFeature(), featAssign.getValue(), false);
+	public List<IValidationMessage> validateFeatureAssignment(FeatureAssignment assignment) {
+		Set<IType> valueTypes = lookup.inferredTypesOf(assignment.getValue());
+		return validateAssignment(lookup.findFeatureTypes(assignment.getTargetFeature(), assignment.getTarget()), valueTypes, assignment.getValue());
 	}
 	
 	@Override
-	public List<IValidationMessage> validateFeatureInsert(FeatureInsert featInsert) {
-		return validateAssignment(featInsert, featInsert.getTarget(), featInsert.getTargetFeature(), featInsert.getValue(), true);
+	public List<IValidationMessage> validateFeatureInsert(FeatureInsert insertion) {
+		String featureName = insertion.getTargetFeature();
+		Set<IType> variableTypes = lookup.findFeatureTypes(featureName, insertion.getTarget());
+		Supplier<IValidationMessage> unsupportedOperatorMessage = () -> messages.unsupportedOperatorOnFeature(variableTypes, insertion, featureName, "+=");
+		
+		return validateInsertionOrRemoval(variableTypes, insertion.getValue(), new InsertionStrategy(typeChecker, messages), unsupportedOperatorMessage);
 	}
 	
 	@Override
-	public List<IValidationMessage> validateFeatureRemove(FeatureRemove featRemove) {
+	public List<IValidationMessage> validateFeatureRemove(FeatureRemove removal) {
+		String featureName = removal.getTargetFeature();
+		Set<IType> variableTypes = lookup.findFeatureTypes(featureName, removal.getTarget());
+		Supplier<IValidationMessage> unsupportedOperatorMessage = () -> messages.unsupportedOperatorOnFeature(variableTypes, removal.getTarget(), featureName, "-=");
 		
-		return validateAssignment(featRemove, featRemove.getTarget(), featRemove.getTargetFeature(), featRemove.getValue(), true);
-	}
-	
-	private List<IValidationMessage> validateAssignment(Statement stmt, Expression targetExp, String featureName, Expression valueExp, boolean isInsert) {
-		List<IValidationMessage> msgs = new ArrayList<>();
-		
-		/*
-		 * Collect feature types to perform tests thereafter
-		 */
-		Set<IType> targetTypes = base.getPossibleTypes(targetExp);
-		Set<EClassifierType> featureTypes = new HashSet<>();
-		boolean isCollection = false;
-		for(IType type: targetTypes){
-			if(type.getType() instanceof EClass){
-				EClass realType = (EClass) type.getType();
-				EStructuralFeature feature = realType.getEStructuralFeature(featureName);
-				
-				if(feature  != null){ //static features
-					EClassifierType featureType = new EClassifierType(base.getQryEnv(), feature.getEType());
-					featureTypes.add(featureType);
-					isCollection = feature.isMany();
-				}
-				else { //runtime features
-					List<ExtendedClass> extensions = base.findExtensions(realType);
-					
-					Optional<Attribute> foundDynamicAttribute = //FIXME: take inheritance in account
-						extensions
-						.stream()
-						.flatMap(xtdCls -> xtdCls.getAttributes().stream())
-						.filter(field -> field.getFeatureRef().getName().equals(featureName))
-						.findFirst();
-					if(foundDynamicAttribute.isPresent()) {
-						EClassifierType featureType = new EClassifierType(base.getQryEnv(), foundDynamicAttribute.get().getFeatureRef().getEType());
-						featureTypes.add(featureType);
-						isCollection = foundDynamicAttribute.get().getFeatureRef().isMany();
-					}
-				}
-			}
-		}
-		
-		/*
-		 * Check that targetExp.featureName is a collection
-		 * 
-		 * Provides an error message when the user attempts to insert
-		 * an object within a variable that is not a collection, e.g.:
-		 * 
-		 * 		self.notACollection += anObject
-		 */
-		boolean isTryingToInsertSomeValueWithinAScalar = isInsert && !isCollection && !featureTypes.isEmpty();
-		if(isTryingToInsertSomeValueWithinAScalar) {
-			boolean scalarAcceptsInsertion = canInsert(featureTypes, base.getPossibleTypes(valueExp));
-			if(!scalarAcceptsInsertion) {
-				String inferredToString = 
-						featureTypes
-						.stream()
-						.map(type -> getQualifiedName(type))
-						.collect(joining(",","[","]"));
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(COLLECTION_TYPE,inferredToString),
-						base.getStartOffset(targetExp),
-						base.getEndOffset(targetExp)
-						));
-			}
-		}
-		
-		/*
-		 * Check assignment type
-		 */
-		if(!featureTypes.isEmpty()) {
-			
-			/*
-			 * Those are the types returned by the expression at the right of the '=' symbol.
-			 * We are now going to ensure that the feature targeted by the assignment is compatible
-			 * with at least one of them.
-			 */
-			Set<IType> inferredTypes = base.getPossibleTypes(valueExp);
-
-			if(!isInsert && isCollection) {
-				for(IType inferredType: inferredTypes){
-					if(inferredType instanceof AbstractCollectionType) {
-						IType collectionType = ((AbstractCollectionType)inferredType).getCollectionType();
-						
-						// FIXME Is something missing here?
-					}
-				}
-				boolean isAnyAssignable = false;
-				for(IType featureType: featureTypes) {
-					Optional<IType> existResult = 
-							inferredTypes
-							.stream()
-							.filter(t -> t instanceof AbstractCollectionType)
-							.map(t -> ((AbstractCollectionType)t).getCollectionType())
-							.filter(t -> featureType.isAssignableFrom(t))
-							.findAny();
-					if(existResult.isPresent()){
-						isAnyAssignable = true;
-						break;
-					}
-				}
-				if(!isAnyAssignable) {
-					String inferredToString = 
-							inferredTypes
-							.stream()
-							.map(type -> getQualifiedName(type))
-							.collect(joining(",","[","]"));
-					String featureToString = 
-							featureTypes
-							.stream()
-							.map(type -> getQualifiedName(type.getType()))
-							.collect(joining(",","(",")"));
-					msgs.add(new ValidationMessage(
-							ValidationMessageLevel.ERROR,
-							String.format(INCOMPATIBLE_TYPE,"[Collection"+featureToString+"]",inferredToString),
-							base.getStartOffset(stmt),
-							base.getEndOffset(stmt)
-							));
-				}
-			}
-			else {
-				boolean isAnyAssignable = false;
-				for(IType featureType: featureTypes){
-					Optional<IType> existResult = inferredTypes
-							.stream()
-							.filter(t -> 
-								isAssignable(featureType, t)
-								|| (featureType.getType()  == EcorePackage.eINSTANCE.getEEList() && t instanceof AbstractCollectionType )) // TODO should be able to be more precise
-							.findAny();
-					if(existResult.isPresent()){
-						isAnyAssignable = true;
-						break;
-					}
-				}
-				if(!isAnyAssignable){
-					String inferredToString = 
-							inferredTypes
-							.stream()
-							.map(type -> getQualifiedName(type))
-							.collect(joining(",","[","]"));
-					String featureToString = 
-							featureTypes
-							.stream()
-							.map(type -> getQualifiedName(type.getType()))
-							.collect(joining(",","[","]"));
-					
-					msgs.add(new ValidationMessage(
-							ValidationMessageLevel.ERROR,
-							String.format(INCOMPATIBLE_TYPE,featureToString,inferredToString),
-							base.getStartOffset(stmt),
-							base.getEndOffset(stmt)
-							));
-				}
-				
-			}
-			
-		}
-		
-		return msgs;
-	}
-	
-	/**
-	 * Determines whether a value of a given types can be inserted to a variable of another types.
-	 * 
-	 * @param featureTypes
-	 * 			The types of the variable to which a value could be inserted.
-	 * @param possibleTypes
-	 * 			The types of the value to insert.
-	 * 
-	 * @return true if a value of a given types can be inserted to a variable of another types
-	 */
-	private boolean canInsert(Set<EClassifierType> featureTypes, Set<IType> possibleTypes) {
-		for(EClassifierType eClassifierType : featureTypes) {
-			if(eClassifierType.getType() instanceof EDataType) {
-				EDataType eDataType = (EDataType) eClassifierType.getType();
-				
-				// If both are String then we can insert the second one by concatenating the strings
-				
-				if(String.class.equals(eDataType.getInstanceClass())) {
-					for(IType iType : possibleTypes) {
-						if(String.class.equals(iType.getType())) {
-							return true;
-						}
-					}
-				}
-				
-				// If both are Integers then we can insert the second one by adding its value to the first one
-				
-				if(int.class.equals(eDataType.getInstanceClass())) {
-					for(IType iType : possibleTypes) {
-						Object type = iType.getType();
-						// Match adding a primitive (e.g. a += 2)
-						if(Integer.class.equals(type)) {
-							return true;
-						}
-						// Match adding a variable (e.g. a += b)
-						if(type instanceof EDataType) {
-							return int.class.equals(((EDataType) type).getInstanceClass());
-						}
-					}
-				}
-			}
-		}
-		return false;
+		return validateInsertionOrRemoval(variableTypes, removal.getValue(), new RemovalStrategy(typeChecker, messages), unsupportedOperatorMessage);
 	}
 
 	@Override
-	public List<IValidationMessage> validateVariableAssignment(VariableAssignment varAssign) {
-		List<IValidationMessage> msgs = new ArrayList<>();
-		
-		Set<IType> declaringTypes = findDeclaredTypes(varAssign);
-		if(varAssign.getName().equals("result")) {
-			Method op = base.getContainingOperation(varAssign);
-			EOperation eOp = ((Method)op).getOperationRef();
-			if(eOp != null) {
-				boolean isVoidOp = eOp.getEType() == null && eOp.getEGenericType() == null;
-				
-				if(isVoidOp) {
-					msgs.add(new ValidationMessage(
-							ValidationMessageLevel.ERROR,
-							String.format(VOID_RESULT_ASSIGN,varAssign.getName()),
-							base.getStartOffset(varAssign),
-							base.getEndOffset(varAssign)
-							));
-				}
-				else {
-					
-					Optional<EOperation> eOperation = findContainingEOperation(varAssign);
-					EClassifier returnType = eOp.getEType();
-					EClassifierType declaredType = new EClassifierType(base.getQryEnv(), returnType);
-					Set<IType> inferredTypes = base.getPossibleTypes(varAssign.getValue());
-					Optional<IType> matchingType = inferredTypes
-							.stream()
-							.filter(inferredType -> 
-								isInferredTypeCompatibleForResultVar(declaredType, eOperation, inferredType))
-							.findAny();
-					if(!matchingType.isPresent()) {
-						String types = 
-								inferredTypes
-								.stream()
-								.map(type -> getQualifiedName(type))
-								.collect(joining(",","[","]"));
-						msgs.add(new ValidationMessage(
-								ValidationMessageLevel.ERROR,
-								String.format(INCOMPATIBLE_TYPE,"["+getTypeQualifiedNameForOperationResult(declaredType, eOperation)+"]",types),
-								base.getStartOffset(varAssign),
-								base.getEndOffset(varAssign)
-								));
-					}
-				}
-			}
+	public List<IValidationMessage> validateVariableAssignment(VariableAssignment assignment) {
+		String assignedVariableName = assignment.getName();
+		if("self".equals(assignedVariableName)) {
+			// assignment to self is prohibited but handled by a NameValidator
+			return PROBLEM_HANDLED_BY_ANOTHER_VALIDATOR;
 		}
-		else if(declaringTypes != null && !varAssign.getName().equals("self")) {
-			Set<IType> inferredTypes = base.getPossibleTypes(varAssign.getValue());
-			
-			if(inferredTypes != null && !declaringTypes.isEmpty()) {
-				
-				Optional<VariableDeclaration> declaration = findDeclaration(varAssign);
-				Optional<IType> existResult = 
-						declaringTypes
-						.stream()
-						.filter(declType -> 
-							inferredTypes
-								.stream()
-								.filter(inferredType ->
-									isInferredTypeCompatibleForVar(declType, declaration, inferredType))
-								.findAny()
-								.isPresent()
-							)
-						.findAny();
-				if(!existResult.isPresent()){
-					String declaredToString = 
-							declaringTypes
-							.stream()
-							.map(type -> getTypeQualifiedNameForVar(type,declaration))
-							.collect(joining(",","[","]"));
-					String inferredToString = 
-							inferredTypes
-							.stream()
-							.map(type -> getQualifiedName(type))
-							.collect(joining(",","[","]"));
-					
-					msgs.add(new ValidationMessage(
-							ValidationMessageLevel.ERROR,
-							String.format(INCOMPATIBLE_TYPE,declaredToString,inferredToString),
-							base.getStartOffset(varAssign),
-							base.getEndOffset(varAssign)
-							));
-				}
-				
-			}
-		}
+		Set<IType> variableTypes = lookup.typesDeclaredFor(assignedVariableName, assignment);
+		Set<IType> valueTypes = lookup.inferredTypesOf(assignment.getValue());
 		
-		return msgs;
+		if("result".equals(assignedVariableName)) {
+			return validateAssignmentToResult(assignment, valueTypes);
+		}
+		else {
+			return validateAssignment(variableTypes, valueTypes, assignment.getValue());
+		}
 	}
 	
 	/**
-	 * Determines whether an instance of a given type can be assigned to a variable of another type. 
-	 * <p>
-	 * This function is required because {@link IType#isAssignableFrom(IType)} does not work as expected
-	 * when its parameter represents a metaclass defined within user's metamodel. Reasons are the following:
-	 * <ul>
-	 * 	<li>when the package is registered, EMF does not register the type as a subtype of EClass. This is
-	 * 		likely expected since not explicitly stated in the metamodel, but still surprising. Hence, given:
-	 * 		<ul>
-	 * 			<li>target = EClass
-	 * 			<li>value = Greet (a custom EClass)
-	 * 		</ul>
-	 * 		Acceleo is not able to determine that Greet inherits from EClass and returns false when 
-	 * 		{@code target.isAssignableFrom(value)} is called.
+	 * Validates that the 'result' variable is properly assigned.
 	 * 
-	 * 	<li>when no corresponding Java class is registered for the user class (which happens at least when 
-	 * 		the user has defined a metamodel but didn't generate any code) then the method returns true most
-	 *      of the time. That's because, since Acceleo is not able to determine that user's class inherits internally the algorithm is close to:
-	 * 		<pre>boolean isAssignableFrom(otherType) {
-	 *    if (getJavaClass(otherType) == null) {
-	 *        return this.isAssignable(null); 
-	 *    }
-	 *    return getJavaClass(this).isAssignableFrom(getJavaClass(otherType);
-	 *}</pre>
-	 * </ul>
-	 * This method performs checks corresponding to the previous cases then calls {@link IType#isAssignableFrom(IType)}.
+	 * @param assignment
+	 * 			The assignment
+	 * @param returnedValueTypes
+	 * 			The types of the value assigned to 'result'
 	 * 
-	 * @param targetType
-	 * 			The type of the variable to which a value should be assigned
-	 * @param valueType
-	 * 			The type of the expression to assign to the variable
-	 * 
-	 * @return whether a value of type {@code valueType} can be assigned to a variable of type {@code target}
+	 * @return the validation messages produced from the validation of the assignment
 	 */
-	private boolean isAssignable(IType targetType, IType valueType) {
-		// FIXME Check the types somehow. The algorithm could be:
-		//			1. Check whether either targetType or valueType correspond to a class defined in user's metamodel
-		//			2. If yes, then somehow ensure types are coherent
-		//			3. If not, then delegate to IType#isAssignableFrom
-		//
-		// It would also worth considering adding EObject as a super type of user's classes to help IType to do its
-		// job well. This could be done in DslBuilder#register(List<EPackages>).
+	private List<IValidationMessage> validateAssignmentToResult(VariableAssignment assignment, Set<IType> returnedValueTypes) {
+		Method enclosingMethod = lookup.enclosingMethod(assignment);
+		EOperation enclosingOperation = enclosingMethod.getOperationRef();
 		
-		return targetType.isAssignableFrom(valueType);
-	}
-
-	private String getTypeQualifiedNameForOperationResult(IType declaredType, Optional<EOperation> eOperation) {
-		if( declaredType.getType() == EcorePackage.eINSTANCE.getEEList()) {
-			// collection
-			if(eOperation.isPresent()) {
-				if(eOperation.get().getEGenericType().getETypeArguments().isEmpty()) {
-					return "Collection(?)";
-				} else {
-					EClassifierType varTypeParam = new EClassifierType(base.getQryEnv(), eOperation.get().getEGenericType().getETypeArguments().get(0).getEClassifier());
-					return "Collection("+getQualifiedName(varTypeParam)+")";
-				}
-			}
-		} 
-		return getQualifiedName(declaredType);
-	}
-	private String getTypeQualifiedNameForVar(IType declaredType, Optional<VariableDeclaration> declaration) {
-		if( declaredType.getType() == EcorePackage.eINSTANCE.getEEList()) {
-			if(declaration.isPresent()) {
-				// collection
-				EClassifierType varTypeParam = new EClassifierType(base.getQryEnv(), declaration.get().getTypeParameter());
-				//return getQualifiedName(declaration.get().getType())+"("+getQualifiedName(varTypeParam)+")";
-				return "Collection("+getQualifiedName(varTypeParam)+")";
-				
-			}
-		} 
-		return getQualifiedName(declaredType);
-	}
-	/**
-	 * in case of collection, extract information from the Var declaration to check if the inferred type is compatible
-	 * @param declaredType
-	 * @param declaration
-	 * @param inferredType
-	 * @return
-	 */
-	private boolean isInferredTypeCompatibleForVar(IType declaredType, Optional<VariableDeclaration> declaration, IType inferredType) {
-		if(declaredType.getType() == EcorePackage.eINSTANCE.getEEList() && inferredType instanceof AbstractCollectionType) {
-			if(declaration.isPresent()) {
-				EClassifierType varTypeParam = new EClassifierType(base.getQryEnv(), declaration.get().getTypeParameter());
-				IType collectionType = ((AbstractCollectionType)inferredType).getCollectionType();
-				return varTypeParam.isAssignableFrom(collectionType) || collectionType instanceof NothingType;
-			}
-		} 
-		return declaredType.isAssignableFrom(inferredType);
-	}
-	/**
-	 * in case of collection, extract information from the EOperation declaration to check if the inferred type is compatible
-	 * @param declaredType
-	 * @param eOperation
-	 * @param inferredType
-	 * @return
-	 */
-	private boolean isInferredTypeCompatibleForResultVar(IType declaredType, Optional<EOperation> eOperation, IType inferredType) {
-		if(declaredType.getType() == EcorePackage.eINSTANCE.getEEList() && inferredType instanceof AbstractCollectionType) {
-			if(eOperation.isPresent() && inferredType instanceof AbstractCollectionType) {
-				IType collectionType = ((AbstractCollectionType)inferredType).getCollectionType();
-				if(eOperation.get().getEGenericType().getETypeArguments().isEmpty()) {
-					// no type argument provided in the EOperation definition ! accept any collection content
-					return true;
-					
-				} else if(collectionType instanceof NothingType){
-					return true;
-				} else {
-					EClassifierType varTypeParam = new EClassifierType(base.getQryEnv(), eOperation.get().getEGenericType().getETypeArguments().get(0).getEClassifier());
-					return varTypeParam.isAssignableFrom(collectionType);
-				}
-			}
-		} 
-		return declaredType.isAssignableFrom(inferredType);
+		if(enclosingOperation == null) {
+			// Assignment outside of a method, should never happen
+			return PROBLEM_HANDLED_BY_ANOTHER_VALIDATOR;
+		}
+		boolean isVoidOperation = enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null;
+		if(isVoidOperation) {
+			// A void operation should not return anything but this is handled by the NameValidator
+			return PROBLEM_HANDLED_BY_ANOTHER_VALIDATOR;
+		}
+		IType operationReturnType = convert.toAQL(enclosingOperation);
+		return validateAssignment(newHashSet(operationReturnType), returnedValueTypes, assignment.getValue());
 	}
 	
+	/**
+	 * Validates an assignment to a variable or a feature.
+	 * 
+	 * @param variableTypes
+	 * 			The types of the variable
+	 * @param valueTypes
+	 * 			The types of the value being assigned to the variable
+	 * @param valueExp
+	 * 			The expression producing the value to assign
+	 * 
+	 * @return the messages produced by the validation of the assignment
+	 */
+	private List<IValidationMessage> validateAssignment(Set<IType> variableTypes, Set<IType> valueTypes, Expression valueExp) {
+		if(variableTypes.isEmpty()) {
+			// The variable has no type: it is likely undeclared
+			return PROBLEM_HANDLED_BY_ANOTHER_VALIDATOR;
+		}
+		boolean valueCanBeAssigned = variableTypes.stream().anyMatch(variableType -> typeChecker.isAssignable(variableType, valueTypes));
+		if(valueCanBeAssigned){
+			return NO_PROBLEM;
+		}
+		else {
+			IValidationMessage illegalAssignment = messages.illegalAssignment(variableTypes, valueTypes, valueExp);
+			return asList(illegalAssignment);
+		}
+	}
+	
+	/**
+	 * Validates a statement in which the '+=' or '-=' operator is used.
+	 * 
+	 * @param variableTypes
+	 * 			The types of the variable or feature on which the operator is used
+	 * @param value
+	 * 			The value given to the operator
+	 * @param modif
+	 * 			The specific logic related to operator used
+	 * @param unsupportedOperatorMessage
+	 * 			Supplies the validation message telling the user that the operator
+	 * 			cannot be used on given variable/feature
+	 * 			
+	 * @return the messages produced by the validation of the statement
+	 */
+	private List<IValidationMessage> validateInsertionOrRemoval(Set<IType> variableTypes, Expression value, IVariableModificationStrategy modif, Supplier<IValidationMessage> unsupportedOperatorMessage) {
+		boolean isUnableToDetermineVariableType = variableTypes.isEmpty();
+		if(isUnableToDetermineVariableType) {
+			// Cannot validate anything: failed to determine variable's type.
+			// This is likely caused by an undeclared variable, which is handled by a NameValidator.
+			return PROBLEM_HANDLED_BY_ANOTHER_VALIDATOR;
+		}
+		boolean modificationIsSupported = variableTypes.stream().anyMatch(modif::supportsModification);
+		if(!modificationIsSupported) {
+			IValidationMessage unsupportedOperator = unsupportedOperatorMessage.get();
+			return asList(unsupportedOperator);
+		}
+		Set<IType> valueTypes = lookup.inferredTypesOf(value);
+		boolean modificationIsAccepted = modif.acceptsModification(variableTypes, valueTypes);		
+		if(modificationIsAccepted) {
+			return NO_PROBLEM;
+		}
+		else {
+			Set<IType> acceptedValueTypes = modif.acceptedTypes(variableTypes);
+			IValidationMessage illegalModification = modif.createIllegalModificationMessage(variableTypes, valueTypes, acceptedValueTypes, value);
+			return asList(illegalModification);
+		}
+	}
 	
 	@Override
 	public List<IValidationMessage> validateVariableDeclaration(VariableDeclaration varDecl) {
-		List<IValidationMessage> msgs = new ArrayList<>();
+		if(typeChecker.isUnresolved(varDecl.getType())) {
+			return asList(messages.unresolvedType(varDecl));
+		}
+		if(varDecl.getInitialValue() == null) {
+			// Nothing to validate: no initial value => a default one will be used instead.
+			return NO_PROBLEM;
+		}
+		IType variableType = convert.toAQL(varDecl.getType(), varDecl.getTypeParameter());
+		Set<IType> valueTypes = lookup.inferredTypesOf(varDecl.getInitialValue());
 		
-		if(varDecl.getInitialValue() != null) {
-			
-			EClassifier declaredType = varDecl.getType();
-			Set<IType> inferredTypes = base.getPossibleTypes(varDecl.getInitialValue());
-			if(inferredTypes != null) {
-				
-				if(declaredType == EcorePackage.eINSTANCE.getEEList()) {
-					EClassifierType varTypeParam = new EClassifierType(base.getQryEnv(), varDecl.getTypeParameter());
-					Optional<IType> existResult =
-							inferredTypes
-							.stream()
-							.filter(t -> t instanceof AbstractCollectionType)
-							.map(t -> ((AbstractCollectionType)t).getCollectionType())
-							.filter(t -> varTypeParam.isAssignableFrom(t) || t instanceof NothingType)
-							.findAny();
-					if(!existResult.isPresent()) {
-						String inferredToString = 
-								inferredTypes
-								.stream()
-								.map(type -> getQualifiedName(type))
-								.collect(joining(",","[","]"));
-
-						msgs.add(new ValidationMessage(
-								ValidationMessageLevel.ERROR,
-								String.format(INCOMPATIBLE_TYPE,"Collection("+getQualifiedName(varTypeParam)+")",inferredToString),
-								base.getStartOffset(varDecl),
-								base.getEndOffset(varDecl)
-								));
-					}
-				}
-				else {
-					EClassifierType varType = new EClassifierType(base.getQryEnv(), varDecl.getType());
-					Optional<IType> existResult =
-							inferredTypes
-							.stream()
-							.filter(t -> varType.isAssignableFrom(t) 
-									|| (t instanceof AbstractCollectionType && varDecl.getType() == EcorePackage.eINSTANCE.getEEList())) //TODO: check collection type parameter
-							.findAny();
-					if(!existResult.isPresent()) {
-						String inferredToString = 
-								inferredTypes
-								.stream()
-								.map(type -> getQualifiedName(type))
-								.collect(joining(",","[","]"));
-						
-						msgs.add(new ValidationMessage(
-								ValidationMessageLevel.ERROR,
-								String.format(INCOMPATIBLE_TYPE,getQualifiedName(varDecl.getType()),inferredToString),
-								base.getStartOffset(varDecl),
-								base.getEndOffset(varDecl)
-								));
-					}
-				}
-			}
+		boolean initialValueCanBeAssigned = typeChecker.isAssignable(variableType, valueTypes);
+		if(initialValueCanBeAssigned) {
+			return NO_PROBLEM;
 		}
-
-		if(isUnresolvedType(varDecl.getType())) {
-			String declaredPackages = base.qryEnv.getEPackageProvider().getRegisteredEPackages().stream()
-					.map(p -> p.getName())
-					.collect(joining(", ","[","]")); 
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					// TODO implement a contextual UnresolvedType to get better name. cf. https://github.com/gemoc/ale-lang/issues/78
-					String.format(UNRESOLVED_TYPE_EXT, ""/*getQualifiedName(varDecl.getType())*/,declaredPackages),
-					base.getStartOffset(varDecl),
-					base.getEndOffset(varDecl)
-					));
+		else {
+			IValidationMessage incompatibleTypes = messages.incompatibleTypes(newHashSet(variableType), valueTypes, varDecl);
+			return asList(incompatibleTypes);
 		}
-		return msgs;
 	}
 	
 	@Override
 	public List<IValidationMessage> validateVariableInsert(VariableInsert varInsert) {
-		List<IValidationMessage> msgs = new ArrayList<>();
-		
-		if(varInsert.getName().equals("self")) {
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					SELF_INSERT,
-					base.getStartOffset(varInsert),
-					base.getEndOffset(varInsert)
-					));
+		if("self".equals(varInsert.getName())) {
+			// self cannot be inserted, no more validation is needed
+			return asList(messages.prohibitedInsertionToSelf(varInsert));
+		}
+		Set<IType> variableTypes = lookup.typesDeclaredFor(varInsert.getName(), varInsert);
+		InsertionStrategy insertionStrategy = new InsertionStrategy(typeChecker, messages);
+
+		if("result".equals(varInsert.getName())) {
+			return validateInsertionOrRemovalToResult(varInsert, insertionStrategy, "+=");
 		}
 		else {
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.WARNING,
-					String.format("Unable to ensure that %s supports '+=' operator here", varInsert.getName()),
-					base.getStartOffset(varInsert),
-					base.getEndOffset(varInsert)
-					));
+			Supplier<IValidationMessage> unsupportedOperatorMessage = () -> messages.unsupportedOperatorOnVariable(variableTypes, varInsert, varInsert.getName(), "+=");
+			return validateInsertionOrRemoval(variableTypes, varInsert.getValue(), insertionStrategy, unsupportedOperatorMessage);
 		}
-		return msgs;
 	}
 	
 	@Override
-	public List<IValidationMessage> validateVariableRemove(VariableRemove varInsert) {
-		List<IValidationMessage> msgs = new ArrayList<>();
+	public List<IValidationMessage> validateVariableRemove(VariableRemove varRemove) {
+		if("self".equals(varRemove.getName())) {
+			// Nothing can be removed from self, no more validation is needed
+			return asList(messages.prohibitedRemovalFromSelf(varRemove));
+		}
+		Set<IType> variableTypes = lookup.typesDeclaredFor(varRemove.getName(), varRemove);
+		RemovalStrategy removalStrategy = new RemovalStrategy(typeChecker, messages);
 		
-		if(varInsert.getName().equals("self")) {
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					SELF_REMOVE,
-					base.getStartOffset(varInsert),
-					base.getEndOffset(varInsert)
-					));
+		if("result".equals(varRemove.getName())) {
+			return validateInsertionOrRemovalToResult(varRemove, removalStrategy, "-=");
 		}
 		else {
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.WARNING,
-					String.format("Unable to ensure that %s supports '-=' operator here", varInsert.getName()),
-					base.getStartOffset(varInsert),
-					base.getEndOffset(varInsert)
-					));
+			Supplier<IValidationMessage> unsupportedOperatorMessage = () -> messages.unsupportedOperatorOnVariable(variableTypes, varRemove, varRemove.getName(), "-=");
+			return validateInsertionOrRemoval(variableTypes, varRemove.getValue(), removalStrategy, unsupportedOperatorMessage);
 		}
-		return msgs;
+	}
+	
+	/**
+	 * Validates that the 'result' variable is properly assigned.
+	 * 
+	 * @param assignment
+	 * 			The assignment
+	 * @param returnedValueTypes
+	 * 			The types of the value assigned to 'result'
+	 * 
+	 * @return the validation messages produced from the validation of the assignment
+	 */
+	private List<IValidationMessage> validateInsertionOrRemovalToResult(Assignment assignment, IVariableModificationStrategy modif, String operator) {
+		Method enclosingMethod = lookup.enclosingMethod(assignment);
+		EOperation enclosingOperation = enclosingMethod.getOperationRef();
+		
+		if(enclosingOperation == null) {
+			// Assignment outside of a method, should never happen
+			return PROBLEM_HANDLED_BY_ANOTHER_VALIDATOR;
+		}
+		boolean isVoidOperation = enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null;
+		if(isVoidOperation) {
+			// A void operation should not return anything but this is handled by the NameValidator
+			return PROBLEM_HANDLED_BY_ANOTHER_VALIDATOR;
+		}
+		IType operationReturnType = convert.toAQL(enclosingOperation);
+		Supplier<IValidationMessage> unsupportedOperatorMessage = () -> messages.unsupportedOperatorOnVariable(newHashSet(operationReturnType), assignment, "result", operator);
+		return validateInsertionOrRemoval(newHashSet(operationReturnType), assignment.getValue(), modif, unsupportedOperatorMessage);
 	}
 	
 	@Override
 	public List<IValidationMessage> validateForEach(ForEach loop) {
-		List<IValidationMessage> msgs = new ArrayList<>();
-		
-		/*
-		 * Check expression is collection
-		 */
-		Optional<IType> existResult = 
-			base
-			.getPossibleTypes(loop.getCollectionExpression())
-			.stream()
-			.filter(type -> type instanceof ICollectionType)
-			.findAny();
-		if(!existResult.isPresent()) {
-			String inferredToString = 
-					base
-					.getPossibleTypes(loop.getCollectionExpression())
-					.stream()
-					.map(type -> getQualifiedName(type))
-					.collect(joining(",","[","]"));
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(COLLECTION_TYPE,inferredToString),
-					base.getStartOffset(loop.getCollectionExpression()),
-					base.getEndOffset(loop.getCollectionExpression())
-					));
+		boolean iteratesOverACollection = lookup.inferredTypesOf(loop.getCollectionExpression()).stream()
+											  	.anyMatch(typeChecker::isCollection);
+		if(iteratesOverACollection) {
+			return NO_PROBLEM;
 		}
-		
-		return msgs;
+		else {
+			return asList(messages.forEachCanOnlyIterateOnCollections(loop));
+		}
 	}
 	
 	@Override
@@ -784,38 +416,17 @@ public class TypeValidator implements IValidator {
 	}
 	
 	private List<IValidationMessage> validateIsBoolean(Expression exp) {
-		List<IValidationMessage> msgs = new ArrayList<>();
-
-		Set<IType> selectorTypes = base.getPossibleTypes(exp);
-		boolean onlyNotBoolean = true;
-		final IType booleanObjectType = new ClassType(base.getQryEnv(), Boolean.class);
-		final IType booleanType = new ClassType(base.getQryEnv(), boolean.class);
-		for (IType type : selectorTypes) {
-			final boolean assignableFrom = booleanObjectType.isAssignableFrom(type)
-					|| booleanType.isAssignableFrom(type);
-			onlyNotBoolean = onlyNotBoolean && !assignableFrom;
+		if(typeChecker.isBoolean(exp)){
+			return NO_PROBLEM;
 		}
-		if(onlyNotBoolean){
-			String inferredToString = 
-					selectorTypes
-					.stream()
-					.map(type -> getQualifiedName(type))
-					.collect(joining(",","[","]"));
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(BOOLEAN_TYPE,inferredToString),
-					base.getStartOffset(exp),
-					base.getEndOffset(exp)
-					));
+		else {
+			return asList(messages.expectedBoolean(exp));
 		}
-		
-		return msgs;
 	}
 	
 	private boolean isExtendingItself(ExtendedClass xtdClass) {
-		
-		List<ExtendedClass> todo = Lists.newArrayList(xtdClass);
-		List<ExtendedClass> done = Lists.newArrayList();
+		List<ExtendedClass> todo = newArrayList(xtdClass);
+		List<ExtendedClass> done = newArrayList();
 		
 		while(!todo.isEmpty()) {
 			ExtendedClass current = todo.get(0);
@@ -823,143 +434,12 @@ public class TypeValidator implements IValidator {
 			if(done.contains(current)) {
 				return true;
 			}
-			
 			todo.addAll(current.getExtends());
 			
 			done.add(current);
 			todo.remove(0);
 		}
-		
 		return false;
 	}
 	
-	
-	/**
-	 * find the EOperation that contain this statement
-	 */
-	private Optional<EOperation> findContainingEOperation(Statement statement){
-
-		// find containing method then EOperation
-		EObject current = statement.eContainer();
-		EClass type = ImplementationPackage.eINSTANCE.getMethod();
-		while (current != null && !type.isSuperTypeOf(current.eClass()) && !type.isInstance(current)) {
-			current = current.eContainer();
-		}
-		if (current != null && (type.isSuperTypeOf(current.eClass()) || type.isInstance(current))) {
-			return Optional.ofNullable(((Method)current).getOperationRef());
-		} 
-		
-		return Optional.empty();
-	}
-	
-	private Optional<VariableDeclaration> findDeclaration(VariableAssignment varAssign) {
-		
-		String variableName = varAssign.getName();
-		
-		EObject currentObject = varAssign;
-		EObject currentScope = varAssign.eContainer();
-		
-		while(currentScope != null) {
-			if(currentScope instanceof Block) {
-				Block block = (Block) currentScope;
-				int index = block.getStatements().indexOf(currentObject);
-				if(index != -1) {
-					Optional<VariableDeclaration> candidate =
-						block.getStatements()
-						.stream()
-						.limit(index)
-						.filter(stmt -> stmt instanceof VariableDeclaration)
-						.map(stmt -> (VariableDeclaration) stmt)
-						.filter(varDecl -> varDecl.getName().equals(variableName))
-						.findFirst();
-					if(candidate.isPresent()) {
-						return candidate;
-					}
-				}
-			}
-			
-			currentObject = currentScope;
-			currentScope = currentScope.eContainer();
-		}
-		
-		return Optional.empty();
-	}
-	
-	private Set<IType> findDeclaredTypes(VariableAssignment varAssign) {
-		
-		Set<IType> res = new HashSet<>();
-		String variableName = varAssign.getName();
-		
-		// Look at extended EClass attributes
-		EObject currentObject = varAssign;
-		EObject currentScope = varAssign.eContainer();
-		
-		while(currentScope != null) {
-			
-			// Look at previous statement in the same block
-			if(currentScope instanceof Block) {
-				Block block = (Block) currentScope;
-				int index = block.getStatements().indexOf(currentObject);
-				if(index != -1) {
-					Optional<VariableDeclaration> candidate =
-						block.getStatements()
-						.stream()
-						.limit(index)
-						.filter(stmt -> stmt instanceof VariableDeclaration)
-						.map(stmt -> (VariableDeclaration) stmt)
-						.filter(varDecl -> varDecl.getName().equals(variableName))
-						.findFirst();
-					if(candidate.isPresent()) {
-						EClassifier type = candidate.get().getType();
-						res.add(new EClassifierType(base.getQryEnv(), type));
-						return res;
-					}
-				}
-			}
-			
-			// Look at loop's variable
-			else if(currentScope instanceof ForEach) {
-				ForEach loop = (ForEach) currentScope;
-				if(loop.getVariable().equals(variableName)) {
-					Set<IType> inferredTypes = base.getPossibleTypes(loop.getCollectionExpression());
-					return inferredTypes;
-				}
-			}
-			
-			// Look at class extension
-			else if(currentScope instanceof BehavioredClass) {
-				BehavioredClass cls = (BehavioredClass) currentScope;
-				Optional<Attribute> candidate = cls.getAttributes().stream().filter(attr -> attr.getFeatureRef().getName().equals(variableName)).findFirst();
-				if(candidate.isPresent()) {
-					EClassifier type = candidate.get().getFeatureRef().getEType();
-					res.add(new EClassifierType(base.getQryEnv(), type));
-					return res;
-				}
-			}
-			
-			// Look at extended class
-			else if(currentScope instanceof ExtendedClass) {
-				ExtendedClass extension = (ExtendedClass) currentScope;
-				Optional<EStructuralFeature> feature = 
-						extension.getBaseClass().getEAllStructuralFeatures()
-						.stream()
-						.filter(feat -> feat.getName().equals(variableName))
-						.findFirst();
-				if(feature.isPresent()) {
-					EClassifier type = feature.get().getEType();
-					res.add(new EClassifierType(base.getQryEnv(), type));
-					return res;
-				}
-			}
-			
-			currentObject = currentScope;
-			currentScope = currentScope.eContainer();
-		}
-		
-		return res;
-	}
-	
-	private boolean isUnresolvedType(EClassifier type) {
-		return type == ImplementationPackage.eINSTANCE.getUnresolvedEClassifier();
-	}
 }
