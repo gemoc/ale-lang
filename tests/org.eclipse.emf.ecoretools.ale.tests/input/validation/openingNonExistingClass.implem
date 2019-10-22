@@ -1,0 +1,5 @@
+behavior test.assignfeat;
+
+open class NonExisting {
+
+}

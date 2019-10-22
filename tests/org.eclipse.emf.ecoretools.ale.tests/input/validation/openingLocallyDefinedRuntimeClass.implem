@@ -1,0 +1,9 @@
+behavior test.assignfeat;
+
+open class LocalRuntimeClass {
+
+}
+
+class LocalRuntimeClass {
+
+ }
