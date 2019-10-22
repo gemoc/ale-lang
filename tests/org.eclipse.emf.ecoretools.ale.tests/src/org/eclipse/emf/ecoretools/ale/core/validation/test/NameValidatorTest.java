@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Inria and Obeo.
+ * Copyright (c) 2017-2019 Inria and Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.validation.test;
 
+import static org.eclipse.emf.ecoretools.ale.core.validation.test.ValidationMessages.assertMsgEquals;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
@@ -900,12 +901,5 @@ public class NameValidatorTest {
 		assertEquals(2, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 112, 117, "Feature wrong not found in EClass EClass", msg.get(0));
 		assertMsgEquals(ValidationMessageLevel.ERROR, 90, 118, "Expected [ecore::EInt] but was [Nothing(Feature wrong not found in EClass EClass)]", msg.get(1));
-	}
-	
-	private void assertMsgEquals(ValidationMessageLevel errorLvl, int startPos, int endPos, String text, IValidationMessage msg){
-		assertEquals(errorLvl, msg.getLevel());
-		assertEquals(startPos, msg.getStartPosition());
-		assertEquals(endPos, msg.getEndPosition());
-		assertEquals(text, msg.getMessage());
 	}
 }

@@ -1,0 +1,6 @@
+behavior test.declself;
+open class EClass {
+	def boolean foo() {
+		result := 'not a boolean';
+	}
+}

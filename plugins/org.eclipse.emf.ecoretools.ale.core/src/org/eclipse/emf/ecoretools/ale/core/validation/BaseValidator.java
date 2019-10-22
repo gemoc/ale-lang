@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Inria and Obeo.
+ * Copyright (c) 2017-2019 Inria and Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -208,6 +208,8 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	public Object caseMethod(Method mtd) {
 		Map<String,Set<IType>> methodScope = new HashMap<>(variableTypesStack.peek());
 		
+		// Add method's parameters to scope
+		
 		if(mtd.getOperationRef() != null) {
 			for (EParameter param : mtd.getOperationRef().getEParameters()) {
 				Set<IType> previousDeclaration = methodScope.get(param.getName());
@@ -215,6 +217,20 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 					EClassifierType type = new EClassifierType(qryEnv, param.getEType());
 					methodScope.put(param.getName(), Sets.newHashSet(type));
 				}
+			}
+		}
+		
+		// Add 'result' variable to scope
+
+		// May be false e.g. when the override keyword is used
+		// on a method that does not match any existing EOperation
+		boolean hasACorrespondingEOperation = mtd.getOperationRef() != null;
+		if (hasACorrespondingEOperation) {
+			EClassifier methodType = mtd.getOperationRef().getEType();
+			boolean returnsSomething = methodType != null;
+			if (returnsSomething) {
+				EClassifierType returnType = new EClassifierType(qryEnv, methodType);
+				methodScope.put("result", Sets.newHashSet(returnType));
 			}
 		}
 		
