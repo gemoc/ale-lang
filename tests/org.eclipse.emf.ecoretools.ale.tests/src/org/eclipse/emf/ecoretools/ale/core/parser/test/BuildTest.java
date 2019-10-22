@@ -788,7 +788,7 @@ public class BuildTest {
 		//Check multi set fall in default EType
 		Attribute attrib7 = xtdCls.getAttributes().get(7);
 		assertEquals("clsSetAttr", attrib7.getFeatureRef().getName());
-		assertEquals(EcorePackage.eINSTANCE.getEClassifier(), attrib7.getFeatureRef().getEType());
+		assertEquals(ImplementationPackage.eINSTANCE.getUnresolvedEClassifier(), attrib7.getFeatureRef().getEType());
 		assertNull(attrib7.getInitialValue());
 	}
 	

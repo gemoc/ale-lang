@@ -152,4 +152,5 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="ecore:EClass ../../org.eclipse.acceleo.query/model/ast.ecore#//Expression"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UnresolvedEClassifier"/>
 </ecore:EPackage>

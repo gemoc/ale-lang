@@ -109,5 +109,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Case/match"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Case/value"/>
     </genClasses>
+    <genClasses ecoreClass="Implementation.ecore#//UnresolvedEClassifier"/>
   </genPackages>
 </genmodel:GenModel>

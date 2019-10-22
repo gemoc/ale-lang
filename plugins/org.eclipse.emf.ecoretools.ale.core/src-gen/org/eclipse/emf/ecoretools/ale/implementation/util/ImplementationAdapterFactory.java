@@ -187,6 +187,10 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 				return createCaseAdapter();
 			}
 			@Override
+			public Adapter caseUnresolvedEClassifier(UnresolvedEClassifier object) {
+				return createUnresolvedEClassifierAdapter();
+			}
+			@Override
 			public Adapter caseEModelElement(EModelElement object) {
 				return createEModelElementAdapter();
 			}
@@ -565,6 +569,20 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCaseAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.implementation.UnresolvedEClassifier <em>Unresolved EClassifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.UnresolvedEClassifier
+	 * @generated
+	 */
+	public Adapter createUnresolvedEClassifierAdapter() {
 		return null;
 	}
 
