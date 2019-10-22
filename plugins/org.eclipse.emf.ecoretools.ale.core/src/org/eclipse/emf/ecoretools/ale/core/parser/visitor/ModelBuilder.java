@@ -69,6 +69,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationFactory;
+import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
@@ -525,7 +526,7 @@ public class ModelBuilder {
 			case "float" 	: return EcorePackage.eINSTANCE.getEFloat();
 			case "double" 	: return EcorePackage.eINSTANCE.getEDouble();
 			case "void"		: return null;
-			default			: return EcorePackage.eINSTANCE.getEClassifier();
+			default			: return ImplementationPackage.eINSTANCE.getUnresolvedEClassifier();
 		}
 	}
 	

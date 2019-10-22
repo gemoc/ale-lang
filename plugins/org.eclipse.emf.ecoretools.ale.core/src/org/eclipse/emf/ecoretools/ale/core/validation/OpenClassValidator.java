@@ -33,6 +33,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.If;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
+import org.eclipse.emf.ecoretools.ale.implementation.UnresolvedEClassifier;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
@@ -139,7 +140,7 @@ public class OpenClassValidator implements IValidator {
 	}
 
 	private void validateExtendedClassExists(ExtendedClass xtdClass, EClass base, List<IValidationMessage> msgs) {
-		boolean baseClassDoesntExist = EClassifier.class.equals(base.getInstanceClass());
+		boolean baseClassDoesntExist = UnresolvedEClassifier.class.equals(base.getInstanceClass());
 		if (baseClassDoesntExist) {
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,

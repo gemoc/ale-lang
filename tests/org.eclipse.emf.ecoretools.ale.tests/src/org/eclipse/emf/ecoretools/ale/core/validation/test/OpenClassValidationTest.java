@@ -119,7 +119,7 @@ public class OpenClassValidationTest {
 	
 	@Test
 	public void testOpeningNonExistingClass() {
-		Dsl environment = new Dsl(Arrays.asList("model/abc.ecore"),Arrays.asList("input/validation/openingNonExistingClass.implem"));
+		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/openingNonExistingClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -127,12 +127,12 @@ public class OpenClassValidationTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 29, 51, "Cannot open class NonExisting: the class must be defined in an Ecore metamodel", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 27, 49, "Cannot open class NonExisting: the class must be defined in an Ecore metamodel", msg.get(0));
 	}
 	
 	@Test
 	public void testOpeningLocallyDefinedRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList("model/abc.ecore"),Arrays.asList("input/validation/openingLocallyDefinedRuntimeClass.implem"));
+		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/openingLocallyDefinedRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());

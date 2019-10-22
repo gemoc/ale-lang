@@ -1470,6 +1470,35 @@ public interface ImplementationPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.UnresolvedEClassifierImpl <em>Unresolved EClassifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.UnresolvedEClassifierImpl
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getUnresolvedEClassifier()
+	 * @generated
+	 */
+	int UNRESOLVED_ECLASSIFIER = 25;
+
+	/**
+	 * The number of structural features of the '<em>Unresolved EClassifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNRESOLVED_ECLASSIFIER_FEATURE_COUNT = 0;
+
+	/**
+	 * The number of operations of the '<em>Unresolved EClassifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNRESOLVED_ECLASSIFIER_OPERATION_COUNT = 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior <em>Model Behavior</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2281,6 +2310,16 @@ public interface ImplementationPackage extends EPackage {
 	EReference getCase_Value();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.UnresolvedEClassifier <em>Unresolved EClassifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Unresolved EClassifier</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.UnresolvedEClassifier
+	 * @generated
+	 */
+	EClass getUnresolvedEClassifier();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2960,6 +2999,16 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CASE__VALUE = eINSTANCE.getCase_Value();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.UnresolvedEClassifierImpl <em>Unresolved EClassifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.UnresolvedEClassifierImpl
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getUnresolvedEClassifier()
+		 * @generated
+		 */
+		EClass UNRESOLVED_ECLASSIFIER = eINSTANCE.getUnresolvedEClassifier();
 
 	}
 

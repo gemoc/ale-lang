@@ -134,8 +134,9 @@ public class TypeValidatorTest {
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
+		
+		assertMsgEquals(ValidationMessageLevel.ERROR, 73, 118, "Reopened ecore::EClass is extending itself", msg.get(0));
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 73, 128, "Reopened ecore::EClassifier is extending itself", msg.get(0));
 	}
 	
 	/*

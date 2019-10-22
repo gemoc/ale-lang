@@ -96,6 +96,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 			case ImplementationPackage.EXPRESSION_STATEMENT: return createExpressionStatement();
 			case ImplementationPackage.SWITCH: return createSwitch();
 			case ImplementationPackage.CASE: return createCase();
+			case ImplementationPackage.UNRESOLVED_ECLASSIFIER: return createUnresolvedEClassifier();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -339,6 +340,16 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	public Case createCase() {
 		CaseImpl case_ = new CaseImpl();
 		return case_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public UnresolvedEClassifier createUnresolvedEClassifier() {
+		UnresolvedEClassifierImpl unresolvedEClassifier = new UnresolvedEClassifierImpl();
+		return unresolvedEClassifier;
 	}
 
 	/**

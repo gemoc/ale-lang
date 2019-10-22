@@ -21,8 +21,7 @@ rRoot returns Unit :
 ;
 
 rImport returns Import : 
-	'import' name=rQualified 'as' alias=Ident '
-;'
+	'import' name=rQualified 'as' alias=Ident ';'
 ;
 
 rService returns Service :
