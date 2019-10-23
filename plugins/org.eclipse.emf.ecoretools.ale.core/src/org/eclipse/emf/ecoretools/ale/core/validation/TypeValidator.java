@@ -74,6 +74,8 @@ public class TypeValidator implements IValidator {
 	public static final String INDIRECT_EXTENSION = "Can't extend %s since it is not a direct super type of %s";
 	public static final String SELF_INSERT = "Cannot insert anything into 'self'";
 	public static final String SELF_REMOVE = "Cannot remove anything from 'self'";
+	public static final String UNRESOLVED_TYPE = "Unresolved type %s";
+	public static final String UNRESOLVED_TYPE_EXT = "Unresolved type %s, it cannot be found in any of the declared packages: %s";
 	
 	BaseValidator base;
 	
@@ -165,6 +167,24 @@ public class TypeValidator implements IValidator {
 			}
 		});
 		
+		
+		
+		clazz.getAttributes().stream()
+			.filter(att -> att.getFeatureRef().getEType() == ImplementationPackage.eINSTANCE.getUnresolvedEClassifier())
+			.forEach(att -> {
+				String declaredPackages = base.qryEnv.getEPackageProvider().getRegisteredEPackages().stream()
+						.map(p -> p.getName())
+						.collect(joining(", ","[","]")); 		
+				msgs.add(new ValidationMessage(
+						ValidationMessageLevel.ERROR,
+						// TODO implement a contextual UnresolvedType to get better name. cf. https://github.com/gemoc/ale-lang/issues/78
+						String.format(UNRESOLVED_TYPE_EXT, ""/*getQualifiedName(att.getFeatureRef().getEType())*/,declaredPackages),
+						base.getStartOffset(att),
+						base.getEndOffset(att)
+						));
+				
+				
+			});
 		return msgs;
 	}
 	
@@ -656,7 +676,19 @@ public class TypeValidator implements IValidator {
 				}
 			}
 		}
-		
+
+		if(varDecl.getType() == ImplementationPackage.eINSTANCE.getUnresolvedEClassifier()) {
+			String declaredPackages = base.qryEnv.getEPackageProvider().getRegisteredEPackages().stream()
+					.map(p -> p.getName())
+					.collect(joining(", ","[","]")); 
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					// TODO implement a contextual UnresolvedType to get better name. cf. https://github.com/gemoc/ale-lang/issues/78
+					String.format(UNRESOLVED_TYPE_EXT, ""/*getQualifiedName(varDecl.getType())*/,declaredPackages),
+					base.getStartOffset(varDecl),
+					base.getEndOffset(varDecl)
+					));
+		}
 		return msgs;
 	}
 	
