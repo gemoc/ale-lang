@@ -1394,4 +1394,20 @@ public class TypeValidatorTest {
 		assertMsgEquals(ValidationMessageLevel.ERROR, 100, 132, "Expected [Collection(?)] but was [ecore::EClass]", msg.get(0));
 	}
 	
+
+	@Test
+	public void testUnresolvedTypeInDeclarationError() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/unresolvedTypeInDeclaration.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(2, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 84, "Unresolved type , it cannot be found in any of the declared packages: [ecore, implementation, ast, test, unresolvedTypeInDecaration]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 136, 157, "Unresolved type , it cannot be found in any of the declared packages: [ecore, implementation, ast, test, unresolvedTypeInDecaration]", msg.get(1));
+	}
+	
 }

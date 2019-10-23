@@ -1,0 +1,9 @@
+behavior test.unresolvedTypeInDecaration;
+open class EClass {
+
+	MyUnknownType1 myAtt;
+	
+	def MyUnknownType2 op(MyUnknownType3 param){
+		MyUnknownType4 myDecl;
+	}
+}
