@@ -5,6 +5,8 @@ package org.eclipse.emf.ecoretools
 
 import org.eclipse.xtext.formatting2.IFormatter2
 import org.eclipse.emf.ecoretools.formatting2.AleFormatter
+import org.eclipse.xtext.conversion.IValueConverterService
+import org.eclipse.emf.ecoretools.conversion.StringValueConverter
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -13,6 +15,10 @@ class AleRuntimeModule extends AbstractAleRuntimeModule {
 		
 	override Class<? extends IFormatter2> bindIFormatter2() {
 		AleFormatter
+	}
+	
+	override Class<? extends IValueConverterService> bindIValueConverterService() {
+		StringValueConverter
 	}
 	
 }
