@@ -170,7 +170,7 @@ public class TypeValidator implements IValidator {
 		
 		
 		clazz.getAttributes().stream()
-			.filter(att -> att.getFeatureRef().getEType() == ImplementationPackage.eINSTANCE.getUnresolvedEClassifier())
+			.filter(att -> isUnresolvedType(att.getFeatureRef().getEType()))
 			.forEach(att -> {
 				String declaredPackages = base.qryEnv.getEPackageProvider().getRegisteredEPackages().stream()
 						.map(p -> p.getName())
@@ -677,7 +677,7 @@ public class TypeValidator implements IValidator {
 			}
 		}
 
-		if(varDecl.getType() == ImplementationPackage.eINSTANCE.getUnresolvedEClassifier()) {
+		if(isUnresolvedType(varDecl.getType())) {
 			String declaredPackages = base.qryEnv.getEPackageProvider().getRegisteredEPackages().stream()
 					.map(p -> p.getName())
 					.collect(joining(", ","[","]")); 
@@ -957,5 +957,9 @@ public class TypeValidator implements IValidator {
 		}
 		
 		return res;
+	}
+	
+	private boolean isUnresolvedType(EClassifier type) {
+		return type == ImplementationPackage.eINSTANCE.getUnresolvedEClassifier();
 	}
 }
