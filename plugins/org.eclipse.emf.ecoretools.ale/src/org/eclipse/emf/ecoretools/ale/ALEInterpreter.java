@@ -59,9 +59,21 @@ import org.eclipse.sirius.common.tools.api.interpreter.JavaExtensionsManager;
 
 /**
  * This class is an interpreter for the 'ALE' Language.
+ * Important note: do not forget to call close()  in order to dispose resources when the interpreter is not used anymore
  */
-public class ALEInterpreter {
+public class ALEInterpreter implements AutoCloseable {
 	
+	/**
+	 * Exception thrown if the interpreter is used after having been closed
+	 *
+	 */
+	public class ClosedALEInterpreterException extends Exception {
+		public ClosedALEInterpreterException(String string) {
+			super(string);
+		}
+
+		private static final long serialVersionUID = -8494003054984405449L;
+	}
 	public static final String NO_MAIN_ERROR = "No operation with @main found";
 	
 	/**
@@ -80,6 +92,8 @@ public class ALEInterpreter {
 	 * Binding between {@link javaExtensions} and {@link queryEnvironment}
 	 */
 	EPackageLoadingCallback ePackageCallBack;
+	
+	protected boolean isClosed = false;
 	
 	/**
 	 * Binding between {@link javaExtensions} and {@link queryEnvironment} 
@@ -138,7 +152,7 @@ public class ALEInterpreter {
 
             @Override
             public void unloaded(String nsURI, EPackage pak) {
-                queryEnvironment.removeEPackage(pak.getName());
+            	queryEnvironment.removeEPackage(pak);
             }
         };
         this.javaExtensions = JavaExtensionsManager.createManagerWithOverride();
@@ -177,8 +191,9 @@ public class ALEInterpreter {
     
     /**
      * Entry point for an evaluation.
+     * @throws Exception 
      */
-    public IEvaluationResult eval(String modelURI, List<Object> args, Dsl dsl) {
+    public IEvaluationResult eval(String modelURI, List<Object> args, Dsl dsl) throws ClosedALEInterpreterException {
     	
     	/*
     	 * Parse semantic files
@@ -201,16 +216,20 @@ public class ALEInterpreter {
     /**
      * Search in {@link dslFile}'s semantics
      * for the first operation tagged 'main' and apply it to {@link caller}
+     * @throws Exception 
      */
-    public IEvaluationResult eval(EObject caller, List<Object> args, List<ParseResult<ModelUnit>> parsedSemantics) {
+    public IEvaluationResult eval(EObject caller, List<Object> args, List<ParseResult<ModelUnit>> parsedSemantics) throws ClosedALEInterpreterException {
     	return eval(caller, null, args, parsedSemantics);
     }
     
     /**
      * Apply {@link calledOp} on {@caller}.
+     * @throws Exception 
      */
-    public IEvaluationResult eval(EObject caller, Method calledOp, List<Object> args, List<ParseResult<ModelUnit>> parsedSemantics) {
-    	
+    public IEvaluationResult eval(EObject caller, Method calledOp, List<Object> args, List<ParseResult<ModelUnit>> parsedSemantics) throws ClosedALEInterpreterException {
+    	if(isClosed) {
+    		throw new ClosedALEInterpreterException("ALEInterpreter has been closed");
+    	}
     	final BasicDiagnostic diagnostic = new BasicDiagnostic();
     	parsedSemantics
     	.stream()
@@ -406,5 +425,23 @@ public class ALEInterpreter {
      */
     public ALEEngine getCurrentEngine() {
 		return currentEngine;
+	}
+
+    /**
+     * Release resources hold by this interpreter
+     * (this includes unregistering from any listener)
+     * 
+     * once this method has been called, the eval should be disabled 
+     */
+	@Override
+	public void close()  {
+		isClosed = true;
+		queryEnvironment.removeEPackage(ImplementationPackage.eINSTANCE);
+		queryEnvironment.removeEPackage(AstPackage.eINSTANCE);
+		//this.javaExtensions.addClassLoadingCallBack(callback);
+        //this.javaExtensions.addEPackageCallBack(ePackageCallBack);
+		this.javaExtensions.removeClassLoadingCallBack(callback);
+		this.javaExtensions.removeEPackageCallBack(ePackageCallBack);
+		this.javaExtensions.dispose();
 	}
 }

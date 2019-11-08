@@ -51,33 +51,37 @@ class AleValidator extends AbstractAleValidator {
 		val dslFile = ws.getFile(dslPath)
 		val dsl = new Dsl(dslFile.contents);
 		dsl.resolveUris
+		
 		val ALEInterpreter interpreter = new ALEInterpreter();
-		interpreter.initScope(Sets.newHashSet(),Sets.newHashSet(#[dslFile.project.name]))
-		val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(dsl);
-		
-		/*
-    	 * Register services
-    	 */
-    	val List<String> services = 
-    		parsedSemantics
-	    	.map[getRoot()]
-	    	.filterNull
-	    	.map[getServices()]
-	    	.flatten
-	    	.toList
-    	interpreter.registerServices(services)
-		
-		val ALEValidator validator = new ALEValidator(interpreter.queryEnvironment);
-		validator.validate(parsedSemantics);
-		val List<IValidationMessage> msgs = validator.getMessages();
-		
-		msgs.forEach[msg |
-			val marker = aleFile.createMarker(ALE_MARKER);
-			marker.setAttribute(IMarker.MESSAGE, msg.getMessage());
-			marker.setAttribute(IMarker.SEVERITY, severityOf(msg));
-			marker.setAttribute(IMarker.CHAR_START, msg.startPosition);
-			marker.setAttribute(IMarker.CHAR_END, msg.endPosition);
-		]
+		try {
+			interpreter.initScope(Sets.newHashSet(),Sets.newHashSet(#[dslFile.project.name]))
+			val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(dsl);
+			
+			/*
+	    	 * Register services
+	    	 */
+	    	val List<String> services = 
+	    		parsedSemantics
+		    	.map[getRoot()]
+		    	.filterNull
+		    	.map[getServices()]
+		    	.flatten
+		    	.toList
+	    	interpreter.registerServices(services)
+			
+			val ALEValidator validator = new ALEValidator(interpreter.queryEnvironment);
+			validator.validate(parsedSemantics);
+			val List<IValidationMessage> msgs = validator.getMessages();
+			
+			msgs.forEach[msg |
+				val marker = aleFile.createMarker(ALE_MARKER);
+				marker.setAttribute(IMarker.MESSAGE, msg.getMessage());
+				marker.setAttribute(IMarker.SEVERITY, severityOf(msg));
+				marker.setAttribute(IMarker.CHAR_START, msg.startPosition);
+				marker.setAttribute(IMarker.CHAR_END, msg.endPosition);
+			]
+		}
+		finally {interpreter.close}
 		
 	}
 	

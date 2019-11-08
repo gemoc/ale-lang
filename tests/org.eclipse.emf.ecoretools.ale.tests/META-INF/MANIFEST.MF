@@ -14,3 +14,5 @@ Export-Package: org.eclipse.emf.ecoretools.ale.core.interpreter.test,
  org.eclipse.emf.ecoretools.ale.core.parser.test,
  org.eclipse.emf.ecoretools.ale.core.validation.test,
  org.eclipse.emf.ecoretools.ale.test
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: org.eclipse.emf.ecoretools.ale.tests
