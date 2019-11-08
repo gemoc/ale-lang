@@ -17,998 +17,1131 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.acceleo.query.runtime.IService;
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
 import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
+import org.eclipse.emf.ecoretools.ale.ALEInterpreter.ClosedALEInterpreterException;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.ServiceCallListener;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 /**
  * This class test the execution of ModelBehavior
  */
 public class EvalTest {
-	
+
 	ALEInterpreter interpreter;
-	
+
 	@Before
 	public void setup() {
 		interpreter = new ALEInterpreter();
 	}
-	
+
+	@After
+	public void release() throws IOException {
+		if (interpreter != null) {
+			interpreter.close();
+		}
+	}
+
 	@Test
-	public void testAccessLocalVariable(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/localvar.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAccessLocalVariable() throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/localvar.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("foobar",res.getValue());
+
+		assertEquals("foobar", res.getValue());
 	}
-	
+
 	@Test
-	public void testAccessParameter(){
+	public void testAccessParameter() throws ClosedALEInterpreterException {
 		String obj = "";
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/args.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/args.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(obj), parsedSemantics);
-		
-		assertEquals(obj,res.getValue());
-	}
-	
-	@Test
-	public void testAccessSelf(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/self.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(caller,res.getValue());
-	}
-	
-	@Test
-	public void testAccessSelfDynamicAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/selfDynamicAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("foo",res.getValue());
-	}
-	
-	@Test
-	public void testAccessCreateDynamicAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/createDynamicAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("foo",res.getValue());
-	}
-	
-	@Test
-	public void testAccessLocalDynamicAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/localDynamicAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("foo",res.getValue());
+
+		assertEquals(obj, res.getValue());
 	}
 
 	@Test
-	public void testAccessParamDynamicAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/paramDynamicAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAccessSelf() throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/self.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+
+		assertEquals(caller, res.getValue());
+	}
+
+	@Test
+	public void testAccessSelfDynamicAttribute() throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/selfDynamicAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+
+		assertEquals("foo", res.getValue());
+	}
+
+	@Test
+	public void testAccessCreateDynamicAttribute() throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/createDynamicAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+
+		assertEquals("foo", res.getValue());
+	}
+
+	@Test
+	public void testAccessLocalDynamicAttribute() throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/localDynamicAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+
+		assertEquals("foo", res.getValue());
+	}
+
+	@Test
+	public void testAccessParamDynamicAttribute() throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/paramDynamicAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EObject newInstance = EcoreUtil.create(caller.eClass());
-		IEvaluationResult res = interpreter.eval(caller,  Arrays.asList(newInstance), parsedSemantics);
-		
-		assertEquals("foo",res.getValue());
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(newInstance), parsedSemantics);
+
+		assertEquals("foo", res.getValue());
 	}
 
 	@Test
-	public void testAccessResultDynamicAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/resultDynamicAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAccessResultDynamicAttribute() throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/resultDynamicAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("foo",res.getValue());
+
+		assertEquals("foo", res.getValue());
 	}
-	
+
 	@Test
-	public void testAccessCallDynamicAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/callDynamicAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAccessCallDynamicAttribute() throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/callDynamicAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("foo",res.getValue());
+
+		assertEquals("foo", res.getValue());
 	}
-	
+
 	@Test
-	public void testNullDynamicAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/nullDynamicAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testNullDynamicAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/nullDynamicAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(Diagnostic.OK, res.getDiagnostic().getSeverity());		
-		assertEquals(null,res.getValue());
+
+		assertEquals(Diagnostic.OK, res.getDiagnostic().getSeverity());
+		assertEquals(null, res.getValue());
 	}
-	
+
 	@Test
-	public void testUnknownDynamicAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/unknownDynamicAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testUnknownDynamicAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/unknownDynamicAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(Diagnostic.WARNING, res.getDiagnostic().getSeverity());		
+
+		assertEquals(Diagnostic.WARNING, res.getDiagnostic().getSeverity());
 		assertEquals("An error occured during evaluation of a query", res.getDiagnostic().getMessage());
-		assertEquals(null,res.getValue());
+		assertEquals(null, res.getValue());
 	}
-	
+
 	@Test
-	public void testAccessSelfAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/selfAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAccessSelfAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/selfAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EStructuralFeature field = caller.eClass().getEStructuralFeature("field");
 		caller.eSet(field, 1);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(1,res.getValue());
+
+		assertEquals(1, res.getValue());
 	}
-	
+
 	@Test
-	public void testAccessLocalAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/localAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAccessLocalAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/localAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EStructuralFeature field = caller.eClass().getEStructuralFeature("field");
 		caller.eSet(field, 2);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(2,res.getValue());
+
+		assertEquals(2, res.getValue());
 	}
 
 	@Test
-	public void testAccessParamAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/paramAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAccessParamAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/paramAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EObject newInstance = EcoreUtil.create(caller.eClass());
 		EStructuralFeature field = newInstance.eClass().getEStructuralFeature("field");
 		newInstance.eSet(field, 3);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(newInstance), parsedSemantics);
-		
-		assertEquals(3,res.getValue());
+
+		assertEquals(3, res.getValue());
 	}
 
 	@Test
-	public void testAccessResultAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/resultAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAccessResultAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/resultAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EStructuralFeature field = caller.eClass().getEStructuralFeature("field");
 		caller.eSet(field, 4);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(4,res.getValue());
+
+		assertEquals(4, res.getValue());
 	}
-	
+
 	@Test
-	public void testAccessCallAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/callAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAccessCallAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/callAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EStructuralFeature field = caller.eClass().getEStructuralFeature("field");
 		caller.eSet(field, 5);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(5,res.getValue());
-	}
-	
-	@Test
-	public void testAssignSelfDynamicAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/selfDynamicAttributeAssign.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("bar",res.getValue());
-	}
-	
-	@Test
-	public void testAssignLocalDynamicAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/localDynamicAttributeAssign.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("bar",res.getValue());
-	}
-	
-	@Test
-	public void testAssignParamDynamicAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/paramDynamicAttributeAssign.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		EObject newInstance = EcoreUtil.create(caller.eClass());
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(newInstance), parsedSemantics);
-		
-		assertEquals("bar",res.getValue());
-	}
-	
-	@Test
-	public void testAssignResultDynamicAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/resultDynamicAttributeAssign.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("bar",res.getValue());
-	}
-	
-	@Test
-	public void testAssignCallDynamicAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/callDynamicAttributeAssign.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("bar",res.getValue());
-	}
-	
-	@Test
-	public void testAssignSelfAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/selfAttributeAssign.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(1,res.getValue());
-	}
-	
-	@Test
-	public void testAssignLocalAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/localAttributeAssign.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(2,res.getValue());
-	}
-	
-	@Test
-	public void testAssignParamAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/paramAttributeAssign.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		EObject newInstance = EcoreUtil.create(caller.eClass());
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(newInstance), parsedSemantics);
-		
-		assertEquals(3,res.getValue());
+
+		assertEquals(5, res.getValue());
 	}
 
 	@Test
-	public void testAssignResultAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/resultAttributeAssign.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAssignSelfDynamicAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/selfDynamicAttributeAssign.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(4,res.getValue());
+
+		assertEquals("bar", res.getValue());
 	}
 
 	@Test
-	public void testAssignCallAttribute(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/callAttributeAssign.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAssignLocalDynamicAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/localDynamicAttributeAssign.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(5,res.getValue());
+
+		assertEquals("bar", res.getValue());
 	}
-	
+
 	@Test
-	public void testSelfCall(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/selfCall.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(1,res.getValue());
-	}
-	
-	@Test
-	public void testLocalCall(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/localCall.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(2,res.getValue());
-	}
-	
-	@Test
-	public void testAttributeCall(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/attributeCall.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(3,res.getValue());
-	}
-	
-	@Test
-	public void testDynamicAttributeCall(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/dynamicAttributeCall.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(4,res.getValue());
-	}
-	
-	@Test
-	public void testParamCall(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/paramCall.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAssignParamDynamicAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/paramDynamicAttributeAssign.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EObject newInstance = EcoreUtil.create(caller.eClass());
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(newInstance), parsedSemantics);
-		
-		assertEquals(5,res.getValue());
+
+		assertEquals("bar", res.getValue());
 	}
-	
+
 	@Test
-	public void testParamValue(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/paramValue.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAssignResultDynamicAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/resultDynamicAttributeAssign.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(6,res.getValue());
+
+		assertEquals("bar", res.getValue());
 	}
-	
+
 	@Test
-	public void testResultCall(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/resultCall.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAssignCallDynamicAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/callDynamicAttributeAssign.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(6,res.getValue());
+
+		assertEquals("bar", res.getValue());
 	}
-	
+
 	@Test
-	public void testChainAttrib(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/chainAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAssignSelfAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/selfAttributeAssign.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(caller,res.getValue());
+
+		assertEquals(1, res.getValue());
 	}
-	
+
 	@Test
-	public void testChainDynamicAttrib(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/chainDynamicAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAssignLocalAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/localAttributeAssign.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(caller,res.getValue());
+
+		assertEquals(2, res.getValue());
 	}
-	
+
 	@Test
-	public void testChainCall(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/chainCall.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAssignParamAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/paramAttributeAssign.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		EObject newInstance = EcoreUtil.create(caller.eClass());
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(newInstance), parsedSemantics);
+
+		assertEquals(3, res.getValue());
+	}
+
+	@Test
+	public void testAssignResultAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/resultAttributeAssign.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(caller,res.getValue());
+
+		assertEquals(4, res.getValue());
 	}
-	
+
 	@Test
-	public void testForEachSequence(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/forEachSequence.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAssignCallAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/callAttributeAssign.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("012345",res.getValue());
+
+		assertEquals(5, res.getValue());
 	}
-	
+
 	@Test
-	public void testForEachReverseSequence(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/forEachReverseSequence.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testSelfCall()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/selfCall.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("4321",res.getValue());
+
+		assertEquals(1, res.getValue());
 	}
-	
+
 	@Test
-	public void testForEachCollection(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/forEachCollection.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testLocalCall()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/localCall.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(2,res.getValue());
+
+		assertEquals(2, res.getValue());
 	}
-	
+
 	@Test
-	public void testForEachEmpty(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/forEachEmptyCollection.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAttributeCall()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/attributeCall.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(0,res.getValue());
+
+		assertEquals(3, res.getValue());
 	}
-	
+
 	@Test
-	public void testWhile(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/while.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testDynamicAttributeCall()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/dynamicAttributeCall.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(10,res.getValue());
+
+		assertEquals(4, res.getValue());
 	}
-	
+
 	@Test
-	public void testIfTrue(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/ifTrue.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testParamCall()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/paramCall.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		EObject newInstance = EcoreUtil.create(caller.eClass());
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(newInstance), parsedSemantics);
+
+		assertEquals(5, res.getValue());
+	}
+
+	@Test
+	public void testParamValue()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/paramValue.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(1,res.getValue());
+
+		assertEquals(6, res.getValue());
 	}
-	
+
 	@Test
-	public void testIfFalse(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/ifFalse.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testResultCall()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/resultCall.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(0,res.getValue());
+
+		assertEquals(6, res.getValue());
 	}
-	
+
 	@Test
-	public void testElseTrue(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/elseTrue.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testChainAttrib()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/chainAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(1,res.getValue());
+
+		assertEquals(caller, res.getValue());
 	}
-	
+
 	@Test
-	public void testElseFalse(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/elseFalse.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testChainDynamicAttrib()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/chainDynamicAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(2,res.getValue());
+
+		assertEquals(caller, res.getValue());
 	}
-	
+
 	@Test
-	public void testElseIf(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/elseIf.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testChainCall()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/chainCall.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("345",res.getValue());
+
+		assertEquals(caller, res.getValue());
 	}
-	
+
 	@Test
-	public void testAdd(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/add.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testForEachSequence()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/forEachSequence.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(3,res.getValue());
+
+		assertEquals("012345", res.getValue());
 	}
-	
+
 	@Test
-	public void testRemove(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/remove.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testForEachReverseSequence()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/forEachReverseSequence.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(2,res.getValue());
+
+		assertEquals("4321", res.getValue());
 	}
-	
+
 	@Test
-	public void testLog(){
+	public void testForEachCollection()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/forEachCollection.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+
+		assertEquals(2, res.getValue());
+	}
+
+	@Test
+	public void testForEachEmpty()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/forEachEmptyCollection.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+
+		assertEquals(0, res.getValue());
+	}
+
+	@Test
+	public void testWhile()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/while.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+
+		assertEquals(10, res.getValue());
+	}
+
+	@Test
+	public void testIfTrue()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/ifTrue.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+
+		assertEquals(1, res.getValue());
+	}
+
+	@Test
+	public void testIfFalse()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/ifFalse.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+
+		assertEquals(0, res.getValue());
+	}
+
+	@Test
+	public void testElseTrue()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/elseTrue.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+
+		assertEquals(1, res.getValue());
+	}
+
+	@Test
+	public void testElseFalse()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/elseFalse.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+
+		assertEquals(2, res.getValue());
+	}
+
+	@Test
+	public void testElseIf()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/elseIf.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+
+		assertEquals("345", res.getValue());
+	}
+
+	@Test
+	public void testAdd()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/add.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+
+		assertEquals(3, res.getValue());
+	}
+
+	@Test
+	public void testRemove()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/remove.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+
+		assertEquals(2, res.getValue());
+	}
+
+	@Test
+	public void testLog()  throws ClosedALEInterpreterException {
 		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(outContent));
-		
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/log.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/log.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertEquals("foobar\n", outContent.toString());
-		
+
 		System.setOut(null);
-		
+
 	}
-	
+
 	@Test
-	public void testCreate(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/create.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testCreate()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/create.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertNotNull(res.getValue());
-		assertNotEquals(caller,res.getValue());
+		assertNotEquals(caller, res.getValue());
 		assertTrue(res.getValue() instanceof EObject);
-		assertTrue(((EObject)res.getValue()).eClass().getName().equals("ClassA"));
+		assertTrue(((EObject) res.getValue()).eClass().getName().equals("ClassA"));
 	}
-	
+
 	@Test
-	public void testService(){
+	public void testService()  throws ClosedALEInterpreterException {
 		try {
-			ServiceUtils.registerServices(
-					interpreter.getQueryEnvironment(),
-					ServiceUtils.getServices(interpreter.getQueryEnvironment(),	Class.forName("org.eclipse.emf.ecoretools.ale.core.interpreter.test.Service"))
-					);
+			ServiceUtils.registerServices(interpreter.getQueryEnvironment(),
+					ServiceUtils.getServices(interpreter.getQueryEnvironment(),
+							Class.forName("org.eclipse.emf.ecoretools.ale.core.interpreter.test.Service")));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/service.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/service.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("foobar:ClassA",res.getValue());
+
+		assertEquals("foobar:ClassA", res.getValue());
 	}
-	
+
 	@Test
-	public void testNewClass(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/newClass.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testNewClass()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/newClass.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertNotNull(res.getValue());
-		assertNotEquals(caller,res.getValue());
+		assertNotEquals(caller, res.getValue());
 		assertTrue(res.getValue() instanceof EObject);
-		assertEquals("NewRuntimeClass",((EObject)res.getValue()).eClass().getName());
+		assertEquals("NewRuntimeClass", ((EObject) res.getValue()).eClass().getName());
 	}
-	
+
 	@Test
-	public void testOppositeAssign(){
+	public void testOppositeAssign()  throws ClosedALEInterpreterException {
 		/*
 		 * Check NewClass to self
 		 */
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/opposite.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/opposite.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertTrue(res.getValue() instanceof EObject);
-		assertNotEquals(caller,res.getValue());
-		assertEquals("NewClass",((EObject)res.getValue()).eClass().getName());
+		assertNotEquals(caller, res.getValue());
+		assertEquals("NewClass", ((EObject) res.getValue()).eClass().getName());
 	}
-	
+
 	@Test
-	public void testOppositeAssign2(){
+	public void testOppositeAssign2()  throws ClosedALEInterpreterException {
 		/*
 		 * Check self to NewClass
 		 */
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/opposite2.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/opposite2.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertTrue(res.getValue() instanceof EObject);
-		assertEquals(caller,res.getValue());
+		assertEquals(caller, res.getValue());
 	}
-	
+
 	@Test
-	public void testOppositeAssign3(){
+	public void testOppositeAssign3()  throws ClosedALEInterpreterException {
 		/*
 		 * Check ClassA to self
 		 */
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/opposite3.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/opposite3.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertTrue(res.getValue() instanceof EObject);
-		assertEquals(caller,res.getValue());
+		assertEquals(caller, res.getValue());
 	}
-	
+
 	@Test
-	public void testOppositeAssign4(){
+	public void testOppositeAssign4()  throws ClosedALEInterpreterException {
 		/*
 		 * Check NewClass to NewClass
 		 */
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/opposite4.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/opposite4.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertNotNull(res.getValue());
-		assertNotEquals(caller,res.getValue());
+		assertNotEquals(caller, res.getValue());
 		assertEquals("obj1", res.getValue());
 	}
-	
+
 	@Test
-	public void testContainsDynamicEContainer(){
+	public void testContainsDynamicEContainer()  throws ClosedALEInterpreterException {
 		/*
 		 * Check eContainer()
 		 */
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/containsDynamicEContainer.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/containsDynamicEContainer.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertNotNull(res.getValue());
 		assertEquals(caller, res.getValue());
 	}
-	
+
 	@Test
-	public void testContainsDoubelAssign(){
+	public void testContainsDoubelAssign()  throws ClosedALEInterpreterException {
 		/*
 		 * Check double assignment
 		 */
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/containsDoubleAssign.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/containsDoubleAssign.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertNull(res.getValue());
 	}
-	
+
 	@Test
-	public void testContainsSelfEContainer(){
+	public void testContainsSelfEContainer()  throws ClosedALEInterpreterException {
 		/*
 		 * Check self.eContainer()
 		 */
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/containsSelfEContainer.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/containsSelfEContainer.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertTrue(res.getValue() instanceof EObject);
-		assertEquals("NewClass", ((EObject)res.getValue()).eClass().getName());
+		assertEquals("NewClass", ((EObject) res.getValue()).eClass().getName());
 	}
-	
+
 	@Test
-	public void testContainsEContents(){
+	public void testContainsEContents()  throws ClosedALEInterpreterException {
 		/*
 		 * Check self.eContent()
 		 */
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/containsEContents.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/containsEContents.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		Object value = res.getValue();
 		assertTrue(value instanceof List);
-		assertEquals(1,((List<?>)value).size());
-		
-		Object contained = ((List<?>)value).get(0);
+		assertEquals(1, ((List<?>) value).size());
+
+		Object contained = ((List<?>) value).get(0);
 		assertTrue(contained instanceof EObject);
-		assertEquals("NewClass", ((EObject)contained).eClass().getName());
+		assertEquals("NewClass", ((EObject) contained).eClass().getName());
 	}
-	
+
 	@Test
-	public void testContainsEAllContents(){
+	public void testContainsEAllContents()  throws ClosedALEInterpreterException {
 		/*
 		 * Check self.eAllContent()
 		 */
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/containsEAllContents.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/containsEAllContents.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA2.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		Object value = res.getValue();
 		assertTrue(value instanceof List);
-		assertEquals(4,((List<?>)value).size());
-		
-		Object elem1 = ((List<?>)value).get(0);
-		Object elem2 = ((List<?>)value).get(1);
-		Object elem3 = ((List<?>)value).get(2);
-		Object elem4 = ((List<?>)value).get(3);
-		
+		assertEquals(4, ((List<?>) value).size());
+
+		Object elem1 = ((List<?>) value).get(0);
+		Object elem2 = ((List<?>) value).get(1);
+		Object elem3 = ((List<?>) value).get(2);
+		Object elem4 = ((List<?>) value).get(3);
+
 		assertTrue(elem1 instanceof EObject);
-		assertEquals("ClassA", ((EObject)elem1).eClass().getName());
+		assertEquals("ClassA", ((EObject) elem1).eClass().getName());
 		assertTrue(elem2 instanceof EObject);
-		assertEquals("ClassA", ((EObject)elem2).eClass().getName());
+		assertEquals("ClassA", ((EObject) elem2).eClass().getName());
 		assertTrue(elem3 instanceof EObject);
-		assertEquals("NewClass", ((EObject)elem3).eClass().getName());
+		assertEquals("NewClass", ((EObject) elem3).eClass().getName());
 		assertTrue(elem4 instanceof EObject);
-		assertEquals("ClassA", ((EObject)elem4).eClass().getName());
+		assertEquals("ClassA", ((EObject) elem4).eClass().getName());
 	}
-	
+
 	@Test
-	public void testUniqueAssign(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/unique.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testUniqueAssign()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/unique.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertEquals(1, res.getValue());
 	}
-	
+
 	@Test
-	public void testManyRemove(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/removeDynamic.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testManyRemove()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/removeDynamic.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertEquals(1, res.getValue());
 	}
-	
+
 	@Test
-	public void testInitDynamicAttributeFailure(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/initDynamicAttributeFailure.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testInitDynamicAttributeFailure()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/initDynamicAttributeFailure.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("ClassA",((EObject)res.getValue()).eClass().getName());
+
+		assertEquals("ClassA", ((EObject) res.getValue()).eClass().getName());
 		interpreter.getLogger().diagnosticForHuman();
-		assertEquals("An error occured during initialization of an EObject", interpreter.getLogger().getLog().get(0).getMessage());
+		assertEquals("An error occured during initialization of an EObject",
+				interpreter.getLogger().getLog().get(0).getMessage());
 	}
-	
+
 	@Test
-	public void testECrossRef() {
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/crossRef.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testECrossRef()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/crossRef.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA3.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertTrue(res.getValue() instanceof List);
 		List<?> resValue = (List<?>) res.getValue();
-		assertEquals(1,resValue.size());
-		
+		assertEquals(1, resValue.size());
+
 		EObject elem1 = (EObject) resValue.get(0);
-		assertEquals("ClassA",elem1.eClass().getName());
+		assertEquals("ClassA", elem1.eClass().getName());
 		EStructuralFeature field = elem1.eClass().getEStructuralFeature("field");
-		assertEquals(0,elem1.eGet(field));
-		assertEquals(5,caller.eGet(field));
+		assertEquals(0, elem1.eGet(field));
+		assertEquals(5, caller.eGet(field));
 	}
-	
+
 	@Test
-	public void testECrossRefDynamic() {
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/crossRefDynamic.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testECrossRefDynamic()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/crossRefDynamic.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		EObject arg = interpreter.loadModel("model/ClassA3.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(arg), parsedSemantics);
-		
+
 		assertTrue(res.getValue() instanceof List);
 		List<?> resValue = (List<?>) res.getValue();
-		assertEquals(1,resValue.size());
-		
+		assertEquals(1, resValue.size());
+
 		EObject elem1 = (EObject) resValue.get(0);
-		assertEquals("ClassA",elem1.eClass().getName());
+		assertEquals("ClassA", elem1.eClass().getName());
 		EStructuralFeature field = elem1.eClass().getEStructuralFeature("field");
-		assertEquals(5,elem1.eGet(field));
-		assertEquals(0,caller.eGet(field));
+		assertEquals(5, elem1.eGet(field));
+		assertEquals(0, caller.eGet(field));
 	}
-	
+
 	@Test
-	public void testEGet() {
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/eGet.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testEGet()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/eGet.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA3.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(5,res.getValue());
+
+		assertEquals(5, res.getValue());
 	}
-	
+
 	@Test
-	public void testEGetDynamic() {
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/eGetDynamic.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testEGetDynamic()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/eGetDynamic.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA3.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(123,res.getValue());
+
+		assertEquals(123, res.getValue());
 	}
-	
+
 	@Test
-	public void testSelectedCall() {
-		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/eval/selectedCallMain.implem","input/eval/selectedCall1.implem","input/eval/selectedCall2.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testSelectedCall()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"), Arrays.asList("input/eval/selectedCallMain.implem",
+				"input/eval/selectedCall1.implem", "input/eval/selectedCall2.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/B.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals("test.selectedCallOne.A.foo()\ntest.selectedCallOne.B.foo()\ntest.selectedCallTwo.A.foo()\ntest.selectedCallTwo.B.foo()",res.getValue());
+
+		assertEquals(
+				"test.selectedCallOne.A.foo()\ntest.selectedCallOne.B.foo()\ntest.selectedCallTwo.A.foo()\ntest.selectedCallTwo.B.foo()",
+				res.getValue());
 	}
-	
+
 	@Test
-	public void testSwitch() {
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/switch.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testSwitch()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/switch.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(2,res.getValue());
+
+		assertEquals(2, res.getValue());
 	}
-	
+
 	@Test
-	public void testSwitchEClassGuard() {
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/switchEClassGuard.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testSwitchEClassGuard()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/switchEClassGuard.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(2,res.getValue());
+
+		assertEquals(2, res.getValue());
 	}
-	
+
 	@Test
-	public void testSwitchBooleanGuard() {
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/switchBooleanGuard.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testSwitchBooleanGuard()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/switchBooleanGuard.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(2,res.getValue());
+
+		assertEquals(2, res.getValue());
 	}
-	
+
 	@Test
-	public void testSwitchDefault() {
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/switchDefault.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testSwitchDefault()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/switchDefault.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(1,res.getValue());
+
+		assertEquals(1, res.getValue());
 	}
-	
+
 	@Test
-	public void testSwitchBoth() {
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/switchBoth.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testSwitchBoth()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/switchBoth.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(4,res.getValue());
+
+		assertEquals(4, res.getValue());
 	}
-	
+
 	@Test
-	public void testSwitchVarRef() {
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/switchVarRef.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testSwitchVarRef()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/switchVarRef.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(3,res.getValue());
+
+		assertEquals(3, res.getValue());
 	}
-	
+
 	@Test
-	public void testNoMain(){
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/nomain.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testNoMain()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/nomain.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(null,res.getValue());
+
+		assertEquals(null, res.getValue());
 		assertEquals("No operation with @main found", res.getDiagnostic().getMessage());
 	}
-	
+
 	@Test
-	public void testListener(){
+	public void testListener()  throws ClosedALEInterpreterException {
 		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(outContent));
 
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/attributeCall.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"), Arrays.asList("input/eval/attributeCall.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
-		
+
 		interpreter.addListener(new ServiceCallListener() {
 			@Override
 			public void preCall(IService service, Object[] arguments) {
-				System.out.println("In:"+service.getName());
+				System.out.println("In:" + service.getName());
 			}
-			
+
 			@Override
 			public void postCall(IService service, Object[] arguments, Object result) {
-				System.out.println("Out:"+service.getName());
+				System.out.println("Out:" + service.getName());
 			}
 		});
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(3,res.getValue());
+
+		assertEquals(3, res.getValue());
 		assertEquals("In:aqlFeatureAccess\nOut:aqlFeatureAccess\nIn:getSelf\nOut:getSelf\n", outContent.toString());
-		
+
 		System.setOut(null);
 	}
-	
+
 	@Test
-	public void testAssignDynamicCollectionAttribute() {
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/assignDynamicCollectionAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAssignDynamicCollectionAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/assignDynamicCollectionAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertEquals("1 1", res.getValue());
 	}
-	
+
 	@Test
-	public void testAssignCollectionAttribute() {
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/assignCollectionAttribute.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testAssignCollectionAttribute()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/assignCollectionAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertEquals("1 ClassA", res.getValue());
 	}
-	
+
 	@Test
-	public void testInsertLocalVariable() {
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/insertLocalVariable.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testInsertLocalVariable()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/insertLocalVariable.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertTrue(res.getValue() instanceof List);
-		assertEquals(3, ((List)res.getValue()).size());
-		assertEquals(caller.eClass(), ((EObject)((List)res.getValue()).get(0)).eClass());
-		assertEquals(caller.eClass(), ((EObject)((List)res.getValue()).get(1)).eClass());
-		assertEquals(caller.eClass(), ((EObject)((List)res.getValue()).get(2)).eClass());
+		assertEquals(3, ((List) res.getValue()).size());
+		assertEquals(caller.eClass(), ((EObject) ((List) res.getValue()).get(0)).eClass());
+		assertEquals(caller.eClass(), ((EObject) ((List) res.getValue()).get(1)).eClass());
+		assertEquals(caller.eClass(), ((EObject) ((List) res.getValue()).get(2)).eClass());
 	}
-	
+
 	@Test
-	public void testRemoveLocalVariable() {
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/removeLocalVariable.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testRemoveLocalVariable()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/removeLocalVariable.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
+
 		assertTrue(res.getValue() instanceof List);
-		assertEquals(2, ((List)res.getValue()).size());
-		assertEquals(caller.eClass(), ((EObject)((List)res.getValue()).get(0)).eClass());
-		assertEquals(caller.eClass(), ((EObject)((List)res.getValue()).get(1)).eClass());
+		assertEquals(2, ((List) res.getValue()).size());
+		assertEquals(caller.eClass(), ((EObject) ((List) res.getValue()).get(0)).eClass());
+		assertEquals(caller.eClass(), ((EObject) ((List) res.getValue()).get(1)).eClass());
 	}
-	
+
 	@Test
-	public void testCallMissingMethod() {
-		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),Arrays.asList("input/eval/callMissingMethod.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+	public void testCallMissingMethod()  throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/callMissingMethod.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
-		
-		assertEquals(Diagnostic.WARNING, res.getDiagnostic().getSeverity());	
+
+		assertEquals(Diagnostic.WARNING, res.getDiagnostic().getSeverity());
 		assertEquals("An error occured during evaluation of a query", res.getDiagnostic().getMessage());
 	}
 }

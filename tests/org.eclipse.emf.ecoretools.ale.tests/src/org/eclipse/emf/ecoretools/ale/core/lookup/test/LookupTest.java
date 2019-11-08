@@ -12,6 +12,7 @@ package org.eclipse.emf.ecoretools.ale.core.lookup.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,11 +21,13 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
+import org.eclipse.emf.ecoretools.ale.ALEInterpreter.ClosedALEInterpreterException;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,9 +39,16 @@ public class LookupTest {
 	public void setup() {
 		interpreter = new ALEInterpreter();
 	}
+
+	@After
+	public void release() throws IOException {
+		if (interpreter != null) {
+			interpreter.close();
+		}
+	}
 	
 	@Test
-	public void testInherits() {
+	public void testInherits()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inherits.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/A.xmi").getContents().get(0);
@@ -48,7 +58,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testInheritsWithParam() {
+	public void testInheritsWithParam()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inheritsWithParam.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/A.xmi").getContents().get(0);
@@ -58,7 +68,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testExtends() {
+	public void testExtends()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inherits.implem","input/lookup/extends.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/A.xmi").getContents().get(0);
@@ -68,7 +78,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testMultiInherits() {
+	public void testMultiInherits()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/multi.ecore"),Arrays.asList("input/lookup/multi.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/C.xmi").getContents().get(0);
@@ -78,7 +88,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testDoubleMultiInherits() {
+	public void testDoubleMultiInherits()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/doubleMulti.ecore"),Arrays.asList("input/lookup/doubleMulti.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("C");
@@ -88,7 +98,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testSimple() {
+	public void testSimple()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/simple.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("A");
@@ -98,7 +108,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testImplicitInherit() {
+	public void testImplicitInherit()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/simple.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("B");
@@ -108,7 +118,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testImplicitExtend() {
+	public void testImplicitExtend()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/implicitExtend.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("B");
@@ -118,7 +128,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testExplicitExtend() {
+	public void testExplicitExtend()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/explicitExtend.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("B");
@@ -128,7 +138,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testClosestExtend() {
+	public void testClosestExtend()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/implicitExtend.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("D");
@@ -138,7 +148,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testSimpleLowerType() {
+	public void testSimpleLowerType()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/simpleLowerType.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("A");
@@ -148,7 +158,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testSimpleLowerType2() {
+	public void testSimpleLowerType2()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/simpleLowerType.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("A");
@@ -158,7 +168,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testLowerType() {
+	public void testLowerType() throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/lowerType.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("B");
@@ -168,7 +178,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testLowerType2() {
+	public void testLowerType2()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/lowerType.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("B");
@@ -178,7 +188,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testLowerType3() {
+	public void testLowerType3()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/lowerType.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("A");
@@ -188,7 +198,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testLowerTypeInverted() {
+	public void testLowerTypeInverted()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/lowerTypeInverted.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("B");
@@ -198,7 +208,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testLowerTypeInverted2() {
+	public void testLowerTypeInverted2()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/lowerTypeInverted.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("B");
@@ -208,7 +218,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testInheritGetter() {
+	public void testInheritGetter()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inheritGetter.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/B.xmi").getContents().get(0);
@@ -218,7 +228,7 @@ public class LookupTest {
 	}
 	
 	@Test
-	public void testInheritSetter() {
+	public void testInheritSetter()  throws ClosedALEInterpreterException {
 		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inheritSetter.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/B.xmi").getContents().get(0);
