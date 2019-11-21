@@ -1,0 +1,17 @@
+behavior test.containattributes;
+
+open class Mix {
+
+	@main
+	def void main() {
+		Integer localInt;
+		Boolean localBool;
+		String localString;
+		Sequence(String) localStrings;
+		
+		self.int := localInt;
+		self.bool := localBool;
+		self.string := localString;
+		self.strings := localStrings;
+	}
+}

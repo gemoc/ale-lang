@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock;
@@ -118,9 +119,31 @@ public class MethodEvaluator {
 	}
 	
 	public Object caseVariableDeclaration(VariableDeclaration varDecl) throws CriticalFailure {
-		Object value = aqlEval(varDecl.getInitialValue());
+		Object value;
+		if (varDecl.getInitialValue() == null) {
+			value = defaultValueFor(varDecl).orElse(null);
+		}
+		else {
+			value = aqlEval(varDecl.getInitialValue());
+		}
 		variablesStack.peek().put(varDecl.getName(), value);
 		return null;
+	}
+	
+	private Optional<Object> defaultValueFor(VariableDeclaration varDecl) {
+		if (varDecl.getType() == EcorePackage.eINSTANCE.getEString()) {
+			return Optional.of("");
+		}
+		if (varDecl.getType() == EcorePackage.eINSTANCE.getEInt()) {
+			return Optional.of(0);
+		}
+		if (varDecl.getType() == EcorePackage.eINSTANCE.getEEList()) {
+			return Optional.of(new BasicEList<>());
+		}
+		if (varDecl.getType() == EcorePackage.eINSTANCE.getEBoolean()) {
+			return Optional.of(false);
+		}
+		return Optional.empty();
 	}
 	
 	public Object caseVariableAssignment(VariableAssignment varAssign) throws CriticalFailure {
