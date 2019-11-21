@@ -507,6 +507,9 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		if(validRes != null) {
 			Set<IType> types = validRes.getPossibleTypes(exp);
 			for (IType type : types) {
+				// FIXME [Refactor] Here we gather the generic type of a collection.
+				//					I am pretty sure this is needed/duplicated elsewhere
+				//					so we should consider putting this at a common place
 				if(type instanceof AbstractCollectionType) {
 					res.add(((AbstractCollectionType)type).getCollectionType());
 				}
