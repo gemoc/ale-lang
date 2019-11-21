@@ -17,14 +17,19 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.acceleo.query.runtime.IService;
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
+import org.eclipse.acceleo.query.validation.type.SequenceType;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -53,7 +58,7 @@ public class EvalTest {
 	}
 
 	@After
-	public void release() throws IOException {
+	public void release() {
 		if (interpreter != null) {
 			interpreter.close();
 		}
@@ -890,6 +895,20 @@ public class EvalTest {
 		interpreter.getLogger().diagnosticForHuman();
 		assertEquals("An error occured during initialization of an EObject",
 				interpreter.getLogger().getLog().get(0).getMessage());
+	}
+	
+	@Test
+	public void testInitLocalVariable() throws ClosedALEInterpreterException {
+		Dsl environment = new Dsl(Arrays.asList("model/attributesOfDifferentTypes.ecore"), Arrays.asList("input/eval/initLocalVariables.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/Mix.xmi").getContents().get(0);
+		interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		
+		assertEquals("int should be initialized to 0", 0, caller.eGet(caller.eClass().getEStructuralFeature("int")));
+		assertEquals("bool should be initialized to false", false, caller.eGet(caller.eClass().getEStructuralFeature("bool")));
+		assertEquals("string should be initialized to an empty string", "", caller.eGet(caller.eClass().getEStructuralFeature("string")));
+		assertEquals("sequence should be initialized to an empty sequence", new BasicEList<>(), caller.eGet(caller.eClass().getEStructuralFeature("strings")));
 	}
 
 	@Test

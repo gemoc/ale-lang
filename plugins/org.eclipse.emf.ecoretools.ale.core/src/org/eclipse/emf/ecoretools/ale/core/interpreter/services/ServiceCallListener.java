@@ -11,11 +11,19 @@
 package org.eclipse.emf.ecoretools.ale.core.interpreter.services;
 
 import org.eclipse.acceleo.query.runtime.IService;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.ALEEngine;
 
+/**
+ * Listener called by the {@link ALEEngine} when an AQL service is invoked. 
+ */
 public interface ServiceCallListener {
 	
-	public void preCall(IService service, Object[] arguments);
+	default void preCall(IService service, Object[] arguments) {
+		// does nothing by default
+	}
 	
-	public void postCall(IService service, Object[] arguments, Object result);
+	default void postCall(IService service, Object[] arguments, Object result) {
+		// does nothing by default
+	}
 	
 }
