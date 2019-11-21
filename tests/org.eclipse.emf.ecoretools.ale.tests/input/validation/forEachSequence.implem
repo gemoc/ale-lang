@@ -1,9 +1,31 @@
 behavior test.foreach;
 open class EClass {
+
+	Sequence(Integer) numbers;
+
 	def void op(){
+	
+		// Variable
+	
 		Sequence(String) local := Sequence{'val1','val2'};
 		for(i in local){
 			String s := i;
+		}
+		
+		// Sequence in extension
+		
+		for (name in Sequence{'John', 'Smith'}) {
+			String userName := name;
+			userName.log();
+		}
+		
+		// Feature
+		
+		self.numbers := Sequence{1, 2, 3};
+		Integer sum := 0;
+		
+		for (number in self.numbers) {
+			sum += number;
 		}
 	}
 }

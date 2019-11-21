@@ -34,6 +34,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.DynamicFeatureRegistry;
+import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
+import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 
 //FIXME: copy past from EObjectServices.EObjectFeatureAccess because it's private
@@ -130,13 +132,8 @@ public class DynamicEObjectFeatureAccess extends JavaMethodService {
 				if (feature == null) {
 					result.add(services.nothing(UNKNOWN_FEATURE, featureName, eClass.getName()));
 				} else {
-					final EClassifierType featureBasicType = new EClassifierType(queryEnvironment,
-							feature.getEType());
-					if (feature.isMany()) {
-						result.add(new SequenceType(queryEnvironment, featureBasicType));
-					} else {
-						result.add(featureBasicType);
-					}
+					IConvertType convert = new ConvertType(queryEnvironment);
+					result.add(convert.toAQL(feature));
 				}
 			}
 		}

@@ -1146,11 +1146,12 @@ public class TypeValidatorTest {
 	}
 	
 	/*
-	 * Test ForEach expression is a Collection
+	 * Test that for-each loops accept integer ranges:
+	 * 		for (i in [0..10])
 	 */
 	@Test
-	public void testForEachCollection() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachCollection.implem"));
+	public void testForEachIntegerRange() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachIntRange.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1191,7 +1192,7 @@ public class TypeValidatorTest {
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
-		assertEquals(0, msg.size());
+		assertEquals("should have no errors but was: " + msg, 0, msg.size());
 	}
 	
 	/*
