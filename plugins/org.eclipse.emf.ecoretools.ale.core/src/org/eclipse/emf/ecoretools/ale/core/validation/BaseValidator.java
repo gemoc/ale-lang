@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.EvalEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
+import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock;
@@ -92,9 +93,15 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	IQueryEnvironment qryEnv;
 	List<IValidator> validators;
 	
+	/**
+	 * Convert EMF types to AQL ones
+	 */
+	private IConvertType convert;
+	
 	public BaseValidator(IQueryEnvironment qryEnv, List<IValidator> validators) {
 		this.qryEnv = qryEnv;
 		this.expValidator = new AstValidator(new ValidationServices(qryEnv));
+		this.convert = new ConvertType(qryEnv);
 		
 		this.validators = new ArrayList<>();
 		validators.forEach(validator -> {
@@ -217,8 +224,8 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			for (EParameter param : mtd.getOperationRef().getEParameters()) {
 				Set<IType> previousDeclaration = methodScope.get(param.getName());
 				if(previousDeclaration == null) {
-					EClassifierType type = new EClassifierType(qryEnv, param.getEType());
-					methodScope.put(param.getName(), Sets.newHashSet(type));
+					IType aqlParameterType = convert.toAQL(param);
+					methodScope.put(param.getName(), Sets.newHashSet(aqlParameterType));
 				}
 			}
 		}
