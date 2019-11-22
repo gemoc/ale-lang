@@ -25,11 +25,12 @@ import org.eclipse.acceleo.query.runtime.IService;
 import org.eclipse.acceleo.query.runtime.IValidationResult;
 import org.eclipse.acceleo.query.runtime.impl.AbstractService;
 import org.eclipse.acceleo.query.runtime.impl.EOperationService;
-import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
 import org.eclipse.acceleo.query.runtime.impl.ValidationServices;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
+import org.eclipse.acceleo.query.validation.type.NothingType;
 import org.eclipse.acceleo.query.validation.type.SequenceType;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
@@ -41,6 +42,8 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.EvalEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.ExpressionEvaluationEngine;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.MethodEvaluator;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ModelBuilder;
+import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
+import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
@@ -95,38 +98,36 @@ public class EvalBodyService extends AbstractService {
 	
 	@Override
 	public List<IType> getParameterTypes(IReadOnlyQueryEnvironment queryEnvironment) {
-		List<IType> result = new ArrayList<IType>();
-			//TODO: take care of qualified name & EClass not found
-			if(implem.eContainer() instanceof ExtendedClass) {
-				EClass containingClass = ((ExtendedClass)implem.eContainer()).getBaseClass();
-				result.add(new EClassifierType(queryEnvironment, containingClass));
+		List<IType> result = new ArrayList<>();
+		IConvertType convert = new ConvertType(queryEnvironment);
+		
+		//TODO: take care of qualified name & EClass not found
+		if(implem.eContainer() instanceof ExtendedClass) {
+			EClass containingClass = ((ExtendedClass)implem.eContainer()).getBaseClass();
+			result.add(new EClassifierType(queryEnvironment, containingClass));
+		}
+		else if (implem.eContainer() instanceof RuntimeClass) {
+			RuntimeClass container = ((RuntimeClass)implem.eContainer());
+			String pkgName = ((ModelUnit)container.eContainer()).getName();
+			String simpleName = container.getName();
+			String fullName = pkgName+"."+simpleName;
+			Collection<EClassifier> candidates = queryEnvironment.getEPackageProvider().getTypes(simpleName); //TODO: move to constructor
+			Optional<EClassifier> containingClass =
+				candidates
+				.stream()
+				.filter(cls -> ModelBuilder.getQualifiedName(cls).equals(fullName))
+				.findFirst();
+			if(containingClass.isPresent()) {
+				result.add(new EClassifierType(queryEnvironment, containingClass.get()));
 			}
-			else if (implem.eContainer() instanceof RuntimeClass) {
-				RuntimeClass container = ((RuntimeClass)implem.eContainer());
-				String pkgName = ((ModelUnit)container.eContainer()).getName();
-				String simpleName = container.getName();
-				String fullName = pkgName+"."+simpleName;
-				Collection<EClassifier> candidates = queryEnvironment.getEPackageProvider().getTypes(simpleName); //TODO: move to constructor
-				Optional<EClassifier> containingClass =
-					candidates
-					.stream()
-					.filter(cls -> ModelBuilder.getQualifiedName(cls).equals(fullName))
-					.findFirst();
-				if(containingClass.isPresent()) {
-					result.add(new EClassifierType(queryEnvironment, containingClass.get()));
-				}
+		}
+		
+		if(implem.getOperationRef() != null) {
+			for (EParameter parameter : ((Method)implem).getOperationRef().getEParameters()) {
+				IType aqlParameterType = convert.toAQL(parameter);
+				result.add(aqlParameterType);
 			}
-			
-			if(implem.getOperationRef() != null) {
-				for (EParameter parameter : ((Method)implem).getOperationRef().getEParameters()) {
-					EClassifierType rawType = new EClassifierType(queryEnvironment, parameter.getEType());
-					if (parameter.isMany()) {
-						result.add(new SequenceType(queryEnvironment, rawType));
-					} else {
-						result.add(rawType);
-					}
-				}
-			}
+		}
 		return result;
 	}
 	

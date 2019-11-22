@@ -14,7 +14,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
-import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
+import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.acceleo.query.validation.type.NothingType;
@@ -28,9 +28,9 @@ import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
 
 public final class ConvertType implements IConvertType {
 	
-	private final IQueryEnvironment queryEnvironment;
+	private final IReadOnlyQueryEnvironment queryEnvironment;
 	
-	public ConvertType(IQueryEnvironment queryEnvironment) {
+	public ConvertType(IReadOnlyQueryEnvironment queryEnvironment) {
 		this.queryEnvironment = requireNonNull(queryEnvironment, "queryEnvironment");
 	}
 	
