@@ -1,0 +1,14 @@
+behavior test.foreach;
+open class EClass {
+
+	0..* String stringNumbers := Sequence{'1', '2', '3'};
+
+	@main
+	def void main(){
+		Sequence(Integer) numbers := self.asInt(self.stringNumbers);
+	}
+	
+	def Sequence(Integer) asInt(Sequence(String) numbers) {
+		result := numbers->collect(number | number.toInteger());
+	}
+}

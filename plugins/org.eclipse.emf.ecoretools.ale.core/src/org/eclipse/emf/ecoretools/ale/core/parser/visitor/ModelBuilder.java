@@ -25,21 +25,16 @@ import org.eclipse.acceleo.query.ast.IntegerLiteral;
 import org.eclipse.acceleo.query.ast.Let;
 import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
 import org.eclipse.acceleo.query.ast.TypeLiteral;
-import org.eclipse.acceleo.query.ast.impl.CollectionTypeLiteralImpl;
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.impl.QueryBuilderEngine;
 import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
-import org.eclipse.emf.common.util.BasicDiagnostic;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
@@ -47,7 +42,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.ETypeParameter;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -84,7 +78,6 @@ import org.eclipse.emf.ecoretools.ale.implementation.While;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 /**
  * Helper to create parts of Implementation model & to resolve types.
@@ -561,22 +554,8 @@ public class ModelBuilder {
 			EvaluationResult evaluationResult = aqlEngine.eval(astResult, Maps.newHashMap());
 			Object result = evaluationResult.getResult();
 			
-			if(result == java.lang.String.class)
-				return EcorePackage.eINSTANCE.getEString();
-			else if(result == java.lang.Integer.class)
-				return EcorePackage.eINSTANCE.getEInt();
-			else if(result == java.lang.Double.class)
-				return EcorePackage.eINSTANCE.getEDouble();
-			else if(result == java.lang.Boolean.class)
-				return EcorePackage.eINSTANCE.getEBoolean();
-			else if(result == List.class)
-				return EcorePackage.eINSTANCE.getEEList();
-			else if(result == Set.class)
-				return EcorePackage.eINSTANCE.getEEList();
-			else if(result instanceof EClassifier) {
-				return (EClassifier) result;
-			}
-			//TODO: else error
+			return toEMF(result)
+					.orElseGet(() -> resolve(type.getText()));
 		}
 		
 		return resolve(type.getText()); //default
@@ -585,29 +564,13 @@ public class ModelBuilder {
 	// TODO [Refactor] Can this method be made private safely?
 	public EClassifier resolveParameterType(RTypeContext type) {
 		AstResult astResult = builder.build(type.getText());
-		if(astResult.getAst() instanceof CollectionTypeLiteralImpl ) {
-			CollectionTypeLiteralImpl collectionType = (CollectionTypeLiteralImpl) astResult.getAst();
+		if(astResult.getAst() instanceof CollectionTypeLiteral) {
+			CollectionTypeLiteral collectionType = (CollectionTypeLiteral) astResult.getAst();
 			TypeLiteral paramTypeLiteral = collectionType.getElementType();
 			Object paramType = paramTypeLiteral.getValue();
 			
-			if(paramType == java.lang.String.class)
-				return EcorePackage.eINSTANCE.getEString();
-			else if(paramType == java.lang.Integer.class)
-				return EcorePackage.eINSTANCE.getEInt();
-			else if(paramType == java.lang.Double.class)
-				return EcorePackage.eINSTANCE.getEDouble();
-			else if(paramType == java.lang.Boolean.class)
-				return EcorePackage.eINSTANCE.getEBoolean();
-			else if(paramType == List.class)
-				return EcorePackage.eINSTANCE.getEEList();
-			else if(paramType == Set.class)
-				return EcorePackage.eINSTANCE.getEEList();
-			else if(paramType instanceof EClassifier) {
-				return (EClassifier) paramType;
-			}
-
+			return toEMF(paramType).orElse(null);
 		}
-		
 		return null;
 	}
 	
@@ -620,11 +583,16 @@ public class ModelBuilder {
 				EClassifier classifier;
 				
 				if (collectionTypeLiteral.getElementType().getValue() instanceof Class<?>) {
-					classifier = EcoreFactory.eINSTANCE.createEDataType();
-					classifier.setInstanceClass((Class<?>) collectionTypeLiteral.getElementType().getValue());
-					classifier.setName(classifier.getInstanceClass().getSimpleName());
-					classifier.setInstanceTypeName(classifier.getInstanceClass().getName());
-					classifier.setInstanceClassName(classifier.getInstanceClass().getName());
+					Class<?> clazz = (Class<?>) collectionTypeLiteral.getElementType().getValue();
+					
+					classifier = toEMF(clazz).orElse(null);
+					if (classifier == null) {
+						classifier = EcoreFactory.eINSTANCE.createEDataType();
+						classifier.setInstanceClass((Class<?>) collectionTypeLiteral.getElementType().getValue());
+						classifier.setName(classifier.getInstanceClass().getSimpleName());
+						classifier.setInstanceTypeName(classifier.getInstanceClass().getName());
+						classifier.setInstanceClassName(classifier.getInstanceClass().getName());
+					}
 				}
 				else if (collectionTypeLiteral.getElementType().getValue() instanceof EClass) {
 					classifier = (EClass) collectionTypeLiteral.getElementType().getValue();
@@ -640,7 +608,17 @@ public class ModelBuilder {
 		}
 		return Optional.empty();
 	}
-		
+	
+	private Optional<EClassifier> toEMF(Object type) {
+		if(type == java.lang.String.class)			return Optional.of(EcorePackage.eINSTANCE.getEString());
+		else if(type == java.lang.Integer.class)	return Optional.of(EcorePackage.eINSTANCE.getEInt());
+		else if(type == java.lang.Double.class)		return Optional.of(EcorePackage.eINSTANCE.getEDouble());
+		else if(type == java.lang.Boolean.class)	return Optional.of(EcorePackage.eINSTANCE.getEBoolean());
+		else if(type == List.class)					return Optional.of(EcorePackage.eINSTANCE.getEEList());
+		else if(type == Set.class)					return Optional.of(EcorePackage.eINSTANCE.getEEList());
+		else if(type instanceof EClassifier)		return Optional.of((EClassifier) type);
+		else										return Optional.empty();
+	}
 	
 	public static String getQualifiedName(EClassifier cls) {
 		

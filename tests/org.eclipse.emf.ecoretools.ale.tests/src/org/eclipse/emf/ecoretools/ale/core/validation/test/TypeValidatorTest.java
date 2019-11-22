@@ -959,8 +959,8 @@ public class TypeValidatorTest {
 		assertEquals(4, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 75, 77, "[java.lang.Integer] cannot be added to [ecore::EString] (expected [ecore::EString])", msg.get(0));
 		assertMsgEquals(ValidationMessageLevel.ERROR, 111, 117, "[ecore::EBoolean] does not support the '+=' operator", msg.get(1));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 179, 187, "[java.lang.String] cannot be added to [Collection(java.lang.Integer)] (expected [Collection(java.lang.Integer),java.lang.Integer])", msg.get(2));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 201, 222, "[Collection(java.lang.Boolean)] cannot be added to [Collection(java.lang.Integer)] (expected [Collection(java.lang.Integer),java.lang.Integer])", msg.get(3));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 179, 187, "[java.lang.String] cannot be added to [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(2));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 201, 222, "[Collection(java.lang.Boolean)] cannot be added to [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(3));
 	}
 	
 	/**
@@ -993,8 +993,8 @@ public class TypeValidatorTest {
 		assertEquals(4, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 75, 79, "[java.lang.String] cannot be removed from [ecore::EInt] (expected [ecore::EInt])", msg.get(0));
 		assertMsgEquals(ValidationMessageLevel.ERROR, 113, 119, "[ecore::EBoolean] does not support the '-=' operator", msg.get(1));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 181, 189, "[java.lang.String] cannot be removed from [Collection(java.lang.Integer)] (expected [Collection(java.lang.Integer),java.lang.Integer])", msg.get(2));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 203, 224, "[Collection(java.lang.Boolean)] cannot be removed from [Collection(java.lang.Integer)] (expected [Collection(java.lang.Integer),java.lang.Integer])", msg.get(3));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 181, 189, "[java.lang.String] cannot be removed from [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(2));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 203, 224, "[Collection(java.lang.Boolean)] cannot be removed from [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(3));
 	}
 	
 	@Test
@@ -1702,6 +1702,21 @@ public class TypeValidatorTest {
 		
 		assertEquals(1, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 110, 132, "Type mismatch: cannot assign [ecore::EClass] to [Collection(ecore::EClass)]", msg.get(0));
+	}
+	
+	/**
+	 * Test that an operation can take a sequence as parameter and use it freely
+	 */
+	@Test
+	public void testCallMethodTakingASequence() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/callMethodTakingSequence.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals("no error was expected but got: " + msg, 0, msg.size());
 	}
 	
 
