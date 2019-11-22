@@ -107,10 +107,16 @@ public class ModelBuilder {
 		
 		String name;
 		EClassifier type;
+		EGenericType genericType;
 		
 		public Parameter(String name, EClassifier type) {
+			this(name, type, null);
+		}
+		
+		public Parameter(String name, EClassifier type, EGenericType genericType) {
 			this.name = name;
 			this.type = type;
+			this.genericType = genericType;
 		}
 		
 		public String getName() {
@@ -119,6 +125,10 @@ public class ModelBuilder {
 		
 		public EClassifier getType() {
 			return type;
+		}
+		
+		public Optional<EGenericType> getGenericType() {
+			return Optional.ofNullable(genericType);
 		}
 	}
 	
@@ -148,6 +158,9 @@ public class ModelBuilder {
 			EParameter opParam = ecoreFactory.createEParameter();
 			opParam.setName(p.getName());
 			opParam.setEType(p.getType());
+			p.getGenericType()
+			 .ifPresent(t -> opParam.getEGenericType().getETypeArguments().add(t));
+			
 			operation.getEParameters().add(opParam);
 		});
 		
@@ -183,7 +196,10 @@ public class ModelBuilder {
 	
 	
 	public Parameter buildParameter(RTypeContext type, String name) {
-		return new Parameter(name, resolve(type));
+		EClassifier classifier = resolve(type);
+		EGenericType genericType = resolveGenericTypeParameter(classifier, type.getText()).orElse(null);
+		
+		return new Parameter(name, classifier, genericType);
 	}
 	
 	public Attribute buildAttribute(EClass fragment, String name, RExpressionContext exp, RTypeContext type, int lowerBound, int upperBound, boolean isContainment, boolean isUnique, String opposite, ParseResult<ModelUnit> parseRes) {
