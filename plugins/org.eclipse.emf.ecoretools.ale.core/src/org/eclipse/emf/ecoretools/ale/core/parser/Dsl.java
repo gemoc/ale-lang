@@ -27,6 +27,7 @@ public class Dsl {
 	String sourceFile;
 	List<String> allSyntaxes = new ArrayList<>();
 	List<String> allSemantics = new ArrayList<>();
+	private Properties dslProp;
 	
 	public Dsl(List<String> syntaxes, List<String> semantics) {
 		this.allSyntaxes.addAll(syntaxes);
@@ -40,17 +41,17 @@ public class Dsl {
 	
 	public Dsl(InputStream input) {
 		
-		Properties dslProp = new Properties();
+		this.dslProp = new Properties();
 		try {
-			dslProp.load(input);
+			getDslProp().load(input);
 			input.close();
 		} catch (IOException e) {
 			// TODO Throw the exception: it cannot be handled here
 			e.printStackTrace();
 		}
 		
-		String allSyntaxes = (String) dslProp.get("syntax");
-		String allBehaviors = (String) dslProp.get("behavior");
+		String allSyntaxes = (String) getDslProp().get("syntax");
+		String allBehaviors = (String) getDslProp().get("behavior");
 		
 		if(allSyntaxes != null && allBehaviors != null) {
 			String[] syntaxes = allSyntaxes.split(",");
@@ -94,4 +95,14 @@ public class Dsl {
 	protected List<String> trim(String[] uris) {
 		return Arrays.asList(uris).stream().map(s->s.trim()).collect(toList());
 	}
+
+	public Properties getDslProp() {
+		return dslProp;
+	}
+
+	public String getSourceFile() {
+		return sourceFile;
+	}
+	
+	
 }
