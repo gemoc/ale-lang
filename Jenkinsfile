@@ -24,10 +24,21 @@ pipeline {
 				}
 			}
 	 	}
+	 	
+		stage("Build M2 Repo") {
+			steps{
+				// the script eclipse:to-maven is deprecated but seems to work cf. https://maven.apache.org/plugins/maven-eclipse-plugin/to-maven-mojo.html
+				sh "mvn eclipse:to-maven \
+					-Dmaven.repo.local=$WORKSPACE/releng/org.eclipse.emf.ecoretools.ale.updatesite/target/m2 \
+					-DeclipseDir=releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository"
+			}
+		}
 		stage("Archive in Jenkins") {
 			steps {
 				echo "archive artifact"
-				archiveArtifacts 'releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/**, **/screenshots/**'
+				archiveArtifacts "releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/**, \
+					releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/**, \
+					**/screenshots/**"
 			}
 		}
 		stage("Deploy") {
