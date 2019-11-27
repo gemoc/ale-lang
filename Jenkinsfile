@@ -39,7 +39,7 @@ pipeline {
 			steps {
 				echo "archive artifact"
 				archiveArtifacts "releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/**, \
-					releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/**, \
+					releng/org.eclipse.emf.ecoretools.ale.updatesite/target/m2/**, \
 					**/screenshots/**"
 			}
 		}
