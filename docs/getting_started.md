@@ -11,8 +11,19 @@ Install ALE from its update site
 
 The recommended package is [Eclipse IDE for Java and DSL developers](https://www.eclipse.org/downloads/packages/release/2019-09/r/eclipse-ide-java-and-dsl-developers):
 - [https://www.eclipse.org/downloads/packages/release/2019-09/r/eclipse-ide-java-and-dsl-developers](https://www.eclipse.org/downloads/packages/release/2019-09/r/eclipse-ide-java-and-dsl-developers)
-  
-2 - Install ALE
+
+2 - Install Sirius 6.0.0
+------------------------
+
+1. Open Eclipse IDE
+2. Go to `Help > Install New Software...`
+3. Copy Sirius 6.0.0 [update site's URL](http://download.eclipse.org/sirius/updates/releases/6.0.0/photon/) in the `Work with` textbox
+   * [http://download.eclipse.org/sirius/updates/releases/6.0.0/photon/](http://download.eclipse.org/sirius/updates/releases/6.0.0/photon/)
+4. Hit `Enter` and wait for the list to load
+5. Check `Sirius Core Runtime`
+6. Click `Next` and `Finish`
+ 
+3 - Install ALE
 ---------------
 
 1. Open Eclipse IDE
