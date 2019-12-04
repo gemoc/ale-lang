@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
+import org.eclipse.emf.ecoretools.ale.ALEInterpreter.ClosedALEInterpreterException;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 
@@ -27,25 +28,34 @@ public class Main {
 		String dslFile = "logo-standalone.dsl";
 		String modelFile = "../logo.example/data/LogoProgram.xmi";
 		
-		/*
-		 * Init eval environment
-		 */
-		ALEInterpreter interpreter = new ALEInterpreter();
-		try {
+		try (ALEInterpreter interpreter = new ALEInterpreter()) {
+			/*
+			 * Initialize evaluation environment
+			 */
 			ServiceUtils.registerServices(
 					interpreter.getQueryEnvironment(),
 					ServiceUtils.getServices(interpreter.getQueryEnvironment(),	Class.forName("logo.example.service.Display"))
-					);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		/*
-		 * Eval
-		 */
-		try {
-			IEvaluationResult result = interpreter.eval(modelFile, new ArrayList(), new Dsl(dslFile));
+			);
+			
+			/*
+			 * Evaluate the program
+			 */
+			IEvaluationResult result = interpreter.eval(modelFile, new ArrayList<>(), new Dsl(dslFile));
 			interpreter.getLogger().diagnosticForHuman();
-		} catch (FileNotFoundException e) {
+		} 
+		catch (ClassNotFoundException e) {
+			System.err.println("Cannot execute ALE; the following class cannot be found: " + e.getMessage());
+			System.err.println("Please make sure the logo.example project is in the classpath.\n");
+			e.printStackTrace();
+		} 
+		catch (FileNotFoundException e) {
+			System.err.println("Cannot execute ALE; the following file cannot be found: " + e.getMessage());
+			System.err.println("Please make sure all the required files at the right location.\n");
+			e.printStackTrace();
+		} 
+		catch (ClosedALEInterpreterException e) {
+			// Should never happen
+			System.err.println("Cannot execute ALE; the interpreter and its related resources have already been closed.\n");
 			e.printStackTrace();
 		}
 		
