@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Inria and Obeo.
+ * Copyright (c) 2017-2019 Inria and Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,19 +10,13 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -32,41 +26,12 @@ import org.eclipse.emf.ecoretools.ale.ALEInterpreter.ClosedALEInterpreterExcepti
 import org.eclipse.emf.ecoretools.ale.ide.WorkbenchDsl;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
-import org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog;
 
 public class RunModelAction {
-
-	/**
-	 * Open a selection dialog to get the model file before launch
-	 */
-	public static void launch(Shell shell, IResource dslFile) {
-
-		/*
-		 * Selected model
-		 */
-		FilteredResourcesSelectionDialog dialog = new FilteredResourcesSelectionDialog(shell, false,
-				ResourcesPlugin.getWorkspace().getRoot(), IResource.FILE);
-		dialog.setTitle("Resource Selection");
-		dialog.setInitialPattern("*.xmi");
-
-		// If possible, select by default a .xmi file next to the .dsl file
-		// NOTE: actually, does not work at the moment, see
-		// https://bugs.eclipse.org/bugs/show_bug.cgi?id=214491
-		Optional<IResource> siblingXmi = findSiblingXmi(dslFile);
-		siblingXmi.ifPresent(dialog::setInitialSelections);
-
-		dialog.open();
-		Object[] selected = dialog.getResult();
-
-		if (selected != null && selected.length == 1 && selected[0] instanceof IResource) {
-			launch(dslFile, (IResource) selected[0]);
-		}
-	}
 
 	/**
 	 * Execute a DSL on a model
@@ -166,19 +131,5 @@ public class RunModelAction {
 		MessageConsole myConsole = new MessageConsole(name, null);
 		conMan.addConsoles(new IConsole[] { myConsole });
 		return myConsole;
-	}
-
-	/** Find a .xmi file located next to the given resource. */
-	private static Optional<IResource> findSiblingXmi(IResource dslFile) {
-		Stream<IResource> siblings;
-		try {
-			siblings = Arrays.stream(dslFile.getParent().members());
-
-		} catch (CoreException | NullPointerException e) {
-			// For some reason we cannot check .dsl file's siblings.
-			// Never mind, we don't want to bother the user with that.
-			return Optional.empty();
-		}
-		return siblings.filter(sibling -> "xmi".equalsIgnoreCase(sibling.getFileExtension())).findAny();
 	}
 }

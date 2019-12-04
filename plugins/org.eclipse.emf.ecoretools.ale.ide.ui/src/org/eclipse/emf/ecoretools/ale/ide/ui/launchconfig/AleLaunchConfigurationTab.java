@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Inria and Obeo.
+ * Copyright (c) 2017-2019 Inria and Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -53,8 +53,8 @@ public class AleLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
-		configuration.setAttribute(AleLaunchConfigurationDelegate.DSL_FILE, "");
-		configuration.setAttribute(AleLaunchConfigurationDelegate.MODEL_FILE, "");
+		configuration.setAttribute(AleLaunchConfiguration.DSL_FILE, "");
+		configuration.setAttribute(AleLaunchConfiguration.MODEL_FILE, "");
 		try {
 			configuration.doSave();
 		} catch (CoreException e) {
@@ -65,8 +65,8 @@ public class AleLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		try {
-			dslSelection.setText(configuration.getAttribute(AleLaunchConfigurationDelegate.DSL_FILE, ""));
-			modelSelection.setText(configuration.getAttribute(AleLaunchConfigurationDelegate.MODEL_FILE, ""));
+			dslSelection.setText(configuration.getAttribute(AleLaunchConfiguration.DSL_FILE, ""));
+			modelSelection.setText(configuration.getAttribute(AleLaunchConfiguration.MODEL_FILE, ""));
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
@@ -75,11 +75,11 @@ public class AleLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(
-				AleLaunchConfigurationDelegate.DSL_FILE,
+				AleLaunchConfiguration.DSL_FILE,
 				dslSelection.getText()
 				);
 		configuration.setAttribute(
-				AleLaunchConfigurationDelegate.MODEL_FILE,
+				AleLaunchConfiguration.MODEL_FILE,
 				modelSelection.getText()
 				);
 	}
