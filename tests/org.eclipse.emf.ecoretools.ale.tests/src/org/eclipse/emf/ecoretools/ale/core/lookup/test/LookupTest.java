@@ -24,7 +24,10 @@ import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter.ClosedALEInterpreterException;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
+import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics;
+import org.eclipse.emf.ecoretools.ale.core.parser.internal.ImmutableDslSemantics;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
+import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 import org.junit.After;
@@ -52,7 +55,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inherits.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/A.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
 		
 		assertEquals("a.foo:b.foo:c.foo",res.getValue());
 	}
@@ -62,7 +67,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inheritsWithParam.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/A.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
 		
 		assertEquals("a.foo:b.foo:c.foo",res.getValue());
 	}
@@ -72,7 +79,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inherits.implem","input/lookup/extends.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/A.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
 		
 		assertEquals("a.foo2:b.foo:c.foo",res.getValue());
 	}
@@ -82,7 +91,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/multi.ecore"),Arrays.asList("input/lookup/multi.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/C.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
 		
 		assertEquals("b.foo",res.getValue());
 	}
@@ -92,7 +103,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/doubleMulti.ecore"),Arrays.asList("input/lookup/doubleMulti.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("C");
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
 		
 		assertEquals("b.foo a.foo",res.getValue());
 	}
@@ -102,7 +115,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/simple.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("A");
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
 		
 		assertEquals("a.foo",res.getValue());
 	}
@@ -112,7 +127,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/simple.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("B");
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
 		
 		assertEquals("a.foo",res.getValue());
 	}
@@ -122,7 +139,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/implicitExtend.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("B");
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
 		
 		assertEquals("b.foo",res.getValue());
 	}
@@ -132,7 +151,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/explicitExtend.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("B");
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
 		
 		assertEquals("b.foo",res.getValue());
 	}
@@ -142,7 +163,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/implicitExtend.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("D");
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
 		
 		assertEquals("b.foo",res.getValue());
 	}
@@ -152,7 +175,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/simpleLowerType.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("A");
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(create("A")), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(create("A")), semantics);
 		
 		assertEquals("a.foo(a)",res.getValue());
 	}
@@ -162,7 +187,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/simpleLowerType.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("A");
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(create("B")), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(create("B")), semantics);
 		
 		assertEquals("a.foo(b)",res.getValue());
 	}
@@ -172,7 +199,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/lowerType.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("B");
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(create("A")), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(create("A")), semantics);
 		
 		assertEquals("a.foo(a)",res.getValue());
 	}
@@ -182,7 +211,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/lowerType.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("B");
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(create("B")), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(create("B")), semantics);
 		
 		assertEquals("b.foo(b)",res.getValue());
 	}
@@ -192,7 +223,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/lowerType.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("A");
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(create("B")), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(create("B")), semantics);
 		
 		assertEquals("a.foo(a)",res.getValue());
 	}
@@ -202,7 +235,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/lowerTypeInverted.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("B");
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(create("A")), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(create("A")), semantics);
 		
 		assertEquals("b.foo(a)",res.getValue());
 	}
@@ -212,7 +247,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/lowerTypeInverted.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = create("B");
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(create("B")), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(create("B")), semantics);
 		
 		assertEquals("b.foo(a)",res.getValue());
 	}
@@ -222,7 +259,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inheritGetter.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/B.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
 		
 		assertEquals(42,res.getValue());
 	}
@@ -232,7 +271,9 @@ public class LookupTest {
 		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/lookup/inheritSetter.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		EObject caller = interpreter.loadModel("model/B.xmi").getContents().get(0);
-		IEvaluationResult res = interpreter.eval(caller, Arrays.asList(), parsedSemantics);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
 		
 		assertEquals(43,res.getValue());
 	}

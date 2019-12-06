@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toSet;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.eclipse.acceleo.query.ast.AstPackage;
@@ -41,11 +40,12 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.ALEEngine;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.DiagnosticLogger;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.EvalEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.ExtensionEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.MethodEvaluator;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.ServiceCallListener;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
+import org.eclipse.emf.ecoretools.ale.core.parser.internal.ImmutableDslSemantics;
+import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.debug.DebugQueryEnvironment;
 import org.eclipse.emf.ecoretools.ale.debug.ILookupEngineListener;
@@ -189,83 +189,46 @@ public class ALEInterpreter implements AutoCloseable {
     	}
     }
     
-    /**
-     * Entry point for an evaluation.
-     * @throws Exception 
-     */
-    public IEvaluationResult eval(String modelURI, List<Object> args, Dsl dsl) throws ClosedALEInterpreterException {
-    	
-    	/*
-    	 * Parse semantic files
-    	 */
-    	List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(queryEnvironment)).parse(dsl);
-    	
-    	/*
-    	 * Load input model
-    	 */
-    	Resource model = loadModel(modelURI);
-		EObject caller = model.getContents().get(0);
-		
-		/*
-		 * Eval
-		 */
-		return eval(caller,args,parsedSemantics);
-		
+    public DslSemantics getSemanticsOf(Dsl dsl) {
+    	List<ParseResult<ModelUnit>> parsedFiles = new DslBuilder(queryEnvironment).parse(dsl);
+    	return new ImmutableDslSemantics(parsedFiles);
     }
     
     /**
-     * Search in {@link dslFile}'s semantics
-     * for the first operation tagged 'main' and apply it to {@link caller}
-     * @throws Exception 
+     * Applies {@code calledOp} on {@code caller}.
+     * <p>
+     * <b>Important</b>: all the EObjects given as arguments must have been loaded
+     * with the same {@link ResourceSet}, otherwise the interpreter won't be able
+     * to resolve every type and method. Loading models from the resource produced
+     * by {@link #loadModel(String)} should achieve a similar result.
+     * 
+     * @throws ClosedALEInterpreterException if the interpreter has been closed 
      */
-    public IEvaluationResult eval(EObject caller, List<Object> args, List<ParseResult<ModelUnit>> parsedSemantics) throws ClosedALEInterpreterException {
-    	return eval(caller, null, args, parsedSemantics);
-    }
-    
-    /**
-     * Apply {@link calledOp} on {@caller}.
-     * @throws Exception 
-     */
-    public IEvaluationResult eval(EObject caller, Method calledOp, List<Object> args, List<ParseResult<ModelUnit>> parsedSemantics) throws ClosedALEInterpreterException {
+    public IEvaluationResult eval(EObject caller, Method calledOp, List<Object> args, DslSemantics parsedSemantics) throws ClosedALEInterpreterException {
+    	requireNonNull(caller, "caller");
+    	requireNonNull(calledOp, "main");
+    	
     	if(isClosed) {
     		throw new ClosedALEInterpreterException("ALEInterpreter has been closed");
     	}
     	final BasicDiagnostic diagnostic = new BasicDiagnostic();
-    	parsedSemantics
-    	.stream()
-    	.filter(parseResult -> Diagnostic.OK != parseResult.getDiagnostic().getSeverity())
-    	.forEach(parseResult -> diagnostic.merge(parseResult.getDiagnostic()));
+    	parsedSemantics.getParsedFiles().stream()
+    				   .filter(parseResult -> Diagnostic.OK != parseResult.getDiagnostic().getSeverity())
+    				   .forEach(parseResult -> diagnostic.merge(parseResult.getDiagnostic()));
     	
     	logger = new DiagnosticLogger(parsedSemantics);
     	
-    	if (calledOp == null) {
-    		calledOp = firstOperationTaggedMain(parsedSemantics);
-    	}
-    	Object value = null;
-		if (calledOp != null) {
-			EvaluationResult evalResult = doEval(caller, calledOp, args, parsedSemantics);
-			if (Diagnostic.OK != evalResult.getDiagnostic().getSeverity()) {
-				diagnostic.merge(evalResult.getDiagnostic());
-			}
-			value = evalResult.getResult();
+		EvaluationResult evalResult = doEval(caller, calledOp, args, parsedSemantics);
+		if (Diagnostic.OK != evalResult.getDiagnostic().getSeverity()) {
+			diagnostic.merge(evalResult.getDiagnostic());
 		}
-		else {
-			Diagnostic child = new BasicDiagnostic (
-					Diagnostic.ERROR,
-					MethodEvaluator.PLUGIN_ID,
-					0,
-					ALEInterpreter.NO_MAIN_ERROR,
-					new Object[] { caller }
-					);
-			diagnostic.add(child);
-		}
+		Object value = evalResult.getResult();
 		
-		Object dumbFinal = value;
 		return new IEvaluationResult() {
 
 			@Override
 			public Object getValue() {
-				return dumbFinal;
+				return value;
 			}
 
 			@Override
@@ -280,27 +243,13 @@ public class ALEInterpreter implements AutoCloseable {
 		};
     }
     
-    private EvaluationResult doEval(EObject caller, Method operation, List<Object> args, List<ParseResult<ModelUnit>> parsedSemantics) {
-    	List<ModelUnit> allBehaviors = 
-				parsedSemantics
-		    	.stream()
-		    	.filter(sem -> sem.getRoot() != null)
-		    	.map(sem -> sem.getRoot())
-		    	.collect(toList());
-    	
+    private EvaluationResult doEval(EObject caller, Method operation, List<Object> args, DslSemantics semantics) {
     	/*
     	 * Register services
     	 */
-    	List<String> services = 
-    		parsedSemantics
-	    	.stream()
-	    	.map(unit -> unit.getRoot())
-	    	.filter(root -> root != null)
-	    	.flatMap(root -> root.getServices().stream())
-	    	.collect(toList());
-	    registerServices(services);
+	    registerServices(semantics.getServices());
     	
-    	EvalEnvironment env = new EvalEnvironment(queryEnvironment, allBehaviors, logger, serviceListeners);
+    	EvalEnvironment env = new EvalEnvironment(queryEnvironment, semantics.getBehaviors(), logger, serviceListeners);
     	List<Object> inputElems = new ArrayList<>();
     	inputElems.add(caller);
     	inputElems.addAll(args);
@@ -310,26 +259,6 @@ public class ALEInterpreter implements AutoCloseable {
     	this.currentEngine = engine;
     	return engine.eval(caller, operation, args);
     }
-
-    /**
-     * Searches {@code semantics} for the first method annotated with '@main'.
-     * 
-     * @param semantics
-     * 			Available semantics.
-     * 
-     * @return the first method annotated with '@main' found,
-     * 		   or null if none is found.
-     */
-	private Method firstOperationTaggedMain(List<ParseResult<ModelUnit>> semantics) {
-		return semantics
-			.stream()
-			.filter(sem -> sem.getRoot() != null)
-			.map(sem -> getMainOp(sem.getRoot()))
-			.filter(op -> op.isPresent())
-			.map(op -> op.get())
-			.findFirst()
-			.orElse(null);
-	}
     
     private void initDynamicFeatures(List<Object> inputElems, EvalEnvironment env) {
     	
@@ -361,14 +290,6 @@ public class ALEInterpreter implements AutoCloseable {
     	env.initialize(accessibleInputElements);
     }
     
-    private Optional<Method> getMainOp(ModelUnit implem) {
-		return 
-			implem.getClassExtensions().stream()
-			.flatMap(cls -> cls.getMethods().stream())
-			.filter(op -> op.getTags().contains("main"))
-			.findFirst();
-	}
-    
     public IQueryEnvironment getQueryEnvironment() {
         return this.queryEnvironment;
     }
@@ -381,7 +302,7 @@ public class ALEInterpreter implements AutoCloseable {
      * Return the resource resolved by this uri.
      * Ensure to use EPackages registered in the eval environment
      */
-    public Resource loadModel(String modelURI) {
+    public Resource loadModel(java.lang.String modelURI) {
     	ResourceSet modelRs = new ResourceSetImpl();
     	modelRs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
     	queryEnvironment
@@ -398,7 +319,7 @@ public class ALEInterpreter implements AutoCloseable {
     /**
      * Register services for each methods from a list of qualified class names
      */
-    public void registerServices(List<java.lang.String> services) {
+    public void registerServices(Iterable<java.lang.String> services) {
     	services.forEach(srv -> javaExtensions.addImport(srv));
     	javaExtensions.reloadIfNeeded();
     }
