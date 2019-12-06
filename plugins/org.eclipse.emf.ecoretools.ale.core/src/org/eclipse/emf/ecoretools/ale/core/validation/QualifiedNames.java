@@ -32,8 +32,9 @@ final public class QualifiedNames {
 	
 	public static String getQualifiedName(EClassifier cls) {
 		if (cls.getEPackage() == null) {
-			return cls.getInstanceClassName().isEmpty() ? cls.getName()
-														: cls.getInstanceClassName();
+			boolean classNameIsKnown = cls.getInstanceClassName() != null && !cls.getInstanceClassName().isEmpty();
+			return classNameIsKnown ? cls.getInstanceClassName()
+									: cls.getName();
 		}
 		return getQualifiedName(cls.getEPackage()) + "::" + cls.getName(); 
 	}
