@@ -14,9 +14,13 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter.ClosedALEInterpreterException;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
+import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics;
+import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 
 public class Main {
@@ -34,13 +38,22 @@ public class Main {
 			 */
 			ServiceUtils.registerServices(
 					interpreter.getQueryEnvironment(),
-					ServiceUtils.getServices(interpreter.getQueryEnvironment(),	Class.forName("logo.example.service.Display"))
+					ServiceUtils.getServices(interpreter.getQueryEnvironment(), Class.forName("logo.example.service.Display"))
 			);
+			
+			/*
+			 * Load the model and its semantics
+			 */
+			DslSemantics semantics = interpreter.getSemanticsOf(new Dsl(dslFile));
+			Method main = semantics.getMainMethods().get(0);
+
+			Resource resource = interpreter.loadModel(modelFile);
+			EObject caller = resource.getContents().get(0);
 			
 			/*
 			 * Evaluate the program
 			 */
-			IEvaluationResult result = interpreter.eval(modelFile, new ArrayList<>(), new Dsl(dslFile));
+			IEvaluationResult result = interpreter.eval(caller, main, new ArrayList<>(), semantics);
 			interpreter.getLogger().diagnosticForHuman();
 		} 
 		catch (ClassNotFoundException e) {
@@ -50,7 +63,7 @@ public class Main {
 		} 
 		catch (FileNotFoundException e) {
 			System.err.println("Cannot execute ALE; the following file cannot be found: " + e.getMessage());
-			System.err.println("Please make sure all the required files at the right location.\n");
+			System.err.println("Please make sure all the required files are at the right location.\n");
 			e.printStackTrace();
 		} 
 		catch (ClosedALEInterpreterException e) {
@@ -58,7 +71,6 @@ public class Main {
 			System.err.println("Cannot execute ALE; the interpreter and its related resources have already been closed.\n");
 			e.printStackTrace();
 		}
-		
 		System.out.println("DONE");
 	}
 }

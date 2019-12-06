@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
@@ -19,15 +21,16 @@ import java.util.List;
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 public class DiagnosticLogger {
 	List<Diagnostic> log = new ArrayList<>();
-	List<ParseResult<ModelUnit>> parseResults;
+	private final DslSemantics semantics;
 	
-	public DiagnosticLogger(List<ParseResult<ModelUnit>> parseResults) {
-		this.parseResults = parseResults;
+	public DiagnosticLogger(DslSemantics semantics) {
+		this.semantics = requireNonNull(semantics, "semantics");
 	}
 	
 	public void notify(Diagnostic diag) {
@@ -82,13 +85,18 @@ public class DiagnosticLogger {
 	}
 	
 	private void printError(Expression expr, String errorMsg) {
-		
-		for(ParseResult<ModelUnit> p : parseResults) {
-			Integer startPos = p.getStartPositions().get(expr);
+		ParseResult<ModelUnit> parsedFile = semantics.findParsedFileDefining(expr).orElse(null);
+		if (parsedFile == null) {
+			System.err.println("\n[AQL eval fail] At unknown file and line (" + expr + ")");
+			System.err.println(errorMsg);
+		}
+		else {
+			// TODO [Refactor] Optional<Integer> start = parsedFile.getStartPositionOf(expr)
+			Integer startPos = parsedFile.getStartPositions().get(expr);
 			if(startPos != null) {
-				String file = p.getSourceFile();
+				String file = parsedFile.getSourceFile();
 				int line =  getLine(startPos,file);
-				System.out.println("\n[AQL eval fail] At line "+ line +" in " + file + " :\n" + errorMsg);
+				System.err.println("\n[AQL eval fail] At line "+ line +" in " + file + ":\n" + errorMsg);
 			}
 		}
 	}
@@ -103,6 +111,7 @@ public class DiagnosticLogger {
 		    if (count == offset) {
 		        return r.getLineNumber();
 		    } else {
+		    	// FIXME Should throw
 		        System.out.println("File is not long enough");
 		    }
 		} catch (IOException e) {
