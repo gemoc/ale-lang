@@ -35,6 +35,18 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog;
 
+/**
+ * Shortcut allowing to run ALE from the contextual menu.
+ * <p>
+ * This shortcut basically:
+ * <ol>
+ * 	<li>retrieves the .dsl and the .xmi input files from the current selection,
+ * 	<li>creates a new {@link AleLaunchConfiguration.ID ALE Launch Configuration},
+ * 	<li>launches it.
+ * </ol>
+ * <p>
+ * Hence, all the actual launching-related code stays in {@link AleLaunchConfigurationDelegate}. 
+ */
 public class LaunchShortcut implements ILaunchShortcut {
 	
     @Override
@@ -71,16 +83,6 @@ public class LaunchShortcut implements ILaunchShortcut {
     	}
     }
 
-	private String configurationNameFor(IResource dslFile) {
-		String fileName = dslFile.getName();
-		
-		if (! fileName.contains(".")) {
-			return fileName;
-		}
-		String fileNameWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
-		return fileNameWithoutExtension;
-	}
-
 	@Override
 	public void launch(IEditorPart editor, String mode) {
 		//TODO: launch from ALE editor -> find corresponding .dsl
@@ -93,12 +95,23 @@ public class LaunchShortcut implements ILaunchShortcut {
 //		}
 	}
 	
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	///    LAUNCH CONFIGURATIONS-RELATED UTILITY FUNCTIONS ////////////////////////////////////////////////////////
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	private String configurationNameFor(IResource dslFile) {
+		String fileName = dslFile.getName();
+		
+		if (! fileName.contains(".")) {
+			return fileName;
+		}
+		String fileNameWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
+		return fileNameWithoutExtension;
+	}
+	
 	/**
 	 * Computes a launch configuration name that is not used by any existing configuration.
 	 * 
@@ -144,6 +157,7 @@ public class LaunchShortcut implements ILaunchShortcut {
 	private static void preventInfiniteLoop(int loopIndex) {
 		boolean overflowed = loopIndex < 0;
 		if (overflowed) {
+			// Unlikely, but better than keeping the possibility to freeze the whole IDE
 			throw new RuntimeException("Unable to create a new configuration: there are already " + Integer.MAX_VALUE + " of them");
 		}
 	}
