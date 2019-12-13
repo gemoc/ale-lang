@@ -6,7 +6,7 @@
 
 	<groupId>org.eclipse.emf.ecoretools.ale</groupId>
 	<artifactId>root</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 
@@ -185,7 +185,7 @@
                      <artifact>
                          <groupId>org.eclipse.emf.ecoretools.ale</groupId>
                          <artifactId>org.eclipse.emf.ecoretools.ale.target-platform</artifactId>
-                         <version>1.0.0-SNAPSHOT</version>
+                         <version>1.1.0-SNAPSHOT</version>
                      </artifact>
                  </target>
    </configuration>
