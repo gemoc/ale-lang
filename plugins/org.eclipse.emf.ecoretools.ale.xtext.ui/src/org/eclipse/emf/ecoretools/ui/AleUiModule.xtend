@@ -4,10 +4,16 @@
 package org.eclipse.emf.ecoretools.ui
 
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
+import org.eclipse.emf.ecoretools.ui.contentassist.AleTemplateProposalProvider
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
  */
 @FinalFieldsConstructor
 class AleUiModule extends AbstractAleUiModule {
+	
+	override bindITemplateProposalProvider() {
+		return typeof(AleTemplateProposalProvider)
+	}
+	
 }
