@@ -3,8 +3,10 @@
  */
 package org.eclipse.emf.ecoretools.ui
 
-import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import org.eclipse.emf.ecoretools.ui.contentassist.AleTemplateProposalProvider
+import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
+import org.eclipse.xtext.ide.editor.syntaxcoloring.ISemanticHighlightingCalculator
+import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
@@ -14,6 +16,14 @@ class AleUiModule extends AbstractAleUiModule {
 	
 	override bindITemplateProposalProvider() {
 		return typeof(AleTemplateProposalProvider)
+	}
+	
+	def Class<? extends IHighlightingConfiguration> bindIHighlightingConfiguration() {
+		return typeof(AleHighlightingConfiguration);
+	}
+	
+	def Class<? extends ISemanticHighlightingCalculator> bindISemanticHighlightingCalculator() {
+		return typeof(AleSemanticHighlightingCalculator);
 	}
 	
 }
