@@ -38,9 +38,9 @@ You are ready to go!
 
 Install older ALE versions or nightlybuild version
 ==========================
-
-Archived versions of ALE can be found at the following URL: [http://www.kermeta.org/ale-lang/updates/](http://www.kermeta.org/ale-lang/updates/)
-Latest version built by the continuous integration is available at: [https://ci.inria.fr/gemoc/job/ale-lang/job/master/lastSuccessfulBuild/artifact/releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/](https://ci.inria.fr/gemoc/job/ale-lang/job/master/lastSuccessfulBuild/artifact/releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/)
+Other versions:
+- Archived versions of ALE can be found at the following URL: [http://www.kermeta.org/ale-lang/updates/](http://www.kermeta.org/ale-lang/updates/)
+- Latest version built by the continuous integration is available at: [https://ci.inria.fr/gemoc/job/ale-lang/job/master/lastSuccessfulBuild/artifact/releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/](https://ci.inria.fr/gemoc/job/ale-lang/job/master/lastSuccessfulBuild/artifact/releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/)
 
 To install a version:
 1. Pick its URL (which is in the form [http://www.kermeta.org/ale-lang/updates/yyyy-mm-dd/](http://www.kermeta.org/ale-lang/updates/yyyy-mm-dd/))
