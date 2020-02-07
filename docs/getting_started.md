@@ -29,18 +29,18 @@ The recommended package is [Eclipse IDE for Java and DSL developers](https://www
 1. Open Eclipse IDE
 2. Go to `Help > Install New Software...`
 3. Copy the [update site's URL](https://ci.inria.fr/gemoc/job/ale-lang/lastSuccessfulBuild/artifact/releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/) in the `Work with` textbox
-   * [https://ci.inria.fr/gemoc/job/ale-lang/lastSuccessfulBuild/artifact/releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/](https://ci.inria.fr/gemoc/job/ale-lang/lastSuccessfulBuild/artifact/releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/)
+   * [http://www.kermeta.org/ale-lang/updates/latest/](http://www.kermeta.org/ale-lang/updates/latest/)
 4. Hit `Enter` and wait for the list to load
 5. Check `Action Language for EMF`
 6. Click `Next` and `Finish`
 
 You are ready to go!
 
-Install older ALE versions
+Install older ALE versions or nightlybuild version
 ==========================
 
-Archived versions of ALE can be found at the following URL:
-- [http://www.kermeta.org/ale-lang/updates/](http://www.kermeta.org/ale-lang/updates/)
+Archived versions of ALE can be found at the following URL: [http://www.kermeta.org/ale-lang/updates/](http://www.kermeta.org/ale-lang/updates/)
+Latest version built by the continuous integration is available at: [https://ci.inria.fr/gemoc/job/ale-lang/job/master/lastSuccessfulBuild/artifact/releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/](https://ci.inria.fr/gemoc/job/ale-lang/job/master/lastSuccessfulBuild/artifact/releng/org.eclipse.emf.ecoretools.ale.updatesite/target/repository/)
 
 To install a version:
 1. Pick its URL (which is in the form [http://www.kermeta.org/ale-lang/updates/yyyy-mm-dd/](http://www.kermeta.org/ale-lang/updates/yyyy-mm-dd/))
