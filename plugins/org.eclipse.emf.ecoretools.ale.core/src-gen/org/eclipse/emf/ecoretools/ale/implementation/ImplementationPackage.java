@@ -1499,6 +1499,91 @@ public interface ImplementationPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ConceptImpl <em>Concept</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ConceptImpl
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getConcept()
+	 * @generated
+	 */
+	int CONCEPT = 26;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCEPT__ID = 0;
+
+	/**
+	 * The feature id for the '<em><b>Semantics</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCEPT__SEMANTICS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Concept</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCEPT_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Concept</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCEPT_OPERATION_COUNT = 0;
+
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ConceptsImpl <em>Concepts</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ConceptsImpl
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getConcepts()
+	 * @generated
+	 */
+	int CONCEPTS = 27;
+
+	/**
+	 * The feature id for the '<em><b>All</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCEPTS__ALL = 0;
+
+	/**
+	 * The number of structural features of the '<em>Concepts</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCEPTS_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Concepts</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCEPTS_OPERATION_COUNT = 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior <em>Model Behavior</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2320,6 +2405,59 @@ public interface ImplementationPackage extends EPackage {
 	EClass getUnresolvedEClassifier();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.Concept <em>Concept</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Concept</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Concept
+	 * @generated
+	 */
+	EClass getConcept();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.implementation.Concept#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Concept#getId()
+	 * @see #getConcept()
+	 * @generated
+	 */
+	EAttribute getConcept_Id();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.implementation.Concept#getSemantics <em>Semantics</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Semantics</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Concept#getSemantics()
+	 * @see #getConcept()
+	 * @generated
+	 */
+	EReference getConcept_Semantics();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.Concepts <em>Concepts</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Concepts</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Concepts
+	 * @generated
+	 */
+	EClass getConcepts();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.emf.ecoretools.ale.implementation.Concepts#getAll <em>All</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>All</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Concepts#getAll()
+	 * @see #getConcepts()
+	 * @generated
+	 */
+	EReference getConcepts_All();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3009,6 +3147,50 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EClass UNRESOLVED_ECLASSIFIER = eINSTANCE.getUnresolvedEClassifier();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ConceptImpl <em>Concept</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ConceptImpl
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getConcept()
+		 * @generated
+		 */
+		EClass CONCEPT = eINSTANCE.getConcept();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONCEPT__ID = eINSTANCE.getConcept_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Semantics</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCEPT__SEMANTICS = eINSTANCE.getConcept_Semantics();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ConceptsImpl <em>Concepts</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ConceptsImpl
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getConcepts()
+		 * @generated
+		 */
+		EClass CONCEPTS = eINSTANCE.getConcepts();
+
+		/**
+		 * The meta object literal for the '<em><b>All</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCEPTS__ALL = eINSTANCE.getConcepts_All();
 
 	}
 

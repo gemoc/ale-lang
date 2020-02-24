@@ -11,33 +11,38 @@
  */
 package org.eclipse.emf.ecoretools.ale.implementation.impl;
 
-import org.eclipse.acceleo.query.ast.Expression;
+import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecoretools.ale.implementation.Assignment;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.eclipse.emf.ecoretools.ale.implementation.Concept;
+import org.eclipse.emf.ecoretools.ale.implementation.Concepts;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Assignment</b></em>'.
+ * An implementation of the model object '<em><b>Concepts</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.AssignmentImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ConceptsImpl#getAll <em>All</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class AssignmentImpl extends StatementImpl implements Assignment {
+public class ConceptsImpl extends MinimalEObjectImpl.Container implements Concepts {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -46,21 +51,21 @@ public class AssignmentImpl extends StatementImpl implements Assignment {
 	public static final String copyright = " Copyright (c) 2017 Inria and Obeo.\n All rights reserved. This program and the accompanying materials\n are made available under the terms of the Eclipse Public License v1.0\n which accompanies this distribution, and is available at\n http://www.eclipse.org/legal/epl-v10.html\n\n Contributors:\n     Inria - initial API and implementation\n";
 
 	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
+	 * The cached value of the '{@link #getAll() <em>All</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getValue()
+	 * @see #getAll()
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression value;
+	protected EList<Concept> all;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected AssignmentImpl() {
+	protected ConceptsImpl() {
 		super();
 	}
 
@@ -71,7 +76,7 @@ public class AssignmentImpl extends StatementImpl implements Assignment {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ImplementationPackage.Literals.ASSIGNMENT;
+		return ImplementationPackage.Literals.CONCEPTS;
 	}
 
 	/**
@@ -80,43 +85,11 @@ public class AssignmentImpl extends StatementImpl implements Assignment {
 	 * @generated
 	 */
 	@Override
-	public Expression getValue() {
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetValue(Expression newValue, NotificationChain msgs) {
-		Expression oldValue = value;
-		value = newValue;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ImplementationPackage.ASSIGNMENT__VALUE, oldValue, newValue);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+	public EList<Concept> getAll() {
+		if (all == null) {
+			all = new EObjectContainmentEList<Concept>(Concept.class, this, ImplementationPackage.CONCEPTS__ALL);
 		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setValue(Expression newValue) {
-		if (newValue != value) {
-			NotificationChain msgs = null;
-			if (value != null)
-				msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.ASSIGNMENT__VALUE, null, msgs);
-			if (newValue != null)
-				msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ImplementationPackage.ASSIGNMENT__VALUE, null, msgs);
-			msgs = basicSetValue(newValue, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.ASSIGNMENT__VALUE, newValue, newValue));
+		return all;
 	}
 
 	/**
@@ -127,8 +100,8 @@ public class AssignmentImpl extends StatementImpl implements Assignment {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ImplementationPackage.ASSIGNMENT__VALUE:
-				return basicSetValue(null, msgs);
+			case ImplementationPackage.CONCEPTS__ALL:
+				return ((InternalEList<?>)getAll()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -141,8 +114,8 @@ public class AssignmentImpl extends StatementImpl implements Assignment {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ImplementationPackage.ASSIGNMENT__VALUE:
-				return getValue();
+			case ImplementationPackage.CONCEPTS__ALL:
+				return getAll();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -152,11 +125,13 @@ public class AssignmentImpl extends StatementImpl implements Assignment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ImplementationPackage.ASSIGNMENT__VALUE:
-				setValue((Expression)newValue);
+			case ImplementationPackage.CONCEPTS__ALL:
+				getAll().clear();
+				getAll().addAll((Collection<? extends Concept>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -170,8 +145,8 @@ public class AssignmentImpl extends StatementImpl implements Assignment {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ImplementationPackage.ASSIGNMENT__VALUE:
-				setValue((Expression)null);
+			case ImplementationPackage.CONCEPTS__ALL:
+				getAll().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -185,10 +160,10 @@ public class AssignmentImpl extends StatementImpl implements Assignment {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ImplementationPackage.ASSIGNMENT__VALUE:
-				return value != null;
+			case ImplementationPackage.CONCEPTS__ALL:
+				return all != null && !all.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //AssignmentImpl
+} //ConceptsImpl

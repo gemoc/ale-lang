@@ -111,6 +111,7 @@ public class SwitchImpl extends ExpressionImpl implements Switch {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getParam() {
 		return param;
 	}
@@ -135,6 +136,7 @@ public class SwitchImpl extends ExpressionImpl implements Switch {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setParam(Expression newParam) {
 		if (newParam != param) {
 			NotificationChain msgs = null;
@@ -154,6 +156,7 @@ public class SwitchImpl extends ExpressionImpl implements Switch {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Case> getCases() {
 		if (cases == null) {
 			cases = new EObjectContainmentEList<Case>(Case.class, this, ImplementationPackage.SWITCH__CASES);
@@ -166,6 +169,7 @@ public class SwitchImpl extends ExpressionImpl implements Switch {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getDefault() {
 		return default_;
 	}
@@ -190,6 +194,7 @@ public class SwitchImpl extends ExpressionImpl implements Switch {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDefault(Expression newDefault) {
 		if (newDefault != default_) {
 			NotificationChain msgs = null;

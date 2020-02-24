@@ -191,6 +191,14 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 				return createUnresolvedEClassifierAdapter();
 			}
 			@Override
+			public Adapter caseConcept(Concept object) {
+				return createConceptAdapter();
+			}
+			@Override
+			public Adapter caseConcepts(Concepts object) {
+				return createConceptsAdapter();
+			}
+			@Override
 			public Adapter caseEModelElement(EModelElement object) {
 				return createEModelElementAdapter();
 			}
@@ -583,6 +591,34 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createUnresolvedEClassifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.implementation.Concept <em>Concept</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Concept
+	 * @generated
+	 */
+	public Adapter createConceptAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.implementation.Concepts <em>Concepts</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Concepts
+	 * @generated
+	 */
+	public Adapter createConceptsAdapter() {
 		return null;
 	}
 

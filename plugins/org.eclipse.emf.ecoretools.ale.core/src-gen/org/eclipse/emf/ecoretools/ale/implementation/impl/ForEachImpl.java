@@ -112,6 +112,7 @@ public class ForEachImpl extends StatementImpl implements ForEach {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getVariable() {
 		return variable;
 	}
@@ -121,6 +122,7 @@ public class ForEachImpl extends StatementImpl implements ForEach {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVariable(String newVariable) {
 		String oldVariable = variable;
 		variable = newVariable;
@@ -133,6 +135,7 @@ public class ForEachImpl extends StatementImpl implements ForEach {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getCollectionExpression() {
 		return collectionExpression;
 	}
@@ -157,6 +160,7 @@ public class ForEachImpl extends StatementImpl implements ForEach {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCollectionExpression(Expression newCollectionExpression) {
 		if (newCollectionExpression != collectionExpression) {
 			NotificationChain msgs = null;
@@ -176,6 +180,7 @@ public class ForEachImpl extends StatementImpl implements ForEach {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Block getBody() {
 		return body;
 	}
@@ -200,6 +205,7 @@ public class ForEachImpl extends StatementImpl implements ForEach {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBody(Block newBody) {
 		if (newBody != body) {
 			NotificationChain msgs = null;

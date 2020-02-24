@@ -123,6 +123,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -132,6 +133,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -144,6 +146,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClassifier getType() {
 		if (type != null && type.eIsProxy()) {
 			InternalEObject oldType = (InternalEObject)type;
@@ -170,6 +173,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setType(EClassifier newType) {
 		EClassifier oldType = type;
 		type = newType;
@@ -182,6 +186,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getInitialValue() {
 		return initialValue;
 	}
@@ -206,6 +211,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitialValue(Expression newInitialValue) {
 		if (newInitialValue != initialValue) {
 			NotificationChain msgs = null;
@@ -225,6 +231,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClassifier getTypeParameter() {
 		if (typeParameter != null && typeParameter.eIsProxy()) {
 			InternalEObject oldTypeParameter = (InternalEObject)typeParameter;
@@ -251,6 +258,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTypeParameter(EClassifier newTypeParameter) {
 		EClassifier oldTypeParameter = typeParameter;
 		typeParameter = newTypeParameter;

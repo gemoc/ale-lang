@@ -94,6 +94,7 @@ public class IfImpl extends StatementImpl implements If {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ConditionalBlock> getBlocks() {
 		if (blocks == null) {
 			blocks = new EObjectContainmentEList<ConditionalBlock>(ConditionalBlock.class, this, ImplementationPackage.IF__BLOCKS);
@@ -106,6 +107,7 @@ public class IfImpl extends StatementImpl implements If {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Block getElse() {
 		return else_;
 	}
@@ -130,6 +132,7 @@ public class IfImpl extends StatementImpl implements If {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setElse(Block newElse) {
 		if (newElse != else_) {
 			NotificationChain msgs = null;

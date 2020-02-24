@@ -263,6 +263,24 @@ public interface ImplementationFactory extends EFactory {
 	UnresolvedEClassifier createUnresolvedEClassifier();
 
 	/**
+	 * Returns a new object of class '<em>Concept</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Concept</em>'.
+	 * @generated
+	 */
+	Concept createConcept();
+
+	/**
+	 * Returns a new object of class '<em>Concepts</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Concepts</em>'.
+	 * @generated
+	 */
+	Concepts createConcepts();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

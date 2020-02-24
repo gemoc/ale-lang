@@ -26,6 +26,8 @@ import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.Case;
+import org.eclipse.emf.ecoretools.ale.implementation.Concept;
+import org.eclipse.emf.ecoretools.ale.implementation.Concepts;
 import org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
@@ -247,6 +249,20 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	private EClass unresolvedEClassifierEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass conceptEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass conceptsEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -316,6 +332,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getModelBehavior() {
 		return modelBehaviorEClass;
 	}
@@ -325,6 +342,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getModelBehavior_Name() {
 		return (EAttribute)modelBehaviorEClass.getEStructuralFeatures().get(0);
 	}
@@ -334,6 +352,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getModelBehavior_Units() {
 		return (EReference)modelBehaviorEClass.getEStructuralFeatures().get(1);
 	}
@@ -343,6 +362,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getExtendedClass() {
 		return extendedClassEClass;
 	}
@@ -352,6 +372,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getExtendedClass_BaseClass() {
 		return (EReference)extendedClassEClass.getEStructuralFeatures().get(0);
 	}
@@ -361,6 +382,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getExtendedClass_Extends() {
 		return (EReference)extendedClassEClass.getEStructuralFeatures().get(1);
 	}
@@ -370,6 +392,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getExtendedClass_Children() {
 		return (EReference)extendedClassEClass.getEStructuralFeatures().get(2);
 	}
@@ -379,6 +402,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRuntimeClass() {
 		return runtimeClassEClass;
 	}
@@ -388,6 +412,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMethod() {
 		return methodEClass;
 	}
@@ -397,6 +422,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMethod_OperationRef() {
 		return (EReference)methodEClass.getEStructuralFeatures().get(0);
 	}
@@ -406,6 +432,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMethod_Body() {
 		return (EReference)methodEClass.getEStructuralFeatures().get(1);
 	}
@@ -415,6 +442,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMethod_Tags() {
 		return (EAttribute)methodEClass.getEStructuralFeatures().get(2);
 	}
@@ -424,6 +452,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getModelUnit() {
 		return modelUnitEClass;
 	}
@@ -433,6 +462,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getModelUnit_Services() {
 		return (EAttribute)modelUnitEClass.getEStructuralFeatures().get(0);
 	}
@@ -442,6 +472,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getModelUnit_ClassExtensions() {
 		return (EReference)modelUnitEClass.getEStructuralFeatures().get(1);
 	}
@@ -451,6 +482,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getModelUnit_ClassDefinitions() {
 		return (EReference)modelUnitEClass.getEStructuralFeatures().get(2);
 	}
@@ -460,6 +492,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBehavioredClass() {
 		return behavioredClassEClass;
 	}
@@ -469,6 +502,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBehavioredClass_Methods() {
 		return (EReference)behavioredClassEClass.getEStructuralFeatures().get(0);
 	}
@@ -478,6 +512,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBehavioredClass_Attributes() {
 		return (EReference)behavioredClassEClass.getEStructuralFeatures().get(1);
 	}
@@ -487,6 +522,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBehavioredClass_Fragment() {
 		return (EReference)behavioredClassEClass.getEStructuralFeatures().get(2);
 	}
@@ -496,6 +532,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAttribute() {
 		return attributeEClass;
 	}
@@ -505,6 +542,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAttribute_FeatureRef() {
 		return (EReference)attributeEClass.getEStructuralFeatures().get(0);
 	}
@@ -514,6 +552,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAttribute_InitialValue() {
 		return (EReference)attributeEClass.getEStructuralFeatures().get(1);
 	}
@@ -523,6 +562,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBlock() {
 		return blockEClass;
 	}
@@ -532,6 +572,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getBlock_Statements() {
 		return (EReference)blockEClass.getEStructuralFeatures().get(0);
 	}
@@ -541,6 +582,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getStatement() {
 		return statementEClass;
 	}
@@ -550,6 +592,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getVariableDeclaration() {
 		return variableDeclarationEClass;
 	}
@@ -559,6 +602,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getVariableDeclaration_Name() {
 		return (EAttribute)variableDeclarationEClass.getEStructuralFeatures().get(0);
 	}
@@ -568,6 +612,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getVariableDeclaration_Type() {
 		return (EReference)variableDeclarationEClass.getEStructuralFeatures().get(1);
 	}
@@ -577,6 +622,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getVariableDeclaration_InitialValue() {
 		return (EReference)variableDeclarationEClass.getEStructuralFeatures().get(2);
 	}
@@ -586,6 +632,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getVariableDeclaration_TypeParameter() {
 		return (EReference)variableDeclarationEClass.getEStructuralFeatures().get(3);
 	}
@@ -595,6 +642,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAssignment() {
 		return assignmentEClass;
 	}
@@ -604,6 +652,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAssignment_Value() {
 		return (EReference)assignmentEClass.getEStructuralFeatures().get(0);
 	}
@@ -613,6 +662,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getVariableAssignment() {
 		return variableAssignmentEClass;
 	}
@@ -622,6 +672,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getVariableAssignment_Name() {
 		return (EAttribute)variableAssignmentEClass.getEStructuralFeatures().get(0);
 	}
@@ -631,6 +682,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFeatureAssignment() {
 		return featureAssignmentEClass;
 	}
@@ -640,6 +692,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFeatureAssignment_Target() {
 		return (EReference)featureAssignmentEClass.getEStructuralFeatures().get(0);
 	}
@@ -649,6 +702,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFeatureAssignment_TargetFeature() {
 		return (EAttribute)featureAssignmentEClass.getEStructuralFeatures().get(1);
 	}
@@ -658,6 +712,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFeatureInsert() {
 		return featureInsertEClass;
 	}
@@ -667,6 +722,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFeatureInsert_Target() {
 		return (EReference)featureInsertEClass.getEStructuralFeatures().get(0);
 	}
@@ -676,6 +732,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFeatureInsert_TargetFeature() {
 		return (EAttribute)featureInsertEClass.getEStructuralFeatures().get(1);
 	}
@@ -685,6 +742,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFeatureRemove() {
 		return featureRemoveEClass;
 	}
@@ -694,6 +752,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFeatureRemove_Target() {
 		return (EReference)featureRemoveEClass.getEStructuralFeatures().get(0);
 	}
@@ -703,6 +762,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFeatureRemove_TargetFeature() {
 		return (EAttribute)featureRemoveEClass.getEStructuralFeatures().get(1);
 	}
@@ -712,6 +772,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getVariableInsert() {
 		return variableInsertEClass;
 	}
@@ -721,6 +782,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getVariableInsert_Name() {
 		return (EAttribute)variableInsertEClass.getEStructuralFeatures().get(0);
 	}
@@ -730,6 +792,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getVariableRemove() {
 		return variableRemoveEClass;
 	}
@@ -739,6 +802,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getVariableRemove_Name() {
 		return (EAttribute)variableRemoveEClass.getEStructuralFeatures().get(0);
 	}
@@ -748,6 +812,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFeaturePut() {
 		return featurePutEClass;
 	}
@@ -757,6 +822,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFeaturePut_Target() {
 		return (EReference)featurePutEClass.getEStructuralFeatures().get(0);
 	}
@@ -766,6 +832,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFeaturePut_TargetFeature() {
 		return (EAttribute)featurePutEClass.getEStructuralFeatures().get(1);
 	}
@@ -775,6 +842,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFeaturePut_Key() {
 		return (EReference)featurePutEClass.getEStructuralFeatures().get(2);
 	}
@@ -784,6 +852,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFeaturePut_Value() {
 		return (EReference)featurePutEClass.getEStructuralFeatures().get(3);
 	}
@@ -793,6 +862,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getForEach() {
 		return forEachEClass;
 	}
@@ -802,6 +872,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getForEach_Variable() {
 		return (EAttribute)forEachEClass.getEStructuralFeatures().get(0);
 	}
@@ -811,6 +882,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getForEach_CollectionExpression() {
 		return (EReference)forEachEClass.getEStructuralFeatures().get(1);
 	}
@@ -820,6 +892,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getForEach_Body() {
 		return (EReference)forEachEClass.getEStructuralFeatures().get(2);
 	}
@@ -829,6 +902,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWhile() {
 		return whileEClass;
 	}
@@ -838,6 +912,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWhile_Condition() {
 		return (EReference)whileEClass.getEStructuralFeatures().get(0);
 	}
@@ -847,6 +922,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWhile_Body() {
 		return (EReference)whileEClass.getEStructuralFeatures().get(1);
 	}
@@ -856,6 +932,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getIf() {
 		return ifEClass;
 	}
@@ -865,6 +942,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getIf_Blocks() {
 		return (EReference)ifEClass.getEStructuralFeatures().get(0);
 	}
@@ -874,6 +952,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getIf_Else() {
 		return (EReference)ifEClass.getEStructuralFeatures().get(1);
 	}
@@ -883,6 +962,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getConditionalBlock() {
 		return conditionalBlockEClass;
 	}
@@ -892,6 +972,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getConditionalBlock_Condition() {
 		return (EReference)conditionalBlockEClass.getEStructuralFeatures().get(0);
 	}
@@ -901,6 +982,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getConditionalBlock_Block() {
 		return (EReference)conditionalBlockEClass.getEStructuralFeatures().get(1);
 	}
@@ -910,6 +992,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getExpressionStatement() {
 		return expressionStatementEClass;
 	}
@@ -919,6 +1002,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getExpressionStatement_Expression() {
 		return (EReference)expressionStatementEClass.getEStructuralFeatures().get(0);
 	}
@@ -928,6 +1012,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSwitch() {
 		return switchEClass;
 	}
@@ -937,6 +1022,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSwitch_Param() {
 		return (EReference)switchEClass.getEStructuralFeatures().get(0);
 	}
@@ -946,6 +1032,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSwitch_Cases() {
 		return (EReference)switchEClass.getEStructuralFeatures().get(1);
 	}
@@ -955,6 +1042,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSwitch_Default() {
 		return (EReference)switchEClass.getEStructuralFeatures().get(2);
 	}
@@ -964,6 +1052,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCase() {
 		return caseEClass;
 	}
@@ -973,6 +1062,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCase_Guard() {
 		return (EReference)caseEClass.getEStructuralFeatures().get(0);
 	}
@@ -982,6 +1072,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCase_Match() {
 		return (EReference)caseEClass.getEStructuralFeatures().get(1);
 	}
@@ -991,6 +1082,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCase_Value() {
 		return (EReference)caseEClass.getEStructuralFeatures().get(2);
 	}
@@ -1000,6 +1092,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getUnresolvedEClassifier() {
 		return unresolvedEClassifierEClass;
 	}
@@ -1009,6 +1102,57 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EClass getConcept() {
+		return conceptEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getConcept_Id() {
+		return (EAttribute)conceptEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getConcept_Semantics() {
+		return (EReference)conceptEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getConcepts() {
+		return conceptsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getConcepts_All() {
+		return (EReference)conceptsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public ImplementationFactory getImplementationFactory() {
 		return (ImplementationFactory)getEFactoryInstance();
 	}
@@ -1134,6 +1278,13 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		createEReference(caseEClass, CASE__VALUE);
 
 		unresolvedEClassifierEClass = createEClass(UNRESOLVED_ECLASSIFIER);
+
+		conceptEClass = createEClass(CONCEPT);
+		createEAttribute(conceptEClass, CONCEPT__ID);
+		createEReference(conceptEClass, CONCEPT__SEMANTICS);
+
+		conceptsEClass = createEClass(CONCEPTS);
+		createEReference(conceptsEClass, CONCEPTS__ALL);
 	}
 
 	/**
@@ -1293,6 +1444,13 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		initEReference(getCase_Value(), theAstPackage.getExpression(), null, "value", null, 1, 1, Case.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(unresolvedEClassifierEClass, UnresolvedEClassifier.class, "UnresolvedEClassifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(conceptEClass, Concept.class, "Concept", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getConcept_Id(), theEcorePackage.getEString(), "id", null, 0, 1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConcept_Semantics(), this.getStatement(), null, "semantics", null, 0, -1, Concept.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(conceptsEClass, Concepts.class, "Concepts", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getConcepts_All(), this.getConcept(), null, "all", null, 0, -1, Concepts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

@@ -27,25 +27,25 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.emf.ecoretools.ale.implementation.Concept;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
-import org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior;
-import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
+import org.eclipse.emf.ecoretools.ale.implementation.Statement;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Model Behavior</b></em>'.
+ * An implementation of the model object '<em><b>Concept</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ModelBehaviorImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ModelBehaviorImpl#getUnits <em>Units</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ConceptImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ConceptImpl#getSemantics <em>Semantics</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements ModelBehavior {
+public class ConceptImpl extends MinimalEObjectImpl.Container implements Concept {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -54,41 +54,41 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	public static final String copyright = " Copyright (c) 2017 Inria and Obeo.\n All rights reserved. This program and the accompanying materials\n are made available under the terms of the Eclipse Public License v1.0\n which accompanies this distribution, and is available at\n http://www.eclipse.org/legal/epl-v10.html\n\n Contributors:\n     Inria - initial API and implementation\n";
 
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 * @see #getId()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String NAME_EDEFAULT = "";
+	protected static final String ID_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 * @see #getId()
 	 * @generated
 	 * @ordered
 	 */
-	protected String name = NAME_EDEFAULT;
+	protected String id = ID_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getUnits() <em>Units</em>}' containment reference list.
+	 * The cached value of the '{@link #getSemantics() <em>Semantics</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getUnits()
+	 * @see #getSemantics()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ModelUnit> units;
+	protected EList<Statement> semantics;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ModelBehaviorImpl() {
+	protected ConceptImpl() {
 		super();
 	}
 
@@ -99,7 +99,7 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ImplementationPackage.Literals.MODEL_BEHAVIOR;
+		return ImplementationPackage.Literals.CONCEPT;
 	}
 
 	/**
@@ -108,8 +108,8 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	 * @generated
 	 */
 	@Override
-	public String getName() {
-		return name;
+	public String getId() {
+		return id;
 	}
 
 	/**
@@ -118,11 +118,11 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	 * @generated
 	 */
 	@Override
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
+	public void setId(String newId) {
+		String oldId = id;
+		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.MODEL_BEHAVIOR__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.CONCEPT__ID, oldId, id));
 	}
 
 	/**
@@ -131,11 +131,11 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	 * @generated
 	 */
 	@Override
-	public EList<ModelUnit> getUnits() {
-		if (units == null) {
-			units = new EObjectContainmentEList<ModelUnit>(ModelUnit.class, this, ImplementationPackage.MODEL_BEHAVIOR__UNITS);
+	public EList<Statement> getSemantics() {
+		if (semantics == null) {
+			semantics = new EObjectContainmentEList<Statement>(Statement.class, this, ImplementationPackage.CONCEPT__SEMANTICS);
 		}
-		return units;
+		return semantics;
 	}
 
 	/**
@@ -146,8 +146,8 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ImplementationPackage.MODEL_BEHAVIOR__UNITS:
-				return ((InternalEList<?>)getUnits()).basicRemove(otherEnd, msgs);
+			case ImplementationPackage.CONCEPT__SEMANTICS:
+				return ((InternalEList<?>)getSemantics()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -160,10 +160,10 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ImplementationPackage.MODEL_BEHAVIOR__NAME:
-				return getName();
-			case ImplementationPackage.MODEL_BEHAVIOR__UNITS:
-				return getUnits();
+			case ImplementationPackage.CONCEPT__ID:
+				return getId();
+			case ImplementationPackage.CONCEPT__SEMANTICS:
+				return getSemantics();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -177,12 +177,12 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ImplementationPackage.MODEL_BEHAVIOR__NAME:
-				setName((String)newValue);
+			case ImplementationPackage.CONCEPT__ID:
+				setId((String)newValue);
 				return;
-			case ImplementationPackage.MODEL_BEHAVIOR__UNITS:
-				getUnits().clear();
-				getUnits().addAll((Collection<? extends ModelUnit>)newValue);
+			case ImplementationPackage.CONCEPT__SEMANTICS:
+				getSemantics().clear();
+				getSemantics().addAll((Collection<? extends Statement>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -196,11 +196,11 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ImplementationPackage.MODEL_BEHAVIOR__NAME:
-				setName(NAME_EDEFAULT);
+			case ImplementationPackage.CONCEPT__ID:
+				setId(ID_EDEFAULT);
 				return;
-			case ImplementationPackage.MODEL_BEHAVIOR__UNITS:
-				getUnits().clear();
+			case ImplementationPackage.CONCEPT__SEMANTICS:
+				getSemantics().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -214,10 +214,10 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ImplementationPackage.MODEL_BEHAVIOR__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case ImplementationPackage.MODEL_BEHAVIOR__UNITS:
-				return units != null && !units.isEmpty();
+			case ImplementationPackage.CONCEPT__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case ImplementationPackage.CONCEPT__SEMANTICS:
+				return semantics != null && !semantics.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -232,10 +232,10 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 		if (eIsProxy()) return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (name: ");
-		result.append(name);
+		result.append(" (id: ");
+		result.append(id);
 		result.append(')');
 		return result.toString();
 	}
 
-} //ModelBehaviorImpl
+} //ConceptImpl

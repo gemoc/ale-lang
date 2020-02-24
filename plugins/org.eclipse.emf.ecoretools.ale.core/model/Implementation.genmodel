@@ -5,7 +5,7 @@
     editorDirectory="/org.eclipse.emf.ecoretools.ale.core.editor/src-gen" modelPluginID="org.eclipse.emf.ecoretools.ale.core"
     modelName="Implementation" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     testsDirectory="/org.eclipse.emf.ecoretools.ale.core.tests/src-gen" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="8.0" usedGenPackages="../../org.eclipse.acceleo.query/model/ast.genmodel#//ast ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"
+    complianceLevel="8.0" usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"
     operationReflection="true" importOrganizing="true">
   <foreignModel>Implementation.ecore</foreignModel>
   <genPackages prefix="Implementation" basePackage="org.eclipse.emf.ecoretools.ale"
@@ -110,5 +110,12 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Case/value"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//UnresolvedEClassifier"/>
+    <genClasses ecoreClass="Implementation.ecore#//Concept">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//Concept/id"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Concept/semantics"/>
+    </genClasses>
+    <genClasses ecoreClass="Implementation.ecore#//Concepts">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Concepts/all"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

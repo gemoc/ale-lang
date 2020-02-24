@@ -103,6 +103,7 @@ public class ExtendedClassImpl extends BehavioredClassImpl implements ExtendedCl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getBaseClass() {
 		if (baseClass != null && baseClass.eIsProxy()) {
 			InternalEObject oldBaseClass = (InternalEObject)baseClass;
@@ -129,6 +130,7 @@ public class ExtendedClassImpl extends BehavioredClassImpl implements ExtendedCl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBaseClass(EClass newBaseClass) {
 		EClass oldBaseClass = baseClass;
 		baseClass = newBaseClass;
@@ -141,6 +143,7 @@ public class ExtendedClassImpl extends BehavioredClassImpl implements ExtendedCl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ExtendedClass> getExtends() {
 		if (extends_ == null) {
 			extends_ = new EObjectWithInverseResolvingEList.ManyInverse<ExtendedClass>(ExtendedClass.class, this, ImplementationPackage.EXTENDED_CLASS__EXTENDS, ImplementationPackage.EXTENDED_CLASS__CHILDREN);
@@ -153,6 +156,7 @@ public class ExtendedClassImpl extends BehavioredClassImpl implements ExtendedCl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ExtendedClass> getChildren() {
 		if (children == null) {
 			children = new EObjectWithInverseResolvingEList.ManyInverse<ExtendedClass>(ExtendedClass.class, this, ImplementationPackage.EXTENDED_CLASS__CHILDREN, ImplementationPackage.EXTENDED_CLASS__EXTENDS);

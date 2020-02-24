@@ -153,4 +153,13 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UnresolvedEClassifier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Concept">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="semantics" upperBound="-1"
+        eType="#//Statement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Concepts">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="all" upperBound="-1" eType="#//Concept"
+        containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

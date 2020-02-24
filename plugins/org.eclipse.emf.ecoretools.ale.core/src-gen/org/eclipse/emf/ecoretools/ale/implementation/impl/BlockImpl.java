@@ -82,6 +82,7 @@ public class BlockImpl extends StatementImpl implements Block {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Statement> getStatements() {
 		if (statements == null) {
 			statements = new EObjectContainmentEList<Statement>(Statement.class, this, ImplementationPackage.BLOCK__STATEMENTS);

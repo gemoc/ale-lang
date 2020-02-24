@@ -91,6 +91,7 @@ public class AttributeImpl extends EModelElementImpl implements Attribute {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EStructuralFeature getFeatureRef() {
 		if (featureRef != null && featureRef.eIsProxy()) {
 			InternalEObject oldFeatureRef = (InternalEObject)featureRef;
@@ -117,6 +118,7 @@ public class AttributeImpl extends EModelElementImpl implements Attribute {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFeatureRef(EStructuralFeature newFeatureRef) {
 		EStructuralFeature oldFeatureRef = featureRef;
 		featureRef = newFeatureRef;
@@ -129,6 +131,7 @@ public class AttributeImpl extends EModelElementImpl implements Attribute {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getInitialValue() {
 		return initialValue;
 	}
@@ -153,6 +156,7 @@ public class AttributeImpl extends EModelElementImpl implements Attribute {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitialValue(Expression newInitialValue) {
 		if (newInitialValue != initialValue) {
 			NotificationChain msgs = null;
