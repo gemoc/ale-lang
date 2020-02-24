@@ -36,8 +36,9 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.DynamicEObjectServices;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.RuntimeInstanceHelper;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
+import org.eclipse.emf.ecoretools.ale.implementation.Concept;
+import org.eclipse.emf.ecoretools.ale.implementation.Concepts;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
@@ -93,7 +94,17 @@ public class DynamicFeatureRegistry {
 	}
 	
 	private Object getDynamicFeatureValue(EObject instance, String featureName) {
-		
+		if (instance instanceof Concepts) {
+			Concepts concepts = (Concepts) instance;
+			Optional<Concept> concept = concepts.getAll()
+												.stream()
+												.filter(c -> c.getId().equals(featureName))
+												.findFirst();
+			
+			if (concept.isPresent()) {
+				return concept.get();
+			}
+		}
 		EObject extendedInstance = getOrCreateRuntimeExtension(instance);
 		
 		if(extendedInstance != null) {

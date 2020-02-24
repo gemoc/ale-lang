@@ -108,11 +108,11 @@ public class ExtensionLookupEngine extends BasicLookupEngine {
 	
 	private IService selectBestCandidate(List<IService> candidates, IType[] argumentTypes) {
 		
-		List<EvalBodyService> evalServices = 
+		List<IService> evalServices = 
 			candidates
 			.stream()
-			.filter(srv -> srv instanceof EvalBodyService)
-			.map(srv -> (EvalBodyService)srv)
+			.filter(srv -> srv instanceof EvalBodyService || srv.getName().equals("eval"))
+//			.map(srv -> (EvalBodyService)srv)
 			.collect(Collectors.toList());
 		
 		Object callerType = argumentTypes[0].getType();
@@ -120,7 +120,7 @@ public class ExtensionLookupEngine extends BasicLookupEngine {
 			
 			IService selection = null;
 			int distance = -1; //TODO: compute distance table at parse time
-			for (EvalBodyService service : evalServices) {
+			for (IService service : evalServices) {
 				if (selection == null) {
 					selection = service;
 					distance = getDistance((EClass) callerType,(EClass) service.getParameterTypes(queryEnvironment).get(0).getType());

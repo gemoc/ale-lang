@@ -12,7 +12,9 @@ package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
 //import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,7 @@ import org.eclipse.acceleo.query.runtime.IRootEObjectProvider;
 import org.eclipse.acceleo.query.runtime.IService;
 import org.eclipse.acceleo.query.runtime.IValidationResult;
 import org.eclipse.acceleo.query.runtime.ServiceUtils;
+import org.eclipse.acceleo.query.runtime.impl.AbstractService;
 import org.eclipse.acceleo.query.runtime.impl.JavaMethodService;
 import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
 import org.eclipse.acceleo.query.runtime.impl.ValidationServices;
@@ -39,7 +42,10 @@ import org.eclipse.acceleo.query.services.NumberServices;
 import org.eclipse.acceleo.query.services.ResourceServices;
 import org.eclipse.acceleo.query.services.StringServices;
 import org.eclipse.acceleo.query.services.XPathServices;
+import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
+import org.eclipse.acceleo.query.validation.type.NothingType;
+import org.eclipse.acceleo.query.validation.type.SequenceType;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EClass;
@@ -52,6 +58,7 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.services.SelectedCallServ
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.ServiceCallListener;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.TrigoServices;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
+import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
@@ -162,6 +169,55 @@ public class EvalEnvironment {
 		createServices(allImplemModels)
 			.stream()
 			.forEach(opService -> qryEnv.registerService(opService));
+		
+		qryEnv.registerService(new AbstractService() {
+			
+			@Override
+			public Set<IType> getType(Call call, ValidationServices services, IValidationResult validationResult,
+					IReadOnlyQueryEnvironment queryEnvironment, List<IType> argTypes) {
+				Set<IType> types = new HashSet<>();
+				types.add(new EClassifierType(queryEnvironment, ImplementationPackage.eINSTANCE.getConcept()));
+				return types;
+			}
+			
+			@Override
+			public String getShortSignature() {
+				return "eval(Concept concept): void";
+			}
+			
+			@Override
+			public int getPriority() {
+				return 0;
+			}
+			
+			@Override
+			public List<IType> getParameterTypes(IReadOnlyQueryEnvironment queryEnvironment) {
+				IType parameter = new EClassifierType(queryEnvironment, ImplementationPackage.eINSTANCE.getConcept());
+				return Arrays.asList(parameter);
+			}
+			
+			@Override
+			public int getNumberOfParameters() {
+				return 1;
+			}
+			
+			@Override
+			public String getName() {
+				return "eval";
+			}
+			
+			@Override
+			public String getLongSignature() {
+				return "eval(Concept concept): void -- long";
+			}
+			
+			@Override
+			protected Object internalInvoke(Object[] arguments) throws Exception {
+				System.out.println("INVOKING CONCEPT");
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
 	}
 	
 	public IQueryEnvironment getQueryEnvironment() {
