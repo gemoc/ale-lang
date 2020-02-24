@@ -36,6 +36,8 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
+import org.eclipse.emf.ecoretools.ale.implementation.Concept;
+import org.eclipse.emf.ecoretools.ale.implementation.Concepts;
 import org.eclipse.emf.ecoretools.ale.implementation.ConditionalBlock;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
@@ -44,6 +46,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.FeaturePut;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
+import org.eclipse.emf.ecoretools.ale.implementation.ImplementationFactory;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.Statement;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
@@ -67,6 +70,18 @@ public class MethodEvaluator {
 	BasicDiagnostic diagnostic;
 	Stack<Map<String, Object>> variablesStack;
 	
+	public static final Concepts concepts = ImplementationFactory.eINSTANCE.createConcepts();
+	
+	static {
+		Concept println = ImplementationFactory.eINSTANCE.createConcept();
+		println.setId("println");
+		Concept fsm = ImplementationFactory.eINSTANCE.createConcept();
+		fsm.setId("fsm");
+		
+		concepts.getAll().add(println);
+		concepts.getAll().add(fsm);
+	}
+	
 	public MethodEvaluator (IQueryEvaluationEngine aqlEngine, DynamicFeatureRegistry dynamicFeatureAccess) {
 		this.aqlEngine = aqlEngine;
 		this.dynamicFeatureAccess = dynamicFeatureAccess;
@@ -78,6 +93,7 @@ public class MethodEvaluator {
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("self", target);
 		variables.put("result", null);
+		variables.put("C", concepts);
 		
 		EOperation opDefinition = operation.getOperationRef();
 		

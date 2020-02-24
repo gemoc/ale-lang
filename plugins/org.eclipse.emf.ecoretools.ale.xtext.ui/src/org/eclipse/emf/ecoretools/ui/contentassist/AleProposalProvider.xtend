@@ -46,6 +46,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.eclipse.xtext.ui.editor.contentassist.PrefixMatcher
 
 import static extension org.eclipse.emf.ecoretools.ui.contentassist.TypeUtils.*
+import org.eclipse.emf.ecoretools.ale.core.interpreter.MethodEvaluator
 
 /**
  * Provides autocomplete for ALE.
@@ -95,6 +96,13 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 	
 	override completeExpression_Feature(EObject element, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		val prefix = getOffsetPrefix(context)
+		
+		if (prefix.startsWith("C.") || (element instanceof VarRef && ((element as VarRef).ID == "C"))) {
+			MethodEvaluator.concepts.all.forEach[ concept |
+				val proposal = doCreateProposal(concept.id, new StyledString(concept.id), null, priorityHelper.defaultPriority, context)
+				acceptor.accept(proposal)
+			]
+		}
 		
 		if (prefix.startsWith("self.") || (element instanceof VarRef && ((element as VarRef).ID == "self"))) {
 			val typed = if (prefix.contains('.')) prefix.substring(prefix.indexOf('.') + 1) else prefix

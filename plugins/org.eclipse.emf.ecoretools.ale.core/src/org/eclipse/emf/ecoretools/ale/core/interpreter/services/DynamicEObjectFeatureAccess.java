@@ -37,6 +37,9 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.DynamicFeatureRegistry;
 import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
 import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
+import org.eclipse.emf.ecoretools.ale.implementation.Concept;
+import org.eclipse.emf.ecoretools.ale.implementation.Concepts;
+import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 
 //FIXME: copy past from EObjectServices.EObjectFeatureAccess because it's private
 public class DynamicEObjectFeatureAccess extends JavaMethodService {
@@ -118,22 +121,26 @@ public class DynamicEObjectFeatureAccess extends JavaMethodService {
 				result.add(services.nothing(NON_EOBJECT_FEATURE_ACCESS, featureName, "null"));
 			}
 		} else {
-			
+			IConvertType convert = new ConvertType(queryEnvironment);
 			for (EClass eClass : receiverEClasses) {
-				EStructuralFeature feature = eClass.getEStructuralFeature(featureName);
-
-				if(feature == null) {
-					Optional<Attribute> dynamicFeature = dynamicFeatures.findFeature(eClass, featureName);
-					if(dynamicFeature.isPresent()) {
-						feature = dynamicFeature.get().getFeatureRef();
-					}
+				if (eClass.equals(ImplementationPackage.eINSTANCE.getConcepts())) {
+					result.add(convert.toAQL(ImplementationPackage.eINSTANCE.getConcept()));
 				}
-				
-				if (feature == null) {
-					result.add(services.nothing(UNKNOWN_FEATURE, featureName, eClass.getName()));
-				} else {
-					IConvertType convert = new ConvertType(queryEnvironment);
-					result.add(convert.toAQL(feature));
+				else {
+					EStructuralFeature feature = eClass.getEStructuralFeature(featureName);
+
+					if(feature == null) {
+						Optional<Attribute> dynamicFeature = dynamicFeatures.findFeature(eClass, featureName);
+						if(dynamicFeature.isPresent()) {
+							feature = dynamicFeature.get().getFeatureRef();
+						}
+					}
+					
+					if (feature == null) {
+						result.add(services.nothing(UNKNOWN_FEATURE, featureName, eClass.getName()));
+					} else {
+						result.add(convert.toAQL(feature));
+					}
 				}
 			}
 		}

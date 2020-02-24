@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.EvalEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.MethodEvaluator;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
@@ -50,6 +51,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.FeatureInsert;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
+import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
@@ -217,6 +219,9 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	@Override
 	public Object caseMethod(Method mtd) {
 		Map<String,Set<IType>> methodScope = new HashMap<>(variableTypesStack.peek());
+		Set<IType> conceptsSingletonType = new HashSet<>();
+		conceptsSingletonType.add(new EClassifierType(qryEnv, ImplementationPackage.eINSTANCE.getConcepts()));
+		methodScope.put("C", conceptsSingletonType);
 		
 		// Add method's parameters to scope
 		
