@@ -91,7 +91,7 @@ class AleTemplateProposalProvider extends DefaultTemplateProposalProvider {
 			 * Autocomplete self.<typed>
 			 */
 			if (prefix.startsWith("self.") || (element instanceof VarRef && ((element as VarRef).ID == "self"))) {
-				val typed = prefix.contains('.') ? prefix.substring(prefix.indexOf('.') + 1) : prefix
+				val typed = if (prefix.contains('.')) prefix.substring(prefix.indexOf('.') + 1) else prefix
 				var clazz = element.enclosingBehavioredClass
 				
 				// Used to ensure that only one template is created for overridden operations (which are defined both in Ecore and ALE)
@@ -147,7 +147,7 @@ class AleTemplateProposalProvider extends DefaultTemplateProposalProvider {
 		}
 	}
 	
-	def getSemantics(EObject model, ContentAssistContext context) {
+	private def getSemantics(EObject model, ContentAssistContext context) {
 		/*
 		 * Metamodel input
 		 */
