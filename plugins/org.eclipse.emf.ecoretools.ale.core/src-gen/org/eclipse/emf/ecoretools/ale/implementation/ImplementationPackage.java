@@ -1584,6 +1584,71 @@ public interface ImplementationPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.SemanticsImpl <em>Semantics</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.SemanticsImpl
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getSemantics()
+	 * @generated
+	 */
+	int SEMANTICS = 28;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTICS__ID = 0;
+
+	/**
+	 * The feature id for the '<em><b>Implem</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTICS__IMPLEM = 1;
+
+	/**
+	 * The feature id for the '<em><b>Concept</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTICS__CONCEPT = 2;
+
+	/**
+	 * The feature id for the '<em><b>Operation Ref</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTICS__OPERATION_REF = 3;
+
+	/**
+	 * The number of structural features of the '<em>Semantics</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTICS_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Semantics</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTICS_OPERATION_COUNT = 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior <em>Model Behavior</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2458,6 +2523,60 @@ public interface ImplementationPackage extends EPackage {
 	EReference getConcepts_All();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.Semantics <em>Semantics</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Semantics</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Semantics
+	 * @generated
+	 */
+	EClass getSemantics();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.implementation.Semantics#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Semantics#getId()
+	 * @see #getSemantics()
+	 * @generated
+	 */
+	EAttribute getSemantics_Id();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.implementation.Semantics#getImplem <em>Implem</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Implem</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Semantics#getImplem()
+	 * @see #getSemantics()
+	 * @generated
+	 */
+	EReference getSemantics_Implem();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.emf.ecoretools.ale.implementation.Semantics#getConcept <em>Concept</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Concept</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Semantics#getConcept()
+	 * @see #getSemantics()
+	 * @generated
+	 */
+	EReference getSemantics_Concept();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.emf.ecoretools.ale.implementation.Semantics#getOperationRef <em>Operation Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Operation Ref</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Semantics#getOperationRef()
+	 * @see #getSemantics()
+	 * @generated
+	 */
+	EReference getSemantics_OperationRef();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3191,6 +3310,48 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONCEPTS__ALL = eINSTANCE.getConcepts_All();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.SemanticsImpl <em>Semantics</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.SemanticsImpl
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getSemantics()
+		 * @generated
+		 */
+		EClass SEMANTICS = eINSTANCE.getSemantics();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SEMANTICS__ID = eINSTANCE.getSemantics_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Implem</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SEMANTICS__IMPLEM = eINSTANCE.getSemantics_Implem();
+
+		/**
+		 * The meta object literal for the '<em><b>Concept</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SEMANTICS__CONCEPT = eINSTANCE.getSemantics_Concept();
+
+		/**
+		 * The meta object literal for the '<em><b>Operation Ref</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SEMANTICS__OPERATION_REF = eINSTANCE.getSemantics_OperationRef();
 
 	}
 

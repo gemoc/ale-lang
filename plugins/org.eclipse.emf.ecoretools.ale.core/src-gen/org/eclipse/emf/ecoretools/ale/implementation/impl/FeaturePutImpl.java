@@ -12,7 +12,6 @@
 package org.eclipse.emf.ecoretools.ale.implementation.impl;
 
 import org.eclipse.acceleo.query.ast.Expression;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 

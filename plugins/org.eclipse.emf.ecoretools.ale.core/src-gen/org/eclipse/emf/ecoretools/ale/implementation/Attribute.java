@@ -12,7 +12,6 @@
 package org.eclipse.emf.ecoretools.ale.implementation;
 
 import org.eclipse.acceleo.query.ast.Expression;
-
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EStructuralFeature;
 

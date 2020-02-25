@@ -199,6 +199,10 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 				return createConceptsAdapter();
 			}
 			@Override
+			public Adapter caseSemantics(Semantics object) {
+				return createSemanticsAdapter();
+			}
+			@Override
 			public Adapter caseEModelElement(EModelElement object) {
 				return createEModelElementAdapter();
 			}
@@ -619,6 +623,20 @@ public class ImplementationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConceptsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.implementation.Semantics <em>Semantics</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Semantics
+	 * @generated
+	 */
+	public Adapter createSemanticsAdapter() {
 		return null;
 	}
 

@@ -64,14 +64,16 @@ public interface Concept extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Semantics</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.emf.ecoretools.ale.implementation.Statement}.
+	 * The list contents are of type {@link org.eclipse.emf.ecoretools.ale.implementation.Semantics}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.emf.ecoretools.ale.implementation.Semantics#getConcept <em>Concept</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Semantics</em>' containment reference list.
 	 * @see org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage#getConcept_Semantics()
-	 * @model containment="true"
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Semantics#getConcept
+	 * @model opposite="concept" containment="true"
 	 * @generated
 	 */
-	EList<Statement> getSemantics();
+	EList<Semantics> getSemantics();
 
 } // Concept

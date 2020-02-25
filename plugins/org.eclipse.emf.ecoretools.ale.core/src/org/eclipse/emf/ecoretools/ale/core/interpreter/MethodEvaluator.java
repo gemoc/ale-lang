@@ -11,6 +11,7 @@
 package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -28,12 +29,16 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.Concept;
@@ -70,7 +75,7 @@ public class MethodEvaluator {
 	BasicDiagnostic diagnostic;
 	Stack<Map<String, Object>> variablesStack;
 	
-	public static final Concepts concepts = ImplementationFactory.eINSTANCE.createConcepts();
+	public static Concepts concepts = ImplementationFactory.eINSTANCE.createConcepts();
 	
 	static {
 		Concept println = ImplementationFactory.eINSTANCE.createConcept();

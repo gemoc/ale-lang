@@ -99,6 +99,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 			case ImplementationPackage.UNRESOLVED_ECLASSIFIER: return createUnresolvedEClassifier();
 			case ImplementationPackage.CONCEPT: return createConcept();
 			case ImplementationPackage.CONCEPTS: return createConcepts();
+			case ImplementationPackage.SEMANTICS: return createSemantics();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -399,6 +400,17 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	public Concepts createConcepts() {
 		ConceptsImpl concepts = new ConceptsImpl();
 		return concepts;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Semantics createSemantics() {
+		SemanticsImpl semantics = new SemanticsImpl();
+		return semantics;
 	}
 
 	/**

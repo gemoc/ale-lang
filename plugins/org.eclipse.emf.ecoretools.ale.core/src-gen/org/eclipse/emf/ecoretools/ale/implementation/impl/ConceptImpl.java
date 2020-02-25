@@ -23,13 +23,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.emf.ecoretools.ale.implementation.Concept;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
-import org.eclipse.emf.ecoretools.ale.implementation.Statement;
+import org.eclipse.emf.ecoretools.ale.implementation.Semantics;
 
 /**
  * <!-- begin-user-doc -->
@@ -81,7 +80,7 @@ public class ConceptImpl extends MinimalEObjectImpl.Container implements Concept
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Statement> semantics;
+	protected EList<Semantics> semantics;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -131,11 +130,26 @@ public class ConceptImpl extends MinimalEObjectImpl.Container implements Concept
 	 * @generated
 	 */
 	@Override
-	public EList<Statement> getSemantics() {
+	public EList<Semantics> getSemantics() {
 		if (semantics == null) {
-			semantics = new EObjectContainmentEList<Statement>(Statement.class, this, ImplementationPackage.CONCEPT__SEMANTICS);
+			semantics = new EObjectContainmentWithInverseEList<Semantics>(Semantics.class, this, ImplementationPackage.CONCEPT__SEMANTICS, ImplementationPackage.SEMANTICS__CONCEPT);
 		}
 		return semantics;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ImplementationPackage.CONCEPT__SEMANTICS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSemantics()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -182,7 +196,7 @@ public class ConceptImpl extends MinimalEObjectImpl.Container implements Concept
 				return;
 			case ImplementationPackage.CONCEPT__SEMANTICS:
 				getSemantics().clear();
-				getSemantics().addAll((Collection<? extends Statement>)newValue);
+				getSemantics().addAll((Collection<? extends Semantics>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

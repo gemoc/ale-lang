@@ -10,11 +10,10 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
+import java.io.File;
 //import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,14 +41,16 @@ import org.eclipse.acceleo.query.services.NumberServices;
 import org.eclipse.acceleo.query.services.ResourceServices;
 import org.eclipse.acceleo.query.services.StringServices;
 import org.eclipse.acceleo.query.services.XPathServices;
-import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
-import org.eclipse.acceleo.query.validation.type.NothingType;
-import org.eclipse.acceleo.query.validation.type.SequenceType;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.services.ConceptEvalService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.DynamicEObjectServices;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.FactoryService;
@@ -57,10 +58,12 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.services.LogService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.SelectedCallService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.ServiceCallListener;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.TrigoServices;
+import org.eclipse.emf.ecoretools.ale.implementation.Concept;
+import org.eclipse.emf.ecoretools.ale.implementation.Concepts;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
-import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
+import org.eclipse.emf.ecoretools.ale.implementation.Semantics;
 
 import com.google.common.collect.Sets;
 
@@ -169,55 +172,6 @@ public class EvalEnvironment {
 		createServices(allImplemModels)
 			.stream()
 			.forEach(opService -> qryEnv.registerService(opService));
-		
-		qryEnv.registerService(new AbstractService() {
-			
-			@Override
-			public Set<IType> getType(Call call, ValidationServices services, IValidationResult validationResult,
-					IReadOnlyQueryEnvironment queryEnvironment, List<IType> argTypes) {
-				Set<IType> types = new HashSet<>();
-				types.add(new EClassifierType(queryEnvironment, ImplementationPackage.eINSTANCE.getConcept()));
-				return types;
-			}
-			
-			@Override
-			public String getShortSignature() {
-				return "eval(Concept concept): void";
-			}
-			
-			@Override
-			public int getPriority() {
-				return 0;
-			}
-			
-			@Override
-			public List<IType> getParameterTypes(IReadOnlyQueryEnvironment queryEnvironment) {
-				IType parameter = new EClassifierType(queryEnvironment, ImplementationPackage.eINSTANCE.getConcept());
-				return Arrays.asList(parameter);
-			}
-			
-			@Override
-			public int getNumberOfParameters() {
-				return 1;
-			}
-			
-			@Override
-			public String getName() {
-				return "eval";
-			}
-			
-			@Override
-			public String getLongSignature() {
-				return "eval(Concept concept): void -- long";
-			}
-			
-			@Override
-			protected Object internalInvoke(Object[] arguments) throws Exception {
-				System.out.println("INVOKING CONCEPT");
-				// TODO Auto-generated method stub
-				return null;
-			}
-		});
 	}
 	
 	public IQueryEnvironment getQueryEnvironment() {
@@ -228,7 +182,7 @@ public class EvalEnvironment {
 		return dynamicFeatures;
 	}
 	
-	private List<EvalBodyService> createServices(List<ModelUnit> allImplemModels) {
+	private List<AbstractService> createServices(List<ModelUnit> allImplemModels) {
 		Map<Method, EvalBodyService> res = new LinkedHashMap<>();
 		
 		/*
@@ -273,7 +227,7 @@ public class EvalEnvironment {
 				 res.get(op).setPriority(prio);
 			 });
 		
-		List<EvalBodyService> allOpServices =
+		List<AbstractService> allOpServices =
 			res
 			.entrySet()
 			.stream()
@@ -281,6 +235,15 @@ public class EvalEnvironment {
 			.collect(Collectors.toList());
 		allOpServices.addAll(newClassOperations);
 		
+		ResourceSet resources = new ResourceSetImpl();
+		Resource resource = resources.getResource(URI.createFileURI(new File("C:\\Users\\echebbi\\runtime-New_configuration(4)\\test\\Concepts.xmi").getAbsolutePath()), true);
+		MethodEvaluator.concepts = (Concepts) resource.getContents().get(0);
+
+		for (Concept concept : MethodEvaluator.concepts.getAll()) {
+			for (Semantics semantics : concept.getSemantics()) {
+				allOpServices.add(new ConceptEvalService(semantics, this, logger));
+			}
+		}
 		return allOpServices;
 	}
 	
