@@ -1,0 +1,13 @@
+behavior test.foreach;
+open class EClass {
+
+	def void main() {
+		for (city in self.cities()) {
+			city.log();
+		}
+	}
+	
+	def Sequence(String) cities() {
+		result := Sequence{'Paris', 'London'};
+	}
+}
