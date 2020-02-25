@@ -90,14 +90,14 @@ class AleProposalProvider extends AbstractAleProposalProvider {
     
     override completeRuleCall(RuleCall object, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
     	// Prevent Xtext from proposing unexpected proposals (such as '1')
-    	return
+    	return;
     }
 	
 	override completeExpression_Feature(EObject element, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		val prefix = getOffsetPrefix(context)
 		
 		if (prefix.startsWith("self.") || (element instanceof VarRef && ((element as VarRef).ID == "self"))) {
-			val typed = prefix.contains('.') ? prefix.substring(prefix.indexOf('.') + 1) : prefix
+			val typed = if (prefix.contains('.')) prefix.substring(prefix.indexOf('.') + 1) else prefix
 			var clazz = element.enclosingBehavioredClass
 			
 			// Autocomplete attributes declared within the ALE script
@@ -169,7 +169,7 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 		}
 	}
 	
-	def getSemantics(EObject model, ContentAssistContext context) {
+	private def getSemantics(EObject model, ContentAssistContext context) {
 		/*
 		 * Metamodel input
 		 */
