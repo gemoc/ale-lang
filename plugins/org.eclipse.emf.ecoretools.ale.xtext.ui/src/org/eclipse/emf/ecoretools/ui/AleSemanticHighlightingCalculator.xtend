@@ -115,7 +115,6 @@ class AleSemanticHighlightingCalculator implements ISemanticHighlightingCalculat
 					acceptor.addPosition(node.offset, node.length, AleHighlightingConfiguration.DEFAULT_ID)
 				}
 				else {
-					print("rule: " + rule.name)
 					acceptor.addPosition(node.offset, node.length, AleHighlightingConfiguration.DEFAULT_ID)
 				}
 			}
