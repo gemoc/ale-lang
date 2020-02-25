@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - [#86](https://github.com/gemoc/ale-lang/issues/86) The XMI model and the ALE entry point to execute can be set from the *Launch Configuration Tab*
 - [#92](https://github.com/gemoc/ale-lang/issues/92) The editor autocompletes attributes and methods of `self`
 - [#94](https://github.com/gemoc/ale-lang/issues/94) The editor automatically switches to dark colors when Eclipse IDE is in dark theme
+- [#98](https://github.com/gemoc/ale-lang/issues/98) The _New ALE Project_ wizard can be used to create ALE projects
 
 ### Changed
 - [#93](https://github.com/gemoc/ale-lang/issues/93) More tokens are available to tailor editor's syntax coloring

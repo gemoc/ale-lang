@@ -6,7 +6,9 @@ Bundle-Version: 1.1.0.qualifier
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.eclipse.emf.ecoretools.ale.ide.ui.Activator
 Export-Package: org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig,
- org.eclipse.emf.ecoretools.ale.ide.ui.services
+ org.eclipse.emf.ecoretools.ale.ide.ui.project;x-friends:="org.eclipse.emf.ecoretools.ale.ide.ui.tests",
+ org.eclipse.emf.ecoretools.ale.ide.ui.services,
+ org.eclipse.emf.ecoretools.ale.ide.ui.wizards
 Require-Bundle: org.eclipse.emf.ecoretools.ale.ide,
  org.eclipse.ui.workbench,
  org.eclipse.ui,
@@ -21,7 +23,11 @@ Require-Bundle: org.eclipse.emf.ecoretools.ale.ide,
  org.eclipse.sirius.common,
  org.eclipse.sirius.common.acceleo.aql,
  org.eclipse.emf.ecoretools.ale.xtext,
- org.eclipse.emf.ecoretools.design
+ org.eclipse.emf.ecoretools.design,
+ org.eclipse.jdt.core;resolution:=optional,
+ org.eclipse.jdt.launching;resolution:=optional,
+ org.eclipse.sirius.ext.base,
+ org.eclipse.sirius.ui
 Bundle-Vendor: Inria/Obeo
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: org.eclipse.emf.ecoretools.ale.ide.ui
