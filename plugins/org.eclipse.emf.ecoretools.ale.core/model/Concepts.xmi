@@ -1,3 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<implementation:Concepts xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:implementation="http://implementation/" xsi:schemaLocation="http://implementation/ Implementation.ecore"/>
+<implementation:Concepts
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ast="http://www.eclipse.org/acceleo/query/1.0"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:implementation="http://implementation/">
+  <all id="HelloWorld">
+    <semantics
+        id="eval">
+      <implem
+          operationRef="//@all.0/@semantics.0/@operationRef">
+        <body>
+          <statements
+              xsi:type="implementation:ExpressionStatement">
+            <expression
+                xsi:type="ast:Call"
+                serviceName="log">
+              <arguments
+                  xsi:type="ast:StringLiteral"
+                  value="Hello World!"/>
+            </expression>
+          </statements>
+        </body>
+      </implem>
+      <operationRef
+          name="helloWorld"/>
+    </semantics>
+  </all>
+  <all id="Hello">
+    <semantics
+        id="to">
+      <implem
+          operationRef="//@all.1/@semantics.0/@operationRef">
+        <body>
+          <statements
+              xsi:type="implementation:ExpressionStatement">
+            <expression
+                xsi:type="ast:Call"
+                serviceName="log">
+              <arguments
+                  xsi:type="ast:ErrorCall"
+                  serviceName="add">
+                <arguments
+                    xsi:type="ast:StringLiteral"
+                    value="Hello "/>
+                <arguments
+                    xsi:type="ast:VarRef"
+                    variableName="name"/>
+              </arguments>
+            </expression>
+          </statements>
+        </body>
+      </implem>
+      <operationRef
+          name="callHello">
+        <eParameters
+            name="name"
+            lowerBound="1">
+          <eType
+              xsi:type="ecore:EDataType"
+              href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eParameters>
+      </operationRef>
+    </semantics>
+  </all>
+  <all id="Greetings">
+    <semantics
+        id="greet">
+      <implem
+          operationRef="//@all.2/@semantics.0/@operationRef">
+        <body>
+          <statements
+              xsi:type="implementation:ExpressionStatement">
+            <expression
+                xsi:type="ast:Call"
+                serviceName="to">
+              <arguments
+                  xsi:type="ast:Call"
+                  serviceName="aqlFeatureAccess">
+                <arguments
+                    xsi:type="ast:VarRef"
+                    variableName="C"/>
+                <arguments
+                    xsi:type="ast:StringLiteral"
+                    value="Hello"/>
+              </arguments>
+              <arguments
+                  xsi:type="ast:VarRef"
+                  variableName="name"/>
+            </expression>
+          </statements>
+        </body>
+      </implem>
+      <operationRef
+          name="greet">
+        <eParameters
+            name="name"
+            lowerBound="1">
+          <eType
+              xsi:type="ecore:EDataType"
+              href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eParameters>
+      </operationRef>
+    </semantics>
+  </all>
+</implementation:Concepts>
