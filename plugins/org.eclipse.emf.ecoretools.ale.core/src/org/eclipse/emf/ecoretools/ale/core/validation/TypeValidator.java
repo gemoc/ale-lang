@@ -24,10 +24,12 @@ import java.util.function.Supplier;
 
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.IValidationMessage;
+import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecoretools.ale.core.validation.impl.AstLookup;
 import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
 import org.eclipse.emf.ecoretools.ale.core.validation.impl.TypeChecker;
@@ -49,6 +51,8 @@ import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
+
+import com.google.common.base.Objects;
 
 /**
  * Enforces static typing in an ALE program.
@@ -392,13 +396,31 @@ public class TypeValidator implements IValidator {
 	@Override
 	public List<IValidationMessage> validateForEach(ForEach loop) {
 		boolean iteratesOverACollection = lookup.inferredTypesOf(loop.getCollectionExpression()).stream()
-											  	.anyMatch(typeChecker::isCollection);
+											  	.anyMatch(type -> isIterable(type));
 		if(iteratesOverACollection) {
 			return NO_PROBLEM;
 		}
 		else {
 			return asList(messages.forEachCanOnlyIterateOnCollections(loop));
 		}
+	}
+	
+	/** Whether a for-each loop can iterate on an instance of the given type */
+	private final boolean isIterable(IType type) {
+		if (typeChecker.isCollection(type)) {
+			return true;
+		}
+		// TODO This check is out of the TypeChecker class because it was inconsistent with the other types
+		// and was painful to handle (the issue is the lookup.inferredTypesOf() can return a 'EClassifier'
+		// with 'EEList' as a type instead of a Sequence as we do everywhere else).
+		//
+		// Since for now this is an isolated case I chose to check this here, but if we end up needing this
+		// elsewhere we should consider putting it in TypeChecker.
+		if (type instanceof EClassifierType) {
+			EClassifierType classifierType = (EClassifierType) type;
+			return Objects.equal(classifierType.getType(), EcorePackage.eINSTANCE.getEEList());
+		}
+		return false;
 	}
 	
 	@Override
