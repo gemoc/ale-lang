@@ -102,4 +102,19 @@
         id="org.eclipse.emf.ecoretools.ale.ide.ui.launcher.image">
     </launchConfigurationTypeImage>
   </extension>
+     <extension
+           point="org.eclipse.ui.newWizards">
+        <wizard
+              category="org.eclipse.emf.ecoretools.ale.ide.ui.category"
+              class="org.eclipse.emf.ecoretools.ale.ide.ui.wizards.NewAleProjectWizard"
+              icon="icons/ALE.gif"
+              id="org.eclipse.emf.ecoretools.ale.ide.ui.wizards.newProject"
+              name="ALE Project"
+              project="true">
+        </wizard>
+        <category
+              id="org.eclipse.emf.ecoretools.ale.ide.ui.category"
+              name="ALE">
+        </category>
+     </extension>
 </plugin>
