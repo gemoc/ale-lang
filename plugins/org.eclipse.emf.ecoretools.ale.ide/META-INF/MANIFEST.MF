@@ -16,5 +16,6 @@ Import-Package: org.eclipse.emf.common.util,
  org.eclipse.emf.ecore.resource.impl
 Export-Package: org.eclipse.emf.ecoretools.ale.ide,
  org.eclipse.emf.ecoretools.ale.ide.listener,
+ org.eclipse.emf.ecoretools.ale.ide.project,
  org.eclipse.emf.ecoretools.ale.ide.resource
 Bundle-Vendor: Inria/Obeo

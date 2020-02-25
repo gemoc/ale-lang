@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2019 Inria and Obeo.
+ * Copyright (c) 2019-2020 Inria and Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,7 @@ import org.eclipse.ui.PlatformUI;
 /**
  * Utility methods for dealing with UI.
  */
-final class UiUtils {
+public final class UiUtils {
 
 	private UiUtils() {
 		// utility class should not be instantiated
