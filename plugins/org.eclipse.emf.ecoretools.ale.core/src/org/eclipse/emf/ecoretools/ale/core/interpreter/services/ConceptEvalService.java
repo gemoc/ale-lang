@@ -55,7 +55,7 @@ public class ConceptEvalService extends AbstractService {
 		this.semantics = requireNonNull(semantics, "semantics");
 		this.concept = requireNonNull(semantics.getConcept(), "concept");
 		this.evalEnvironment = requireNonNull(evalEnvironment, "evalEnvironment");
-		this.logger = requireNonNull(logger, "logger");
+		this.logger = logger; // requireNonNull(logger, "logger");
 	}
 	
 	@Override
