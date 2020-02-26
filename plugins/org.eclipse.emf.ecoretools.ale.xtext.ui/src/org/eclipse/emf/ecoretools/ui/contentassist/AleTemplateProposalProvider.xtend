@@ -65,7 +65,7 @@ class AleTemplateProposalProvider extends DefaultTemplateProposalProvider {
 	val matcher = new PrefixMatcher {
 		override isCandidateMatchingPrefix(String name, String prefix) {
 			val cleanName = name.toLowerCase
-			val cleanPrefix = prefix.toLowerCase
+			val cleanPrefix = if (prefix.startsWith('.')) prefix.substring(1).toLowerCase else prefix.toLowerCase
 			
 			if (cleanPrefix.isEmpty) {
 				return true;
@@ -148,31 +148,37 @@ class AleTemplateProposalProvider extends DefaultTemplateProposalProvider {
 					 ]
 			}
 			else if (element instanceof Feature) {
-	    		val Feature feature = element as Feature;
-	    		if (feature.target instanceof VarRef) {
-	    			val VarRef caller = feature.target as VarRef;
-	    			if (caller.ID == "C") {
-	    				val Concept concept = MethodEvaluator.concepts.all.findFirst[ concept | concept.id == feature.feature ]
-	    				if (concept !== null) {
-	    					val typed = if (prefix.contains('.')) prefix.substring(prefix.indexOf('.') + 1) else prefix
-	    					concept.semantics
-	    						   .filter[ sem | matcher.isCandidateMatchingPrefix(sem.operationRef.name, typed)]
-	    						   .forEach[ sem |
-	    						   		val operation = sem.operationRef
-	    						   		val text = sem.id + "(" + operation.EParameters
-	    						   												   .map[param | param.EType.name + " " + param.name]
-	    						   												   .join(", ") + ") : " 
-	    						   										+ (if (operation.EType === null) "void" else operation.EType.name)
-										val templatePattern = "." + sem.id + "(" + operation.EParameters.map[param | "${" + param.name + "}"].join(", ") + ")"
-										val template = new Template(text, "", text, templatePattern, false);
-										val proposal = doCreateProposal(template, templateContext, context, getImage(template), getRelevance(template))
-				
-										val fProposal = new AleTemplateProposal(matcher, template, templateContext, context.replaceRegion, proposal.image, proposal.relevance)
-										acceptor.accept(fProposal)
-	    						   ]
-	    				}
-	    			}
-	    		}
+				computeProposalsForFeature(element, prefix, acceptor, context, templateContext);
+			}
+		}
+	}
+	
+	private def void computeProposalsForFeature(EObject element, String prefix, ITemplateAcceptor acceptor, ContentAssistContext context, TemplateContext templateContext) {
+		if (element instanceof Feature) {
+    		val Feature feature = element as Feature;
+    		if (feature.target instanceof VarRef) {
+    			val VarRef caller = feature.target as VarRef;
+    			if (caller.ID == "C") {
+    				val Concept concept = MethodEvaluator.concepts.all.findFirst[ concept | concept.id == feature.feature ]
+    				if (concept !== null) {
+    					val typed = if (prefix.contains('.')) prefix.substring(prefix.indexOf('.') + 1) else prefix
+    					concept.semantics
+    						   .filter[ sem | matcher.isCandidateMatchingPrefix(sem.id, typed)]
+    						   .forEach[ sem |
+    						   		val operation = sem.operationRef
+    						   		val text = sem.id + "(" + operation.EParameters.map[param | param.EType.name + " " + param.name].join(", ") + ") : " + (if (operation.EType === null) "void" else operation.EType.name)
+									val templatePattern = "." + sem.id + "(" + operation.EParameters.map[param | "${" + param.name + "}"].join(", ") + ")"
+									val template = new Template(text, "", text, templatePattern, false);
+									val proposal = doCreateProposal(template, templateContext, context, getImage(template), getRelevance(template))
+			
+									val fProposal = new AleTemplateProposal(matcher, template, templateContext, context.replaceRegion, proposal.image, proposal.relevance)
+									acceptor.accept(fProposal)
+    						   ]
+    				}
+    			}
+    		}
+			else if (element.target instanceof Feature) {
+				computeProposalsForFeature(element.target, prefix, acceptor, context, templateContext);
 			}
 		}
 	}
