@@ -133,6 +133,9 @@ public class DynamicEObjectFeatureAccess extends JavaMethodService {
 						result.add(services.nothing("The concept " + featureName + " does not exist"));
 					}
 				}
+				else if (eClass.equals(ImplementationPackage.eINSTANCE.getConcept())) {
+					Concepts concepts = MethodEvaluator.concepts;
+				}
 				else {
 					EStructuralFeature feature = eClass.getEStructuralFeature(featureName);
 

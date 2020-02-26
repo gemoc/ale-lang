@@ -22,11 +22,14 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter
 import org.eclipse.emf.ecoretools.ale.BehavioredClass
 import org.eclipse.emf.ecoretools.ale.ExtendedClass
+import org.eclipse.emf.ecoretools.ale.Feature
 import org.eclipse.emf.ecoretools.ale.VarRef
+import org.eclipse.emf.ecoretools.ale.core.interpreter.MethodEvaluator
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator
 import org.eclipse.emf.ecoretools.ale.implementation.Block
+import org.eclipse.emf.ecoretools.ale.implementation.Concept
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer
 import org.eclipse.jface.viewers.StyledString
@@ -46,7 +49,6 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.eclipse.xtext.ui.editor.contentassist.PrefixMatcher
 
 import static extension org.eclipse.emf.ecoretools.ui.contentassist.TypeUtils.*
-import org.eclipse.emf.ecoretools.ale.core.interpreter.MethodEvaluator
 
 /**
  * Provides autocomplete for ALE.

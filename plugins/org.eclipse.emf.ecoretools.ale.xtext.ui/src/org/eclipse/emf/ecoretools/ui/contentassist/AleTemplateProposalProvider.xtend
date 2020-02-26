@@ -24,9 +24,12 @@ import org.eclipse.emf.ecoretools.ale.ALEInterpreter
 import org.eclipse.emf.ecoretools.ale.BehavioredClass
 import org.eclipse.emf.ecoretools.ale.Block
 import org.eclipse.emf.ecoretools.ale.ExtendedClass
+import org.eclipse.emf.ecoretools.ale.Feature
 import org.eclipse.emf.ecoretools.ale.VarRef
+import org.eclipse.emf.ecoretools.ale.core.interpreter.MethodEvaluator
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult
+import org.eclipse.emf.ecoretools.ale.implementation.Concept
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer
 import org.eclipse.jface.text.templates.ContextTypeRegistry
@@ -142,7 +145,33 @@ class AleTemplateProposalProvider extends DefaultTemplateProposalProvider {
 						val fProposal = new AleTemplateProposal(matcher, template, templateContext, context.replaceRegion, proposal.image, proposal.relevance)
 						acceptor.accept(fProposal)
 					 ]
-					 
+			}
+			else if (element instanceof Feature) {
+	    		val Feature feature = element as Feature;
+	    		if (feature.target instanceof VarRef) {
+	    			val VarRef caller = feature.target as VarRef;
+	    			if (caller.ID == "C") {
+	    				val Concept concept = MethodEvaluator.concepts.all.findFirst[ concept | concept.id == feature.feature ]
+	    				if (concept !== null) {
+	    					val typed = if (prefix.contains('.')) prefix.substring(prefix.indexOf('.') + 1) else prefix
+	    					concept.semantics
+	    						   .filter[ sem | matcher.isCandidateMatchingPrefix(sem.operationRef.name, typed)]
+	    						   .forEach[ sem |
+	    						   		val operation = sem.operationRef
+	    						   		val text = sem.id + "(" + operation.EParameters
+	    						   												   .map[param | param.EType.name + " " + param.name]
+	    						   												   .join(", ") + ") : " 
+	    						   										+ (if (operation.EType === null) "void" else operation.EType.name)
+										val templatePattern = "." + sem.id + "(" + operation.EParameters.map[param | "${" + param.name + "}"].join(", ") + ")"
+										val template = new Template(text, "", text, templatePattern, false);
+										val proposal = doCreateProposal(template, templateContext, context, getImage(template), getRelevance(template))
+				
+										val fProposal = new AleTemplateProposal(matcher, template, templateContext, context.replaceRegion, proposal.image, proposal.relevance)
+										acceptor.accept(fProposal)
+	    						   ]
+	    				}
+	    			}
+	    		}
 			}
 		}
 	}
