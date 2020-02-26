@@ -16,16 +16,19 @@ import org.eclipse.acceleo.query.runtime.impl.QueryCompletionEngine
 import org.eclipse.acceleo.query.validation.type.IType
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.runtime.IPath
+import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.ETypedElement
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter
-import org.eclipse.emf.ecoretools.ale.BehavioredClass
 import org.eclipse.emf.ecoretools.ale.ExtendedClass
 import org.eclipse.emf.ecoretools.ale.VarRef
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder
+import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator
+import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass
 import org.eclipse.emf.ecoretools.ale.implementation.Block
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer
@@ -54,7 +57,7 @@ import static extension org.eclipse.emf.ecoretools.ui.contentassist.TypeUtils.*
  */
 class AleProposalProvider extends AbstractAleProposalProvider {
 	
-	val matcher = new PrefixMatcher {
+	val matchesCandidatesContainingTypedText = new PrefixMatcher {
 		override isCandidateMatchingPrefix(String name, String prefix) {
 			if (prefix.isEmpty) {
 				return true;
@@ -96,101 +99,93 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 	override completeExpression_Feature(EObject element, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		val prefix = getOffsetPrefix(context)
 		
-		if (prefix.startsWith("self.") || (element instanceof VarRef && ((element as VarRef).ID == "self"))) {
+		/*
+		 * Autocomplete <element>.<typed>|
+		 */
+		if (element instanceof VarRef) {
 			val typed = if (prefix.contains('.')) prefix.substring(prefix.indexOf('.') + 1) else prefix
-			var clazz = element.enclosingBehavioredClass
 			
-			// Autocomplete attributes declared within the ALE script
+			val semantics = element.semantics
+			val elementType = element.findType(semantics)
 			
-			clazz.attributes
-				 .filter[attribute | matcher.isCandidateMatchingPrefix(attribute.name, typed)]
-				 .forEach[attribute |
-					val name = attribute.name 
-					val type = attribute.type.asString
-					val styledText = new StyledString(name + " : " + type)
-					/*
-					 * Style attribute's name
-					 */
-					styledText.setStyle(0, attribute.name.length, attributeNameStyler);
-					/*
-					 * Style attribute's type
-					 */
-					styledText.setStyle(styledText.length - type.length, type.length, attributeTypeStyler);
-					/*
-					 * Outline the matching characters
-					 */
-					val matchingCharactersIndex = name.indexOf(typed)
-					styledText.setStyle(matchingCharactersIndex, typed.length, matchingCharactersStyler)
-					
-					val completion = doCreateProposal(name, styledText, null, getPriorityHelper().getDefaultPriority(), context)
-					if (completion instanceof ConfigurableCompletionProposal) {
-						completion.matcher = matcher;
-					}
-					acceptor.accept(completion)
-				 ]
-				 
-			// Autocomplete features declared in the Ecore model
-				 
-			if (clazz instanceof ExtendedClass) {
-				val extendedClassInEcore = clazz as ExtendedClass
-				val semantics = getSemantics(element, context);
-				val extendedClassInAleScript = semantics.filter[unit | unit.root !== null]
-						          						.map[unit | unit.root]
-						          						.flatMap[root | root.classExtensions]
-						          						.findFirst[ext | extendedClassInEcore.name == ext.baseClass.name]
-						          
-				extendedClassInAleScript.baseClass.EStructuralFeatures
-										.filter[feature | matcher.isCandidateMatchingPrefix(feature.name, typed)]
-										.forEach[feature |
-											val name = feature.name 
-											val type = feature.typeAsString
-											val styledText = new StyledString(name + " : " + type)
-											/*
-											 * Style attribute's name
-											 */
-											styledText.setStyle(0, feature.name.length, attributeNameStyler)
-											/*
-											 * Style attribute's type
-											 */
-											styledText.setStyle(styledText.length - type.length, type.length, attributeTypeStyler)
-											/*
-											 * Outline the matching characters
-											 */
-											val matchingCharactersIndex = name.indexOf(typed)
-											styledText.setStyle(matchingCharactersIndex, typed.length, matchingCharactersStyler)
-											 
-											val completion = doCreateProposal(name, styledText, null, getPriorityHelper().getDefaultPriority(), context)
-											if (completion instanceof ConfigurableCompletionProposal) {
-												completion.matcher = matcher
-											}
-											acceptor.accept(completion)
-										]
+			if (elementType instanceof BehavioredClass) {
+				acceptor.createProposalsForBehavioredClass(elementType, element, semantics, typed, context)
+			}
+			else if (elementType instanceof ETypedElement) {
+				acceptor.createProposalsForETypedElement(elementType, element, semantics, typed, context)
 			}
 		}
 	}
 	
-	private def getSemantics(EObject model, ContentAssistContext context) {
-		/*
-		 * Metamodel input
-		 */
-		val IFile aleFile = WorkspaceSynchronizer.getFile(model.eResource);
-		val IPath dslPath = aleFile.getFullPath().removeFileExtension().addFileExtension("ecore");
-    	val rs = new ResourceSetImpl();
-    	rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
-    	val ecorePkgs = DslBuilder.load(dslPath.toString,rs);
+	private def createProposalsForBehavioredClass(ICompletionProposalAcceptor acceptor, BehavioredClass clazz, EObject syntax, DslSemantics semantics, String typed, ContentAssistContext context) {
+		// Autocomplete attributes declared within the ALE script
 		
-		/*
-		 * ALE input
-		 */
-		val stream = new ByteArrayInputStream(context.document.get().getBytes(StandardCharsets.UTF_8));
+		clazz.attributes
+			 .filter[attribute | matchesCandidatesContainingTypedText.isCandidateMatchingPrefix(attribute.featureRef.name, typed)]
+			 .forEach[attribute | acceptor.createAttributeProposal(attribute.featureRef.name, attribute.featureRef.typeAsString, typed, context)]
+			 
+		// Autocomplete features declared in the Ecore model
+			 
+		if (clazz instanceof org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass) {
+			val extendedClassInEcore = clazz as org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass
+			val extendedClassInAleScript = semantics.behaviors
+					          						.flatMap[root | root.classExtensions]
+					          						.findFirst[ext | extendedClassInEcore.name == ext.baseClass.name]
+					          
+			extendedClassInAleScript.baseClass.EStructuralFeatures
+									.filter[feature | matchesCandidatesContainingTypedText.isCandidateMatchingPrefix(feature.name, typed)]
+									.forEach[feature | acceptor.createAttributeProposal(feature.name, feature.typeAsString, typed, context)]
+		}
+	}
+	
+	private def createProposalsForETypedElement(ICompletionProposalAcceptor acceptor, ETypedElement clazz, EObject syntax, DslSemantics semantics, String typed, ContentAssistContext context) {
+		if (!clazz.isMany && clazz.EType instanceof EClass) {
+			acceptor.createProposalsForEClass(clazz.EType as EClass, syntax, semantics, typed, context)
+		}
+	}
+	
+	private def createProposalsForEClass(ICompletionProposalAcceptor acceptor, EClass clazz, EObject syntax, DslSemantics semantics, String typed, ContentAssistContext context) {
+		// Autocomplete attributes declared within the ALE script
 		
+		clazz.EStructuralFeatures
+			 .filter[feature | matchesCandidatesContainingTypedText.isCandidateMatchingPrefix(feature.name, typed)]
+			 .forEach[feature | acceptor.createAttributeProposal(feature.name, feature.typeAsString, typed, context)]
+			 
+		// Autocomplete features declared in the Ecore model
+			 
+		if (clazz instanceof ExtendedClass) {
+			val extendedClassInEcore = clazz as ExtendedClass
+			val extendedClassInAleScript = semantics.behaviors
+					          						.flatMap[root | root.classExtensions]
+					          						.findFirst[ext | extendedClassInEcore.name == ext.baseClass.name]
+					          
+			extendedClassInAleScript.baseClass.EStructuralFeatures
+									.filter[feature | matchesCandidatesContainingTypedText.isCandidateMatchingPrefix(feature.name, typed)]
+									.forEach[feature | acceptor.createAttributeProposal(feature.name, feature.typeAsString, typed, context)]
+		}
+	}
+	
+	private def createAttributeProposal(ICompletionProposalAcceptor acceptor, String name, String type, String typed, ContentAssistContext context) {
+		val styledText = new StyledString(name + " : " + type)
 		/*
-		 * Parse result
+		 * Style attribute's name
 		 */
-		val ALEInterpreter interpreter = new ALEInterpreter();
-		val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(ecorePkgs,Arrays.asList(stream));
+		styledText.setStyle(0, name.length, attributeNameStyler);
+		/*
+		 * Style attribute's type
+		 */
+		styledText.setStyle(styledText.length - type.length, type.length, attributeTypeStyler);
+		/*
+		 * Outline the matching characters
+		 */
+		val matchingCharactersIndex = name.indexOf(typed)
+		styledText.setStyle(matchingCharactersIndex, typed.length, matchingCharactersStyler)
 		
-		return parsedSemantics;
+		val completion = doCreateProposal(name, styledText, null, getPriorityHelper().getDefaultPriority(), context)
+		if (completion instanceof ConfigurableCompletionProposal) {
+			completion.matcher = matchesCandidatesContainingTypedText;
+		}
+		acceptor.accept(completion)
 	}
 	
 	override completeExpression_Name(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
@@ -261,24 +256,6 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 				styledText.setStyle(0, proposal.proposal.length, StyledString.QUALIFIER_STYLER);
 				acceptor.accept(doCreateProposal(proposal.proposal, styledText, null, getPriorityHelper().getDefaultPriority()+1,context))
 			]
-	}
-	
-	
-	/**
-	 * Return the top containing Expression
-	 */
-	private def org.eclipse.emf.ecoretools.ale.Expression rootExpression(EObject element) {
-		var org.eclipse.emf.ecoretools.ale.Expression res = null
-
-		var current = element;
-		while(current !== null) {
-			if(current instanceof org.eclipse.emf.ecoretools.ale.Expression) {
-				res = current
-			}
-			current = current.eContainer
-		}
-		
-		return res
 	}
 	
 	/**
@@ -452,13 +429,5 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 			return context.document.get(startOffset,context.offset-startOffset)
 		}
 		return ""
-	}
-	
-	private def enclosingBehavioredClass(EObject element) {
-		var clazz = element.eContainer
-		while (!(clazz instanceof BehavioredClass) && clazz !== null) {
-			clazz = clazz.eContainer
-		}
-		return clazz as BehavioredClass
 	}
 }
