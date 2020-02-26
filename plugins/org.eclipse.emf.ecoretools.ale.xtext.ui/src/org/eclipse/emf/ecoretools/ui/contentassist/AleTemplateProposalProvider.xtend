@@ -10,25 +10,17 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ui.contentassist
 
-import java.io.ByteArrayInputStream
-import java.nio.charset.StandardCharsets
-import java.util.Arrays
-import java.util.List
+import java.util.Set
 import javax.inject.Inject
-import org.eclipse.core.resources.IFile
-import org.eclipse.core.runtime.IPath
+import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
-import org.eclipse.emf.ecoretools.ale.ALEInterpreter
-import org.eclipse.emf.ecoretools.ale.BehavioredClass
+import org.eclipse.emf.ecore.EOperation
+import org.eclipse.emf.ecore.ETypedElement
 import org.eclipse.emf.ecoretools.ale.Block
 import org.eclipse.emf.ecoretools.ale.ExtendedClass
 import org.eclipse.emf.ecoretools.ale.VarRef
-import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult
-import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit
-import org.eclipse.emf.workspace.util.WorkspaceSynchronizer
+import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics
+import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass
 import org.eclipse.jface.text.templates.ContextTypeRegistry
 import org.eclipse.jface.text.templates.Template
 import org.eclipse.jface.text.templates.TemplateContext
@@ -59,7 +51,7 @@ class AleTemplateProposalProvider extends DefaultTemplateProposalProvider {
 	/**
 	 * Avoid duplicated templates
 	 */
-	val matcher = new PrefixMatcher {
+	val matchesCandidatesContainingTypedText = new PrefixMatcher {
 		override isCandidateMatchingPrefix(String name, String prefix) {
 			val cleanName = name.toLowerCase
 			val cleanPrefix = prefix.toLowerCase
@@ -88,95 +80,93 @@ class AleTemplateProposalProvider extends DefaultTemplateProposalProvider {
 			val element = context.currentModel
 			
 			/*
-			 * Autocomplete self.<typed>
+			 * Autocomplete <element>.<typed>|
 			 */
-			if (prefix.startsWith("self.") || (element instanceof VarRef && ((element as VarRef).ID == "self"))) {
+			if (element instanceof VarRef) {
 				val typed = if (prefix.contains('.')) prefix.substring(prefix.indexOf('.') + 1) else prefix
-				var clazz = element.enclosingBehavioredClass
 				
-				// Used to ensure that only one template is created for overridden operations (which are defined both in Ecore and ALE)
-				val operationsProcessed = newArrayList()
-				 
-				// Autocomplete methods declared within the Ecore model
-				
-				if (clazz instanceof ExtendedClass) {
-					val extendedClassInEcore = clazz as ExtendedClass
-					val semantics = getSemantics(element, context);
-					val extendedClassInAleScript = semantics.filter[unit | unit.root !== null]
-							          						.map[unit | unit.root]
-							          						.flatMap[root | root.classExtensions]
-							          						.findFirst[ext | extendedClassInEcore.name == ext.baseClass.name]
-							          							
-					extendedClassInAleScript.baseClass
-											.EOperations
-											.filter[operation | matcher.isCandidateMatchingPrefix(operation.name, typed)]
-											.forEach[operation |
-												val text = operation.name + "(" + operation.EParameters.map[param | param.EType.name + " " + param.name].join(", ") + ") : " + operation.EType.name
-						
-												val template = new Template(text, "", text, text, false);
-												val proposal = doCreateProposal(template, templateContext, context, getImage(template), getRelevance(template))
-						
-												val fProposal = new AleTemplateProposal(matcher, template, templateContext, context.replaceRegion, proposal.image, proposal.relevance)
-												acceptor.accept(fProposal)
-												
-												operationsProcessed += text
-											]
+				val semantics = element.semantics
+				val elementType = element.findType(semantics)
+			
+				if (elementType instanceof BehavioredClass) {
+					acceptor.createProposalsForBehavioredClass(elementType, element, semantics, typed, templateContext, context)
 				}
-				 
-				// Autocomplete methods declared within the ALE script
-					 
-				clazz.operations
-					 .filter[operation | matcher.isCandidateMatchingPrefix(operation.name, typed)]
-					 .forEach[operation |
-						val templateName = operation.name + "(" + operation.params.map[param | param.type.asString + " " + param.name].join(", ") + ") : " + operation.type.asString
-
-						// The operations is overridden & a template has already been created						
-						if (operationsProcessed.contains(templateName)) {
-							return
-						}
-						val templatePattern = operation.name + "(" + operation.params.map[param | "${" + param.name + "}"].join(", ") + ")"
-
-						val template = new Template(templateName, "", templateName, templatePattern, false);
-						val proposal = doCreateProposal(template, templateContext, context, getImage(template), getRelevance(template))
-
-						val fProposal = new AleTemplateProposal(matcher, template, templateContext, context.replaceRegion, proposal.image, proposal.relevance)
-						acceptor.accept(fProposal)
-					 ]
-					 
+				else if (elementType instanceof ETypedElement) {
+					acceptor.createProposalsForETypedElement(elementType, element, semantics, typed, templateContext, context)
+				}
 			}
 		}
 	}
 	
-	private def getSemantics(EObject model, ContentAssistContext context) {
-		/*
-		 * Metamodel input
-		 */
-		val IFile aleFile = WorkspaceSynchronizer.getFile(model.eResource);
-		val IPath dslPath = aleFile.getFullPath().removeFileExtension().addFileExtension("ecore");
-    	val rs = new ResourceSetImpl();
-    	rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
-    	val ecorePkgs = DslBuilder.load(dslPath.toString,rs);
-		
-		/*
-		 * ALE input
-		 */
-		val stream = new ByteArrayInputStream(context.document.get().getBytes(StandardCharsets.UTF_8));
-		
-		/*
-		 * Parse result
-		 */
-		val ALEInterpreter interpreter = new ALEInterpreter();
-		val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(ecorePkgs,Arrays.asList(stream));
-		
-		return parsedSemantics;
+	private def createProposalsForBehavioredClass(ITemplateAcceptor acceptor, BehavioredClass clazz, EObject syntax, DslSemantics semantics, String typed, TemplateContext templateContext, ContentAssistContext context) {
+		// Used to ensure that only one template is created for overridden operations (which are defined both in Ecore and ALE)
+		val proposedOperations = newHashSet()
+		 
+		// Autocomplete methods declared within the ALE script
+			 
+		clazz.methods
+			 .filter[method | matchesCandidatesContainingTypedText.isCandidateMatchingPrefix(method.operationRef.name, typed)]
+			 .forEach[method | 
+			 	acceptor.createProposalFor(method.operationRef, templateContext, context, proposedOperations)
+			 ]
+				
+		// Autocomplete methods declared within the Ecore model
+				
+		if (clazz instanceof ExtendedClass) {
+			val extendedClassInEcore = clazz as ExtendedClass
+			val extendedClassInAleScript = semantics.behaviors
+					          						.flatMap[root | root.classExtensions]
+					          						.findFirst[ext | extendedClassInEcore.name == ext.baseClass.name]
+					          							
+			extendedClassInAleScript.baseClass
+									.EOperations
+									.filter[operation | matchesCandidatesContainingTypedText.isCandidateMatchingPrefix(operation.name, typed)]
+									.forEach[operation | acceptor.createProposalFor(operation, templateContext, context, proposedOperations)]
+		}
 	}
 	
-	private def enclosingBehavioredClass(EObject element) {
-		var clazz = element.eContainer
-		while (!(clazz instanceof BehavioredClass) && clazz !== null) {
-			clazz = clazz.eContainer
+	private def createProposalsForETypedElement(ITemplateAcceptor acceptor, ETypedElement clazz, EObject syntax, DslSemantics semantics, String typed, TemplateContext templateContext, ContentAssistContext context) {
+		if (!clazz.isMany && clazz.EType instanceof EClass) {
+			acceptor.createProposalsForEClass(clazz.EType as EClass, syntax, semantics, typed, templateContext, context)
 		}
-		return clazz as BehavioredClass
+	}
+	
+	private def createProposalsForEClass(ITemplateAcceptor acceptor, EClass clazz, EObject syntax, DslSemantics semantics, String typed, TemplateContext templateContext, ContentAssistContext context) {
+		// Used to ensure that only one template is created for overridden operations (which are defined both in Ecore and ALE)
+		val proposedOperations = newHashSet()
+		 
+		// Autocomplete methods declared within the ALE script
+			 
+		clazz.EOperations
+			 .filter[operation | matchesCandidatesContainingTypedText.isCandidateMatchingPrefix(operation.name, typed)]
+			 .forEach[operation | acceptor.createProposalFor(operation, templateContext, context, proposedOperations)]
+				
+		// Autocomplete methods declared within the Ecore model
+				
+		if (clazz instanceof ExtendedClass) {
+			val extendedClassInEcore = clazz as ExtendedClass
+			val extendedClassInAleScript = semantics.behaviors
+					          						.flatMap[root | root.classExtensions]
+					          						.findFirst[ext | extendedClassInEcore.name == ext.baseClass.name]
+					          							
+			extendedClassInAleScript.baseClass
+									.EOperations
+									.filter[operation | matchesCandidatesContainingTypedText.isCandidateMatchingPrefix(operation.name, typed)]
+									.forEach[operation | acceptor.createProposalFor(operation, templateContext, context, proposedOperations)]
+		}
+	}
+	
+	private def createProposalFor(ITemplateAcceptor acceptor, EOperation operation, TemplateContext templateContext, ContentAssistContext context, Set<String> proposedOperations) {
+		val templateName = operation.name + "(" + operation.EParameters.map[param | param.EType.name + " " + param.name].join(", ") + ") : " + operation.EType.asString
+		val templatePattern = operation.name + "(" + operation.EParameters.map[param | "${" + param.name + "}"].join(", ") + ")"
+						
+		val template = new Template(templateName, "", templateName, templatePattern, false);
+		val proposal = doCreateProposal(template, templateContext, context, getImage(template), getRelevance(template))
+
+		val fProposal = new AleTemplateProposal(matchesCandidatesContainingTypedText, template, templateContext, context.replaceRegion, proposal.image, proposal.relevance)
+		acceptor.accept(fProposal)
+		
+		return templateName
 	}
 	
 	/**

@@ -10,22 +10,188 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ui.contentassist
 
+import org.eclipse.acceleo.query.ast.AstPackage
+import org.eclipse.core.resources.IFile
 import org.eclipse.emf.ecore.EClassifier
-import org.eclipse.emf.ecore.EStructuralFeature
+import org.eclipse.emf.ecore.ENamedElement
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EParameter
+import org.eclipse.emf.ecore.ETypedElement
+import org.eclipse.emf.ecore.EcorePackage
+import org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.emf.ecoretools.ale.BehavioredClass
 import org.eclipse.emf.ecoretools.ale.BoolType
 import org.eclipse.emf.ecoretools.ale.ClassifierType
+import org.eclipse.emf.ecoretools.ale.ExtendedClass
 import org.eclipse.emf.ecoretools.ale.IntType
+import org.eclipse.emf.ecoretools.ale.Operation
 import org.eclipse.emf.ecoretools.ale.RealType
 import org.eclipse.emf.ecoretools.ale.SeqType
 import org.eclipse.emf.ecoretools.ale.SetType
 import org.eclipse.emf.ecoretools.ale.StringType
+import org.eclipse.emf.ecoretools.ale.VarRef
+import org.eclipse.emf.ecoretools.ale.core.interpreter.ExtensionEnvironment
+import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder
+import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics
+import org.eclipse.emf.ecoretools.ale.core.parser.internal.ImmutableDslSemantics
+import org.eclipse.emf.ecoretools.ale.ide.project.AleProject
+import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage
+import org.eclipse.emf.ecoretools.ale.implementation.Method
+import org.eclipse.emf.ecoretools.ale.implementation.Statement
+import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration
 import org.eclipse.emf.ecoretools.ale.rType
 import org.eclipse.emf.ecoretools.ale.typeLiteral
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer
 
+/**
+ * Utility methods used by proposals providers to query syntactical elements.
+ */
 final class TypeUtils {
 	
 	private new() {
 		// this utility provide extension methods, it should not be instantiated
+	}
+	
+	def static getSemantics(EObject model) {
+		/*
+		 * Metamodel input
+		 */
+		val IFile aleFile = WorkspaceSynchronizer.getFile(model.eResource);
+		val project = AleProject.from(aleFile.project)
+    	
+    	// FIXME The code below has been copied from ALEInterpreter
+    	
+    	val queryEnv = new ExtensionEnvironment();
+    	queryEnv.registerEPackage(EcorePackage.eINSTANCE);
+    	queryEnv.registerEPackage(ImplementationPackage.eINSTANCE);
+    	queryEnv.registerEPackage(AstPackage.eINSTANCE);
+    	queryEnv.registerCustomClassMapping(EcorePackage.eINSTANCE.getEStringToStringMapEntry(), typeof(EStringToStringMapEntryImpl));
+    	
+		val parser = new DslBuilder(queryEnv);
+    	val rawSemantics = parser.parse(project.environment)
+
+		// Free memory to prevent memory leaks    	
+    	queryEnv.removeEPackage(ImplementationPackage.eINSTANCE);
+    	queryEnv.removeEPackage(AstPackage.eINSTANCE);
+    	
+    	return new ImmutableDslSemantics(rawSemantics)
+	}
+	
+	/**
+	 * Finds the actual type of the reference.
+	 * <p>
+	 * Returns the semantic type (ale.implementation.BehavioredClass) if possible,
+	 * otherwise returns the syntactic type (ale.BehavioredClass or EClass).
+	 */
+	def static EObject findType(VarRef reference, DslSemantics semantics) {
+		val enclosingClass = reference.enclosingBehavioredClass
+		 
+		if (reference.ID == "self") {
+			val referenceType = enclosingClass
+			return referenceType.semanticAlterEgo(semantics)
+		}
+		else {
+			val operation = reference.enclosingMethod
+			
+			val method = semantics.behaviors
+								  .flatMap[root | root.classExtensions]
+								  .findFirst[ext | enclosingClass.name == enclosingClass.name ]
+								  .methods
+								  .findFirst[m | m.matches(operation)]
+								  
+			val inferredType = method.typeOf(reference)
+			return inferredType.semanticAlterEgo(semantics)
+		}
+	}
+	
+	private def static enclosingBehavioredClass(EObject element) {
+		var clazz = element.eContainer
+		while (!(clazz instanceof BehavioredClass) && clazz !== null) {
+			clazz = clazz.eContainer
+		}
+		return clazz as BehavioredClass
+	}
+	
+	private def static enclosingMethod(EObject element) {
+		var clazz = element.eContainer
+		while (!(clazz instanceof Operation) && clazz !== null) {
+			clazz = clazz.eContainer
+		}
+		return clazz as Operation
+	}
+	
+	private def static typeOf(Method method, VarRef ref) {
+		for (EParameter param : method.operationRef.EParameters) {
+			if (param.name == ref.ID) {
+				return param.EType
+			}
+		}
+		for (Statement statement : method.body.statements) {
+			if (statement instanceof VariableDeclaration) {
+				val decl = statement as VariableDeclaration
+				return decl.type
+			}
+		}
+	}
+	
+	private def static matches(Method method, Operation operation) {
+		if (method.operationRef.name != operation.name) {
+			return false;
+		}
+		if (method.operationRef.EParameters.size != operation.params.size) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Returns the semantic type (ale.implementation.BehavioredClass) corresponding
+	 * to the given syntactical type, or the syntactical type if it cannot be found.
+	 */
+	private def static semanticAlterEgo(BehavioredClass syntacticalClass, DslSemantics semantics) {
+		if (syntacticalClass instanceof ExtendedClass) {
+			val correspondingOpenClass = semantics.behaviors
+													  .flatMap[root | root.classExtensions]
+						 							  .findFirst[behavior | behavior.baseClass.name == syntacticalClass.name]
+						 							  
+			if (correspondingOpenClass !== null) {
+				return correspondingOpenClass
+			}
+		}
+		val correspondingRuntimeClass = semantics.behaviors
+											     .flatMap[root | root.classDefinitions]
+				 							     .findFirst[behavior | behavior.name == syntacticalClass.name]
+
+		if (correspondingRuntimeClass !== null) {
+			return correspondingRuntimeClass
+		}
+		return syntacticalClass
+	}
+	
+	/**
+	 * Returns the semantic type (ale.implementation.BehavioredClass) corresponding
+	 * to the given syntactical type, or the syntactical type if it cannot be found.
+	 */
+	private def static semanticAlterEgo(ENamedElement syntacticalElement, DslSemantics semantics) {
+		// Extract actual type when nested in a typed element (e.g. local variables)
+		val syntacticalClass = if (syntacticalElement instanceof ETypedElement) syntacticalElement.EType else syntacticalElement
+		
+		val correspondingOpenClass = semantics.behaviors
+											  .flatMap[root | root.classExtensions]
+					 						  .findFirst[behavior | EcoreUtil.equals(behavior.baseClass, syntacticalClass)]
+					 							  
+		if (correspondingOpenClass !== null) {
+			return correspondingOpenClass
+		}
+		val correspondingRuntimeClass = semantics.behaviors
+											     .flatMap[root | root.classDefinitions]
+				 							     .findFirst[behavior | behavior.name == syntacticalClass.name]
+
+		if (correspondingRuntimeClass !== null) {
+			return correspondingRuntimeClass
+		}
+		return syntacticalClass
 	}
 	
     def static String asString(rType type) {
@@ -56,7 +222,7 @@ final class TypeUtils {
     	return type.name
     }
     
-    def static String typeAsString(EStructuralFeature feature) {
+    def static String typeAsString(ETypedElement feature) {
     	if (feature.isMany) {
 			if (feature.isUnique) {
 				return "Set(" + feature.EType.asString + ")"
@@ -69,7 +235,12 @@ final class TypeUtils {
     }
     
     def static String asString(EClassifier type) {
-    	return type.name
+    	if (type === null) {
+    		return "void"
+    	}
+    	else {
+    		return type.name
+		}
     }
 	
 }

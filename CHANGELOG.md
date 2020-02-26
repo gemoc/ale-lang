@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - [#64](https://github.com/gemoc/ale-lang/issues/64) Allow to assign `null` to variables
 - [#67](https://github.com/gemoc/ale-lang/issues/67) Forbid assignments from `Sequence` to `OrderedSet` and vice versa
 - [#102](https://github.com/gemoc/ale-lang/issues/102) The editor shows an error when a method is used to define the range of a for-each loop
-- [#120](https://github.com/gemoc/ale-lang/issues/120) The `+=` cannot be used to concatenate two collections
+- [#120](https://github.com/gemoc/ale-lang/issues/120) The `+=` operator cannot be used to concatenate two collections
 
 ### Added
 - [#60](https://github.com/gemoc/ale-lang/issues/60) An ALE Run Configuration is created when launching ALE through the contextual menu shortcut
@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - [#115](https://github.com/gemoc/ale-lang/pull/115) The ALE environment (the _.ale_ source files and the _.ecore_ metamodels) can now be stored in the project's preferences, allowing to get rid of the .dsl configuration file
 - [#115](https://github.com/gemoc/ale-lang/pull/115) The interpreter can be run by right-clicking on an ALE project
 - [#129](https://github.com/gemoc/ale-lang/pull/129) The editor warns when the `+=` and `-=` operators ared used on the `result` variable in a void method
+- [#131](https://github.com/gemoc/ale-lang/pull/131) The editor autocompletes attributes and methods of local variables and method parameters (support limited to model instances)
 
 ### Changed
 - [#93](https://github.com/gemoc/ale-lang/issues/93) More tokens are available to tailor editor's syntax coloring
