@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.DynamicFeatureRegistry;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.MethodEvaluator;
 import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
 import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
@@ -95,7 +96,7 @@ public class DynamicEObjectFeatureAccess extends JavaMethodService {
 	public Set<IType> featureAccessTypes(ValidationServices services,
 			IReadOnlyQueryEnvironment queryEnvironment, IType receiverType, String featureName) {
 		final Set<IType> result = new LinkedHashSet<IType>();
-
+		
 		final Set<EClass> receiverEClasses = new LinkedHashSet<EClass>();
 		if (receiverType.getType() instanceof EClass) {
 			receiverEClasses.add((EClass)receiverType.getType());
@@ -124,7 +125,13 @@ public class DynamicEObjectFeatureAccess extends JavaMethodService {
 			IConvertType convert = new ConvertType(queryEnvironment);
 			for (EClass eClass : receiverEClasses) {
 				if (eClass.equals(ImplementationPackage.eINSTANCE.getConcepts())) {
-					result.add(convert.toAQL(ImplementationPackage.eINSTANCE.getConcept()));
+					Concepts concepts = MethodEvaluator.concepts;
+					if (concepts.getAll().stream().anyMatch(concept -> concept.getId().equals(featureName))) {
+						result.add(convert.toAQL(ImplementationPackage.eINSTANCE.getConcept()));
+					}
+					else {
+						result.add(services.nothing("The concept " + featureName + " does not exist"));
+					}
 				}
 				else {
 					EStructuralFeature feature = eClass.getEStructuralFeature(featureName);
