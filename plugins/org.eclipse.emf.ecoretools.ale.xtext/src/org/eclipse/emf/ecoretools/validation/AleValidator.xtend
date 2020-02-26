@@ -81,6 +81,9 @@ class AleValidator extends AbstractAleValidator {
 				marker.setAttribute(IMarker.CHAR_END, msg.endPosition);
 			]
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		finally {interpreter.close}
 		
 	}
