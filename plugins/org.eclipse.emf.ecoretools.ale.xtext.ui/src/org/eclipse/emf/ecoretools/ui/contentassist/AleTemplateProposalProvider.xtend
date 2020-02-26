@@ -114,9 +114,10 @@ class AleTemplateProposalProvider extends DefaultTemplateProposalProvider {
 											.EOperations
 											.filter[operation | matcher.isCandidateMatchingPrefix(operation.name, typed)]
 											.forEach[operation |
-												val text = operation.name + "(" + operation.EParameters.map[param | param.EType.name + " " + param.name].join(", ") + ") : " + operation.EType.name
+												val text = operation.name + "(" + operation.EParameters.map[param | param.EType.name + " " + param.name].join(", ") + ") : " + (if (operation.EType === null) "void" else operation.EType.name)
 						
-												val template = new Template(text, "", text, text, false);
+												val templatePattern = operation.name + "(" + operation.EParameters.map[param | "${" + param.name + "}"].join(", ") + ")"
+												val template = new Template(text, "", text, templatePattern, false);
 												val proposal = doCreateProposal(template, templateContext, context, getImage(template), getRelevance(template))
 						
 												val fProposal = new AleTemplateProposal(matcher, template, templateContext, context.replaceRegion, proposal.image, proposal.relevance)
