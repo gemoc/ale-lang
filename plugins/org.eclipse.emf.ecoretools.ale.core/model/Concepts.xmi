@@ -40,7 +40,7 @@
                 xsi:type="ast:Call"
                 serviceName="log">
               <arguments
-                  xsi:type="ast:ErrorCall"
+                  xsi:type="ast:Call"
                   serviceName="add">
                 <arguments
                     xsi:type="ast:StringLiteral"
@@ -98,6 +98,40 @@
         <eParameters
             name="name"
             lowerBound="1">
+          <eType
+              xsi:type="ecore:EDataType"
+              href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eParameters>
+      </operationRef>
+    </semantics>
+    <semantics
+        id="compile">
+      <implem
+          operationRef="//@all.2/@semantics.1/@operationRef">
+        <body>
+          <statements
+              xsi:type="implementation:VariableAssignment"
+              name="result">
+            <value
+                xsi:type="ast:Call"
+                serviceName="add">
+              <arguments
+                  xsi:type="ast:StringLiteral"
+                  value="Hello "/>
+              <arguments
+                  xsi:type="ast:VarRef"
+                  variableName="name"/>
+            </value>
+          </statements>
+        </body>
+      </implem>
+      <operationRef
+          name="compileGreeting">
+        <eType
+            xsi:type="ecore:EDataType"
+            href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters
+            name="name">
           <eType
               xsi:type="ecore:EDataType"
               href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
