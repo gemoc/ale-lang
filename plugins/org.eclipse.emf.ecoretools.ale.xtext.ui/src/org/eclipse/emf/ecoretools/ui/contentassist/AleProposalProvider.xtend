@@ -59,13 +59,16 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 	
 	val matcher = new PrefixMatcher {
 		override isCandidateMatchingPrefix(String name, String prefix) {
-			if (prefix.isEmpty) {
+			val cleanName = name.toLowerCase
+			val cleanPrefix = prefix.toLowerCase
+			
+			if (cleanPrefix.isEmpty) {
 				return true;
 			}
-			if (name.startsWith(prefix)) {
+			if (cleanName.startsWith(cleanPrefix)) {
 				return true;
 			}
-			if (name.contains(prefix)) {
+			if (cleanName.contains(cleanPrefix)) {
 				return true;
 			}
 			return false
