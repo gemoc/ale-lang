@@ -236,7 +236,7 @@ public class EvalEnvironment {
 		allOpServices.addAll(newClassOperations);
 		
 		ResourceSet resources = new ResourceSetImpl();
-		Resource resource = resources.getResource(URI.createFileURI(new File("C:\\Users\\echebbi\\runtime-New_configuration(4)\\test\\Concepts.xmi").getAbsolutePath()), true);
+		Resource resource = resources.getResource(URI.createFileURI(new File("C:\\Projects\\ale-lang\\plugins\\org.eclipse.emf.ecoretools.ale.core\\model\\Concepts.xmi").getAbsolutePath()), true);
 		MethodEvaluator.concepts = (Concepts) resource.getContents().get(0);
 
 		for (Concept concept : MethodEvaluator.concepts.getAll()) {

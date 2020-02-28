@@ -117,7 +117,7 @@ public class AleEvaluationJob extends Job {
 		Set<String> projects = Sets.newHashSet(dslProject, modelProject);
 		Set<String> plugins = emptySet();
 
-		MessageConsole console = findConsole("ALE Console");
+		MessageConsole console = findConsole("<terminated> " + dslFile.getName() + " [ALE Application]");
 		console.activate();
 		
 		PrintStream oldOut = System.out;
@@ -127,9 +127,6 @@ public class AleEvaluationJob extends Job {
 			System.setErr(consoleOutput);
 			
 			subMonitor.split(10).setTaskName("Building interpreter's environment");
-			
-			System.out.println("\nRun " + dslFile.getName());
-			System.out.println("------------");
 			
 			Thread execThread = new Thread("AQL Eval thread") {
 				@Override
