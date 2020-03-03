@@ -10,6 +10,7 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.emf.ecoretools.ale.core.delegate,
  org.eclipse.emf.ecoretools.ale.core.interpreter,
+ org.eclipse.emf.ecoretools.ale.core.interpreter.impl,
  org.eclipse.emf.ecoretools.ale.core.interpreter.services,
  org.eclipse.emf.ecoretools.ale.core.parser,
  org.eclipse.emf.ecoretools.ale.core.parser.internal,

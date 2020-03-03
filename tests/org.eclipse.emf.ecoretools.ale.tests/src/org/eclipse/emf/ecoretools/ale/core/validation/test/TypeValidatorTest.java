@@ -19,7 +19,8 @@ import java.util.List;
 import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.RuntimeAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator;
@@ -44,7 +45,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testExtendsSameType() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/extendSameType.implem","input/validation/extendSameType2.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/extendSameType.implem","input/validation/extendSameType2.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -60,7 +61,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testExtendTypeTreeWithAttributes() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/extendTypeTreeWithAttributes.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/extendTypeTreeWithAttributes.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -76,7 +77,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testExtendsUpperType() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/extendSameType.implem","input/validation/extendSuperType.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/extendSameType.implem","input/validation/extendSuperType.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -92,7 +93,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testExtendsLowerType() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/extendSubType.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/extendSubType.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -109,7 +110,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testExtendsNotSuperType() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/extendNotSuperType.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/extendNotSuperType.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -126,7 +127,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testExtendsItself() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/extendItself.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/extendItself.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -144,7 +145,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testExtendsCycle() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/extendSameType2.implem","input/validation/extendCycle.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/extendSameType2.implem","input/validation/extendCycle.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -161,7 +162,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testAttributeAssignValue() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareAttrib.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/declareAttrib.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -177,7 +178,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testAttributeAssignValueConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/typeErrorAttrib.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/typeErrorAttrib.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -194,7 +195,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testVariableInitValue() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareLocal.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/declareLocal.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -210,7 +211,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testVariableInitValueConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/typeErrorLocal.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/typeErrorLocal.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -227,7 +228,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testVariableAssignValue() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignLocalSameBlock.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignLocalSameBlock.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -243,7 +244,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testVariableAssignValueConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignLocalTypeError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignLocalTypeError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -260,7 +261,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testVariableAssignValueInnerBlock() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignLocalInnerBlock.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignLocalInnerBlock.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -276,7 +277,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testVariableAssignValueInnerBlockConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/scopeTypeErrorLocal.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/scopeTypeErrorLocal.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -293,7 +294,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testReturnAssignValue() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignResult.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignResult.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -309,7 +310,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testReturnAssignValueConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignResultConflict.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignResultConflict.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -326,7 +327,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testReturnAssignVoid() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignVoid.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignVoid.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -343,7 +344,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testFeatureAssignBaseClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignFeatureBaseClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignFeatureBaseClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -359,7 +360,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testFeatureAssignBaseClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignFeatureTypeError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignFeatureTypeError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -376,7 +377,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testFeatureAssignExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignFeatureExtendedClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignFeatureExtendedClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -392,7 +393,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testFeatureAssignExtendedClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignAttributeTypeError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignAttributeTypeError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -409,7 +410,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testFeatureAssignRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignAttribRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignAttribRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -425,7 +426,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testFeatureAssignRuntimeClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignAttribRuntimeClassError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignAttribRuntimeClassError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -442,7 +443,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertToCollectionBaseClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertCollection.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureInsertCollection.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -458,7 +459,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertToCollectionBaseClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertCollectionError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureInsertCollectionError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -475,7 +476,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertToCollectionExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertExtendedClassCollection.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureInsertExtendedClassCollection.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -491,7 +492,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertToCollectionExtendedClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertExtendedClassCollectionError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureInsertExtendedClassCollectionError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -508,7 +509,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertToCollectionRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertRuntimeClassCollection.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureInsertRuntimeClassCollection.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -524,7 +525,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertToCollectionRuntimeClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertRuntimeClassCollectionError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureInsertRuntimeClassCollectionError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -541,7 +542,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertBaseClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertEClassAttrib.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertEClassAttrib.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -557,7 +558,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertBaseClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureInsertTypeError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureInsertTypeError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -574,7 +575,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertAttribExtendedClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertAttribExtendedClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -590,7 +591,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertExtendedClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertAttribExtendedClassError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertAttribExtendedClassError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -607,7 +608,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertAttribRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertAttribRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -623,7 +624,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertRuntimeClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertAttribRuntimeClassError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertAttribRuntimeClassError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -640,7 +641,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveToCollectionBaseClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveCollection.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureRemoveCollection.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -656,7 +657,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveToCollectionBaseClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveCollectionError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureRemoveCollectionError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -673,7 +674,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveToCollectionExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveExtendedClassCollection.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureRemoveExtendedClassCollection.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -689,7 +690,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveToCollectionExtendedClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveExtendedClassCollectionError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureRemoveExtendedClassCollectionError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -706,7 +707,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveToCollectionRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveRuntimeClassCollection.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureRemoveRuntimeClassCollection.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -722,7 +723,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveToCollectionRuntimeClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveRuntimeClassCollectionError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureRemoveRuntimeClassCollectionError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -739,7 +740,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveBaseClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeEClassAttrib.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeEClassAttrib.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -755,7 +756,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveBaseClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureRemoveTypeError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureRemoveTypeError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -772,7 +773,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeAttribExtendedClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeAttribExtendedClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -788,7 +789,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveExtendedClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeAttribExtendedClassError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeAttribExtendedClassError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -805,7 +806,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeAttribRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeAttribRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -821,7 +822,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveRuntimeClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeAttribRuntimeClassError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeAttribRuntimeClassError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -837,7 +838,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertSelf() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertSelf.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertSelf.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -853,7 +854,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertIntoLocalCollection() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertLocalCollection.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertLocalCollection.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -868,7 +869,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertIntoLocalCollectionError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertLocalCollectionError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertLocalCollectionError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -886,7 +887,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertIntoLocalCollectionInForEachLoop() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertLocalCollectionInForEachLoop.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertLocalCollectionInForEachLoop.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -901,7 +902,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertIntoLocalCollectionInForEachLoopError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertLocalCollectionInForEachLoopError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertLocalCollectionInForEachLoopError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -918,7 +919,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertIntoLocalVariableError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertIntoLocalBooleanError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertIntoLocalBooleanError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -934,7 +935,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertResult() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertResult.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertResult.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -949,7 +950,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testInsertResultError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertResultError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertResultError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -968,7 +969,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveResult() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeResult.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeResult.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -983,7 +984,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveResultError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeResultError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeResultError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -999,7 +1000,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testInsertStringToString() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertStringToString.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertStringToString.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -1011,7 +1012,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testInsertIntToString() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertIntToString.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertIntToString.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -1024,7 +1025,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testInsertStringToInt() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertStringToInt.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertStringToInt.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -1037,7 +1038,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testInsertIntToInt() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertIntToInt.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertIntToInt.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -1052,7 +1053,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveFromSelf() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeSelf.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeSelf.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -1068,7 +1069,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveFromLocalCollection() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeLocalCollection.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeLocalCollection.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -1083,7 +1084,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveFromLocalCollectionError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeLocalCollectionError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeLocalCollectionError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -1101,7 +1102,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveFromLocalCollectionInForEachLoop() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeLocalCollectionInForEachLoop.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeLocalCollectionInForEachLoop.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -1116,7 +1117,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveFromLocalCollectionInForEachLoopError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeLocalCollectionInForEachLoopError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeLocalCollectionInForEachLoopError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -1133,7 +1134,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testRemoveFromLocalVariableError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeLocalVariablesError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeLocalVariablesError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -1151,7 +1152,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testForEachIntegerRange() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachIntRange.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/forEachIntRange.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1167,7 +1168,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testForEachNotCollection() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachCollectionError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/forEachCollectionError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1184,7 +1185,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testForEachSequence() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachSequence.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/forEachSequence.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1200,7 +1201,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testForEachSequenceError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachSequenceError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/forEachSequenceError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1217,7 +1218,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testForEachRangeFromMethodCall() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachRangeFromMethodCall.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/forEachRangeFromMethodCall.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1233,7 +1234,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testIfBoolean() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/ifBoolean.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/ifBoolean.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1249,7 +1250,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testIfNotBoolean() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/ifBooleanError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/ifBooleanError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1266,7 +1267,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testWhileBoolean() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/whileBoolean.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/whileBoolean.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1282,7 +1283,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testWhileNotBoolean() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/whileBooleanError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/whileBooleanError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1299,7 +1300,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testCallArgumentBaseClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/callBaseClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/callBaseClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1315,7 +1316,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testCallArgumentBaseClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/callBaseClassError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/callBaseClassError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1332,7 +1333,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testCallArgumentExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/callExtendedClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/callExtendedClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1348,7 +1349,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testCallArgumentExtendedClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/callExtendedClassError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/callExtendedClassError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1365,7 +1366,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testCallArgumentRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/callRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/callRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1381,7 +1382,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testCallArgumentRuntimeClassConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/callRuntimeClassError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/callRuntimeClassError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1395,7 +1396,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testInferIfThen() {
-		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferIfThen.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferIfThen.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1409,7 +1410,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testInferIfElse() {
-		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferIfElse.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferIfElse.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1423,7 +1424,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testInferElseIf() {
-		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferElseIf.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferElseIf.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1439,7 +1440,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testInferNotElseIf() {
-		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferElseIf2.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferElseIf2.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1455,7 +1456,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testInferWhile() {
-		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferWhile.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferWhile.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1468,7 +1469,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testInferWhileError() {
-		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferWhileError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferWhileError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1482,7 +1483,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testInferInner() {
-		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferInner.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/inferInner.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1495,7 +1496,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testAssignCreate() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignCreate.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignCreate.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1508,7 +1509,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testAssignCreateError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignCreateError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignCreateError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1522,7 +1523,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testAssignSubtype() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignSubtype.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignSubtype.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1535,7 +1536,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testAssignCollection() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignCollection.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignCollection.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1548,7 +1549,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testAssignCollectionError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignCollectionError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignCollectionError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1562,7 +1563,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testAssignCollectionError2() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignCollectionError2.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignCollectionError2.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1576,7 +1577,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testDeclareCollection() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareCollection.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/declareCollection.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1589,7 +1590,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testDeclareCollection2() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareCollection2.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/declareCollection2.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -1601,7 +1602,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testDeclareCollectionError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareCollectionError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/declareCollectionError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1615,7 +1616,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testAssignCollectionType() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignCollectionType.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignCollectionType.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1628,7 +1629,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testAssignCollectionTypeError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignCollectionTypeError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignCollectionTypeError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1641,7 +1642,7 @@ public class TypeValidatorTest {
 	}
 	@Test
 	public void testAssignSequenceFeature() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignSequenceFeature.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignSequenceFeature.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1653,7 +1654,7 @@ public class TypeValidatorTest {
 	}
 	@Test
 	public void testAssignSequenceFeatureError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignSequenceFeatureError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignSequenceFeatureError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1667,7 +1668,7 @@ public class TypeValidatorTest {
 	}
 	@Test
 	public void testAssignSequenceVarDecl() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignSequenceVarDecl.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignSequenceVarDecl.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1679,7 +1680,7 @@ public class TypeValidatorTest {
 	}
 	@Test
 	public void testAssignSequenceVarDeclError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignSequenceVarDeclError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignSequenceVarDeclError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1696,7 +1697,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testAssignSequenceResult() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignSequenceResult.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignSequenceResult.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1708,7 +1709,7 @@ public class TypeValidatorTest {
 	}
 	@Test
 	public void testAssignSequenceResultError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignSequenceResultError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignSequenceResultError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1764,7 +1765,7 @@ public class TypeValidatorTest {
 	 */
 	@Test
 	public void testCallMethodTakingASequence() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/callMethodTakingSequence.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/callMethodTakingSequence.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -1777,7 +1778,7 @@ public class TypeValidatorTest {
 
 	@Test
 	public void testUnresolvedTypeInDeclarationError() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/unresolvedTypeInDeclaration.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/unresolvedTypeInDeclaration.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		

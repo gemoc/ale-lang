@@ -40,12 +40,12 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.ALEEngine;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.DiagnosticLogger;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.EvalEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.ExtensionEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.ServiceCallListener;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
-import org.eclipse.emf.ecoretools.ale.core.parser.internal.ImmutableDslSemantics;
 import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics;
+import org.eclipse.emf.ecoretools.ale.core.parser.internal.ImmutableDslSemantics;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.debug.DebugQueryEnvironment;
 import org.eclipse.emf.ecoretools.ale.debug.ILookupEngineListener;
@@ -189,8 +189,8 @@ public class ALEInterpreter implements AutoCloseable {
     	}
     }
     
-    public DslSemantics getSemanticsOf(Dsl dsl) {
-    	List<ParseResult<ModelUnit>> parsedFiles = new DslBuilder(queryEnvironment).parse(dsl);
+    public DslSemantics getSemanticsOf(IAleEnvironment environment) {
+    	List<ParseResult<ModelUnit>> parsedFiles = new DslBuilder(queryEnvironment).parse(environment);
     	return new ImmutableDslSemantics(parsedFiles);
     }
     

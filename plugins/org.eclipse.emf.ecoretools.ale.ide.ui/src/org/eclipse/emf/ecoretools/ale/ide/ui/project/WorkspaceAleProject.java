@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.RuntimeAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.ide.project.AleProject;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
@@ -193,7 +194,7 @@ public class WorkspaceAleProject implements AleProject {
 	private static void createDslFile(IProject project, List<String> ecoreModels, List<String> aleSourceFiles, IProgressMonitor monitor) {
 		SubMonitor subMonitor = SubMonitor.convert(monitor, "Creating .dsl file...", 1);
 		
-		Dsl dsl = new Dsl(ecoreModels, aleSourceFiles);
+		Dsl dsl = new Dsl(new RuntimeAleEnvironment(ecoreModels, aleSourceFiles));
 		dsl.setSourceFile(project.getFolder("model").getFile(project.getName() + ".dsl").getLocation().toOSString());
 		dsl.save();
 		

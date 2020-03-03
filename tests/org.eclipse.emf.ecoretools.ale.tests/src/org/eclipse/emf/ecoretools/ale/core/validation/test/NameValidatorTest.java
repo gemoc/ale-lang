@@ -19,7 +19,8 @@ import java.util.List;
 import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.RuntimeAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator;
@@ -44,7 +45,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testUniqueModelUnit() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/unit1.implem","input/validation/unit2.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/unit1.implem","input/validation/unit2.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -61,7 +62,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testUniqueRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/uniqueRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/uniqueRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -78,7 +79,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testGlobalUniqueRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/uniqueRuntimeClassGlobal1.implem","input/validation/uniqueRuntimeClassGlobal2.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/uniqueRuntimeClassGlobal1.implem","input/validation/uniqueRuntimeClassGlobal2.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -94,7 +95,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testUniqueMethodRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/operationDuplicationRuntime.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/operationDuplicationRuntime.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -112,7 +113,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testUniqueMethodExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/operationDuplication.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/operationDuplication.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -130,7 +131,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testDefIsOverride() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/defOverrideConflict.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/defOverrideConflict.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -147,7 +148,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testOverrideNotFound() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/overrideNotFound.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/overrideNotFound.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -164,7 +165,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testUniqueParamRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/duplicatedParametersRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/duplicatedParametersRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -181,7 +182,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testSelfParamRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/selfParamRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/selfParamRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -198,7 +199,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testResultParamRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/resultParamRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/resultParamRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -215,7 +216,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testUniqueParamExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/duplicatedParameters.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/duplicatedParameters.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -232,7 +233,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testSelfParamExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/selfParamExtendedClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/selfParamExtendedClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -249,7 +250,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testResultParamExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/resultParamExtendedClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/resultParamExtendedClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -266,7 +267,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testUniqueAttributeRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/duplicatedAttribRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/duplicatedAttribRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -283,7 +284,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testSelfAttributeRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/selfAttributeRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/selfAttributeRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -300,7 +301,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testResultAttributeRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/resultAttributeRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/resultAttributeRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -317,7 +318,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testUniqueAttributeExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/duplicatedAttrib.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/duplicatedAttrib.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -334,7 +335,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testSelfAttributeExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/selfAttributeExtendedClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/selfAttributeExtendedClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -351,7 +352,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testResultAttributeExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/resultAttributeExtendedClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/resultAttributeExtendedClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -368,7 +369,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testExistingAttribute() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/conflictAttrib.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/conflictAttrib.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -385,7 +386,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testConflictLocalParam() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/conflictAttribParamLocal.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/conflictAttribParamLocal.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -402,7 +403,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testLocalSelf() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareSelfError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/declareSelfError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -421,7 +422,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testLocalResult() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/declareResultError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/declareResultError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -440,7 +441,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testLocalBlockConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/duplicatedLocalVariable.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/duplicatedLocalVariable.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -457,7 +458,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testLocalNoExternalConflit() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/scopeLocalVariable.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/scopeLocalVariable.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -474,7 +475,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testLocalAttributeConflict() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/localAttribNoConflict.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/localAttribNoConflict.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -490,7 +491,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testAssignExistingVar() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignLocal.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignLocal.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -506,7 +507,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testAssignNotExistingVar() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignUnknownLocal.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignUnknownLocal.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -523,7 +524,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testAssignSelf() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignSelfError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignSelfError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -540,7 +541,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testAssignParam() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignParamError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignParamError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -557,7 +558,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testAssignEClassFeature() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignEClassAttrib.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignEClassAttrib.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -573,7 +574,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testAssignFeatureExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignAttribExtendedClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignAttribExtendedClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -589,7 +590,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testAssignFeatureRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignAttribRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignAttribRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -605,7 +606,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testAssignNotExistingFeatureExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignUnknownFeature.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignUnknownFeature.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -622,7 +623,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testAssignNotExistingFeatureRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignUnknownFeatureRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignUnknownFeatureRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -639,7 +640,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testInsertEClassFeature() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertEClassAttrib.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertEClassAttrib.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -655,7 +656,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testInsertFeatureExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertAttribExtendedClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertAttribExtendedClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -671,7 +672,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testInsertFeatureRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertAttribRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertAttribRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -687,7 +688,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testInsertNotExistingFeatureExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertUnknownFeatureExtendedClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertUnknownFeatureExtendedClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -704,7 +705,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testInsertNotExistingFeatureRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/insertUnknownFeatureRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/insertUnknownFeatureRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -723,7 +724,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testRemoveEClassFeature() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeEClassAttrib.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeEClassAttrib.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -739,7 +740,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testRemoveFeatureExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeAttribExtendedClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeAttribExtendedClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -755,7 +756,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testRemoveFeatureRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeAttribRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeAttribRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -771,7 +772,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testRemoveNotExistingFeatureExtendedClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeUnknownFeatureExtendedClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeUnknownFeatureExtendedClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -788,7 +789,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testRemoveNotExistingFeatureRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/removeUnknownFeatureRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/removeUnknownFeatureRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -805,7 +806,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testForEachParam() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachParamConflict.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/forEachParamConflict.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -822,7 +823,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testForEachResult() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachResult.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/forEachResult.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -839,7 +840,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testForEachSelf() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachSelf.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/forEachSelf.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -856,7 +857,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testForEachExternalBlocks() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/forEachExternalBlock.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/forEachExternalBlock.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -874,7 +875,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testFeatureAccessType() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureAccessTypes.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureAccessTypes.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -890,7 +891,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testUnknownFeatureAccessType() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/featureAccessTypesError.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/featureAccessTypesError.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -907,7 +908,7 @@ public class NameValidatorTest {
 	 */
 	@Test
 	public void testReturnAssignVoid() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignVoid.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignVoid.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		

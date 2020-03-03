@@ -20,7 +20,8 @@ import java.util.List;
 import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.RuntimeAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator;
@@ -46,7 +47,7 @@ public class BaseValidatorTest {
 	 */
 	@Test
 	public void testResultVariableCanBeRead() {
-		Dsl environment = new Dsl(emptyList(), asList("input/validation/resultRead.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(emptyList(), asList("input/validation/resultRead.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -62,7 +63,7 @@ public class BaseValidatorTest {
 	 */
 	@Test
 	public void testTypeCheckingResultVariableAssignation() {
-		Dsl environment = new Dsl(emptyList(), asList("input/validation/assignForbiddenValueToResult.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(emptyList(), asList("input/validation/assignForbiddenValueToResult.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());

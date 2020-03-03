@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ModelBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
@@ -49,7 +50,7 @@ public class DslBuilder {
      * <p>
      * Dynamically loads the ECore metamodels specified in {@link Dsl#getAllSemantics() dsl' semantics}.
      */
-    public List<ParseResult<ModelUnit>> parse(Dsl dsl) { //TODO: add an option to clear services & epackages before
+    public List<ParseResult<ModelUnit>> parse(IAleEnvironment env) { //TODO: add an option to clear services & epackages before
     	
     	cleanUp();
     	
@@ -57,7 +58,7 @@ public class DslBuilder {
     	 * Register EPackages
     	 */
     	rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore", new XMIResourceFactoryImpl());
-    	dsl.getAllSyntaxes()
+    	env.getMetamodels()
     		.stream()
     		.forEach(syntaxURI -> {
     			List<EPackage> pkgImports = load(syntaxURI, rs);
@@ -80,7 +81,7 @@ public class DslBuilder {
     	 * Parse behavior files
     	 */
     	List<ParseResult<ModelUnit>> parsedSemantics =
-    			(new AstBuilder(queryEnvironment)).parseFromFiles(dsl.getAllSemantics());
+    			(new AstBuilder(queryEnvironment)).parseFromFiles(env.getBehaviors());
     	
     	return parsedSemantics;
     }
@@ -99,7 +100,7 @@ public class DslBuilder {
     public List<EPackage> getSyntaxes(Dsl dsl) {
     	return
 	    	dsl
-	    	.getAllSyntaxes()
+	    	.getMetamodels()
 			.stream()
 			.flatMap(syntaxURI -> load(syntaxURI, rs).stream())
 			.collect(toList());

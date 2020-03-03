@@ -40,8 +40,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
+import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics;
-import org.eclipse.emf.ecoretools.ale.ide.WorkbenchDsl;
+import org.eclipse.emf.ecoretools.ale.ide.Normalized;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
@@ -78,7 +79,7 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 		try {
 			// Determine the @main method & the element on which it should be called 
 			//
-			DslSemantics semantics = interpreter.getSemanticsOf(new WorkbenchDsl(dslFile.getLocationURI().getPath()));
+			DslSemantics semantics = interpreter.getSemanticsOf(new Normalized(new Dsl(dslFile.getLocationURI().getPath())));
 			
 			List<Method> potentialMains = getPotentialMains(semantics, mainMethod, dslFile.getLocationURI().getPath());
 			List<EObject> potentialCallers = getPotentialCallers(interpreter, modelFile, mainModelElement);

@@ -69,7 +69,7 @@ public class AstBuilder {
 		return makeModel(parses,new HashMap<RRootContext,String>());
 	}
 	
-	public List<ParseResult<ModelUnit>> parseFromFiles(List<String> files) {
+	public List<ParseResult<ModelUnit>> parseFromFiles(Collection<String> files) {
 		List<RRootContext> parses = new ArrayList<>();
 		Map<RRootContext,String> sourceFiles = new HashMap<>(); 
 		files
