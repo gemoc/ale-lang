@@ -12,11 +12,11 @@ package org.eclipse.emf.ecoretools.ale.ide;
 
 import static java.util.stream.Collectors.toList;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.util.List;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Objects;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
@@ -24,33 +24,48 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
 import org.osgi.framework.Bundle;
 
-public class WorkbenchDsl extends Dsl {
-
-	public WorkbenchDsl(List<String> syntaxes, List<String> semantics) {
-		super(syntaxes,semantics);
-		resolveUris();
+/**
+ * Decorates an {@link IAleEnvironment ALE environment} and normalizes its URIs
+ * to improve compatibility with other tools.
+ * <p>
+ * This decorator should be used every time the environment contains workspace-relative
+ * or platform-specific paths. 
+ * <p>
+ * Specifically, this decorator converts <strong>{@link #getBehaviors() behaviors}' URIs</strong>
+ * from platform-specific URIs ({@code platform:/}) to more a more generic scheme ({@code file:/}).
+ * <p>
+ * Below is a typical use of this decorator:
+ * <pre>IAleEnvironment dslFile = new Normalized(new Dsl(path));</pre>  
+ */
+public class Normalized implements IAleEnvironment {
+	
+	private final LinkedHashSet<String> metamodels;
+	
+	private final LinkedHashSet<String> behaviors;
+	
+	public Normalized(IAleEnvironment environment) {
+		metamodels = new LinkedHashSet<>(environment.getMetamodels());
+		behaviors = new LinkedHashSet<>(resolveUris(environment.getBehaviors()));
 	}
 	
-	public WorkbenchDsl(String dslFile) throws FileNotFoundException {
-		super(convertToFile(dslFile));
-		resolveUris();
+	@Override
+	public LinkedHashSet<String> getBehaviors() {
+		return behaviors;
 	}
 	
-	public WorkbenchDsl(InputStream input) {
-		super(input);
-		resolveUris();
-}
+	@Override
+	public LinkedHashSet<String> getMetamodels() {
+		return metamodels;
+	}
 	
-	private void resolveUris() {
-		List<String> newSemantics = getAllSemantics()
-			.stream()
-			.map(elem -> URI.createFileURI(convertToFile(elem)).toFileString())
-			.collect(toList());
-		getAllSemantics().clear();
-		getAllSemantics().addAll(newSemantics);
+	private static Collection<String> resolveUris(Collection<String> uris) {
+		return uris.stream()
+				   .map(uri -> URI.createFileURI(convertToFile(uri)).toFileString())
+				   .filter(Objects::nonNull)
+				   .collect(toList());
 	}
 	
 	/**

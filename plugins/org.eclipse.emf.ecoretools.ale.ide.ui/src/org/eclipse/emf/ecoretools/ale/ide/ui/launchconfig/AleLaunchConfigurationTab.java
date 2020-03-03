@@ -36,9 +36,10 @@ import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics;
-import org.eclipse.emf.ecoretools.ale.ide.WorkbenchDsl;
+import org.eclipse.emf.ecoretools.ale.ide.Normalized;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
@@ -372,7 +373,7 @@ public class AleLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 	
 	private final List<Method> getAvailableMethods() throws FileNotFoundException {
 		IResource dslFile = ResourcesPlugin.getWorkspace().getRoot().findMember(dslSelection.getText());
-		Dsl dsl = new WorkbenchDsl(dslFile.getLocationURI().getPath());
+		IAleEnvironment dsl = new Normalized(new Dsl(dslFile.getLocationURI().getPath()));
 		DslSemantics semantics = getInterpreter().getSemanticsOf(dsl);
 		return semantics.getMainMethods();
 	}

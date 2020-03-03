@@ -17,21 +17,27 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
 
-public class Dsl {
+import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
+
+/**
+ * An {@link IAleEnvironment ALE environment} that is defined as
+ * a {@link Properties property file}.
+ */
+public final class Dsl implements IAleEnvironment {
 	
 	String sourceFile;
-	List<String> allSyntaxes = new ArrayList<>();
-	List<String> allSemantics = new ArrayList<>();
+	LinkedHashSet<String> allSyntaxes = new LinkedHashSet<>();
+	LinkedHashSet<String> allSemantics = new LinkedHashSet<>();
 	private Properties dslProp;
 	
-	public Dsl(List<String> syntaxes, List<String> semantics) {
-		this.allSyntaxes.addAll(syntaxes);
-		this.allSemantics.addAll(semantics);
+	public Dsl(IAleEnvironment environment) {
+		this.allSyntaxes = new LinkedHashSet<>(environment.getMetamodels());
+		this.allSemantics = new LinkedHashSet<>(environment.getBehaviors());
 	}
 	
 	public Dsl(String dslFile) throws FileNotFoundException {
@@ -66,11 +72,13 @@ public class Dsl {
 		
 	}
 	
-	public List<String> getAllSemantics() {
+	@Override
+	public LinkedHashSet<String> getBehaviors() {
 		return allSemantics;
 	}
 	
-	public List<String> getAllSyntaxes() {
+	@Override
+	public LinkedHashSet<String> getMetamodels() {
 		return allSyntaxes;
 	}
 	

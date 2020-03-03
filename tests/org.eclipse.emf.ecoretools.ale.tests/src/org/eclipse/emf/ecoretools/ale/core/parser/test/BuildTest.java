@@ -34,20 +34,18 @@ import org.eclipse.acceleo.query.ast.TypeLiteral;
 import org.eclipse.acceleo.query.ast.VarRef;
 import org.eclipse.acceleo.query.parser.AstBuilderListener;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
-import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.runtime.Query;
-import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.RuntimeAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.AstBuilder;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
-import org.eclipse.emf.ecoretools.ale.implementation.Assignment;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.ExpressionStatement;
@@ -1009,7 +1007,7 @@ public class BuildTest {
 	
 	@Test
 	public void testQualified() {
-		Dsl environment = new Dsl(Arrays.asList("model/subPkg.ecore"),Arrays.asList("input/structure/qualifiedType.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/subPkg.ecore"),Arrays.asList("input/structure/qualifiedType.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(queryEnvironment)).parse(environment);
 		
 		ModelUnit root = parsedSemantics.get(0).getRoot();

@@ -126,7 +126,7 @@ public class Converter {
 			});
 			
 			//Remove .ale
-			dsl.getAllSemantics().clear();
+			dsl.getBehaviors().clear();
 			dsl.save();
 		}
 	}
@@ -202,7 +202,7 @@ public class Converter {
 			removeAllRuntimeData(dsl,createRuntimeEcore);
 
 			//Update dsl
-			dsl.getAllSemantics().add(aleFilePath);
+			dsl.getBehaviors().add(aleFilePath);
 			dsl.save();
 		}
 	}
@@ -271,7 +271,7 @@ public class Converter {
 					runtimeRes.getContents().add(newPkg);
 					try {
 						runtimeRes.save(Maps.newHashMap());
-						dsl.getAllSyntaxes().add(runtimeURI.toFileString());
+						dsl.getMetamodels().add(runtimeURI.toFileString());
 						return newPkg;
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -358,7 +358,7 @@ public class Converter {
 					.filter(pkg -> EcoreUtil.getAnnotation(pkg, ImplementationPackage.eNS_URI, "runtime") != null)
 					.collect(Collectors.toList());
 			runtimePkgs.forEach(pkg -> {
-				dsl.getAllSyntaxes().remove(pkg.eResource().getURI().toString()); //TODO: check both standalone & workspace
+				dsl.getMetamodels().remove(pkg.eResource().getURI().toString()); //TODO: check both standalone & workspace
 			});
 		}
 		

@@ -128,7 +128,7 @@ class AleValidator extends AbstractAleValidator {
 	static def void resolveUris(Dsl dsl) {
 		val newSemantics = new ArrayList<String>();
 		val ws = ResourcesPlugin.getWorkspace();
-		dsl.getAllSemantics()
+		dsl.getBehaviors()
 			.forEach[elem |
 				val uri = URI.createURI(elem);
 				if(ws !== null && uri.isPlatform()) {
@@ -140,8 +140,8 @@ class AleValidator extends AbstractAleValidator {
 					newSemantics.add(elem);
 				}
 			]
-		dsl.getAllSemantics().clear();
-		dsl.getAllSemantics().addAll(newSemantics);
+		dsl.getBehaviors().clear();
+		dsl.getBehaviors().addAll(newSemantics);
 	}
 	
 	private def cleanUpMarkers(IFile file) {

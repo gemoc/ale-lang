@@ -24,12 +24,12 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.RuntimeAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
-import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,7 +43,7 @@ public class OpenClassValidationTest {
 	
 	@Test
 	public void testMultiInherits() {
-		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/multiInherits.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/multiInherits.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -55,7 +55,7 @@ public class OpenClassValidationTest {
 	
 	@Test
 	public void testInvertMultiInherits() {
-		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/invertMultiInherits.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/invertMultiInherits.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -68,7 +68,7 @@ public class OpenClassValidationTest {
 	
 	@Test
 	public void testServeralOpenClass() {
-		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/simple.implem","input/lookup/implicitExtend.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/simple.implem","input/lookup/implicitExtend.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -81,7 +81,7 @@ public class OpenClassValidationTest {
 	
 	@Test
 	public void testForbidenExtends() {
-		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/forbiddenExtend.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/forbiddenExtend.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -94,7 +94,7 @@ public class OpenClassValidationTest {
 	
 	@Test
 	public void testIndirectExtends() {
-		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/indirectExtend.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/indirectExtend.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -107,7 +107,7 @@ public class OpenClassValidationTest {
 	
 	@Test
 	public void testDirectExtend() {
-		Dsl environment = new Dsl(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/directExtend.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/diamon.ecore"),Arrays.asList("input/lookup/directExtend.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -119,7 +119,7 @@ public class OpenClassValidationTest {
 	
 	@Test
 	public void testOpeningNonExistingClass() {
-		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/openingNonExistingClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/openingNonExistingClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
@@ -132,7 +132,7 @@ public class OpenClassValidationTest {
 	
 	@Test
 	public void testOpeningLocallyDefinedRuntimeClass() {
-		Dsl environment = new Dsl(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/openingLocallyDefinedRuntimeClass.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/ABC.ecore"),Arrays.asList("input/validation/openingLocallyDefinedRuntimeClass.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
