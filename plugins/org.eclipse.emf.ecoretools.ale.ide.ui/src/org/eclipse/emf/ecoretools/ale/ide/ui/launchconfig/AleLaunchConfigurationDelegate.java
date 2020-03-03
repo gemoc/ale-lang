@@ -12,9 +12,10 @@ package org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig;
 
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
-import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.AleLaunchConfiguration.DSL_FILE;
+import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.AleLaunchConfiguration.BEHAVIORS_PATH;
 import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.AleLaunchConfiguration.MAIN_METHOD;
 import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.AleLaunchConfiguration.MAIN_MODEL_ELEMENT;
+import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.AleLaunchConfiguration.METAMODELS_PATH;
 import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.AleLaunchConfiguration.MODEL_FILE;
 import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.UiUtils.getDisplay;
 import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.UiUtils.getShell;
@@ -40,7 +41,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.RuntimeAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics;
 import org.eclipse.emf.ecoretools.ale.ide.Normalized;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
@@ -64,29 +65,29 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 	public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor)
 			throws CoreException {
 		
-		String dslLocation = configuration.getAttribute(DSL_FILE, "");
-		String modelLocation = configuration.getAttribute(MODEL_FILE, "");
-		String mainMethod = configuration.getAttribute(MAIN_METHOD, "");
-		String mainModelElement = configuration.getAttribute(MAIN_MODEL_ELEMENT, "");
-
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		IResource dslFile = workspace.getRoot().findMember(dslLocation);
-		IResource modelFile = workspace.getRoot().findMember(modelLocation);
-		
 		// AleEvaluationJob is responsible of closing the interpreter,
 		// that's why try-with-resource is not used here
 		ALEInterpreter interpreter = new ALEInterpreter();
 		try {
+			String modelLocation = configuration.getAttribute(MODEL_FILE, "");
+			String mainMethod = configuration.getAttribute(MAIN_METHOD, "");
+			String mainModelElement = configuration.getAttribute(MAIN_MODEL_ELEMENT, "");
+			List<String> behaviorsPath = asList(configuration.getAttribute(BEHAVIORS_PATH, "").split(","));
+			List<String> metamodelsPath = asList(configuration.getAttribute(METAMODELS_PATH, "").split(","));
+	
+			IWorkspace workspace = ResourcesPlugin.getWorkspace();
+			IResource modelFile = workspace.getRoot().findMember(modelLocation);
+			
 			// Determine the @main method & the element on which it should be called 
 			//
-			DslSemantics semantics = interpreter.getSemanticsOf(new Normalized(new Dsl(dslFile.getLocationURI().getPath())));
+			DslSemantics semantics = interpreter.getSemanticsOf(new Normalized(new RuntimeAleEnvironment(metamodelsPath, behaviorsPath)));
 			
-			List<Method> potentialMains = getPotentialMains(semantics, mainMethod, dslFile.getLocationURI().getPath());
+			List<Method> potentialMains = getPotentialMains(semantics, mainMethod);
 			List<EObject> potentialCallers = getPotentialCallers(interpreter, modelFile, mainModelElement);
 			List<EvaluationArguments> potentialArgs = getPotentialEvaluationArguments(potentialCallers, potentialMains);
 			
 
-			if (! canRunALEInterpreter(potentialCallers, modelFile, potentialMains, dslFile, potentialArgs)) {
+			if (! canRunALEInterpreter(potentialCallers, modelFile, potentialMains, behaviorsPath, potentialArgs)) {
 				interpreter.close();
 				return;
 			}
@@ -104,7 +105,7 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 			
 			// Actually launch ALE interpreter (in background)
 			//
-			Job evaluation = new AleEvaluationJob(interpreter, arguments.mainElement, arguments.main, semantics, dslFile, modelFile);
+			Job evaluation = new AleEvaluationJob(interpreter, arguments.mainElement, arguments.main, semantics, modelFile);
 			evaluation.schedule();
 		} 
 		catch (Exception e) {
@@ -219,12 +220,10 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 	 * 			The semantics of the DSL selected by the user
 	 * @param mainMethodId
 	 * 			The representation of the method selected by the user
-	 * @param dslFile
-	 * 			The path to the resource defining the DSL, for logging purposes
 	 * 
 	 * @return the methods of the given semantics that could be an entry point of the interpreter
 	 */
-	private List<Method> getPotentialMains(DslSemantics semantics, String mainMethodId, String dslFile) {
+	private List<Method> getPotentialMains(DslSemantics semantics, String mainMethodId) {
 		List<Method> mains = semantics.getMainMethods();
 		if (! mainMethodId.isEmpty()) {
 			for (Method main : mains) {
@@ -235,8 +234,7 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 			}
 			// Should not happen; display a warning then fallback to default behavior
 			Activator.warn(
-				"Unable to find @main method: " + mainMethodId + " from resource " + dslFile +
-				"\nWill attempt to infer an available @main method.", 
+				"Unable to find @main method: " + mainMethodId + ". Will attempt to infer an available @main method.", 
 				null
 			);
 		}
@@ -337,7 +335,7 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	
-	private boolean canRunALEInterpreter(List<EObject> callers, IResource modelFile, List<Method> mains, IResource dslFile, List<EvaluationArguments> args) {
+	private boolean canRunALEInterpreter(List<EObject> callers, IResource modelFile, List<Method> mains, List<String> behaviors, List<EvaluationArguments> args) {
 		if (mains.isEmpty()) {
 			getDisplay().asyncExec(() -> 
 				MessageDialog.openError(
@@ -348,12 +346,12 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 			);
 			return false;
 		}
-		if (mains.isEmpty()) {
+		if (behaviors.isEmpty()) {
 			getDisplay().asyncExec(() -> 
 				MessageDialog.openError(
 					getShell(),
 					"Cannot run ALE",
-					"Unable to find any @main method from " + dslFile + "."
+					"Unable to find any @main method from " + behaviors + "."
 				)
 			);
 			return false;
@@ -363,7 +361,7 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 				MessageDialog.openError(
 					getShell(),
 					"Cannot run ALE",
-					"Unable to find any couple model element/@main method, please check the launch configuration."
+					"Unable to find any couple (model element, @main method), please check the launch configuration."
 				)
 			);
 			return false;

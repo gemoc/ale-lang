@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.RuntimeAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.ide.project.AleProject;
@@ -71,7 +72,7 @@ import org.eclipse.sirius.viewpoint.description.Viewpoint;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 
 /**
- * An {@link AleProject ALE project} located in the workspace. 
+ * An {@link IAleProject ALE project} located in the workspace. 
  */
 public class WorkspaceAleProject implements AleProject {
 	/** 
@@ -92,6 +93,12 @@ public class WorkspaceAleProject implements AleProject {
 	public WorkspaceAleProject(IWorkspace workspace, Description description) {
 		this.workspace = requireNonNull(workspace, "workspace");
 		this.description = requireNonNull(description, "description");
+	}
+
+	@Override
+	public IAleEnvironment getEnvironment() {
+		// TODO either check preferences or find .dsl file
+		return null;
 	}
 	
 	@Override

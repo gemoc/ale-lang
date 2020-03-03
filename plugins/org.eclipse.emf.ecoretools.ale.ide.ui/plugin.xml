@@ -51,6 +51,17 @@
            </adapt>
         </enabledWhen>
      </page>
+     <page
+           category="org.eclipse.emf.ecoretools.Ale"
+           class="org.eclipse.emf.ecoretools.ale.ide.ui.preferences.AleEnvironmentPropertyPage"
+           id="org.eclipse.emf.ecoretools.ale.ide.ui.configuration_property_page"
+           name="Environment">
+        <enabledWhen>
+           <adapt
+                 type="org.eclipse.core.resources.IProject">
+           </adapt>
+        </enabledWhen>
+     </page>
   </extension>
   <extension
         point="org.eclipse.debug.core.launchConfigurationTypes">
@@ -64,8 +75,8 @@
   <extension
         point="org.eclipse.debug.ui.launchShortcuts">
      <shortcut
-           class="org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.LaunchShortcut"
-           id="org.eclipse.emf.ecoretools.ale.ide.ui.shortcut"
+           class="org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.DslFileAleLaunchShortcut"
+           id="org.eclipse.emf.ecoretools.ale.ide.ui.dslfile_launch_shortcut"
            label="ALE launch"
            icon="icons/ALE.gif"
            modes="run">
@@ -77,10 +88,38 @@
                        value="1">
                  </count>
                  <iterate>
-                    <test
-                          property="org.eclipse.debug.ui.matchesPattern"
-                          value="*.dsl">
-                    </test>
+                   <test
+                         property="org.eclipse.debug.ui.matchesPattern"
+                         value="*.dsl">
+                   </test>
+                 </iterate>
+              </with>
+           </enablement>
+        </contextualLaunch>
+     </shortcut>
+     <shortcut
+           class="org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.ProjectAleLaunchShortcut"
+           id="org.eclipse.emf.ecoretools.ale.ide.ui.project_launch_shortcut"
+           label="ALE launch"
+           icon="icons/ALE.gif"
+           modes="run">
+        <contextualLaunch>
+           <enablement>
+              <with
+                    variable="selection">
+                 <count
+                       value="1">
+                 </count>
+                 <iterate>
+                   <or>
+                      <adapt
+                            type="org.eclipse.core.resources.IProject">
+                      </adapt>
+                      <test
+                            property="org.eclipse.debug.ui.matchesPattern"
+                            value="*.ale">
+                      </test>
+                   </or>
                  </iterate>
               </with>
            </enablement>

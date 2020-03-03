@@ -34,6 +34,14 @@ public final class AleLaunchConfiguration {
 	 * The name of the attribute storing the {@link MethodRepresentation identifier} of the method to call.
 	 */
 	public static final String MAIN_METHOD = "MAIN_METHOD";
+	/**
+	 * The path to all the resources defining a behavior (typically, ALE source files).
+	 */
+	public static final String BEHAVIORS_PATH = "BEHAVIORS_PATH";
+	/**
+	 * The path to the Ecore model files.
+	 */
+	public static final String METAMODELS_PATH = "METAMODELS_PATH";
 	
 	private AleLaunchConfiguration() {
 		// utility class, should not be instantiated

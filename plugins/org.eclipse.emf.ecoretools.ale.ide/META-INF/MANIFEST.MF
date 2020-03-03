@@ -10,12 +10,12 @@ Require-Bundle: org.eclipse.emf.ecoretools.ale,
  org.eclipse.emf.ecoretools.design,
  org.eclipse.emf.workspace,
  org.eclipse.sirius,
- org.eclipse.sirius.common,
- org.eclipse.emf.ecoretools.ale.xtext
+ org.eclipse.sirius.common
 Import-Package: org.eclipse.emf.common.util,
  org.eclipse.emf.ecore.resource.impl
 Export-Package: org.eclipse.emf.ecoretools.ale.ide,
  org.eclipse.emf.ecoretools.ale.ide.listener,
  org.eclipse.emf.ecoretools.ale.ide.project,
+ org.eclipse.emf.ecoretools.ale.ide.project.impl,
  org.eclipse.emf.ecoretools.ale.ide.resource
 Bundle-Vendor: Inria/Obeo

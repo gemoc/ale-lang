@@ -7,12 +7,12 @@ import com.google.common.collect.Sets
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.acceleo.query.runtime.IValidationMessage
+import org.eclipse.acceleo.query.runtime.ValidationMessageLevel
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IMarker
+import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IResource
-import org.eclipse.core.resources.IWorkspaceRoot
 import org.eclipse.core.resources.ResourcesPlugin
-import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter
@@ -31,7 +31,7 @@ import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
-import org.eclipse.acceleo.query.runtime.ValidationMessageLevel
+import org.eclipse.emf.ecoretools.ale.ide.project.AleProject
 
 /**
  * Delegate validation to ALE validator
@@ -46,15 +46,16 @@ class AleValidator extends AbstractAleValidator {
 		val IFile aleFile = WorkspaceSynchronizer.getFile(root.eResource);
 		cleanUpMarkers(aleFile);
 		
-		val IPath dslPath = aleFile.getFullPath().removeFileExtension().addFileExtension("dsl");
-		val IWorkspaceRoot ws = ResourcesPlugin.getWorkspace().getRoot();
-		val dslFile = ws.getFile(dslPath)
-		val dsl = new Dsl(dslFile.contents);
-		dsl.resolveUris
+//		val IPath dslPath = aleFile.getFullPath().removeFileExtension().addFileExtension("dsl");
+//		val IWorkspaceRoot ws = ResourcesPlugin.getWorkspace().getRoot();
+//		val dslFile = ws.getFile(dslPath)
+		val IProject project = aleFile.project;
+		val dsl = AleProject.from(project).environment;
+//		dsl.resolveUris
 		
 		val ALEInterpreter interpreter = new ALEInterpreter();
 		try {
-			interpreter.initScope(Sets.newHashSet(),Sets.newHashSet(#[dslFile.project.name]))
+			interpreter.initScope(Sets.newHashSet(),Sets.newHashSet(#[project.name]))
 			val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(dsl);
 			
 			/*
