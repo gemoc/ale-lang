@@ -21,7 +21,6 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecoretools.validation.AleValidator;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.common.tools.api.resource.ResourceSetSync;
 import org.eclipse.sirius.common.tools.api.resource.ResourceSetSync.ResourceStatus;
@@ -31,6 +30,12 @@ import org.eclipse.sirius.common.tools.api.resource.ResourceSyncClient;
  * Workspace listener notifying a Session when a DSL file is modified
  */
 public class AleWorkspaceListener implements IResourceChangeListener {
+	
+	/**
+	 * ID of Xtext's ALE marker. Copied from AleValidator in xtext bundle because adding the
+	 * dependency currently cause a dependency cycle.
+	 */
+	private static final String ALE_MARKER = "org.eclipse.emf.ecoretools.ale.xtext.AleMarker";
 
 	Session session;
 	Resource dslRes;
@@ -70,7 +75,7 @@ public class AleWorkspaceListener implements IResourceChangeListener {
 			if(deltaTarget != null) {
 				IMarkerDelta[] markerDeltas = deltaTarget.getMarkerDeltas();
 				for (IMarkerDelta markerDelta : markerDeltas) {
-					hasAleMarker = hasAleMarker || markerDelta.getType().equals(AleValidator.ALE_MARKER);
+					hasAleMarker = hasAleMarker || markerDelta.getType().equals(ALE_MARKER);
 				}
 			}
 			

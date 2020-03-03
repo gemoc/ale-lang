@@ -14,6 +14,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.ide.project.impl.AleAware;
 
 /**
  * <p>An Eclipse IDE project aimed at storing ALE source files.</p>
@@ -31,9 +33,23 @@ import org.eclipse.core.runtime.IProgressMonitor;
  * </p>
  */
 public interface AleProject {
+
+	/**
+	 * Turns given {@link IProject} into an ALE-aware one.
+	 * <p>
+	 * Makes easier to deal with projects using ALE.
+	 * 
+	 * @param project
+	 * 			The project using ALE.
+	 * 
+	 * @return an ALE-aware version of the given project
+	 */
+	static AleProject from(IProject project) {
+		return new AleAware(project);
+	}
 	
 	/**
-	 * Creates the project.
+	 * Creates the project if it does not exist yet.
 	 * 
 	 * @param name
 	 * 			The name of the project
@@ -47,5 +63,11 @@ public interface AleProject {
 	 * @throws CoreException if the project cannot be created
 	 */
 	IProject create(String name, IPath path, IProgressMonitor monitor) throws CoreException;
+	
+	/**
+	 * Returns the environment relevant to tooling operating on resources of this project.
+	 * @return the environment relevant to tooling operating on resources of this project.
+	 */
+	IAleEnvironment getEnvironment();
 
 }

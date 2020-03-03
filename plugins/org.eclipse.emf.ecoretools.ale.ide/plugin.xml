@@ -23,5 +23,15 @@
               class="org.eclipse.emf.ecoretools.ale.ide.listener.AleSessionManagerListener">
         </listener>
      </extension>
+    <extension
+          id="org.eclipse.emf.ecoretools.ale.ide.project.alenature"
+          name="ALE Nature"
+          point="org.eclipse.core.resources.natures">
+       <runtime>
+          <run
+                class="org.eclipse.emf.ecoretools.ale.ide.project.AleProjectNature">
+          </run>
+       </runtime>
+    </extension>
 
 </plugin>

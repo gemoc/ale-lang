@@ -58,10 +58,6 @@ public class AleEvaluationJob extends Job {
 	 */
 	private final Method main;
 	/**
-	 * The resource defining the metamodel and its semantics.
-	 */
-	private final IResource dslFile;
-	/**
 	 * The resource containing <code>this.caller</code>.
 	 */
 	private final IResource modelFile;
@@ -82,18 +78,15 @@ public class AleEvaluationJob extends Job {
 	 * 			The method to call
 	 * @param semantics
 	 * 			The semantics of the model
-	 * @param dslFile
-	 * 			The resource defining the metamodel and its semantics
 	 * @param modelFile
 	 * 			The resource containing {@code caller}
 	 */
-	public AleEvaluationJob(ALEInterpreter interpreter, EObject caller, Method main, DslSemantics semantics, IResource dslFile, IResource modelFile) {
+	public AleEvaluationJob(ALEInterpreter interpreter, EObject caller, Method main, DslSemantics semantics, IResource modelFile) {
 		super("AQL Eval");
 		
 		this.interpreter = interpreter;
 		this.caller = requireNonNull(caller, "caller");
 		this.main = requireNonNull(main, "main");
-		this.dslFile = requireNonNull(dslFile, "dslFile");
 		this.modelFile = requireNonNull(modelFile, "modelFile");
 		this.semantics = requireNonNull(semantics, "semantics");
 		
@@ -106,7 +99,7 @@ public class AleEvaluationJob extends Job {
 		
 		subMonitor.split(5).setTaskName("Initializing");
 		
-		String dslProject = dslFile.getProject().getName();
+//		String dslProject = dslFile.getProject().getName();
 		String modelProject = modelFile.getProject().getName();
 
 		/*
@@ -114,7 +107,7 @@ public class AleEvaluationJob extends Job {
 		 * 
 		 * TODO Consider moving initialization in 'AQL Eval' run's body to reduce scope?
 		 */
-		Set<String> projects = Sets.newHashSet(dslProject, modelProject);
+		Set<String> projects = Sets.newHashSet(modelProject);
 		Set<String> plugins = emptySet();
 
 		MessageConsole console = findConsole("ALE Console");
@@ -127,9 +120,6 @@ public class AleEvaluationJob extends Job {
 			System.setErr(consoleOutput);
 			
 			subMonitor.split(10).setTaskName("Building interpreter's environment");
-			
-			System.out.println("\nRun " + dslFile.getName());
-			System.out.println("------------");
 			
 			Thread execThread = new Thread("AQL Eval thread") {
 				@Override

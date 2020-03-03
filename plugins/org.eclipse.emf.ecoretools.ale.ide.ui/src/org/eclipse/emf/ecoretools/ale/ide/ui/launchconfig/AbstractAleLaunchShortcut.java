@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017-2019 Inria and Obeo.
+ * Copyright (c) 2017-2020 Inria and Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,8 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig;
 
-import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.AleLaunchConfiguration.DSL_FILE;
+import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.AleLaunchConfiguration.BEHAVIORS_PATH;
+import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.AleLaunchConfiguration.METAMODELS_PATH;
 import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.AleLaunchConfiguration.MODEL_FILE;
 
 import java.util.Arrays;
@@ -27,6 +28,7 @@ import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.ui.ILaunchShortcut;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -37,43 +39,70 @@ import org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog;
 
 /**
  * Shortcut allowing to run ALE from the contextual menu.
+ * 
+ * <h3>Creating a new shortcut</h3>
  * <p>
- * This shortcut basically:
+ * The retrieval of the relevant environment is delegated to subclasses. That's actually
+ * the only thing subclasses have to care about because the rest of the launch algorithm
+ * is defined here.
+ * <p>
+ * All the actual launching-related code stays in {@link AleLaunchConfigurationDelegate}. 
+ *
+ * <h3>Launch algorithm</h3
+ * <p>
  * <ol>
- * 	<li>retrieves the .dsl and the .xmi input files from the current selection,
- * 	<li>creates a new {@link AleLaunchConfiguration.ID ALE Launch Configuration},
- * 	<li>launches it.
+ * 	<li>Retrieves the {@link IAleEnvironment ALE environment} relevant to the selection,
+ * 	<li>Creates a new {@link AleLaunchConfiguration.ID ALE Launch Configuration},
+ * 	<li>Launches it.
  * </ol>
  * <p>
- * Hence, all the actual launching-related code stays in {@link AleLaunchConfigurationDelegate}. 
  */
-public class LaunchShortcut implements ILaunchShortcut {
+abstract class AbstractAleLaunchShortcut implements ILaunchShortcut {
+    
+	/**
+	 * Called when a launch is required.
+	 * <p>
+	 * Subclasses should implement this method in a way that subsequent calls to
+	 * {@link #getModel()}, {@link #getEnvironment()} and {@link #getBaseConfigurationName()}
+	 * return a non-null value.
+	 * 
+	 * @param resource
+	 * 			The resource on which the contextual menu has been used.
+	 * 
+	 * @throws Exception if something bad occurs
+	 */
+    @SuppressWarnings("squid:S00112")
+    protected abstract void prepareLaunchOn(IResource resource) throws Exception;
+    
+    /**
+     * Returns the XMI model to execute.
+     * @return the XMI model to execute, or nothing to cancel the launch
+     */
+    protected abstract Optional<IResource> getModel();
+    
+    /**
+     * Returns the name of the launch configuration to create.
+     * @return the name of the launch configuration to create
+     */
+    protected abstract String getBaseConfigurationName();
+    
+    /**
+     * Returns the environment relevant to this execution.
+     * @return the environment relevant to this execution
+     */
+    protected abstract IAleEnvironment getEnvironment();
 	
     @Override
     public void launch(ISelection selection, String mode) {
     	try {
-    		// Retrieve the .dsl and .xmi input files
+    		IResource resource = toResource(selection);
+    		prepareLaunchOn(resource);
     		
-    		IResource dslFile = (IResource) ((IStructuredSelection)selection).getFirstElement();
-    		Optional<IResource> modelFile = askUserToSelectAnXmiModel(dslFile);
-    		if (! modelFile.isPresent()) {
+    		if (! getModel().isPresent()) {
     			// The user didn't choose any model -> implicit cancellation
     			return;
     		}
-    		
-    		// Create a new launch configuration
-	    	
-	        ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
-	        ILaunchConfigurationType type = manager.getLaunchConfigurationType(AleLaunchConfiguration.ID);
-	        ILaunchConfiguration[] configurations = manager.getLaunchConfigurations(type);
-	
-	        String baseConfigurationName = configurationNameFor(dslFile);
-	        String launchConfigurationName = availableLaunchConfigurationName(baseConfigurationName, configurations);
-	        
-	        ILaunchConfigurationWorkingCopy workingCopy = type.newInstance(null, launchConfigurationName);        
-	        workingCopy.setAttribute(MODEL_FILE, modelFile.get().getFullPath().toPortableString());
-	        workingCopy.setAttribute(DSL_FILE, dslFile.getFullPath().toPortableString());
-	        ILaunchConfiguration configuration = workingCopy.doSave();
+    		ILaunchConfiguration configuration = createLaunchConfiguration(getBaseConfigurationName(), getEnvironment(), getModel().get());
 			
 	        // Run the new launch configuration
 	        configuration.launch(ILaunchManager.RUN_MODE, null);
@@ -101,15 +130,20 @@ public class LaunchShortcut implements ILaunchShortcut {
 	///    LAUNCH CONFIGURATIONS-RELATED UTILITY FUNCTIONS ////////////////////////////////////////////////////////
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static ILaunchConfiguration createLaunchConfiguration(String baseConfigurationName, IAleEnvironment conf, IResource model) throws CoreException {
+		ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
+        ILaunchConfigurationType type = manager.getLaunchConfigurationType(AleLaunchConfiguration.ID);
+        ILaunchConfiguration[] configurations = manager.getLaunchConfigurations(type);
 
-	private String configurationNameFor(IResource dslFile) {
-		String fileName = dslFile.getName();
-		
-		if (! fileName.contains(".")) {
-			return fileName;
-		}
-		String fileNameWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
-		return fileNameWithoutExtension;
+        String launchConfigurationName = availableLaunchConfigurationName(baseConfigurationName, configurations);
+        
+        ILaunchConfigurationWorkingCopy workingCopy = type.newInstance(null, launchConfigurationName);        
+        workingCopy.setAttribute(METAMODELS_PATH, String.join(",", conf.getMetamodels()));
+        workingCopy.setAttribute(BEHAVIORS_PATH, String.join(",", conf.getBehaviors()));
+        workingCopy.setAttribute(MODEL_FILE, model.getFullPath().toPortableString());
+        
+        return workingCopy.doSave();
 	}
 	
 	/**
@@ -158,7 +192,7 @@ public class LaunchShortcut implements ILaunchShortcut {
 		boolean overflowed = loopIndex < 0;
 		if (overflowed) {
 			// Unlikely, but better than keeping the possibility to freeze the whole IDE
-			throw new RuntimeException("Unable to create a new configuration: there are already " + Integer.MAX_VALUE + " of them");
+			throw new IndexOutOfBoundsException("Unable to create a new configuration: there are already " + Integer.MAX_VALUE + " of them");
 		}
 	}
 	
@@ -168,10 +202,14 @@ public class LaunchShortcut implements ILaunchShortcut {
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	private static IResource toResource(ISelection selection) {
+		return (IResource) ((IStructuredSelection) selection).getFirstElement();
+	}
+	
 	/**
 	 * Opens a selection dialog asking the user to select the XMI model to interpret.
 	 */
-	private static Optional<IResource> askUserToSelectAnXmiModel(IResource dslFile) {
+	protected static Optional<IResource> askUserToSelectAnXmiModel(IResource dslFile) {
 		Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 		FilteredResourcesSelectionDialog dialog = new FilteredResourcesSelectionDialog(
 				shell, 
