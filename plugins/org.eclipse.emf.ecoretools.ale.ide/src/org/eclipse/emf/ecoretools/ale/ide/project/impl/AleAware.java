@@ -15,6 +15,8 @@ import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferen
 import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.DSL_FILE_PATH;
 import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.ECORE_MODEL_FILES;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,6 +33,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.RuntimeAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
+import org.eclipse.emf.ecoretools.ale.ide.Activator;
 import org.eclipse.emf.ecoretools.ale.ide.Normalized;
 import org.eclipse.emf.ecoretools.ale.ide.project.AleProject;
 
@@ -57,16 +60,23 @@ public class AleAware implements AleProject {
 		IScopeContext context = new ProjectScope(project);
         IEclipsePreferences preferences = context.getNode(CORE_PLUGIN_ID);
         
-        boolean reliesOnDslFile = preferences.getBoolean(CONFIGURED_FROM_DSL_FILE.property(), false);
-		if (reliesOnDslFile) {
-        	return environmentFromDslConfigurationFile(preferences);
-        }
-        else {
-        	return environmentFromProjectPreferences(preferences);
+        try {
+	        boolean reliesOnDslFile = preferences.getBoolean(CONFIGURED_FROM_DSL_FILE.property(), false);
+			if (reliesOnDslFile) {
+	        	return environmentFromDslConfigurationFile(preferences);
+	        }
+	        else {
+	        	return environmentFromProjectPreferences(preferences);
+	        }
+        } 
+        catch (IllegalArgumentException | IOException e) {
+        	// TODO Do we want to broadcast the exception instead of catching it here?
+        	Activator.error("Cannot load ALE environment of project '" + project.getName() + "'", e);
+        	return new RuntimeAleEnvironment(new ArrayList<>(0), new ArrayList<>(0));
         }
 	}
 
-	private IAleEnvironment environmentFromDslConfigurationFile(IEclipsePreferences preferences) {
+	private IAleEnvironment environmentFromDslConfigurationFile(IEclipsePreferences preferences) throws IOException {
 		String dslFilePath = preferences.get(DSL_FILE_PATH.property(), "");
 		URI dslFileURI = URI.createURI(dslFilePath, true);
 		IResource dslFile = project.getWorkspace().getRoot().findMember(dslFileURI.toPlatformString(true));
@@ -76,10 +86,10 @@ public class AleAware implements AleProject {
 		}
 		IFile file = (IFile) dslFile;
 		try {
-			return new Normalized(new Dsl(file.getContents()));
+			return new Dsl(file.getContents());
 		} 
 		catch (CoreException e) {
-			throw new RuntimeException("Unable to read the content of the DSL configuration file " + dslFile.getFullPath());
+			throw new IOException("Unable to read the content of the DSL configuration file " + dslFile.getFullPath());
 		}
 	}
 
@@ -90,7 +100,7 @@ public class AleAware implements AleProject {
 		List<String> sourceFiles = Arrays.asList(aleSourceFilesPath.split(","));
 		List<String> ecoreModels = Arrays.asList(ecoreModelFilesPath.split(","));
 
-		return new Normalized(new RuntimeAleEnvironment(ecoreModels, sourceFiles));
+		return new RuntimeAleEnvironment(ecoreModels, sourceFiles);
 	}
 
 }

@@ -49,6 +49,22 @@ public interface AleProject {
 	}
 	
 	/**
+	 * Checks whether a given project has the ALE nature.
+	 * 
+	 * @param project
+	 * 			The project to check
+	 * 
+	 * @return true if the project has the ALE nature, false otherwise
+	 */
+	static boolean hasAleNature(IProject project) {
+		try {
+			return project.hasNature(AleProjectNature.ID);
+		} catch (CoreException e) {
+			return false;
+		}
+	}
+	
+	/**
 	 * Creates the project if it does not exist yet.
 	 * 
 	 * @param name

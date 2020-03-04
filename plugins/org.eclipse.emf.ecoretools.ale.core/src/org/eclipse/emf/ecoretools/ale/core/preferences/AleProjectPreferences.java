@@ -13,7 +13,6 @@ package org.eclipse.emf.ecoretools.ale.core.preferences;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 
 /**

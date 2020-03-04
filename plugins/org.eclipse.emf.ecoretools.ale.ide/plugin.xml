@@ -33,5 +33,18 @@
           </run>
        </runtime>
     </extension>
+    <extension
+          point="org.eclipse.ltk.core.refactoring.renameParticipants">
+       <renameParticipant
+             class="org.eclipse.emf.ecoretools.ale.ide.refactoring.RenamePathsToAleResources"
+             id="org.eclipse.emf.ecoretools.ale.ide.renameParticipant.renamePathsInDslFiles"
+             name="Rename participant for *.dsl files">
+          <enablement>
+             <adapt
+                   type="org.eclipse.core.resources.IResource">
+             </adapt>
+          </enablement>
+       </renameParticipant>
+    </extension>
 
 </plugin>
