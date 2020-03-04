@@ -52,6 +52,7 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.ExtensionEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
 import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
+import org.eclipse.emf.ecoretools.ale.ide.Normalized;
 import org.eclipse.emf.ecoretools.ale.ide.project.AleProject;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.emf.ecoretools.ale.ide.ui.AlePreferenceStore;
@@ -558,7 +559,7 @@ public class Services {
 		URI uri = ecoreResource.getURI();
     	IPath path = new Path(uri.toPlatformString(false));
     	IProject enclosingProject = ResourcesPlugin.getWorkspace().getRoot().getFile(path).getProject();
-    	IAleEnvironment env = AleProject.from(enclosingProject).getEnvironment();
+    	IAleEnvironment env = new Normalized(AleProject.from(enclosingProject).getEnvironment());
     	
     	Pattern openClass = Pattern.compile(".*open\\s+class\\s+" + className + ".*");
     	
