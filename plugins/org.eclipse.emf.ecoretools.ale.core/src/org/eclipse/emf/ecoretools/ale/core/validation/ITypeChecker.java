@@ -203,6 +203,16 @@ public interface ITypeChecker {
 	boolean isInteger(IType type);
 
 	/**
+	 * Determines whether the given type corresponds to {@code null}.
+	 * 
+	 * @param type
+	 * 			The type to check
+	 * 
+	 * @return true if the type represents {@code null}
+	 */
+	boolean isNull(IType type);
+	
+	/**
 	 * Determines whether the given type corresponds to a string.
 	 * 
 	 * @param type

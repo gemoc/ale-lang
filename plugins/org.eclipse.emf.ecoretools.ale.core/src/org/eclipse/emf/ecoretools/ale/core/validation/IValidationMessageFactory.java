@@ -125,18 +125,6 @@ public interface IValidationMessageFactory {
 	/**
 	 * Creates a message warning about unexpected types.
 	 * 
-	 * @param att
-	 * 			The attribute having the expected types
-	 * @param actualTypes
-	 * 			The actual, unexpected types
-	 * 
-	 * @return a new validation message
-	 */
-	IValidationMessage incompatibleTypes(Attribute att, Set<IType> actualTypes);
-	
-	/**
-	 * Creates a message warning about unexpected types.
-	 * 
 	 * @param expected
 	 * 			The expected types
 	 * @param actual

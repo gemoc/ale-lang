@@ -148,6 +148,9 @@ public final class TypeChecker implements ITypeChecker {
 		//
 		// It could also worth considering adding EObject as a super type of user's classes to help IType doing its
 		// job well. This could be done in DslBuilder#register(List<EPackages>).
+		if (isNull(valueType)) {
+			return true;
+		}
 		boolean bothAreCollections = isCollection(variableType) && isCollection(valueType);
 		if(bothAreCollections) {
 			return collectionsHaveCompatibleGenericTypes(variableType, valueType);
@@ -217,6 +220,17 @@ public final class TypeChecker implements ITypeChecker {
 			EDataType dataType = (EDataType) type.getType();
 			return int.class.equals(dataType.getInstanceClass())
 				|| Integer.class.equals(dataType.getInstanceClass());
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean isNull(IType type) {
+		if (type.getType() == null) {
+			return true;
+		}
+		if (type instanceof NothingType) {
+			return true;
 		}
 		return false;
 	}

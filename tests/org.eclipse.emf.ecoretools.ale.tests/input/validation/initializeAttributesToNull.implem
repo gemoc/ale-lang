@@ -1,0 +1,12 @@
+behavior test.declself;
+
+open class EClass {
+	int intAttribute := null;
+	String stringAttribute := null;
+	EObject classAttribute := null;
+	declself::Foo runtimeClassAttribute := null;
+}
+
+class Foo {
+
+}

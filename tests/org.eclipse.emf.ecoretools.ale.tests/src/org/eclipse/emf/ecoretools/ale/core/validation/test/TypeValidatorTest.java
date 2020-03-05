@@ -186,7 +186,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 45, 62, "Expected ecore::EString but was [java.lang.Integer]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 62, "Type mismatch: cannot assign [java.lang.Integer] to [ecore::EString]", msg.get(0));
 	}
 	
 	/*
@@ -1718,6 +1718,45 @@ public class TypeValidatorTest {
 		
 		assertEquals(1, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 110, 132, "Type mismatch: cannot assign [ecore::EClass] to [Collection(ecore::EClass)]", msg.get(0));
+	}
+	
+	@Test
+	public void testInitAttributesToNull() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/initializeAttributesToNull.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals("Unexpected errors: " + msg, 0, msg.size());
+	}
+	
+	@Test
+	public void testAssignNullToAttribute() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignNullToAttribute.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals("Unexpected errors: " + msg, 0, msg.size());
+	}
+	
+	@Test
+	public void testAssignNullToLocalVariables() {
+		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignNullToLocalVariables.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals("Unexpected errors: " + msg, 0, msg.size());
 	}
 	
 	/**
