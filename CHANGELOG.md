@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 ### Fixed
+- [#64](https://github.com/gemoc/ale-lang/issues/64) Allow to assign `null` to variables
 - [#102](https://github.com/gemoc/ale-lang/issues/102) The editor shows an error when a method is used to define the range of a for-each loop
 
 ### Added

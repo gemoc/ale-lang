@@ -1,0 +1,19 @@
+behavior test.declself;
+
+open class EClass {
+	int intAttribute;
+	String stringAttribute;
+	EObject classAttribute;
+	declself::Foo runtimeClassAttribute;
+	
+	def void foo() {
+		self.intAttribute := null;
+		self.stringAttribute := null;
+		self.classAttribute := null;
+		self.runtimeClassAttribute := null;
+	}
+}
+
+class Foo {
+
+}

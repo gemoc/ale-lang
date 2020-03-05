@@ -22,11 +22,9 @@ import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
 import org.eclipse.acceleo.query.runtime.impl.ValidationMessage;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecoretools.ale.core.validation.BaseValidator;
 import org.eclipse.emf.ecoretools.ale.core.validation.IValidationMessageFactory;
-import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
@@ -39,7 +37,6 @@ public final class ValidationMessageFactory implements IValidationMessageFactory
 	public static final String ILLEGAL_ASSIGNMENT = "Type mismatch: cannot assign %s to %s";
 	public static final String ILLEGAL_INSERTION = "%s cannot be added to %s (expected %s)";
 	public static final String ILLEGAL_REMOVAL = "%s cannot be removed from %s (expected %s)";
-	public static final String INCOMPATIBLE_TYPE = "Expected %s but was %s";
 	public static final String INCOMPATIBLE_TYPES = "Expected %s but was %s";
 	public static final String INDIRECT_EXTENSION = "Can't extend %s since it is not a direct super type of %s";
 	public static final String UNSUPPORTED_OPERATOR = "%s does not support the '%s' operator";
@@ -121,17 +118,6 @@ public final class ValidationMessageFactory implements IValidationMessageFactory
 				String.format(ILLEGAL_REMOVAL, commaSeparated(removedValueTypes), commaSeparated(variableTypes), commaSeparated(acceptedValueTypes)),
 				base.getStartOffset(value),
 				base.getEndOffset(value) + 1
-		);
-	}
-	
-	@Override
-	public IValidationMessage incompatibleTypes(Attribute att, Set<IType> actualTypes) {
-		EClassifier expectedType = att.getFeatureRef().getEType();
-		return new ValidationMessage(
-				ValidationMessageLevel.ERROR,
-				String.format(INCOMPATIBLE_TYPE, getQualifiedName(expectedType), commaSeparated(actualTypes)),
-				base.getStartOffset(att),
-				base.getEndOffset(att)
 		);
 	}
 	

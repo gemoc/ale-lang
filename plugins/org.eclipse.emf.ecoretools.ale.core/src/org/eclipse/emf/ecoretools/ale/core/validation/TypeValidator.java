@@ -28,6 +28,7 @@ import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecoretools.ale.core.validation.impl.AstLookup;
@@ -159,10 +160,7 @@ public class TypeValidator implements IValidator {
 		.forEach(att -> {
 			Set<IType> valueTypes = lookup.inferredTypesOf(att.getInitialValue());
 			IType declaredType = convert.toAQL(att.getFeatureRef());
-			boolean initialValueCanBeAssigned = valueTypes.stream().anyMatch(declaredType::isAssignableFrom);
-			if(!initialValueCanBeAssigned){
-				msgs.add(messages.incompatibleTypes(att, valueTypes));
-			}
+			msgs.addAll(validateAssignment(newHashSet(declaredType), valueTypes, att.getInitialValue()));
 		});
 		return msgs;
 	}
@@ -253,7 +251,7 @@ public class TypeValidator implements IValidator {
 	 * 
 	 * @return the messages produced by the validation of the assignment
 	 */
-	private List<IValidationMessage> validateAssignment(Set<IType> variableTypes, Set<IType> valueTypes, Expression valueExp) {
+	private List<IValidationMessage> validateAssignment(Set<IType> variableTypes, Set<IType> valueTypes, EObject valueExp) {
 		if(variableTypes.isEmpty()) {
 			// The variable has no type: it is likely undeclared
 			return PROBLEM_HANDLED_BY_ANOTHER_VALIDATOR;

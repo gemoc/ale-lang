@@ -898,9 +898,8 @@ public class NameValidatorTest {
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
-		assertEquals(2, msg.size());
+		assertEquals("messages: " + msg, 1, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 112, 117, "Feature wrong not found in EClass EClass", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 108, 118, "Type mismatch: cannot assign [Nothing(Feature wrong not found in EClass EClass)] to [ecore::EInt]", msg.get(1));
 	}
 	
 	/*
