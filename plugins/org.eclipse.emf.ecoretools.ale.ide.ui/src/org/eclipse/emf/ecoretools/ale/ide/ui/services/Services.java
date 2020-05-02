@@ -10,23 +10,31 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.ide.ui.services;
 
+import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
+import org.eclipse.acceleo.query.ast.AstPackage;
+import org.eclipse.core.filebuffers.FileBuffers;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
@@ -34,21 +42,26 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecoretools.ale.BehavioredClass;
 import org.eclipse.emf.ecoretools.ale.Operation;
 import org.eclipse.emf.ecoretools.ale.Unit;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.ExtensionEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
+import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
+import org.eclipse.emf.ecoretools.ale.ide.project.AleProject;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.emf.ecoretools.ale.ide.ui.AlePreferenceStore;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
+import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
-import org.eclipse.emf.ecoretools.design.service.EcoreToolsDesignPlugin;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
-import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
-import org.eclipse.sirius.business.api.session.Session;
-import org.eclipse.sirius.business.api.session.SessionManager;
+import org.eclipse.emf.ecoretools.design.service.EcoreToolsDesignPlugin;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -95,29 +108,32 @@ public class Services {
     }
     
     private List<ModelUnit> getModelBehavior(EObject element) {
-    	Session session = SessionManager.INSTANCE.getSession(element);
-    	
-    	URI uri = element.eResource().getURI();
-    	URI implemURI = uri.trimFileExtension().appendFileExtension(DSL_EXTENSION);
-    	
-    	Optional<Resource> implemRes = 
-			session
-			.getSemanticResources()
-			.stream()
-			.filter(res -> res.getURI().equals(implemURI))
-			.findFirst();
-    	
-    	if(implemRes.isPresent()){
-    		return 
-    			implemRes.get()
-    			.getContents()
-				.stream()
-				.filter(elem -> elem instanceof ModelUnit)
-				.map(elm -> (ModelUnit) elm)
-				.collect(toList());
+    	if (element.eResource() == null) {
+    		// e.g. when 'element' is a dynamic attribute declared from ALE
+    		return emptyList();
     	}
+    	URI uri = element.eResource().getURI();
+    	IPath path = new Path(uri.toPlatformString(false));
+    	IProject enclosingProject = ResourcesPlugin.getWorkspace().getRoot().getFile(path).getProject();
+    	IAleEnvironment env = AleProject.from(enclosingProject).getEnvironment();
     	
-    	return new ArrayList<>();
+    	// FIXME The code below has been copied from ALEInterpreter
+    	
+    	ExtensionEnvironment queryEnv = new ExtensionEnvironment();
+    	queryEnv.registerEPackage(EcorePackage.eINSTANCE);
+    	queryEnv.registerEPackage(ImplementationPackage.eINSTANCE);
+    	queryEnv.registerEPackage(AstPackage.eINSTANCE);
+    	queryEnv.registerCustomClassMapping(EcorePackage.eINSTANCE.getEStringToStringMapEntry(), EStringToStringMapEntryImpl.class);
+    	
+		DslBuilder parser = new DslBuilder(queryEnv);
+    	List<ModelUnit> semantics = parser.parse(env).stream()
+    									  .map(ParseResult::getRoot)
+    									  .collect(toList());
+    	
+    	queryEnv.removeEPackage(ImplementationPackage.eINSTANCE);
+    	queryEnv.removeEPackage(AstPackage.eINSTANCE);
+    	
+    	return semantics;
     }
     
     public List<Attribute> getDynaAttrib(EClass cls){
@@ -133,7 +149,7 @@ public class Services {
 				xtdCls
 				.getAttributes()
 				.stream()
-				.filter(att -> att.getFeatureRef() instanceof EAttribute) //FIXME: show also not displayed EReferences
+//				.filter(att -> att.getFeatureRef() instanceof EAttribute) //FIXME: show also not displayed EReferences
 				.collect(toList());
 		}
     	
@@ -145,7 +161,7 @@ public class Services {
 			cls
 			.getAttributes()
 			.stream()
-			.filter(att -> att.getFeatureRef() instanceof EAttribute) //FIXME: show also not displayed EReferences
+//			.filter(att -> att.getFeatureRef() instanceof EAttribute) //FIXME: show also not displayed EReferences
 			.collect(toList());
     }
     
@@ -193,7 +209,7 @@ public class Services {
     
 	public EOperation editImplementation(EOperation op) {
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		IFile file = getImplemFile(op.eResource());
+		IFile file = getImplemFile(op.getEContainingClass().getName(), op.eResource());
 		IEditorDescriptor desc = PlatformUI.getWorkbench().
 		        getEditorRegistry().getDefaultEditor(file.getName());
 		try {
@@ -280,7 +296,7 @@ public class Services {
 		}
 		
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		IFile file = getImplemFile(obj.eResource());
+		IFile file = getImplemFile(className, obj.eResource());
 		IEditorDescriptor desc = PlatformUI.getWorkbench().
 		        getEditorRegistry().getDefaultEditor(file.getName());
 		try {
@@ -377,7 +393,7 @@ public class Services {
 		}
 		
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		IFile file = getImplemFile(obj.eResource());
+		IFile file = getImplemFile(className, obj.eResource());
 		IEditorDescriptor desc = PlatformUI.getWorkbench().
 		        getEditorRegistry().getDefaultEditor(file.getName());
 		try {
@@ -478,7 +494,7 @@ public class Services {
 	
 	public void createRuntimeClass(EObject obj) {
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		IFile file = getImplemFile(obj.eResource());
+		IFile file = getImplemFile("", obj.eResource());
 		IEditorDescriptor desc = PlatformUI.getWorkbench().
 		        getEditorRegistry().getDefaultEditor(file.getName());
 		try {
@@ -538,16 +554,31 @@ public class Services {
 		}
 	}
 	
-	private static IFile getImplemFile(Resource ecoreResource) {
-		IFile file = WorkspaceSynchronizer.getFile(ecoreResource);
-		IPath dslPath = file.getFullPath().removeFileExtension().addFileExtension(IMPLEM_EXTENSION);
-		IWorkspaceRoot ws = ResourcesPlugin.getWorkspace().getRoot();
-		IFile implemFile = ws.getFile(dslPath);
-		return implemFile;
+	private static IFile getImplemFile(String className, Resource ecoreResource) {
+		URI uri = ecoreResource.getURI();
+    	IPath path = new Path(uri.toPlatformString(false));
+    	IProject enclosingProject = ResourcesPlugin.getWorkspace().getRoot().getFile(path).getProject();
+    	IAleEnvironment env = AleProject.from(enclosingProject).getEnvironment();
+    	
+    	Pattern openClass = Pattern.compile(".*open\\s+class\\s+" + className + ".*");
+    	
+    	for (String behavior : env.getBehaviors()) {
+    		try (Stream<String> lines = Files.lines(Paths.get(behavior))) {
+				boolean definesClass = lines.anyMatch(line -> openClass.matcher(line).matches());
+				if (definesClass) {
+					return FileBuffers.getWorkspaceFileAtLocation(Path.fromOSString(new File(behavior).getPath()));
+//					IPath behaviorPath = new Path(behaviorURI.toPlatformString(false));
+//					return ResourcesPlugin.getWorkspace().getRoot().getFile(behaviorPath);
+				}
+			} 
+    		catch (IOException e) {
+    			// let's ignore it
+			}
+    	}
+    	return null;
 	}
 	
 	public EObject getSource(Attribute attrib) {
-		
 		EObject container = attrib.eContainer();
 		if(container instanceof ExtendedClass) {
 			return ((ExtendedClass)container).getBaseClass();

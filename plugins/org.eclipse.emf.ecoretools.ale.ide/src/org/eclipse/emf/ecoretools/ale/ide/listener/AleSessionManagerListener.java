@@ -90,7 +90,15 @@ public class AleSessionManagerListener implements SessionManagerListener {
 			.findFirst();
 		if(behaviorVP.isPresent()) {
 			if(!getDsl(session).isPresent()) {
-				createAndRegisterDsl(session);
+				// FIXME Is it really necessary to add the .dsl file as a semantic resource?
+				//
+				// This was required to retrieve information about the semantics
+				// from Sirius to populate the 'Behavior' layer.
+				//
+				// However, as of PR #115 the .dsl file may not exist. Services::getModelBehavior
+				// has been updated to reflected this.
+				//
+//				createAndRegisterDsl(session);
 			}
 			createWsListener(session);
 		}
