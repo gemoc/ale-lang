@@ -88,7 +88,7 @@ public class NewAleProjectWizard extends Wizard implements INewWizard {
 	public boolean canFinish() {
 		return ! newProjectPage.getProjectName().isEmpty()
 			&& ! newProjectPage.getLocationPath().isEmpty()
-			&& aleConfigurationPage.isValid();
+			&& aleConfigurationPage.isPageComplete();
 	}
 	
 	@Override
@@ -107,12 +107,12 @@ public class NewAleProjectWizard extends Wizard implements INewWizard {
 	    	else {
 	    		projectLocation = newProjectPage.getLocationPath();
 	    	}
-	    	
 	    	boolean useAnExistingEcoreModel = aleConfigurationPage.useExistingEcoreModel();
 	    	IPath ecoreModelFilePath = aleConfigurationPage.getEcoreModelFile();
-	    	String ecorePackageName = aleConfigurationPage.getEcorePackageName();
 	    	boolean createRepresentation = aleConfigurationPage.createRepresentation();
 	    	boolean activateJava = aleConfigurationPage.activateJava();
+	    	boolean createDslFile = aleConfigurationPage.createDslFile();
+	    	String ecorePackageName = (aleConfigurationPage.getEcorePackageName() == null) ? projectName : aleConfigurationPage.getEcorePackageName();
 	    	
 	    	// Create the new project
 
@@ -121,7 +121,7 @@ public class NewAleProjectWizard extends Wizard implements INewWizard {
 				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 					try {
 						WorkspaceAleProject.Description desc = 
-								new WorkspaceAleProject.Description(useAnExistingEcoreModel, ecoreModelFilePath, ecorePackageName, createRepresentation, activateJava);
+								new WorkspaceAleProject.Description(useAnExistingEcoreModel, ecoreModelFilePath, ecorePackageName, createRepresentation, activateJava, createDslFile);
 						AleProject project = new WorkspaceAleProject(ResourcesPlugin.getWorkspace(), desc);
 						project.create(projectName, projectLocation, monitor);
 					} 

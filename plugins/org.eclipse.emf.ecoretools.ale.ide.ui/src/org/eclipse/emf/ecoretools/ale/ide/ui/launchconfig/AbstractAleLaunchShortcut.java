@@ -30,6 +30,8 @@ import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.ui.ILaunchShortcut;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
@@ -203,7 +205,22 @@ abstract class AbstractAleLaunchShortcut implements ILaunchShortcut {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private static IResource toResource(ISelection selection) {
-		return (IResource) ((IStructuredSelection) selection).getFirstElement();
+		Object selectedElement = ((IStructuredSelection) selection).getFirstElement();
+		try {
+			if (selectedElement instanceof IJavaProject) {
+				IJavaProject javaProject = (IJavaProject) selectedElement;
+				return javaProject.getCorrespondingResource();
+			}
+		}
+		catch (NoClassDefFoundError e) {
+			// Can happen because dependencies to JDT are optional (one might want to use ALE without Java)
+			// If this error is thrown we can safely consider that the selection is not a Java project and
+			// thus continue with the default behavior.
+		} catch (JavaModelException e) {
+			// Should not happen
+			throw new RuntimeException("Unable to get the IResource corresponding to the Java project", e);
+		}
+		return (IResource) selectedElement;
 	}
 	
 	/**

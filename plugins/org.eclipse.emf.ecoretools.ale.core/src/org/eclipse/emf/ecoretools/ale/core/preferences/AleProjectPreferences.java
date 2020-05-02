@@ -63,14 +63,6 @@ public enum AleProjectPreferences {
     }
     
     /**
-     * Returns a unique qualified name for this setting.
-     * @return a unique qualified name for this setting
-     */
-    public QualifiedName qualifiedName() {
-        return new QualifiedName("org.eclipse.emf.ecoretools.ale.core", property());
-    }
-    
-    /**
      * Returns the setting identified by the given property.
      * 
      * @param property

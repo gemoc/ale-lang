@@ -14,6 +14,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.LayoutConstants;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.sirius.business.api.dialect.DialectManager;
@@ -60,6 +61,10 @@ public class NewAleProjectConfigurationWizardPage extends WizardPage {
 	 * Whether the "This project will expose Java services" option should be activated by default.
 	 */
 	private static final boolean EXPOSE_JAVA_SERVICES_BY_DEFAULT = false;
+	/**
+	 * Whether the "Create a DSL configuration file" option should be activated by default.
+	 */
+	private static final boolean CREATE_DSL_FILE_BY_DEFAULT = false;
 
 	/**
 	 * Whether the user wants to use an existing Ecore model instead of creating a new one.
@@ -82,9 +87,9 @@ public class NewAleProjectConfigurationWizardPage extends WizardPage {
 	 */
 	private Button useJavaServicesCheckBox;
 	/**
-	 * Whether this page has been visible at least once.
+	 * Whether the user wants ALE environment to be defined in a .dsl configuration file.
 	 */
-	private boolean hasBeenSeen = false;
+	private Button createDslFileCheckBox;
 
 	/**
 	 * Instantiates a new wizard page aimed at configuring an ALE project
@@ -100,7 +105,7 @@ public class NewAleProjectConfigurationWizardPage extends WizardPage {
 	 */
 	public boolean useExistingEcoreModel() {
 		if (useAnExistingEcoreModelFileRadioButton == null) {
-			return false;
+			return ! CREATE_NEW_ECORE_MODEL_BY_DEFAULT;
 		}
 		return useAnExistingEcoreModelFileRadioButton.getSelection();
 	}
@@ -132,7 +137,7 @@ public class NewAleProjectConfigurationWizardPage extends WizardPage {
 	 */
 	public boolean createRepresentation() {
 		if (createRepresentationCheckBox == null) {
-			return false;
+			return CREATE_SIRIUS_REPRESENTATION_BY_DEFAULT;
 		}
 		return createRepresentationCheckBox.getSelection();
 	}
@@ -142,9 +147,16 @@ public class NewAleProjectConfigurationWizardPage extends WizardPage {
 	 */
 	public boolean activateJava() {
 		if (useJavaServicesCheckBox == null) {
-			return false;
+			return EXPOSE_JAVA_SERVICES_BY_DEFAULT;
 		}
 		return useJavaServicesCheckBox.getSelection();
+	}
+	
+	public boolean createDslFile() {
+		if (createDslFileCheckBox == null) {
+			return CREATE_DSL_FILE_BY_DEFAULT;
+		}
+		return createDslFileCheckBox.getSelection();
 	}
 
 	public void setDefaultEcorePackage(String projectName) {
@@ -169,7 +181,6 @@ public class NewAleProjectConfigurationWizardPage extends WizardPage {
 	public void setVisible(boolean isVisible) {
 		super.setVisible(isVisible);
 		if (isVisible) {
-			hasBeenSeen = true;
 			ecorePackageNameText.setFocus();
 			setPageComplete(isValid());
 		}
@@ -184,50 +195,35 @@ public class NewAleProjectConfigurationWizardPage extends WizardPage {
 		layout.numColumns = 3;
 		group.setLayout(layout);
 		group.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL));
-		group.setText("Ecore model");
+		group.setText(" Ecore model ");
 		
 		// "(x) Create a new Ecore model" button
 		
 		Button createNewEcoreModelFileRadioButton = new Button(group, SWT.RADIO | SWT.LEFT);
 		createNewEcoreModelFileRadioButton.setText("Create a new Ecore model");
-		createNewEcoreModelFileRadioButton.setToolTipText("A new Ecore model will be created in the project");
+		createNewEcoreModelFileRadioButton.setToolTipText("A new Ecore model will be created in the model/ folder");
 		createNewEcoreModelFileRadioButton.setSelection(CREATE_NEW_ECORE_MODEL_BY_DEFAULT);
 		createNewEcoreModelFileRadioButton.setData(SWTBOT_ID, CREATE_ECORE_MODEL_BUTTON_ID);
-		
-		// Span the button horizontally
-		GridData createNewEcoreModelFileLayoutData = new GridData(GridData.FILL_HORIZONTAL);
-		createNewEcoreModelFileLayoutData.horizontalSpan = layout.numColumns;
-		createNewEcoreModelFileRadioButton.setLayoutData(createNewEcoreModelFileLayoutData);
+		GridDataFactory.fillDefaults().span(layout.numColumns, 1).applyTo(createNewEcoreModelFileRadioButton);
 		
 		// Ecore package name text field
 		
 		Label ecorePackageNameLabel = new Label(group, SWT.LEFT);
 		ecorePackageNameLabel.setText("Package name: ");
-
-		// Span the text displaying the path horizontally
-		GridData ecorePackageNameLayoutData = new GridData();
-		ecorePackageNameLayoutData.horizontalIndent = LayoutConstants.getIndent();
-		ecorePackageNameLabel.setLayoutData(ecorePackageNameLayoutData);
+		GridDataFactory.swtDefaults().indent(LayoutConstants.getIndent(), 0).applyTo(ecorePackageNameLabel);
 		
 		ecorePackageNameText = new Text(group, SWT.BORDER);
-		// Span the text horizontally
-		GridData ecorePackageNameTextLayoutData = new GridData(GridData.FILL_HORIZONTAL);
-		ecorePackageNameTextLayoutData.horizontalSpan = layout.numColumns - 1;
-		ecorePackageNameText.setLayoutData(ecorePackageNameTextLayoutData);
 		ecorePackageNameText.setData(SWTBOT_ID, ECORE_PACKAGE_NAME_TEXT_ID);
 		ecorePackageNameText.addListener(SWT.Modify, e -> setPageComplete(isValid()));
+		GridDataFactory.createFrom(new GridData(GridData.FILL_HORIZONTAL)).span(layout.numColumns - 1, 1).applyTo(ecorePackageNameText);
 		
 		// "( ) Use an existing Ecore model" button
 		
 		useAnExistingEcoreModelFileRadioButton = new Button(group, SWT.RADIO | SWT.LEFT);
 		useAnExistingEcoreModelFileRadioButton.setText("Use an existing Ecore model");
-		useAnExistingEcoreModelFileRadioButton.setText("The project will be configured to reuse an existing Ecore model");
-		useAnExistingEcoreModelFileRadioButton.setSelection(! CREATE_NEW_ECORE_MODEL_BY_DEFAULT);
-		
-		// Span the button horizontally
-		GridData useAnExistingEcoreModelFileLayoutData = new GridData(GridData.FILL_HORIZONTAL);
-		useAnExistingEcoreModelFileLayoutData.horizontalSpan = layout.numColumns;
-		useAnExistingEcoreModelFileRadioButton.setLayoutData(useAnExistingEcoreModelFileLayoutData);
+		useAnExistingEcoreModelFileRadioButton.setToolTipText("The project will be configured to reuse an existing Ecore model");
+		useAnExistingEcoreModelFileRadioButton.setSelection( ! CREATE_NEW_ECORE_MODEL_BY_DEFAULT);
+		GridDataFactory.fillDefaults().span(layout.numColumns, 1).applyTo(useAnExistingEcoreModelFileRadioButton);
 		
 		// "Browse Ecore models in workspace" button
 		// Clicking the button opens a dialog that fills 'selectedEcoreModelText' text field
@@ -235,6 +231,7 @@ public class NewAleProjectConfigurationWizardPage extends WizardPage {
 		Button browseExistingEcoreButton = new Button(group, SWT.NONE);
 		browseExistingEcoreButton.setText("Select model...");
 		browseExistingEcoreButton.setToolTipText("Opens a dialog to select an .ecore file within the workspace");
+		GridDataFactory.swtDefaults().indent(LayoutConstants.getIndent(), 0).applyTo(browseExistingEcoreButton);
 		browseExistingEcoreButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -257,23 +254,17 @@ public class NewAleProjectConfigurationWizardPage extends WizardPage {
 				}
 			}
 		});
-		GridData browseExistingEcoreLayoutData = new GridData();
-		browseExistingEcoreLayoutData.horizontalIndent = LayoutConstants.getIndent();
-		browseExistingEcoreButton.setLayoutData(browseExistingEcoreLayoutData);
 		
 		// Text displaying the path to the Ecore model to reuse
 		
 		selectedEcoreModelText = new Text(group, SWT.READ_ONLY | SWT.BORDER);
+		GridDataFactory.createFrom(new GridData(GridData.FILL_HORIZONTAL)).span(layout.numColumns - 1, 1).applyTo(selectedEcoreModelText);
 		selectedEcoreModelText.addListener(SWT.Modify, e -> {
 			// Make sure "Use an existing Ecore model" button is checked when the user chooses one
 			createNewEcoreModelFileRadioButton.setSelection(false);
 			useAnExistingEcoreModelFileRadioButton.setSelection(true);
 			setPageComplete(isValid());
 		});
-
-		// Span the text displaying the path horizontally
-		GridData selectedEcoreModelTextLayoutData = new GridData(GridData.FILL_HORIZONTAL);
-		selectedEcoreModelText.setLayoutData(selectedEcoreModelTextLayoutData);
 	}
 
 	/**
@@ -281,10 +272,9 @@ public class NewAleProjectConfigurationWizardPage extends WizardPage {
 	 */
 	private void createRepresentationGroup(Composite container) {
 		Group group = new Group(container, SWT.LEFT);
-		GridLayout layout = new GridLayout();
-		group.setLayout(layout);
+		group.setLayout(new GridLayout());
 		group.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL));
-		group.setText("Representation");
+		group.setText(" Representation ");
 		
 		if (SiriusPluginsAreAvailable()) {
 			// "[x] Create a Sirius representation" button
@@ -300,6 +290,10 @@ public class NewAleProjectConfigurationWizardPage extends WizardPage {
 		}
 	}
 	
+	/**
+	 * Checks whether Sirius plug-ins are available because they are an <b>optional</b> dependency
+	 * and we don't want the user to ask for a class diagram if we can't provide one.
+	 */
 	@SuppressWarnings({"squid:S00100", "squid:S3516", "squid:S2159"})
 	private static boolean SiriusPluginsAreAvailable() {
 		try {
@@ -316,31 +310,36 @@ public class NewAleProjectConfigurationWizardPage extends WizardPage {
 	 */
 	private void createServicesGroup(Composite container) {
 		Group group = new Group(container, SWT.LEFT);
-		GridLayout layout = new GridLayout();
-		group.setLayout(layout);
+		group.setLayout(new GridLayout());
 		group.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL));
-		group.setText("Services");
+		group.setText(" Services ");
 		
-		// "[ ] Expose Java services" button
+		// "[ ] Expose Java services" check box
 		
 		useJavaServicesCheckBox = new Button(group, SWT.CHECK);
-		useJavaServicesCheckBox.setText("This project will expose Java services to ALE");
-		useJavaServicesCheckBox.setToolTipText("Add the Java nature to the project");
+		useJavaServicesCheckBox.setText("Will expose Java services to ALE");
+		useJavaServicesCheckBox.setToolTipText("Add the Java nature to the project, allowing the definition of ALE services");
 		useJavaServicesCheckBox.setSelection(EXPOSE_JAVA_SERVICES_BY_DEFAULT);
+		
+		// "[ ] Define environment in a .dsl file" check box
+		
+		createDslFileCheckBox = new Button(group, SWT.CHECK);
+		createDslFileCheckBox.setText("Define environment in a .dsl file");
+		createDslFileCheckBox.setToolTipText("Ease integration with third-parties (GEMOC Studio, Maven) and collaboration with colleagues");
+		createDslFileCheckBox.setSelection(CREATE_DSL_FILE_BY_DEFAULT);
 	}
 	
 	/**
 	 * @return whether the user has filled in all required info
 	 */
 	public boolean isValid() {
-		if (! hasBeenSeen) {
-			return false;
-		}
 		if (useExistingEcoreModel()) {
 			return ! getEcoreModelFile().isEmpty();
 		}
 		else {
-			return ! getEcorePackageName().isEmpty();
+			// Actually, requires that the Ecore package name is not empty.
+			// But in our case we consider that the package is named after the project by default.
+			return true;
 		}
 	}
 
