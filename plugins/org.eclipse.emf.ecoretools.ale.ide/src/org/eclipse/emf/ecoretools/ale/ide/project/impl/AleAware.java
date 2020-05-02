@@ -53,31 +53,44 @@ public class AleAware implements AleProject {
 	}
 
 	@Override
-	public IAleEnvironment getEnvironment() throws Exception {
+	public IAleEnvironment getEnvironment() {
 		IScopeContext context = new ProjectScope(project);
         IEclipsePreferences preferences = context.getNode(CORE_PLUGIN_ID);
         
         boolean reliesOnDslFile = preferences.getBoolean(CONFIGURED_FROM_DSL_FILE.property(), false);
 		if (reliesOnDslFile) {
-        	String dslFilePath = preferences.get(DSL_FILE_PATH.property(), "");
-        	URI dslFileURI = URI.createURI(dslFilePath, true);
-        	IResource dslFile = project.getWorkspace().getRoot().findMember(dslFileURI.toPlatformString(true));
-        	
-        	if (! (dslFile instanceof IFile)) {
-        		throw new IllegalArgumentException("Cannot load DSL file (expected IFile, got: " + dslFile + ")");
-        	}
-        	IFile file = (IFile) dslFile;
-        	return new Normalized(new Dsl(file.getContents()));
+        	return environmentFromDslConfigurationFile(preferences);
         }
         else {
-        	String aleSourceFilesPath = preferences.get(ALE_SOURCE_FILES.property(), "");
-        	String ecoreModelFilesPath = preferences.get(ECORE_MODEL_FILES.property(), "");
-
-        	List<String> sourceFiles = Arrays.asList(aleSourceFilesPath.split(","));
-        	List<String> ecoreModels = Arrays.asList(ecoreModelFilesPath.split(","));
-
-        	return new Normalized(new RuntimeAleEnvironment(ecoreModels, sourceFiles));
+        	return environmentFromProjectPreferences(preferences);
         }
+	}
+
+	private IAleEnvironment environmentFromDslConfigurationFile(IEclipsePreferences preferences) {
+		String dslFilePath = preferences.get(DSL_FILE_PATH.property(), "");
+		URI dslFileURI = URI.createURI(dslFilePath, true);
+		IResource dslFile = project.getWorkspace().getRoot().findMember(dslFileURI.toPlatformString(true));
+		
+		if (! (dslFile instanceof IFile)) {
+			throw new IllegalArgumentException("Cannot load DSL file (expected IFile, got: " + dslFile + ")");
+		}
+		IFile file = (IFile) dslFile;
+		try {
+			return new Normalized(new Dsl(file.getContents()));
+		} 
+		catch (CoreException e) {
+			throw new RuntimeException("Unable to read the content of the DSL configuration file " + dslFile.getFullPath());
+		}
+	}
+
+	private IAleEnvironment environmentFromProjectPreferences(IEclipsePreferences preferences) {
+		String aleSourceFilesPath = preferences.get(ALE_SOURCE_FILES.property(), "");
+		String ecoreModelFilesPath = preferences.get(ECORE_MODEL_FILES.property(), "");
+
+		List<String> sourceFiles = Arrays.asList(aleSourceFilesPath.split(","));
+		List<String> ecoreModels = Arrays.asList(ecoreModelFilesPath.split(","));
+
+		return new Normalized(new RuntimeAleEnvironment(ecoreModels, sourceFiles));
 	}
 
 }

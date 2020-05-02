@@ -67,6 +67,7 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 		
 		// AleEvaluationJob is responsible of closing the interpreter,
 		// that's why try-with-resource is not used here
+		@SuppressWarnings("squid:S2095")
 		ALEInterpreter interpreter = new ALEInterpreter();
 		try {
 			String modelLocation = configuration.getAttribute(MODEL_FILE, "");
@@ -86,7 +87,6 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 			List<EObject> potentialCallers = getPotentialCallers(interpreter, modelFile, mainModelElement);
 			List<EvaluationArguments> potentialArgs = getPotentialEvaluationArguments(potentialCallers, potentialMains);
 			
-
 			if (! canRunALEInterpreter(potentialCallers, modelFile, potentialMains, behaviorsPath, potentialArgs)) {
 				interpreter.close();
 				return;
@@ -341,7 +341,10 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 				MessageDialog.openError(
 						getShell(),
 					"Cannot run ALE",
-					"Unable to find any executable element in " + modelFile + "."
+					"Unable to find any executable element in " + modelFile + ".\n\n"
+				  + "Make sure that:\n"
+				  + "    - the ALE source files open at least one of the EClass used in the model,\n"
+				  + "    - the method to execute is annotated with @main."
 				)
 			);
 			return false;
@@ -361,7 +364,10 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 				MessageDialog.openError(
 					getShell(),
 					"Cannot run ALE",
-					"Unable to find any couple (model element, @main method), please check the launch configuration."
+					"No @main method found for model's elements.\n\n"
+				  + "Make sure that:\n"
+				  + "    - the ALE source files open at least one of the EClass used in the model,\n"
+				  + "    - the method to execute is annotated with @main."
 				)
 			);
 			return false;

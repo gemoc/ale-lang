@@ -1723,7 +1723,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testInitAttributesToNull() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/initializeAttributesToNull.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/initializeAttributesToNull.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1736,7 +1736,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testAssignNullToAttribute() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignNullToAttribute.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignNullToAttribute.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		
@@ -1749,7 +1749,7 @@ public class TypeValidatorTest {
 	
 	@Test
 	public void testAssignNullToLocalVariables() {
-		Dsl environment = new Dsl(Arrays.asList(),Arrays.asList("input/validation/assignNullToLocalVariables.implem"));
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignNullToLocalVariables.implem"));
 		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
 		
 		

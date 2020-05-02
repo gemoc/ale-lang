@@ -24,6 +24,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - [#93](https://github.com/gemoc/ale-lang/issues/93) More tokens are available to tailor editor's syntax coloring
 - [#94](https://github.com/gemoc/ale-lang/issues/94) The editor's dark theme has better colors
 - [#89](https://github.com/gemoc/ale-lang/pull/89) The bare `List<ParseResult>` objects are abstracted as `DslSemantics` instances **[breaking change]**
+- [#115](https://github.com/gemoc/ale-lang/pull/115) The _.ale_ source files are generated in the `src-ale/` directory
+- [#115](https://github.com/gemoc/ale-lang/pull/115) The _.dsl_ configuration file is generated at the root of the project
 
 ## [] - 2019-12-08
 ### Changed

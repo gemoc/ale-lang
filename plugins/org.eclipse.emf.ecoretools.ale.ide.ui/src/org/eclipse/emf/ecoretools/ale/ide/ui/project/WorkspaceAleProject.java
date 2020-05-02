@@ -10,10 +10,16 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.ide.ui.project;
 
+import static java.lang.String.join;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.emptySet;
 import static java.util.Objects.requireNonNull;
+import static org.eclipse.emf.common.util.URI.createPlatformResourceURI;
+import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.ALE_SOURCE_FILES;
+import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.CONFIGURED_FROM_DSL_FILE;
+import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.DSL_FILE_PATH;
+import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.ECORE_MODEL_FILES;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -31,6 +37,7 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -39,6 +46,8 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -51,6 +60,7 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.RuntimeAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
 import org.eclipse.emf.ecoretools.ale.ide.project.AleProject;
+import org.eclipse.emf.ecoretools.ale.ide.project.AleProjectNature;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -70,6 +80,7 @@ import org.eclipse.sirius.viewpoint.DView;
 import org.eclipse.sirius.viewpoint.description.RepresentationDescription;
 import org.eclipse.sirius.viewpoint.description.Viewpoint;
 import org.eclipse.xtext.ui.XtextProjectHelper;
+import org.osgi.service.prefs.BackingStoreException;
 
 /**
  * An {@link IAleProject ALE project} located in the workspace. 
@@ -104,13 +115,13 @@ public class WorkspaceAleProject implements AleProject {
 	@Override
 	public IProject create(String name, IPath path, IProgressMonitor monitor) throws CoreException {
 		IWorkspaceRunnable createProject = projectMonitor -> {
-			SubMonitor subMonitor = SubMonitor.convert(projectMonitor, "Creating ALE project", 60);
+			SubMonitor subMonitor = SubMonitor.convert(projectMonitor, "Creating ALE project", 7);
 			try {
 				IProject project = createProject(name, path, subMonitor.split(1));
 				EPackage epackage = getOrCreateEcoreModel(project, subMonitor.split(1));
 				IPath aleFilePath = createAleSourceFile(project, epackage, subMonitor.split(1));
 				
-				createDslFile(project, asList(URI.createPlatformResourceURI(epackage.eResource().getURI().toString(), true).toString()), asList(URI.createPlatformResourceURI(aleFilePath.toPortableString(), true).toString()), subMonitor.split(1));
+				configureAleEnvironment(project, asList(URI.createPlatformResourceURI(epackage.eResource().getURI().toString(), true).toString()), asList(URI.createPlatformResourceURI(aleFilePath.toPortableString(), true).toString()), subMonitor.split(1));
 				createRepresentation(project, epackage, subMonitor.split(1));
 				addJavaNature(project, subMonitor.split(1));
 				
@@ -139,7 +150,7 @@ public class WorkspaceAleProject implements AleProject {
 		}
 		IProjectDescription desc = workspace.newProjectDescription(name);
 		desc.setLocation(path);
-		desc.setNatureIds(new String[] { XtextProjectHelper.NATURE_ID });
+		desc.setNatureIds(new String[] { XtextProjectHelper.NATURE_ID, AleProjectNature.ID });
 		
 		subMonitor.subTask("Creating the project " + name + "...");
 		project.create(desc, subMonitor.split(1));
@@ -181,12 +192,14 @@ public class WorkspaceAleProject implements AleProject {
 	}
 	
 	private IPath createAleSourceFile(IProject project, EPackage epackage, IProgressMonitor monitor) throws CoreException {
-		SubMonitor subMonitor = SubMonitor.convert(monitor, "Creating ALE source file...", 1);
-		
+		SubMonitor subMonitor = SubMonitor.convert(monitor, "Creating ALE source file...", 2);
 		String initialContent = "behavior " + epackage.getName() + ";";
 		InputStream readableInitialContent = new ByteArrayInputStream(initialContent.getBytes());
 		
-		IFile src = project.getFolder("model").getFile(project.getName() + ".ale");
+		IFolder srcFolder = project.getFolder("src-ale");
+		srcFolder.create(false, true, subMonitor.split(1));
+		
+		IFile src = srcFolder.getFile(project.getName() + ".ale");
 		src.create(readableInitialContent, false, subMonitor.split(1));
 		
 		return src.getFullPath();
@@ -198,17 +211,45 @@ public class WorkspaceAleProject implements AleProject {
 		return (EPackage) resource.getContents().get(0);
 	}
 	
-	private static void createDslFile(IProject project, List<String> ecoreModels, List<String> aleSourceFiles, IProgressMonitor monitor) {
-		SubMonitor subMonitor = SubMonitor.convert(monitor, "Creating .dsl file...", 1);
+	private void configureAleEnvironment(IProject project, List<String> ecoreModels, List<String> aleSourceFiles, IProgressMonitor monitor) {
+		IScopeContext context = new ProjectScope(project);
+        IEclipsePreferences preferences = context.getNode("org.eclipse.emf.ecoretools.ale.core");
 		
-		Dsl dsl = new Dsl(new RuntimeAleEnvironment(ecoreModels, aleSourceFiles));
-		dsl.setSourceFile(project.getFolder("model").getFile(project.getName() + ".dsl").getLocation().toOSString());
-		dsl.save();
-		
-		subMonitor.worked(1);
+		if (description.createDslConfigurationFile) {
+			SubMonitor subMonitor = SubMonitor.convert(monitor, "Creating .dsl file...", 1);
+			
+			IFile dslFile = project.getFile(project.getName() + ".dsl");
+			String dslFilePath = dslFile.getLocation().toOSString();
+			URI dslFileURI = createPlatformResourceURI(dslFile.getFullPath().toPortableString(), true);
+			
+			Dsl dsl = new Dsl(new RuntimeAleEnvironment(ecoreModels, aleSourceFiles));
+			dsl.setSourceFile(dslFilePath);
+			dsl.save();
+			
+			try {
+				preferences.putBoolean(CONFIGURED_FROM_DSL_FILE.property(), true);
+				preferences.put(DSL_FILE_PATH.property(), dslFileURI.toString());
+				preferences.flush();
+			} 
+			catch (BackingStoreException e) {
+				Activator.error(e.getMessage(), e);
+			}
+			subMonitor.worked(1);
+		}
+		else {
+			try {
+				preferences.putBoolean(CONFIGURED_FROM_DSL_FILE.property(), false);
+				preferences.put(ALE_SOURCE_FILES.property(), join(",", aleSourceFiles));
+				preferences.put(ECORE_MODEL_FILES.property(), join(",", ecoreModels));
+				preferences.flush();
+			} 
+			catch (BackingStoreException e) {
+				Activator.error(e.getMessage(), e);
+			}
+		}
 	}
 	
-	private void createRepresentation(IProject project, EObject model, IProgressMonitor monitor) throws CoreException {
+	private void createRepresentation(IProject project, EObject model, IProgressMonitor monitor) {
 		if (! description.createRepresentation) {
 			return;
 		}
@@ -261,15 +302,15 @@ public class WorkspaceAleProject implements AleProject {
 	    //
 	    // For some reason there are several instances of the 'Design' viewpoints.
 	    // However, when we use the one returned by the ViewpointRegistry Sirius doesn't create any representation
-	    // for our model because it is doesn't match the instance it uses internally (the `equals` method should
+	    // for our model because it doesn't match the instance it uses internally (the `equals` method should
 	    // have been overridden).
 	    //
 	    // As a result, we retrieve the correct instance of the viewpoint below so that Sirius actually
 	    // creates the diagram representation.
 	    //
 	    // FIXME here: I found out by spending lot of time in the debugger, this solution is awful and will likely
-	    //		 not work with other versions of Sirius (hopefully it won't even be needed). I may missed something
-	    //		 so if a better solution exist please improve!
+	    //		 not work with other versions of Sirius (hopefully it won't even be needed). I may have missed
+	    //		 something so if a better solution exist please improve!
 	    
 	    Collection<DView> selectedViews = session.getSelectedViews();
 	    if (! selectedViews.isEmpty()) {
@@ -424,6 +465,7 @@ public class WorkspaceAleProject implements AleProject {
 			javaProject.setRawClasspath(newEntries, subMonitor.split(1));
 		} 
 		catch (NoClassDefFoundError e) {
+			// Can happen because dependencies to JDT are optional (one might want to use ALE without Java)
 			Activator.error("Unable to set Java nature to project '" + project.getName() + "': org.eclipse.jdt.core or org.eclipse.jdt.launching is not available", e);
 		}
 	}
@@ -437,6 +479,7 @@ public class WorkspaceAleProject implements AleProject {
 		public final String ecorePackageName;
 		public final boolean createRepresentation;
 		public final boolean activateJava;
+		public final boolean createDslConfigurationFile;
 		
 		/**
 		 * @param useAnExistingEcoreModel
@@ -449,13 +492,17 @@ public class WorkspaceAleProject implements AleProject {
 		 * 			Whether the user wants a Sirius representation to be created for the Ecore model
 		 * @param activateJava
 		 * 			Whether the user wants to create Java services
+		 * @param createDslConfigurationFile
+		 * 			Whether a .dsl configuration file should be created
 		 */
-		public Description(boolean useAnExistingEcoreModel, IPath ecoreModelFilePath, String ecorePackageName, boolean createRepresentation, boolean activateJava) {
+		public Description(boolean useAnExistingEcoreModel, IPath ecoreModelFilePath, String ecorePackageName, boolean createRepresentation, boolean activateJava,
+				    boolean createDslConfigurationFile) {
 			this.useAnExistingEcoreModel = useAnExistingEcoreModel;
 			this.ecoreModelFilePath = ecoreModelFilePath;
 			this.ecorePackageName = ecorePackageName;
 			this.createRepresentation = createRepresentation;
 			this.activateJava = activateJava;
+			this.createDslConfigurationFile = createDslConfigurationFile;
 		}
 		
 	}
