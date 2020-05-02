@@ -1,0 +1,4 @@
+ALE_SOURCE_FILES=platform\:/resource/helloworld/src-ale/helloworld.ale
+CONFIGURED_FROM_DSL_FILE=false
+ECORE_MODEL_FILES=platform\:/resource/helloworld/model/helloworld.ecore
+eclipse.preferences.version=1

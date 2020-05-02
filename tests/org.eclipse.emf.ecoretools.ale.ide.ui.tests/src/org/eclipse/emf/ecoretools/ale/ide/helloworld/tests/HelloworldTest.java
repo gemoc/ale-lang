@@ -11,9 +11,9 @@
 package org.eclipse.emf.ecoretools.ale.ide.helloworld.tests;
 
 import static org.eclipse.swtbot.swt.finder.SWTBotAssert.assertTextContains;
-import static org.junit.Assert.assertEquals;
+import static org.eclipse.swtbot.swt.finder.waits.Conditions.shellIsActive;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -31,16 +31,10 @@ import org.eclipse.swtbot.eclipse.finder.matchers.WidgetMatcherFactory;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
-import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
-import org.eclipse.ui.console.ConsolePlugin;
-import org.eclipse.ui.console.IConsole;
-import org.eclipse.ui.console.IConsoleManager;
-import org.eclipse.ui.console.TextConsole;
 import org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil;
 import org.junit.Assert;
 import org.junit.Before;
@@ -94,6 +88,7 @@ public class HelloworldTest {
 	@Test
 	public void testHelloworld() throws Exception {
 		bot.menu("File").menu("New").menu("Example...").click();
+		bot.waitUntil(shellIsActive("New Example"));
 		bot.tree().getTreeItem("EcoreTools ALE Examples").getNode("Hello world!").select();
 		bot.button("Next >").click();
 		bot.button("Finish").click();
@@ -101,30 +96,34 @@ public class HelloworldTest {
 		ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
 		IResourcesSetupUtil.reallyWaitForAutoBuild();
 		
-		assertNotNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/model/helloworld.ale"));
-		assertNotNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/model/helloworld.dsl"));
+		assertNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/helloworld.dsl"));
+		assertNotNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/src-ale/helloworld.ale"));
 		assertNotNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/model/HelloWorld.xmi"));
 		assertNotNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/model/helloworld.aird"));
 		assertNotNull(ResourcesPlugin.getWorkspace().getRoot().findMember("helloworld/model/helloworld.ecore"));
 		
 		bot.tree().getTreeItem("helloworld").expand();
-		bot.tree().getTreeItem("helloworld").getNode("model").expand();
-		bot.tree().getTreeItem("helloworld").getNode("model").getNode("helloworld.ale").doubleClick();
+		bot.tree().getTreeItem("helloworld").getNode("src-ale").expand();
+		bot.tree().getTreeItem("helloworld").getNode("src-ale").getNode("helloworld.ale").doubleClick();
 		bot.editorByTitle("helloworld.ale").show();
 		
 		assertNoMarkers();
 		
 		bot.viewByTitle("Model Explorer").show();
-		SWTBotTreeItem dslItem = bot.tree().getTreeItem("helloworld").getNode("model").getNode("helloworld.dsl").select();
-		dslItem.contextMenu("Run As").menu("1 ALE launch").click();
+		bot.tree().getTreeItem("helloworld")
+				  .contextMenu("Run As")
+				  .menu("1 ALE launch")
+				  .click();
+		bot.waitUntil(shellIsActive("Select the model to execute"));
 		bot.button("OK").click();
 		
+		Thread.sleep(5000);
 		
 		SWTBotView view = bot.viewById("org.eclipse.ui.console.ConsoleView");
 		Widget consoleViewComposite = view.getWidget();
 		StyledText console = bot.widget(WidgetMatcherFactory.widgetOfType(StyledText.class), consoleViewComposite);
 		SWTBotStyledText styledText = new SWTBotStyledText(console);
-		assertTextContains("\nRun helloworld.dsl\n------------\nHello world!\n", styledText);
+		assertTextContains("Hello world!\n", styledText);
 	}
 	
 	private void assertNoMarkers() throws CoreException {
@@ -138,14 +137,5 @@ public class HelloworldTest {
 				);
 			}
 		}
-	}
-	
-	private void assertConsoleContains(String expectedContent) {
-		IConsoleManager manager = ConsolePlugin.getDefault().getConsoleManager();
-		IConsole [] consoles = manager.getConsoles();
-		
-		assertEquals(1,consoles.length);
-		assertTrue(consoles[0] instanceof TextConsole);
-		assertEquals(expectedContent,((TextConsole)consoles[0]).getDocument().get());
 	}
 }
