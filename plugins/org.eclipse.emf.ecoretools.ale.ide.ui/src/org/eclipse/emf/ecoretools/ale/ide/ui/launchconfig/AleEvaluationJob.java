@@ -16,6 +16,7 @@ import static java.util.Objects.requireNonNull;
 import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.UiUtils.getDisplay;
 import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.UiUtils.getShell;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.time.LocalTime;
 import java.util.Set;
@@ -122,9 +123,18 @@ public class AleEvaluationJob extends Job {
 		
 		PrintStream oldOut = System.out;
 		PrintStream oldErr = System.err;
-		try (PrintStream consoleOutput = new PrintStream(console.newMessageStream())) {
-			System.setOut(consoleOutput);
-			System.setErr(consoleOutput);
+		MessageConsoleStream consoleStdout = console.newMessageStream();
+		MessageConsoleStream consoleStderr = console.newMessageStream();
+		try (
+			PrintStream consoleStdoutStream = new PrintStream(consoleStdout);
+			PrintStream consoleStderrStream = new PrintStream(consoleStderr);
+		) {
+			getDisplay().syncExec(() ->
+				consoleStderr.setColor(getDisplay().getSystemColor(SWT.COLOR_RED))
+			);
+			
+			System.setOut(consoleStdoutStream);
+			System.setErr(consoleStderrStream);
 			
 			subMonitor.split(10).setTaskName("Building interpreter's environment");
 			
@@ -142,7 +152,7 @@ public class AleEvaluationJob extends Job {
 
 						Diagnostic diagnostic = result.getDiagnostic();
 						if (diagnostic.getMessage() != null) {
-							System.out.println(diagnostic.getMessage());
+							System.err.println(diagnostic.getMessage());
 						}
 						LocalTime endTime = LocalTime.now();
 						String status = diagnostic.getSeverity() == Diagnostic.OK ? "<terminated> " : "<failed> ";
