@@ -542,6 +542,7 @@ public class ModelBuilder {
 			case "long" 	: return EcorePackage.eINSTANCE.getELong();
 			case "float" 	: return EcorePackage.eINSTANCE.getEFloat();
 			case "double" 	: return EcorePackage.eINSTANCE.getEDouble();
+			case "Double"   : return EcorePackage.eINSTANCE.getEDouble();
 			case "void"		: return null;
 			default			: return ImplementationPackage.eINSTANCE.getUnresolvedEClassifier();
 		}
