@@ -156,4 +156,13 @@
               name="ALE">
         </category>
      </extension>
+     <extension
+           point="org.eclipse.ui.console.consolePatternMatchListeners">
+        <consolePatternMatchListener
+              class="org.eclipse.emf.ecoretools.ale.ide.ui.io.HyperlinkAleConsoleMatcherListener"
+              id="org.eclipse.emf.ecoretools.ale.ide.ui.io.hyperlinkAleConsoleMatcherListener"
+              regex="At (.+):(.+)">
+           <enablement></enablement>
+        </consolePatternMatchListener>
+     </extension>
 </plugin>
