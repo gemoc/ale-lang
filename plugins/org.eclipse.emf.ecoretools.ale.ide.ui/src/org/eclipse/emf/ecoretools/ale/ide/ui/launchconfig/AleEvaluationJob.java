@@ -17,6 +17,7 @@ import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.UiUtils.getDisp
 import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.UiUtils.getShell;
 
 import java.io.PrintStream;
+import java.time.LocalTime;
 import java.util.Set;
 
 import org.eclipse.core.resources.IResource;
@@ -25,18 +26,20 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
 import org.eclipse.emf.ecoretools.ale.ALEInterpreter.ClosedALEInterpreterException;
 import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
+import org.eclipse.emf.ecoretools.ale.ide.ui.io.AleConsole;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
-import org.eclipse.ui.console.ConsolePlugin;
-import org.eclipse.ui.console.IConsole;
-import org.eclipse.ui.console.IConsoleManager;
+import org.eclipse.swt.SWT;
 import org.eclipse.ui.console.MessageConsole;
+import org.eclipse.ui.console.MessageConsoleStream;
 
 import com.google.common.collect.Sets;
 
@@ -110,8 +113,12 @@ public class AleEvaluationJob extends Job {
 		Set<String> projects = Sets.newHashSet(modelProject);
 		Set<String> plugins = emptySet();
 
-		MessageConsole console = findConsole("ALE Console");
+		AleConsole console = AleConsole.current();
 		console.activate();
+		console.clearConsole();
+		
+		LocalTime startTime = LocalTime.now();
+		updateConsoleName(console, "",  caller, main, startTime, null);
 		
 		PrintStream oldOut = System.out;
 		PrintStream oldErr = System.err;
@@ -133,11 +140,16 @@ public class AleEvaluationJob extends Job {
 						IEvaluationResult result = interpreter.eval(caller, main, emptyList(), semantics);
 						interpreter.getLogger().diagnosticForHuman();
 
-						if (result.getDiagnostic().getMessage() != null) {
-							System.out.println(result.getDiagnostic().getMessage());
+						Diagnostic diagnostic = result.getDiagnostic();
+						if (diagnostic.getMessage() != null) {
+							System.out.println(diagnostic.getMessage());
 						}
+						LocalTime endTime = LocalTime.now();
+						String status = diagnostic.getSeverity() == Diagnostic.OK ? "<terminated> " : "<failed> ";
+						updateConsoleName(console, status, caller, main, startTime, endTime);
 					} 
 					catch (ClosedALEInterpreterException e) {
+						updateConsoleName(console, "<internal failure> ", caller, main, startTime, LocalTime.now());
 						// Should never happen
 						Activator.error("An internal error occurred while launching ALE", e);
 						getDisplay().asyncExec(() -> 
@@ -150,6 +162,7 @@ public class AleEvaluationJob extends Job {
 						);
 					}
 					catch (Exception e) {
+						updateConsoleName(console, "<internal failure> ", caller, main, startTime, LocalTime.now());
 						Activator.error("An error occurred while executing ALE", e);
 						getDisplay().asyncExec(() -> 
 							MessageDialog.openError(
@@ -194,17 +207,31 @@ public class AleEvaluationJob extends Job {
 			interpreter.close();
 		}
 	}
+	
+	private void updateConsoleName(AleConsole console, String status, EObject caller, Method main, LocalTime startTime, LocalTime endTime) {
+		String operation = caller.eClass().getName() + "::" + main.getOperationRef().getName();
+		String kind = "[ALE Application]";
+		String time = pretty(startTime) + " - " + (endTime == null ? "" : pretty(endTime));
+		
+		getDisplay().asyncExec(() -> 
+			console.setName(status + operation + " " + kind + " (" + time + ")")
+		);
+	}
 
-	private static MessageConsole findConsole(String name) {
-		ConsolePlugin plugin = ConsolePlugin.getDefault();
-		IConsoleManager conMan = plugin.getConsoleManager();
-		IConsole[] existing = conMan.getConsoles();
-		for (int i = 0; i < existing.length; i++)
-			if (name.equals(existing[i].getName()))
-				return (MessageConsole) existing[i];
-		// no console found, so create a new one
-		MessageConsole myConsole = new MessageConsole(name, null);
-		conMan.addConsoles(new IConsole[] { myConsole });
-		return myConsole;
+	/** @return the time, prettily formatted */
+	private String pretty(LocalTime time) {
+		return time.getHour() + ":" + time.getMinute() + ":" + time.getSecond();
+	}
+
+	static class MyConsole extends MessageConsole {
+		
+		MyConsole(String name, ImageDescriptor desc) {
+			super(name, desc);
+		}
+		
+		public void updateName(String newName) {
+			this.setName(newName);
+		}
+		
 	}
 }
