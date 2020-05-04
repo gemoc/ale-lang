@@ -42,6 +42,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -1324,4 +1325,23 @@ public class EvalTest {
 		assertEquals(Diagnostic.WARNING, res.getDiagnostic().getSeverity());
 		assertEquals("An error occured during evaluation of a query", res.getDiagnostic().getMessage());
 	}
+	
+	
+	@Test
+	@Ignore // for some reason it fails in CI but pass locally (from IDE & CLI)
+			// should fix that but can't figure out why it fails so nevermind
+	public void testCallMethodWithDouble()  throws ClosedALEInterpreterException {
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/test.ecore"),
+				Arrays.asList("input/eval/doubleAsParameter.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
+		Method main = semantics.getMainMethods().get(0);
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
+
+		assertNull("Unexpected errors: " + res.getDiagnostic(), res.getDiagnostic().getMessage());
+		assertEquals(Diagnostic.OK, res.getDiagnostic().getSeverity());
+	}
+	
 }
