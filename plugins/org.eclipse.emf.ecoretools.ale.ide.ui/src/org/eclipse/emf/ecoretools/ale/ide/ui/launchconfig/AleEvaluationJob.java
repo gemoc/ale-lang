@@ -151,11 +151,9 @@ public class AleEvaluationJob extends Job {
 						interpreter.getLogger().diagnosticForHuman();
 
 						Diagnostic diagnostic = result.getDiagnostic();
-						if (diagnostic.getMessage() != null) {
-							System.err.println(diagnostic.getMessage());
-						}
 						LocalTime endTime = LocalTime.now();
 						String status = diagnostic.getSeverity() == Diagnostic.OK ? "<terminated> " : "<failed> ";
+						
 						updateConsoleName(console, status, caller, main, startTime, endTime);
 					} 
 					catch (ClosedALEInterpreterException e) {
