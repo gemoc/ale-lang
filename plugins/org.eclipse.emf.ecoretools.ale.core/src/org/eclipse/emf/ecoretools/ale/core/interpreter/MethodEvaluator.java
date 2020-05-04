@@ -57,6 +57,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.While;
  */
 public class MethodEvaluator {
 	
+	public static final String ROOT_ERROR_MESSAGE = "AQL evaluation failed";
 	public static final String PLUGIN_ID = "interpreter"; //FIXME: set real name
 	public static final String AQL_ERROR = "An error occured during evaluation of a query";
 	public static final String MTD_ERROR = "Can't eval null method on %s";
@@ -425,7 +426,7 @@ public class MethodEvaluator {
 					new Object[] { expression , result.getDiagnostic()}
 					);
 			diagnostic.add(child);
-			stopExecution("AQL evaluation failed");
+			stopExecution(ROOT_ERROR_MESSAGE);
 		}
 		
 		return result.getResult();

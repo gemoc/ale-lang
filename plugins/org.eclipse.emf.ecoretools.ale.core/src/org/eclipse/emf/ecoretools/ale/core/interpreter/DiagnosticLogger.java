@@ -11,12 +11,13 @@
 package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
 import static java.util.Objects.requireNonNull;
-import static java.util.regex.Pattern.MULTILINE;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.regex.Matcher;
@@ -24,6 +25,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import org.eclipse.acceleo.query.ast.Expression;
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics;
@@ -53,16 +56,19 @@ public class DiagnosticLogger {
 	}
 	
 	public void diagnosticForHuman() {
+		if (! log.isEmpty()) {
+			System.err.println();
+		}
 		log
 		.stream()
 		.forEach(diagnotic -> {
 			if(diagnotic instanceof BasicDiagnostic){
-				diagnosticForHuman((BasicDiagnostic) diagnotic);
+				diagnosticForHuman((BasicDiagnostic) diagnotic, new LinkedList<>());
 			}
 		});
 	}
 	
-	public void diagnosticForHuman( BasicDiagnostic diagnostic) {
+	public void diagnosticForHuman(BasicDiagnostic diagnostic, LinkedList<String> stacktrace) {
 		diagnostic
 			.getChildren()
 			.forEach(
@@ -76,56 +82,68 @@ public class DiagnosticLogger {
 						if(diag.getData().size() > 1) {
 							diagExp = (Diagnostic) diag.getData().get(1);
 						}
-						printError(failedExp, diagExp);
+						printError(failedExp, diagExp, stacktrace);
 						if(diagExp instanceof BasicDiagnostic) {
-							diagnosticForHuman((BasicDiagnostic) diagExp);
+							diagnosticForHuman((BasicDiagnostic) diagExp, stacktrace);
 						}
 					}
-					
-					// TODO Consider removing the code below
-					//		I comment it because it exposes internal and irrelevant errors
-					//		to the user. However, it may be useful for debugging purposes
-					//		and I prefer to comment it out: it will be easier to find it.
-					
-//					else {
-//						if(!diag.getData().isEmpty() && diag.getData().get(0) instanceof Exception) {
-//							Exception e = (Exception) diag.getData().get(0);
-//							if(e.getCause() instanceof CriticalFailure) {
-//								CriticalFailure interpreterFailure = (CriticalFailure) e.getCause();
-//								diagnosticForHuman(interpreterFailure.diagnostics);
-//							} else if(e.getCause() != null){
-//								e.getCause().printStackTrace();
-//							}
-//						}
-//					}
+					else {
+						if(!diag.getData().isEmpty() && diag.getData().get(0) instanceof Exception) {
+							Exception e = (Exception) diag.getData().get(0);
+							if(e.getCause() instanceof CriticalFailure) {
+								CriticalFailure interpreterFailure = (CriticalFailure) e.getCause();
+								diagnosticForHuman(interpreterFailure.diagnostics, stacktrace);
+							}
+						}
+					}
 				}
 			);
 	}
 	
-	private void printError(Expression expr, Diagnostic diagnostic) {
+	private void printError(Expression expr, Diagnostic diagnostic, LinkedList<String> stacktrace) {
 		ParseResult<ModelUnit> parsedFile = semantics.findParsedFileDefining(expr).orElse(null);
 		if (parsedFile == null) {
-			System.err.println("\nAt unknown file and line (" + expr + "):\n");
+			stacktrace.addFirst("At unknown file and line (" + expr + "):");
 			Stream.concat(Stream.of(diagnostic), diagnostic.getChildren().stream())
 				  .map(Diagnostic::getMessage)
 				  .map(getActualError())
 				  .filter(msg -> msg != null && !msg.trim().isEmpty())
-				  .forEach(message -> System.err.println("    " + message));
+				  .forEach(message -> {
+					  System.err.println(message);
+					  unfold(stacktrace);
+				  });
 		}
 		else {
 			// TODO [Refactor] Optional<Integer> start = parsedFile.getStartPositionOf(expr)
 			Integer startPos = parsedFile.getStartPositions().get(expr);
 			if(startPos != null) {
 				String file = parsedFile.getSourceFile();
+				String filePath = file;
+				
+				IContainer[] ifiles = ResourcesPlugin.getWorkspace().getRoot().findContainersForLocationURI(new File(file).toURI());
+				if (ifiles.length > 0) {
+					filePath = ifiles[0].getFullPath().makeRelative().toString();
+				}
 				int line =  getLine(startPos,file);
-				System.err.println("\nAt line "+ line +" in " + file + ":");
+				stacktrace.addFirst("At " + filePath + ":" + line);
 				Stream.concat(Stream.of(diagnostic), diagnostic.getChildren().stream())
 					  .map(Diagnostic::getMessage)
 					  .filter(msg -> msg != null && !msg.trim().isEmpty())
 					  .map(getActualError())
-					  .forEach(message -> System.err.println("    " + message));
+					  .filter(msg -> !MethodEvaluator.ROOT_ERROR_MESSAGE.equals(msg))
+					  .forEach(message -> {
+						  System.err.println(message);
+						  unfold(stacktrace);
+					  });
 			}
 		}
+	}
+	
+	private static void unfold(List<String> stacktrace) {
+		for (String trace : stacktrace) {
+			System.err.println("    " + trace);
+		}
+		stacktrace.clear();
 	}
 	
 	/**
