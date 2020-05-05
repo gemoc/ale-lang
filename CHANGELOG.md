@@ -6,9 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 ### Fixed
 - [#4](https://github.com/gemoc/ale-lang/issues/4) The .dsl configuration file and the .ale source file must have the same base name
-- [#36](https://github.com/gemoc/ale-lang/issues/36) Method taking `Double` parameters are not found by the interpreter
 - [#64](https://github.com/gemoc/ale-lang/issues/64) Allow to assign `null` to variables
 - [#102](https://github.com/gemoc/ale-lang/issues/102) The editor shows an error when a method is used to define the range of a for-each loop
+- [#120](https://github.com/gemoc/ale-lang/issues/120) The `+=` cannot be used to concatenate two collections
 
 ### Added
 - [#60](https://github.com/gemoc/ale-lang/issues/60) An ALE Run Configuration is created when launching ALE through the contextual menu shortcut
@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - [#92](https://github.com/gemoc/ale-lang/issues/92) The editor autocompletes attributes and methods of `self`
 - [#94](https://github.com/gemoc/ale-lang/issues/94) The editor automatically switches to dark colors when Eclipse IDE is in dark theme
 - [#98](https://github.com/gemoc/ale-lang/issues/98) The _New ALE Project_ wizard can be used to create ALE projects
+- [#110](https://github.com/gemoc/ale-lang/issues/110) The title of the ALE console is updated as the execution progresses
 - [#115](https://github.com/gemoc/ale-lang/pull/115) Multiple .ale source files can be taken into account when executing an ALE program
 - [#115](https://github.com/gemoc/ale-lang/pull/115) The ALE environment (the _.ale_ source files and the _.ecore_ metamodels) can now be stored in the project's preferences, allowing to get rid of the .dsl configuration file
 - [#115](https://github.com/gemoc/ale-lang/pull/115) The interpreter can be run by right-clicking on an ALE project
@@ -27,6 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - [#89](https://github.com/gemoc/ale-lang/pull/89) The bare `List<ParseResult>` objects are abstracted as `DslSemantics` instances **[breaking change]**
 - [#115](https://github.com/gemoc/ale-lang/pull/115) The _.ale_ source files are generated in the `src-ale/` directory
 - [#115](https://github.com/gemoc/ale-lang/pull/115) The _.dsl_ configuration file is generated at the root of the project
+- [#124](https://github.com/gemoc/ale-lang/pull/124) The errors shown in the ALE console are now clean, red stacktraces with hyperlinks to source files
 
 ## [] - 2019-12-08
 ### Changed

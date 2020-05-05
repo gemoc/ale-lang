@@ -1,0 +1,38 @@
+behavior test.containattributes;
+
+open class Mix {
+
+	Sequence(String) dynStrings := Sequence{6, 5, 4};
+
+	@main
+	def void concatWithStaticAttribute() {
+		self.strings += Sequence{'one', 'two', 'three'};
+	}
+	
+	@main
+	def void concatWrongTypeWithStaticAttribute() {
+		self.strings += Sequence{1, 2, 3};
+	}
+
+	@main
+	def void concatWithDynamicAttribute() {
+		self.dynStrings += Sequence{'one', 'two', 'three'};
+	}
+	
+	@main
+	def void concatWrongTypeWithDynamicAttribute() {
+		self.dynStrings += Sequence{1, 2, 3};
+	}
+
+	@main
+	def void concatWithLocalVariable() {
+		Sequence(Integer) localNumbers := Sequence{1, 2, 3};
+		localNumbers += Sequence{4, 5, 6};
+	}
+	
+	@main
+	def void concatWrongTypeWithLocalVariable() {
+		Sequence(Integer) localNumbers := Sequence{1, 2, 3};
+		localNumbers += Sequence{'four', 'five', 'six'};
+	}
+}

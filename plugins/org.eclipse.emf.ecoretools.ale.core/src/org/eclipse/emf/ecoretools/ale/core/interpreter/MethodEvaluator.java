@@ -299,7 +299,12 @@ public class MethodEvaluator {
 				if(feature != null){
 					Object featureValue = ((EObject)assigned).eGet(feature);
 					if(featureValue instanceof EList){
-						((EList)featureValue).add(value);
+						if (value instanceof Collection) {
+							((EList)featureValue).addAll((Collection) value);
+						}
+						else {
+							((EList)featureValue).add(value);
+						}
 					}
 				}
 				else {
