@@ -1344,4 +1344,98 @@ public class EvalTest {
 		assertEquals(Diagnostic.OK, res.getDiagnostic().getSeverity());
 	}
 	
+	@Test
+	public void testCanAddAllToStaticCollectionAttribute()  throws ClosedALEInterpreterException {
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/attributesOfDifferentTypes.ecore"),
+				Arrays.asList("input/eval/addAllCollectionWithOperator.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		EObject caller = interpreter.loadModel("model/Mix.xmi").getContents().get(0);
+		Method main = semantics.getMainMethods().stream().filter(m -> m.getOperationRef().getName().equals("concatWithStaticAttribute")).findAny().get();
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
+
+		assertNull("Unexpected errors: " + res.getDiagnostic(), res.getDiagnostic().getMessage());
+		assertEquals(Diagnostic.OK, res.getDiagnostic().getSeverity());
+	}
+	
+	@Test
+	public void testCannotAddAllDifferentCollectionTypeToStaticCollectionAttribute()  throws ClosedALEInterpreterException {
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/attributesOfDifferentTypes.ecore"),
+				Arrays.asList("input/eval/addAllCollectionWithOperator.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		EObject caller = interpreter.loadModel("model/Mix.xmi").getContents().get(0);
+		Method main = semantics.getMainMethods().stream().filter(m -> m.getOperationRef().getName().equals("concatWrongTypeWithStaticAttribute")).findAny().get();
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
+
+		assertEquals("Cannot add the value to 'strings': types mismatch", res.getDiagnostic().getMessage());
+		assertEquals(Diagnostic.ERROR, res.getDiagnostic().getSeverity());
+	}
+	
+	@Test
+	public void testCanAddAllDynamicCollectionAttribute()  throws ClosedALEInterpreterException {
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/attributesOfDifferentTypes.ecore"),
+				Arrays.asList("input/eval/addAllCollectionWithOperator.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		EObject caller = interpreter.loadModel("model/Mix.xmi").getContents().get(0);
+		Method main = semantics.getMainMethods().stream().filter(m -> m.getOperationRef().getName().equals("concatWithDynamicAttribute")).findAny().get();
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
+
+		assertNull("Unexpected errors: " + res.getDiagnostic(), res.getDiagnostic().getMessage());
+		assertEquals(Diagnostic.OK, res.getDiagnostic().getSeverity());
+	}
+	
+	@Test
+	@Ignore // This test fails but we currently have no easy way to fix it
+			// see https://github.com/gemoc/ale-lang/issues/127
+	public void testCannotAddAllDifferentCollectionTypeToDynamicCollectionAttribute()  throws ClosedALEInterpreterException {
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/attributesOfDifferentTypes.ecore"),
+				Arrays.asList("input/eval/addAllCollectionWithOperator.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		EObject caller = interpreter.loadModel("model/Mix.xmi").getContents().get(0);
+		Method main = semantics.getMainMethods().stream().filter(m -> m.getOperationRef().getName().equals("concatWrongTypeWithDynamicAttribute")).findAny().get();
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
+
+		assertEquals("Cannot add the value to 'dynStrings': types mismatch", res.getDiagnostic().getMessage());
+		assertEquals(Diagnostic.ERROR, res.getDiagnostic().getSeverity());
+	}
+	
+	@Test
+	public void testCanAddAllLocalCollectionVariable()  throws ClosedALEInterpreterException {
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/attributesOfDifferentTypes.ecore"),
+				Arrays.asList("input/eval/addAllCollectionWithOperator.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		EObject caller = interpreter.loadModel("model/Mix.xmi").getContents().get(0);
+		Method main = semantics.getMainMethods().stream().filter(m -> m.getOperationRef().getName().equals("concatWithLocalVariable")).findAny().get();
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
+
+		assertNull("Unexpected errors: " + res.getDiagnostic(), res.getDiagnostic().getMessage());
+		assertEquals(Diagnostic.OK, res.getDiagnostic().getSeverity());
+	}
+	
+	@Test
+	@Ignore // This test fails but we currently have no easy way to fix it
+			// see https://github.com/gemoc/ale-lang/issues/128
+	public void testCannotAddAllDifferentCollectionTypeToLocalCollectionVariable()  throws ClosedALEInterpreterException {
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/attributesOfDifferentTypes.ecore"),
+				Arrays.asList("input/eval/addAllCollectionWithOperator.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		EObject caller = interpreter.loadModel("model/Mix.xmi").getContents().get(0);
+		Method main = semantics.getMainMethods().stream().filter(m -> m.getOperationRef().getName().equals("concatWrongTypeWithLocalVariable")).findAny().get();
+		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
+
+		assertEquals("Cannot add the value to 'localNumbers': types mismatch", res.getDiagnostic().getMessage());
+		assertEquals(Diagnostic.ERROR, res.getDiagnostic().getSeverity());
+	}
+	
 }
