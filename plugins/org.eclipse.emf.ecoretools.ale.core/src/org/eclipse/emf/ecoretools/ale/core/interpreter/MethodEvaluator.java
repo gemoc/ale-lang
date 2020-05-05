@@ -248,7 +248,7 @@ public class MethodEvaluator {
 						new Object[] {varInsert.getValue()}
 				);
 				diagnostic.add(child);
-				throw new CriticalFailure("Unable to insert a value in " + varInsert.getName(), diagnostic);
+				stopExecution(ROOT_ERROR_MESSAGE);
 			}
 		}
 		return null;
@@ -281,7 +281,7 @@ public class MethodEvaluator {
 						new Object[] {varInsert.getValue()}
 				);
 				diagnostic.add(child);
-				throw new CriticalFailure("Unable to remove a value from " + varInsert.getName(), diagnostic);
+				stopExecution(ROOT_ERROR_MESSAGE);
 			}
 		}
 		
@@ -295,27 +295,26 @@ public class MethodEvaluator {
 		if(assigned instanceof EObject){
 			EStructuralFeature feature = ((EObject)assigned).eClass().getEStructuralFeature(featInsert.getTargetFeature());
 			
-			if(feature != null){
-				Object featureValue = ((EObject)assigned).eGet(feature);
-				if(featureValue instanceof EList){
-					((EList)featureValue).add(value);
+			try {
+				if(feature != null){
+					Object featureValue = ((EObject)assigned).eGet(feature);
+					if(featureValue instanceof EList){
+						((EList)featureValue).add(value);
+					}
 				}
-			}
-			else {
-				try {
+				else {
 					dynamicFeatureAccess.insertDynamicFeatureValue(((EObject)assigned),featInsert.getTargetFeature(),value);
-				
-				} catch (ArrayStoreException e) {
-					BasicDiagnostic child = new BasicDiagnostic(
-							Diagnostic.ERROR,
-							MethodEvaluator.PLUGIN_ID,
-							0,
-							String.format("Cannot add the value to '%s': types mismatch", featInsert.getTargetFeature()),
-							new Object[] {featInsert.getTarget()}
-					);
-					diagnostic.add(child);
-					throw new CriticalFailure("Cannot add the value to '" + featInsert.getTargetFeature() + "': types mismatch", diagnostic);
 				}
+			} catch (ArrayStoreException e) {
+				BasicDiagnostic child = new BasicDiagnostic(
+						Diagnostic.ERROR,
+						MethodEvaluator.PLUGIN_ID,
+						0,
+						String.format("Cannot add the value to '%s': types mismatch", featInsert.getTargetFeature()),
+						new Object[] {featInsert.getTarget()}
+						);
+				diagnostic.add(child);
+				stopExecution(ROOT_ERROR_MESSAGE);
 			}
 		}
 		return null;
