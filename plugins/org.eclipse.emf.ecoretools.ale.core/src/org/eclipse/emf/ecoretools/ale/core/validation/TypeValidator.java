@@ -322,7 +322,7 @@ public class TypeValidator implements IValidator {
 			return NO_PROBLEM;
 		}
 		else {
-			IValidationMessage incompatibleTypes = messages.incompatibleTypes(newHashSet(variableType), valueTypes, varDecl);
+			IValidationMessage incompatibleTypes = messages.illegalAssignment(newHashSet(variableType), valueTypes, varDecl);
 			return asList(incompatibleTypes);
 		}
 	}

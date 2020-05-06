@@ -12,6 +12,7 @@ package org.eclipse.emf.ecoretools.ale.core.validation.impl;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Stream.generate;
 import static org.eclipse.emf.ecoretools.ale.core.validation.QualifiedNames.getQualifiedName;
 
 import java.util.Set;
@@ -24,6 +25,7 @@ import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecoretools.ale.core.validation.BaseValidator;
+import org.eclipse.emf.ecoretools.ale.core.validation.ITypeChecker;
 import org.eclipse.emf.ecoretools.ale.core.validation.IValidationMessageFactory;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
@@ -93,29 +95,69 @@ public final class ValidationMessageFactory implements IValidationMessageFactory
 	
 	@Override
 	public IValidationMessage illegalAssignment(Set<IType> variableTypes, Set<IType> valueTypes, Object assignment) {
+		String errorMessage = String.format(ILLEGAL_ASSIGNMENT, commaSeparated(valueTypes), commaSeparated(variableTypes));
+		if (assigningSequenceToSet(variableTypes, valueTypes)) {
+			errorMessage += "\n" + generate(() -> "-").limit(errorMessage.length()).collect(joining());
+			errorMessage += "\nCall aSequence->asOrderedSet() to allow assignment";
+		}
+		else if (assigningSetToSequence(variableTypes, valueTypes)) {
+			errorMessage += "\n" + generate(() -> "-").limit(errorMessage.length()).collect(joining());
+			errorMessage += "\nCall anOrderedSet->asSequence() to allow assignment";
+		}
+		// Easiest hack I've found to identify the most relevant range of text to underline
+		boolean includesSemicolon = assignment.getClass().getName().startsWith("org.eclipse.emf.ecoretools.ale");
+		
 		return new ValidationMessage(
 				ValidationMessageLevel.ERROR,
-				String.format(ILLEGAL_ASSIGNMENT, commaSeparated(valueTypes), commaSeparated(variableTypes)),
+				errorMessage,
 				base.getStartOffset(assignment),
-				base.getEndOffset(assignment) + 1
+				base.getEndOffset(assignment) + (includesSemicolon ? 0 : 1)
 		);
 	}
 	
+	private static boolean assigningSequenceToSet(Set<IType> variableTypes, Set<IType> valueTypes) {
+		ITypeChecker types = new TypeChecker(null);
+		return variableTypes.stream().anyMatch(types::isSet)
+			&& valueTypes.stream().anyMatch(types::isSequence);
+	}
+	
+	private static boolean assigningSetToSequence(Set<IType> variableTypes, Set<IType> valueTypes) {
+		ITypeChecker types = new TypeChecker(null);
+		return variableTypes.stream().anyMatch(types::isSequence)
+			&& valueTypes.stream().anyMatch(types::isSet);
+	}
+
 	@Override
 	public IValidationMessage illegalInsertion(Set<IType> variableTypes, Set<IType> insertedValueTypes, Set<IType> acceptedValueTypes, Object value) {
+		String errorMessage = String.format(ILLEGAL_INSERTION, commaSeparated(insertedValueTypes), commaSeparated(variableTypes), commaSeparated(acceptedValueTypes));
+		if (assigningCollectionToCollection(variableTypes, insertedValueTypes)) {
+			errorMessage += "\n" + generate(() -> "-").limit(50).collect(joining());
+			errorMessage += "\nMake sure both collections hold the same type";
+		}
 		return new ValidationMessage(
 				ValidationMessageLevel.ERROR,
-				String.format(ILLEGAL_INSERTION, commaSeparated(insertedValueTypes), commaSeparated(variableTypes), commaSeparated(acceptedValueTypes)),
+				errorMessage,
 				base.getStartOffset(value),
 				base.getEndOffset(value) + 1
 		);
 	}
 	
+	private static boolean assigningCollectionToCollection(Set<IType> variableTypes, Set<IType> valueTypes) {
+		ITypeChecker types = new TypeChecker(null);
+		return variableTypes.stream().anyMatch(types::isCollection)
+			&& valueTypes.stream().anyMatch(types::isCollection);
+	}
+	
 	@Override
 	public IValidationMessage illegalRemoval(Set<IType> variableTypes, Set<IType> removedValueTypes, Set<IType> acceptedValueTypes, Object value) {
+		String errorMessage = String.format(ILLEGAL_REMOVAL, commaSeparated(removedValueTypes), commaSeparated(variableTypes), commaSeparated(acceptedValueTypes));
+		if (assigningCollectionToCollection(variableTypes, removedValueTypes)) {
+			errorMessage += "\n" + generate(() -> "-").limit(50).collect(joining());
+			errorMessage += "\nMake sure both collections hold the same type";
+		}
 		return new ValidationMessage(
 				ValidationMessageLevel.ERROR,
-				String.format(ILLEGAL_REMOVAL, commaSeparated(removedValueTypes), commaSeparated(variableTypes), commaSeparated(acceptedValueTypes)),
+				errorMessage,
 				base.getStartOffset(value),
 				base.getEndOffset(value) + 1
 		);
@@ -200,6 +242,7 @@ public final class ValidationMessageFactory implements IValidationMessageFactory
 		return types.stream()
 					.map(type -> getQualifiedName(type))
 					.sorted()
+					.distinct()
 					.collect(joining(",","[","]"));
 	}
 }

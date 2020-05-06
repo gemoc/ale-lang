@@ -1,0 +1,23 @@
+behavior additionAssign;
+
+open class EClass {
+
+	Sequence(Boolean) sequenceFeature; 
+	OrderedSet(ecore::EClass) setFeature; 
+
+	def void main(Sequence(String) sequenceParameter, OrderedSet(Integer) setParameter) {
+		
+		self.sequenceFeature -= OrderedSet{true, false, true};
+		self.setFeature -= Sequence{self, ecore::EClass.create()};
+	
+		Sequence(Boolean) sequenceVariable; 
+		OrderedSet(ecore::EClass) setVariable;
+		
+		sequenceVariable -= OrderedSet{true, false, true};
+		setVariable -= Sequence{self, ecore::EClass.create()};
+
+		sequenceParameter -= OrderedSet{'one', 'two'};
+		setParameter -= Sequence{1, 2, 3};
+	}
+
+}
