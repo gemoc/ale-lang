@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.RuntimeAleEnvironment;
@@ -769,13 +770,19 @@ public class BuildTest {
 		assertNull(attrib3.getInitialValue());
 		
 		Attribute attrib4 = xtdCls.getAttributes().get(4);
-		assertEquals("seqAttr", attrib4.getFeatureRef().getName());
-		assertEquals(EcorePackage.eINSTANCE.getEEList(), attrib4.getFeatureRef().getEType());
+		EStructuralFeature attrib4Feature = attrib4.getFeatureRef();
+		assertEquals("seqAttr", attrib4Feature.getName());
+		assertEquals(0, attrib4Feature.getLowerBound());
+		assertEquals(-1, attrib4Feature.getUpperBound());
+		assertEquals(EcorePackage.eINSTANCE.getEString(), attrib4Feature.getEType());
 		assertNull(attrib4.getInitialValue());
 		
 		Attribute attrib5 = xtdCls.getAttributes().get(5);
-		assertEquals("setAttr", attrib5.getFeatureRef().getName());
-		assertEquals(EcorePackage.eINSTANCE.getEEList(), attrib5.getFeatureRef().getEType());
+		EStructuralFeature attrib5FeatureRef = attrib5.getFeatureRef();
+		assertEquals("setAttr", attrib5FeatureRef.getName());
+		assertEquals(0, attrib5FeatureRef.getLowerBound());
+		assertEquals(-1, attrib5FeatureRef.getUpperBound());
+		assertEquals(EcorePackage.eINSTANCE.getEString(), attrib5FeatureRef.getEType());
 		assertNull(attrib5.getInitialValue());
 		
 		Attribute attrib6 = xtdCls.getAttributes().get(6);

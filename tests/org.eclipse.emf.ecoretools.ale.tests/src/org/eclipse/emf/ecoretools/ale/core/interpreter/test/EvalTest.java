@@ -815,8 +815,9 @@ public class EvalTest {
 		EObject caller = interpreter.loadModel("model/ClassA.xmi").getContents().get(0);
 		Method main = semantics.getMainMethods().get(0);
 		IEvaluationResult res = interpreter.eval(caller, main, Arrays.asList(), semantics);
-
-		assertTrue(res.getValue() instanceof EObject);
+		Object value = res.getValue();
+		
+		assertTrue("got: " + (value == null ? "null" : value.getClass()) + ", expected: EObject", res.getValue() instanceof EObject);
 		assertNotEquals(caller, res.getValue());
 		assertEquals("NewClass", ((EObject) res.getValue()).eClass().getName());
 	}

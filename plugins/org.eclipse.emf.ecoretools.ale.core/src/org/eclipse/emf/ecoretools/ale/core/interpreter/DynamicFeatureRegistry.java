@@ -141,7 +141,12 @@ public class DynamicFeatureRegistry {
 			if(feature != null) {
 				Object featureValue = extendedInstance.eGet(feature);
 				if(featureValue instanceof List){
-					((List)featureValue).add(newValue);
+					if (newValue instanceof Collection) {
+						((List) featureValue).addAll((Collection) newValue);
+					}
+					else {
+						((List)featureValue).add(newValue);
+					}
 				}
 				else if(featureValue instanceof String){
 					String concat = featureValue + "" + newValue;

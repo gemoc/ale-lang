@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -51,6 +52,8 @@ import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RExpressionContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RSwitchContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RTypeContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.TypeLiteralContext;
+import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
+import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.Case;
@@ -133,6 +136,8 @@ public class ModelBuilder {
 	EcoreFactory ecoreFactory;
 	AstFactory aqlFactory;
 	
+	private IConvertType convert;
+	
 	public ModelBuilder (IQueryEnvironment qryEnv){
 		this.qryEnv = qryEnv;
 		builder = new QueryBuilderEngine(qryEnv);
@@ -141,6 +146,8 @@ public class ModelBuilder {
 		ecoreFactory = (EcoreFactory) qryEnv.getEPackageProvider().getEPackage("ecore").iterator().next().getEFactoryInstance();
 		implemFactory = (ImplementationFactory) qryEnv.getEPackageProvider().getEPackage("implementation").iterator().next().getEFactoryInstance();
 		aqlFactory = (AstFactory) qryEnv.getEPackageProvider().getEPackage("ast").iterator().next().getEFactoryInstance();
+		
+		convert = new ConvertType(qryEnv);
 	}
 	
 	public Method buildMethod(EClass fragment, String name, List<Parameter> params, RTypeContext returnType, Block body, List<String> tags) {
@@ -157,10 +164,14 @@ public class ModelBuilder {
 			operation.getEParameters().add(opParam);
 		});
 		
-		EClassifier type = resolve(returnType);
-		operation.setEType(type); // also set EGenericType
-		resolveGenericTypeParameter(type, returnType.getText())
-			.ifPresent(t -> operation.getEGenericType().getETypeArguments().add(t));
+		ETypedElement type = resolve(returnType);
+		operation.setEType(type.getEType());
+		operation.setUnique(type.isUnique());
+		operation.setLowerBound(type.getLowerBound());
+		operation.setUpperBound(type.getUpperBound());
+//		operation.setEType(type); // also set EGenericType
+//		resolveGenericTypeParameter(type, returnType.getText())
+//			.ifPresent(t -> operation.getEGenericType().getETypeArguments().add(t));
 
 		fragment.getEOperations().add(operation);
 		
@@ -189,10 +200,19 @@ public class ModelBuilder {
 	
 	
 	public Parameter buildParameter(RTypeContext type, String name) {
-		EClassifier classifier = resolve(type);
-		EGenericType genericType = resolveGenericTypeParameter(classifier, type.getText()).orElse(null);
+		ETypedElement typedElement = resolve(type);
 		
-		return new Parameter(name, classifier, genericType);
+		// FIXME This is a hack: parameters should have bounds and isUnique such as Attribute
+		//		 Currently we can't represent Sets and nested Lists
+		
+		if (typedElement.isMany()) {
+			EGenericType genericType = EcoreFactory.eINSTANCE.createEGenericType();
+			genericType.setEClassifier(typedElement.getEType());
+			return new Parameter(name, EcorePackage.eINSTANCE.getEEList(), genericType);
+		}
+		else {
+			return new Parameter(name, typedElement.getEType(), typedElement.getEGenericType());
+		}
 	}
 	
 	public Attribute buildAttribute(EClass fragment, String name, RExpressionContext exp, RTypeContext type, int lowerBound, int upperBound, boolean isContainment, boolean isUnique, String opposite, ParseResult<ModelUnit> parseRes) {
@@ -200,8 +220,8 @@ public class ModelBuilder {
 		EStructuralFeature feature;
 		
 		
-		EClassifier featureType = resolve(type);
-		if(featureType instanceof EClass) {
+		ETypedElement featureType = resolve(type);
+		if((featureType.getEType() instanceof EClass) || isContainment) {
 			feature = ecoreFactory.createEReference();
 			((EReference)feature).setContainment(isContainment);
 		}
@@ -210,9 +230,26 @@ public class ModelBuilder {
 		}
 		
 		feature.setName(name);
-		feature.setEType(featureType); // also set EGenericType
-		resolveGenericTypeParameter(featureType, type.getText())
-			.ifPresent(t -> feature.getEGenericType().getETypeArguments().add(t));
+		// 
+		// Given 'isUnique' property takes precedence because it has been specified in the code, e.g.:
+		//
+		//		contains fsm::FSM parent;
+		//
+		isUnique = isUnique ? isUnique : featureType.isUnique();
+		// 
+		// Given bounds take precedence because they have been specified in the code, e.g.:
+		//
+		//		1..* fsm::State states;
+		//
+		// FIXME Does not handle nested collections
+		//
+		upperBound = upperBound != 1 ? upperBound : featureType.getUpperBound();
+		lowerBound = lowerBound != 0 ? lowerBound : featureType.getLowerBound();
+		
+		feature.setUnique(isUnique);
+		feature.setEType(featureType.getEType());
+		feature.setLowerBound(lowerBound);
+		feature.setUpperBound(upperBound);
 
 		attribute.setFeatureRef(feature);
 		
@@ -229,10 +266,6 @@ public class ModelBuilder {
 		
 		fragment.getEStructuralFeatures().add(feature);
 		
-		feature.setLowerBound(lowerBound);
-		feature.setUpperBound(upperBound);
-		feature.setUnique(isUnique);
-		
 		return attribute;
 	}
 	
@@ -242,15 +275,16 @@ public class ModelBuilder {
 		if(exp != null){
 			varDecl.setInitialValue(parseExp(exp,parseRes));
 		}
-		EClassifier declaredType = resolve(type);
-		varDecl.setType(declaredType);
+		ETypedElement declaredType = resolve(type);
+		varDecl.setType(declaredType.getEType());
 		
-		if(declaredType == EcorePackage.eINSTANCE.getEEList()) {
-			EClassifier parameterType = resolveParameterType(type);
-			varDecl.setTypeParameter(parameterType);
-			// FIXME add generic type
+		// FIXME This is a hack: declaration should have bounds and isUnique such as Attribute
+		//		 Currently we can't represent Sets and nested Lists
+		
+		if(declaredType.isMany()) {
+			varDecl.setType(EcorePackage.eINSTANCE.getEEList());
+			varDecl.setTypeParameter(resolveParameterType(type));
 		}
-		
 		return varDecl;
 	}
 	
@@ -486,7 +520,7 @@ public class ModelBuilder {
 	
 	//Can return null
 	public Optional<EOperation> resolve(String className, String methodName, int nbArgs, RTypeContext returnType) {
-		EClassifier type = resolve(returnType);
+		EClassifier type = resolve(returnType).getEType();
 		//TODO: manage qualified name		
 		Optional<EOperation> eOperation = 
 			qryEnv
@@ -548,18 +582,38 @@ public class ModelBuilder {
 		}
 	}
 	
-	public EClassifier resolve(RTypeContext type) {
+	public ETypedElement resolve(RTypeContext type) {
 		TypeLiteralContext typeLit = type.typeLiteral();
 		if(typeLit != null) {
 			AstResult astResult = builder.build(type.getText());
 			EvaluationResult evaluationResult = aqlEngine.eval(astResult, Maps.newHashMap());
 			Object result = evaluationResult.getResult();
 			
-			return toEMF(result)
-					.orElseGet(() -> resolve(type.getText()));
+			if (astResult.getAst() instanceof CollectionTypeLiteral) {
+				CollectionTypeLiteral aqlCollection = (CollectionTypeLiteral) astResult.getAst();
+				boolean isUnique = Set.class.equals(aqlCollection.getValue());
+				EClassifier classifier = convert.toEMF(aqlCollection.getElementType()).orElse(ImplementationPackage.eINSTANCE.getUnresolvedEClassifier());
+//				EClassifier classifier = toEMF(aqlCollection.getElementType()).orElse(ImplementationPackage.eINSTANCE.getUnresolvedEClassifier());
+				return createRawType(classifier, isUnique, 0, -1);
+			}
+			else if (result instanceof EClassifier) {
+				return createRawType((EClassifier) result, false, 0, 1);
+			}
+			else if (result instanceof Class<?>) {	
+				EClassifier classifier = convert.toEMF((Class<?>) result);
+				return createRawType(classifier, false, 0, 1);
+			}
 		}
-		
-		return resolve(type.getText()); //default
+		return createRawType(resolve(type.getText()), false, 0, 1); //default
+	}
+	
+	private static ETypedElement createRawType(EClassifier classifier, boolean isUnique, int lowerBound, int upperBound) {
+		ETypedElement element = EcoreFactory.eINSTANCE.createEAttribute();
+		element.setEType(classifier);
+		element.setUnique(isUnique);
+		element.setLowerBound(lowerBound);
+		element.setUpperBound(upperBound);
+		return element;
 	}
 	
 	// TODO [Refactor] Can this method be made private safely?
@@ -570,7 +624,12 @@ public class ModelBuilder {
 			TypeLiteral paramTypeLiteral = collectionType.getElementType();
 			Object paramType = paramTypeLiteral.getValue();
 			
-			return toEMF(paramType).orElse(null);
+			if (paramType instanceof EClassifier) {
+				return (EClassifier) paramType;
+			}
+			else if (paramType instanceof Class<?>) {
+				return convert.toEMF((Class<?>) paramType);
+			}
 		}
 		return null;
 	}
@@ -586,8 +645,8 @@ public class ModelBuilder {
 				if (collectionTypeLiteral.getElementType().getValue() instanceof Class<?>) {
 					Class<?> clazz = (Class<?>) collectionTypeLiteral.getElementType().getValue();
 					
-					classifier = toEMF(clazz).orElse(null);
-					if (classifier == null) {
+					classifier = convert.toEMF(clazz);
+					if (classifier == ImplementationPackage.eINSTANCE.getUnresolvedEClassifier()) {
 						classifier = EcoreFactory.eINSTANCE.createEDataType();
 						classifier.setInstanceClass((Class<?>) collectionTypeLiteral.getElementType().getValue());
 						classifier.setName(classifier.getInstanceClass().getSimpleName());
@@ -608,17 +667,6 @@ public class ModelBuilder {
 			}
 		}
 		return Optional.empty();
-	}
-	
-	private Optional<EClassifier> toEMF(Object type) {
-		if(type == java.lang.String.class)			return Optional.of(EcorePackage.eINSTANCE.getEString());
-		else if(type == java.lang.Integer.class)	return Optional.of(EcorePackage.eINSTANCE.getEInt());
-		else if(type == java.lang.Double.class)		return Optional.of(EcorePackage.eINSTANCE.getEDouble());
-		else if(type == java.lang.Boolean.class)	return Optional.of(EcorePackage.eINSTANCE.getEBoolean());
-		else if(type == List.class)					return Optional.of(EcorePackage.eINSTANCE.getEEList());
-		else if(type == Set.class)					return Optional.of(EcorePackage.eINSTANCE.getEEList());
-		else if(type instanceof EClassifier)		return Optional.of((EClassifier) type);
-		else										return Optional.empty();
 	}
 	
 	public static String getQualifiedName(EClassifier cls) {
@@ -660,7 +708,7 @@ public class ModelBuilder {
 		cases.forEach(caseCtx -> {
 			Case newCase = implemFactory.createCase();
 			if(caseCtx.guard != null){
-				newCase.setGuard(resolve(caseCtx.guard));
+				newCase.setGuard(resolve(caseCtx.guard).getEType());
 			}
 			if(caseCtx.match != null){
 				newCase.setMatch(parseExp(caseCtx.match, parseRes));
