@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.Stack;
 
 import org.eclipse.acceleo.query.ast.Expression;
@@ -132,16 +133,16 @@ public class MethodEvaluator {
 	}
 	
 	private Optional<Object> defaultValueFor(VariableDeclaration varDecl) {
-		if (varDecl.getType() == EcorePackage.eINSTANCE.getEString()) {
-			return Optional.of("");
-		}
-		if (varDecl.getType() == EcorePackage.eINSTANCE.getEInt()) {
-			return Optional.of(0);
-		}
-		if (varDecl.getType() == EcorePackage.eINSTANCE.getEEList()) {
+		if (varDecl.getType().isMany()) {
 			return Optional.of(new BasicEList<>());
 		}
-		if (varDecl.getType() == EcorePackage.eINSTANCE.getEBoolean()) {
+		if (varDecl.getType().getEType() == EcorePackage.eINSTANCE.getEString()) {
+			return Optional.of("");
+		}
+		if (varDecl.getType().getEType() == EcorePackage.eINSTANCE.getEInt()) {
+			return Optional.of(0);
+		}
+		if (varDecl.getType().getEType() == EcorePackage.eINSTANCE.getEBoolean()) {
 			return Optional.of(false);
 		}
 		return Optional.empty();
@@ -170,8 +171,8 @@ public class MethodEvaluator {
 		if(assigned instanceof EObject){
 			EStructuralFeature feature = ((EObject)assigned).eClass().getEStructuralFeature(featAssign.getTargetFeature());
 			if(feature != null){
-				if(value instanceof List) {
-					BasicEList<EObject> newList = new BasicEList<>((List)value);
+				if(value instanceof Collection) {
+					BasicEList<EObject> newList = new BasicEList<>((Collection)value);
 					((EObject)assigned).eSet(feature, newList);
 				}
 				else {
@@ -224,12 +225,12 @@ public class MethodEvaluator {
 			Object insertedValue = aqlEval(varInsert.getValue());
 			Object variableValue = scope.get(varInsert.getName());
 			
-			if(variableValue instanceof List) {
-				if(insertedValue instanceof List) {
-					((List)variableValue).addAll((List) insertedValue);
+			if(variableValue instanceof Collection) {
+				if(insertedValue instanceof Collection) {
+					((Collection)variableValue).addAll((Collection) insertedValue);
 				}
 				else {
-					((List)variableValue).add(insertedValue);
+					((Collection)variableValue).add(insertedValue);
 				}
 			}
 			else if(variableValue instanceof String) {
@@ -260,12 +261,12 @@ public class MethodEvaluator {
 			Object insertedValue = aqlEval(varInsert.getValue());
 			Object variableValue = scope.get(varInsert.getName());
 			
-			if(variableValue instanceof List) {
-				if(insertedValue instanceof List) {
-					((List)variableValue).removeAll((List) insertedValue);
+			if(variableValue instanceof Collection) {
+				if(insertedValue instanceof Collection) {
+					((Collection)variableValue).removeAll((Collection) insertedValue);
 				}
 				else {
-					((List)variableValue).remove(insertedValue);
+					((Collection)variableValue).remove(insertedValue);
 				}
 			}
 			else if(variableValue instanceof Integer && insertedValue instanceof Integer) {
@@ -298,12 +299,12 @@ public class MethodEvaluator {
 			try {
 				if(feature != null){
 					Object featureValue = ((EObject)assigned).eGet(feature);
-					if(featureValue instanceof EList){
+					if(featureValue instanceof Collection){
 						if (value instanceof Collection) {
-							((EList)featureValue).addAll((Collection) value);
+							((Collection)featureValue).addAll((Collection) value);
 						}
 						else {
-							((EList)featureValue).add(value);
+							((Collection)featureValue).add(value);
 						}
 					}
 				}
@@ -333,8 +334,13 @@ public class MethodEvaluator {
 			EStructuralFeature feature = ((EObject)assigned).eClass().getEStructuralFeature(featRemove.getTargetFeature());
 			if(feature != null){
 				Object featureValue = ((EObject)assigned).eGet(feature);
-				if(featureValue instanceof EList){
-					((EList)featureValue).remove(value);
+				if(featureValue instanceof Collection){
+					if (value instanceof Collection) {
+						((Collection)featureValue).removeAll((Collection) value);
+					}
+					else {
+						((Collection)featureValue).remove(value);
+					}
 				}
 			}
 			else {

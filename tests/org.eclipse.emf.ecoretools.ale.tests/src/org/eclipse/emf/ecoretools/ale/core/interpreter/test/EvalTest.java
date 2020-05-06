@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.interpreter.test;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -1040,6 +1041,7 @@ public class EvalTest {
 		assertEquals("bool should be initialized to false", false, caller.eGet(caller.eClass().getEStructuralFeature("bool")));
 		assertEquals("string should be initialized to an empty string", "", caller.eGet(caller.eClass().getEStructuralFeature("string")));
 		assertEquals("sequence should be initialized to an empty sequence", new BasicEList<>(), caller.eGet(caller.eClass().getEStructuralFeature("strings")));
+		assertEquals("set should be initialized to an empty set", new BasicEList<>(), caller.eGet(caller.eClass().getEStructuralFeature("integers")));
 	}
 
 	@Test
@@ -1437,6 +1439,32 @@ public class EvalTest {
 
 		assertEquals("Cannot add the value to 'localNumbers': types mismatch", res.getDiagnostic().getMessage());
 		assertEquals(Diagnostic.ERROR, res.getDiagnostic().getSeverity());
+	}
+	
+	@Test
+	public void testInsertSequence() throws ClosedALEInterpreterException {
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/attributesOfDifferentTypes.ecore"), Arrays.asList("input/eval/insertOrderedSet.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/Mix.xmi").getContents().get(0);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		interpreter.eval(caller, main, Arrays.asList(), semantics);
+		
+		assertEquals("+= sould allow to concatenate sets with sets and sequences", asList(1, 2, 3, 4, 5, 6), caller.eGet(caller.eClass().getEStructuralFeature("integers")));
+	}
+	
+	@Test
+	public void testRemoveSequence() throws ClosedALEInterpreterException {
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList("model/attributesOfDifferentTypes.ecore"), Arrays.asList("input/eval/removeOrderedSet.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment()))
+				.parse(environment);
+		EObject caller = interpreter.loadModel("model/Mix.xmi").getContents().get(0);
+		DslSemantics semantics = new ImmutableDslSemantics(parsedSemantics);
+		Method main = semantics.getMainMethods().get(0);
+		interpreter.eval(caller, main, Arrays.asList(), semantics);
+		
+		assertEquals("-= sould allow to substract sets with sets and sequences", asList(2, 4), caller.eGet(caller.eClass().getEStructuralFeature("integers")));
 	}
 	
 }

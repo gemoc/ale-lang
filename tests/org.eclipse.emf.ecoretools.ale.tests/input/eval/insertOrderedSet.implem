@@ -1,0 +1,13 @@
+behavior test.containattributes;
+
+open class Mix {
+
+	@main
+	def void main() {
+		OrderedSet(Integer) localIntegers;
+		localIntegers += OrderedSet{1, 2, 3};
+		localIntegers += Sequence{4, 5, 5, 6, 4};
+		
+		self.integers += localIntegers;
+	}
+}
