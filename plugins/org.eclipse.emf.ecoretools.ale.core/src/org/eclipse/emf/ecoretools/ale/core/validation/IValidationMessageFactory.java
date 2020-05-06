@@ -16,10 +16,9 @@ import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
-import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
+import org.eclipse.emf.ecoretools.ale.implementation.Statement;
 
 /**
  * A factory that creates new, tailored, {@link IValidationMessage validation messages}.
@@ -40,7 +39,7 @@ public interface IValidationMessageFactory {
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage assignmentToResultInVoidOperation(VariableAssignment assignment);
+	IValidationMessage assignmentToResultInVoidOperation(Statement statement);
 	
 	/**
 	 * Creates a message telling that an expression was supposed to be boolean.

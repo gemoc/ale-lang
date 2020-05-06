@@ -27,7 +27,7 @@ import org.eclipse.emf.ecoretools.ale.core.validation.BaseValidator;
 import org.eclipse.emf.ecoretools.ale.core.validation.IValidationMessageFactory;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
-import org.eclipse.emf.ecoretools.ale.implementation.VariableAssignment;
+import org.eclipse.emf.ecoretools.ale.implementation.Statement;
 
 public final class ValidationMessageFactory implements IValidationMessageFactory {
 
@@ -40,7 +40,7 @@ public final class ValidationMessageFactory implements IValidationMessageFactory
 	public static final String INCOMPATIBLE_TYPES = "Expected %s but was %s";
 	public static final String INDIRECT_EXTENSION = "Can't extend %s since it is not a direct super type of %s";
 	public static final String UNSUPPORTED_OPERATOR = "%s does not support the '%s' operator";
-	public static final String VOID_RESULT_ASSIGN = "Cannot assign 'result' in a void operation";
+	public static final String VOID_RESULT_ASSIGN = "'result' is not available in a void method. Change method's return type";
 	public static final String UNRESOLVED_TYPE = "Unresolved type %s, it cannot be found in any of the declared packages: %s";
 	
 	private final BaseValidator base;
@@ -50,10 +50,10 @@ public final class ValidationMessageFactory implements IValidationMessageFactory
 	}
 	
 	@Override
-	public IValidationMessage assignmentToResultInVoidOperation(VariableAssignment assignment) {
+	public IValidationMessage assignmentToResultInVoidOperation(Statement assignment) {
 		return new ValidationMessage(
 				ValidationMessageLevel.ERROR,
-				String.format(VOID_RESULT_ASSIGN,assignment.getName()),
+				VOID_RESULT_ASSIGN,
 				base.getStartOffset(assignment),
 				base.getEndOffset(assignment)
 		);

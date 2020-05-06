@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - [#115](https://github.com/gemoc/ale-lang/pull/115) Multiple .ale source files can be taken into account when executing an ALE program
 - [#115](https://github.com/gemoc/ale-lang/pull/115) The ALE environment (the _.ale_ source files and the _.ecore_ metamodels) can now be stored in the project's preferences, allowing to get rid of the .dsl configuration file
 - [#115](https://github.com/gemoc/ale-lang/pull/115) The interpreter can be run by right-clicking on an ALE project
+- [#129](https://github.com/gemoc/ale-lang/pull/129) The editor warns when the `+=` and `-=` operators ared used on the `result` variable in a void method
 
 ### Changed
 - [#93](https://github.com/gemoc/ale-lang/issues/93) More tokens are available to tailor editor's syntax coloring

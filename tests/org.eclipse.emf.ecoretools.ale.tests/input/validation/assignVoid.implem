@@ -1,6 +1,8 @@
 behavior test.localAssign;
 open class EClass {
 	def void op(){
+		result += 4;
+		result -= 4;
 		result := 4;
 	}
 }

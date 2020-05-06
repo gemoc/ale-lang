@@ -483,8 +483,6 @@ public class NameValidator implements IValidator {
 				boolean assigningToResult = "result".equals(varAssign.getName());
 				boolean isVoidOperation = enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null;
 				if(assigningToResult && isVoidOperation) {
-					// A void operation should not return anything
-					// FIXME Should be in the NameValidator
 					IValidationMessage invalidAssignment = messages.assignmentToResultInVoidOperation(varAssign);
 					msgs.add(invalidAssignment);
 					return msgs;
@@ -536,17 +534,31 @@ public class NameValidator implements IValidator {
 	public List<IValidationMessage> validateVariableInsert(VariableInsert varInsert) {
 		List<IValidationMessage> msgs = new ArrayList<>();
 		
-		/*
-		 * Check name
-		 */
+		boolean assigningToResult = "result".equals(varInsert.getName());
 		Set<IType> declaringTypes = base.getCurrentScope().get(varInsert.getName());
-		if(declaringTypes == null && !varInsert.getName().equals("result")){
+
+		if(declaringTypes == null && !assigningToResult){
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(VARIABLE_UNDEFINED,varInsert.getName()),
 					base.getStartOffset(varInsert),
 					base.getEndOffset(varInsert)
 					));
+		}
+		else if (assigningToResult) {
+			// Check attempts to assign 'result' in a void operation
+			
+			Method method = base.getContainingOperation(varInsert);
+			EOperation enclosingOperation = method.getOperationRef();
+			
+			if (enclosingOperation != null) {
+				boolean isVoidOperation = enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null;
+				if(isVoidOperation) {
+					IValidationMessage invalidAssignment = messages.assignmentToResultInVoidOperation(varInsert);
+					msgs.add(invalidAssignment);
+					return msgs;
+				}
+			}
 		}
 		return msgs;
 	}
@@ -555,17 +567,31 @@ public class NameValidator implements IValidator {
 	public List<IValidationMessage> validateVariableRemove(VariableRemove varRemove) {
 		List<IValidationMessage> msgs = new ArrayList<>();
 		
-		/*
-		 * Check name
-		 */
+		boolean assigningToResult = "result".equals(varRemove.getName());
 		Set<IType> declaringTypes = base.getCurrentScope().get(varRemove.getName());
-		if(declaringTypes == null && !varRemove.getName().equals("result")){
+		
+		if(declaringTypes == null && !assigningToResult){
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
 					String.format(VARIABLE_UNDEFINED,varRemove.getName()),
 					base.getStartOffset(varRemove),
 					base.getEndOffset(varRemove)
 					));
+		}
+		else if (assigningToResult) {
+			// Check attempts to assign 'result' in a void operation
+			
+			Method method = base.getContainingOperation(varRemove);
+			EOperation enclosingOperation = method.getOperationRef();
+			
+			if (enclosingOperation != null) {
+				boolean isVoidOperation = enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null;
+				if(isVoidOperation) {
+					IValidationMessage invalidAssignment = messages.assignmentToResultInVoidOperation(varRemove);
+					msgs.add(invalidAssignment);
+					return msgs;
+				}
+			}
 		}
 		return msgs;
 	}
