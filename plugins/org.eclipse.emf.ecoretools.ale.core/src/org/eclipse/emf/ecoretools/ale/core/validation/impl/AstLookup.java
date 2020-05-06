@@ -24,6 +24,7 @@ import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecoretools.ale.core.validation.BaseValidator;
@@ -126,6 +127,19 @@ public final class AstLookup implements IAstLookup {
 					EClassifier type = feature.get().getEType();
 					declaredTypes.add(convert.toAQL(type));
 					return declaredTypes;
+				}
+			}
+			
+			// Look at enclosing method's parameters
+			else if (currentScope instanceof Method) {
+				Method method = (Method) currentScope;
+				Optional<EParameter> parameter = method.getOperationRef()
+													   .getEParameters().stream()
+													   .filter(param -> param.getName().equals(variableName))
+													   .findFirst();
+				
+				if (parameter.isPresent()) {
+					declaredTypes.add(convert.toAQL(parameter.get()));
 				}
 			}
 			currentObject = currentScope;

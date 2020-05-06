@@ -137,7 +137,7 @@ public interface ITypeChecker {
 	 * <p>
 	 * This method performs checks corresponding to the previous cases then calls {@link IType#isAssignableFrom(IType)}.
 	 * 
-	 * @param variable
+	 * @param variableType
 	 * 			The type to which a value should be assigned
 	 * @param valueType
 	 * 			The type of the expression to assign
@@ -208,9 +208,29 @@ public interface ITypeChecker {
 	 * @param type
 	 * 			The type to check
 	 * 
-	 * @return true if the type represents {@code null}
+	 * @return true if the type represents {@code null}, false otherwise
 	 */
 	boolean isNull(IType type);
+
+	/**
+	 * Determines whether the given type corresponds to a set of unique elements.
+	 * 
+	 * @param type
+	 * 			The type to check
+	 * 
+	 * @return true if the type represents a set, false otherwise
+	 */
+	boolean isSet(IType type);
+
+	/**
+	 * Determines whether the given type corresponds to an ordered list.
+	 * 
+	 * @param type
+	 * 			The type to check
+	 * 
+	 * @return true if the type represents an ordered list, false otherwise
+	 */
+	boolean isSequence(IType type);
 	
 	/**
 	 * Determines whether the given type corresponds to a string.

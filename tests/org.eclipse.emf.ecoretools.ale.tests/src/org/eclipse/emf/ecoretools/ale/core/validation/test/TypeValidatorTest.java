@@ -220,7 +220,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 73, 90, "Expected [ecore::EString] but was [java.lang.Integer]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 73, 90, "Type mismatch: cannot assign [java.lang.Integer] to [ecore::EString]", msg.get(0));
 	}
 	
 	/*
@@ -583,7 +583,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 103, 108, "[java.lang.String] cannot be added to [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 103, 108, "[java.lang.String] cannot be added to [Sequence(ecore::EInt)] (expected [Sequence(ecore::EInt),ecore::EInt])", msg.get(0));
 	}
 	
 	/*
@@ -616,7 +616,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 106, 111, "[java.lang.String] cannot be added to [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 106, 111, "[java.lang.String] cannot be added to [Sequence(ecore::EInt)] (expected [Sequence(ecore::EInt),ecore::EInt])", msg.get(0));
 	}
 	
 	/*
@@ -781,7 +781,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 103, 108, "[java.lang.String] cannot be removed from [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 103, 108, "[java.lang.String] cannot be removed from [Sequence(ecore::EInt)] (expected [Sequence(ecore::EInt),ecore::EInt])", msg.get(0));
 	}
 	
 	/*
@@ -813,7 +813,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 106, 111, "[java.lang.String] cannot be removed from [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 106, 111, "[java.lang.String] cannot be removed from [Sequence(ecore::EInt)] (expected [Sequence(ecore::EInt),ecore::EInt])", msg.get(0));
 	}
 	
 	/**
@@ -860,9 +860,9 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(3, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 177, 178, "[java.lang.Integer] cannot be added to [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 193, 201, "[Collection(java.lang.Integer)] cannot be added to [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(1));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 216, 230, "[Collection(java.lang.Integer)] cannot be added to [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(2));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 177, 178, "[java.lang.Integer] cannot be added to [Sequence(ecore::EString)] (expected [Sequence(ecore::EString),ecore::EString])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 193, 201, "[Sequence(java.lang.Integer)] cannot be added to [Sequence(ecore::EString)] (expected [Sequence(ecore::EString),ecore::EString])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 216, 230, "[Sequence(java.lang.Integer)] cannot be added to [Sequence(ecore::EString)] (expected [Sequence(ecore::EString),ecore::EString])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(2));
 	}
 	
 	/**
@@ -893,8 +893,8 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(2, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 244, 250, "[java.lang.Integer] cannot be added to [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 267, 273, "[java.lang.Integer] cannot be added to [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 244, 250, "[java.lang.Integer] cannot be added to [Sequence(ecore::EString)] (expected [Sequence(ecore::EString),ecore::EString])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 267, 273, "[java.lang.Integer] cannot be added to [Sequence(ecore::EString)] (expected [Sequence(ecore::EString),ecore::EString])", msg.get(1));
 	}
 	
 	/**
@@ -943,8 +943,8 @@ public class TypeValidatorTest {
 		assertEquals(4, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 75, 77, "[java.lang.Integer] cannot be added to [ecore::EString] (expected [ecore::EString])", msg.get(0));
 		assertMsgEquals(ValidationMessageLevel.ERROR, 111, 117, "[ecore::EBoolean] does not support the '+=' operator", msg.get(1));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 179, 187, "[java.lang.String] cannot be added to [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(2));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 201, 222, "[Collection(java.lang.Boolean)] cannot be added to [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(3));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 179, 187, "[java.lang.String] cannot be added to [Sequence(ecore::EInt)] (expected [Sequence(ecore::EInt),ecore::EInt])", msg.get(2));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 201, 222, "[Sequence(java.lang.Boolean)] cannot be added to [Sequence(ecore::EInt)] (expected [Sequence(ecore::EInt),ecore::EInt])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(3));
 	}
 	
 	/**
@@ -977,8 +977,8 @@ public class TypeValidatorTest {
 		assertEquals(4, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 75, 79, "[java.lang.String] cannot be removed from [ecore::EInt] (expected [ecore::EInt])", msg.get(0));
 		assertMsgEquals(ValidationMessageLevel.ERROR, 113, 119, "[ecore::EBoolean] does not support the '-=' operator", msg.get(1));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 181, 189, "[java.lang.String] cannot be removed from [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(2));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 203, 224, "[Collection(java.lang.Boolean)] cannot be removed from [Collection(ecore::EInt)] (expected [Collection(ecore::EInt),ecore::EInt])", msg.get(3));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 181, 189, "[java.lang.String] cannot be removed from [Sequence(ecore::EInt)] (expected [Sequence(ecore::EInt),ecore::EInt])", msg.get(2));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 203, 224, "[Sequence(java.lang.Boolean)] cannot be removed from [Sequence(ecore::EInt)] (expected [Sequence(ecore::EInt),ecore::EInt])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(3));
 	}
 	
 	@Test
@@ -1075,9 +1075,9 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(3, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 177, 178, "[java.lang.Integer] cannot be removed from [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 193, 201, "[Collection(java.lang.Integer)] cannot be removed from [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(1));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 216, 230, "[Collection(java.lang.Integer)] cannot be removed from [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(2));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 177, 178, "[java.lang.Integer] cannot be removed from [Sequence(ecore::EString)] (expected [Sequence(ecore::EString),ecore::EString])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 193, 201, "[Sequence(java.lang.Integer)] cannot be removed from [Sequence(ecore::EString)] (expected [Sequence(ecore::EString),ecore::EString])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 216, 230, "[Sequence(java.lang.Integer)] cannot be removed from [Sequence(ecore::EString)] (expected [Sequence(ecore::EString),ecore::EString])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(2));
 	}
 	
 	/**
@@ -1108,8 +1108,8 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(2, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 244, 250, "[java.lang.Integer] cannot be removed from [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 267, 273, "[java.lang.Integer] cannot be removed from [Collection(ecore::EString)] (expected [Collection(ecore::EString),ecore::EString])", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 244, 250, "[java.lang.Integer] cannot be removed from [Sequence(ecore::EString)] (expected [Sequence(ecore::EString),ecore::EString])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 267, 273, "[java.lang.Integer] cannot be removed from [Sequence(ecore::EString)] (expected [Sequence(ecore::EString),ecore::EString])", msg.get(1));
 	}
 	
 	/**
@@ -1193,7 +1193,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 134, 144, "Expected [ecore::EInt] but was [java.lang.String]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 134, 144, "Type mismatch: cannot assign [java.lang.String] to [ecore::EInt]", msg.get(0));
 	}
 	
 	/*
@@ -1501,7 +1501,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 66, 106, "Expected [ecore::EClass] but was [ecore::EOperation]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 66, 106, "Type mismatch: cannot assign [ecore::EOperation] to [ecore::EClass]", msg.get(0));
 	}
 	
 	@Test
@@ -1594,7 +1594,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 71, 101, "Expected [Collection(ecore::EInt)] but was [java.lang.Integer]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 71, 101, "Type mismatch: cannot assign [java.lang.Integer] to [Sequence(ecore::EInt)]", msg.get(0));
 	}
 	
 	@Test
@@ -1621,7 +1621,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 125, 143, "Type mismatch: cannot assign [Collection(java.lang.String)] to [Collection(ecore::EInt)]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 125, 143, "Type mismatch: cannot assign [Sequence(java.lang.String)] to [Sequence(ecore::EInt)]", msg.get(0));
 	}
 	@Test
 	public void testAssignSequenceFeature() {
@@ -1646,8 +1646,8 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(2, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 143, 147, "Type mismatch: cannot assign [ecore::EClass] to [Collection(ecore::EClass)]", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 170, 192, "Type mismatch: cannot assign [ecore::EClass] to [Collection(ecore::EClass)]", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 143, 147, "Type mismatch: cannot assign [ecore::EClass] to [Sequence(ecore::EClass)]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 170, 192, "Type mismatch: cannot assign [ecore::EClass] to [Sequence(ecore::EClass)]", msg.get(1));
 	}
 	@Test
 	public void testAssignSequenceVarDecl() {
@@ -1672,10 +1672,10 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(4, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 85, 128, "Expected [Collection(ecore::EClass)] but was [ecore::EClass]", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 147, 151, "Type mismatch: cannot assign [ecore::EClass] to [Collection(ecore::EClass)]", msg.get(1));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 155, 216, "Expected [Collection(ecore::EClass)] but was [ecore::EClass]", msg.get(2));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 235, 257, "Type mismatch: cannot assign [ecore::EClass] to [Collection(ecore::EClass)]", msg.get(3));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 85, 128, "Type mismatch: cannot assign [ecore::EClass] to [Sequence(ecore::EClass)]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 147, 151, "Type mismatch: cannot assign [ecore::EClass] to [Sequence(ecore::EClass)]", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 155, 216, "Type mismatch: cannot assign [ecore::EClass] to [Sequence(ecore::EClass)]", msg.get(2));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 235, 257, "Type mismatch: cannot assign [ecore::EClass] to [Sequence(ecore::EClass)]", msg.get(3));
 	}
 	
 	@Test
@@ -1701,7 +1701,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 110, 132, "Type mismatch: cannot assign [ecore::EClass] to [Collection(ecore::EClass)]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 110, 132, "Type mismatch: cannot assign [ecore::EClass] to [Sequence(ecore::EClass)]", msg.get(0));
 	}
 	
 	@Test
@@ -1758,7 +1758,6 @@ public class TypeValidatorTest {
 		assertEquals("no error was expected but got: " + msg, 0, msg.size());
 	}
 	
-
 	@Test
 	public void testUnresolvedTypeInDeclarationError() {
 		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/unresolvedTypeInDeclaration.implem"));
@@ -1772,6 +1771,80 @@ public class TypeValidatorTest {
 		assertEquals(2, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 84, "Unresolved type , it cannot be found in any of the declared packages: [ecore, implementation, ast, test, unresolvedTypeInDecaration]", msg.get(0));
 		assertMsgEquals(ValidationMessageLevel.ERROR, 136, 157, "Unresolved type , it cannot be found in any of the declared packages: [ecore, implementation, ast, test, unresolvedTypeInDecaration]", msg.get(1));
+	}
+	
+	@Test
+	public void testAssignmentSequenceAndOrderedSetError() {
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList() ,Arrays.asList("input/validation/assignmentSequenceAndOrderedSetError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(msg.toString(), 2, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 85, 108, "Type mismatch: cannot assign [Set(java.lang.Boolean)] to [Sequence(ecore::EBoolean)]\n------------------------------------------------------------------------------------\nCall anOrderedSet->asSequence() to allow assignment", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 152, 208, "Type mismatch: cannot assign [Sequence(ecore::EClass)] to [Set(ecore::EClass)]\n------------------------------------------------------------------------------\nCall aSequence->asOrderedSet() to allow assignment", msg.get(1));
+	}
+	
+	@Test
+	public void testAdditionAssignmentSequenceAndOrderedSet() {
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList() ,Arrays.asList("input/validation/additionAssignmentSequenceAndOrderedSet.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(msg.toString(), 0, msg.size());
+	}
+	
+	@Test
+	public void testAdditionAssignmentSequenceAndOrderedSetError() {
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList() ,Arrays.asList("input/validation/additionAssignmentSequenceAndOrderedSetError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(msg.toString(), 6, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 241, 260, "[Set(java.lang.Integer)] cannot be added to [Sequence(ecore::EBoolean)] (expected [Sequence(ecore::EBoolean),ecore::EBoolean])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 283, 305, "[Sequence(java.lang.String)] cannot be added to [Set(ecore::EClass)] (expected [Set(ecore::EClass),ecore::EClass])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 414, 433, "[Set(java.lang.Integer)] cannot be added to [Sequence(ecore::EBoolean)] (expected [Sequence(ecore::EBoolean),ecore::EBoolean])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(2));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 452, 474, "[Sequence(java.lang.String)] cannot be added to [Set(ecore::EClass)] (expected [Set(ecore::EClass),ecore::EClass])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(3));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 500, 519, "[Set(java.lang.Integer)] cannot be added to [Sequence(ecore::EString)] (expected [Sequence(ecore::EString),ecore::EString])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(4));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 539, 566, "[Sequence(java.lang.Boolean)] cannot be added to [Sequence(ecore::EInt)] (expected [Sequence(ecore::EInt),ecore::EInt])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(5));
+	}
+	
+	@Test
+	public void testSubstractionAssignmentSequenceAndOrderedSet() {
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList() ,Arrays.asList("input/validation/substractionAssignmentSequenceAndOrderedSet.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(msg.toString(), 0, msg.size());
+	}
+	
+	@Test
+	public void testSubstractionAssignmentSequenceAndOrderedSetError() {
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList() ,Arrays.asList("input/validation/substractionAssignmentSequenceAndOrderedSetError.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(msg.toString(), 6, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 241, 260, "[Set(java.lang.Integer)] cannot be removed from [Sequence(ecore::EBoolean)] (expected [Sequence(ecore::EBoolean),ecore::EBoolean])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 283, 305, "[Sequence(java.lang.String)] cannot be removed from [Set(ecore::EClass)] (expected [Set(ecore::EClass),ecore::EClass])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 414, 433, "[Set(java.lang.Integer)] cannot be removed from [Sequence(ecore::EBoolean)] (expected [Sequence(ecore::EBoolean),ecore::EBoolean])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(2));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 452, 474, "[Sequence(java.lang.String)] cannot be removed from [Set(ecore::EClass)] (expected [Set(ecore::EClass),ecore::EClass])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(3));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 500, 519, "[Set(java.lang.Integer)] cannot be removed from [Sequence(ecore::EString)] (expected [Sequence(ecore::EString),ecore::EString])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(4));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 539, 566, "[Sequence(java.lang.Boolean)] cannot be removed from [Sequence(ecore::EInt)] (expected [Sequence(ecore::EInt),ecore::EInt])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(5));
 	}
 	
 }

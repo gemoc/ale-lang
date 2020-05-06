@@ -23,6 +23,7 @@ import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.acceleo.query.validation.type.NothingType;
 import org.eclipse.acceleo.query.validation.type.SequenceType;
+import org.eclipse.acceleo.query.validation.type.SetType;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EGenericType;
@@ -51,15 +52,13 @@ public final class ConvertType implements IConvertType {
 			return new SequenceType(queryEnvironment, aqlGenericType);
 		}
 		else {
-//			EStructuralFeature feature = (EStructuralFeature) typedElement;
 			if(typedElement.isMany()) {
-				// FIXME Unique is true by default so currently any feature is turned into a set; we should set it to false
-//				if(feature.isUnique()) {
-//					return new SetType(env, TypeConverter.toAQL(env, feature.getEType()));
-//				}
-//				else {
+				if(typedElement.isUnique()) {
+					return new SetType(queryEnvironment, toAQL(typedElement.getEType()));
+				}
+				else {
 					return new SequenceType(queryEnvironment, toAQL(typedElement.getEType()));
-//				}
+				}
 			}
 		}
 		return toAQL(typedElement.getEType());

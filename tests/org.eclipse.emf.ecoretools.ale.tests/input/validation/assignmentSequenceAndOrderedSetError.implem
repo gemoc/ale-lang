@@ -1,0 +1,8 @@
+behavior additionAssign;
+
+open class EClass {
+
+	Sequence(Boolean) sequenceFeature := OrderedSet{true, false}; 
+	OrderedSet(ecore::EClass) setFeature := Sequence{ecore::EClass.create(), ecore::EClass.create()}; 
+
+}

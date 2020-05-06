@@ -21,7 +21,8 @@ import org.eclipse.acceleo.query.validation.type.ClassType;
 import org.eclipse.acceleo.query.validation.type.ICollectionType;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.acceleo.query.validation.type.NothingType;
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.acceleo.query.validation.type.SequenceType;
+import org.eclipse.acceleo.query.validation.type.SetType;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -90,15 +91,17 @@ public final class TypeChecker implements ITypeChecker {
 					// string concatenation
 					return true;
 				}
+				if(isCollection(variableType) && isCollection(valueType)) {
+					ICollectionType absorbingCollection = (ICollectionType) variableType;
+					ICollectionType absorbedCollection = (ICollectionType) valueType;
+					// collections concatenation
+					return elementCanBelongToCollection(absorbingCollection, absorbedCollection.getCollectionType());  
+				}
 				if(isCollection(variableType) && elementCanBelongToCollection(variableType, valueType)) {
 					// addition of an element to a collection
 					return true;
 				}
-				if(isCollection(variableType) && isCollection(valueType) && isAssignable(variableType, valueType)) {
-					// collections concatenation
-					return true;
 			}
-		}
 		}
 		return false;
 	}
@@ -111,12 +114,14 @@ public final class TypeChecker implements ITypeChecker {
 					// subtraction
 					return true;
 				}
+				if(isCollection(variableType) && isCollection(valueType)) {
+					ICollectionType absorbingCollection = (ICollectionType) variableType;
+					ICollectionType absorbedCollection = (ICollectionType) valueType;
+					// collections difference
+					return elementCanBelongToCollection(absorbingCollection, absorbedCollection.getCollectionType());  
+				}
 				if(isCollection(variableType) && elementCanBelongToCollection(variableType, valueType)) {
 					// removing an element from a collection
-					return true;
-				}
-				if(isCollection(variableType) && isCollection(valueType) && isAssignable(variableType, valueType)) {
-					// collections difference
 					return true;
 				}
 			}
@@ -152,17 +157,19 @@ public final class TypeChecker implements ITypeChecker {
 		if (isNull(valueType)) {
 			return true;
 		}
-		boolean bothAreCollections = isCollection(variableType) && isCollection(valueType);
-		if(bothAreCollections) {
+		if (isSet(variableType) && isSet(valueType)) {
 			return collectionsHaveCompatibleGenericTypes(variableType, valueType);
 		}
-		if(isBoolean(variableType) && isBoolean(valueType)) {
+		if (isSequence(variableType) && isSequence(valueType)) {
+			return collectionsHaveCompatibleGenericTypes(variableType, valueType);
+		}
+		if (isBoolean(variableType) && isBoolean(valueType)) {
 			return true;
 		}
-		if(isInteger(variableType) && isInteger(valueType)) {
+		if (isInteger(variableType) && isInteger(valueType)) {
 			return true;
 		}
-		if(isString(variableType) && isString(valueType)) {
+		if (isString(variableType) && isString(valueType)) {
 			return true;
 		}
 		return variableType.isAssignableFrom(valueType);
@@ -234,6 +241,16 @@ public final class TypeChecker implements ITypeChecker {
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public boolean isSet(IType type) {
+		return type instanceof SetType;
+	}
+	
+	@Override
+	public boolean isSequence(IType type) {
+		return type instanceof SequenceType;
 	}
 	
 	@Override
