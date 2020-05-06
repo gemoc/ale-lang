@@ -12,6 +12,7 @@ package org.eclipse.emf.ecoretools.ale.core.validation;
 
 import java.util.Optional;
 
+import org.eclipse.acceleo.query.ast.TypeLiteral;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.acceleo.query.validation.type.NothingType;
 import org.eclipse.acceleo.query.validation.type.SequenceType;
@@ -20,6 +21,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecoretools.ale.implementation.UnresolvedEClassifier;
 
 /**
  * Performs conversions between AQL's {@link IType} and EMF's {@link EClassifier}.
@@ -89,5 +91,27 @@ public interface IConvertType {
 	 * 		   if able to convert it
 	 */
 	Optional<EClassifier> toEMF(IType type);
+
+	/**
+	 * Attempts to turn an AQL type literal into an EMF classifier.
+	 * 
+	 * @param typeLiteral
+	 * 			The AQL type literal to convert
+	 * 
+	 * @return the EMF classifier corresponding to the given AQL literal type
+	 * 		   if able to convert it
+	 */
+	Optional<EClassifier> toEMF(TypeLiteral typeLiteral);
+
+	/**
+	 * Turns a Java class into an EMF classifier.
+	 * 
+	 * @param type
+	 * 			The class to convert
+	 * 
+	 * @return the EMF classifier corresponding to the given class if able to convert it,
+	 * 		   {@link UnresolvedEClassifier} otherwise
+	 */
+	EClassifier toEMF(Class<?> type);
 	
 }

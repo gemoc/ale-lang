@@ -12,19 +12,26 @@ package org.eclipse.emf.ecoretools.ale.core.validation.impl;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import org.eclipse.acceleo.query.ast.CollectionTypeLiteral;
+import org.eclipse.acceleo.query.ast.TypeLiteral;
 import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.acceleo.query.validation.type.NothingType;
 import org.eclipse.acceleo.query.validation.type.SequenceType;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.ETypedElement;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
+import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 
 public final class ConvertType implements IConvertType {
 	
@@ -44,15 +51,15 @@ public final class ConvertType implements IConvertType {
 			}
 			return new SequenceType(queryEnvironment, aqlGenericType);
 		}
-		if(typedElement instanceof EStructuralFeature) {
-			EStructuralFeature feature = (EStructuralFeature) typedElement;
-			if(feature.isMany()) {
+		else {
+//			EStructuralFeature feature = (EStructuralFeature) typedElement;
+			if(typedElement.isMany()) {
 				// FIXME Unique is true by default so currently any feature is turned into a set; we should set it to false
 //				if(feature.isUnique()) {
 //					return new SetType(env, TypeConverter.toAQL(env, feature.getEType()));
 //				}
 //				else {
-					return new SequenceType(queryEnvironment, toAQL(feature.getEType()));
+					return new SequenceType(queryEnvironment, toAQL(typedElement.getEType()));
 //				}
 			}
 		}
@@ -83,6 +90,56 @@ public final class ConvertType implements IConvertType {
 			 return Optional.of(classifier);
 		 }
 		 return Optional.empty();
+	}
+
+	@Override
+	public Optional<EClassifier> toEMF(TypeLiteral typeLiteral) {
+		if (typeLiteral instanceof CollectionTypeLiteral) {
+			CollectionTypeLiteral collectionTypeLiteral = (CollectionTypeLiteral) typeLiteral;
+			
+			if (collectionTypeLiteral.getElementType().getValue() instanceof Class<?>) {
+				Class<?> clazz = (Class<?>) collectionTypeLiteral.getElementType().getValue();
+				
+				EClassifier classifier = toEMF(clazz);
+				if (classifier == ImplementationPackage.eINSTANCE.getUnresolvedEClassifier()) {
+					classifier = EcoreFactory.eINSTANCE.createEDataType();
+					classifier.setInstanceClass((Class<?>) collectionTypeLiteral.getElementType().getValue());
+					classifier.setName(classifier.getInstanceClass().getSimpleName());
+					classifier.setInstanceTypeName(classifier.getInstanceClass().getName());
+					classifier.setInstanceClassName(classifier.getInstanceClass().getName());
+				}
+				return Optional.ofNullable(classifier);
+			}
+			else if (collectionTypeLiteral.getElementType().getValue() instanceof EClass) {
+				EClassifier classifier = (EClass) collectionTypeLiteral.getElementType().getValue();
+				return Optional.of(classifier);
+			}
+		}
+		/*
+		 * String myString;
+		 */
+		else if (typeLiteral.getValue() instanceof Class<?>){
+			EClassifier classifier = toEMF((Class<?>) typeLiteral.getValue());
+			return Optional.of(classifier);
+		}
+		/*
+		 * ecore::EClass myVariable;
+		 */
+		else if (typeLiteral.getValue() instanceof EClassifier) {
+			return Optional.of((EClassifier) typeLiteral.getValue());
+		}
+		return Optional.empty();
+	}
+	
+	@Override
+	public EClassifier toEMF(Class<?> type) {
+			 if(type == java.lang.String.class)		return EcorePackage.eINSTANCE.getEString();
+		else if(type == java.lang.Integer.class)	return EcorePackage.eINSTANCE.getEInt();
+		else if(type == java.lang.Double.class)		return EcorePackage.eINSTANCE.getEDouble();
+		else if(type == java.lang.Boolean.class)	return EcorePackage.eINSTANCE.getEBoolean();
+		else if(type == List.class)					return EcorePackage.eINSTANCE.getEEList();
+		else if(type == Set.class)					return EcorePackage.eINSTANCE.getEEList();
+		else										return ImplementationPackage.eINSTANCE.getUnresolvedEClassifier();
 	}
 	
 }
