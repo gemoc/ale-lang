@@ -85,6 +85,7 @@ public class VariableRemoveImpl extends AssignmentImpl implements VariableRemove
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -94,6 +95,7 @@ public class VariableRemoveImpl extends AssignmentImpl implements VariableRemove
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;

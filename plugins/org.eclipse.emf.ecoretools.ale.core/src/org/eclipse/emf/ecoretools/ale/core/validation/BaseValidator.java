@@ -400,7 +400,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			lastScope.put(varDecl.getName(), getPossibleTypes(varDecl.getInitialValue()));
 		}
 		else {
-			EClassifierType declaredType = new EClassifierType(qryEnv, varDecl.getType());
+			IType declaredType = convert.toAQL(varDecl.getType());
 			lastScope.put(varDecl.getName(), Sets.newHashSet(declaredType));
 		}
 		

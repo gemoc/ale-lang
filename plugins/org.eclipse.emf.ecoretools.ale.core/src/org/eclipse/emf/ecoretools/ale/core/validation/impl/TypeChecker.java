@@ -21,8 +21,9 @@ import org.eclipse.acceleo.query.validation.type.ClassType;
 import org.eclipse.acceleo.query.validation.type.ICollectionType;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.acceleo.query.validation.type.NothingType;
-import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecoretools.ale.core.validation.BaseValidator;
 import org.eclipse.emf.ecoretools.ale.core.validation.ITypeChecker;
@@ -96,8 +97,8 @@ public final class TypeChecker implements ITypeChecker {
 				if(isCollection(variableType) && isCollection(valueType) && isAssignable(variableType, valueType)) {
 					// collections concatenation
 					return true;
-				}
 			}
+		}
 		}
 		return false;
 	}
@@ -259,8 +260,8 @@ public final class TypeChecker implements ITypeChecker {
 	}
 	
 	@Override
-	public boolean isUnresolved(EClassifier type) {
-		return type == ImplementationPackage.eINSTANCE.getUnresolvedEClassifier();
+	public boolean isUnresolved(ETypedElement type) {
+		return type.getEType() == ImplementationPackage.eINSTANCE.getUnresolvedEClassifier();
 	}
 
 	@Override

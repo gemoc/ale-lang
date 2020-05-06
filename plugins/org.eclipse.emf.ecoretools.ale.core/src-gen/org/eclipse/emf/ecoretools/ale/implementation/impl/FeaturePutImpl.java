@@ -122,6 +122,7 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getTarget() {
 		return target;
 	}
@@ -146,6 +147,7 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTarget(Expression newTarget) {
 		if (newTarget != target) {
 			NotificationChain msgs = null;
@@ -165,6 +167,7 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTargetFeature() {
 		return targetFeature;
 	}
@@ -174,6 +177,7 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTargetFeature(String newTargetFeature) {
 		String oldTargetFeature = targetFeature;
 		targetFeature = newTargetFeature;
@@ -186,6 +190,7 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getKey() {
 		return key;
 	}
@@ -210,6 +215,7 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKey(Expression newKey) {
 		if (newKey != key) {
 			NotificationChain msgs = null;
@@ -229,6 +235,7 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getValue() {
 		return value;
 	}
@@ -253,6 +260,7 @@ public class FeaturePutImpl extends StatementImpl implements FeaturePut {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(Expression newValue) {
 		if (newValue != value) {
 			NotificationChain msgs = null;

@@ -276,15 +276,8 @@ public class ModelBuilder {
 			varDecl.setInitialValue(parseExp(exp,parseRes));
 		}
 		ETypedElement declaredType = resolve(type);
-		varDecl.setType(declaredType.getEType());
+		varDecl.setType(declaredType);
 		
-		// FIXME This is a hack: declaration should have bounds and isUnique such as Attribute
-		//		 Currently we can't represent Sets and nested Lists
-		
-		if(declaredType.isMany()) {
-			varDecl.setType(EcorePackage.eINSTANCE.getEEList());
-			varDecl.setTypeParameter(resolveParameterType(type));
-		}
 		return varDecl;
 	}
 	

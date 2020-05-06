@@ -107,6 +107,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModelBehavior createModelBehavior() {
 		ModelBehaviorImpl modelBehavior = new ModelBehaviorImpl();
 		return modelBehavior;
@@ -117,6 +118,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExtendedClass createExtendedClass() {
 		ExtendedClassImpl extendedClass = new ExtendedClassImpl();
 		return extendedClass;
@@ -127,6 +129,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RuntimeClass createRuntimeClass() {
 		RuntimeClassImpl runtimeClass = new RuntimeClassImpl();
 		return runtimeClass;
@@ -137,6 +140,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Method createMethod() {
 		MethodImpl method = new MethodImpl();
 		return method;
@@ -147,6 +151,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ModelUnit createModelUnit() {
 		ModelUnitImpl modelUnit = new ModelUnitImpl();
 		return modelUnit;
@@ -157,6 +162,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Attribute createAttribute() {
 		AttributeImpl attribute = new AttributeImpl();
 		return attribute;
@@ -167,6 +173,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Block createBlock() {
 		BlockImpl block = new BlockImpl();
 		return block;
@@ -177,6 +184,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Statement createStatement() {
 		StatementImpl statement = new StatementImpl();
 		return statement;
@@ -187,6 +195,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VariableDeclaration createVariableDeclaration() {
 		VariableDeclarationImpl variableDeclaration = new VariableDeclarationImpl();
 		return variableDeclaration;
@@ -197,6 +206,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Assignment createAssignment() {
 		AssignmentImpl assignment = new AssignmentImpl();
 		return assignment;
@@ -207,6 +217,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VariableAssignment createVariableAssignment() {
 		VariableAssignmentImpl variableAssignment = new VariableAssignmentImpl();
 		return variableAssignment;
@@ -217,6 +228,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureAssignment createFeatureAssignment() {
 		FeatureAssignmentImpl featureAssignment = new FeatureAssignmentImpl();
 		return featureAssignment;
@@ -227,6 +239,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureInsert createFeatureInsert() {
 		FeatureInsertImpl featureInsert = new FeatureInsertImpl();
 		return featureInsert;
@@ -237,6 +250,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureRemove createFeatureRemove() {
 		FeatureRemoveImpl featureRemove = new FeatureRemoveImpl();
 		return featureRemove;
@@ -247,6 +261,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VariableInsert createVariableInsert() {
 		VariableInsertImpl variableInsert = new VariableInsertImpl();
 		return variableInsert;
@@ -257,6 +272,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public VariableRemove createVariableRemove() {
 		VariableRemoveImpl variableRemove = new VariableRemoveImpl();
 		return variableRemove;
@@ -267,6 +283,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeaturePut createFeaturePut() {
 		FeaturePutImpl featurePut = new FeaturePutImpl();
 		return featurePut;
@@ -277,6 +294,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ForEach createForEach() {
 		ForEachImpl forEach = new ForEachImpl();
 		return forEach;
@@ -287,6 +305,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public While createWhile() {
 		WhileImpl while_ = new WhileImpl();
 		return while_;
@@ -297,6 +316,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public If createIf() {
 		IfImpl if_ = new IfImpl();
 		return if_;
@@ -307,6 +327,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConditionalBlock createConditionalBlock() {
 		ConditionalBlockImpl conditionalBlock = new ConditionalBlockImpl();
 		return conditionalBlock;
@@ -317,6 +338,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExpressionStatement createExpressionStatement() {
 		ExpressionStatementImpl expressionStatement = new ExpressionStatementImpl();
 		return expressionStatement;
@@ -327,6 +349,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Switch createSwitch() {
 		SwitchImpl switch_ = new SwitchImpl();
 		return switch_;
@@ -337,6 +360,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Case createCase() {
 		CaseImpl case_ = new CaseImpl();
 		return case_;
@@ -347,6 +371,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UnresolvedEClassifier createUnresolvedEClassifier() {
 		UnresolvedEClassifierImpl unresolvedEClassifier = new UnresolvedEClassifierImpl();
 		return unresolvedEClassifier;
@@ -357,6 +382,7 @@ public class ImplementationFactoryImpl extends EFactoryImpl implements Implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ImplementationPackage getImplementationPackage() {
 		return (ImplementationPackage)getEPackage();
 	}

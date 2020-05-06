@@ -91,6 +91,7 @@ public class ConditionalBlockImpl extends StatementImpl implements ConditionalBl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getCondition() {
 		return condition;
 	}
@@ -115,6 +116,7 @@ public class ConditionalBlockImpl extends StatementImpl implements ConditionalBl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCondition(Expression newCondition) {
 		if (newCondition != condition) {
 			NotificationChain msgs = null;
@@ -134,6 +136,7 @@ public class ConditionalBlockImpl extends StatementImpl implements ConditionalBl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Block getBlock() {
 		return block;
 	}
@@ -158,6 +161,7 @@ public class ConditionalBlockImpl extends StatementImpl implements ConditionalBl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBlock(Block newBlock) {
 		if (newBlock != block) {
 			NotificationChain msgs = null;

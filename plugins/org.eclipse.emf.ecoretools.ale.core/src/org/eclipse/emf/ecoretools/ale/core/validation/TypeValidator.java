@@ -148,7 +148,7 @@ public class TypeValidator implements IValidator {
 		// Check whether the types of the attributes can be resolved
 		
 		clazz.getAttributes().stream()
-		.filter(att -> typeChecker.isUnresolved(att.getFeatureRef().getEType()))
+		.filter(att -> typeChecker.isUnresolved(att.getFeatureRef()))
 		.map(messages::unresolvedType)
 		.forEach(msgs::add);
 		
@@ -314,7 +314,7 @@ public class TypeValidator implements IValidator {
 			// Nothing to validate: no initial value => a default one will be used instead.
 			return NO_PROBLEM;
 		}
-		IType variableType = convert.toAQL(varDecl.getType(), varDecl.getTypeParameter());
+		IType variableType = convert.toAQL(varDecl.getType());
 		Set<IType> valueTypes = lookup.inferredTypesOf(varDecl.getInitialValue());
 		
 		boolean initialValueCanBeAssigned = typeChecker.isAssignable(variableType, valueTypes);

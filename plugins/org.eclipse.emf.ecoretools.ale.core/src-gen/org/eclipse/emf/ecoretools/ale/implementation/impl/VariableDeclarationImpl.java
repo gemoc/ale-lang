@@ -17,7 +17,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -36,7 +36,6 @@ import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.VariableDeclarationImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.VariableDeclarationImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.VariableDeclarationImpl#getInitialValue <em>Initial Value</em>}</li>
- *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.VariableDeclarationImpl#getTypeParameter <em>Type Parameter</em>}</li>
  * </ul>
  *
  * @generated
@@ -77,7 +76,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * @generated
 	 * @ordered
 	 */
-	protected EClassifier type;
+	protected ETypedElement type;
 
 	/**
 	 * The cached value of the '{@link #getInitialValue() <em>Initial Value</em>}' containment reference.
@@ -88,16 +87,6 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * @ordered
 	 */
 	protected Expression initialValue;
-
-	/**
-	 * The cached value of the '{@link #getTypeParameter() <em>Type Parameter</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTypeParameter()
-	 * @generated
-	 * @ordered
-	 */
-	protected EClassifier typeParameter;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -123,6 +112,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -132,6 +122,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -144,10 +135,11 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClassifier getType() {
+	@Override
+	public ETypedElement getType() {
 		if (type != null && type.eIsProxy()) {
 			InternalEObject oldType = (InternalEObject)type;
-			type = (EClassifier)eResolveProxy(oldType);
+			type = (ETypedElement)eResolveProxy(oldType);
 			if (type != oldType) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ImplementationPackage.VARIABLE_DECLARATION__TYPE, oldType, type));
@@ -161,7 +153,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClassifier basicGetType() {
+	public ETypedElement basicGetType() {
 		return type;
 	}
 
@@ -170,8 +162,9 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setType(EClassifier newType) {
-		EClassifier oldType = type;
+	@Override
+	public void setType(ETypedElement newType) {
+		ETypedElement oldType = type;
 		type = newType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.VARIABLE_DECLARATION__TYPE, oldType, type));
@@ -182,6 +175,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getInitialValue() {
 		return initialValue;
 	}
@@ -206,6 +200,7 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitialValue(Expression newInitialValue) {
 		if (newInitialValue != initialValue) {
 			NotificationChain msgs = null;
@@ -218,44 +213,6 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE, newInitialValue, newInitialValue));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClassifier getTypeParameter() {
-		if (typeParameter != null && typeParameter.eIsProxy()) {
-			InternalEObject oldTypeParameter = (InternalEObject)typeParameter;
-			typeParameter = (EClassifier)eResolveProxy(oldTypeParameter);
-			if (typeParameter != oldTypeParameter) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ImplementationPackage.VARIABLE_DECLARATION__TYPE_PARAMETER, oldTypeParameter, typeParameter));
-			}
-		}
-		return typeParameter;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClassifier basicGetTypeParameter() {
-		return typeParameter;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTypeParameter(EClassifier newTypeParameter) {
-		EClassifier oldTypeParameter = typeParameter;
-		typeParameter = newTypeParameter;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.VARIABLE_DECLARATION__TYPE_PARAMETER, oldTypeParameter, typeParameter));
 	}
 
 	/**
@@ -287,9 +244,6 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 				return basicGetType();
 			case ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
 				return getInitialValue();
-			case ImplementationPackage.VARIABLE_DECLARATION__TYPE_PARAMETER:
-				if (resolve) return getTypeParameter();
-				return basicGetTypeParameter();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -306,13 +260,10 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 				setName((String)newValue);
 				return;
 			case ImplementationPackage.VARIABLE_DECLARATION__TYPE:
-				setType((EClassifier)newValue);
+				setType((ETypedElement)newValue);
 				return;
 			case ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
 				setInitialValue((Expression)newValue);
-				return;
-			case ImplementationPackage.VARIABLE_DECLARATION__TYPE_PARAMETER:
-				setTypeParameter((EClassifier)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -330,13 +281,10 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 				setName(NAME_EDEFAULT);
 				return;
 			case ImplementationPackage.VARIABLE_DECLARATION__TYPE:
-				setType((EClassifier)null);
+				setType((ETypedElement)null);
 				return;
 			case ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
 				setInitialValue((Expression)null);
-				return;
-			case ImplementationPackage.VARIABLE_DECLARATION__TYPE_PARAMETER:
-				setTypeParameter((EClassifier)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -356,8 +304,6 @@ public class VariableDeclarationImpl extends StatementImpl implements VariableDe
 				return type != null;
 			case ImplementationPackage.VARIABLE_DECLARATION__INITIAL_VALUE:
 				return initialValue != null;
-			case ImplementationPackage.VARIABLE_DECLARATION__TYPE_PARAMETER:
-				return typeParameter != null;
 		}
 		return super.eIsSet(featureID);
 	}
