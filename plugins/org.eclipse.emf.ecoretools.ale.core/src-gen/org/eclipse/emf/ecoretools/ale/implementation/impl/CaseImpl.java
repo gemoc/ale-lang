@@ -103,6 +103,7 @@ public class CaseImpl extends MinimalEObjectImpl.Container implements Case {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClassifier getGuard() {
 		if (guard != null && guard.eIsProxy()) {
 			InternalEObject oldGuard = (InternalEObject)guard;
@@ -129,6 +130,7 @@ public class CaseImpl extends MinimalEObjectImpl.Container implements Case {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setGuard(EClassifier newGuard) {
 		EClassifier oldGuard = guard;
 		guard = newGuard;
@@ -141,6 +143,7 @@ public class CaseImpl extends MinimalEObjectImpl.Container implements Case {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getMatch() {
 		return match;
 	}
@@ -165,6 +168,7 @@ public class CaseImpl extends MinimalEObjectImpl.Container implements Case {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMatch(Expression newMatch) {
 		if (newMatch != match) {
 			NotificationChain msgs = null;
@@ -184,6 +188,7 @@ public class CaseImpl extends MinimalEObjectImpl.Container implements Case {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getValue() {
 		return value;
 	}
@@ -208,6 +213,7 @@ public class CaseImpl extends MinimalEObjectImpl.Container implements Case {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(Expression newValue) {
 		if (newValue != value) {
 			NotificationChain msgs = null;

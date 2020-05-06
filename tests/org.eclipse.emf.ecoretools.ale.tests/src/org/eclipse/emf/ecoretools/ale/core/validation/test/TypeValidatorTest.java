@@ -550,7 +550,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 81, 89, "[java.lang.String] cannot be added to [Collection(ecore::EClass)] (expected [Collection(ecore::EClass),ecore::EClass])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 81, 89, "[java.lang.String] cannot be added to [Set(ecore::EClass)] (expected [Set(ecore::EClass),ecore::EClass])", msg.get(0));
 	}
 	
 	/*
@@ -748,7 +748,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 80, 88, "[java.lang.String] cannot be removed from [Collection(ecore::EClass)] (expected [Collection(ecore::EClass),ecore::EClass])", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 80, 88, "[java.lang.String] cannot be removed from [Set(ecore::EClass)] (expected [Set(ecore::EClass),ecore::EClass])", msg.get(0));
 	}
 	
 	/*
@@ -1527,7 +1527,7 @@ public class TypeValidatorTest {
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
-		assertEquals(0, msg.size());
+		assertEquals(msg.toString(), 0, msg.size());
 	}
 	
 	@Test
@@ -1541,7 +1541,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 90, 94, "Type mismatch: cannot assign [ecore::EClass] to [Collection(ecore::EClass)]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 90, 94, "Type mismatch: cannot assign [ecore::EClass] to [Set(ecore::EClass)]", msg.get(0));
 	}
 	
 	@Test
@@ -1555,7 +1555,7 @@ public class TypeValidatorTest {
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 90, 91, "Type mismatch: cannot assign [java.lang.Integer] to [Collection(ecore::EClass)]", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 90, 91, "Type mismatch: cannot assign [java.lang.Integer] to [Set(ecore::EClass)]", msg.get(0));
 	}
 	
 	@Test

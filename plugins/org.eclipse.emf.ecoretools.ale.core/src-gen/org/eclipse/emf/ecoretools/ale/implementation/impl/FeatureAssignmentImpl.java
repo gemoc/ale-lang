@@ -99,6 +99,7 @@ public class FeatureAssignmentImpl extends AssignmentImpl implements FeatureAssi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Expression getTarget() {
 		return target;
 	}
@@ -123,6 +124,7 @@ public class FeatureAssignmentImpl extends AssignmentImpl implements FeatureAssi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTarget(Expression newTarget) {
 		if (newTarget != target) {
 			NotificationChain msgs = null;
@@ -142,6 +144,7 @@ public class FeatureAssignmentImpl extends AssignmentImpl implements FeatureAssi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTargetFeature() {
 		return targetFeature;
 	}
@@ -151,6 +154,7 @@ public class FeatureAssignmentImpl extends AssignmentImpl implements FeatureAssi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTargetFeature(String newTargetFeature) {
 		String oldTargetFeature = targetFeature;
 		targetFeature = newTargetFeature;

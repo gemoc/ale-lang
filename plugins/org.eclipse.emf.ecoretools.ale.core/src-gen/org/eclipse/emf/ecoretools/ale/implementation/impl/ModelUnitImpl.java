@@ -106,6 +106,7 @@ public class ModelUnitImpl extends ENamedElementImpl implements ModelUnit {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<String> getServices() {
 		if (services == null) {
 			services = new EDataTypeUniqueEList<String>(String.class, this, ImplementationPackage.MODEL_UNIT__SERVICES);
@@ -118,6 +119,7 @@ public class ModelUnitImpl extends ENamedElementImpl implements ModelUnit {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ExtendedClass> getClassExtensions() {
 		if (classExtensions == null) {
 			classExtensions = new EObjectContainmentEList<ExtendedClass>(ExtendedClass.class, this, ImplementationPackage.MODEL_UNIT__CLASS_EXTENSIONS);
@@ -130,6 +132,7 @@ public class ModelUnitImpl extends ENamedElementImpl implements ModelUnit {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<RuntimeClass> getClassDefinitions() {
 		if (classDefinitions == null) {
 			classDefinitions = new EObjectContainmentEList<RuntimeClass>(RuntimeClass.class, this, ImplementationPackage.MODEL_UNIT__CLASS_DEFINITIONS);

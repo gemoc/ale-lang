@@ -107,6 +107,7 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -116,6 +117,7 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -128,6 +130,7 @@ public class ModelBehaviorImpl extends MinimalEObjectImpl.Container implements M
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ModelUnit> getUnits() {
 		if (units == null) {
 			units = new EObjectContainmentEList<ModelUnit>(ModelUnit.class, this, ImplementationPackage.MODEL_BEHAVIOR__UNITS);

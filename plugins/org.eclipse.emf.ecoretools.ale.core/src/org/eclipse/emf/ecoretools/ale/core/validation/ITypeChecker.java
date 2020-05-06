@@ -15,7 +15,7 @@ import java.util.Set;
 
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.validation.type.IType;
-import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.ETypedElement;
 
 /**
  * Used to check properties about types manipulated by ALE.
@@ -240,7 +240,7 @@ public interface ITypeChecker {
 	 * 
 	 * @return false is the type has been resolved, true otherwise
 	 */
-	boolean isUnresolved(EClassifier type);
+	boolean isUnresolved(ETypedElement type);
 	
 	/**
 	 * Determines whether a type supports the '+=' operator.

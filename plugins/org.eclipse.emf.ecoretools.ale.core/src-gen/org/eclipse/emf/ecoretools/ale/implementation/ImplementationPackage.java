@@ -697,22 +697,13 @@ public interface ImplementationPackage extends EPackage {
 	int VARIABLE_DECLARATION__INITIAL_VALUE = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Type Parameter</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_DECLARATION__TYPE_PARAMETER = STATEMENT_FEATURE_COUNT + 3;
-
-	/**
 	 * The number of structural features of the '<em>Variable Declaration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_DECLARATION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 4;
+	int VARIABLE_DECLARATION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Variable Declaration</em>' class.
@@ -1819,17 +1810,6 @@ public interface ImplementationPackage extends EPackage {
 	EReference getVariableDeclaration_InitialValue();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration#getTypeParameter <em>Type Parameter</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Type Parameter</em>'.
-	 * @see org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration#getTypeParameter()
-	 * @see #getVariableDeclaration()
-	 * @generated
-	 */
-	EReference getVariableDeclaration_TypeParameter();
-
-	/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.Assignment <em>Assignment</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2601,14 +2581,6 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference VARIABLE_DECLARATION__INITIAL_VALUE = eINSTANCE.getVariableDeclaration_InitialValue();
-
-		/**
-		 * The meta object literal for the '<em><b>Type Parameter</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference VARIABLE_DECLARATION__TYPE_PARAMETER = eINSTANCE.getVariableDeclaration_TypeParameter();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.AssignmentImpl <em>Assignment</em>}' class.

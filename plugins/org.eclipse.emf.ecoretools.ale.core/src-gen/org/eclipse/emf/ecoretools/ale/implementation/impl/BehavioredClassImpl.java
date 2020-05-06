@@ -108,6 +108,7 @@ public abstract class BehavioredClassImpl extends ENamedElementImpl implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Method> getMethods() {
 		if (methods == null) {
 			methods = new EObjectContainmentEList<Method>(Method.class, this, ImplementationPackage.BEHAVIORED_CLASS__METHODS);
@@ -120,6 +121,7 @@ public abstract class BehavioredClassImpl extends ENamedElementImpl implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Attribute> getAttributes() {
 		if (attributes == null) {
 			attributes = new EObjectContainmentEList<Attribute>(Attribute.class, this, ImplementationPackage.BEHAVIORED_CLASS__ATTRIBUTES);
@@ -132,6 +134,7 @@ public abstract class BehavioredClassImpl extends ENamedElementImpl implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFragment() {
 		return fragment;
 	}
@@ -156,6 +159,7 @@ public abstract class BehavioredClassImpl extends ENamedElementImpl implements B
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFragment(EClass newFragment) {
 		if (newFragment != fragment) {
 			NotificationChain msgs = null;

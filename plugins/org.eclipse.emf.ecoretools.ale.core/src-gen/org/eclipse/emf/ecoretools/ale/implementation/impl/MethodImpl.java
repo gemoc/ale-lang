@@ -108,6 +108,7 @@ public class MethodImpl extends MinimalEObjectImpl.Container implements Method {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getOperationRef() {
 		if (operationRef != null && operationRef.eIsProxy()) {
 			InternalEObject oldOperationRef = (InternalEObject)operationRef;
@@ -134,6 +135,7 @@ public class MethodImpl extends MinimalEObjectImpl.Container implements Method {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOperationRef(EOperation newOperationRef) {
 		EOperation oldOperationRef = operationRef;
 		operationRef = newOperationRef;
@@ -146,6 +148,7 @@ public class MethodImpl extends MinimalEObjectImpl.Container implements Method {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Block getBody() {
 		return body;
 	}
@@ -170,6 +173,7 @@ public class MethodImpl extends MinimalEObjectImpl.Container implements Method {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBody(Block newBody) {
 		if (newBody != body) {
 			NotificationChain msgs = null;
@@ -189,6 +193,7 @@ public class MethodImpl extends MinimalEObjectImpl.Container implements Method {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<String> getTags() {
 		if (tags == null) {
 			tags = new EDataTypeUniqueEList<String>(String.class, this, ImplementationPackage.METHOD__TAGS);

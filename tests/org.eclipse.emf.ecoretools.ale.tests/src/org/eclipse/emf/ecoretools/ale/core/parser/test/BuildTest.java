@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.RuntimeAleEnvironment;
@@ -161,11 +162,11 @@ public class BuildTest {
 		Statement local1 = body.getStatements().get(1);
 		assertTrue(local0 instanceof VariableDeclaration);
 		assertEquals("localVariable",((VariableDeclaration)local0).getName());
-		assertEquals(EcorePackage.eINSTANCE.getEBoolean(),((VariableDeclaration)local0).getType());
+		assertEquals(EcorePackage.eINSTANCE.getEBoolean(),((VariableDeclaration)local0).getType().getEType());
 		assertNull(((VariableDeclaration)local0).getInitialValue());
 		assertTrue(local1 instanceof VariableDeclaration);
 		assertEquals("loacalValue",((VariableDeclaration)local1).getName());
-		assertEquals(EcorePackage.eINSTANCE.getEDouble(),((VariableDeclaration)local1).getType());
+		assertEquals(EcorePackage.eINSTANCE.getEDouble(),((VariableDeclaration)local1).getType().getEType());
 		assertNotNull(((VariableDeclaration)local1).getInitialValue());
 		Expression value = ((VariableDeclaration)local1).getInitialValue();
 		assertTrue(value instanceof Call);
@@ -249,7 +250,7 @@ public class BuildTest {
 		Statement local0 = body.getStatements().get(0);
 		assertTrue(local0 instanceof VariableDeclaration);
 		assertEquals("me",((VariableDeclaration)local0).getName());
-		assertEquals(EcorePackage.eINSTANCE.getEPackage(),((VariableDeclaration)local0).getType());
+		assertEquals(EcorePackage.eINSTANCE.getEPackage(),((VariableDeclaration)local0).getType().getEType());
 		Expression value = ((VariableDeclaration)local0).getInitialValue();
 		assertNotNull(value);
 		assertTrue(value instanceof VarRef);
@@ -272,7 +273,7 @@ public class BuildTest {
 		Statement stmt = loop1Body.getStatements().get(0);
 		assertTrue(stmt instanceof VariableDeclaration);
 		assertEquals("o",((VariableDeclaration)stmt).getName());
-		assertEquals(EcorePackage.eINSTANCE.getEObject(),((VariableDeclaration)stmt).getType());
+		assertEquals(EcorePackage.eINSTANCE.getEObject(),((VariableDeclaration)stmt).getType().getEType());
 		Expression stmtValue = ((VariableDeclaration)stmt).getInitialValue();
 		assertNotNull(stmtValue);
 		assertTrue(stmtValue instanceof Call);
@@ -401,7 +402,7 @@ public class BuildTest {
 		assertTrue(stmt1 instanceof VariableDeclaration);
 		VariableDeclaration var = (VariableDeclaration) stmt1;
 		assertEquals("i", var.getName());
-		assertEquals(EcorePackage.eINSTANCE.getEInt(), var.getType());
+		assertEquals(EcorePackage.eINSTANCE.getEInt(), var.getType().getEType());
 		assertNotNull(var.getInitialValue());
 		Expression value = var.getInitialValue();
 		assertTrue(value instanceof IntegerLiteral);
@@ -470,7 +471,7 @@ public class BuildTest {
 		Statement local0 = body.getStatements().get(0);
 		assertTrue(local0 instanceof VariableDeclaration);
 		assertEquals("me",((VariableDeclaration)local0).getName());
-		assertEquals(EcorePackage.eINSTANCE.getEPackage(),((VariableDeclaration)local0).getType());
+		assertEquals(EcorePackage.eINSTANCE.getEPackage(),((VariableDeclaration)local0).getType().getEType());
 		Expression value = ((VariableDeclaration)local0).getInitialValue();
 		assertNotNull(value);
 		assertTrue(value instanceof VarRef);
@@ -480,7 +481,7 @@ public class BuildTest {
 		assertTrue(stmt1 instanceof VariableDeclaration);
 		VariableDeclaration var = (VariableDeclaration) stmt1;
 		assertEquals("i", var.getName());
-		assertEquals(EcorePackage.eINSTANCE.getEInt(), var.getType());
+		assertEquals(EcorePackage.eINSTANCE.getEInt(), var.getType().getEType());
 		assertNotNull(var.getInitialValue());
 		Expression value1 = var.getInitialValue();
 		assertTrue(value1 instanceof IntegerLiteral);
@@ -892,7 +893,10 @@ public class BuildTest {
 		
 		Statement localDeclaration = body.getStatements().get(0);
 		assertTrue(localDeclaration instanceof VariableDeclaration);
-		assertEquals(EcorePackage.eINSTANCE.getEEList(), ((VariableDeclaration)localDeclaration).getType());
+		ETypedElement localDeclarationType = ((VariableDeclaration)localDeclaration).getType();
+		assertEquals(0, localDeclarationType.getLowerBound());
+		assertEquals(-1, localDeclarationType.getUpperBound());
+		assertEquals(EcorePackage.eINSTANCE.getEObject(), localDeclarationType.getEType());
 		assertEquals("local",((VariableDeclaration)localDeclaration).getName());
 		assertTrue(((VariableDeclaration)localDeclaration).getInitialValue() instanceof SequenceInExtensionLiteral);
 		assertEquals(0, ((SequenceInExtensionLiteral)((VariableDeclaration)localDeclaration).getInitialValue()).getValues().size());
@@ -932,7 +936,10 @@ public class BuildTest {
 		
 		Statement localDeclaration = body.getStatements().get(0);
 		assertTrue(localDeclaration instanceof VariableDeclaration);
-		assertEquals(EcorePackage.eINSTANCE.getEEList(), ((VariableDeclaration)localDeclaration).getType());
+		ETypedElement localDeclarationType = ((VariableDeclaration)localDeclaration).getType();
+		assertEquals(0, localDeclarationType.getLowerBound());
+		assertEquals(-1, localDeclarationType.getUpperBound());
+		assertEquals(EcorePackage.eINSTANCE.getEObject(), localDeclarationType.getEType());
 		assertEquals("local",((VariableDeclaration)localDeclaration).getName());
 		assertTrue(((VariableDeclaration)localDeclaration).getInitialValue() instanceof SequenceInExtensionLiteral);
 		assertEquals(1, ((SequenceInExtensionLiteral)((VariableDeclaration)localDeclaration).getInitialValue()).getValues().size());

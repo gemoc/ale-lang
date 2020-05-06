@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecoretools.ale.core.validation.BaseValidator;
 import org.eclipse.emf.ecoretools.ale.core.validation.IAstLookup;
 import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
@@ -84,9 +85,8 @@ public final class AstLookup implements IAstLookup {
 						.filter(varDecl -> varDecl.getName().equals(variableName))
 						.findFirst();
 					if(candidate.isPresent()) {
-						EClassifier type = candidate.get().getType();
-						EClassifier typeParameter = candidate.get().getTypeParameter();
-						declaredTypes.add(convert.toAQL(type, typeParameter));
+						ETypedElement type = candidate.get().getType();
+						declaredTypes.add(convert.toAQL(type));
 						return declaredTypes;
 					}
 				}
