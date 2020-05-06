@@ -542,8 +542,8 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		return qryEnv;
 	}
 	
-	public Method getContainingOperation(VariableAssignment varAssign) {
-		EObject parent = varAssign.eContainer();
+	public Method getContainingOperation(Statement statement) {
+		EObject parent = statement.eContainer();
 		while(parent != null && !(parent instanceof Method)){
 			parent = parent.eContainer();
 		}

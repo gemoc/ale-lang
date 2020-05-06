@@ -323,23 +323,6 @@ public class TypeValidatorTest {
 	}
 	
 	/*
-	 * Test value of result conflict the return type void
-	 */
-	@Test
-	public void testReturnAssignVoid() {
-		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList(),Arrays.asList("input/validation/assignVoid.implem"));
-		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
-		
-		
-		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
-		validator.validate(parsedSemantics);
-		List<IValidationMessage> msg = validator.getMessages();
-		
-		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 65, 76, "Cannot assign 'result' in a void operation", msg.get(0));
-	}
-	
-	/*
 	 * Test assigned value doesn't conflict the feature type of the baseClass
 	 */
 	@Test

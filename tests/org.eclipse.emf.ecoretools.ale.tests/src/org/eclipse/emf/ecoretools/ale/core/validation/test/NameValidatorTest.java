@@ -904,7 +904,7 @@ public class NameValidatorTest {
 	}
 	
 	/*
-	 * Test value of result conflict the return type void
+	 * Test that no value can be assigned (:=, ++, -=) to the 'result' variable
 	 */
 	@Test
 	public void testReturnAssignVoid() {
@@ -916,7 +916,9 @@ public class NameValidatorTest {
 		validator.validate(parsedSemantics);
 		List<IValidationMessage> msg = validator.getMessages();
 		
-		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 65, 76, "Cannot assign 'result' in a void operation", msg.get(0));
+		assertEquals(3, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 65, 76, "'result' is not available in a void method. Change method's return type", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 80, 91, "'result' is not available in a void method. Change method's return type", msg.get(1));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 95, 106, "'result' is not available in a void method. Change method's return type", msg.get(2));
 	}
 }
