@@ -1847,4 +1847,17 @@ public class TypeValidatorTest {
 		assertMsgEquals(ValidationMessageLevel.ERROR, 539, 566, "[Sequence(java.lang.Boolean)] cannot be removed from [Sequence(ecore::EInt)] (expected [Sequence(ecore::EInt),ecore::EInt])\n--------------------------------------------------\nMake sure both collections hold the same type", msg.get(5));
 	}
 	
+	@Test
+	public void testAssignmentsInvolvingRuntimeClassesAreTypeChecked() {
+		IAleEnvironment environment = new RuntimeAleEnvironment(Arrays.asList() ,Arrays.asList("input/validation/assignmentsInvolvingRuntimeClasses.implem"));
+		List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(environment);
+		
+		ALEValidator validator = new ALEValidator(interpreter.getQueryEnvironment());
+		validator.validate(parsedSemantics);
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(msg.toString(), 1, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 278, 282, "Type mismatch: cannot assign [ecore::EClass] to [helloworld::MyClass]", msg.get(0));
+	}
+	
 }

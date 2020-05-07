@@ -117,11 +117,13 @@ public class AstBuilder {
 				while(topPkg.getESuperPackage() != null){
 					topPkg = topPkg.getESuperPackage();
 				}
-				// TODO Check whether qryEnv.removeEPackage(topPkg) should be called before
-				// 		There is a show stopper preventing the package to be registered again
-				//		-- could it prevent package updates?
-				//		See: https://git.eclipse.org/c/acceleo/org.eclipse.acceleo.git/tree/query/plugins/org.eclipse.acceleo.query/src/org/eclipse/acceleo/query/runtime/impl/EPackageProvider.java#n265
-				//			 (commit 	41f1588)
+				
+				// removeEPackage() is called to make sure the package is updated
+				// Otherwise a show stopper prevents the package to be registered again
+				//
+				// See: https://git.eclipse.org/c/acceleo/org.eclipse.acceleo.git/tree/query/plugins/org.eclipse.acceleo.query/src/org/eclipse/acceleo/query/runtime/impl/EPackageProvider.java#n265
+				//	    (commit 	41f1588)
+				qryEnv.removeEPackage(topPkg);
 				qryEnv.registerEPackage(topPkg);
 			});
 		

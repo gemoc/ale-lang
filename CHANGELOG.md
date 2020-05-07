@@ -6,8 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 ### Fixed
 - [#4](https://github.com/gemoc/ale-lang/issues/4) The .dsl configuration file and the .ale source file must have the same base name
-- [#64](https://github.com/gemoc/ale-lang/issues/64) Allow to assign `null` to variables
-- [#67](https://github.com/gemoc/ale-lang/issues/67) Forbid assignments from `Sequence` to `OrderedSet` and vice versa
+- [#51](https://github.com/gemoc/ale-lang/issues/51) Pure ALE classes are not handled by the type checker
+- [#64](https://github.com/gemoc/ale-lang/issues/64) `null` cannot be assigned to variables
+- [#67](https://github.com/gemoc/ale-lang/issues/67) `Sequence` vales can be assigned to variable which type is `OrderedSet` and vice versa
 - [#70](https://github.com/gemoc/ale-lang/issues/70) Paths to ALE resources (in _.dsl_ files and projects' preferences) are not updated when the project is renamed
 - [#102](https://github.com/gemoc/ale-lang/issues/102) The editor shows an error when a method is used to define the range of a for-each loop
 - [#120](https://github.com/gemoc/ale-lang/issues/120) The `+=` operator cannot be used to concatenate two collections
