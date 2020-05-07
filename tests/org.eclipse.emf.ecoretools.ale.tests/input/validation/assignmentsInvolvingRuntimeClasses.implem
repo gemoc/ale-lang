@@ -1,0 +1,20 @@
+behavior helloworld;
+
+open class EClass {
+	
+	helloworld::MyClass attribute;
+	
+	@main
+	def void main() {
+		helloworld::MyClass aMyClass;
+		aMyClass := helloworld::MyClass.create();
+		ecore::EClass helloworld := aMyClass.refEClass;
+		
+		aMyClass := self.attribute;	
+		aMyClass := self;	
+	}
+}
+
+class MyClass {
+	EClass refEClass;
+}
