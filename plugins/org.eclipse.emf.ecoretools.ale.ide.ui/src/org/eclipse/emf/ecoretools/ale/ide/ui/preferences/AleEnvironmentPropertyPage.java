@@ -10,27 +10,21 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.ide.ui.preferences;
 
-import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.toList;
-import static org.eclipse.core.resources.ResourcesPlugin.getWorkspace;
 import static org.eclipse.emf.common.util.URI.createPlatformResourceURI;
-import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.ALE_SOURCE_FILES;
-import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.CONFIGURED_FROM_DSL_FILE;
-import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.DSL_FILE_PATH;
-import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.ECORE_MODEL_FILES;
+import static org.eclipse.emf.ecoretools.ale.ide.project.AleProjectPreferences.ALE_SOURCE_FILES;
+import static org.eclipse.emf.ecoretools.ale.ide.project.AleProjectPreferences.CONFIGURED_FROM_DSL_FILE;
+import static org.eclipse.emf.ecoretools.ale.ide.project.AleProjectPreferences.DSL_FILE_PATH;
+import static org.eclipse.emf.ecoretools.ale.ide.project.AleProjectPreferences.ECORE_MODEL_FILES;
 import static org.eclipse.swt.events.SelectionListener.widgetSelectedAdapter;
-
-import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.LayoutConstants;
@@ -428,16 +422,5 @@ public class AleEnvironmentPropertyPage extends AbstractPropertyPage  {
         styledText.setToolTipText(link);
         return styledText;
     }
-	
-    /**
-     * Turns a comma-separated list of workspace-relative URIs into their corresponding IFile instances.
-     */
-	private static List<IFile> relativeURIsToFiles(String uris) {
-		return stream(uris.split(","))
-				   		  .map(uri -> createPlatformResourceURI(uri, true))
-				   		  .map(uri -> getWorkspace().getRoot().getFile(new Path(uri.toPlatformString(true))))
-				   		  .distinct()
-				   		  .collect(toList());
-	}
 	
 }

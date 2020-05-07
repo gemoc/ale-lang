@@ -19,7 +19,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
 import org.eclipse.emf.ecoretools.ale.ide.Activator;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
@@ -88,19 +89,11 @@ public class RenamePathsInDslFilesChange extends Change {
 
 	@Override
 	public Change perform(IProgressMonitor monitor) throws CoreException {
-		try {
-			Dsl dsl = new Dsl(dslFile.getLocation().toOSString());
+		try (DslConfiguration dsl = IAleEnvironment.fromDslFile(dslFile)) {
+			Collection<String> currentBehaviors = new LinkedHashSet<>(dsl.getBehaviorsSources());
+			Collection<String> currentMetamodels = new LinkedHashSet<>(dsl.getMetamodelsSources());
 			
-			Collection<String> currentBehaviors = new LinkedHashSet<>(dsl.getBehaviors());
-			Collection<String> currentMetamodels = new LinkedHashSet<>(dsl.getMetamodels());
-			
-			dsl.getBehaviors().clear();
-			dsl.getMetamodels().clear();
-			
-			dsl.getBehaviors().addAll(behaviors);
-			dsl.getMetamodels().addAll(metamodels);
-			
-			dsl.save();
+			dsl.save(IAleEnvironment.fromPaths(metamodels, behaviors));
 			
 			Change undo = new RenamePathsInDslFilesChange(dslFile, currentBehaviors, currentMetamodels);
 			return undo;

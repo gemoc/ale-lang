@@ -152,7 +152,7 @@ public class OpenClassValidator implements IValidator {
 	}
 
 	private void validateExtendedClassHasNoNamesake(ExtendedClass xtdClass, List<IValidationMessage> msgs) {
-		Collection<EClassifier> potentialNamesakes = this.base.qryEnv.getEPackageProvider().getTypes(xtdClass.getName());
+		Collection<EClassifier> potentialNamesakes = this.base.getQryEnv().getEPackageProvider().getTypes(xtdClass.getName());
 		Collection<String> namesakes = potentialNamesakes
 												  .stream()
 												  .filter(classi -> !classi.getEPackage().equals(xtdClass.getBaseClass().getEPackage()))

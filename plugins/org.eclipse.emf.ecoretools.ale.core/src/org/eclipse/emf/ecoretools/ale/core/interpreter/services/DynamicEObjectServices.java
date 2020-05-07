@@ -30,12 +30,15 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.DynamicFeatureRegistry;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.DynamicFeatureRegistry;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-public class DynamicEObjectServices extends EObjectServices{
+/**
+ * AQL service that resolves attributes of instances in an ALE program.
+ */
+public class DynamicEObjectServices extends EObjectServices {
 	
 	public static final String UNKNOWN_FEATURE = "Feature %s not found in EClass %s";
 	public static final String NON_EOBJECT_FEATURE_ACCESS = "Attempt to access feature (%s) on a non ModelObject value (%s).";
@@ -55,14 +58,12 @@ public class DynamicEObjectServices extends EObjectServices{
 	
 	@Override
 	public List<EObject> eContents(EObject eObject) {
-		
 		List<EObject> contents = Lists.newArrayList(eObject.eContents());
 		
 		Optional<EObject> extension = dynamicFeatures.getRuntimeExtension(eObject);
-		if(extension.isPresent()) {
+		if (extension.isPresent()) {
 			contents.addAll(extension.get().eContents());
 		}
-		
 		return contents;
 	}
 	
@@ -84,7 +85,6 @@ public class DynamicEObjectServices extends EObjectServices{
 		} else {
 			result = null;
 		}
-
 		return result;
 	}
 	
@@ -109,37 +109,35 @@ public class DynamicEObjectServices extends EObjectServices{
 		List<Object> crossRef = Lists.newArrayList(eObject.eCrossReferences());
 		
 		Optional<EObject> extension = dynamicFeatures.getRuntimeExtension(eObject);
-		if(extension.isPresent()) {
+		if (extension.isPresent()) {
 			crossRef.addAll(extension.get().eCrossReferences());
 		}
-		
 		return crossRef;
 	}
 	
 	@Override
 	public Object eGet(EObject eObject, final String featureName) {
+		Object result = super.eGet(eObject, featureName);
 		
-		Object result = super.eGet(eObject,featureName);
-		
-		if(result == null) {
+		if (result == null) {
 			Optional<EObject> extension = dynamicFeatures.getRuntimeExtension(eObject);
-			if(extension.isPresent()) {
+			if (extension.isPresent()) {
 				final EStructuralFeature feature = extension.get().eClass().getEStructuralFeature(featureName);
 
 				if (feature != null) {
 					result = extension.get().eGet(feature);
 				}
-
 				if (result instanceof Set<?>) {
 					result = Sets.newLinkedHashSet((Set<?>)result);
-				} else if (result instanceof EMap<?, ?>) {
+				} 
+				else if (result instanceof EMap<?, ?>) {
 					result = new BasicEMap<Object, Object>(((EMap<?, ?>)result).map());
-				} else if (result instanceof Collection<?>) {
+				} 
+				else if (result instanceof Collection<?>) {
 					result = Lists.newArrayList((Collection<?>)result);
 				}
 			}
 		}
-		
 		return result;
 	}
 	

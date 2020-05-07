@@ -28,9 +28,7 @@ import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
 import org.eclipse.emf.ecoretools.ale.ide.resource.AleResource;
-import org.eclipse.emf.ecoretools.ale.ide.resource.AleResourceFactory;
 import org.eclipse.emf.ecoretools.design.service.EcoreToolsDesignPlugin;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -66,12 +64,12 @@ public class AleSessionManagerListener implements SessionManagerListener {
 
 	@Override
 	public void viewpointSelected(Viewpoint selectedSirius) {
-		
+		// nothing to do
 	}
 
 	@Override
 	public void viewpointDeselected(Viewpoint deselectedSirius) {
-		
+		// nothing to do
 	}
 
 	@Override
@@ -108,10 +106,13 @@ public class AleSessionManagerListener implements SessionManagerListener {
 		final TransactionalEditingDomain editingDomain = session.getTransactionalEditingDomain();
 		ResourceSet rs = editingDomain.getResourceSet();
 		
-		ALEInterpreter interpreter = new ALEInterpreter();
-		rs.getResourceFactoryRegistry()
-			.getExtensionToFactoryMap()
-			.put("dsl", new AleResourceFactory(interpreter.getQueryEnvironment(),rs));
+		// FIXME [API] May cause memory leaks because the IQueryEnvironment is never release
+		//			   What is it for, anyway?
+		
+//		AleInterpreter interpreter = new AleInterpreter();
+//		rs.getResourceFactoryRegistry()
+//			.getExtensionToFactoryMap()
+//			.put("dsl", new AleResourceFactory(interpreter.getQueryEnvironment(),rs));
 	}
 	
 	private Optional<Resource> getDsl(Session session) {

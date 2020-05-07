@@ -14,8 +14,8 @@ import java.util.Optional;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.ide.project.AleProject;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject;
 
 /**
  * Action triggered when the user right-click on a project
@@ -34,7 +34,7 @@ public class ProjectAleLaunchShortcut extends AbstractAleLaunchShortcut {
 		// FIXME should also make sure no input is missing
 		
 		IProject project = resource.getProject();
-		AleProject aleProject = AleProject.from(project);
+		IAleProject aleProject = IAleProject.from(project);
 		environment = aleProject.getEnvironment();
 		baseConfigurationName = project.getName();
 		

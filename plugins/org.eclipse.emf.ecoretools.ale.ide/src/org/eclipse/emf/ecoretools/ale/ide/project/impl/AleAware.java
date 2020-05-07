@@ -10,48 +10,80 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.ide.project.impl;
 
-import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.ALE_SOURCE_FILES;
-import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.CONFIGURED_FROM_DSL_FILE;
-import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.DSL_FILE_PATH;
-import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.ECORE_MODEL_FILES;
+import static java.util.Objects.requireNonNull;
+import static org.eclipse.emf.ecoretools.ale.ide.project.AleProjectPreferences.ALE_SOURCE_FILES;
+import static org.eclipse.emf.ecoretools.ale.ide.project.AleProjectPreferences.CONFIGURED_FROM_DSL_FILE;
+import static org.eclipse.emf.ecoretools.ale.ide.project.AleProjectPreferences.DSL_FILE_PATH;
+import static org.eclipse.emf.ecoretools.ale.ide.project.AleProjectPreferences.ECORE_MODEL_FILES;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.RuntimeAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
 import org.eclipse.emf.ecoretools.ale.ide.Activator;
-import org.eclipse.emf.ecoretools.ale.ide.Normalized;
-import org.eclipse.emf.ecoretools.ale.ide.project.AleProject;
+import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject;
 
 /**
- * Decorates {@link IProject} to enhance them with ALE-specific features.
+ * Decorates an {@link IProject} to enhance them with ALE-specific features.
  */
-public class AleAware implements AleProject {
+public class AleAware implements IAleProject {
 	
 	public static final String CORE_PLUGIN_ID = "org.eclipse.emf.ecoretools.ale.core";
 	
 	private final IProject project;
 
 	public AleAware(IProject project) {
-		this.project = project;
+		this.project = requireNonNull(project, "project");
 	}
-
+	
 	@Override
-	public IProject create(String name, IPath path, IProgressMonitor monitor) throws CoreException {
+	public boolean isConfiguredFromPreferences() {
+		IScopeContext context = new ProjectScope(project);
+        IEclipsePreferences preferences = context.getNode(CORE_PLUGIN_ID);
+        return ! preferences.getBoolean(CONFIGURED_FROM_DSL_FILE.property(), false);
+	}
+	
+	@Override
+	public Optional<IFile> findDslFile() {
+		if (isConfiguredFromPreferences()) {
+			return Optional.empty();
+		}
+		IScopeContext context = new ProjectScope(project);
+		IEclipsePreferences preferences = context.getNode(CORE_PLUGIN_ID);
+		
+		try {
+			String dslFilePath = preferences.get(DSL_FILE_PATH.property(), "");
+			URI dslFileURI = URI.createURI(dslFilePath, true);
+			
+			IResource dslFile = project.getWorkspace().getRoot().findMember(dslFileURI.toPlatformString(true));
+			
+			if (dslFile instanceof IFile) {
+				return Optional.of((IFile) dslFile);
+			}
+			else {
+				return Optional.empty();
+			}
+		}
+		catch (NullPointerException | IllegalArgumentException e) {
+			// URI to .dsl is ill-formatted
+			return Optional.empty();
+		}
+	}
+	
+	@Override
+	public IProject getProject() {
 		return project;
 	}
 
@@ -61,35 +93,27 @@ public class AleAware implements AleProject {
         IEclipsePreferences preferences = context.getNode(CORE_PLUGIN_ID);
         
         try {
-	        boolean reliesOnDslFile = preferences.getBoolean(CONFIGURED_FROM_DSL_FILE.property(), false);
-			if (reliesOnDslFile) {
-	        	return environmentFromDslConfigurationFile(preferences);
+			if (isConfiguredFromPreferences()) {
+				return environmentFromProjectPreferences(preferences);
 	        }
 	        else {
-	        	return environmentFromProjectPreferences(preferences);
+	        	return environmentFromDslConfigurationFile(preferences);
 	        }
         } 
         catch (IllegalArgumentException | IOException e) {
         	// TODO Do we want to broadcast the exception instead of catching it here?
         	Activator.error("Cannot load ALE environment of project '" + project.getName() + "'", e);
-        	return new RuntimeAleEnvironment(new ArrayList<>(0), new ArrayList<>(0));
+        	return IAleEnvironment.fromPaths(new ArrayList<>(0), new ArrayList<>(0));
         }
 	}
 
 	private IAleEnvironment environmentFromDslConfigurationFile(IEclipsePreferences preferences) throws IOException {
-		String dslFilePath = preferences.get(DSL_FILE_PATH.property(), "");
-		URI dslFileURI = URI.createURI(dslFilePath, true);
-		IResource dslFile = project.getWorkspace().getRoot().findMember(dslFileURI.toPlatformString(true));
-		
-		if (! (dslFile instanceof IFile)) {
-			throw new IllegalArgumentException("Cannot load DSL file (expected IFile, got: " + dslFile + ")");
-		}
-		IFile file = (IFile) dslFile;
+		IFile file = findDslFile().orElseThrow(() -> new IllegalArgumentException("Cannot load DSL file"));
 		try {
-			return new Dsl(file.getContents());
+			return new DslConfiguration(file.getContents());
 		} 
 		catch (CoreException e) {
-			throw new IOException("Unable to read the content of the DSL configuration file " + dslFile.getFullPath());
+			throw new IOException("Unable to read the content of the DSL configuration file");
 		}
 	}
 
@@ -100,7 +124,7 @@ public class AleAware implements AleProject {
 		List<String> sourceFiles = Arrays.asList(aleSourceFilesPath.split(","));
 		List<String> ecoreModels = Arrays.asList(ecoreModelFilesPath.split(","));
 
-		return new RuntimeAleEnvironment(ecoreModels, sourceFiles);
+		return IAleEnvironment.fromPaths(ecoreModels, sourceFiles);
 	}
 
 }

@@ -20,38 +20,39 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
-import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
-import org.eclipse.emf.ecoretools.ale.ide.Normalized;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
+import org.eclipse.emf.ecoretools.ale.core.parser.BehaviorsParser;
+import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
+import org.eclipse.emf.ecoretools.ale.ide.env.Normalized;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 public class AleResource extends ResourceImpl {
 	
-	protected DslBuilder parser;
-	protected List<ParseResult<ModelUnit>> parseResult;
+	protected BehaviorsParser parser;
+	protected List<ParsedFile<ModelUnit>> parseResult;
 	
 	private boolean isNotifyEnabled = true;
 	
-	public AleResource(URI uri, DslBuilder parser) {
+	public AleResource(URI uri, BehaviorsParser parser) {
 		super(uri);
 		this.parser = parser;
 	}
 	
 	@Override
 	protected void doLoad(InputStream inputStream, Map<?, ?> options) throws IOException {
-		IAleEnvironment dslFile = new Normalized(new Dsl(inputStream));
-		List<ParseResult<ModelUnit>> newParseResult = parser.parse(dslFile);
-		
-		if(newParseResult != null) { //TODO: check no parse error
-			unload();
-			parseResult = newParseResult;
-			List<ModelUnit> newContent = parseResult.stream().map(pr -> pr.getRoot()).collect(toList());
+		try (IAleEnvironment dslFile = new Normalized(new DslConfiguration(inputStream))) {
+			List<ParsedFile<ModelUnit>> newParseResult = parser.parse(dslFile.getMetamodels(), dslFile.getBehaviorsSources());
 			
-			isNotifyEnabled = false;
-			getContents().addAll(newContent);
-			isNotifyEnabled = true;
+			if(newParseResult != null) { //TODO: check no parse error
+				unload();
+				parseResult = newParseResult;
+				List<ModelUnit> newContent = parseResult.stream().map(pr -> pr.getRoot()).collect(toList());
+				
+				isNotifyEnabled = false;
+				getContents().addAll(newContent);
+				isNotifyEnabled = true;
+			}
 		}
 	}
 	
@@ -66,7 +67,7 @@ public class AleResource extends ResourceImpl {
 		//FIXME: need a serializer
 	}
 	
-	public List<ParseResult<ModelUnit>> getParseResult() {
+	public List<ParsedFile<ModelUnit>> getParseResult() {
 		return parseResult;
 	}
 	

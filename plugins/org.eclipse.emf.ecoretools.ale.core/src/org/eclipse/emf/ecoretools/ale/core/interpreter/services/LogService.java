@@ -11,14 +11,15 @@
 package org.eclipse.emf.ecoretools.ale.core.interpreter.services;
 
 /**
- * AQL service to print objects on the output
+ * AQL service that prints objects to stdout.
+ * <p>
+ * Printing is made by calling {@code log()} on an object:
+ * <pre>
+ *anObject.log();</pre>
  */
 public class LogService {
 	
 	public static void log(Object o) {
-		if(o != null)
-			System.out.println(o.toString());
-		else
-			System.out.println(o);
+		System.out.println(String.valueOf(o));
 	}
 }

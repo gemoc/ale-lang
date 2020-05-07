@@ -15,7 +15,7 @@ import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.AleLaunchConfig
 import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.AleLaunchConfiguration.MAIN_MODEL_ELEMENT;
 import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.AleLaunchConfiguration.MODEL_FILE;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,11 +35,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
-import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics;
-import org.eclipse.emf.ecoretools.ale.ide.Normalized;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.AleInterpreter;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
@@ -52,8 +50,7 @@ import org.eclipse.jface.viewers.BaseLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -90,7 +87,7 @@ public class AleLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 	/**
 	 * Used to load the program and find the main methods. 
 	 */
-	private ALEInterpreter interpreter;
+	private AleInterpreter interpreter;
 	
 	@Override
 	public void createControl(Composite parent) {
@@ -178,13 +175,6 @@ public class AleLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 		}
 	}
 	
-	private ALEInterpreter getInterpreter() {
-		if (interpreter == null) {
-			interpreter = new ALEInterpreter();
-		}
-		return interpreter;
-	}
-	
 	private Group createGroup(Composite parent, String text) {
 		Group group = new Group(parent, SWT.NULL);
 		group.setText(text);
@@ -209,18 +199,15 @@ public class AleLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 		);
 		
 		Button modelLocationButton = createPushButton(parent, "Browse", null);
-		modelLocationButton.addSelectionListener(new SelectionAdapter() {
-
-			public void widgetSelected(SelectionEvent evt) {
-				Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-				ResourceListSelectionDialog dialog = new ResourceListSelectionDialog(shell, ResourcesPlugin.getWorkspace().getRoot(), IResource.FILE);
-				dialog.setTitle("Model Selection");
-				if (dialog.open() == Window.OK) {
-					Object[] selected = dialog.getResult();
-					modelSelection.setText(((IResource)selected[0]).getFullPath().toPortableString());
-				}
+		modelLocationButton.addSelectionListener(SelectionListener.widgetSelectedAdapter(event -> {
+			Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+			ResourceListSelectionDialog dialog = new ResourceListSelectionDialog(shell, ResourcesPlugin.getWorkspace().getRoot(), IResource.FILE);
+			dialog.setTitle("Model Selection");
+			if (dialog.open() == Window.OK) {
+				Object[] selected = dialog.getResult();
+				modelSelection.setText(((IResource)selected[0]).getFullPath().toPortableString());
 			}
-		});
+		}));
 	}
 	
 	private void createDslWidgets(Composite parent) {
@@ -234,18 +221,15 @@ public class AleLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 		);
 		
 		Button dslLocationButton = createPushButton(parent, "Browse", null);
-		dslLocationButton.addSelectionListener(new SelectionAdapter() {
-
-			public void widgetSelected(SelectionEvent evt) {
-				Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-				ResourceListSelectionDialog dialog = new ResourceListSelectionDialog(shell, ResourcesPlugin.getWorkspace().getRoot(), IResource.FILE);
-				dialog.setTitle("DSL Selection");
-				if (dialog.open() == Window.OK) {
-					Object[] selected = dialog.getResult();
-					dslSelection.setText(((IResource)selected[0]).getFullPath().toPortableString());
-				}
+		dslLocationButton.addSelectionListener(SelectionListener.widgetSelectedAdapter(event -> {
+			Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+			ResourceListSelectionDialog dialog = new ResourceListSelectionDialog(shell, ResourcesPlugin.getWorkspace().getRoot(), IResource.FILE);
+			dialog.setTitle("DSL Selection");
+			if (dialog.open() == Window.OK) {
+				Object[] selected = dialog.getResult();
+				dslSelection.setText(((IResource)selected[0]).getFullPath().toPortableString());
 			}
-		});
+		}));
 	}
 	
 	private void createExecutionWidgets(Composite parent) {
@@ -256,25 +240,22 @@ public class AleLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 		mainMethodSelection.setEditable(false);
 		mainMethodSelection.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		mainMethodSelection.addModifyListener(modifyEvent ->
-				updateLaunchConfigurationDialog()
+			updateLaunchConfigurationDialog()
 		);
 		Button mainMethodSelectionButton = createPushButton(parent, "Browse", null);
-		mainMethodSelectionButton.addSelectionListener(new SelectionAdapter() {
-
-			public void widgetSelected(SelectionEvent evt) {
-				Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-				try {
-					Optional<Method> selectedMain = askUserToSelectMainMethod(shell, getAvailableMethods());
-					selectedMain.ifPresent(main -> {
-						mainMethodSelection.setText(new MethodLabelProvider().getText(main));
-					});
-				} 
-				catch (FileNotFoundException e) {
-					MessageDialog.openError(shell, "Unable to find @main methods", "File not found in workspace: " + e.getMessage());
-					Activator.error("Unable to find @main methods", e);
-				}
+		mainMethodSelectionButton.addSelectionListener(SelectionListener.widgetSelectedAdapter(event -> {
+			Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+			try {
+				Optional<Method> selectedMain = askUserToSelectMainMethod(shell, getAvailableMethods());
+				selectedMain.ifPresent(main -> {
+					mainMethodSelection.setText(new MethodLabelProvider().getText(main));
+				});
+			} 
+			catch (IOException | CoreException e) {
+				MessageDialog.openError(shell, "Unable to find @main methods", "File not found in workspace: " + e.getMessage());
+				Activator.error("Unable to find @main methods", e);
 			}
-		});
+		}));
 		
 		Label mainModelElementSelectionLabel = new Label(parent, SWT.NONE);
 		mainModelElementSelectionLabel.setText("Main model element path");
@@ -283,36 +264,33 @@ public class AleLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 		mainModelElementSelection.setEditable(false);
 		mainModelElementSelection.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		mainModelElementSelection.addModifyListener(modifyEvent ->
-				updateLaunchConfigurationDialog()
+			updateLaunchConfigurationDialog()
 		);
 		
 		Button mainModelElementSelectionButton = createPushButton(parent, "Browse", null);
-		mainModelElementSelectionButton.addSelectionListener(new SelectionAdapter() {
-			
-			public void widgetSelected(SelectionEvent evt) {
-				try {
-					IFile resourceFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(modelSelection.getText()));
-					if (! resourceFile.exists()) {
-						MessageDialog.openInformation(parent.getShell(), "Model not selected", "You must select a model first.");
-						return;
-					}
-					final ResourceSet resources = new ResourceSetImpl();
-					resources.getResource(URI.createPlatformResourceURI(modelSelection.getText(), true), true);
-					Optional<EObject> mainModelElement = askUserToChooseMainModelElement(parent.getShell(), resources);
-					mainModelElement.ifPresent(mainElement -> {
-						String resourceRelativeURI = mainElement.eResource().getURIFragment(mainElement);
-						mainModelElementSelection.setText(resourceRelativeURI);
-					});
+		mainModelElementSelectionButton.addSelectionListener(SelectionListener.widgetSelectedAdapter(event -> {
+			try {
+				IFile resourceFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(modelSelection.getText()));
+				if (! resourceFile.exists()) {
+					MessageDialog.openInformation(parent.getShell(), "Model not selected", "You must select a model first.");
+					return;
 				}
-				catch (Exception e) {
-					MessageDialog.openError(
-							parent.getShell(),
-							"Cannot select the model element to execute", 
-							"Please check that the model to execute is a valid XMI model. See more details in the Log Error view"
-					);
-				}
+				final ResourceSet resources = new ResourceSetImpl();
+				resources.getResource(URI.createPlatformResourceURI(modelSelection.getText(), true), true);
+				Optional<EObject> mainModelElement = askUserToChooseMainModelElement(parent.getShell(), resources);
+				mainModelElement.ifPresent(mainElement -> {
+					String resourceRelativeURI = mainElement.eResource().getURIFragment(mainElement);
+					mainModelElementSelection.setText(resourceRelativeURI);
+				});
 			}
-		});
+			catch (Exception e) {
+				MessageDialog.openError(
+						parent.getShell(),
+						"Cannot select the model element to execute", 
+						"Please check that the model to execute is a valid XMI model. See more details in the Log Error view"
+				);
+			}
+		}));
 	}
 	
 	/**
@@ -371,11 +349,11 @@ public class AleLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 		
 	}
 	
-	private final List<Method> getAvailableMethods() throws FileNotFoundException {
-		IResource dslFile = ResourcesPlugin.getWorkspace().getRoot().findMember(dslSelection.getText());
-		IAleEnvironment dsl = new Normalized(new Dsl(dslFile.getLocationURI().getPath()));
-		DslSemantics semantics = getInterpreter().getSemanticsOf(dsl);
-		return semantics.getMainMethods();
+	private final List<Method> getAvailableMethods() throws CoreException, IOException {
+		IFile dslFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(dslSelection.getText()));
+		try (IAleEnvironment dsl = IAleEnvironment.fromDslFile(dslFile)) {
+			return dsl.getBehaviors().getMainMethods();
+		}
 	}
 	
 	/**

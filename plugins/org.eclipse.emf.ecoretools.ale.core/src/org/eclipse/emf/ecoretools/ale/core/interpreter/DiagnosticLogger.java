@@ -29,8 +29,10 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics;
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
+import org.eclipse.emf.ecoretools.ale.core.Activator;
+import org.eclipse.emf.ecoretools.ale.core.env.IBehaviors;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.MethodEvaluator;
+import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 public class DiagnosticLogger {
@@ -41,9 +43,9 @@ public class DiagnosticLogger {
 	private static final Pattern AQL_SERVICE_ERROR_PATTERN = Pattern.compile(".*with arguments \\[.*\\].* failed:(.*)", Pattern.DOTALL);
 	
 	List<Diagnostic> log = new ArrayList<>();
-	private final DslSemantics semantics;
+	private final IBehaviors semantics;
 	
-	public DiagnosticLogger(DslSemantics semantics) {
+	public DiagnosticLogger(IBehaviors semantics) {
 		this.semantics = requireNonNull(semantics, "semantics");
 	}
 	
@@ -74,7 +76,7 @@ public class DiagnosticLogger {
 			.forEach(
 				diag -> {
 					// We only want to display our own errors
-					if (diag.getSource().equals(MethodEvaluator.PLUGIN_ID)) {
+					if (diag.getSource().equals(Activator.PLUGIN_ID)) {
 						Expression failedExp = (Expression) diag.getData().get(0);
 						Diagnostic diagExp = diag;
 						
@@ -90,9 +92,9 @@ public class DiagnosticLogger {
 					else {
 						if(!diag.getData().isEmpty() && diag.getData().get(0) instanceof Exception) {
 							Exception e = (Exception) diag.getData().get(0);
-							if(e.getCause() instanceof CriticalFailure) {
-								CriticalFailure interpreterFailure = (CriticalFailure) e.getCause();
-								diagnosticForHuman(interpreterFailure.diagnostics, stacktrace);
+							if(e.getCause() instanceof CriticalFailureException) {
+								CriticalFailureException interpreterFailure = (CriticalFailureException) e.getCause();
+								diagnosticForHuman(interpreterFailure.getDiagnostic(), stacktrace);
 							}
 						}
 					}
@@ -101,7 +103,7 @@ public class DiagnosticLogger {
 	}
 	
 	private void printError(Expression expr, Diagnostic diagnostic, LinkedList<String> stacktrace) {
-		ParseResult<ModelUnit> parsedFile = semantics.findParsedFileDefining(expr).orElse(null);
+		ParsedFile<ModelUnit> parsedFile = semantics.findParsedFileDefining(expr).orElse(null);
 		if (parsedFile == null) {
 			stacktrace.addFirst("At unknown file and line (" + expr + "):");
 			Stream.concat(Stream.of(diagnostic), diagnostic.getChildren().stream())

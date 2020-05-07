@@ -4,8 +4,7 @@ Bundle-Name: ALE Ide
 Bundle-SymbolicName: org.eclipse.emf.ecoretools.ale.ide;singleton:=true
 Bundle-Version: 1.1.0.qualifier
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.emf.ecoretools.ale,
- org.eclipse.emf.ecoretools.ale.core,
+Require-Bundle: org.eclipse.emf.ecoretools.ale.core,
  org.eclipse.acceleo.query,
  org.eclipse.emf.ecoretools.design,
  org.eclipse.emf.workspace,
@@ -15,6 +14,8 @@ Require-Bundle: org.eclipse.emf.ecoretools.ale,
 Import-Package: org.eclipse.emf.common.util,
  org.eclipse.emf.ecore.resource.impl
 Export-Package: org.eclipse.emf.ecoretools.ale.ide,
+ org.eclipse.emf.ecoretools.ale.ide.env,
+ org.eclipse.emf.ecoretools.ale.ide.jobs,
  org.eclipse.emf.ecoretools.ale.ide.listener,
  org.eclipse.emf.ecoretools.ale.ide.project,
  org.eclipse.emf.ecoretools.ale.ide.project.impl,

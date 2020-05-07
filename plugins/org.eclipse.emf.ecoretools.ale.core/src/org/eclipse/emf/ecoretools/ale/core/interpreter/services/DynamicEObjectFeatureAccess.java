@@ -33,13 +33,13 @@ import org.eclipse.acceleo.query.validation.type.SequenceType;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.DynamicFeatureRegistry;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.DynamicFeatureRegistry;
 import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
 import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 
 //FIXME: copy past from EObjectServices.EObjectFeatureAccess because it's private
-public class DynamicEObjectFeatureAccess extends JavaMethodService {
+class DynamicEObjectFeatureAccess extends JavaMethodService {
 
 	public static final String UNKNOWN_FEATURE = "Feature %s not found in EClass %s";
 	private static final String DON_T_KNOW_WHAT_TO_DO_WITH = "don't know what to do with ";
@@ -55,7 +55,7 @@ public class DynamicEObjectFeatureAccess extends JavaMethodService {
 	 * @param serviceInstance
 	 *            the instance on which the service must be called
 	 */
-	public DynamicEObjectFeatureAccess(Method method, Object serviceInstance, DynamicFeatureRegistry dynamicFeatures) {
+	DynamicEObjectFeatureAccess(Method method, Object serviceInstance, DynamicFeatureRegistry dynamicFeatures) {
 		super(method, serviceInstance);
 		this.dynamicFeatures = dynamicFeatures;
 	}

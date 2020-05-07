@@ -11,9 +11,7 @@
 package org.eclipse.emf.ecoretools.ale.ide.refactoring;
 
 import static java.util.Arrays.asList;
-import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.CONFIGURED_FROM_DSL_FILE;
-import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.DSL_FILE_PATH;
-import static org.eclipse.emf.ecoretools.ale.ide.project.AleProject.hasAleNature;
+import static org.eclipse.emf.ecoretools.ale.ide.project.IAleProject.hasAleNature;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,20 +28,17 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
 import org.eclipse.emf.ecoretools.ale.ide.Activator;
-import org.eclipse.emf.ecoretools.ale.ide.project.AleProject;
+import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.CompositeChange;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
@@ -93,12 +88,14 @@ public class RenamePathsToAleResources extends RenameParticipant {
 		IFile oldDslFile = findDslConfigurationFile(project);
 		IFile newDslFile = oldDslFile == null ? oldDslFile : toWorkspace(uriAfterRenaming(oldDslFile, newName));
 		IProject newProject = projectAfterRename(renamed, newName);
-		IAleEnvironment env = AleProject.from(project).getEnvironment();
-		Collection<String> newBehaviors = renamedIfImpacted(env.getBehaviors(), newName);
-		Collection<String> newMetamodels = renamedIfImpacted(env.getMetamodels(), newName);
 
-		Change change = new RenamePathsInProjectPreferencesChange(newProject, oldDslFile, newDslFile, newBehaviors, newMetamodels);
-		return Optional.of(change);
+		try (IAleEnvironment env = IAleProject.from(project).getEnvironment()) {
+			Collection<String> newBehaviors = renamedIfImpacted(env.getBehaviorsSources(), newName);
+			Collection<String> newMetamodels = renamedIfImpacted(env.getMetamodelsSources(), newName);
+			
+			Change change = new RenamePathsInProjectPreferencesChange(newProject, oldDslFile, newDslFile, newBehaviors, newMetamodels);
+			return Optional.of(change);
+		}
 	}
 	
 	private List<Change> changesMadeToDslFiles(String newName) throws CoreException {
@@ -110,12 +107,11 @@ public class RenamePathsToAleResources extends RenameParticipant {
 			public boolean visit(IResource resource) throws CoreException {
 				if (resource instanceof IFile && resource.getName().endsWith(".dsl")) {
 					IFile file = (IFile) resource;
-					try {
+					try (DslConfiguration dsl = IAleEnvironment.fromDslFile(file)) {
 						IFile fileAfterRenaming = toWorkspace(uriAfterRenaming(file, newName));
 
-						Dsl dsl = new Dsl(file.getLocation().toOSString());
-						Collection<String> newBehaviors = renamedIfImpacted(dsl.getBehaviors(), newName);
-						Collection<String> newMetamodels = renamedIfImpacted(dsl.getMetamodels(), newName);
+						Collection<String> newBehaviors = renamedIfImpacted(dsl.getBehaviorsSources(), newName);
+						Collection<String> newMetamodels = renamedIfImpacted(dsl.getMetamodelsSources(), newName);
 						
 						changes.add(new RenamePathsInDslFilesChange(fileAfterRenaming, newBehaviors, newMetamodels));
 					} 
@@ -131,20 +127,7 @@ public class RenamePathsToAleResources extends RenameParticipant {
 
 	/** @return the .dsl file used to configure ALE, or null if the project doesn't use one */
 	private IFile findDslConfigurationFile(IProject project) {
-		IScopeContext context = new ProjectScope(project);
-		IEclipsePreferences preferences = context.getNode("org.eclipse.emf.ecoretools.ale.core");
-		
-		boolean isConfiguredFromDslFile = preferences.getBoolean(CONFIGURED_FROM_DSL_FILE.property(), false);
-		if (isConfiguredFromDslFile) {
-			try {
-				URI dslFileURI = URI.createURI(preferences.get(DSL_FILE_PATH.property(), ""));
-				return toWorkspace(dslFileURI);
-			} 
-			catch (IllegalArgumentException | NullPointerException e) {
-				// preferences are not properly set, the change won't do much
-			}
-		}
-		return null;
+		return IAleProject.from(project).findDslFile().orElse(null);
 	}
 
 	/** @return all given URIs, but updating the ones impacted by the renaming */

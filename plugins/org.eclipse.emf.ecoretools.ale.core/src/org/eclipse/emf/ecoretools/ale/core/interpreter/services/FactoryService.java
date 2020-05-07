@@ -13,16 +13,20 @@ package org.eclipse.emf.ecoretools.ale.core.interpreter.services;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.EvalEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.EvalEnvironment;
 
 import com.google.common.collect.Sets;
 
 /**
- * AQL service to create instance of EClass
+ * AQL service that allows to instantiate EClasses.
+ * <p>
+ * Instantiation is made by calling {@code create()} on an EClass:
+ * <pre>
+ *FSM fsm := FSM.create();</pre>
  */
 public class FactoryService {
 	
-	EvalEnvironment evalEnv;
+	private EvalEnvironment evalEnv;
 	
 	public FactoryService(EvalEnvironment evalEnv) {
 		this.evalEnv = evalEnv;

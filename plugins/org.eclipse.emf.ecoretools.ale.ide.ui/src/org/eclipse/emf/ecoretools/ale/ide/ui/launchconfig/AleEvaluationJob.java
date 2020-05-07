@@ -16,7 +16,6 @@ import static java.util.Objects.requireNonNull;
 import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.UiUtils.getDisplay;
 import static org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig.UiUtils.getShell;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.time.LocalTime;
 import java.util.Set;
@@ -29,9 +28,11 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
-import org.eclipse.emf.ecoretools.ale.ALEInterpreter.ClosedALEInterpreterException;
-import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics;
+import org.eclipse.emf.ecoretools.ale.core.env.ClosedAleEnvironmentException;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleInterpreter;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.AleInterpreter;
+import org.eclipse.emf.ecoretools.ale.ide.jobs.AleJobs;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.emf.ecoretools.ale.ide.ui.io.AleConsole;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
@@ -45,14 +46,21 @@ import org.eclipse.ui.console.MessageConsoleStream;
 import com.google.common.collect.Sets;
 
 /**
- * An {@link Job Eclipse Job} that runs the {@link ALEInterpreter ALE Interpreter}
+ * An {@link Job Eclipse Job} that runs the {@link AleInterpreter ALE Interpreter}
  * in background.
+ * <p>
+ * The main task of this job is to synchronize the interpreter with the IDE:
+ * <ul>
+ * 	<li>setup stdout, stderr, 
+ * 	<li>update the Console.
+ * </ul>
+ * The actual evaluation is performed by an {@link IAleInterpreter}.
  */
 public class AleEvaluationJob extends Job {
 	/**
 	 * The interpreter used to evaluate the model.
 	 */
-	private final ALEInterpreter interpreter;
+	private final IAleEnvironment environment;
 	/**
 	 * The element of the model on which the main method should be called.
 	 */
@@ -65,55 +73,43 @@ public class AleEvaluationJob extends Job {
 	 * The resource containing <code>this.caller</code>.
 	 */
 	private final IResource modelFile;
-	/**
-	 * The semantics of the model.
-	 */
-	private final DslSemantics semantics;
 	
 	/**
-	 * Creates a new {@link Job Eclipse Job} that runs the {@link ALEInterpreter ALE Interpreter}
+	 * Creates a new {@link Job Eclipse Job} that runs the {@link AleInterpreter ALE Interpreter}
 	 * in background.
 	 * 
-	 * @param interpreter
-	 * 			The interpreter used to evaluate the model. Automatically closed at the end of the execution
+	 * @param environment
+	 * 			The metamodels and behaviors used to evaluate the model; 
+	 * 			automatically closed at the end of the execution
 	 * @param caller
 	 * 			The element of the model on which the main method will be called
 	 * @param main
 	 * 			The method to call
-	 * @param semantics
-	 * 			The semantics of the model
 	 * @param modelFile
 	 * 			The resource containing {@code caller}
 	 */
-	public AleEvaluationJob(ALEInterpreter interpreter, EObject caller, Method main, DslSemantics semantics, IResource modelFile) {
-		super("AQL Eval");
+	public AleEvaluationJob(IAleEnvironment environment, EObject caller, Method main, IResource modelFile) {
+		super("ALE Application (" + caller.eClass().getName() + "::" + main.getOperationRef().getName() + ")");
 		
-		this.interpreter = interpreter;
+		this.environment = environment;
 		this.caller = requireNonNull(caller, "caller");
 		this.main = requireNonNull(main, "main");
 		this.modelFile = requireNonNull(modelFile, "modelFile");
-		this.semantics = requireNonNull(semantics, "semantics");
 		
 		setUser(true);
 	}
 	
+	@Override
+	public boolean belongsTo(Object family) {
+		return family == AleJobs.FAMILY;
+	}
+
 	@Override
 	protected IStatus run(IProgressMonitor monitor) {
 		SubMonitor subMonitor = SubMonitor.convert(monitor, 100);
 		
 		subMonitor.split(5).setTaskName("Initializing");
 		
-//		String dslProject = dslFile.getProject().getName();
-		String modelProject = modelFile.getProject().getName();
-
-		/*
-		 * Init interpreter
-		 * 
-		 * TODO Consider moving initialization in 'AQL Eval' run's body to reduce scope?
-		 */
-		Set<String> projects = Sets.newHashSet(modelProject);
-		Set<String> plugins = emptySet();
-
 		AleConsole console = AleConsole.current();
 		console.activate();
 		console.clearConsole();
@@ -142,12 +138,16 @@ public class AleEvaluationJob extends Job {
 				@Override
 				public void run() {
 					try {
-						interpreter.javaExtensions.updateScope(plugins, projects);
-						interpreter.javaExtensions.reloadIfNeeded();
+						String modelProject = modelFile.getProject().getName();
+						Set<String> projects = Sets.newHashSet(modelProject);
+						Set<String> plugins = emptySet();
+						
+						IAleInterpreter interpreter = environment.getInterpreter();
+						interpreter.initScope(plugins, projects);
 						
 						subMonitor.split(80).setTaskName("In progress...");
 						
-						IEvaluationResult result = interpreter.eval(caller, main, emptyList(), semantics);
+						IEvaluationResult result = interpreter.eval(caller, main, emptyList());
 						interpreter.getLogger().diagnosticForHuman();
 
 						Diagnostic diagnostic = result.getDiagnostic();
@@ -156,7 +156,7 @@ public class AleEvaluationJob extends Job {
 						
 						updateConsoleName(console, status, caller, main, startTime, endTime);
 					} 
-					catch (ClosedALEInterpreterException e) {
+					catch (ClosedAleEnvironmentException e) {
 						updateConsoleName(console, "<internal failure> ", caller, main, startTime, LocalTime.now());
 						// Should never happen
 						Activator.error("An internal error occurred while launching ALE", e);
@@ -212,7 +212,7 @@ public class AleEvaluationJob extends Job {
 			System.setErr(oldErr);
 			
 			// Ensure resources held by the interpreter are freed
-			interpreter.close();
+			environment.close();
 		}
 	}
 	

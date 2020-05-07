@@ -14,7 +14,7 @@ import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
+import org.eclipse.emf.ecoretools.ale.core.parser.BehaviorsParser;
 
 public class AleResourceFactory implements Resource.Factory{
 	
@@ -28,6 +28,6 @@ public class AleResourceFactory implements Resource.Factory{
 
 	@Override
 	public Resource createResource(URI uri) {
-		return new AleResource(uri,new DslBuilder(qryEnv,rs));
+		return new AleResource(uri,new BehaviorsParser(qryEnv,rs));
 	}
 }

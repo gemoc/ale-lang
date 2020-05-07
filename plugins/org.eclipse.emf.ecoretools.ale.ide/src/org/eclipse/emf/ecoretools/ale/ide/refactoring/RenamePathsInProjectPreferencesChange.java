@@ -12,10 +12,10 @@ package org.eclipse.emf.ecoretools.ale.ide.refactoring;
 
 import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
-import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.ALE_SOURCE_FILES;
-import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.CONFIGURED_FROM_DSL_FILE;
-import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.DSL_FILE_PATH;
-import static org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences.ECORE_MODEL_FILES;
+import static org.eclipse.emf.ecoretools.ale.ide.project.AleProjectPreferences.ALE_SOURCE_FILES;
+import static org.eclipse.emf.ecoretools.ale.ide.project.AleProjectPreferences.CONFIGURED_FROM_DSL_FILE;
+import static org.eclipse.emf.ecoretools.ale.ide.project.AleProjectPreferences.DSL_FILE_PATH;
+import static org.eclipse.emf.ecoretools.ale.ide.project.AleProjectPreferences.ECORE_MODEL_FILES;
 
 import java.util.Collection;
 import java.util.List;
@@ -29,8 +29,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecoretools.ale.core.preferences.AleProjectPreferences;
 import org.eclipse.emf.ecoretools.ale.ide.Activator;
+import org.eclipse.emf.ecoretools.ale.ide.project.AleProjectPreferences;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.osgi.service.prefs.BackingStoreException;

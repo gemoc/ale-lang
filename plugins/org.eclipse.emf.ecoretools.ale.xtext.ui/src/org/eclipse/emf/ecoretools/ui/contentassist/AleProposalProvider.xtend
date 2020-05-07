@@ -3,35 +3,18 @@
  */
 package org.eclipse.emf.ecoretools.ui.contentassist
 
-import java.io.ByteArrayInputStream
-import java.nio.charset.StandardCharsets
-import java.util.Arrays
 import java.util.List
-import java.util.Map
-import java.util.Set
 import org.eclipse.acceleo.query.ast.Expression
-import org.eclipse.acceleo.query.runtime.ICompletionResult
-import org.eclipse.acceleo.query.runtime.impl.BasicFilter
-import org.eclipse.acceleo.query.runtime.impl.QueryCompletionEngine
-import org.eclipse.acceleo.query.validation.type.IType
-import org.eclipse.core.resources.IFile
-import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.ETypedElement
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl
-import org.eclipse.emf.ecoretools.ale.ALEInterpreter
 import org.eclipse.emf.ecoretools.ale.ExtendedClass
 import org.eclipse.emf.ecoretools.ale.VarRef
-import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder
-import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult
-import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator
+import org.eclipse.emf.ecoretools.ale.core.env.IBehaviors
+import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass
 import org.eclipse.emf.ecoretools.ale.implementation.Block
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit
-import org.eclipse.emf.workspace.util.WorkspaceSynchronizer
 import org.eclipse.jface.viewers.StyledString
 import org.eclipse.jface.viewers.StyledString.Styler
 import org.eclipse.swt.graphics.TextStyle
@@ -117,7 +100,7 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 		}
 	}
 	
-	private def createProposalsForBehavioredClass(ICompletionProposalAcceptor acceptor, BehavioredClass clazz, EObject syntax, DslSemantics semantics, String typed, ContentAssistContext context) {
+	private def createProposalsForBehavioredClass(ICompletionProposalAcceptor acceptor, BehavioredClass clazz, EObject syntax, IBehaviors semantics, String typed, ContentAssistContext context) {
 		// Autocomplete attributes declared within the ALE script
 		
 		clazz.attributes
@@ -128,8 +111,7 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 			 
 		if (clazz instanceof org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass) {
 			val extendedClassInEcore = clazz as org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass
-			val extendedClassInAleScript = semantics.behaviors
-					          						.flatMap[root | root.classExtensions]
+			val extendedClassInAleScript = semantics.openClasses
 					          						.findFirst[ext | extendedClassInEcore.name == ext.baseClass.name]
 					          
 			extendedClassInAleScript.baseClass.EStructuralFeatures
@@ -138,13 +120,13 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 		}
 	}
 	
-	private def createProposalsForETypedElement(ICompletionProposalAcceptor acceptor, ETypedElement clazz, EObject syntax, DslSemantics semantics, String typed, ContentAssistContext context) {
+	private def createProposalsForETypedElement(ICompletionProposalAcceptor acceptor, ETypedElement clazz, EObject syntax, IBehaviors semantics, String typed, ContentAssistContext context) {
 		if (!clazz.isMany && clazz.EType instanceof EClass) {
 			acceptor.createProposalsForEClass(clazz.EType as EClass, syntax, semantics, typed, context)
 		}
 	}
 	
-	private def createProposalsForEClass(ICompletionProposalAcceptor acceptor, EClass clazz, EObject syntax, DslSemantics semantics, String typed, ContentAssistContext context) {
+	private def createProposalsForEClass(ICompletionProposalAcceptor acceptor, EClass clazz, EObject syntax, IBehaviors semantics, String typed, ContentAssistContext context) {
 		// Autocomplete attributes declared within the ALE script
 		
 		clazz.EStructuralFeatures
@@ -155,8 +137,7 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 			 
 		if (clazz instanceof ExtendedClass) {
 			val extendedClassInEcore = clazz as ExtendedClass
-			val extendedClassInAleScript = semantics.behaviors
-					          						.flatMap[root | root.classExtensions]
+			val extendedClassInAleScript = semantics.openClasses
 					          						.findFirst[ext | extendedClassInEcore.name == ext.baseClass.name]
 					          
 			extendedClassInAleScript.baseClass.EStructuralFeatures
@@ -200,62 +181,62 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 	
 	private def void addProposals(String expression, EObject model, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 			
-			if(expression.isEmpty) {
-				return
-			}
-			
-			/*
-			 * Metamodel input
-			 */
-			val IFile aleFile = WorkspaceSynchronizer.getFile(model.eResource);
-			val IPath dslPath = aleFile.getFullPath().removeFileExtension().addFileExtension("ecore");
-	    	val rs = new ResourceSetImpl();
-	    	rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
-	    	val ecorePkgs = DslBuilder.load(dslPath.toString,rs);
-			
-			/*
-			 * ALE input
-			 */
-			val stream = new ByteArrayInputStream(context.document.get().getBytes(StandardCharsets.UTF_8));
-			
-			/*
-			 * Parse result
-			 */
-			val ALEInterpreter interpreter = new ALEInterpreter();
-			val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(ecorePkgs,Arrays.asList(stream));
-			
-			/*
-	    	 * Register services
-	    	 */
-	    	val List<String> services = 
-	    		parsedSemantics
-		    	.map[getRoot()]
-		    	.filterNull
-		    	.map[getServices()]
-		    	.flatten
-		    	.toList
-	    	interpreter.registerServices(services)
-			
-			var Map<String, Set<IType>> variableTypes = newHashMap();
-			val contextExp = getExpression(parsedSemantics,context.offset-1)
-			val validator = new ALEValidator(interpreter.queryEnvironment)
-			if(contextExp !== null) {
-				variableTypes = validator.getValidationContext(contextExp,parsedSemantics)
-			}
-			if(variableTypes.entrySet.isEmpty) { //default: get block context
-				val block = getBlock(parsedSemantics,context.offset)
-				variableTypes = validator.getValidationContext(block,parsedSemantics)
-			}
-			
-			val QueryCompletionEngine engine = new QueryCompletionEngine(interpreter.getQueryEnvironment());
-			val ICompletionResult completionResult = engine.getCompletion(expression, expression.length, variableTypes);
-			val proposals = completionResult.getProposals(new BasicFilter(completionResult));
-					
-			proposals.forEach[proposal |
-				val styledText = new StyledString(proposal.proposal)
-				styledText.setStyle(0, proposal.proposal.length, StyledString.QUALIFIER_STYLER);
-				acceptor.accept(doCreateProposal(proposal.proposal, styledText, null, getPriorityHelper().getDefaultPriority()+1,context))
-			]
+//			if(expression.isEmpty) {
+//				return
+//			}
+//			
+//			/*
+//			 * Metamodel input
+//			 */
+//			val IFile aleFile = WorkspaceSynchronizer.getFile(model.eResource);
+//			val IPath dslPath = aleFile.getFullPath().removeFileExtension().addFileExtension("ecore");
+//	    	val rs = new ResourceSetImpl();
+//	    	rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
+//	    	val ecorePkgs = DslBuilder.load(dslPath.toString,rs);
+//			
+//			/*
+//			 * ALE input
+//			 */
+//			val stream = new ByteArrayInputStream(context.document.get().getBytes(StandardCharsets.UTF_8));
+//			
+//			/*
+//			 * Parse result
+//			 */
+//			val AleInterpreter interpreter = new AleInterpreter();
+//			val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(ecorePkgs,Arrays.asList(stream));
+//			
+//			/*
+//	    	 * Register services
+//	    	 */
+//	    	val List<String> services = 
+//	    		parsedSemantics
+//		    	.map[getRoot()]
+//		    	.filterNull
+//		    	.map[getServices()]
+//		    	.flatten
+//		    	.toList
+//	    	interpreter.registerServices(services)
+//			
+//			var Map<String, Set<IType>> variableTypes = newHashMap();
+//			val contextExp = getExpression(parsedSemantics,context.offset-1)
+//			val validator = new ALEValidator(interpreter.queryEnvironment)
+//			if(contextExp !== null) {
+//				variableTypes = validator.getValidationContext(contextExp,parsedSemantics)
+//			}
+//			if(variableTypes.entrySet.isEmpty) { //default: get block context
+//				val block = getBlock(parsedSemantics,context.offset)
+//				variableTypes = validator.getValidationContext(block,parsedSemantics)
+//			}
+//			
+//			val QueryCompletionEngine engine = new QueryCompletionEngine(interpreter.getQueryEnvironment());
+//			val ICompletionResult completionResult = engine.getCompletion(expression, expression.length, variableTypes);
+//			val proposals = completionResult.getProposals(new BasicFilter(completionResult));
+//					
+//			proposals.forEach[proposal |
+//				val styledText = new StyledString(proposal.proposal)
+//				styledText.setStyle(0, proposal.proposal.length, StyledString.QUALIFIER_STYLER);
+//				acceptor.accept(doCreateProposal(proposal.proposal, styledText, null, getPriorityHelper().getDefaultPriority()+1,context))
+//			]
 	}
 	
 	/**
@@ -263,7 +244,7 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 	 * 
 	 * Return null if not found
 	 */
-	private def Expression getExpression(List<ParseResult<ModelUnit>> parsedSemantics, int offset) {
+	private def Expression getExpression(List<ParsedFile<ModelUnit>> parsedSemantics, int offset) {
 		
 		var Expression res = null;
 		var start = 0;
@@ -272,17 +253,17 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 		if(!parsedSemantics.isEmpty) {
 			//FIXME: search in all units
 			val unit = parsedSemantics.head;
-			val allExps = unit.startPositions.keySet.filter(Expression)
+			val allExps = unit.getStartPositions.keySet.filter(Expression)
 			val candidate = 
 				allExps
 				.findFirst[exp |
-					 unit.startPositions.get(exp) <= offset && unit.endPositions.get(exp) >= offset
+					 unit.getStartPositions.get(exp) <= offset && unit.getEndPositions.get(exp) >= offset
 				]
 				
 			if(candidate !== null) {
 				res = candidate
-				start = unit.startPositions.get(candidate)
-				end = unit.endPositions.get(candidate)
+				start = unit.getStartPositions.get(candidate)
+				end = unit.getEndPositions.get(candidate)
 			
 				while(res.eContainer instanceof Expression){
 					res = res.eContainer as Expression
@@ -298,7 +279,7 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 	 * 
 	 * Return null if not found
 	 */
-	private def Block getBlock(List<ParseResult<ModelUnit>> parsedSemantics, int offset) {
+	private def Block getBlock(List<ParsedFile<ModelUnit>> parsedSemantics, int offset) {
 		var Block res = null;
 		var start = 0;
 		var end = 0;
@@ -306,22 +287,22 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 		if(!parsedSemantics.isEmpty) {
 			//FIXME: search in all units
 			val unit = parsedSemantics.head;
-			val allExps = unit.startPositions.keySet.filter(Block)
+			val allExps = unit.getStartPositions.keySet.filter(Block)
 			val candidate = 
 				allExps
 				.findFirst[block |
-					 unit.startPositions.get(block) <= offset && unit.endPositions.get(block) >= offset
+					 unit.getStartPositions.get(block) <= offset && unit.getEndPositions.get(block) >= offset
 				]
 				
 			if(candidate !== null) {
 				res = candidate
-				start = unit.startPositions.get(candidate)
-				end = unit.endPositions.get(candidate)
+				start = unit.getStartPositions.get(candidate)
+				end = unit.getEndPositions.get(candidate)
 			
 				for(block : allExps.drop(1)) {
-					 start <= unit.startPositions.get(block) && unit.endPositions.get(block) <= end
-					 start = unit.startPositions.get(block) 
-					 end = unit.endPositions.get(block)
+					 start <= unit.getStartPositions.get(block) && unit.getEndPositions.get(block) <= end
+					 start = unit.getStartPositions.get(block) 
+					 end = unit.getEndPositions.get(block)
 				}
 			}
 		}
