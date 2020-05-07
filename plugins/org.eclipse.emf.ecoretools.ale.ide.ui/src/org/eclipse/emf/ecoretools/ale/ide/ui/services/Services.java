@@ -63,6 +63,9 @@ import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 import org.eclipse.emf.ecoretools.design.service.EcoreToolsDesignPlugin;
+import org.eclipse.sirius.business.api.session.Session;
+import org.eclipse.sirius.business.api.session.SessionManager;
+import org.eclipse.sirius.business.api.session.resource.AirdResource;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -113,11 +116,41 @@ public class Services {
     		// e.g. when 'element' is a dynamic attribute declared from ALE
     		return emptyList();
     	}
-    	URI uri = element.eResource().getURI();
-    	IPath path = new Path(uri.toPlatformString(false));
-    	IProject enclosingProject = ResourcesPlugin.getWorkspace().getRoot().getFile(path).getProject();
-    	IAleEnvironment env = AleProject.from(enclosingProject).getEnvironment();
     	
+    	
+    	Session session = SessionManager.INSTANCE.getSession(element);
+    	IAleEnvironment env;
+    	
+    	if (session == null) {
+    		// Retrieve the applicable ALE environment from the project containing the .ecore
+    		
+    		Path modelFilePath = new Path(element.eResource().getURI().toPlatformString(true));
+			IFile modelFile = ResourcesPlugin.getWorkspace().getRoot().getFile(modelFilePath);
+    		IProject modelProject = modelFile.getProject();
+			env = AleProject.from(modelProject).getEnvironment();
+    		
+    		/*
+    		 * This branch may cause issues if the .ale source files and the .ecore are not defined in the same project.
+    		 * As it seems to only occur during tests it might not be a problem, but let's log the problem anyway.
+    		 */
+    		Activator.warn("Unable to find representation file for '" + element + "', Behavior layer will be filled from project '" + modelProject.getName() + "' instead", null);
+    	}
+    	else {
+    		// Retrieve the applicable ALE environment from the project containing the .aird
+    		
+	    	Optional<AirdResource> aird = session.getAllSessionResources().stream()
+	    									 .filter(AirdResource.class::isInstance)
+	    									 .map(AirdResource.class::cast)
+	    									 .findAny();
+	    	
+	    	if (!aird.isPresent()) {
+	    		return new ArrayList<>(0);
+	    	}
+	    	IFile airdFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(aird.get().getURI().toPlatformString(true)));
+	    	env = AleProject.from(airdFile.getProject()).getEnvironment();
+    	}
+    	
+    	// Extract the semantics from this environment
     	// FIXME The code below has been copied from ALEInterpreter
     	
     	ExtensionEnvironment queryEnv = new ExtensionEnvironment();

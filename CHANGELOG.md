@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 ### Fixed
 - [#4](https://github.com/gemoc/ale-lang/issues/4) The .dsl configuration file and the .ale source file must have the same base name
+- [#39](https://github.com/gemoc/ale-lang/issues/39) Sirius' _Behavior_ layer does not show runtime data when _.ale_ and _.ecore_ files are defined in different projects
 - [#51](https://github.com/gemoc/ale-lang/issues/51) Pure ALE classes are not handled by the type checker
 - [#64](https://github.com/gemoc/ale-lang/issues/64) `null` cannot be assigned to variables
 - [#67](https://github.com/gemoc/ale-lang/issues/67) `Sequence` vales can be assigned to variable which type is `OrderedSet` and vice versa
