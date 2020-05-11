@@ -1,0 +1,10 @@
+behavior lang.ale.test;
+
+open class ClassA {
+	
+	@main
+	def void main() {
+		String str := OrderedSet{'Hello World!'};
+	}
+	
+}

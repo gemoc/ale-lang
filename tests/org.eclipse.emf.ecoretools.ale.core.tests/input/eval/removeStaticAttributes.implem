@@ -1,0 +1,15 @@
+behavior test.containattributes;
+
+open class Mix {
+
+	@main
+	def void main() {
+		self.int := 0;
+		self.strings := Sequence{'a', 'b'};
+		self.integers := OrderedSet{1, 2, 2, 3, 3};
+		
+		self.int -= 38;
+		self.strings -= 'a';
+		self.integers -= 2;
+	}
+}

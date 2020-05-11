@@ -13,7 +13,11 @@ package org.eclipse.emf.ecoretools.ale.core.interpreter.internal;
 import java.util.List;
 
 import org.eclipse.acceleo.query.runtime.EvaluationResult;
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecoretools.ale.core.Activator;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.CriticalFailureException;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 
@@ -27,20 +31,36 @@ import org.eclipse.emf.ecoretools.ale.implementation.Method;
 public class AleEngine {
 	
 	private EvalEnvironment implemEnv;
+	private IAleEnvironment environment;
 	
-	public AleEngine(EvalEnvironment evalEnv) {
+	public AleEngine(EvalEnvironment evalEnv, IAleEnvironment environment) {
 		this.implemEnv = evalEnv;
+		this.environment = environment;
 	}
 	
 	public EvaluationResult eval(EObject target, Method mainOp, List<Object> args) {
-		EvaluationResult res;
-		MethodEvaluator evaluator = new MethodEvaluator(new ExpressionEvaluationEngine(implemEnv.getQueryEnvironment(),implemEnv.getListeners()), implemEnv.getFeatureAccess());
+		EvaluationResult res = new EvaluationResult(null, new BasicDiagnostic());
+		MethodEvaluator evaluator = new MethodEvaluator(environment, new ExpressionEvaluationEngine(implemEnv.getQueryEnvironment(),implemEnv.getListeners()), implemEnv.getFeatureAccess());
 		try {
 			res = evaluator.eval(target,mainOp,args);
 		}
 		catch(CriticalFailureException e) {
 			res = new EvaluationResult(null, e.getDiagnostic());
 			this.implemEnv.getLogger().notify(e.getDiagnostic());
+		}
+		catch (Exception e) {
+			Throwable t = e;
+			while (t.getCause() != null) {
+				t = t.getCause();
+				
+				if (t instanceof CriticalFailureException) {
+					CriticalFailureException criticalFailureException = (CriticalFailureException) t;
+					
+					res = new EvaluationResult(null, criticalFailureException.getDiagnostic());
+					this.implemEnv.getLogger().notify(criticalFailureException.getDiagnostic());
+				}
+			}
+			throw e;
 		}
 		return res;
 	}

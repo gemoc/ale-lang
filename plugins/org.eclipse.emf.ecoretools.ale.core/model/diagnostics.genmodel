@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.emf.ecoretools.ale.core/src-gen" editDirectory="/org.eclipse.emf.ecoretools.ale.core.edit/src-gen"
+    modelPluginID="org.eclipse.emf.ecoretools.ale.core" modelName="Diagnostics" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    usedGenPackages="../../org.eclipse.acceleo.query/model/ast.genmodel#//ast ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel Implementation.genmodel#//implementation"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>diagnostics.ecore</foreignModel>
+  <genPackages prefix="Diagnostics" basePackage="org.eclipse.emf.ecoretools.ale.core"
+      disposableProviderFactory="true" ecorePackage="diagnostics.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="diagnostics.ecore#//Operator">
+      <genEnumLiterals ecoreEnumLiteral="diagnostics.ecore#//Operator/SUBSTRACTION"/>
+      <genEnumLiterals ecoreEnumLiteral="diagnostics.ecore#//Operator/ADDITION"/>
+      <genEnumLiterals ecoreEnumLiteral="diagnostics.ecore#//Operator/LOWER_THAN"/>
+      <genEnumLiterals ecoreEnumLiteral="diagnostics.ecore#//Operator/GREATER_THAN"/>
+      <genEnumLiterals ecoreEnumLiteral="diagnostics.ecore#//Operator/EQUAL"/>
+      <genEnumLiterals ecoreEnumLiteral="diagnostics.ecore#//Operator/DOT"/>
+      <genEnumLiterals ecoreEnumLiteral="diagnostics.ecore#//Operator/LOWER_OR_EQUAL"/>
+      <genEnumLiterals ecoreEnumLiteral="diagnostics.ecore#//Operator/GREATER_OR_EQUAL"/>
+      <genEnumLiterals ecoreEnumLiteral="diagnostics.ecore#//Operator/ASSIGNMENT"/>
+      <genEnumLiterals ecoreEnumLiteral="diagnostics.ecore#//Operator/ADDITION_ASSIGNMENT"/>
+      <genEnumLiterals ecoreEnumLiteral="diagnostics.ecore#//Operator/SUBSTRACTION_ASSIGNMENT"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="diagnostics.ecore#//IType"/>
+    <genDataTypes ecoreDataType="diagnostics.ecore#//Throwable"/>
+    <genClasses ecoreClass="diagnostics.ecore#//AttributeNotFound">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//AttributeNotFound/owner"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//AttributeNotFound/name"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//Message">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagnostics.ecore#//Message/location"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagnostics.ecore#//Message/stacktrace"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagnostics.ecore#//Message/context"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//Message/wholeCode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//Message/incriminatedCode"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//Message/source"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//CodeLocation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//CodeLocation/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//CodeLocation/line"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//Context">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//Context/scopes"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//MethodNotFound">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//MethodNotFound/owner"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//MethodNotFound/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//MethodNotFound/arguments"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//MethodNotFound/argumentTypes"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//VariableNotFound">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//VariableNotFound/name"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//TypeNotFound">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//TypeNotFound/name"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//TypeMismatch">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//TypeMismatch/expectedTypes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//TypeMismatch/actualTypes"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//VariableAlreadyBound">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//VariableAlreadyBound/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//VariableAlreadyBound/duplicateLocation"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//InternalError">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//InternalError/message"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//InternalError/cause"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//AssignmentToSelf"/>
+    <genClasses ecoreClass="diagnostics.ecore#//AssignmentToResultInVoidOperation"/>
+    <genClasses ecoreClass="diagnostics.ecore#//NotIterable"/>
+    <genClasses ecoreClass="diagnostics.ecore#//UnsupportedOperator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//UnsupportedOperator/operator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//UnsupportedOperator/target"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//MissingReturnStatement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//MissingReturnStatement/method"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

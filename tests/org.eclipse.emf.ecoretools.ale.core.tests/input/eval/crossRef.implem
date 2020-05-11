@@ -2,7 +2,7 @@ behavior test.containattributes;
 
 open class ClassA {
 	@main
-	def int main() {
+	def Sequence(ecore::EObject) main() {
 		result := self.eCrossReferences();
 	}
 }

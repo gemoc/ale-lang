@@ -18,6 +18,7 @@ import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.validation.type.IType;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
@@ -28,14 +29,16 @@ public class ALEValidator {
 	
 	List<IValidationMessage> msgs;
 	IQueryEnvironment qryEnv;
+	private IAleEnvironment environment;
 	
-	public ALEValidator(IQueryEnvironment qryEnv) {
-		this.qryEnv = qryEnv;
+	public ALEValidator(IAleEnvironment environment) {
+		this.environment = environment;
+		this.qryEnv = environment.getContext();
 	}
 	
 	public void validate(List<ParsedFile<ModelUnit>> roots) {
 		List<IValidator> validators = Lists.newArrayList(new NameValidator(), new TypeValidator(), new OpenClassValidator());
-		BaseValidator base = new BaseValidator(qryEnv, validators);
+		BaseValidator base = new BaseValidator(environment, validators);
 		msgs = base.validate(roots);
 	}
 	
@@ -45,14 +48,14 @@ public class ALEValidator {
 	
 	public Map<String, Set<IType>> getValidationContext(Expression exp, List<ParsedFile<ModelUnit>> roots) {
 		List<IValidator> validators = Lists.newArrayList(new NameValidator(), new TypeValidator(), new OpenClassValidator());
-		BaseValidator base = new BaseValidator(qryEnv, validators);
+		BaseValidator base = new BaseValidator(environment, validators);
 		msgs = base.validate(roots);
 		return base.getValidationContext(exp);
 	}
 	
 	public Map<String, Set<IType>> getValidationContext(Block block, List<ParsedFile<ModelUnit>> roots) {
 		List<IValidator> validators = Lists.newArrayList(new NameValidator(), new TypeValidator(), new OpenClassValidator());
-		BaseValidator base = new BaseValidator(qryEnv, validators);
+		BaseValidator base = new BaseValidator(environment, validators);
 		msgs = base.validate(roots);
 		return base.getValidationContext(block);
 	}

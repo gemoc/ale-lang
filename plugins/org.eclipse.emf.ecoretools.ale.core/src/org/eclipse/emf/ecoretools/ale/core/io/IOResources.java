@@ -69,7 +69,7 @@ public class IOResources {
 		}
 		catch (NullPointerException e) {
 			// the ifile does not exist in the workspace
-			// FIXME Should try to infer file's path by concatening workspace's path and ifile's path
+			// FIXME Should try to infer file's path by concatenating workspace's path and ifile's path
 			return Optional.empty();
 		}
 	}

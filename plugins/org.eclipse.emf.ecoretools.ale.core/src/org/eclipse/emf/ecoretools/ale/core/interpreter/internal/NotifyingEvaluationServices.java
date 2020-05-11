@@ -10,12 +10,13 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.interpreter.internal;
 
+import static java.util.Arrays.asList;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.acceleo.query.parser.AstBuilderListener;
 import org.eclipse.acceleo.query.runtime.AcceleoQueryEvaluationException;
-import org.eclipse.acceleo.query.runtime.ILookupEngine;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IService;
@@ -28,7 +29,10 @@ import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecoretools.ale.core.Activator;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.CriticalFailureException;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.IServiceCallListener;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.ServiceNotFoundException;
 
 /**
  * Represent the set of callable AQL services and provides API to call them.
@@ -82,14 +86,11 @@ public class NotifyingEvaluationServices extends EvaluationServices {
 			IType[] argumentTypes = getArgumentTypes(arguments);
 			IService service = queryEnvironment.getLookupEngine().lookup(serviceName, argumentTypes);
 			if (service == null) {
-				Nothing placeHolder = nothing(SERVICE_NOT_FOUND, serviceSignature(serviceName, argumentTypes));
-				addDiagnosticFor(diagnostic, Diagnostic.WARNING, placeHolder);
-				result = placeHolder;
-			} else {
-				listeners.forEach(l -> l.preCall(service, arguments));
-				result = callService(service, arguments, diagnostic);
-				listeners.forEach(l -> l.postCall(service, arguments,result));
+				throw new ServiceNotFoundException(serviceName, serviceSignature(serviceName, argumentTypes), asList(argumentTypes), asList(arguments));
 			}
+			listeners.forEach(l -> l.preCall(service, arguments));
+			result = callService(service, arguments, diagnostic);
+			listeners.forEach(l -> l.postCall(service, arguments,result));
 			// CHECKSTYLE:OFF
 		} catch (Exception e) {
 			// CHECKSTYLE:ON

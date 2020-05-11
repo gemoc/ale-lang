@@ -161,7 +161,7 @@
         <consolePatternMatchListener
               class="org.eclipse.emf.ecoretools.ale.ide.ui.io.HyperlinkAleConsoleMatcherListener"
               id="org.eclipse.emf.ecoretools.ale.ide.ui.io.hyperlinkAleConsoleMatcherListener"
-              regex="At (.+):(.+)">
+              regex="[aA]t (.+):(.+)">
            <enablement></enablement>
         </consolePatternMatchListener>
      </extension>

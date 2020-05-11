@@ -46,8 +46,8 @@ import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecoretools.ale.core.Activator;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.DiagnosticLogger;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.ExtensionLookupEngine;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.IServiceCallListener;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.DynamicEObjectServices;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
@@ -88,12 +88,15 @@ public class EvalEnvironment {
 	 * Listeners for service calls
 	 */
 	private List<IServiceCallListener> listeners;
+
+	private IAleEnvironment environment;
 	
-	public EvalEnvironment(IQueryEnvironment qryEnv, List<ModelUnit> allImplem, DiagnosticLogger logger, List<IServiceCallListener> listeners) {
-		this.qryEnv = qryEnv;
+	public EvalEnvironment(IAleEnvironment environment, DiagnosticLogger logger, List<IServiceCallListener> listeners) {
+		this.environment = environment;
+		this.qryEnv = environment.getContext();
 		this.logger = logger;
 		this.listeners = listeners;
-		registerImplem(allImplem);
+		registerImplem(environment.getBehaviors().getUnits());
 		populateEnvironmentWithDefaultServices(null,null);
 	}
 	
@@ -185,7 +188,7 @@ public class EvalEnvironment {
 				.getClassExtensions()
 				.stream()
 				.flatMap(cls -> cls.getMethods().stream())
-				.forEach(implemOp -> res.put(implemOp,(new EvalBodyService(implemOp,this,logger))));
+				.forEach(implemOp -> res.put(implemOp,(new EvalBodyService(environment, implemOp,this,logger))));
 			});
 		
 		List<EvalBodyService> newClassOperations = new ArrayList<>();
@@ -196,7 +199,7 @@ public class EvalEnvironment {
 				.getClassDefinitions()
 				.stream()
 				.flatMap(cls -> cls.getMethods().stream())
-				.forEach(implemOp -> newClassOperations.add(new EvalBodyService(implemOp,this,logger)));
+				.forEach(implemOp -> newClassOperations.add(new EvalBodyService(environment, implemOp,this,logger)));
 			});
 		
 		

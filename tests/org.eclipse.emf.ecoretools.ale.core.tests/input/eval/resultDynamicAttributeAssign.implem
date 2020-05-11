@@ -4,9 +4,8 @@ open class ClassA {
 	String attrib := 'foo';
 	
 	@main
-	def String main() {
+	def test::ClassA main() {
 		result := self;
 		result.attrib := 'bar';
-		result := result.attrib;
 	}
 }

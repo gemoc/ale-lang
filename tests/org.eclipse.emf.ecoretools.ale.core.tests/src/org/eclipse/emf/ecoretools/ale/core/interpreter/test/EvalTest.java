@@ -189,8 +189,7 @@ public class EvalTest {
 		Method main = behaviors.getMainMethods().get(0);
 		IEvaluationResult res = environment.getInterpreter().eval(caller, main, asList());
 
-		assertEquals(Diagnostic.WARNING, res.getDiagnostic().getSeverity());
-		assertEquals("An error occured during evaluation of a query", res.getDiagnostic().getMessage());
+		assertEquals(Diagnostic.ERROR, res.getDiagnostic().getSeverity());
 		assertEquals(null, res.getValue());
 	}
 
@@ -313,7 +312,7 @@ public class EvalTest {
 		Method main = behaviors.getMainMethods().get(0);
 		IEvaluationResult res = environment.getInterpreter().eval(caller, main, asList());
 
-		assertEquals("bar", res.getValue());
+		assertTrue(res.getValue() instanceof EObject);
 	}
 
 	@Test
@@ -375,7 +374,9 @@ public class EvalTest {
 		Method main = behaviors.getMainMethods().get(0);
 		IEvaluationResult res = environment.getInterpreter().eval(caller, main, asList());
 
-		assertEquals(4, res.getValue());
+		assertTrue(res.getValue() instanceof EObject);
+		EStructuralFeature feature = ((EObject) res.getValue()).eClass().getEStructuralFeature("field");
+		assertEquals(4, ((EObject) res.getValue()).eGet(feature));
 	}
 
 	@Test
@@ -776,12 +777,12 @@ public class EvalTest {
 		Method main = behaviors.getMainMethods().get(0);
 		IEvaluationResult res = environment.getInterpreter().eval(caller, main, asList());
 
-		assertNotNull(res.getValue());
+		assertNotNull("should not be null", res.getValue());
 		assertEquals(caller, res.getValue());
 	}
 
 	@Test
-	public void testContainsDoubelAssign()  throws ClosedAleEnvironmentException {
+	public void testContainsDoubleAssign()  throws ClosedAleEnvironmentException {
 		/*
 		 * Check double assignment
 		 */
@@ -846,7 +847,7 @@ public class EvalTest {
 		IEvaluationResult res = environment.getInterpreter().eval(caller, main, asList());
 
 		Object value = res.getValue();
-		assertTrue(value instanceof List);
+		assertTrue((value == null ? null : value.getClass()) + " was expected to be a List", value instanceof List);
 		assertEquals(4, ((List<?>) value).size());
 
 		Object elem1 = ((List<?>) value).get(0);
@@ -992,7 +993,7 @@ public class EvalTest {
 		IBehaviors behaviors = environment.getBehaviors();
 		Method main = behaviors.getMainMethods().get(0);
 		IEvaluationResult res = environment.getInterpreter().eval(caller, main, asList());
-
+		environment.getInterpreter().getLogger().diagnosticForHuman();
 		assertEquals(
 				"test.selectedCallOne.A.foo()\ntest.selectedCallOne.B.foo()\ntest.selectedCallTwo.A.foo()\ntest.selectedCallTwo.B.foo()",
 				res.getValue());
@@ -1005,7 +1006,7 @@ public class EvalTest {
 		EObject caller = environment.loadModel(URI.createURI("model/ClassA.xmi")).get(0);
 		Method main = behaviors.getMainMethods().get(0);
 		IEvaluationResult res = environment.getInterpreter().eval(caller, main, asList());
-
+		environment.getInterpreter().getLogger().diagnosticForHuman();
 		assertEquals(2, res.getValue());
 	}
 
@@ -1169,14 +1170,11 @@ public class EvalTest {
 		Method main = behaviors.getMainMethods().get(0);
 		IEvaluationResult res = environment.getInterpreter().eval(caller, main, asList());
 
-		assertEquals(Diagnostic.WARNING, res.getDiagnostic().getSeverity());
-		assertEquals("An error occured during evaluation of a query", res.getDiagnostic().getMessage());
+		assertEquals(Diagnostic.ERROR, res.getDiagnostic().getSeverity());
 	}
 	
 	
 	@Test
-	@Ignore // for some reason it fails in CI but pass locally (from IDE & CLI)
-			// should fix that but can't figure out why it fails so nevermind
 	public void testCallMethodWithDouble()  throws ClosedAleEnvironmentException {
 		environment = IAleEnvironment.fromPaths(asList("model/test.ecore"),
 				asList("input/eval/doubleAsParameter.implem"));
@@ -1211,7 +1209,6 @@ public class EvalTest {
 		Method main = behaviors.getMainMethods().stream().filter(m -> m.getOperationRef().getName().equals("concatWrongTypeWithStaticAttribute")).findAny().get();
 		IEvaluationResult res = environment.getInterpreter().eval(caller, main, asList());
 
-		assertEquals("Cannot add the value to 'strings': types mismatch", res.getDiagnostic().getMessage());
 		assertEquals(Diagnostic.ERROR, res.getDiagnostic().getSeverity());
 	}
 	
@@ -1229,8 +1226,6 @@ public class EvalTest {
 	}
 	
 	@Test
-	@Ignore // This test fails but we currently have no easy way to fix it
-			// see https://github.com/gemoc/ale-lang/issues/127
 	public void testCannotAddAllDifferentCollectionTypeToDynamicCollectionAttribute()  throws ClosedAleEnvironmentException {
 		environment = IAleEnvironment.fromPaths(asList("model/attributesOfDifferentTypes.ecore"),
 				asList("input/eval/addAllCollectionWithOperator.implem"));
@@ -1239,7 +1234,6 @@ public class EvalTest {
 		Method main = behaviors.getMainMethods().stream().filter(m -> m.getOperationRef().getName().equals("concatWrongTypeWithDynamicAttribute")).findAny().get();
 		IEvaluationResult res = environment.getInterpreter().eval(caller, main, asList());
 
-		assertEquals("Cannot add the value to 'dynStrings': types mismatch", res.getDiagnostic().getMessage());
 		assertEquals(Diagnostic.ERROR, res.getDiagnostic().getSeverity());
 	}
 	
@@ -1257,8 +1251,6 @@ public class EvalTest {
 	}
 	
 	@Test
-	@Ignore // This test fails but we currently have no easy way to fix it
-			// see https://github.com/gemoc/ale-lang/issues/128
 	public void testCannotAddAllDifferentCollectionTypeToLocalCollectionVariable()  throws ClosedAleEnvironmentException {
 		environment = IAleEnvironment.fromPaths(asList("model/attributesOfDifferentTypes.ecore"),
 				asList("input/eval/addAllCollectionWithOperator.implem"));
@@ -1267,7 +1259,6 @@ public class EvalTest {
 		Method main = behaviors.getMainMethods().stream().filter(m -> m.getOperationRef().getName().equals("concatWrongTypeWithLocalVariable")).findAny().get();
 		IEvaluationResult res = environment.getInterpreter().eval(caller, main, asList());
 
-		assertEquals("Cannot add the value to 'localNumbers': types mismatch", res.getDiagnostic().getMessage());
 		assertEquals(Diagnostic.ERROR, res.getDiagnostic().getSeverity());
 	}
 	
@@ -1292,7 +1283,36 @@ public class EvalTest {
 		Method main = behaviors.getMainMethods().get(0);
 		environment.getInterpreter().eval(caller, main, asList());
 		
-		assertEquals("-= sould allow to substract sets with sets and sequences", asList(2, 4), caller.eGet(caller.eClass().getEStructuralFeature("integers")));
+		assertEquals("-= should allow to substract sets with sets and sequences", asList(2, 4), caller.eGet(caller.eClass().getEStructuralFeature("integers")));
+	}
+	
+	@Test
+	public void testInsertStaticAttributes()  throws ClosedAleEnvironmentException {
+		environment = IAleEnvironment.fromPaths(asList("model/attributesOfDifferentTypes.ecore"), asList("input/eval/insertStaticAttributes.implem"));
+		
+		EObject caller = environment.loadModel(URI.createURI("model/Mix.xmi")).get(0);
+		IBehaviors behaviors = environment.getBehaviors();
+		Method main = behaviors.getMainMethods().get(0);
+		environment.getInterpreter().eval(caller, main, asList());
+		
+		assertEquals(42, caller.eGet(caller.eClass().getEStructuralFeature("int")));
+		assertEquals("Hello World!", caller.eGet(caller.eClass().getEStructuralFeature("string")));
+		assertEquals(asList("a", "b"), caller.eGet(caller.eClass().getEStructuralFeature("strings")));
+		assertEquals(asList(1, 2, 3), caller.eGet(caller.eClass().getEStructuralFeature("integers")));
+	}
+	
+	@Test
+	public void testRemoveStaticAttributes()  throws ClosedAleEnvironmentException {
+		environment = IAleEnvironment.fromPaths(asList("model/attributesOfDifferentTypes.ecore"), asList("input/eval/removeStaticAttributes.implem"));
+		
+		EObject caller = environment.loadModel(URI.createURI("model/Mix.xmi")).get(0);
+		IBehaviors behaviors = environment.getBehaviors();
+		Method main = behaviors.getMainMethods().get(0);
+		environment.getInterpreter().eval(caller, main, asList());
+		
+		assertEquals(-38, caller.eGet(caller.eClass().getEStructuralFeature("int")));
+		assertEquals(asList("b"), caller.eGet(caller.eClass().getEStructuralFeature("strings")));
+		assertEquals(asList(1, 3), caller.eGet(caller.eClass().getEStructuralFeature("integers")));
 	}
 	
 }

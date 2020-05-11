@@ -4,10 +4,10 @@ open class ClassA {
 	Sequence(test::ClassA) seq;
 	
 	@main
-	def int main() {
+	def String main() {
 		ClassA a := test::ClassA.create();
 		a.seq := Sequence{test::ClassA.create()};
-		a.collection := a.seq;
+		a.collection := a.seq->asOrderedSet();
 		result := a.seq->size() + ' '+ a.collection->size();
 	}
 }

@@ -193,12 +193,28 @@ public interface ITypeChecker {
 	boolean isCollection(IType type);
 	
 	/**
+	 * Determines whether the given type corresponds to a double.
+	 * 
+	 * @param type
+	 * 			The type to check
+	 * 
+	 * @return true if the type represents a double, false otherwise
+	 * 
+	 * @see #isInteger(IType)
+	 * @see #isNumber(IType)
+	 */
+	boolean isDouble(IType type);
+	
+	/**
 	 * Determines whether the given type corresponds to an integer.
 	 * 
 	 * @param type
 	 * 			The type to check
 	 * 
 	 * @return true if the type represents an integer, false otherwise
+	 * 
+	 * @see #isDouble(IType)
+	 * @see #isNumber(IType)
 	 */
 	boolean isInteger(IType type);
 
@@ -211,6 +227,19 @@ public interface ITypeChecker {
 	 * @return true if the type represents {@code null}, false otherwise
 	 */
 	boolean isNull(IType type);
+	
+	/**
+	 * Determines whether the given type corresponds to a number (int or double).
+	 * 
+	 * @param type
+	 * 			The type to check
+	 * 
+	 * @return true if the type represents a number, false otherwise
+	 * 
+	 * @see #isDouble(IType)
+	 * @see #isInteger(IType)
+	 */
+	boolean isNumber(IType type);
 
 	/**
 	 * Determines whether the given type corresponds to a set of unique elements.

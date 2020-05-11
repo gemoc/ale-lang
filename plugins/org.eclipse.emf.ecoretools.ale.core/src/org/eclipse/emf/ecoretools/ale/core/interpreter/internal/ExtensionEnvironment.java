@@ -8,7 +8,7 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-package org.eclipse.emf.ecoretools.ale.core.interpreter;
+package org.eclipse.emf.ecoretools.ale.core.interpreter.internal;
 
 import java.util.ArrayList;
 import java.util.Collection;

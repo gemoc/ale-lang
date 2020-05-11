@@ -187,7 +187,7 @@ public class AleEvaluationJob extends Job {
 
 			while (execThread.isAlive()) {
 				if (monitor.isCanceled()) {
-					execThread.stop();
+//					execThread.stop();
 					return Status.CANCEL_STATUS;
 				}
 				try {
@@ -197,7 +197,7 @@ public class AleEvaluationJob extends Job {
 					Thread.currentThread().interrupt();
 
 					// Main thread has been interrupted: let's stop the evaluation and move on
-					execThread.stop();
+//					execThread.stop();
 					return new Status(IStatus.CANCEL, Activator.PLUGIN_ID,
 							"Execution thread has been interrupted", e);
 				}

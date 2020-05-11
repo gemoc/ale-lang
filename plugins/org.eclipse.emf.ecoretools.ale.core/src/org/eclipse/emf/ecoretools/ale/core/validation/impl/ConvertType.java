@@ -78,6 +78,9 @@ public final class ConvertType implements IConvertType {
 			}
 			return new SequenceType(queryEnvironment, collectionType);
 		}
+		if(type == null) {
+			return new NothingType("void");
+		}
 		return new EClassifierType(queryEnvironment, type);
 	}
 

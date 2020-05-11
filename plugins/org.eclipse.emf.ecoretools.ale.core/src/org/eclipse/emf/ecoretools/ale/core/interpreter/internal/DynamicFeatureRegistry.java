@@ -129,28 +129,32 @@ public class DynamicFeatureRegistry {
 		}
 	}
 	
-	public void insertDynamicFeatureValue(EObject instance, String featureName, Object newValue) {
+	public void insertDynamicFeatureValue(EObject instance, String featureName, Object inserted) {
 		EObject extendedInstance = getOrCreateRuntimeExtension(instance);
 		
 		if (extendedInstance != null) {
 			EStructuralFeature feature = extendedInstance.eClass().getEStructuralFeature(featureName);
 			if (feature != null) {
 				Object featureValue = extendedInstance.eGet(feature);
-				if (featureValue instanceof List){
-					if (newValue instanceof Collection) {
-						((List) featureValue).addAll((Collection) newValue);
+				if (featureValue instanceof Collection){
+					if (inserted instanceof Collection) {
+						((Collection<Object>) featureValue).addAll((Collection<?>) inserted);
 					}
 					else {
-						((List)featureValue).add(newValue);
+						((Collection<Object>) featureValue).add(inserted);
 					}
 				}
 				else if (featureValue instanceof String){
-					String concat = featureValue + "" + newValue;
+					String concat = featureValue + "" + inserted;
 					extendedInstance.eSet(feature, concat);
 				}
-				else if (featureValue instanceof Integer && newValue instanceof Integer) {
-					Integer sum = (Integer) featureValue + (Integer) newValue;
-					extendedInstance.eSet(feature, sum);
+				else if (featureValue instanceof Integer && inserted instanceof Number) {
+					Integer sum = (Integer) featureValue + ((Number) inserted).intValue();
+					instance.eSet(feature, sum);
+				}
+				else if (featureValue instanceof Double && inserted instanceof Number) {
+					Double sum = (Double) featureValue + ((Number) inserted).doubleValue();
+					instance.eSet(feature, sum);
 				}
 			}
 			else {
@@ -162,7 +166,7 @@ public class DynamicFeatureRegistry {
 		}
 	}
 	
-	public void removeDynamicFeatureValue(EObject instance, String featureName, Object newValue) {
+	public void removeDynamicFeatureValue(EObject instance, String featureName, Object removed) {
 		
 		EObject extendedInstance = getOrCreateRuntimeExtension(instance);
 		
@@ -170,12 +174,21 @@ public class DynamicFeatureRegistry {
 			EStructuralFeature feature = extendedInstance.eClass().getEStructuralFeature(featureName);
 			if (feature != null) {
 				Object featureValue = extendedInstance.eGet(feature);
-				if (featureValue instanceof List){
-					((List)featureValue).remove(newValue);
+				if (featureValue instanceof Collection){
+					if (removed instanceof Collection) {
+						((Collection<Object>) featureValue).removeAll((Collection<?>) removed);
+					}
+					else {
+						((Collection<Object>) featureValue).remove(removed);
+					}
 				}
-				else if (featureValue instanceof Integer && newValue instanceof Integer) {
-					Integer substraction = (Integer) featureValue - (Integer) newValue;
-					extendedInstance.eSet(feature, substraction);
+				else if (featureValue instanceof Integer && removed instanceof Number) {
+					Integer substraction = (Integer) featureValue - ((Number) removed).intValue();
+					instance.eSet(feature, substraction);
+				}
+				else if (featureValue instanceof Double && removed instanceof Number) {
+					Double substraction = (Double) featureValue - ((Number) removed).doubleValue();
+					instance.eSet(feature, substraction);
 				}
 				else {
 					//TODO: Error

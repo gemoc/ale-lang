@@ -55,7 +55,7 @@ public class HyperlinkAleConsoleMatcherListener implements IPatternMatchListener
 		}
 		try {
 			String fileReferenceText = console.getDocument().get(event.getOffset(), event.getLength());
-			int filePathIndex = fileReferenceText.indexOf("At ") + "At ".length();
+			int filePathIndex = startIndexIn(fileReferenceText);
 			int separatorIndex = fileReferenceText.lastIndexOf(':');
 
 			String absoluteFilePath = fileReferenceText.substring(filePathIndex, separatorIndex);
@@ -64,11 +64,18 @@ public class HyperlinkAleConsoleMatcherListener implements IPatternMatchListener
 			IHyperlink hyperlink = makeHyperlink(absoluteFilePath, lineNumber); // a link to any file
 			console.addHyperlink(hyperlink, event.getOffset() + filePathIndex, event.getLength() - filePathIndex);
 		}
+		catch (NumberFormatException e) {
+			// a Java exception has likely been printed by the interpreter, nevermind
+		}
 		catch (Exception exception) {
 			Activator.error("Unable to create hyperlink from " + event.getOffset() + " to " + event.getLength(), exception);
 		}
 	}
 	
+	private int startIndexIn(String fileReferenceText) {
+		return fileReferenceText.toLowerCase().indexOf("at ") + "at ".length();
+	}
+
 	private boolean isInAleConsole() {
 		return console != null;
 	}

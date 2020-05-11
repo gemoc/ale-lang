@@ -1,0 +1,11 @@
+behavior lang.ale.test;
+
+open class ClassA {
+	
+	@main
+	def void main() {
+		test::ClassA other := test::ClassA.create();
+		other -= self;
+	}
+	
+}

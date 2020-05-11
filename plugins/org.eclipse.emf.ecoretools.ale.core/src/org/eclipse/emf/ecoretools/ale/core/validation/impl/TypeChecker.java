@@ -11,31 +11,37 @@
 package org.eclipse.emf.ecoretools.ale.core.validation.impl;
 
 import static com.google.common.collect.Sets.newHashSet;
+import static java.util.Objects.requireNonNull;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
 import org.eclipse.acceleo.query.ast.Expression;
+import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.validation.type.ClassType;
+import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.ICollectionType;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.acceleo.query.validation.type.NothingType;
 import org.eclipse.acceleo.query.validation.type.SequenceType;
 import org.eclipse.acceleo.query.validation.type.SetType;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecoretools.ale.core.validation.BaseValidator;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.Scopes;
 import org.eclipse.emf.ecoretools.ale.core.validation.ITypeChecker;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 
 public final class TypeChecker implements ITypeChecker {
 	
-	private final BaseValidator base;
+	private final Scopes scopes;
+	private final IQueryEnvironment context;
 	
-	public TypeChecker(BaseValidator base) {
-		this.base = base;
+	public TypeChecker(Scopes scopes, IQueryEnvironment context) {
+		this.scopes = requireNonNull(scopes, "scopes");
+		this.context = requireNonNull(context, "context");
 	}
 	
 	@Override
@@ -44,6 +50,7 @@ public final class TypeChecker implements ITypeChecker {
 		
 		for(IType variableType : variableTypes) {
 			if(isInteger(variableType)) {
+				// FIXME [Validation] Should accept every number type
 				acceptedTypes.add(variableType);
 			}
 			else if(isString(variableType)) {
@@ -66,6 +73,7 @@ public final class TypeChecker implements ITypeChecker {
 		
 		for(IType variableType : variableTypes) {
 			if(isInteger(variableType)) {
+				// FIXME [Validation] Should accept every number type
 				acceptedTypes.add(variableType);
 			}
 			else if(variableType instanceof ICollectionType) {
@@ -83,7 +91,7 @@ public final class TypeChecker implements ITypeChecker {
 	public boolean acceptsInsertion(Set<IType> variableTypes, Set<IType> valueTypes) {
 		for (IType variableType : variableTypes) {
 			for (IType valueType : valueTypes) {
-				if(isInteger(variableType) && isInteger(valueType)) {
+				if(isNumber(variableType) && isNumber(valueType)) {
 					// addition
 					return true;
 				}
@@ -94,7 +102,7 @@ public final class TypeChecker implements ITypeChecker {
 				if(isCollection(variableType) && isCollection(valueType)) {
 					ICollectionType absorbingCollection = (ICollectionType) variableType;
 					ICollectionType absorbedCollection = (ICollectionType) valueType;
-					// collections concatenation
+					// collections union
 					return elementCanBelongToCollection(absorbingCollection, absorbedCollection.getCollectionType());  
 				}
 				if(isCollection(variableType) && elementCanBelongToCollection(variableType, valueType)) {
@@ -110,7 +118,7 @@ public final class TypeChecker implements ITypeChecker {
 	public boolean acceptsRemoval(Set<IType> variableTypes, Set<IType> valueTypes) {
 		for (IType variableType : variableTypes) {
 			for (IType valueType : valueTypes) {
-				if(isInteger(variableType) && isInteger(valueType)) {
+				if(isInteger(variableType) && isNumber(valueType)) {
 					// subtraction
 					return true;
 				}
@@ -166,13 +174,27 @@ public final class TypeChecker implements ITypeChecker {
 		if (isBoolean(variableType) && isBoolean(valueType)) {
 			return true;
 		}
-		if (isInteger(variableType) && isInteger(valueType)) {
+		if (isNumber(variableType) && isNumber(valueType)) {
 			return true;
 		}
 		if (isString(variableType) && isString(valueType)) {
 			return true;
 		}
+		if (isEClass(variableType) && isEClass(valueType)) {
+			boolean mayBeAssignable = variableType.isAssignableFrom(valueType);
+			
+			if (! mayBeAssignable) {
+				// FIXME variableType::isAssignableFrom is not reliable
+				mayBeAssignable = ((EClassifierType) variableType).getType() == EcorePackage.eINSTANCE.getEObject();
+			}
+			return mayBeAssignable;
+		}
 		return variableType.isAssignableFrom(valueType);
+	}
+	
+	private boolean isEClass(IType type) {
+		return type instanceof EClassifierType
+			&& type.getType() instanceof EClass;
 	}
 	
 	private boolean collectionsHaveCompatibleGenericTypes(IType variable, IType value) {
@@ -199,15 +221,15 @@ public final class TypeChecker implements ITypeChecker {
 	
 	@Override
 	public boolean isBoolean(Expression exp) {
-		Set<IType> expressionTypes = base.getPossibleTypes(exp);
+		Set<IType> expressionTypes = scopes.getCurrent().getPossibleTypesOf(exp);
 		return expressionTypes.stream()
 					   		  .anyMatch(type -> isBoolean(type));
 	}
 	
 	@Override
 	public boolean isBoolean(IType type) {
-		final IType booleanObjectType = new ClassType(base.getQryEnv(), Boolean.class);
-		final IType booleanType = new ClassType(base.getQryEnv(), boolean.class);
+		final IType booleanObjectType = new ClassType(context, Boolean.class);
+		final IType booleanType = new ClassType(context, boolean.class);
 		
 		return booleanObjectType.isAssignableFrom(type) || booleanType.isAssignableFrom(type);
 	}
@@ -215,6 +237,22 @@ public final class TypeChecker implements ITypeChecker {
 	@Override
 	public boolean isCollection(IType type) {
 		return type instanceof ICollectionType;
+	}
+	
+	@Override
+	public boolean isDouble(IType type) {
+		// Match primitives, e.g. 23.5
+		if (Double.class.equals(type.getType()) ) {
+			return true;
+		}
+		// Match variables of type Double
+		if (type.getType() instanceof EDataType) {
+			EDataType dataType = (EDataType) type.getType();
+			return type == EcorePackage.eINSTANCE.getEDouble()
+				|| double.class.equals(dataType.getInstanceClass())
+				|| Double.class.equals(dataType.getInstanceClass());
+		}
+		return false;
 	}
 	
 	@Override
@@ -226,7 +264,8 @@ public final class TypeChecker implements ITypeChecker {
 		// Match variables of type Int
 		if (type.getType() instanceof EDataType) {
 			EDataType dataType = (EDataType) type.getType();
-			return int.class.equals(dataType.getInstanceClass())
+			return type == EcorePackage.eINSTANCE.getEInt()
+				|| int.class.equals(dataType.getInstanceClass())
 				|| Integer.class.equals(dataType.getInstanceClass());
 		}
 		return false;
@@ -241,6 +280,11 @@ public final class TypeChecker implements ITypeChecker {
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public boolean isNumber(IType type) {
+		return isInteger(type) || isDouble(type);
 	}
 	
 	@Override
@@ -286,13 +330,12 @@ public final class TypeChecker implements ITypeChecker {
 		if(isCollection(type)) {
 			return true;
 		}
-		if(isInteger(type)) {
+		if(isNumber(type)) {
 			return true;
 		}
 		if(isString(type)) {
 			return true;
 		}
-		// FIXME handle other numbers
 		return false;
 	}
 	
@@ -301,10 +344,9 @@ public final class TypeChecker implements ITypeChecker {
 		if(isCollection(type)) {
 			return true;
 		}
-		if(isInteger(type)) {
+		if(isNumber(type)) {
 			return true;
 		}
-		// FIXME handle other numbers
 		return false;
 	}
 

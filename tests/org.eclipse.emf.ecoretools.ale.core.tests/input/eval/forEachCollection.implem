@@ -6,7 +6,7 @@ open class ClassA {
 		self.collection += test::ClassA.create();
 		self.collection += test::ClassA.create();
 	
-		String var := 0;
+		int var := 0;
 		for(i in self.collection){
 			var := var + 1;
 		}

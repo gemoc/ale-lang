@@ -3,7 +3,7 @@ behavior test.selectedCallMain;
 open class B {
 	
 	@main
-	def int main() {
+	def String main() {
 		String res1 := self.selectedCall('test.selectedCallOne','A','foo');
 		String res2 := self.selectedCall('test.selectedCallOne','B','foo');
 		String res3 := self.selectedCall('test.selectedCallTwo','A','foo');

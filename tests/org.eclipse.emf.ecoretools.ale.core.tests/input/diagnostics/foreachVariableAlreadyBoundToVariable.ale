@@ -1,0 +1,13 @@
+behavior lang.ale.test;
+
+open class ClassA {
+	
+	@main
+	def void main() {
+		int i := 12;
+		for (i in [1..5]) {
+		
+		}
+	}
+	
+}

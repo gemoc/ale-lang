@@ -2,7 +2,7 @@ behavior test.oppattributes;
 
 open class ClassA {
 	@main
-	def int main() {
+	def String main() {
 		NewClass newcls1 := oppattributes::NewClass.create();
 		newcls1.name := 'obj1';
 		

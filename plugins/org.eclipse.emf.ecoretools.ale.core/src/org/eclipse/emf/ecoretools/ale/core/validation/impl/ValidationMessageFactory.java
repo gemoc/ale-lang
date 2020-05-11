@@ -24,6 +24,7 @@ import org.eclipse.acceleo.query.runtime.impl.ValidationMessage;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.impl.StackedScopes;
 import org.eclipse.emf.ecoretools.ale.core.validation.BaseValidator;
 import org.eclipse.emf.ecoretools.ale.core.validation.ITypeChecker;
 import org.eclipse.emf.ecoretools.ale.core.validation.IValidationMessageFactory;
@@ -116,14 +117,14 @@ public final class ValidationMessageFactory implements IValidationMessageFactory
 		);
 	}
 	
-	private static boolean assigningSequenceToSet(Set<IType> variableTypes, Set<IType> valueTypes) {
-		ITypeChecker types = new TypeChecker(null);
+	private boolean assigningSequenceToSet(Set<IType> variableTypes, Set<IType> valueTypes) {
+		ITypeChecker types = new TypeChecker(new StackedScopes(), base.getQryEnv());
 		return variableTypes.stream().anyMatch(types::isSet)
 			&& valueTypes.stream().anyMatch(types::isSequence);
 	}
 	
-	private static boolean assigningSetToSequence(Set<IType> variableTypes, Set<IType> valueTypes) {
-		ITypeChecker types = new TypeChecker(null);
+	private boolean assigningSetToSequence(Set<IType> variableTypes, Set<IType> valueTypes) {
+		ITypeChecker types = new TypeChecker(new StackedScopes(), base.getQryEnv());
 		return variableTypes.stream().anyMatch(types::isSequence)
 			&& valueTypes.stream().anyMatch(types::isSet);
 	}
@@ -143,8 +144,8 @@ public final class ValidationMessageFactory implements IValidationMessageFactory
 		);
 	}
 	
-	private static boolean assigningCollectionToCollection(Set<IType> variableTypes, Set<IType> valueTypes) {
-		ITypeChecker types = new TypeChecker(null);
+	private boolean assigningCollectionToCollection(Set<IType> variableTypes, Set<IType> valueTypes) {
+		ITypeChecker types = new TypeChecker(new StackedScopes(), base.getQryEnv());
 		return variableTypes.stream().anyMatch(types::isCollection)
 			&& valueTypes.stream().anyMatch(types::isCollection);
 	}

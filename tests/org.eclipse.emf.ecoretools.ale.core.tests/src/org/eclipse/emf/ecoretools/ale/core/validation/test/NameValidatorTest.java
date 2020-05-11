@@ -43,7 +43,7 @@ public class NameValidatorTest {
 	@Test
 	public void testUniqueModelUnit() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/unit1.implem","input/validation/unit2.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -57,7 +57,7 @@ public class NameValidatorTest {
 	@Test
 	public void testUniqueRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/uniqueRuntimeClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -71,7 +71,7 @@ public class NameValidatorTest {
 	@Test
 	public void testGlobalUniqueRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/uniqueRuntimeClassGlobal1.implem","input/validation/uniqueRuntimeClassGlobal2.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -84,7 +84,7 @@ public class NameValidatorTest {
 	@Test
 	public void testUniqueMethodRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/operationDuplicationRuntime.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -99,7 +99,7 @@ public class NameValidatorTest {
 	@Test
 	public void testUniqueMethodExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/operationDuplication.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -114,7 +114,7 @@ public class NameValidatorTest {
 	@Test
 	public void testDefIsOverride() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/defOverrideConflict.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -128,7 +128,7 @@ public class NameValidatorTest {
 	@Test
 	public void testOverrideNotFound() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/overrideNotFound.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -142,7 +142,7 @@ public class NameValidatorTest {
 	@Test
 	public void testUniqueParamRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/duplicatedParametersRuntimeClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -156,7 +156,7 @@ public class NameValidatorTest {
 	@Test
 	public void testSelfParamRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/selfParamRuntimeClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -170,7 +170,7 @@ public class NameValidatorTest {
 	@Test
 	public void testResultParamRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/resultParamRuntimeClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -184,7 +184,7 @@ public class NameValidatorTest {
 	@Test
 	public void testUniqueParamExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/duplicatedParameters.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -198,7 +198,7 @@ public class NameValidatorTest {
 	@Test
 	public void testSelfParamExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/selfParamExtendedClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -212,7 +212,7 @@ public class NameValidatorTest {
 	@Test
 	public void testResultParamExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/resultParamExtendedClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -226,7 +226,7 @@ public class NameValidatorTest {
 	@Test
 	public void testUniqueAttributeRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/duplicatedAttribRuntimeClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -240,7 +240,7 @@ public class NameValidatorTest {
 	@Test
 	public void testSelfAttributeRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/selfAttributeRuntimeClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -254,7 +254,7 @@ public class NameValidatorTest {
 	@Test
 	public void testResultAttributeRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/resultAttributeRuntimeClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -268,7 +268,7 @@ public class NameValidatorTest {
 	@Test
 	public void testUniqueAttributeExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/duplicatedAttrib.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -282,7 +282,7 @@ public class NameValidatorTest {
 	@Test
 	public void testSelfAttributeExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/selfAttributeExtendedClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -296,7 +296,7 @@ public class NameValidatorTest {
 	@Test
 	public void testResultAttributeExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/resultAttributeExtendedClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -310,7 +310,7 @@ public class NameValidatorTest {
 	@Test
 	public void testExistingAttribute() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/conflictAttrib.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -324,7 +324,7 @@ public class NameValidatorTest {
 	@Test
 	public void testConflictLocalParam() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/conflictAttribParamLocal.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -338,7 +338,7 @@ public class NameValidatorTest {
 	@Test
 	public void testLocalSelf() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/declareSelfError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -354,7 +354,7 @@ public class NameValidatorTest {
 	@Test
 	public void testLocalResult() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/declareResultError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -370,7 +370,7 @@ public class NameValidatorTest {
 	@Test
 	public void testLocalBlockConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/duplicatedLocalVariable.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -384,7 +384,7 @@ public class NameValidatorTest {
 	@Test
 	public void testLocalNoExternalConflit() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/scopeLocalVariable.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -398,7 +398,7 @@ public class NameValidatorTest {
 	@Test
 	public void testLocalAttributeConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/localAttribNoConflict.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -411,7 +411,7 @@ public class NameValidatorTest {
 	@Test
 	public void testAssignExistingVar() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignLocal.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -424,7 +424,7 @@ public class NameValidatorTest {
 	@Test
 	public void testAssignNotExistingVar() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignUnknownLocal.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -438,7 +438,7 @@ public class NameValidatorTest {
 	@Test
 	public void testAssignSelf() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignSelfError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -452,7 +452,7 @@ public class NameValidatorTest {
 	@Test
 	public void testAssignParam() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignParamError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -466,7 +466,7 @@ public class NameValidatorTest {
 	@Test
 	public void testAssignEClassFeature() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignEClassAttrib.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -479,7 +479,7 @@ public class NameValidatorTest {
 	@Test
 	public void testAssignFeatureExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignAttribExtendedClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -492,7 +492,7 @@ public class NameValidatorTest {
 	@Test
 	public void testAssignFeatureRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignAttribRuntimeClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -505,7 +505,7 @@ public class NameValidatorTest {
 	@Test
 	public void testAssignNotExistingFeatureExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignUnknownFeature.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -519,7 +519,7 @@ public class NameValidatorTest {
 	@Test
 	public void testAssignNotExistingFeatureRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignUnknownFeatureRuntimeClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -533,7 +533,7 @@ public class NameValidatorTest {
 	@Test
 	public void testInsertEClassFeature() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertEClassAttrib.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -546,7 +546,7 @@ public class NameValidatorTest {
 	@Test
 	public void testInsertFeatureExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertAttribExtendedClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -559,7 +559,7 @@ public class NameValidatorTest {
 	@Test
 	public void testInsertFeatureRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertAttribRuntimeClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -572,7 +572,7 @@ public class NameValidatorTest {
 	@Test
 	public void testInsertNotExistingFeatureExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertUnknownFeatureExtendedClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -586,7 +586,7 @@ public class NameValidatorTest {
 	@Test
 	public void testInsertNotExistingFeatureRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertUnknownFeatureRuntimeClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -602,7 +602,7 @@ public class NameValidatorTest {
 	@Test
 	public void testRemoveEClassFeature() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeEClassAttrib.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -615,7 +615,7 @@ public class NameValidatorTest {
 	@Test
 	public void testRemoveFeatureExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeAttribExtendedClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -628,7 +628,7 @@ public class NameValidatorTest {
 	@Test
 	public void testRemoveFeatureRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeAttribRuntimeClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -641,7 +641,7 @@ public class NameValidatorTest {
 	@Test
 	public void testRemoveNotExistingFeatureExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeUnknownFeatureExtendedClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -655,7 +655,7 @@ public class NameValidatorTest {
 	@Test
 	public void testRemoveNotExistingFeatureRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeUnknownFeatureRuntimeClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -669,7 +669,7 @@ public class NameValidatorTest {
 	@Test
 	public void testForEachParam() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/forEachParamConflict.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -683,7 +683,7 @@ public class NameValidatorTest {
 	@Test
 	public void testForEachResult() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/forEachResult.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -697,7 +697,7 @@ public class NameValidatorTest {
 	@Test
 	public void testForEachSelf() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/forEachSelf.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -711,11 +711,11 @@ public class NameValidatorTest {
 	@Test
 	public void testForEachExternalBlocks() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/forEachExternalBlock.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
-		assertEquals(2, msg.size());
+		assertEquals(msg.toString(), 2, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 83, 153, "The name localDef is already used", msg.get(0));
 		assertMsgEquals(ValidationMessageLevel.ERROR, 83, 153, "The name localDef is already used", msg.get(0));
 	}
@@ -726,7 +726,7 @@ public class NameValidatorTest {
 	@Test
 	public void testFeatureAccessType() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureAccessTypes.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -739,7 +739,7 @@ public class NameValidatorTest {
 	@Test
 	public void testUnknownFeatureAccessType() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureAccessTypesError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -753,7 +753,7 @@ public class NameValidatorTest {
 	@Test
 	public void testReturnAssignVoid() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignVoid.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		

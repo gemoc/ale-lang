@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 ### Fixed
 - [#4](https://github.com/gemoc/ale-lang/issues/4) The .dsl configuration file and the .ale source file must have the same base name
+- [#28](https://github.com/gemoc/ale-lang/issues/28) The interpreter ignore use of non existings attribute, variables and methods
+- [#38](https://github.com/gemoc/ale-lang/issues/38) The interpreter is not interrupted when an unexpected error occurs
 - [#39](https://github.com/gemoc/ale-lang/issues/39) Sirius' _Behavior_ layer does not show runtime data when (_.ale_ andPure ALE classes are not handled by the type checker
 - [#51](https://github.com/gemoc/ale-lang/issues/51) Pure ALE classes are not handled by the type checker
 - [#64](https://github.com/gemoc/ale-lang/issues/64) `null` cannot be assigned to variables
@@ -13,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - [#70](https://github.com/gemoc/ale-lang/issues/70) Paths to ALE resources (in _.dsl_ files and projects' preferences) are not updated when the project is renamed
 - [#102](https://github.com/gemoc/ale-lang/issues/102) The editor shows an error when a method is used to define the range of a for-each loop
 - [#120](https://github.com/gemoc/ale-lang/issues/120) The `+=` operator cannot be used to concatenate two collections
+- [#128](https://github.com/gemoc/ale-lang/issues/128) The interpreter allows to concatenate heterogeneous collections
 
 ### Added
 - [#60](https://github.com/gemoc/ale-lang/issues/60) An ALE Run Configuration is created when launching ALE through the contextual menu shortcut

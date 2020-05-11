@@ -10,11 +10,14 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.parser.internal;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import org.antlr.v4.runtime.misc.Interval;
 import org.eclipse.acceleo.query.ast.AstFactory;
@@ -51,6 +54,7 @@ import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RCaseContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RExpressionContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RSwitchContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RTypeContext;
+import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RVariableContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.TypeLiteralContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
@@ -108,18 +112,27 @@ public class AntlrAstToAleBehaviorsFactory {
 	
 	public static class Parameter {
 		
-		String name;
-		EClassifier type;
-		EGenericType genericType;
+		private String name;
+		private EClassifier type;
+		private EGenericType genericType;
 		
-		public Parameter(String name, EClassifier type) {
-			this(name, type, null);
+		/*
+		 * Trick required because Parameter are not part of the final AST:
+		 * 		they are replaced by method::operationRef::EParameters
+		 * 
+		 * This is hence used to put start & stop positions of corresponding EParameters
+		 */
+		RVariableContext ctx;
+		
+		public Parameter(String name, EClassifier type, RVariableContext ctx) {
+			this(name, type, null, ctx);
 		}
 		
-		public Parameter(String name, EClassifier type, EGenericType genericType) {
+		public Parameter(String name, EClassifier type, EGenericType genericType, RVariableContext ctx) {
 			this.name = name;
 			this.type = type;
 			this.genericType = genericType;
+			this.ctx = ctx;
 		}
 		
 		public String getName() {
@@ -132,6 +145,10 @@ public class AntlrAstToAleBehaviorsFactory {
 		
 		public Optional<EGenericType> getGenericType() {
 			return Optional.ofNullable(genericType);
+		}
+
+		public RVariableContext getCtx() {
+			return ctx;
 		}
 	}
 	
@@ -165,8 +182,7 @@ public class AntlrAstToAleBehaviorsFactory {
 			EParameter opParam = ecoreFactory.createEParameter();
 			opParam.setName(p.getName());
 			opParam.setEType(p.getType());
-			p.getGenericType()
-			 .ifPresent(t -> opParam.getEGenericType().getETypeArguments().add(t));
+			p.getGenericType().ifPresent(t -> opParam.getEGenericType().getETypeArguments().add(t));
 			
 			operation.getEParameters().add(opParam);
 		});
@@ -203,7 +219,7 @@ public class AntlrAstToAleBehaviorsFactory {
 	
 	
 	
-	public Parameter buildParameter(RTypeContext type, String name) {
+	public Parameter buildParameter(RTypeContext type, String name, RVariableContext ctx) {
 		ETypedElement typedElement = resolve(type);
 		
 		// FIXME This is a hack: parameters should have bounds and isUnique such as Attribute
@@ -212,10 +228,10 @@ public class AntlrAstToAleBehaviorsFactory {
 		if (typedElement.isMany()) {
 			EGenericType genericType = EcoreFactory.eINSTANCE.createEGenericType();
 			genericType.setEClassifier(typedElement.getEType());
-			return new Parameter(name, EcorePackage.eINSTANCE.getEEList(), genericType);
+			return new Parameter(name, EcorePackage.eINSTANCE.getEEList(), genericType, ctx);
 		}
 		else {
-			return new Parameter(name, typedElement.getEType(), typedElement.getEGenericType());
+			return new Parameter(name, typedElement.getEType(), typedElement.getEGenericType(), ctx);
 		}
 	}
 	
@@ -674,9 +690,16 @@ public class AntlrAstToAleBehaviorsFactory {
 		AstResult astRes = builder.build(text);
 		Expression res = astRes.getAst();
 		
+		// FIXME Attempt to use ctx.start.getText to directly set the text in parseRes
+		
 		//Update offsets
 		parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 		parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+		
+		List<Integer> lines = IntStream.rangeClosed(ctx.start.getLine(), ctx.stop.getLine()).boxed()
+									   .collect(toList());
+		
+		parseRes.setLines(res, lines);
 		
 		int startOffset = ctx.start.getStartIndex();
 		TreeIterator<EObject> allSubExp = res.eAllContents();
@@ -687,6 +710,7 @@ public class AntlrAstToAleBehaviorsFactory {
 				if(relativeStart != -1 && relativeEnd != -1) {
 					parseRes.getStartPositions().put(subExp,relativeStart + startOffset);
 					parseRes.getEndPositions().put(subExp,relativeEnd + startOffset);
+					parseRes.setLines(subExp, lines);
 				}
 			}
 		});

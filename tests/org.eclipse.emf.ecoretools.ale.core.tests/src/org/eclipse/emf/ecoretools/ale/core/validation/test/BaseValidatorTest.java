@@ -45,7 +45,7 @@ public class BaseValidatorTest {
 	@Test
 	public void testResultVariableCanBeRead() {
 		environment = IAleEnvironment.fromPaths(emptyList(), asList("input/validation/resultRead.implem"));
-		ALEValidator validator = new ALEValidator(environment.getContext());
+		ALEValidator validator = new ALEValidator(environment);
 		validator.validate(environment.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -59,7 +59,7 @@ public class BaseValidatorTest {
 	@Test
 	public void testTypeCheckingResultVariableAssignation() {
 		environment = IAleEnvironment.fromPaths(emptyList(), asList("input/validation/assignForbiddenValueToResult.implem"));
-		ALEValidator validator = new ALEValidator(environment.getContext());
+		ALEValidator validator = new ALEValidator(environment);
 		validator.validate(environment.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		

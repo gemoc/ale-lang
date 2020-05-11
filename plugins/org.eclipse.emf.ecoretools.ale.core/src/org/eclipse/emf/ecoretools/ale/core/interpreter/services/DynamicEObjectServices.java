@@ -103,10 +103,10 @@ public class DynamicEObjectServices extends EObjectServices {
 			}
 		};
 	}
-	
+
 	@Override
-	public Object eCrossReferences(EObject eObject) {
-		List<Object> crossRef = Lists.newArrayList(eObject.eCrossReferences());
+	public List<EObject> eCrossReferences(EObject eObject) {
+		List<EObject> crossRef = Lists.newArrayList(eObject.eCrossReferences());
 		
 		Optional<EObject> extension = dynamicFeatures.getRuntimeExtension(eObject);
 		if (extension.isPresent()) {
@@ -145,6 +145,14 @@ public class DynamicEObjectServices extends EObjectServices {
 	protected IService getService(Method publicMethod) {
 		if (AstBuilderListener.FEATURE_ACCESS_SERVICE_NAME.equals(publicMethod.getName())) {
 			return new DynamicEObjectFeatureAccess(publicMethod, this, dynamicFeatures);
+		}
+		if ("eCrossReferences".equals(publicMethod.getName()) && publicMethod.getReturnType() == Object.class) {
+			// Original definition of eCrossReferences(EObject) in EObjectServices has a wrong signature:
+			// it returns Object instead of List<EObject>
+			//
+			// We overload this definition in this very class but we still have to filter out the original.
+			//
+			return null;
 		}
 		return super.getService(publicMethod);
 	}

@@ -26,6 +26,7 @@ import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
+import org.eclipse.acceleo.query.validation.type.NothingType;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -52,6 +53,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
+import org.eclipse.osgi.service.environment.EnvironmentInfo;
 
 import com.google.common.base.Objects;
 
@@ -92,9 +94,9 @@ public class TypeValidator implements IValidator {
 	@Override
 	public void setBase(BaseValidator base) {
 		this.messages = new ValidationMessageFactory(base);
-		this.typeChecker = new TypeChecker(base);
+		this.typeChecker = new TypeChecker(base.getScopes(), base.getQryEnv());
 		this.convert = new ConvertType(base.getQryEnv());
-		this.lookup = new AstLookup(base, convert);
+		this.lookup = new AstLookup(base.environment, base.scopes, convert);
 	}
 	
 	@Override
@@ -230,12 +232,12 @@ public class TypeValidator implements IValidator {
 			// Assignment outside of a method, should never happen
 			return PROBLEM_HANDLED_BY_ANOTHER_VALIDATOR;
 		}
-		boolean isVoidOperation = enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null;
+		IType operationReturnType = convert.toAQL(enclosingOperation);
+		boolean isVoidOperation = operationReturnType instanceof NothingType;
 		if(isVoidOperation) {
 			// A void operation should not return anything but this is handled by the NameValidator
 			return PROBLEM_HANDLED_BY_ANOTHER_VALIDATOR;
 		}
-		IType operationReturnType = convert.toAQL(enclosingOperation);
 		return validateAssignment(newHashSet(operationReturnType), returnedValueTypes, assignment.getValue());
 	}
 	

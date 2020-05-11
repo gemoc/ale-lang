@@ -25,4 +25,12 @@
             genModel="model/Implementation.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated diagnostics -->
+      <package
+            uri="http://eclipse.org/emf/ecoretools/ale/diagnostics"
+            class="org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsPackage"
+            genModel="model/diagnostics.genmodel"/>
+   </extension>
+
 </plugin>

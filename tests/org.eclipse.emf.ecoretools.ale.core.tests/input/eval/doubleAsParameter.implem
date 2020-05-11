@@ -14,15 +14,12 @@ open class ClassA {
 	}
 	
 	def void myMethod1(Double d) {
-		('myMethod1').log();
 		self.myDouble1 := d;
 	}
 	def void myMethod2(Real d) {
-		('myMethod2').log();
 		self.myDouble2 := d;
 	}
 	def void myMethod3(ecore::EDouble d) {
-		('myMethod3').log();
 		self.myDouble3 := d;
 	}
 	

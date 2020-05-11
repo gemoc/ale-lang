@@ -8,7 +8,7 @@ class Foo {
 open class ClassA {
 
 	@main
-	def int main() {
+	def String main() {
 		Foo f := (assignCollection::Foo).create();
 		f.seq := Sequence{test::ClassA.create()};
 		result := f.seq->size() + ' '+ f.seq->at(1).eClass().name;

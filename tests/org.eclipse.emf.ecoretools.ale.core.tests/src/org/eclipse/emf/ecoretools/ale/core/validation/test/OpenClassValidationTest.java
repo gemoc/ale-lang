@@ -38,7 +38,7 @@ public class OpenClassValidationTest {
 	@Test
 	public void testMultiInherits() {
 		env = IAleEnvironment.fromPaths(asList("model/diamon.ecore"),asList("input/lookup/multiInherits.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -48,7 +48,7 @@ public class OpenClassValidationTest {
 	@Test
 	public void testInvertMultiInherits() {
 		env = IAleEnvironment.fromPaths(asList("model/diamon.ecore"),asList("input/lookup/invertMultiInherits.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -59,7 +59,7 @@ public class OpenClassValidationTest {
 	@Test
 	public void testServeralOpenClass() {
 		env = IAleEnvironment.fromPaths(asList("model/diamon.ecore"),asList("input/lookup/simple.implem","input/lookup/implicitExtend.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -70,7 +70,7 @@ public class OpenClassValidationTest {
 	@Test
 	public void testForbidenExtends() {
 		env = IAleEnvironment.fromPaths(asList("model/diamon.ecore"),asList("input/lookup/forbiddenExtend.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -81,7 +81,7 @@ public class OpenClassValidationTest {
 	@Test
 	public void testIndirectExtends() {
 		env = IAleEnvironment.fromPaths(asList("model/diamon.ecore"),asList("input/lookup/indirectExtend.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -92,7 +92,7 @@ public class OpenClassValidationTest {
 	@Test
 	public void testDirectExtend() {
 		env = IAleEnvironment.fromPaths(asList("model/diamon.ecore"),asList("input/lookup/directExtend.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -102,7 +102,7 @@ public class OpenClassValidationTest {
 	@Test
 	public void testOpeningNonExistingClass() {
 		env = IAleEnvironment.fromPaths(asList("model/ABC.ecore"),asList("input/validation/openingNonExistingClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -113,7 +113,7 @@ public class OpenClassValidationTest {
 	@Test
 	public void testOpeningLocallyDefinedRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList("model/ABC.ecore"),asList("input/validation/openingLocallyDefinedRuntimeClass.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		

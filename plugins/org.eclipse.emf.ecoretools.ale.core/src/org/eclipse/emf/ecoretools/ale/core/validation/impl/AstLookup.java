@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.validation.type.AbstractCollectionType;
@@ -27,7 +28,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.ETypedElement;
-import org.eclipse.emf.ecoretools.ale.core.validation.BaseValidator;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.Scopes;
 import org.eclipse.emf.ecoretools.ale.core.validation.IAstLookup;
 import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
@@ -44,22 +46,21 @@ import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
  */
 public final class AstLookup implements IAstLookup {
 	
-	private final BaseValidator base;
+	private final Scopes scopes;
 	
 	private final IConvertType convert;
+
+	private final IAleEnvironment env;
 	
-	public AstLookup(BaseValidator base, IConvertType convert) {
-		this.base = requireNonNull(base, "base");
+	public AstLookup(IAleEnvironment env, Scopes scopes, IConvertType convert) {
+		this.env = requireNonNull(env, "env");
+		this.scopes = requireNonNull(scopes, "scopes");
 		this.convert = requireNonNull(convert, "convert");
 	}
 	
 	@Override
 	public Set<IType> inferredTypesOf(Expression expression) {
-		Set<IType> inferredTypes = base.getPossibleTypes(expression);
-		if(inferredTypes == null) {
-			return new HashSet<>();
-		}
-		return inferredTypes;
+		return scopes.getCurrent().getPossibleTypesOf(expression);
 	}
 	
 	@Override
@@ -97,7 +98,7 @@ public final class AstLookup implements IAstLookup {
 			else if(currentScope instanceof ForEach) {
 				ForEach loop = (ForEach) currentScope;
 				if(loop.getVariable().equals(variableName)) {
-					return base.getPossibleTypes(loop.getCollectionExpression()).stream()
+					return scopes.getCurrent().getPossibleTypesOf(loop.getCollectionExpression()).stream()
 							   .map(AbstractCollectionType.class::cast)
 							   .map(AbstractCollectionType::getCollectionType)
 							   .collect(toSet());
@@ -151,7 +152,7 @@ public final class AstLookup implements IAstLookup {
 	@Override
 	public Set<IType> findFeatureTypes(String featureName, Expression featureAccessExpression) {
 		Set<IType> variableTypes = new HashSet<>();
-		Set<IType> inferredVariableTypes = base.getPossibleTypes(featureAccessExpression);
+		Set<IType> inferredVariableTypes = scopes.getCurrent().getPossibleTypesOf(featureAccessExpression);
 		
 		for(IType type : inferredVariableTypes){
 			if(type.getType() instanceof EClass){
@@ -160,7 +161,7 @@ public final class AstLookup implements IAstLookup {
 				
 				boolean featureIsCreatedAtRuntime = (feature == null);
 				if(featureIsCreatedAtRuntime) {
-					List<ExtendedClass> extensions = base.findExtensions(realType);
+					List<ExtendedClass> extensions = findExtensions(realType);
 					feature = extensions.stream()
 										.flatMap(xtdCls -> xtdCls.getAttributes().stream())
 										.filter(field -> field.getFeatureRef().getName().equals(featureName))
@@ -178,6 +179,15 @@ public final class AstLookup implements IAstLookup {
 			}
 		}
 		return variableTypes;
+	}
+	
+	public List<ExtendedClass> findExtensions(EClass realType) {
+		return 
+			env.getBehaviors().getParsedFiles()
+			.stream()
+			.flatMap(m -> m.getRoot().getClassExtensions().stream())
+			.filter(xtdCls -> xtdCls.getBaseClass().isSuperTypeOf(realType))
+			.collect(Collectors.toList());
 	}
 	
 	@Override

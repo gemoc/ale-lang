@@ -1,0 +1,11 @@
+behavior lang.ale.test;
+
+open class ClassA {
+	
+	@main
+	def void main() {
+		Sequence(String) sentences := Sequence{'Hello World!'};
+		Sequence(String) sentences := Sequence{'Hello World!'};
+	}
+	
+}

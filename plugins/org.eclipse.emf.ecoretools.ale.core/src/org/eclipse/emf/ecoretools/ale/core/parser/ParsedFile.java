@@ -10,16 +10,22 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.parser;
 
+import static java.util.Arrays.asList;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecoretools.ale.core.Activator;
 
 /**
  * Wrapper for Implementation model.
@@ -29,6 +35,7 @@ public class ParsedFile<T> {
 	private String sourceFile;
 	private final Map<Object, Integer> startPositions = new HashMap<>();
 	private final Map<Object, Integer> endPositions = new HashMap<>();
+	private final Map<Object, List<Integer>> lines = new HashMap<>();
 	private Diagnostic diagnostic;
 	private T root;
 	
@@ -39,6 +46,16 @@ public class ParsedFile<T> {
 	public Map<Object, Integer> getEndPositions() {
 		// FIXME It looks like some end position are missing the last character in source code
 		return endPositions;
+	}
+	
+	public void setLine(Object element, int line) {
+		lines.put(element, asList(line));
+	}
+	
+	public void setLines(Object element, List<Integer> newLines) {
+		List<Integer> sortedLines = new ArrayList<>(newLines);
+		Collections.sort(sortedLines);
+		lines.put(element, sortedLines);
 	}
 	
 	public Diagnostic getDiagnostic() {
@@ -75,12 +92,18 @@ public class ParsedFile<T> {
 		
 		Path path = Paths.get(sourceFile);
 		try (BufferedReader reader = Files.newBufferedReader(path)) {
-			reader.read(cbuf, start, length);
+			reader.skip(start);
+			reader.read(cbuf, 0, length);
 			return Optional.of(new String(cbuf));
-		} catch (IOException e) {
-			e.printStackTrace();
+		} 
+		catch (IOException e) {
+			Activator.error("Unable to retrieve the code of '" + element + "' in " + sourceFile, e);
 		}
 		
 		return Optional.empty();
+	}
+
+	public List<Integer> getLines(Object astElement) {
+		return new ArrayList<>(lines.getOrDefault(astElement, new ArrayList<>()));
 	}
 }
