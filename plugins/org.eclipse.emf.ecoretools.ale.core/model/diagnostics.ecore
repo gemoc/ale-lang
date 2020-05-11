@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="diagnostics" nsURI="http://eclipse.org/emf/ecoretools/ale/diagnostics"
+    nsPrefix="diagnostics">
+  <eClassifiers xsi:type="ecore:EClass" name="AttributeNotFound" eSuperTypes="#//Message">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EClass"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Message">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="location" eType="#//CodeLocation"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stacktrace" upperBound="-1"
+        eType="#//CodeLocation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" eType="#//Context"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="wholeCode" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="incriminatedCode" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="ecore:EClass ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CodeLocation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="source" eType="ecore:EDataType ../../org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//Path"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="line" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Context">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scopes" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EJavaObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MethodNotFound" eSuperTypes="#//Message">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="ecore:EClass Implementation.ecore#//BehavioredClass"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="arguments" upperBound="-1"
+        eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="argumentTypes" upperBound="-1"
+        eType="#//IType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableNotFound" eSuperTypes="#//Message">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeNotFound" eSuperTypes="#//Message">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeMismatch" eSuperTypes="#//Message">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="expectedTypes" upperBound="-1"
+        eType="#//IType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="actualTypes" upperBound="-1"
+        eType="#//IType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="IType" instanceClassName="org.eclipse.acceleo.query.validation.type.IType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableAlreadyBound" eSuperTypes="#//Message">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="duplicateLocation" eType="#//CodeLocation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InternalError" eSuperTypes="#//Message">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cause" eType="#//Throwable"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Throwable" instanceClassName="java.lang.Throwable"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AssignmentToSelf" eSuperTypes="#//Message"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AssignmentToResultInVoidOperation" eSuperTypes="#//VariableNotFound"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NotIterable" eSuperTypes="#//TypeMismatch"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UnsupportedOperator" eSuperTypes="#//Message">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//Operator"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="target" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EJavaObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Operator">
+    <eLiterals name="SUBSTRACTION"/>
+    <eLiterals name="ADDITION" value="1"/>
+    <eLiterals name="LOWER_THAN" value="2"/>
+    <eLiterals name="GREATER_THAN" value="3"/>
+    <eLiterals name="EQUAL" value="4"/>
+    <eLiterals name="DOT" value="5"/>
+    <eLiterals name="LOWER_OR_EQUAL" value="6"/>
+    <eLiterals name="GREATER_OR_EQUAL" value="7"/>
+    <eLiterals name="ASSIGNMENT" value="8"/>
+    <eLiterals name="ADDITION_ASSIGNMENT" value="9"/>
+    <eLiterals name="SUBSTRACTION_ASSIGNMENT" value="10"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MissingReturnStatement" eSuperTypes="#//Message">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="ecore:EClass Implementation.ecore#//Method"/>
+  </eClassifiers>
+</ecore:EPackage>

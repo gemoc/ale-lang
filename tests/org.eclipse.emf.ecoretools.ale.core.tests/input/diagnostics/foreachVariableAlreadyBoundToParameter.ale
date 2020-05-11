@@ -1,0 +1,17 @@
+behavior lang.ale.test;
+
+open class ClassA {
+	
+	@main
+	def void main() {
+		self.foo(42);
+	}
+	
+	def void foo(int i) {
+		for (i in [1..5]) {
+		
+		}
+	}
+	
+	
+}

@@ -2,11 +2,11 @@ behavior test.add;
 open class ClassA {
 	
 	@main
-	def int main() {
+	def Sequence(test::ClassA) main() {
 		ClassA a1 := test::ClassA.create();
 		ClassA a2 := test::ClassA.create();
 		ClassA a3 := test::ClassA.create();
-		Sequence(testale::ClassA) seq := Sequence{a1,a2,a3};
+		Sequence(test::ClassA) seq := Sequence{a1,a2,a3};
 		seq -= a1;
 		result := seq;
 	}

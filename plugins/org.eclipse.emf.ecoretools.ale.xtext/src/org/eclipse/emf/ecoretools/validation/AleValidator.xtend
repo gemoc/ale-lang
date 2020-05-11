@@ -43,17 +43,12 @@ class AleValidator extends AbstractAleValidator {
 		val IFile aleFile = WorkspaceSynchronizer.getFile(root.eResource);
 		cleanUpMarkers(aleFile);
 		
-//		val IPath dslPath = aleFile.getFullPath().removeFileExtension().addFileExtension("dsl");
-//		val IWorkspaceRoot ws = ResourcesPlugin.getWorkspace().getRoot();
-//		val dslFile = ws.getFile(dslPath)
 		val IProject project = aleFile.project;
 		val dsl = IAleProject.from(project).environment;
-//		dsl.resolveUris
 
 		val interpreter = dsl.interpreter as AleInterpreter
 		try {
 			interpreter.initScope(Sets.newHashSet(),Sets.newHashSet(#[project.name]))
-//			val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(dsl);
 			val parsedSemantics = dsl.behaviors.parsedFiles
 			
 			/*
@@ -68,7 +63,7 @@ class AleValidator extends AbstractAleValidator {
 		    	.toList
 	    	interpreter.registerServices(services)
 			
-			val ALEValidator validator = new ALEValidator(dsl.context);
+			val ALEValidator validator = new ALEValidator(dsl);
 			validator.validate(parsedSemantics);
 			val List<IValidationMessage> msgs = validator.getMessages();
 			

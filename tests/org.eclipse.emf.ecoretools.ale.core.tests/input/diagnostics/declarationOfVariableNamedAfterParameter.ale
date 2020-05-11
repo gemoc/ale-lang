@@ -1,0 +1,14 @@
+behavior lang.ale.test;
+
+open class ClassA {
+	
+	@main
+	def void main() {
+		self.foo(42);
+	}
+	
+	def void foo(int number) {
+		int number := 42;
+	}
+	
+}

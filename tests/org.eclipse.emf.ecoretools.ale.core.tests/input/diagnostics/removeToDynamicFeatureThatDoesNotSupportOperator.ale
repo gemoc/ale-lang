@@ -1,0 +1,12 @@
+behavior lang.ale.test;
+
+open class ClassA {
+
+	boolean isHappy := true;
+	
+	@main
+	def void main() {
+		self.isHappy -= true;
+	}
+	
+}

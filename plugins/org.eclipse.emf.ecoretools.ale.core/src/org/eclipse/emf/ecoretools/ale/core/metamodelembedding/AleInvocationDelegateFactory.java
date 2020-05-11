@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.ExtensionEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.ExtensionEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;

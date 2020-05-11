@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.DiagnosticLogger;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.EvalEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.ExpressionEvaluationEngine;
@@ -61,6 +62,7 @@ public class EvalBodyService extends AbstractService {
 	private DiagnosticLogger logger;
 	
 	int priority = EOperationService.PRIORITY + 1;
+	private IAleEnvironment environment;
 	
 	/**
 	 * Creates a new AQL service that evaluates a method when invoked.
@@ -72,7 +74,8 @@ public class EvalBodyService extends AbstractService {
 	 * @param logger
 	 * 			The logger to notify with evaluation results.
 	 */
-	public EvalBodyService(Method implem, EvalEnvironment evalEnv, DiagnosticLogger logger) {
+	public EvalBodyService(IAleEnvironment environment, Method implem, EvalEnvironment evalEnv, DiagnosticLogger logger) {
+		this.environment = environment;
 		this.implem = implem;
 		this.evalEnv = evalEnv;
 		this.logger = logger;
@@ -81,7 +84,7 @@ public class EvalBodyService extends AbstractService {
 	@Override
 	public Object internalInvoke(Object[] arguments) throws Exception {
 		EObject caller = (EObject) arguments[0];
-		MethodEvaluator evaluator = new MethodEvaluator(new ExpressionEvaluationEngine(evalEnv.getQueryEnvironment(),evalEnv.getListeners()), evalEnv.getFeatureAccess());
+		MethodEvaluator evaluator = new MethodEvaluator(environment, new ExpressionEvaluationEngine(evalEnv.getQueryEnvironment(),evalEnv.getListeners()), evalEnv.getFeatureAccess());
 		List<Object> args = new ArrayList<>();
 		for(int i = 1; i < arguments.length; i++) {
 			args.add(arguments[i]);

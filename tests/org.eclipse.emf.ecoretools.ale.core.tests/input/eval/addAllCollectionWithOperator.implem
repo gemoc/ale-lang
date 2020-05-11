@@ -28,6 +28,10 @@ open class Mix {
 	def void concatWithLocalVariable() {
 		Sequence(Integer) localNumbers := Sequence{1, 2, 3};
 		localNumbers += Sequence{4, 5, 6};
+		
+		Double d := 15.6;
+		d += 24;
+		d += 32.8;
 	}
 	
 	@main

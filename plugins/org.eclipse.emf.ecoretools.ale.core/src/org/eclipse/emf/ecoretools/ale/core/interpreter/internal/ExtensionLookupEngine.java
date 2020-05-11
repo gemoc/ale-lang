@@ -8,7 +8,7 @@
  * Contributors:
  *     Inria - initial API and implementation
  *******************************************************************************/
-package org.eclipse.emf.ecoretools.ale.core.interpreter;
+package org.eclipse.emf.ecoretools.ale.core.interpreter.internal;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -31,6 +31,15 @@ import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 import com.google.common.collect.Lists;
 
+/**
+ * Responsible of resolving method calls (e.g. {@code self.foo()}.
+ * <p>
+ * Each method is considered as a service which:
+ * <ul>
+ * 	<li>name is the name of the method,
+ * 	<li>parameters are the parameters of the method, {@code self} being the first paramater
+ * </ul>
+ */
 //FIXME: would like extend CacheLookupEngine but it's too private
 public class ExtensionLookupEngine extends BasicLookupEngine {
 

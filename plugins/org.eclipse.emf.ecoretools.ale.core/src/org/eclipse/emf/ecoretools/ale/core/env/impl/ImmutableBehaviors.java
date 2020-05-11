@@ -58,6 +58,13 @@ public class ImmutableBehaviors implements IBehaviors {
 				  .collect(toList());
 	}
 	
+	@Override
+	public Optional<BehavioredClass> findClass(String qualifiedName) {
+		return getClasses().stream()
+				  .filter(behavior -> behavior.getName().equals(qualifiedName))
+				  .findAny();
+	}
+
 	private static Stream<BehavioredClass> classesIn(ModelUnit unit) {
 		Stream<RuntimeClass> dynamicClasses = unit.getClassDefinitions().stream();
 		Stream<ExtendedClass> staticClasses = unit.getClassExtensions().stream();

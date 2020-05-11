@@ -5,7 +5,7 @@ open class A {
 	Integer attrib := 42;
 
 	@main
-	def String main() {
+	def int main() {
 		result := self.attrib;
 	}
 }

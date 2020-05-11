@@ -3,7 +3,7 @@ behavior test.newclass;
 open class ClassA {
 	
 	@main
-	def ClassA main() {
+	def NewRuntimeClass main() {
 		result := newclass::NewRuntimeClass.create();
 	}
 }

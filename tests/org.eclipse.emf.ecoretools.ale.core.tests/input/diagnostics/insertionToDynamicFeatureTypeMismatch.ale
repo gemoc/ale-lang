@@ -1,0 +1,12 @@
+behavior lang.ale.test;
+
+open class ClassA {
+
+	int i;
+	
+	@main
+	def void main() {
+		self.i += true;
+	}
+	
+}

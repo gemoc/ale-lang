@@ -24,7 +24,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.BasicDiagnostic;
@@ -58,9 +57,6 @@ public class DiagnosticLogger {
 	}
 	
 	public void diagnosticForHuman() {
-		if (! log.isEmpty()) {
-			System.err.println();
-		}
 		log
 		.stream()
 		.forEach(diagnotic -> {
@@ -77,7 +73,7 @@ public class DiagnosticLogger {
 				diag -> {
 					// We only want to display our own errors
 					if (diag.getSource().equals(Activator.PLUGIN_ID)) {
-						Expression failedExp = (Expression) diag.getData().get(0);
+						Object failedExp = diag.getData().get(0);
 						Diagnostic diagExp = diag;
 						
 						// Check whether a more accurate diagnostic is available
@@ -102,7 +98,7 @@ public class DiagnosticLogger {
 			);
 	}
 	
-	private void printError(Expression expr, Diagnostic diagnostic, LinkedList<String> stacktrace) {
+	private void printError(Object expr, Diagnostic diagnostic, LinkedList<String> stacktrace) {
 		ParsedFile<ModelUnit> parsedFile = semantics.findParsedFileDefining(expr).orElse(null);
 		if (parsedFile == null) {
 			stacktrace.addFirst("At unknown file and line (" + expr + "):");
@@ -126,6 +122,7 @@ public class DiagnosticLogger {
 				if (ifiles.length > 0) {
 					filePath = ifiles[0].getFullPath().makeRelative().toString();
 				}
+				filePath = filePath.replace('\\', '/');
 				int line =  getLine(startPos,file);
 				stacktrace.addFirst("At " + filePath + ":" + line);
 				Stream.concat(Stream.of(diagnostic), diagnostic.getChildren().stream())
@@ -142,8 +139,9 @@ public class DiagnosticLogger {
 	}
 	
 	private static void unfold(List<String> stacktrace) {
+		System.err.println();
 		for (String trace : stacktrace) {
-			System.err.println("    " + trace);
+			System.err.println("  " + trace);
 		}
 		stacktrace.clear();
 	}

@@ -1,0 +1,11 @@
+behavior lang.ale.test;
+
+open class ClassA {
+	
+	@main
+	def void main() {
+		Sequence(String) numbers := Sequence{'one', 'two'};
+		numbers += Sequence{3, 4, 5};
+	}
+	
+}

@@ -171,7 +171,7 @@ public class AleInterpreter implements IAleInterpreter, AutoCloseable {
     	
     	logger = new DiagnosticLogger(behaviors);
     	
-		EvaluationResult evalResult = doEval(caller, main, args, behaviors);
+		EvaluationResult evalResult = doEval(caller, main, args);
 		if (Diagnostic.OK != evalResult.getDiagnostic().getSeverity()) {
 			diagnostic.merge(evalResult.getDiagnostic());
 		}
@@ -196,16 +196,16 @@ public class AleInterpreter implements IAleInterpreter, AutoCloseable {
 		};
     }
     
-    private EvaluationResult doEval(EObject caller, Method operation, List<Object> args, IBehaviors semantics) {
-	    registerServices(semantics.getServices());
+    private EvaluationResult doEval(EObject caller, Method operation, List<Object> args) {
+	    registerServices(environment.getBehaviors().getServices());
     	
-    	EvalEnvironment env = new EvalEnvironment(queryEnvironment, semantics.getUnits(), logger, serviceListeners);
+    	EvalEnvironment env = new EvalEnvironment(environment, logger, serviceListeners);
     	List<Object> inputs = new ArrayList<>();
     	inputs.add(caller);
     	inputs.addAll(args);
     	initDynamicFeatures(inputs, env);
     	
-    	this.currentEngine = new AleEngine(env);
+    	this.currentEngine = new AleEngine(env, environment);
     	return currentEngine.eval(caller, operation, args);
     }
     

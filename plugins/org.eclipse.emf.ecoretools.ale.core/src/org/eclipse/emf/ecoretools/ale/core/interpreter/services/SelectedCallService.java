@@ -10,21 +10,31 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.interpreter.services;
 
+import static com.google.common.collect.Sets.newHashSet;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
+import org.eclipse.acceleo.query.ast.Call;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
+import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IService;
+import org.eclipse.acceleo.query.runtime.IValidationResult;
 import org.eclipse.acceleo.query.runtime.impl.JavaMethodService;
+import org.eclipse.acceleo.query.runtime.impl.ValidationServices;
 import org.eclipse.acceleo.query.validation.type.ClassType;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
+import org.eclipse.acceleo.query.validation.type.NothingType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecoretools.ale.core.Activator;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.ExtensionLookupEngine;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.ExtensionLookupEngine;
+import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
+import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
 
 /**
  * AQL service that calls a specific implementation based on the qualified name of the BehavioredClass.
@@ -33,10 +43,12 @@ public class SelectedCallService {
 
 	private ExtensionLookupEngine lookupEngine;
 	private IQueryEnvironment queryEnvironment;
+	private IConvertType convert;
 	
 	public SelectedCallService(IQueryEnvironment queryEnvironment, ExtensionLookupEngine lookupEngine) {
 		this.queryEnvironment = queryEnvironment;
 		this.lookupEngine = lookupEngine;
+		this.convert = new ConvertType(queryEnvironment);
 	}
 	
 	public IService createService() {
@@ -65,6 +77,14 @@ public class SelectedCallService {
 					}
 					return method.invoke(SelectedCallService.this, invokeArgs.toArray());
 				}
+
+				@Override
+				public Set<IType> getType(Call call, ValidationServices services, IValidationResult validationResult, IReadOnlyQueryEnvironment queryEnvironment, List<IType> argTypes) {
+					// FIXME The type checker allows 'NothingType' to be assigned to any variable
+					//		 This is unsafe, but makes the SelectedCall service usable until a solution is found 
+					return newHashSet(new NothingType("SelectedCallService cannot determine the return type of the method"));
+				}
+				
 			};
 		}
 		catch (NoSuchMethodException | SecurityException e) {
@@ -98,6 +118,7 @@ public class SelectedCallService {
 	 * @return the argument {@link IType} array that corresponds to the specified arguments array
 	 */
 	private IType[] getArgumentTypes(Object[] arguments) {
+		// FIXME use this.convert
 		IType[] argumentTypes = new IType[arguments.length];
 		for (int i = 0; i < arguments.length; i++) {
 			if (arguments[i] == null) {

@@ -18,13 +18,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.eclipse.acceleo.query.ast.SequenceInExtensionLiteral;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEBaseVisitor;
@@ -110,12 +113,18 @@ public class AstVisitors {
 					.rStatement()
 					.stream()
 					.map(subVisitor::visit)
+					// FIXME null is returned by StatementVisitor::visitErrorNode
+					//		==> error case should be handled
 					.filter(Objects::nonNull)
 					.collect(toList());
 					
 			Block res =  AntlrAstToAleBehaviorsFactory.singleton.buildBlock(body);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			
+			List<Integer> lines = IntStream.rangeClosed(ctx.start.getLine(), ctx.stop.getLine()).boxed()
+										   .collect(toList());
+			parseRes.setLines(res, lines);
 			return res;
 		}
 	}
@@ -130,6 +139,7 @@ public class AstVisitors {
 		
 		@Override
 		public Statement visitErrorNode(ErrorNode node) {
+			// FIXME Should be handled
 			return null;
 		}
 		
@@ -148,6 +158,10 @@ public class AstVisitors {
 			);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			
+			List<Integer> lines = IntStream.rangeClosed(ctx.start.getLine(), ctx.stop.getLine()).boxed()
+										   .collect(toList());
+			parseRes.setLines(res, lines);
 			return res;
 		}
 		
@@ -177,6 +191,10 @@ public class AstVisitors {
 			}
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			
+			List<Integer> lines = IntStream.rangeClosed(ctx.start.getLine(), ctx.stop.getLine()).boxed()
+										   .collect(toList());
+			parseRes.setLines(res, lines);
 			return res;
 		}
 		
@@ -203,6 +221,10 @@ public class AstVisitors {
 			 
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			
+			List<Integer> lines = IntStream.rangeClosed(ctx.start.getLine(), ctx.stop.getLine()).boxed()
+										   .collect(toList());
+			parseRes.setLines(res, lines);
 			return res;
 		}
 		
@@ -229,6 +251,10 @@ public class AstVisitors {
 			 
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			
+			List<Integer> lines = IntStream.rangeClosed(ctx.start.getLine(), ctx.stop.getLine()).boxed()
+										   .collect(toList());
+			parseRes.setLines(res, lines);
 			return res;
 		}
 		
@@ -237,6 +263,13 @@ public class AstVisitors {
 			RExpressionContext cond = ctx.rExpression();
 			Block then = (new BlockVisitor(parseRes)).visit(ctx.rBlock().get(0));
 			ConditionalBlock cBlock = AntlrAstToAleBehaviorsFactory.singleton.buildConditionalBlock(cond, then, parseRes);
+			
+			parseRes.getStartPositions().put(cBlock,cond.start.getStartIndex());
+			parseRes.getEndPositions().put(cBlock,cond.stop.getStopIndex());
+			
+			List<Integer> lines = IntStream.rangeClosed(cond.start.getLine(), cond.stop.getLine()).boxed()
+										   .collect(toList());
+			parseRes.setLines(cBlock, lines);
 			
 			If res = null;
 			if(ctx.nestedIf != null) {
@@ -253,6 +286,10 @@ public class AstVisitors {
 			
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			
+			lines = IntStream.rangeClosed(ctx.start.getLine(), ctx.stop.getLine()).boxed()
+							 .collect(toList());
+			parseRes.setLines(res, lines);
 			return res;
 		}
 		
@@ -271,8 +308,12 @@ public class AstVisitors {
 			else {
 				res = AntlrAstToAleBehaviorsFactory.singleton.buildForEach(ctx.Ident().getText(),collectionExp,body,parseRes);
 			}
-			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
-			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			parseRes.getStartPositions().put(res, ctx.start.getStartIndex());
+			parseRes.getEndPositions().put(res, ctx.stop.getStopIndex());
+			
+			List<Integer> lines = IntStream.rangeClosed(ctx.start.getLine(), ctx.stop.getLine()).boxed()
+										   .collect(toList());
+			parseRes.setLines(res, lines);
 			return res;
 		}
 		
@@ -282,6 +323,10 @@ public class AstVisitors {
 			While res = AntlrAstToAleBehaviorsFactory.singleton.buildWhile(ctx.rExpression(),body,parseRes);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			
+			List<Integer> lines = IntStream.rangeClosed(ctx.start.getLine(), ctx.stop.getLine()).boxed()
+										   .collect(toList());
+			parseRes.setLines(res, lines);
 			return res;
 		}
 	
@@ -316,7 +361,7 @@ public class AstVisitors {
 			
 			final RTypeContext returnType = ctx.type;
 			
-			String operationName = ctx.name.getText();;
+			String operationName = ctx.name.getText();
 			
 			List<Parameter> parameters = new ArrayList<>();
 			if(ctx.rParameters() != null)
@@ -350,8 +395,26 @@ public class AstVisitors {
 				res = AntlrAstToAleBehaviorsFactory.singleton.buildMethod(fragment, operationName, parameters, returnType, body, tags);
 			}
 			
+			if (res.getOperationRef() != null) {
+				for (EParameter parameter : res.getOperationRef().getEParameters()) {
+					for (Parameter raw : parameters) {
+						if (raw.getName().equals(parameter.getName())) {
+							parseRes.getStartPositions().put(parameter, raw.getCtx().start.getStartIndex());
+							parseRes.getEndPositions().put(parameter, raw.getCtx().stop.getStopIndex());
+							
+							List<Integer> lines = IntStream.rangeClosed(raw.getCtx().start.getLine(), raw.getCtx().stop.getLine()).boxed()
+														   .collect(toList());
+							parseRes.setLines(parameter, lines);
+						}
+					}
+				}
+			}
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			
+			List<Integer> lines = IntStream.rangeClosed(ctx.start.getLine(), ctx.stop.getLine()).boxed()
+										   .collect(toList());
+			parseRes.setLines(res, lines);
 			return res;
 		}
 		
@@ -376,6 +439,10 @@ public class AstVisitors {
 				.collect(toList());
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			
+			List<Integer> lines = IntStream.rangeClosed(ctx.start.getLine(), ctx.stop.getLine()).boxed()
+										   .collect(toList());
+			parseRes.setLines(res, lines);
 			return res;
 		}
 	}
@@ -394,9 +461,13 @@ public class AstVisitors {
 			
 			String name = ctx.Ident().getText();
 			
-			Parameter res = AntlrAstToAleBehaviorsFactory.singleton.buildParameter(type,name);
+			Parameter res = AntlrAstToAleBehaviorsFactory.singleton.buildParameter(type, name, ctx);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			
+			List<Integer> lines = IntStream.rangeClosed(ctx.start.getLine(), ctx.stop.getLine()).boxed()
+										   .collect(toList());
+			parseRes.setLines(res, lines);
 			return res;
 		}
 	}
@@ -447,6 +518,10 @@ public class AstVisitors {
 			res.setFragment(fragment);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			
+			List<Integer> lines = IntStream.rangeClosed(ctx.start.getLine(), ctx.stop.getLine()).boxed()
+										   .collect(toList());
+			parseRes.setLines(res, lines);
 			return res;
 		}
 		
@@ -552,6 +627,10 @@ public class AstVisitors {
 					parseRes);
 			parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 			parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+			
+			List<Integer> lines = IntStream.rangeClosed(ctx.start.getLine(), ctx.stop.getLine()).boxed()
+										   .collect(toList());
+			parseRes.setLines(res, lines);
 			return res;
 		}
 	}
@@ -618,6 +697,10 @@ public class AstVisitors {
 			if(parseRes.getRoot() != null) {
 				parseRes.getStartPositions().put(res,ctx.start.getStartIndex());
 				parseRes.getEndPositions().put(res,ctx.stop.getStopIndex());
+				
+				List<Integer> lines = IntStream.rangeClosed(ctx.start.getLine(), ctx.stop.getLine()).boxed()
+											   .collect(toList());
+				parseRes.setLines(res, lines);
 			}
 			return res;
 		}

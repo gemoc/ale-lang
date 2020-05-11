@@ -40,6 +40,16 @@ public interface IBehaviors {
 	List<BehavioredClass> getClasses();
 	
 	/**
+	 * Searches for a specific behaviored class.
+	 * 
+	 * @param qualifiedName
+	 * 			The fully qualified name of the class.
+	 * 
+	 * @return if the corresponding to the given name, if found
+	 */
+	Optional<BehavioredClass> findClass(String qualifiedName);
+	
+	/**
 	 * Determines all the classes defined in a metamodel that are available in the environment.
 	 * @return all the classes defined in a metamodel that are available in the environment
 	 */

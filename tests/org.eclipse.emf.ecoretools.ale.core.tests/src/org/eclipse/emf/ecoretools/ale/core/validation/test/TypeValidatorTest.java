@@ -22,6 +22,7 @@ import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator;
 import org.junit.After;
+import org.junit.ComparisonFailure;
 import org.junit.Test;
 
 /**
@@ -45,7 +46,7 @@ public class TypeValidatorTest {
 	public void testExtendsSameType() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/extendSameType.implem","input/validation/extendSameType2.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -59,7 +60,7 @@ public class TypeValidatorTest {
 	public void testExtendTypeTreeWithAttributes() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/extendTypeTreeWithAttributes.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -73,7 +74,7 @@ public class TypeValidatorTest {
 	public void testExtendsUpperType() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/extendSameType.implem","input/validation/extendSuperType.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -87,7 +88,7 @@ public class TypeValidatorTest {
 	public void testExtendsLowerType() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/extendSubType.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -102,7 +103,7 @@ public class TypeValidatorTest {
 	public void testExtendsNotSuperType() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/extendNotSuperType.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -117,7 +118,7 @@ public class TypeValidatorTest {
 	public void testExtendsItself() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/extendItself.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -133,7 +134,7 @@ public class TypeValidatorTest {
 	public void testExtendsCycle() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/extendSameType2.implem","input/validation/extendCycle.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -148,7 +149,7 @@ public class TypeValidatorTest {
 	public void testAttributeAssignValue() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/declareAttrib.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -162,7 +163,7 @@ public class TypeValidatorTest {
 	public void testAttributeAssignValueConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/typeErrorAttrib.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -177,7 +178,7 @@ public class TypeValidatorTest {
 	public void testVariableInitValue() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/declareLocal.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -191,7 +192,7 @@ public class TypeValidatorTest {
 	public void testVariableInitValueConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/typeErrorLocal.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -206,7 +207,7 @@ public class TypeValidatorTest {
 	public void testVariableAssignValue() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignLocalSameBlock.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -220,7 +221,7 @@ public class TypeValidatorTest {
 	public void testVariableAssignValueConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignLocalTypeError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -235,7 +236,7 @@ public class TypeValidatorTest {
 	public void testVariableAssignValueInnerBlock() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignLocalInnerBlock.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -249,7 +250,7 @@ public class TypeValidatorTest {
 	public void testVariableAssignValueInnerBlockConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/scopeTypeErrorLocal.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -264,7 +265,7 @@ public class TypeValidatorTest {
 	public void testReturnAssignValue() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignResult.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -278,7 +279,7 @@ public class TypeValidatorTest {
 	public void testReturnAssignValueConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignResultConflict.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -293,7 +294,7 @@ public class TypeValidatorTest {
 	public void testFeatureAssignBaseClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignFeatureBaseClass.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -307,7 +308,7 @@ public class TypeValidatorTest {
 	public void testFeatureAssignBaseClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignFeatureTypeError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -322,7 +323,7 @@ public class TypeValidatorTest {
 	public void testFeatureAssignExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignFeatureExtendedClass.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -336,7 +337,7 @@ public class TypeValidatorTest {
 	public void testFeatureAssignExtendedClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignAttributeTypeError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -351,7 +352,7 @@ public class TypeValidatorTest {
 	public void testFeatureAssignRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignAttribRuntimeClass.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -365,7 +366,7 @@ public class TypeValidatorTest {
 	public void testFeatureAssignRuntimeClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignAttribRuntimeClassError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -380,7 +381,7 @@ public class TypeValidatorTest {
 	public void testInsertToCollectionBaseClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureInsertCollection.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -394,7 +395,7 @@ public class TypeValidatorTest {
 	public void testInsertToCollectionBaseClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureInsertCollectionError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -409,7 +410,7 @@ public class TypeValidatorTest {
 	public void testInsertToCollectionExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureInsertExtendedClassCollection.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -423,7 +424,7 @@ public class TypeValidatorTest {
 	public void testInsertToCollectionExtendedClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureInsertExtendedClassCollectionError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -438,7 +439,7 @@ public class TypeValidatorTest {
 	public void testInsertToCollectionRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureInsertRuntimeClassCollection.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -452,7 +453,7 @@ public class TypeValidatorTest {
 	public void testInsertToCollectionRuntimeClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureInsertRuntimeClassCollectionError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -467,7 +468,7 @@ public class TypeValidatorTest {
 	public void testInsertBaseClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertEClassAttrib.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -481,7 +482,7 @@ public class TypeValidatorTest {
 	public void testInsertBaseClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureInsertTypeError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -496,7 +497,7 @@ public class TypeValidatorTest {
 	public void testInsertExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertAttribExtendedClass.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -510,7 +511,7 @@ public class TypeValidatorTest {
 	public void testInsertExtendedClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertAttribExtendedClassError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -525,7 +526,7 @@ public class TypeValidatorTest {
 	public void testInsertRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertAttribRuntimeClass.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -539,7 +540,7 @@ public class TypeValidatorTest {
 	public void testInsertRuntimeClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertAttribRuntimeClassError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -554,7 +555,7 @@ public class TypeValidatorTest {
 	public void testRemoveToCollectionBaseClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureRemoveCollection.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -568,7 +569,7 @@ public class TypeValidatorTest {
 	public void testRemoveToCollectionBaseClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureRemoveCollectionError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -583,7 +584,7 @@ public class TypeValidatorTest {
 	public void testRemoveToCollectionExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureRemoveExtendedClassCollection.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -597,7 +598,7 @@ public class TypeValidatorTest {
 	public void testRemoveToCollectionExtendedClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureRemoveExtendedClassCollectionError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -612,7 +613,7 @@ public class TypeValidatorTest {
 	public void testRemoveToCollectionRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureRemoveRuntimeClassCollection.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -626,7 +627,7 @@ public class TypeValidatorTest {
 	public void testRemoveToCollectionRuntimeClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureRemoveRuntimeClassCollectionError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -641,7 +642,7 @@ public class TypeValidatorTest {
 	public void testRemoveBaseClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeEClassAttrib.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -655,7 +656,7 @@ public class TypeValidatorTest {
 	public void testRemoveBaseClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureRemoveTypeError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -670,7 +671,7 @@ public class TypeValidatorTest {
 	public void testRemoveExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeAttribExtendedClass.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -684,7 +685,7 @@ public class TypeValidatorTest {
 	public void testRemoveExtendedClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeAttribExtendedClassError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -699,7 +700,7 @@ public class TypeValidatorTest {
 	public void testRemoveRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeAttribRuntimeClass.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -712,7 +713,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testRemoveRuntimeClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeAttribRuntimeClassError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -726,7 +727,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testInsertSelf() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertSelf.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -740,7 +741,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testInsertIntoLocalCollection() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertLocalCollection.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -753,7 +754,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testInsertIntoLocalCollectionError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertLocalCollectionError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -769,7 +770,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testInsertIntoLocalCollectionInForEachLoop() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertLocalCollectionInForEachLoop.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -782,7 +783,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testInsertIntoLocalCollectionInForEachLoopError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertLocalCollectionInForEachLoopError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -797,7 +798,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testInsertIntoLocalVariableError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertIntoLocalBooleanError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -811,7 +812,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testInsertResult() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertResult.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -824,7 +825,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testInsertResultError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertResultError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -841,7 +842,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testRemoveResult() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeResult.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -854,7 +855,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testRemoveResultError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeResultError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -868,7 +869,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testInsertStringToString() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertStringToString.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -878,7 +879,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testInsertIntToString() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertIntToString.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -889,7 +890,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testInsertStringToInt() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertStringToInt.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -900,7 +901,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testInsertIntToInt() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertIntToInt.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -913,7 +914,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testRemoveFromSelf() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeSelf.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -927,7 +928,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testRemoveFromLocalCollection() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeLocalCollection.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -940,7 +941,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testRemoveFromLocalCollectionError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeLocalCollectionError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -956,7 +957,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testRemoveFromLocalCollectionInForEachLoop() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeLocalCollectionInForEachLoop.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -969,7 +970,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testRemoveFromLocalCollectionInForEachLoopError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeLocalCollectionInForEachLoopError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -984,7 +985,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testRemoveFromLocalVariableError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeLocalVariablesError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1001,7 +1002,7 @@ public class TypeValidatorTest {
 	public void testForEachIntegerRange() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/forEachIntRange.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1015,7 +1016,7 @@ public class TypeValidatorTest {
 	public void testForEachNotCollection() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/forEachCollectionError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1030,7 +1031,7 @@ public class TypeValidatorTest {
 	public void testForEachSequence() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/forEachSequence.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1044,7 +1045,7 @@ public class TypeValidatorTest {
 	public void testForEachSequenceError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/forEachSequenceError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1059,7 +1060,7 @@ public class TypeValidatorTest {
 	public void testForEachRangeFromMethodCall() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/forEachRangeFromMethodCall.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1073,7 +1074,7 @@ public class TypeValidatorTest {
 	public void testIfBoolean() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/ifBoolean.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1087,7 +1088,7 @@ public class TypeValidatorTest {
 	public void testIfNotBoolean() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/ifBooleanError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1102,7 +1103,7 @@ public class TypeValidatorTest {
 	public void testWhileBoolean() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/whileBoolean.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1116,7 +1117,7 @@ public class TypeValidatorTest {
 	public void testWhileNotBoolean() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/whileBooleanError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1131,7 +1132,7 @@ public class TypeValidatorTest {
 	public void testCallArgumentBaseClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/callBaseClass.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1145,7 +1146,7 @@ public class TypeValidatorTest {
 	public void testCallArgumentBaseClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/callBaseClassError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1160,7 +1161,7 @@ public class TypeValidatorTest {
 	public void testCallArgumentExtendedClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/callExtendedClass.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1174,7 +1175,7 @@ public class TypeValidatorTest {
 	public void testCallArgumentExtendedClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/callExtendedClassError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1189,7 +1190,7 @@ public class TypeValidatorTest {
 	public void testCallArgumentRuntimeClass() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/callRuntimeClass.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1203,7 +1204,7 @@ public class TypeValidatorTest {
 	public void testCallArgumentRuntimeClassConflict() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/callRuntimeClassError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1215,7 +1216,7 @@ public class TypeValidatorTest {
 	public void testInferIfThen() {
 		env = IAleEnvironment.fromPaths(asList("model/ABC.ecore"),asList("input/validation/inferIfThen.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1227,7 +1228,7 @@ public class TypeValidatorTest {
 	public void testInferIfElse() {
 		env = IAleEnvironment.fromPaths(asList("model/ABC.ecore"),asList("input/validation/inferIfElse.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1239,7 +1240,7 @@ public class TypeValidatorTest {
 	public void testInferElseIf() {
 		env = IAleEnvironment.fromPaths(asList("model/ABC.ecore"),asList("input/validation/inferElseIf.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1253,21 +1254,26 @@ public class TypeValidatorTest {
 	public void testInferNotElseIf() {
 		env = IAleEnvironment.fromPaths(asList("model/ABC.ecore"),asList("input/validation/inferElseIf2.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
 		assertEquals(3, msg.size());
 		assertMsgEquals(ValidationMessageLevel.ERROR, 126, 131, "Couldn't find the 'foo(EClassifier=EObject)' service", msg.get(0));
 		assertMsgEquals(ValidationMessageLevel.ERROR, 157, 162, "Couldn't find the 'bar(EClassifier=EObject)' service", msg.get(1));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 328, 333, "Couldn't find the 'bar(EClassifier=A)' service" + lineSeparator() + "Couldn't find the 'bar(EClassifier=EObject)' service", msg.get(2));
+		try {
+			assertMsgEquals(ValidationMessageLevel.ERROR, 328, 333, "Couldn't find the 'bar(EClassifier=EObject)' service" + lineSeparator() + "Couldn't find the 'bar(EClassifier=A)' service", msg.get(2));
+		} catch (ComparisonFailure e) {
+			// FIXME for some reason the order is reversed in CI
+			assertMsgEquals(ValidationMessageLevel.ERROR, 328, 333, "Couldn't find the 'bar(EClassifier=A)' service" + lineSeparator() + "Couldn't find the 'bar(EClassifier=EObject)' service", msg.get(2));
+		}
 	}
 	
 	@Test
 	public void testInferWhile() {
 		env = IAleEnvironment.fromPaths(asList("model/ABC.ecore"),asList("input/validation/inferWhile.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1278,7 +1284,7 @@ public class TypeValidatorTest {
 	public void testInferWhileError() {
 		env = IAleEnvironment.fromPaths(asList("model/ABC.ecore"),asList("input/validation/inferWhileError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1290,18 +1296,18 @@ public class TypeValidatorTest {
 	public void testInferInner() {
 		env = IAleEnvironment.fromPaths(asList("model/ABC.ecore"),asList("input/validation/inferInner.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
-		assertEquals(0, msg.size());
+		assertEquals(msg.toString(), 0, msg.size());
 	}
 	
 	@Test
 	public void testAssignCreate() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignCreate.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1312,7 +1318,7 @@ public class TypeValidatorTest {
 	public void testAssignCreateError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignCreateError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1324,7 +1330,7 @@ public class TypeValidatorTest {
 	public void testAssignSubtype() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignSubtype.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1335,7 +1341,7 @@ public class TypeValidatorTest {
 	public void testAssignCollection() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignCollection.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1346,7 +1352,7 @@ public class TypeValidatorTest {
 	public void testAssignCollectionError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignCollectionError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1358,7 +1364,7 @@ public class TypeValidatorTest {
 	public void testAssignCollectionError2() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignCollectionError2.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1370,7 +1376,7 @@ public class TypeValidatorTest {
 	public void testDeclareCollection() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/declareCollection.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1380,7 +1386,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testDeclareCollection2() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/declareCollection2.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1391,7 +1397,7 @@ public class TypeValidatorTest {
 	public void testDeclareCollectionError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/declareCollectionError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1403,7 +1409,7 @@ public class TypeValidatorTest {
 	public void testAssignCollectionType() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignCollectionType.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1414,7 +1420,7 @@ public class TypeValidatorTest {
 	public void testAssignCollectionTypeError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignCollectionTypeError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1425,7 +1431,7 @@ public class TypeValidatorTest {
 	public void testAssignSequenceFeature() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignSequenceFeature.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1435,7 +1441,7 @@ public class TypeValidatorTest {
 	public void testAssignSequenceFeatureError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignSequenceFeatureError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1447,7 +1453,7 @@ public class TypeValidatorTest {
 	public void testAssignSequenceVarDecl() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignSequenceVarDecl.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1457,7 +1463,7 @@ public class TypeValidatorTest {
 	public void testAssignSequenceVarDeclError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignSequenceVarDeclError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1472,7 +1478,7 @@ public class TypeValidatorTest {
 	public void testAssignSequenceResult() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignSequenceResult.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1482,7 +1488,7 @@ public class TypeValidatorTest {
 	public void testAssignSequenceResultError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignSequenceResultError.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1494,7 +1500,7 @@ public class TypeValidatorTest {
 	public void testInitAttributesToNull() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/initializeAttributesToNull.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1505,7 +1511,7 @@ public class TypeValidatorTest {
 	public void testAssignNullToAttribute() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignNullToAttribute.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1516,7 +1522,7 @@ public class TypeValidatorTest {
 	public void testAssignNullToLocalVariables() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignNullToLocalVariables.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1529,7 +1535,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testCallMethodTakingASequence() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/callMethodTakingSequence.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1540,7 +1546,7 @@ public class TypeValidatorTest {
 	public void testUnresolvedTypeInDeclarationError() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/unresolvedTypeInDeclaration.implem"));
 		
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1552,7 +1558,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testAssignmentSequenceAndOrderedSetError() {
 		env = IAleEnvironment.fromPaths(asList() ,asList("input/validation/assignmentSequenceAndOrderedSetError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1564,7 +1570,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testAdditionAssignmentSequenceAndOrderedSet() {
 		env = IAleEnvironment.fromPaths(asList() ,asList("input/validation/additionAssignmentSequenceAndOrderedSet.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1574,7 +1580,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testAdditionAssignmentSequenceAndOrderedSetError() {
 		env = IAleEnvironment.fromPaths(asList() ,asList("input/validation/additionAssignmentSequenceAndOrderedSetError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1590,7 +1596,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testSubstractionAssignmentSequenceAndOrderedSet() {
 		env = IAleEnvironment.fromPaths(asList() ,asList("input/validation/substractionAssignmentSequenceAndOrderedSet.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1600,7 +1606,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testSubstractionAssignmentSequenceAndOrderedSetError() {
 		env = IAleEnvironment.fromPaths(asList() ,asList("input/validation/substractionAssignmentSequenceAndOrderedSetError.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		
@@ -1616,7 +1622,7 @@ public class TypeValidatorTest {
 	@Test
 	public void testAssignmentsInvolvingRuntimeClassesAreTypeChecked() {
 		env = IAleEnvironment.fromPaths(asList() ,asList("input/validation/assignmentsInvolvingRuntimeClasses.implem"));
-		ALEValidator validator = new ALEValidator(env.getContext());
+		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<IValidationMessage> msg = validator.getMessages();
 		

@@ -1,10 +1,10 @@
 behavior test.containattributes;
 
 open class ClassA {
-	ClassA crossRef;
+	test::ClassA crossRef;
 		
 	@main
-	def int main(ClassA arg) {
+	def Sequence(ecore::EObject) main(test::ClassA arg) {
 		self.crossRef := arg;
 		result := self.eCrossReferences();
 	}

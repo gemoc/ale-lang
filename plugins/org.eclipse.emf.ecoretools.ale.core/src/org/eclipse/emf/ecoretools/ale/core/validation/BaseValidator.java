@@ -12,14 +12,13 @@ package org.eclipse.emf.ecoretools.ale.core.validation;
 
 import static java.util.stream.Collectors.toList;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,7 +40,11 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EParameter;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.EvalEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.Scopes;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.Scopes.Scope;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.impl.StackedScopes;
 import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
@@ -76,7 +79,6 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	
 	private List<ParsedFile<ModelUnit>> allModels;
 	private ParsedFile<ModelUnit> currentModel;
-	private Deque<Map<String, Set<IType>>> variableTypesStack;
 	
 	/**
 	 * Store the types computed by the validation of expressions
@@ -91,7 +93,9 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	/**
 	 * Store the types of the variables available inside blocks
 	 */
-	private Map<Block,Map<String, Set<IType>>> blockContexts;
+	private Map<Block, Scope> blockContexts;
+	
+	protected Scopes scopes;
 	
 	private AstValidator expValidator;
 	private IQueryEnvironment qryEnv;
@@ -101,17 +105,25 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	 * Convert EMF types to AQL ones
 	 */
 	private IConvertType convert;
+
+	protected IAleEnvironment environment;
 	
-	public BaseValidator(IQueryEnvironment qryEnv, List<IValidator> validators) {
-		this.qryEnv = qryEnv;
+	public BaseValidator(IAleEnvironment environment, List<IValidator> validators) {
+		this.environment = environment;
+		this.qryEnv = environment.getContext();
 		this.expValidator = new AstValidator(new ValidationServices(qryEnv));
 		this.convert = new ConvertType(qryEnv);
 		
+		this.scopes = new StackedScopes();
 		this.validators = new ArrayList<>();
 		validators.forEach(validator -> {
 			this.validators.add(validator);
 			validator.setBase(this);
 		});
+	}
+	
+	public Scopes getScopes() {
+		return scopes;
 	}
 	
 	public List<IValidationMessage> validate(List<ParsedFile<ModelUnit>> roots) {
@@ -127,13 +139,13 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 										.filter(Objects::nonNull)
 										.collect(toList());
 		
-		new EvalEnvironment(qryEnv, allUnits, null, null); //add runtime services to qryEnv
+		new EvalEnvironment(environment, null, null); //add runtime services to qryEnv
 
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateModelBehavior(allUnits)));
 		
 		roots.forEach(root -> {
 			this.currentModel = root;
-			this.variableTypesStack = new ArrayDeque<>();
+			this.scopes.clear();
 			doSwitch(currentModel.getRoot());
 		});
 		
@@ -158,114 +170,99 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	
 	@Override
 	public Object caseExtendedClass(ExtendedClass xtdClass) {
-		
-		Map<String,Set<IType>> classScope = new HashMap<>();
-		for(Attribute attrib : xtdClass.getAttributes()) {
-			if(attrib.getInitialValue() != null) {
-				validateAndStore(attrib.getInitialValue(),new HashMap<String,Set<IType>>());
+		try (Scope classScope = scopes.pushNew()) {
+			for(Attribute attrib : xtdClass.getAttributes()) {
+				if(attrib.getInitialValue() != null) {
+					validateAndStore(attrib.getInitialValue(),new HashMap<String,Set<IType>>());
+				}
+			}
+			validators.stream().forEach(validator -> msgs.addAll(validator.validateExtendedClass(xtdClass)));
+			
+			
+			Set<IType> selfTypeSet = new HashSet<>();
+			EClassifierType selfType = new EClassifierType(qryEnv, xtdClass.getBaseClass());
+			selfTypeSet.add(selfType);
+			classScope.putTypes("self", selfTypeSet);
+	
+			for (Method operation : xtdClass.getMethods()) {
+				doSwitch(operation);
 			}
 		}
-		
-		Set<IType> selfTypeSet = new HashSet<>();
-		EClassifierType selfType = new EClassifierType(qryEnv, xtdClass.getBaseClass());
-		selfTypeSet.add(selfType);
-		classScope.put("self", selfTypeSet);
-		
-		validators.stream().forEach(validator -> msgs.addAll(validator.validateExtendedClass(xtdClass)));
-		
-		variableTypesStack.push(classScope);
-		for (Method operation : xtdClass.getMethods()) {
-			doSwitch(operation);
-		}
-		variableTypesStack.pop();
-		
 		return null;
 	}
 	
 	@Override
 	public Object caseRuntimeClass(RuntimeClass runtimeCls) {
-		
-		Map<String,Set<IType>> classScope = new HashMap<>();
-		for(Attribute attrib : runtimeCls.getAttributes()) {
-			if(attrib.getInitialValue() != null) {
-				validateAndStore(attrib.getInitialValue(),new HashMap<>());
+		try (Scope classScope = scopes.pushNew()) {
+			for(Attribute attrib : runtimeCls.getAttributes()) {
+				if(attrib.getInitialValue() != null) {
+					validateAndStore(attrib.getInitialValue(),new HashMap<>());
+				}
+			}
+			validators.stream().forEach(validator -> msgs.addAll(validator.validateRuntimeClass(runtimeCls)));
+			
+			String pkgName = ((ModelUnit)runtimeCls.eContainer()).getName();
+			if(pkgName.lastIndexOf('.') != -1 && pkgName.lastIndexOf('.') != pkgName.length()-1){ //FIXME: AQL doesn't support qualified name
+				pkgName = pkgName.substring(pkgName.lastIndexOf('.')+1);
+			}
+			Collection<EClassifier> registered = qryEnv.getEPackageProvider().getTypes(pkgName, runtimeCls.getName());
+			if(!registered.isEmpty()) {
+				EClassifier runtimeEClass = registered.iterator().next();
+				Set<IType> selfTypeSet = new HashSet<>();
+				EClassifierType selfType = new EClassifierType(qryEnv, runtimeEClass);
+				selfTypeSet.add(selfType);
+				classScope.putTypes("self", selfTypeSet);
+			}
+			for (Method operation : runtimeCls.getMethods()) {
+				doSwitch(operation);
 			}
 		}
-		
-		String pkgName = ((ModelUnit)runtimeCls.eContainer()).getName();
-		if(pkgName.lastIndexOf('.') != -1 && pkgName.lastIndexOf('.') != pkgName.length()-1){ //FIXME: AQL doesn't support qualified name
-			pkgName = pkgName.substring(pkgName.lastIndexOf('.')+1);
-		}
-		Collection<EClassifier> registered = qryEnv.getEPackageProvider().getTypes(pkgName, runtimeCls.getName());
-		if(!registered.isEmpty()) {
-			EClassifier runtimeEClass = registered.iterator().next();
-			Set<IType> selfTypeSet = new HashSet<>();
-			EClassifierType selfType = new EClassifierType(qryEnv, runtimeEClass);
-			selfTypeSet.add(selfType);
-			classScope.put("self", selfTypeSet);
-		}
-		
-		validators.stream().forEach(validator -> msgs.addAll(validator.validateRuntimeClass(runtimeCls)));
-		
-		variableTypesStack.push(classScope);
-		for (Method operation : runtimeCls.getMethods()) {
-			doSwitch(operation);
-		}
-		variableTypesStack.pop();
-		
 		return null;
 	}
 	
 	@Override
 	public Object caseMethod(Method mtd) {
-		Map<String,Set<IType>> methodScope = new HashMap<>(variableTypesStack.peek());
-		
-		// Add method's parameters to scope
-		
-		if(mtd.getOperationRef() != null) {
-			for (EParameter param : mtd.getOperationRef().getEParameters()) {
-				Set<IType> previousDeclaration = methodScope.get(param.getName());
-				if(previousDeclaration == null) {
-					IType aqlParameterType = convert.toAQL(param);
-					methodScope.put(param.getName(), Sets.newHashSet(aqlParameterType));
-				}
-			}
-		}
-		
-		// Add 'result' variable to scope
-
-		// May be false e.g. when the override keyword is used
-		// on a method that does not match any existing EOperation
-		boolean hasACorrespondingEOperation = mtd.getOperationRef() != null;
-		if (hasACorrespondingEOperation) {
-			EClassifier methodType = mtd.getOperationRef().getEType();
-			boolean returnsSomething = methodType != null;
-			if (returnsSomething) {
-				EClassifierType returnType = new EClassifierType(qryEnv, methodType);
-				methodScope.put("result", Sets.newHashSet(returnType));
-			}
-		}
-		
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateMethod(mtd)));
 		
-		variableTypesStack.push(methodScope);
-		doSwitch(mtd.getBody());
-		variableTypesStack.pop();
+		try (Scope methodScope = scopes.pushNew()) {
 		
+			// Add method's parameters to scope
+			
+			if(mtd.getOperationRef() != null) {
+				for (EParameter param : mtd.getOperationRef().getEParameters()) {
+					boolean previousDeclaration = methodScope.findTypes(param.getName()).isPresent();
+					if( ! previousDeclaration) {
+						IType aqlParameterType = convert.toAQL(param);
+						methodScope.putTypes(param.getName(), Sets.newHashSet(aqlParameterType));
+					}
+				}
+			}
+			// Add 'result' variable to scope
+	
+			// May be false e.g. when the override keyword is used
+			// on a method that does not match any existing EOperation
+			boolean hasACorrespondingEOperation = mtd.getOperationRef() != null;
+			if (hasACorrespondingEOperation) {
+				EClassifier methodType = mtd.getOperationRef().getEType();
+				boolean returnsSomething = methodType != null;
+				if (returnsSomething) {
+					EClassifierType returnType = new EClassifierType(qryEnv, methodType);
+					methodScope.putTypes("result", Sets.newHashSet(returnType));
+				}
+			}
+			doSwitch(mtd.getBody());
+		}
 		return null;
 	}
 	
 	@Override
 	public Object caseBlock(Block block) {
-		Map<String,Set<IType>> blockScope = new HashMap<>(variableTypesStack.peek());
-		
-		variableTypesStack.push(blockScope);
-		blockContexts.put(block, blockScope);
-		for(Statement stmt: block.getStatements()){
-			doSwitch(stmt);
+		try (Scope blockScope = scopes.pushNew()) {
+			blockContexts.put(block, blockScope);
+			for(Statement stmt: block.getStatements()){
+				doSwitch(stmt);
+			}
 		}
-		variableTypesStack.pop();
-		
 		return null;
 	}
 	
@@ -310,24 +307,18 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	
 	@Override
 	public Object caseForEach(ForEach loop) {
-		
-		Map<String,Set<IType>> loopScope = new HashMap<>(variableTypesStack.peek());
-		
 		validateAndStore(loop.getCollectionExpression(),getCurrentScope());
-		loopScope.put(loop.getVariable(), getPossibleCollectionTypes(loop.getCollectionExpression()));
-		
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateForEach(loop)));
 		
-		variableTypesStack.push(loopScope);
-		doSwitch(loop.getBody());
-		variableTypesStack.pop();
-		
+		try (Scope loopScope = scopes.pushNew()) {
+			loopScope.putTypes(loop.getVariable(), getPossibleCollectionTypes(loop.getCollectionExpression()));
+			doSwitch(loop.getBody());
+		}
 		return null;
 	}
 	
 	@Override
 	public Object caseIf(If ifStmt) {
-		
 		for (ConditionalBlock cBlock : ifStmt.getBlocks()) {
 			validateAndStore(cBlock.getCondition(),getCurrentScope());
 		}
@@ -338,45 +329,47 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		 * Conditional blocks
 		 */
 		for (ConditionalBlock cBlock : ifStmt.getBlocks()) {
-			Map<String,Set<IType>> blockScope = new HashMap<>(variableTypesStack.peek());
-			IValidationResult validRes = validations.get(cBlock.getCondition());
-			if(validRes != null) {
-				Map<String, Set<IType>> vartypes = validRes.getInferredVariableTypes(cBlock.getCondition(), true);
-				blockScope.putAll(vartypes);
+			try (Scope blockScope = scopes.pushNew()) {
+				IValidationResult validRes = validations.get(cBlock.getCondition());
+				if(validRes != null) {
+					Map<String, Set<IType>> vartypes = validRes.getInferredVariableTypes(cBlock.getCondition(), true);
+					for (Entry<String, Set<IType>> vartype : vartypes.entrySet()) {
+						blockScope.putTypes(vartype.getKey(), vartype.getValue());
+					}
+				}
+				doSwitch(cBlock.getBlock());
 			}
-			variableTypesStack.push(blockScope);
-			doSwitch(cBlock.getBlock());
-			variableTypesStack.pop();
 		}
 		
 		/*
 		 * Else
 		 */
 		if(ifStmt.getElse() != null) {
-			Map<String,Set<IType>> elseScope = new HashMap<>(variableTypesStack.peek());
-			Map<String, Set<IType>> vartypes = new HashMap<>();
-			//Gather inferred types from previous conditionals
-			for (ConditionalBlock cBlock : ifStmt.getBlocks()) {
-				IValidationResult validRes = validations.get(cBlock.getCondition());
-				if(validRes != null) {
-					Map<String, Set<IType>> previousVartypes = validRes.getInferredVariableTypes(cBlock.getCondition(), false);
-					for(String varName : previousVartypes.keySet()) {
-						Set<IType> types = vartypes.get(varName);
-						if(types == null) {
-							vartypes.put(varName, previousVartypes.get(varName));
-						}
-						else {
-							types.addAll(previousVartypes.get(varName));
+			try (Scope elseScope = scopes.pushNew()) {
+				Map<String, Set<IType>> vartypes = new HashMap<>();
+				
+				//Gather inferred types from previous conditionals
+				for (ConditionalBlock cBlock : ifStmt.getBlocks()) {
+					IValidationResult validRes = validations.get(cBlock.getCondition());
+					if(validRes != null) {
+						Map<String, Set<IType>> previousVartypes = validRes.getInferredVariableTypes(cBlock.getCondition(), false);
+						for(String varName : previousVartypes.keySet()) {
+							Set<IType> types = vartypes.get(varName);
+							if(types == null) {
+								vartypes.put(varName, previousVartypes.get(varName));
+							}
+							else {
+								types.addAll(previousVartypes.get(varName));
+							}
 						}
 					}
 				}
+				for (Entry<String, Set<IType>> vartype : vartypes.entrySet()) {
+					elseScope.putTypes(vartype.getKey(), vartype.getValue());
+				}
+				doSwitch(ifStmt.getElse());
 			}
-			elseScope.putAll(vartypes);
-			variableTypesStack.push(elseScope);
-			doSwitch(ifStmt.getElse());
-			variableTypesStack.pop();
 		}
-		
 		return null;
 	}
 	
@@ -397,13 +390,13 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateVariableDeclaration(varDecl)));
 		
-		Map<String, Set<IType>> lastScope = variableTypesStack.peek();
+		Scope lastScope = scopes.getCurrent();
 		if(varDecl.getInitialValue() != null){
-			lastScope.put(varDecl.getName(), getPossibleTypes(varDecl.getInitialValue()));
+			lastScope.putTypes(varDecl.getName(), getPossibleTypes(varDecl.getInitialValue()));
 		}
 		else {
 			IType declaredType = convert.toAQL(varDecl.getType());
-			lastScope.put(varDecl.getName(), Sets.newHashSet(declaredType));
+			lastScope.putTypes(varDecl.getName(), Sets.newHashSet(declaredType));
 		}
 		
 		return null;
@@ -435,21 +428,21 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateWhile(loop)));
 		
-		Map<String,Set<IType>> loopScope = new HashMap<>(variableTypesStack.peek());
-		IValidationResult validRes = validations.get(loop.getCondition());
-		if(validRes != null) {
-			Map<String, Set<IType>> vartypes = validRes.getInferredVariableTypes(loop.getCondition(), true);
-			loopScope.putAll(vartypes);
+		try (Scope loopScope = scopes.pushNew()) {
+			IValidationResult validRes = validations.get(loop.getCondition());
+			if(validRes != null) {
+				Map<String, Set<IType>> vartypes = validRes.getInferredVariableTypes(loop.getCondition(), true);
+				for (Entry<String, Set<IType>> vartype : vartypes.entrySet()) {
+					loopScope.putTypes(vartype.getKey(), vartype.getValue());
+				}
+			}
+			doSwitch(loop.getBody());
 		}
-		variableTypesStack.push(loopScope);
-		doSwitch(loop.getBody());
-		variableTypesStack.pop();
-		
 		return null;
 	}
 
 	public Map<String, Set<IType>> getCurrentScope() {
-		return variableTypesStack.peek();
+		return scopes.getCurrent().getVariableTypes();
 	}
 	
 	/*
@@ -487,6 +480,11 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		msgs.addAll(expValidation.getMessages());
 		validations.put(exp,expValidation);
 		validationContexts.put(exp, context);
+		
+		if ( ! scopes.isEmpty()) {
+			Set<IType> inferredTypes = expValidation.getPossibleTypes(exp);
+			scopes.getCurrent().putTypes(exp, inferredTypes);
+		}
 	}
 	
 	public Set<IType> getPossibleTypes(Expression exp) {
@@ -567,9 +565,9 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	 * Get the type of the variables available in a block
 	 */
 	public Map<String, Set<IType>> getValidationContext(Block block) {
-		Map<String, Set<IType>> res = blockContexts.get(block);
+		Scope res = blockContexts.get(block);
 		if(res != null) {
-			return res;
+			return res.getVariableTypes();
 		}
 		return new HashMap<>();
 	}

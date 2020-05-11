@@ -21,7 +21,7 @@ import org.eclipse.osgi.util.NLS;
 @SuppressWarnings("squid:S3008")
 public final class Messages extends NLS {
 	
-	private static final String BASE_NAME = "org.eclipse.emf.ecoretools.ale.messages.messages"; //$NON-NLS-1$
+	private static final String BASE_NAME = "org.eclipse.emf.ecoretools.ale.core.messages.messages"; //$NON-NLS-1$
 
     static {
     	// load message values from bundle file

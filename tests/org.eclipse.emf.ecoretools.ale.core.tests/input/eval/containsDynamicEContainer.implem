@@ -4,7 +4,7 @@ open class ClassA {
 	contains NewClass toNewClass;
 		
 	@main
-	def int main() {
+	def EObject main() {
 		NewClass cls := containattributes::NewClass.create();
 		self.toNewClass := cls;
 		result := cls.eContainer();

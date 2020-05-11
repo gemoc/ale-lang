@@ -3,7 +3,7 @@ behavior test.lookup.simple;
 open class A {
 
 	@main
-	def void main(){
+	def String main(){
 		result := self.foo();
 	}
 	

@@ -4,9 +4,9 @@ open class ClassA {
 	contains NewClass toNewClass;
 		
 	@main
-	def int main() {
+	def Sequence(ecore::EObject) main() {
 		NewClass cls := containattributes::NewClass.create();
-		self.children->at(1).toNewClass := cls;
+		self.children->first().toNewClass := cls;
 		result := self.eAllContents();
 	}
 }

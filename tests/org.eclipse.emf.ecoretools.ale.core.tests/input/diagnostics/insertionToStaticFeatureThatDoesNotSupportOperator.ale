@@ -1,0 +1,10 @@
+behavior lang.ale.test;
+
+open class Mix {
+
+	@main
+	def void main() {
+		self.bool += true;
+	}
+	
+}
