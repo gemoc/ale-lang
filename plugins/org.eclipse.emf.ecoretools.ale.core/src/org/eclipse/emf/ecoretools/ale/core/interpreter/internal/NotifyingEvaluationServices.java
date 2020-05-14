@@ -13,7 +13,9 @@ package org.eclipse.emf.ecoretools.ale.core.interpreter.internal;
 import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.acceleo.query.parser.AstBuilderListener;
 import org.eclipse.acceleo.query.runtime.AcceleoQueryEvaluationException;
@@ -25,12 +27,11 @@ import org.eclipse.acceleo.query.runtime.impl.Nothing;
 import org.eclipse.acceleo.query.validation.type.ClassType;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
+import org.eclipse.acceleo.query.validation.type.NothingType;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecoretools.ale.core.Activator;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.CriticalFailureException;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.IServiceCallListener;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.ServiceNotFoundException;
 
@@ -84,19 +85,26 @@ public class NotifyingEvaluationServices extends EvaluationServices {
 		}
 		try {
 			IType[] argumentTypes = getArgumentTypes(arguments);
-			IService service = queryEnvironment.getLookupEngine().lookup(serviceName, argumentTypes);
-			if (service == null) {
-				throw new ServiceNotFoundException(serviceName, serviceSignature(serviceName, argumentTypes), asList(argumentTypes), asList(arguments));
+			Optional<Nothing> unresolvedArgument = Arrays.stream(arguments).filter(Nothing.class::isInstance).map(Nothing.class::cast).findFirst();
+			if (unresolvedArgument.isPresent()) {
+				// May happen because #callService returns Nothing in case of error
+				return unresolvedArgument.get();
 			}
-			listeners.forEach(l -> l.preCall(service, arguments));
-			result = callService(service, arguments, diagnostic);
-			listeners.forEach(l -> l.postCall(service, arguments,result));
+			else {
+				IService service = queryEnvironment.getLookupEngine().lookup(serviceName, argumentTypes);
+				if (service == null) {
+					throw new ServiceNotFoundException(serviceName, serviceSignature(serviceName, argumentTypes), asList(argumentTypes), asList(arguments));
+				}
+				listeners.forEach(l -> l.preCall(service, arguments));
+				result = callService(service, arguments, diagnostic);
+				listeners.forEach(l -> l.postCall(service, arguments,result));
+				return result;
+			}
 			// CHECKSTYLE:OFF
 		} catch (Exception e) {
 			// CHECKSTYLE:ON
 			throw new AcceleoQueryEvaluationException(INTERNAL_ERROR_MSG, e);
 		}
-		return result;
 	}
 	
 	//FIXME: copy-pasted private methods below
