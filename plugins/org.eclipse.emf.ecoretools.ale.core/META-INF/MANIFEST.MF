@@ -24,7 +24,7 @@ Export-Package: org.eclipse.emf.ecoretools.ale.core.diagnostics,
  org.eclipse.emf.ecoretools.ale.implementation,
  org.eclipse.emf.ecoretools.ale.implementation.impl,
  org.eclipse.emf.ecoretools.ale.implementation.util
-Require-Bundle: org.antlr.runtime;bundle-version="[4.3.0,4.4.0)",
+Require-Bundle: org.antlr.runtime;bundle-version="[4.3.0,4.8.0)",
  org.eclipse.emf.ecore.xmi,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
