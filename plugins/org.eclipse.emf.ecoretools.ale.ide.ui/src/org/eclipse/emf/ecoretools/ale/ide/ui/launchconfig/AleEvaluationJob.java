@@ -38,7 +38,7 @@ import org.eclipse.emf.ecoretools.ale.ide.ui.io.AleConsole;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
+import org.eclipse.sirius.common.tools.api.interpreter.IEvaluationResult;
 import org.eclipse.swt.SWT;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;

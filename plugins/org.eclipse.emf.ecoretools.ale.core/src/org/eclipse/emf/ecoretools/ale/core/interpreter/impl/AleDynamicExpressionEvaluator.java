@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.acceleo.query.runtime.EvaluationResult;
+//import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IQueryEvaluationEngine;
@@ -30,7 +30,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecoretools.ale.core.messages.Messages;
 import org.eclipse.sirius.common.tools.api.interpreter.EvaluationException;
-import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
+import org.eclipse.sirius.common.tools.api.interpreter.IEvaluationResult;
+import org.eclipse.sirius.common.tools.internal.interpreter.DefaultConverter;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -60,7 +61,7 @@ public class AleDynamicExpressionEvaluator {
 			final IQueryBuilderEngine builder = QueryParsing.newBuilder(queryEnv);
 			AstResult build = builder.build(expression);
 			IQueryEvaluationEngine evaluationEngine = QueryEvaluation.newEngine(queryEnv);
-			final EvaluationResult evalResult = evaluationEngine.eval(build, variables);
+			final org.eclipse.acceleo.query.runtime.EvaluationResult evalResult = evaluationEngine.eval(build, variables);
 
 			final BasicDiagnostic diagnostic = new BasicDiagnostic();
 			if (Diagnostic.OK != build.getDiagnostic().getSeverity()) {
@@ -69,39 +70,20 @@ public class AleDynamicExpressionEvaluator {
 			if (Diagnostic.OK != evalResult.getDiagnostic().getSeverity()) {
 				diagnostic.merge(evalResult.getDiagnostic());
 			}
-
-			return new IEvaluationResult() {
-
-				@Override
-				public Object getValue() {
-					return evalResult.getResult();
-				}
-
-				@Override
-				public Diagnostic getDiagnostic() {
-					List<Diagnostic> children = diagnostic.getChildren();
-					if (children.size() == 1) {
-						return children.get(0);
-					} else {
-						return diagnostic;
-					}
-				}
-			};
+			if(diagnostic.getChildren().size() == 1) {
+				//flatten the diagnostic tree
+				return org.eclipse.sirius.common.tools.api.interpreter.EvaluationResult.ofValue(
+						evalResult.getResult(),
+						new DefaultConverter(),
+						diagnostic.getChildren().get(0));
+			} else {
+				return org.eclipse.sirius.common.tools.api.interpreter.EvaluationResult.ofValue(
+						evalResult.getResult(),
+						new DefaultConverter(),
+						diagnostic);
+			}
 		}
-		return new IEvaluationResult() {
-			@Override
-			public Object getValue() {
-				return null;
-			}
-
-			@Override
-			public Diagnostic getDiagnostic() {
-				return new BasicDiagnostic();
-			}
-
-		};
-		
-		
+		return org.eclipse.sirius.common.tools.api.interpreter.EvaluationResult.ofValue(null);		
 	}
 	
     
