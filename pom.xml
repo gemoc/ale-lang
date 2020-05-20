@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.eclipse.emf.ecoretools.ale</groupId>
 	<artifactId>root</artifactId>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>1.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 
 	<properties>
-		<tycho.version>1.2.0</tycho.version>
-		<xtend.version>2.14.0</xtend.version>
+		<tycho.version>1.7.0</tycho.version>
+		<xtend.version>2.21.0</xtend.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -125,7 +126,8 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- required in order to embed feature and bundle sources in the update site -->
+			<!-- required in order to embed feature and bundle sources in the update 
+				site -->
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-p2-plugin</artifactId>
@@ -141,55 +143,55 @@
 				</executions>
 			</plugin>
 			<!-- enable plugin tests -->
-			 <plugin>
-              <groupId>org.eclipse.tycho</groupId>
-              <artifactId>tycho-surefire-plugin</artifactId>
-              <version>${tycho.version}</version>
-              <configuration>
-                <useUIHarness>true</useUIHarness>
-                <useUIThread>false</useUIThread>
-                <product>org.eclipse.platform.ide</product>
-                <application>org.eclipse.ui.ide.workbench</application>
-              </configuration>
-          </plugin>
- 
-<plugin>
-   <groupId>org.eclipse.tycho</groupId>
-   <artifactId>target-platform-configuration</artifactId>
-   <version>${tycho.version}</version>
-   <configuration>
-      <dependency-resolution>
-         <extraRequirements>
- 
-<requirement>
-                        <type>eclipse-feature</type>
-                        <id>org.eclipse.rcp</id>
-                        <versionRange>0.0.0</versionRange>
-</requirement>
- 
-<requirement>
-                        <type>eclipse-feature</type>
-                        <id>org.eclipse.xtext.sdk</id>
-                        <versionRange>0.0.0</versionRange>
-</requirement>
- 
-<requirement>
-                        <type>eclipse-feature</type>
-                        <id>org.eclipse.emf.ecoretools.sdk</id>
-                        <versionRange>0.0.0</versionRange>
-</requirement>
- 
-         </extraRequirements>
-      </dependency-resolution>
-      <target>
-                     <artifact>
-                         <groupId>org.eclipse.emf.ecoretools.ale</groupId>
-                         <artifactId>org.eclipse.emf.ecoretools.ale.target-platform</artifactId>
-                         <version>1.1.0-SNAPSHOT</version>
-                     </artifact>
-                 </target>
-   </configuration>
-</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<useUIHarness>true</useUIHarness>
+					<useUIThread>false</useUIThread>
+					<product>org.eclipse.platform.ide</product>
+					<application>org.eclipse.ui.ide.workbench</application>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<dependency-resolution>
+						<extraRequirements>
+
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>org.eclipse.rcp</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>org.eclipse.xtext.sdk</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>org.eclipse.emf.ecoretools.sdk</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+
+						</extraRequirements>
+					</dependency-resolution>
+					<target>
+						<artifact>
+							<groupId>org.eclipse.emf.ecoretools.ale</groupId>
+							<artifactId>org.eclipse.emf.ecoretools.ale.target-platform</artifactId>
+							<version>1.2.0-SNAPSHOT</version>
+						</artifact>
+					</target>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
