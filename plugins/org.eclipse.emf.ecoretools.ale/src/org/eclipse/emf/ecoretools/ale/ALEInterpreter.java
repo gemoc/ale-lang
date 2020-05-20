@@ -16,6 +16,7 @@ import static java.util.stream.Collectors.toSet;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.eclipse.acceleo.query.ast.AstPackage;
@@ -56,7 +57,6 @@ import org.eclipse.sirius.common.tools.api.interpreter.ClassLoadingCallback;
 import org.eclipse.sirius.common.tools.api.interpreter.EPackageLoadingCallback;
 import org.eclipse.sirius.common.tools.api.interpreter.IEvaluationResult;
 import org.eclipse.sirius.common.tools.api.interpreter.JavaExtensionsManager;
-import org.eclipse.sirius.common.tools.internal.interpreter.DefaultConverter;
 
 /**
  * This class is an interpreter for the 'ALE' Language.
@@ -223,18 +223,9 @@ public class ALEInterpreter implements AutoCloseable {
 		if (Diagnostic.OK != evalResult.getDiagnostic().getSeverity()) {
 			diagnostic.merge(evalResult.getDiagnostic());
 		}
-		if(diagnostic.getChildren().size() == 1) {
-			//flatten the diagnostic tree
-			return org.eclipse.sirius.common.tools.api.interpreter.EvaluationResult.ofValue(
-					evalResult.getResult(),
-					new DefaultConverter(),
-					diagnostic.getChildren().get(0));
-		} else {
-			return org.eclipse.sirius.common.tools.api.interpreter.EvaluationResult.ofValue(
-					evalResult.getResult(),
-					new DefaultConverter(),
+		return new OptimizedEvaluationResult(
+					Optional.ofNullable(evalResult.getResult()),
 					diagnostic);
-		}
     }
     
     private EvaluationResult doEval(EObject caller, Method operation, List<Object> args, DslSemantics semantics) {
