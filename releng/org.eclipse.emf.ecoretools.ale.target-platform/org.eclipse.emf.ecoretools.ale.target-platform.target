@@ -1,15 +1,17 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><?pde version="3.8"?><target name="Running Platform" sequenceNumber="10">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+<target name="Running Platform" sequenceNumber="10">
 <locations>
 	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-		<unit id="org.eclipse.xtext.sdk.feature.group" version="2.14.0.v20180523-0937"/>
-		<repository location="http://download.eclipse.org/releases/photon"/>
-		<unit id="org.eclipse.emf.ecoretools.sdk.feature.group" version="3.3.0.201706121316"/>
-		<unit id="org.eclipse.emf.sdk.feature.group" version="2.14.0.v20180529-1157"/>
-		<unit id="org.eclipse.jdt.feature.group" version="3.14.0.v20180611-0500"/>
-		<unit id="org.eclipse.pde.feature.group" version="3.13.100.v20180611-0826"/>
-		<unit id="org.eclipse.sdk.feature.group" version="4.8.0.v20180611-0826"/>
-		<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.7.0.201806111355"/>
-		<unit id="org.eclipse.swtbot.feature.group" version="2.7.0.201806111355"/>
+		<repository location="http://download.eclipse.org/releases/2020-03"/>
+		<unit id="org.eclipse.jdt.feature.group" version="3.18.300.v20200305-0155"/>
+		<unit id="org.eclipse.emf.ecoretools.sdk.feature.group" version="3.3.2.201909230743"/>
+		<unit id="org.eclipse.emf.sdk.feature.group" version="2.21.0.v20200205-0529"/>
+		<unit id="org.eclipse.pde.feature.group" version="3.14.300.v20200305-0155"/>
+		<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.8.0.201906121535"/>
+		<unit id="org.eclipse.swtbot.feature.group" version="2.8.0.201906121535"/>
+		<unit id="org.eclipse.xtext.sdk.feature.group" version="2.21.0.v20200302-1509"/>
+		<unit id="org.eclipse.sdk.feature.group" version="4.15.0.v20200305-0155"/>
 	</location>
 </locations>
 <environment>
