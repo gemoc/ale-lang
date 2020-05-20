@@ -14,16 +14,16 @@ import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 //import org.eclipse.acceleo.query.runtime.EvaluationResult;
 import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine;
+import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IQueryEvaluationEngine;
 import org.eclipse.acceleo.query.runtime.QueryEvaluation;
 import org.eclipse.acceleo.query.runtime.QueryParsing;
-import org.eclipse.acceleo.query.runtime.IQueryBuilderEngine.AstResult;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecoretools.ale.core.messages.Messages;
 import org.eclipse.sirius.common.tools.api.interpreter.EvaluationException;
 import org.eclipse.sirius.common.tools.api.interpreter.IEvaluationResult;
-import org.eclipse.sirius.common.tools.internal.interpreter.DefaultConverter;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -70,18 +69,9 @@ public class AleDynamicExpressionEvaluator {
 			if (Diagnostic.OK != evalResult.getDiagnostic().getSeverity()) {
 				diagnostic.merge(evalResult.getDiagnostic());
 			}
-			if(diagnostic.getChildren().size() == 1) {
-				//flatten the diagnostic tree
-				return org.eclipse.sirius.common.tools.api.interpreter.EvaluationResult.ofValue(
-						evalResult.getResult(),
-						new DefaultConverter(),
-						diagnostic.getChildren().get(0));
-			} else {
-				return org.eclipse.sirius.common.tools.api.interpreter.EvaluationResult.ofValue(
-						evalResult.getResult(),
-						new DefaultConverter(),
-						diagnostic);
-			}
+			return new OptimizedEvaluationResult(
+					Optional.ofNullable(evalResult.getResult()),
+					diagnostic);
 		}
 		return org.eclipse.sirius.common.tools.api.interpreter.EvaluationResult.ofValue(null);		
 	}
