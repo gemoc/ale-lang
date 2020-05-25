@@ -14,7 +14,7 @@ import org.eclipse.sirius.common.tools.internal.interpreter.DefaultConverter;
  */
 public class OptimizedEvaluationResult extends org.eclipse.sirius.common.tools.api.interpreter.EvaluationResult implements IEvaluationResult {
 	
-	protected OptimizedEvaluationResult(Optional<Object> rawValue, Diagnostic diagnostic) {
+	public OptimizedEvaluationResult(Optional<Object> rawValue, Diagnostic diagnostic) {
 		super(rawValue, new DefaultConverter(), diagnostic);
 	}
 
