@@ -18,7 +18,7 @@ import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.validation.type.IType;
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
+import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
@@ -33,7 +33,7 @@ public class ALEValidator {
 		this.qryEnv = qryEnv;
 	}
 	
-	public void validate(List<ParseResult<ModelUnit>> roots) {
+	public void validate(List<ParsedFile<ModelUnit>> roots) {
 		List<IValidator> validators = Lists.newArrayList(new NameValidator(), new TypeValidator(), new OpenClassValidator());
 		BaseValidator base = new BaseValidator(qryEnv, validators);
 		msgs = base.validate(roots);
@@ -43,14 +43,14 @@ public class ALEValidator {
 		return msgs;
 	}
 	
-	public Map<String, Set<IType>> getValidationContext(Expression exp, List<ParseResult<ModelUnit>> roots) {
+	public Map<String, Set<IType>> getValidationContext(Expression exp, List<ParsedFile<ModelUnit>> roots) {
 		List<IValidator> validators = Lists.newArrayList(new NameValidator(), new TypeValidator(), new OpenClassValidator());
 		BaseValidator base = new BaseValidator(qryEnv, validators);
 		msgs = base.validate(roots);
 		return base.getValidationContext(exp);
 	}
 	
-	public Map<String, Set<IType>> getValidationContext(Block block, List<ParseResult<ModelUnit>> roots) {
+	public Map<String, Set<IType>> getValidationContext(Block block, List<ParsedFile<ModelUnit>> roots) {
 		List<IValidator> validators = Lists.newArrayList(new NameValidator(), new TypeValidator(), new OpenClassValidator());
 		BaseValidator base = new BaseValidator(qryEnv, validators);
 		msgs = base.validate(roots);

@@ -28,10 +28,10 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
-import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ModelBuilder;
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.parser.BehaviorsParser;
+import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
+import org.eclipse.emf.ecoretools.ale.core.parser.internal.AntlrAstToAleBehaviorsFactory;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
@@ -39,22 +39,26 @@ import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 
 import com.google.common.collect.Maps;
 
+/**
+ * @deprecated this class does not seem to be used, we will remove it 
+ */
+@Deprecated
 public class Converter {
 
 	IQueryEnvironment qryEnv;
 	
 	public Converter(IQueryEnvironment qryEnv) {
 		this.qryEnv = qryEnv;
-		ModelBuilder.createSingleton(qryEnv);
+		AntlrAstToAleBehaviorsFactory.createSingleton(qryEnv);
 	}
 	
 	/*
 	 * Convert all implemented EOperation to EAnnotations
 	 */
-	public void aleToEcore (Dsl dsl, boolean createRuntimeEcore) {
+	public void aleToEcore (FileBasedAleEnvironment dsl, boolean createRuntimeEcore) throws IOException {
 		
 		//Check feasible
-		List<ParseResult<ModelUnit>> parseRes = new DslBuilder(qryEnv).parse(dsl);
+		List<ParsedFile<ModelUnit>> parseRes = new BehaviorsParser(qryEnv).parse(dsl.getMetamodels(), dsl.getBehaviorsSources());
 		List<ModelUnit> allModelUnits = parseRes.stream().map(p -> p.getRoot()).collect(Collectors.toList());
 		boolean isConvertible = allModelUnits.stream().allMatch(unit -> isConvertibleToEcore(unit));
 		
@@ -119,27 +123,27 @@ public class Converter {
 			EcoreUtil.setAnnotation(runtimePkg,
 					"http://www.eclipse.org/emf/2002/Ecore", "invocationDelegates", ImplementationPackage.eNS_URI);
 			allRuntimeCls.forEach(runtimeCls -> {
-				EClass newCls = ModelBuilder.singleton.buildEClass(runtimeCls.getName());
-				ModelBuilder.singleton.updateEClass(newCls, runtimeCls);
+				EClass newCls = AntlrAstToAleBehaviorsFactory.singleton.buildEClass(runtimeCls.getName());
+				AntlrAstToAleBehaviorsFactory.singleton.updateEClass(newCls, runtimeCls);
 				EcoreUtil.setAnnotation(newCls, ImplementationPackage.eNS_URI, "runtime", "");
 				runtimePkg.getEClassifiers().add(newCls);
 			});
 			
 			//Remove .ale
-			dsl.getBehaviors().clear();
-			dsl.save();
+			dsl.getBehaviorsSources().clear();
+			dsl.save(dsl);
 		}
 	}
 	
 	/*
 	 * Convert all EAnnotation to ALE implementation
 	 */
-	public void ecoreToAle(Dsl dsl, boolean createRuntimeEcore) {
+	public void ecoreToAle(FileBasedAleEnvironment dsl, boolean createRuntimeEcore) throws IOException {
 		
 		StringBuffer aleContent = new StringBuffer();
 		aleContent.append("behavior generated.runtime;\n\n");
 		
-		List<EPackage> pkgs = new DslBuilder(qryEnv).getSyntaxes(dsl);
+		List<EPackage> pkgs = dsl.getMetamodels();
 		
 		//all implem
 		List<EPackage> allPkgs = 
@@ -202,8 +206,8 @@ public class Converter {
 			removeAllRuntimeData(dsl,createRuntimeEcore);
 
 			//Update dsl
-			dsl.getBehaviors().add(aleFilePath);
-			dsl.save();
+			dsl.getBehaviorsSources().add(aleFilePath);
+			dsl.save(dsl);
 		}
 	}
 	
@@ -236,7 +240,7 @@ public class Converter {
 		EOperation opRef = mtd.getOperationRef();
 		if(opRef != null) {
 			String nsURI = opRef.getEContainingClass().getEPackage().getNsURI();
-			boolean isRuntime = nsURI == null || nsURI.startsWith(ModelBuilder.RUNTIME_ALE_NSURI);
+			boolean isRuntime = nsURI == null || nsURI.startsWith(AntlrAstToAleBehaviorsFactory.RUNTIME_ALE_NSURI);
 			return !isRuntime;
 		}
 		return false;
@@ -246,9 +250,9 @@ public class Converter {
 	 * Get the EPackage containing the Runtime Classes.
 	 * Create a new resource if asked.
 	 */
-	private EPackage getRuntimeEPackage(Dsl dsl, boolean createRuntimeEcore) {
+	private EPackage getRuntimeEPackage(FileBasedAleEnvironment dsl, boolean createRuntimeEcore) {
 
-		List<EPackage> pkgs = new DslBuilder(qryEnv).getSyntaxes(dsl);
+		List<EPackage> pkgs = dsl.getMetamodels();
 		Optional<EPackage> runtimePkg = 
 			pkgs
 			.stream()
@@ -266,12 +270,12 @@ public class Converter {
 					fileName = "runtime" + Character.toUpperCase(fileName.charAt(0)) + fileName.substring(1);
 					URI runtimeURI = res.getURI().trimSegments(1).appendSegment(fileName);
 					Resource runtimeRes = res.getResourceSet().createResource(runtimeURI);
-					EPackage newPkg = ModelBuilder.singleton.buildEPackage("runtime");
+					EPackage newPkg = AntlrAstToAleBehaviorsFactory.singleton.buildEPackage("runtime");
 					EcoreUtil.setAnnotation(newPkg, ImplementationPackage.eNS_URI, "runtime", "");
 					runtimeRes.getContents().add(newPkg);
 					try {
 						runtimeRes.save(Maps.newHashMap());
-						dsl.getMetamodels().add(runtimeURI.toFileString());
+						dsl.getMetamodelsSources().add(runtimeURI.toFileString());
 						return newPkg;
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -303,8 +307,8 @@ public class Converter {
 		return res;
 	}
 	
-	private void removeAllRuntimeData(Dsl dsl, boolean createRuntimeEcore) {
-		List<EPackage> pkgs = new DslBuilder(qryEnv).getSyntaxes(dsl);
+	private void removeAllRuntimeData(FileBasedAleEnvironment dsl, boolean createRuntimeEcore) throws IOException {
+		List<EPackage> pkgs = dsl.getMetamodels();
 		
 		//all implem
 		List<EPackage> allPkgs = 
@@ -358,7 +362,7 @@ public class Converter {
 					.filter(pkg -> EcoreUtil.getAnnotation(pkg, ImplementationPackage.eNS_URI, "runtime") != null)
 					.collect(Collectors.toList());
 			runtimePkgs.forEach(pkg -> {
-				dsl.getMetamodels().remove(pkg.eResource().getURI().toString()); //TODO: check both standalone & workspace
+				dsl.getMetamodelsSources().remove(pkg.eResource().getURI().toString()); //TODO: check both standalone & workspace
 			});
 		}
 		
@@ -374,6 +378,6 @@ public class Converter {
 					e.printStackTrace();
 				}
 			});
-		dsl.save();
+		dsl.save(dsl);
 	}
 }

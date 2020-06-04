@@ -14,8 +14,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
-import java.awt.geom.Line2D.Float;
 
 import javax.swing.JPanel;
 
@@ -24,12 +22,15 @@ import vmlogo.Turtle;
 
 public class Board extends JPanel{
 	
+	private static final long serialVersionUID = -5520682147804271062L;
+
 	Turtle turtle;
 	
 	Board(Turtle t){
 		turtle = t;
 	}
 	
+	@Override
 	public void paint(Graphics g){
 		
 		int centerX = this.getHeight() / 2;

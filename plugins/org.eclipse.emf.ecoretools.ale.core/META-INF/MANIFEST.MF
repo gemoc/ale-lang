@@ -8,14 +8,15 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: org.eclipse.emf.ecoretools.ale.core.delegate,
+Export-Package: org.eclipse.emf.ecoretools.ale.core.env,
+ org.eclipse.emf.ecoretools.ale.core.env.impl,
  org.eclipse.emf.ecoretools.ale.core.interpreter,
  org.eclipse.emf.ecoretools.ale.core.interpreter.impl,
  org.eclipse.emf.ecoretools.ale.core.interpreter.services,
+ org.eclipse.emf.ecoretools.ale.core.io,
+ org.eclipse.emf.ecoretools.ale.core.metamodelembedding,
  org.eclipse.emf.ecoretools.ale.core.parser,
  org.eclipse.emf.ecoretools.ale.core.parser.internal,
- org.eclipse.emf.ecoretools.ale.core.parser.visitor,
- org.eclipse.emf.ecoretools.ale.core.preferences,
  org.eclipse.emf.ecoretools.ale.core.validation,
  org.eclipse.emf.ecoretools.ale.implementation,
  org.eclipse.emf.ecoretools.ale.implementation.impl,
@@ -26,5 +27,8 @@ Require-Bundle: org.antlr.runtime;bundle-version="[4.3.0,4.4.0)",
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.acceleo.query;visibility:=reexport,
  com.google.guava;bundle-version="11.0.0",
- org.eclipse.core.resources
+ org.eclipse.core.resources,
+ org.eclipse.sirius.common;bundle-version="6.0.0",
+ org.eclipse.core.filebuffers
 Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.eclipse.emf.ecoretools.ale.core.Activator

@@ -22,7 +22,10 @@ import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 
 /*
  * Class producing ALE textual fragment from EObjects
+ * 
+ * @deprecated this class does not seem to be used, we will remove it 
  */
+@Deprecated
 public class Serializer {
 
 	public static String toString(EStructuralFeature feature) {

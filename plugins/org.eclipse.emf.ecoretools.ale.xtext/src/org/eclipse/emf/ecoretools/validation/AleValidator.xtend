@@ -15,23 +15,20 @@ import org.eclipse.core.resources.IResource
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecoretools.ale.ALEInterpreter
 import org.eclipse.emf.ecoretools.ale.OrderedSet
 import org.eclipse.emf.ecoretools.ale.SeqType
 import org.eclipse.emf.ecoretools.ale.Sequence
 import org.eclipse.emf.ecoretools.ale.SetType
 import org.eclipse.emf.ecoretools.ale.Unit
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl
-import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult
+import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.AleInterpreter
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator
-import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit
+import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer
 import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
-import org.eclipse.emf.ecoretools.ale.ide.project.AleProject
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment
 
 /**
  * Delegate validation to ALE validator
@@ -50,13 +47,14 @@ class AleValidator extends AbstractAleValidator {
 //		val IWorkspaceRoot ws = ResourcesPlugin.getWorkspace().getRoot();
 //		val dslFile = ws.getFile(dslPath)
 		val IProject project = aleFile.project;
-		val dsl = AleProject.from(project).environment;
+		val dsl = IAleProject.from(project).environment;
 //		dsl.resolveUris
-		
-		val ALEInterpreter interpreter = new ALEInterpreter();
+
+		val interpreter = dsl.interpreter as AleInterpreter
 		try {
 			interpreter.initScope(Sets.newHashSet(),Sets.newHashSet(#[project.name]))
-			val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(dsl);
+//			val List<ParseResult<ModelUnit>> parsedSemantics = (new DslBuilder(interpreter.getQueryEnvironment())).parse(dsl);
+			val parsedSemantics = dsl.behaviors.parsedFiles
 			
 			/*
 	    	 * Register services
@@ -70,7 +68,7 @@ class AleValidator extends AbstractAleValidator {
 		    	.toList
 	    	interpreter.registerServices(services)
 			
-			val ALEValidator validator = new ALEValidator(interpreter.queryEnvironment);
+			val ALEValidator validator = new ALEValidator(dsl.context);
 			validator.validate(parsedSemantics);
 			val List<IValidationMessage> msgs = validator.getMessages();
 			
@@ -82,7 +80,7 @@ class AleValidator extends AbstractAleValidator {
 				marker.setAttribute(IMarker.CHAR_END, msg.endPosition);
 			]
 		}
-		finally {interpreter.close}
+		finally {dsl.close}
 		
 	}
 	
@@ -126,10 +124,10 @@ class AleValidator extends AbstractAleValidator {
 	}
 	
 	// copied from WorkbenchDsl (which introduce cyclic dependency if used)
-	static def void resolveUris(Dsl dsl) {
+	static def void resolveUris(FileBasedAleEnvironment dsl) {
 		val newSemantics = new ArrayList<String>();
 		val ws = ResourcesPlugin.getWorkspace();
-		dsl.getBehaviors()
+		dsl.getBehaviorsSources()
 			.forEach[elem |
 				val uri = URI.createURI(elem);
 				if(ws !== null && uri.isPlatform()) {
@@ -141,8 +139,8 @@ class AleValidator extends AbstractAleValidator {
 					newSemantics.add(elem);
 				}
 			]
-		dsl.getBehaviors().clear();
-		dsl.getBehaviors().addAll(newSemantics);
+		dsl.getBehaviorsSources().clear();
+		dsl.getBehaviorsSources().addAll(newSemantics);
 	}
 	
 	private def cleanUpMarkers(IFile file) {

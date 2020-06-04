@@ -17,22 +17,22 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
-import org.eclipse.acceleo.query.runtime.IReadOnlyQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IService;
 import org.eclipse.acceleo.query.runtime.impl.JavaMethodService;
 import org.eclipse.acceleo.query.validation.type.ClassType;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecoretools.ale.core.Activator;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.ExtensionLookupEngine;
 
 /**
- * A service to call a specific implementation based on the qualified name of the BehavioredClass
+ * AQL service that calls a specific implementation based on the qualified name of the BehavioredClass.
  */
 public class SelectedCallService {
 
-	ExtensionLookupEngine lookupEngine;
-	IQueryEnvironment queryEnvironment;
+	private ExtensionLookupEngine lookupEngine;
+	private IQueryEnvironment queryEnvironment;
 	
 	public SelectedCallService(IQueryEnvironment queryEnvironment, ExtensionLookupEngine lookupEngine) {
 		this.queryEnvironment = queryEnvironment;
@@ -41,7 +41,6 @@ public class SelectedCallService {
 	
 	public IService createService() {
 		try {
-			
 			Method method = SelectedCallService.class.getMethod("selectedCall", EObject.class, String.class, String.class, String.class, Object[].class);
 			return new JavaMethodService(method, this) {
 				@Override
@@ -51,7 +50,7 @@ public class SelectedCallService {
 					 * Convert last arguments to an array of Objects
 					 */
 					List<Object> allArgs = Arrays.asList(arguments);
-					List<Object> invokeArgs = new ArrayList<Object>(allArgs);
+					List<Object> invokeArgs = new ArrayList<>(allArgs);
 					if(arguments.length > 4) {
 						//Skip caller, modelUnitID, className & methodName
 						List<Object> selection = allArgs.subList(0, 4);
@@ -64,16 +63,14 @@ public class SelectedCallService {
 						Object[] realArgs = Arrays.asList().toArray();
 						invokeArgs.add(realArgs);
 					}
-					
 					return method.invoke(SelectedCallService.this, invokeArgs.toArray());
 				}
 			};
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
 		}
-		
+		catch (NoSuchMethodException | SecurityException e) {
+			// Should never happen
+			Activator.error("Cannot create the SelectedCallService service", e);
+		}
 		return null;
 	}
 	

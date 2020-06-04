@@ -16,6 +16,9 @@ import org.eclipse.core.runtime.CoreException;
 
 /**
  * A project nature aimed at tagging projects using ALE source files.
+ * <p>
+ * Use {@link IAleProject#hasAleNature(IProject)} to check whether a project
+ * has the ALE nature.
  */
 public class AleProjectNature implements IProjectNature {
 	

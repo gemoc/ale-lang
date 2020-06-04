@@ -24,7 +24,6 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import org.eclipse.acceleo.query.ast.AstPackage;
 import org.eclipse.core.filebuffers.FileBuffers;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -42,23 +41,17 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecoretools.ale.BehavioredClass;
 import org.eclipse.emf.ecoretools.ale.Operation;
 import org.eclipse.emf.ecoretools.ale.Unit;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.ExtensionEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.parser.DslBuilder;
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
-import org.eclipse.emf.ecoretools.ale.ide.Normalized;
-import org.eclipse.emf.ecoretools.ale.ide.project.AleProject;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.ide.env.WithAbsoluteBehaviorPathsAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.emf.ecoretools.ale.ide.ui.AlePreferenceStore;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
-import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
@@ -127,7 +120,7 @@ public class Services {
     		Path modelFilePath = new Path(element.eResource().getURI().toPlatformString(true));
 			IFile modelFile = ResourcesPlugin.getWorkspace().getRoot().getFile(modelFilePath);
     		IProject modelProject = modelFile.getProject();
-			env = AleProject.from(modelProject).getEnvironment();
+			env = IAleProject.from(modelProject).getEnvironment();
     		
     		/*
     		 * This branch may cause issues if the .ale source files and the .ecore are not defined in the same project.
@@ -147,27 +140,9 @@ public class Services {
 	    		return new ArrayList<>(0);
 	    	}
 	    	IFile airdFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(aird.get().getURI().toPlatformString(true)));
-	    	env = AleProject.from(airdFile.getProject()).getEnvironment();
+	    	env = IAleProject.from(airdFile.getProject()).getEnvironment();
     	}
-    	
-    	// Extract the semantics from this environment
-    	// FIXME The code below has been copied from ALEInterpreter
-    	
-    	ExtensionEnvironment queryEnv = new ExtensionEnvironment();
-    	queryEnv.registerEPackage(EcorePackage.eINSTANCE);
-    	queryEnv.registerEPackage(ImplementationPackage.eINSTANCE);
-    	queryEnv.registerEPackage(AstPackage.eINSTANCE);
-    	queryEnv.registerCustomClassMapping(EcorePackage.eINSTANCE.getEStringToStringMapEntry(), EStringToStringMapEntryImpl.class);
-    	
-		DslBuilder parser = new DslBuilder(queryEnv);
-    	List<ModelUnit> semantics = parser.parse(env).stream()
-    									  .map(ParseResult::getRoot)
-    									  .collect(toList());
-    	
-    	queryEnv.removeEPackage(ImplementationPackage.eINSTANCE);
-    	queryEnv.removeEPackage(AstPackage.eINSTANCE);
-    	
-    	return semantics;
+    	return env.getBehaviors().getUnits();
     }
     
     public List<Attribute> getDynaAttrib(EClass cls){
@@ -592,11 +567,11 @@ public class Services {
 		URI uri = ecoreResource.getURI();
     	IPath path = new Path(uri.toPlatformString(false));
     	IProject enclosingProject = ResourcesPlugin.getWorkspace().getRoot().getFile(path).getProject();
-    	IAleEnvironment env = new Normalized(AleProject.from(enclosingProject).getEnvironment());
+    	IAleEnvironment env = new WithAbsoluteBehaviorPathsAleEnvironment(IAleProject.from(enclosingProject).getEnvironment());
     	
     	Pattern openClass = Pattern.compile(".*open\\s+class\\s+" + className + ".*");
     	
-    	for (String behavior : env.getBehaviors()) {
+    	for (String behavior : env.getBehaviorsSources()) {
     		try (Stream<String> lines = Files.lines(Paths.get(behavior))) {
 				boolean definesClass = lines.anyMatch(line -> openClass.matcher(line).matches());
 				if (definesClass) {

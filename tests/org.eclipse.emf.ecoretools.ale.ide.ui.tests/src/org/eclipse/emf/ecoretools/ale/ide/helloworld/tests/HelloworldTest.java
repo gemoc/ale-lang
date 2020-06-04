@@ -112,7 +112,7 @@ public class HelloworldTest {
 		bot.viewByTitle("Model Explorer").show();
 		bot.tree().getTreeItem("helloworld")
 				  .contextMenu("Run As")
-				  .menu("1 ALE launch")
+				  .menu("1 ALE Application")
 				  .click();
 		bot.waitUntil(shellIsActive("Select the model to execute"));
 		bot.button("OK").click();

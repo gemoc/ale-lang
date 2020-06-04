@@ -31,6 +31,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.Statement;
 
+@SuppressWarnings("restriction")
 public final class ValidationMessageFactory implements IValidationMessageFactory {
 
 	public static final String BOOLEAN_TYPE = "Expected a boolean expression but was %s";

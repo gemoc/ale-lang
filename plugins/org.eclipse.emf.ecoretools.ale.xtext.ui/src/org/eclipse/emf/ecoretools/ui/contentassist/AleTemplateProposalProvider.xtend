@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.ETypedElement
 import org.eclipse.emf.ecoretools.ale.Block
 import org.eclipse.emf.ecoretools.ale.ExtendedClass
 import org.eclipse.emf.ecoretools.ale.VarRef
-import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics
+import org.eclipse.emf.ecoretools.ale.core.env.IBehaviors
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass
 import org.eclipse.jface.text.templates.ContextTypeRegistry
 import org.eclipse.jface.text.templates.Template
@@ -98,7 +98,7 @@ class AleTemplateProposalProvider extends DefaultTemplateProposalProvider {
 		}
 	}
 	
-	private def createProposalsForBehavioredClass(ITemplateAcceptor acceptor, BehavioredClass clazz, EObject syntax, DslSemantics semantics, String typed, TemplateContext templateContext, ContentAssistContext context) {
+	private def createProposalsForBehavioredClass(ITemplateAcceptor acceptor, BehavioredClass clazz, EObject syntax, IBehaviors semantics, String typed, TemplateContext templateContext, ContentAssistContext context) {
 		// Used to ensure that only one template is created for overridden operations (which are defined both in Ecore and ALE)
 		val proposedOperations = newHashSet()
 		 
@@ -114,8 +114,7 @@ class AleTemplateProposalProvider extends DefaultTemplateProposalProvider {
 				
 		if (clazz instanceof ExtendedClass) {
 			val extendedClassInEcore = clazz as ExtendedClass
-			val extendedClassInAleScript = semantics.behaviors
-					          						.flatMap[root | root.classExtensions]
+			val extendedClassInAleScript = semantics.openClasses
 					          						.findFirst[ext | extendedClassInEcore.name == ext.baseClass.name]
 					          							
 			extendedClassInAleScript.baseClass
@@ -125,13 +124,13 @@ class AleTemplateProposalProvider extends DefaultTemplateProposalProvider {
 		}
 	}
 	
-	private def createProposalsForETypedElement(ITemplateAcceptor acceptor, ETypedElement clazz, EObject syntax, DslSemantics semantics, String typed, TemplateContext templateContext, ContentAssistContext context) {
+	private def createProposalsForETypedElement(ITemplateAcceptor acceptor, ETypedElement clazz, EObject syntax, IBehaviors semantics, String typed, TemplateContext templateContext, ContentAssistContext context) {
 		if (!clazz.isMany && clazz.EType instanceof EClass) {
 			acceptor.createProposalsForEClass(clazz.EType as EClass, syntax, semantics, typed, templateContext, context)
 		}
 	}
 	
-	private def createProposalsForEClass(ITemplateAcceptor acceptor, EClass clazz, EObject syntax, DslSemantics semantics, String typed, TemplateContext templateContext, ContentAssistContext context) {
+	private def createProposalsForEClass(ITemplateAcceptor acceptor, EClass clazz, EObject syntax, IBehaviors semantics, String typed, TemplateContext templateContext, ContentAssistContext context) {
 		// Used to ensure that only one template is created for overridden operations (which are defined both in Ecore and ALE)
 		val proposedOperations = newHashSet()
 		 
@@ -145,8 +144,7 @@ class AleTemplateProposalProvider extends DefaultTemplateProposalProvider {
 				
 		if (clazz instanceof ExtendedClass) {
 			val extendedClassInEcore = clazz as ExtendedClass
-			val extendedClassInAleScript = semantics.behaviors
-					          						.flatMap[root | root.classExtensions]
+			val extendedClassInAleScript = semantics.openClasses
 					          						.findFirst[ext | extendedClassInEcore.name == ext.baseClass.name]
 					          							
 			extendedClassInAleScript.baseClass

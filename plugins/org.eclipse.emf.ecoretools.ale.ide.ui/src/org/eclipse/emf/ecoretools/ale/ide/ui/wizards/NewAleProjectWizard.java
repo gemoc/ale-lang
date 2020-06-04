@@ -22,9 +22,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.ecoretools.ale.ide.project.AleProject;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.emf.ecoretools.ale.ide.ui.project.WorkspaceAleProject;
+import org.eclipse.emf.ecoretools.ale.ide.ui.project.WorkspaceAleProject.Template;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -122,7 +122,7 @@ public class NewAleProjectWizard extends Wizard implements INewWizard {
 					try {
 						WorkspaceAleProject.Description desc = 
 								new WorkspaceAleProject.Description(useAnExistingEcoreModel, ecoreModelFilePath, ecorePackageName, createRepresentation, activateJava, createDslFile);
-						AleProject project = new WorkspaceAleProject(ResourcesPlugin.getWorkspace(), desc);
+						Template project = new WorkspaceAleProject.Template(ResourcesPlugin.getWorkspace(), desc);
 						project.create(projectName, projectLocation, monitor);
 					} 
 					catch (Exception e) {

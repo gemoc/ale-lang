@@ -28,7 +28,7 @@ import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.ui.ILaunchShortcut;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
@@ -141,8 +141,8 @@ abstract class AbstractAleLaunchShortcut implements ILaunchShortcut {
         String launchConfigurationName = availableLaunchConfigurationName(baseConfigurationName, configurations);
         
         ILaunchConfigurationWorkingCopy workingCopy = type.newInstance(null, launchConfigurationName);        
-        workingCopy.setAttribute(METAMODELS_PATH, String.join(",", conf.getMetamodels()));
-        workingCopy.setAttribute(BEHAVIORS_PATH, String.join(",", conf.getBehaviors()));
+        workingCopy.setAttribute(METAMODELS_PATH, String.join(",", conf.getMetamodelsSources()));
+        workingCopy.setAttribute(BEHAVIORS_PATH, String.join(",", conf.getBehaviorsSources()));
         workingCopy.setAttribute(MODEL_FILE, model.getFullPath().toPortableString());
         
         return workingCopy.doSave();

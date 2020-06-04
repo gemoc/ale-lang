@@ -37,13 +37,13 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.model.ILaunchConfigurationDelegate;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecoretools.ale.ALEInterpreter;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.RuntimeAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.parser.internal.DslSemantics;
-import org.eclipse.emf.ecoretools.ale.ide.Normalized;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.env.IBehaviors;
+import org.eclipse.emf.ecoretools.ale.ide.env.WithAbsoluteBehaviorPathsAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
@@ -65,10 +65,10 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 	public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor)
 			throws CoreException {
 		
-		// AleEvaluationJob is responsible of closing the interpreter,
+		// AleEvaluationJob is responsible for closing the interpreter,
 		// that's why try-with-resource is not used here
 		@SuppressWarnings("squid:S2095")
-		ALEInterpreter interpreter = new ALEInterpreter();
+		IAleEnvironment environment = null;
 		try {
 			String modelLocation = configuration.getAttribute(MODEL_FILE, "");
 			String mainMethod = configuration.getAttribute(MAIN_METHOD, "");
@@ -79,22 +79,24 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			IResource modelFile = workspace.getRoot().findMember(modelLocation);
 			
+			environment = new WithAbsoluteBehaviorPathsAleEnvironment(IAleEnvironment.fromPaths(metamodelsPath, behaviorsPath));
+
 			// Determine the @main method & the element on which it should be called 
 			//
-			DslSemantics semantics = interpreter.getSemanticsOf(new Normalized(new RuntimeAleEnvironment(metamodelsPath, behaviorsPath)));
+			IBehaviors semantics = environment.getBehaviors();
 			
 			List<Method> potentialMains = getPotentialMains(semantics, mainMethod);
-			List<EObject> potentialCallers = getPotentialCallers(interpreter, modelFile, mainModelElement);
+			List<EObject> potentialCallers = getPotentialCallers(environment, modelFile, mainModelElement);
 			List<EvaluationArguments> potentialArgs = getPotentialEvaluationArguments(potentialCallers, potentialMains);
 			
-			if (! canRunALEInterpreter(potentialCallers, modelFile, potentialMains, behaviorsPath, potentialArgs)) {
-				interpreter.close();
+			if (! canRunAleInterpreter(potentialCallers, modelFile, potentialMains, behaviorsPath, potentialArgs)) {
+				environment.close();
 				return;
 			}
 			Optional<EvaluationArguments> args = getDefinitiveEvaluationArguments(potentialArgs);
 			if (! args.isPresent()) {
 				// The user didn't choose any couple -> implicit cancellation
-				interpreter.close();
+				environment.close();
 				return;
 			}
 			EvaluationArguments arguments = args.get();
@@ -103,9 +105,9 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 			//
 			persistConfiguration(configuration, arguments);
 			
-			// Actually launch ALE interpreter (in background)
+			// Actually launch the interpreter (in background)
 			//
-			Job evaluation = new AleEvaluationJob(interpreter, arguments.mainElement, arguments.main, semantics, modelFile);
+			Job evaluation = new AleEvaluationJob(environment, arguments.mainElement, arguments.main, modelFile);
 			evaluation.schedule();
 		} 
 		catch (Exception e) {
@@ -117,8 +119,9 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 						e.getMessage() + "\n\nPlease check the Error Log view for more details."
 				)
 			);
-			// Make sure the interpreter is closed if an error occurs
-			interpreter.close();
+			if (environment != null) {
+				environment.close();
+			}
 		}
 	}
 	
@@ -176,8 +179,8 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 	 * If the resource contains an element with the URI {@code mainModelElementURI}, then only this element
 	 * is returned. Otherwise, all the elements of the resource (and their children, recursively) are returned.
 	 * 
-	 * @param interpreter
-	 * 			The interpreter carrying the evaluation environment
+	 * @param environment
+	 * 			The environment that will be used to execute the program
 	 * @param modelFile
 	 * 			The resource containing the elements to inspect
 	 * @param mainModelElementURI
@@ -187,8 +190,8 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 	 * 
 	 * @throws RuntimeException if an error occurs while reading the resource
 	 */
-	private List<EObject> getPotentialCallers(ALEInterpreter interpreter, IResource modelFile, String mainModelElementURI) {
-		Resource resource = interpreter.loadModel(modelFile.getLocationURI().toString());
+	private List<EObject> getPotentialCallers(IAleEnvironment environment, IResource modelFile, String mainModelElementURI) {
+		Resource resource = environment.loadResource(URI.createURI(modelFile.getLocationURI().toString()));
 
 		if (!mainModelElementURI.isEmpty()) {
 			EObject mainModelElement = resource.getEObject(mainModelElementURI);
@@ -223,7 +226,7 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 	 * 
 	 * @return the methods of the given semantics that could be an entry point of the interpreter
 	 */
-	private List<Method> getPotentialMains(DslSemantics semantics, String mainMethodId) {
+	private List<Method> getPotentialMains(IBehaviors semantics, String mainMethodId) {
 		List<Method> mains = semantics.getMainMethods();
 		if (! mainMethodId.isEmpty()) {
 			for (Method main : mains) {
@@ -335,7 +338,7 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	
-	private boolean canRunALEInterpreter(List<EObject> callers, IResource modelFile, List<Method> mains, List<String> behaviors, List<EvaluationArguments> args) {
+	private boolean canRunAleInterpreter(List<EObject> callers, IResource modelFile, List<Method> mains, List<String> behaviors, List<EvaluationArguments> args) {
 		if (mains.isEmpty()) {
 			getDisplay().asyncExec(() -> 
 				MessageDialog.openError(

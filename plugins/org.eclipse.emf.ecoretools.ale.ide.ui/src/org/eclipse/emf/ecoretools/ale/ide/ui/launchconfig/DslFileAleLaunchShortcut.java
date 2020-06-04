@@ -10,13 +10,17 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.ide.ui.launchconfig;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.ide.Activator;
 
 /**
  * Action triggered when the user right-click on a .dsl file
@@ -36,10 +40,15 @@ public class DslFileAleLaunchShortcut extends AbstractAleLaunchShortcut {
 			throw new IllegalArgumentException("Shortcut can only be applied on .dsl files (got: " + resource + ")");
 		}
 		IFile dslFile = (IFile) resource;
-		environment = new Dsl(dslFile.getContents());
-		baseConfigurationName = configurationNameFor(dslFile);
-		
-		modelFile = askUserToSelectAnXmiModel(dslFile).orElse(null);
+		try {
+			environment = new FileBasedAleEnvironment(dslFile.getContents());
+			baseConfigurationName = configurationNameFor(dslFile);
+			
+			modelFile = askUserToSelectAnXmiModel(dslFile).orElse(null);
+		}
+		catch (IOException e) {
+			throw new CoreException(new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e));
+		}
 	}
 
 	@Override

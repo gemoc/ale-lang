@@ -12,6 +12,7 @@ package org.eclipse.emf.ecoretools.ale.core.interpreter.services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -28,9 +29,7 @@ import org.eclipse.acceleo.query.runtime.impl.EOperationService;
 import org.eclipse.acceleo.query.runtime.impl.ValidationServices;
 import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
-import org.eclipse.acceleo.query.validation.type.NothingType;
 import org.eclipse.acceleo.query.validation.type.SequenceType;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
@@ -38,10 +37,10 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.DiagnosticLogger;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.EvalEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.ExpressionEvaluationEngine;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.MethodEvaluator;
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ModelBuilder;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.EvalEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.ExpressionEvaluationEngine;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.MethodEvaluator;
+import org.eclipse.emf.ecoretools.ale.core.parser.internal.AntlrAstToAleBehaviorsFactory;
 import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
 import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
@@ -50,17 +49,30 @@ import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 
 /**
- * AQL Service to eval EOperation implementation 
+ * AQL service that evaluates a {@link Method method}.
+ * <p>
+ * One {@link EvalBodyService} should be registered for each method implemented in the ALE program.
+ * This method can be either defined in an Ecore metamodel or in an ALE source file.
  */
 public class EvalBodyService extends AbstractService {
 	
-	EvalEnvironment evalEnv;
-	Method implem;
-	DiagnosticLogger logger;
+	private EvalEnvironment evalEnv;
+	private Method implem;
+	private DiagnosticLogger logger;
 	
 	int priority = EOperationService.PRIORITY + 1;
 	
-	public EvalBodyService (Method implem, EvalEnvironment evalEnv, DiagnosticLogger logger) {
+	/**
+	 * Creates a new AQL service that evaluates a method when invoked.
+	 * 
+	 * @param implem
+	 * 			The method to evaluate.
+	 * @param evalEnv
+	 * 			The execution environment.
+	 * @param logger
+	 * 			The logger to notify with evaluation results.
+	 */
+	public EvalBodyService(Method implem, EvalEnvironment evalEnv, DiagnosticLogger logger) {
 		this.implem = implem;
 		this.evalEnv = evalEnv;
 		this.logger = logger;
@@ -70,9 +82,10 @@ public class EvalBodyService extends AbstractService {
 	public Object internalInvoke(Object[] arguments) throws Exception {
 		EObject caller = (EObject) arguments[0];
 		MethodEvaluator evaluator = new MethodEvaluator(new ExpressionEvaluationEngine(evalEnv.getQueryEnvironment(),evalEnv.getListeners()), evalEnv.getFeatureAccess());
-		List<Object> args = new ArrayList<Object>();
-		for(int i = 1; i < arguments.length; i++)
+		List<Object> args = new ArrayList<>();
+		for(int i = 1; i < arguments.length; i++) {
 			args.add(arguments[i]);
+		}
 		EvaluationResult eval = evaluator.eval(caller, implem, args);
 		logger.notify(eval.getDiagnostic());
 		return eval.getResult();
@@ -89,11 +102,12 @@ public class EvalBodyService extends AbstractService {
 	
 	@Override
 	public int getNumberOfParameters() {
-		if(implem instanceof Method && implem.getOperationRef() != null){
+		if (implem instanceof Method && implem.getOperationRef() != null) {
 			return implem.getOperationRef().getEParameters().size() + 1;
 		}
-		else
+		else {
 			return 1;
+		}
 	}
 	
 	@Override
@@ -115,7 +129,7 @@ public class EvalBodyService extends AbstractService {
 			Optional<EClassifier> containingClass =
 				candidates
 				.stream()
-				.filter(cls -> ModelBuilder.getQualifiedName(cls).equals(fullName))
+				.filter(cls -> AntlrAstToAleBehaviorsFactory.getQualifiedName(cls).equals(fullName))
 				.findFirst();
 			if(containingClass.isPresent()) {
 				result.add(new EClassifierType(queryEnvironment, containingClass.get()));
@@ -123,7 +137,7 @@ public class EvalBodyService extends AbstractService {
 		}
 		
 		if(implem.getOperationRef() != null) {
-			for (EParameter parameter : ((Method)implem).getOperationRef().getEParameters()) {
+			for (EParameter parameter : implem.getOperationRef().getEParameters()) {
 				IType aqlParameterType = convert.toAQL(parameter);
 				result.add(aqlParameterType);
 			}
@@ -144,46 +158,39 @@ public class EvalBodyService extends AbstractService {
 	
 	@Override
 	public String getLongSignature() {
-		String ePkgNsURI;
-		String eCLassName;
-		
-		if( implem.eContainer() instanceof RuntimeClass) {
+		if (implem.eContainer() instanceof RuntimeClass) {
 			return ((RuntimeClass)implem.eContainer()).getName() + " " + getShortSignature();
 		}
-		
-		EClass eContainingClass = ((ExtendedClass) implem.eContainer()).getBaseClass();
-		
-		if (eContainingClass != null) {
-			eCLassName = eContainingClass.getName();
-			EPackage ePackage = eContainingClass.getEPackage();
-			if (ePackage != null) {
-				ePkgNsURI = ePackage.getNsURI();
-			} else {
-				ePkgNsURI = null;
+		else {
+			EClass eContainingClass = ((ExtendedClass) implem.eContainer()).getBaseClass();
+			
+			String ePkgNsURI = null;
+			String eClassName = null;
+			
+			if (eContainingClass != null) {
+				eClassName = eContainingClass.getName();
+				EPackage ePackage = eContainingClass.getEPackage();
+				ePkgNsURI = ePackage == null ? null : ePackage.getNsURI();
 			}
-		} else {
-			ePkgNsURI = null;
-			eCLassName = null;
+			return ePkgNsURI + " " + eClassName + " " + getShortSignature();
 		}
-
-		return ePkgNsURI + " " + eCLassName + " " + getShortSignature();
 	}
 	
 	@Override
 	public Set<IType> getType(Call call, ValidationServices services, IValidationResult validationResult, IReadOnlyQueryEnvironment queryEnvironment, List<IType> argTypes) {
-		Set<IType> result = new LinkedHashSet<IType>();
-
-		EOperation eOperation = ((Method)implem).getOperationRef();
-				
-		if(eOperation != null) {
-			IType eClassifierType = new EClassifierType(queryEnvironment, eOperation.getEType());
-			if (eOperation.isMany()) {
-				result.add(new SequenceType(queryEnvironment, eClassifierType));
-			} else if(eClassifierType.getType() != null){
-				result.add(eClassifierType);
-			}
+		if (implem.getOperationRef() == null) {
+			return Collections.emptySet();
 		}
-
+		EOperation eOperation = implem.getOperationRef();
+		Set<IType> result = new LinkedHashSet<>();
+		IType eClassifierType = new EClassifierType(queryEnvironment, eOperation.getEType());
+		
+		if (eOperation.isMany()) {
+			result.add(new SequenceType(queryEnvironment, eClassifierType));
+		} 
+		else if (eClassifierType.getType() != null){
+			result.add(eClassifierType);
+		}
 		return result;
 	}
 	
@@ -191,8 +198,11 @@ public class EvalBodyService extends AbstractService {
 		priority = newValue;
 	}
 	
-	public boolean isLowerParameterTypes(IReadOnlyQueryEnvironment queryEnvironment,
-			IService service) {
+	/**
+	 * @deprecated does not seem to be used
+	 */
+	@Deprecated
+	public boolean isLowerParameterTypes(IReadOnlyQueryEnvironment queryEnvironment, IService service) {
 		final List<IType> paramTypes1 = getParameterTypes(queryEnvironment);
 		final List<IType> paramTypes2 = service.getParameterTypes(queryEnvironment);
 		boolean result = paramTypes1.size() == paramTypes2.size();
@@ -206,7 +216,6 @@ public class EvalBodyService extends AbstractService {
 				result = false;
 			}
 		}
-
 		return result;
 	}
 	

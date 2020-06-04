@@ -40,10 +40,12 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.parser.Dsl;
-import org.eclipse.emf.ecoretools.ale.ide.project.impl.AleAware;
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject;
+import org.eclipse.emf.ecoretools.ale.ide.project.impl.AleProject;
 import org.eclipse.emf.ecoretools.ale.ide.ui.project.WorkspaceAleProject;
+import org.eclipse.emf.ecoretools.ale.ide.ui.project.WorkspaceAleProject.Template;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil;
@@ -78,7 +80,7 @@ public class WorkspaceAleProjectTest {
 		// WHEN: a 'minifsm' ALE project is created
 		
 		workspace.run((ICoreRunnable) monitor -> {
-				WorkspaceAleProject project = new WorkspaceAleProject(workspace, desc);
+				Template project = new WorkspaceAleProject.Template(workspace, desc);
 				project.create(projectName, Platform.getLocation().append(projectName), new NullProgressMonitor());
 			},
 			new NullProgressMonitor()
@@ -114,16 +116,15 @@ public class WorkspaceAleProjectTest {
 		assertEquals("generated FSM EPackage has the wrong Ns URI", "http://" + projectName, fsm.getNsURI());
 		assertEquals("generated FSM EPackage has the wrong Ns prefix", projectName, fsm.getNsPrefix());
 		
-		Dsl dsl = new Dsl(project.getFile(projectName + ".dsl").getContents());
-		assertTrue(projectName + ".dsl should exist", project.getFile(projectName + ".dsl").exists());
-		assertEquals(projectName + ".dsl does not have the right syntax", asList(createURI("platform:/resource/" + projectName + "/model/" + projectName + ".ecore", true)), toURIs(dsl.getMetamodels()));
-		assertEquals(projectName + ".dsl does not have the right semantics", asList(createURI("platform:/resource/" + projectName + "/src-ale/" + projectName + ".ale", true)), toURIs(dsl.getBehaviors()));
-
-		IAleEnvironment aleEnv = new AleAware(project).getEnvironment();
-		assertEquals(projectName + ".dsl does not have the right syntax", asList(createURI("platform:/resource/" + projectName + "/model/" + projectName + ".ecore", true)), toURIs(aleEnv.getMetamodels()));
-		
-		// FIXME Currently #Normalized turns these paths into System-absolute paths; looks odd 
-//		assertEquals(projectName + ".dsl does not have the right semantics", asList(createURI("platform:/resource/" + projectName + "/src-ale/" + projectName + ".ale", true)), toURIs(aleEnv.getBehaviors()));
+		try (FileBasedAleEnvironment dsl = new FileBasedAleEnvironment(project.getFile(projectName + ".dsl").getContents())) {
+			assertTrue(projectName + ".dsl should exist", project.getFile(projectName + ".dsl").exists());
+			assertEquals(projectName + ".dsl does not have the right syntax", asList(createURI("platform:/resource/" + projectName + "/model/" + projectName + ".ecore", true)), toURIs(dsl.getMetamodelsSources()));
+			assertEquals(projectName + ".dsl does not have the right semantics", asList(createURI("platform:/resource/" + projectName + "/src-ale/" + projectName + ".ale", true)), toURIs(dsl.getBehaviorsSources()));
+	
+			IAleEnvironment env = IAleProject.from(project).getEnvironment();
+			assertEquals(projectName + ".dsl does not have the right syntax", asList(createURI("platform:/resource/" + projectName + "/model/" + projectName + ".ecore", true)), toURIs(env.getMetamodelsSources()));
+			assertEquals(projectName + ".dsl does not have the right semantics", asList(createURI("platform:/resource/" + projectName + "/src-ale/" + projectName + ".ale", true)), toURIs(env.getBehaviorsSources()));
+		}
 	}
 
 	@Test
@@ -144,7 +145,7 @@ public class WorkspaceAleProjectTest {
 		// WHEN: a 'robotfactory' ALE project is created
 		
 		workspace.run((ICoreRunnable) monitor -> {
-				WorkspaceAleProject project = new WorkspaceAleProject(workspace, desc);
+				Template project = new WorkspaceAleProject.Template(workspace, desc);
 				project.create(projectName, Platform.getLocation().append(projectName), new NullProgressMonitor());
 			},
 			new NullProgressMonitor()
@@ -181,9 +182,9 @@ public class WorkspaceAleProjectTest {
 		assertEquals("generated FSM EPackage has the wrong Ns prefix", projectName, fsm.getNsPrefix());
 		
 		assertFalse(projectName + ".dsl shouldn't exist", project.getFile(projectName + ".dsl").exists());
-		IAleEnvironment aleEnv = new AleAware(project).getEnvironment();
-		assertEquals(projectName + ".dsl does not have the right syntax", asList(createURI("platform:/resource/" + projectName + "/model/" + projectName + ".ecore", true)), toURIs(aleEnv.getMetamodels()));
-//		assertEquals(projectName + ".dsl does not have the right semantics", asList(createURI("platform:/resource/" + projectName + "/src-ale/" + projectName + ".ale", true)), toURIs(aleEnv.getBehaviors()));
+		IAleEnvironment aleEnv = new AleProject(project).getEnvironment();
+		assertEquals(projectName + ".dsl does not have the right syntax", asList(createURI("platform:/resource/" + projectName + "/model/" + projectName + ".ecore", true)), toURIs(aleEnv.getMetamodelsSources()));
+		assertEquals(projectName + ".dsl does not have the right semantics", asList(createURI("platform:/resource/" + projectName + "/src-ale/" + projectName + ".ale", true)), toURIs(aleEnv.getBehaviorsSources()));
 	}
 	
 	private static List<URI> toURIs(Collection<String> uris) {

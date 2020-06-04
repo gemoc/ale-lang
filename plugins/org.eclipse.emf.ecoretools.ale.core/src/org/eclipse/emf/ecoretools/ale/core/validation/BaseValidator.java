@@ -10,14 +10,18 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.validation;
 
+import static java.util.stream.Collectors.toList;
+
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
-import java.util.Stack;
 import java.util.stream.Collectors;
 
 import org.eclipse.acceleo.query.ast.Expression;
@@ -37,8 +41,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EParameter;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.EvalEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.parser.visitor.ParseResult;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.EvalEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
@@ -68,30 +72,30 @@ import com.google.common.collect.Sets;
  */
 public class BaseValidator extends ImplementationSwitch<Object> {
 
-	List<IValidationMessage> msgs;
+	private List<IValidationMessage> msgs;
 	
-	List<ParseResult<ModelUnit>> allModels;
-	ParseResult<ModelUnit> currentModel;
-	Stack<Map<String, Set<IType>>> variableTypesStack;
+	private List<ParsedFile<ModelUnit>> allModels;
+	private ParsedFile<ModelUnit> currentModel;
+	private Deque<Map<String, Set<IType>>> variableTypesStack;
 	
 	/**
 	 * Store the types computed by the validation of expressions
 	 */
-	Map<Expression,IValidationResult> validations;
+	private Map<Expression,IValidationResult> validations;
 	
 	/**
 	 * Store the types of the variables used for the validation of expressions
 	 */
-	Map<Expression,Map<String, Set<IType>>> validationContexts;
+	private Map<Expression,Map<String, Set<IType>>> validationContexts;
 	
 	/**
 	 * Store the types of the variables available inside blocks
 	 */
-	Map<Block,Map<String, Set<IType>>> blockContexts;
+	private Map<Block,Map<String, Set<IType>>> blockContexts;
 	
-	AstValidator expValidator;
-	IQueryEnvironment qryEnv;
-	List<IValidator> validators;
+	private AstValidator expValidator;
+	private IQueryEnvironment qryEnv;
+	private List<IValidator> validators;
 	
 	/**
 	 * Convert EMF types to AQL ones
@@ -110,7 +114,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		});
 	}
 	
-	public List<IValidationMessage> validate(List<ParseResult<ModelUnit>> roots) {
+	public List<IValidationMessage> validate(List<ParsedFile<ModelUnit>> roots) {
 		
 		this.msgs = new ArrayList<>();
 		this.validations = new HashMap<>();
@@ -118,12 +122,10 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		this.blockContexts = new HashMap<>();
 		this.allModels = roots;
 		
-		List<ModelUnit> allUnits =
-			roots
-			.stream()
-			.map(p->p.getRoot())
-			.filter(u->u != null)
-			.collect(Collectors.toList());
+		List<ModelUnit> allUnits = roots.stream()
+										.map(p->p.getRoot())
+										.filter(Objects::nonNull)
+										.collect(toList());
 		
 		new EvalEnvironment(qryEnv, allUnits, null, null); //add runtime services to qryEnv
 
@@ -131,7 +133,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		
 		roots.forEach(root -> {
 			this.currentModel = root;
-			this.variableTypesStack = new Stack<>();
+			this.variableTypesStack = new ArrayDeque<>();
 			doSwitch(currentModel.getRoot());
 		});
 		
@@ -191,13 +193,13 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		}
 		
 		String pkgName = ((ModelUnit)runtimeCls.eContainer()).getName();
-		if(pkgName.lastIndexOf(".") != -1 && pkgName.lastIndexOf(".") != pkgName.length()-1){ //FIXME: AQL doesn't support qualified name
-			pkgName = pkgName.substring(pkgName.lastIndexOf(".")+1);
+		if(pkgName.lastIndexOf('.') != -1 && pkgName.lastIndexOf('.') != pkgName.length()-1){ //FIXME: AQL doesn't support qualified name
+			pkgName = pkgName.substring(pkgName.lastIndexOf('.')+1);
 		}
 		Collection<EClassifier> registered = qryEnv.getEPackageProvider().getTypes(pkgName, runtimeCls.getName());
 		if(!registered.isEmpty()) {
 			EClassifier runtimeEClass = registered.iterator().next();
-			Set<IType> selfTypeSet = new HashSet<IType>();
+			Set<IType> selfTypeSet = new HashSet<>();
 			EClassifierType selfType = new EClassifierType(qryEnv, runtimeEClass);
 			selfTypeSet.add(selfType);
 			classScope.put("self", selfTypeSet);
