@@ -19,7 +19,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.ide.Activator;
 
 /**
@@ -41,7 +41,7 @@ public class DslFileAleLaunchShortcut extends AbstractAleLaunchShortcut {
 		}
 		IFile dslFile = (IFile) resource;
 		try {
-			environment = new DslConfiguration(dslFile.getContents());
+			environment = new FileBasedAleEnvironment(dslFile.getContents());
 			baseConfigurationName = configurationNameFor(dslFile);
 			
 			modelFile = askUserToSelectAnXmiModel(dslFile).orElse(null);

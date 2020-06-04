@@ -46,7 +46,7 @@ import org.eclipse.emf.ecoretools.ale.BehavioredClass;
 import org.eclipse.emf.ecoretools.ale.Operation;
 import org.eclipse.emf.ecoretools.ale.Unit;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.ide.env.Normalized;
+import org.eclipse.emf.ecoretools.ale.ide.env.WithAbsoluteBehaviorPathsAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.emf.ecoretools.ale.ide.ui.AlePreferenceStore;
@@ -567,7 +567,7 @@ public class Services {
 		URI uri = ecoreResource.getURI();
     	IPath path = new Path(uri.toPlatformString(false));
     	IProject enclosingProject = ResourcesPlugin.getWorkspace().getRoot().getFile(path).getProject();
-    	IAleEnvironment env = new Normalized(IAleProject.from(enclosingProject).getEnvironment());
+    	IAleEnvironment env = new WithAbsoluteBehaviorPathsAleEnvironment(IAleProject.from(enclosingProject).getEnvironment());
     	
     	Pattern openClass = Pattern.compile(".*open\\s+class\\s+" + className + ".*");
     	

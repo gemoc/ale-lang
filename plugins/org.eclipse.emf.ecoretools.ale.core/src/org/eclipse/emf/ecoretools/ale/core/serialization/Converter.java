@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.BehaviorsParser;
 import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.core.parser.internal.AntlrAstToAleBehaviorsFactory;
@@ -55,7 +55,7 @@ public class Converter {
 	/*
 	 * Convert all implemented EOperation to EAnnotations
 	 */
-	public void aleToEcore (DslConfiguration dsl, boolean createRuntimeEcore) throws IOException {
+	public void aleToEcore (FileBasedAleEnvironment dsl, boolean createRuntimeEcore) throws IOException {
 		
 		//Check feasible
 		List<ParsedFile<ModelUnit>> parseRes = new BehaviorsParser(qryEnv).parse(dsl.getMetamodels(), dsl.getBehaviorsSources());
@@ -138,7 +138,7 @@ public class Converter {
 	/*
 	 * Convert all EAnnotation to ALE implementation
 	 */
-	public void ecoreToAle(DslConfiguration dsl, boolean createRuntimeEcore) throws IOException {
+	public void ecoreToAle(FileBasedAleEnvironment dsl, boolean createRuntimeEcore) throws IOException {
 		
 		StringBuffer aleContent = new StringBuffer();
 		aleContent.append("behavior generated.runtime;\n\n");
@@ -250,7 +250,7 @@ public class Converter {
 	 * Get the EPackage containing the Runtime Classes.
 	 * Create a new resource if asked.
 	 */
-	private EPackage getRuntimeEPackage(DslConfiguration dsl, boolean createRuntimeEcore) {
+	private EPackage getRuntimeEPackage(FileBasedAleEnvironment dsl, boolean createRuntimeEcore) {
 
 		List<EPackage> pkgs = dsl.getMetamodels();
 		Optional<EPackage> runtimePkg = 
@@ -307,7 +307,7 @@ public class Converter {
 		return res;
 	}
 	
-	private void removeAllRuntimeData(DslConfiguration dsl, boolean createRuntimeEcore) throws IOException {
+	private void removeAllRuntimeData(FileBasedAleEnvironment dsl, boolean createRuntimeEcore) throws IOException {
 		List<EPackage> pkgs = dsl.getMetamodels();
 		
 		//all implem

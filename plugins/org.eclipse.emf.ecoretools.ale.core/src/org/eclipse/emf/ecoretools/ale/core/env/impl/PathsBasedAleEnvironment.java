@@ -16,13 +16,14 @@ import java.util.LinkedHashSet;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 
 /**
- * An {@link IAleEnvironment ALE environment} dynamically defined at runtime.
+ * An {@link IAleEnvironment ALE environment} based on paths to 
+ * Ecore metamodels and ALE source files.
  * <p>
  * This class is not supposed to be instantiated by clients, call 
  * {@link IAleEnvironment#fromPaths(Collection, Collection)}
  * instead.
  */
-public class InMemoryAleEnvironment extends AbstractAleEnvironment {
+public class PathsBasedAleEnvironment extends AbstractAleEnvironment {
 	
 	private final LinkedHashSet<String> metamodels;
 	
@@ -36,7 +37,7 @@ public class InMemoryAleEnvironment extends AbstractAleEnvironment {
 	 * @param behaviors
 	 * 			A comma-separated list of paths to available ALE source files.
 	 */
-	public InMemoryAleEnvironment(Collection<String> metamodels, Collection<String> behaviors) {
+	public PathsBasedAleEnvironment(Collection<String> metamodels, Collection<String> behaviors) {
 		this.metamodels = new LinkedHashSet<>(metamodels);
 		this.behaviors = new LinkedHashSet<>(behaviors);
 	}

@@ -43,7 +43,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.env.IBehaviors;
-import org.eclipse.emf.ecoretools.ale.ide.env.Normalized;
+import org.eclipse.emf.ecoretools.ale.ide.env.WithAbsoluteBehaviorPathsAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
@@ -79,7 +79,7 @@ public class AleLaunchConfigurationDelegate implements ILaunchConfigurationDeleg
 			IWorkspace workspace = ResourcesPlugin.getWorkspace();
 			IResource modelFile = workspace.getRoot().findMember(modelLocation);
 			
-			environment = new Normalized(IAleEnvironment.fromPaths(metamodelsPath, behaviorsPath));
+			environment = new WithAbsoluteBehaviorPathsAleEnvironment(IAleEnvironment.fromPaths(metamodelsPath, behaviorsPath));
 
 			// Determine the @main method & the element on which it should be called 
 			//

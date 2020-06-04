@@ -41,9 +41,9 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject;
-import org.eclipse.emf.ecoretools.ale.ide.project.impl.AleAware;
+import org.eclipse.emf.ecoretools.ale.ide.project.impl.AleProject;
 import org.eclipse.emf.ecoretools.ale.ide.ui.project.WorkspaceAleProject;
 import org.eclipse.emf.ecoretools.ale.ide.ui.project.WorkspaceAleProject.Template;
 import org.eclipse.jdt.core.JavaCore;
@@ -116,7 +116,7 @@ public class WorkspaceAleProjectTest {
 		assertEquals("generated FSM EPackage has the wrong Ns URI", "http://" + projectName, fsm.getNsURI());
 		assertEquals("generated FSM EPackage has the wrong Ns prefix", projectName, fsm.getNsPrefix());
 		
-		try (DslConfiguration dsl = new DslConfiguration(project.getFile(projectName + ".dsl").getContents())) {
+		try (FileBasedAleEnvironment dsl = new FileBasedAleEnvironment(project.getFile(projectName + ".dsl").getContents())) {
 			assertTrue(projectName + ".dsl should exist", project.getFile(projectName + ".dsl").exists());
 			assertEquals(projectName + ".dsl does not have the right syntax", asList(createURI("platform:/resource/" + projectName + "/model/" + projectName + ".ecore", true)), toURIs(dsl.getMetamodelsSources()));
 			assertEquals(projectName + ".dsl does not have the right semantics", asList(createURI("platform:/resource/" + projectName + "/src-ale/" + projectName + ".ale", true)), toURIs(dsl.getBehaviorsSources()));
@@ -182,7 +182,7 @@ public class WorkspaceAleProjectTest {
 		assertEquals("generated FSM EPackage has the wrong Ns prefix", projectName, fsm.getNsPrefix());
 		
 		assertFalse(projectName + ".dsl shouldn't exist", project.getFile(projectName + ".dsl").exists());
-		IAleEnvironment aleEnv = new AleAware(project).getEnvironment();
+		IAleEnvironment aleEnv = new AleProject(project).getEnvironment();
 		assertEquals(projectName + ".dsl does not have the right syntax", asList(createURI("platform:/resource/" + projectName + "/model/" + projectName + ".ecore", true)), toURIs(aleEnv.getMetamodelsSources()));
 		assertEquals(projectName + ".dsl does not have the right semantics", asList(createURI("platform:/resource/" + projectName + "/src-ale/" + projectName + ".ale", true)), toURIs(aleEnv.getBehaviorsSources()));
 	}

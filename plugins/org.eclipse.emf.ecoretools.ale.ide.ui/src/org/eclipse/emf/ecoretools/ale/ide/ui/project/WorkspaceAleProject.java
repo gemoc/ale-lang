@@ -57,7 +57,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.ide.project.AleProjectNature;
 import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
@@ -219,7 +219,7 @@ public class WorkspaceAleProject {
 				SubMonitor subMonitor = SubMonitor.convert(monitor, "Creating .dsl file...", 1);
 				
 				IFile dslFile = project.getFile(project.getName() + ".dsl");
-				try (DslConfiguration dsl = IAleEnvironment.fromDslFile(dslFile)) {
+				try (FileBasedAleEnvironment dsl = IAleEnvironment.fromFile(dslFile)) {
 					dsl.save(IAleEnvironment.fromPaths(ecoreModels, aleSourceFiles));
 				}
 				catch (IOException e) {

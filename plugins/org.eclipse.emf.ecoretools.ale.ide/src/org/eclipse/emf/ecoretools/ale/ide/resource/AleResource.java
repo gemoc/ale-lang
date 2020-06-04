@@ -21,10 +21,10 @@ import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.BehaviorsParser;
 import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
-import org.eclipse.emf.ecoretools.ale.ide.env.Normalized;
+import org.eclipse.emf.ecoretools.ale.ide.env.WithAbsoluteBehaviorPathsAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 public class AleResource extends ResourceImpl {
@@ -41,7 +41,7 @@ public class AleResource extends ResourceImpl {
 	
 	@Override
 	protected void doLoad(InputStream inputStream, Map<?, ?> options) throws IOException {
-		try (IAleEnvironment dslFile = new Normalized(new DslConfiguration(inputStream))) {
+		try (IAleEnvironment dslFile = new WithAbsoluteBehaviorPathsAleEnvironment(new FileBasedAleEnvironment(inputStream))) {
 			List<ParsedFile<ModelUnit>> newParseResult = parser.parse(dslFile.getMetamodels(), dslFile.getBehaviorsSources());
 			
 			if(newParseResult != null) { //TODO: check no parse error

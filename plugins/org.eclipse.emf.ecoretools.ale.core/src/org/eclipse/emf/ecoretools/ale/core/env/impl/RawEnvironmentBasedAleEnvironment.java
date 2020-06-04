@@ -23,13 +23,14 @@ import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 /**
- * An ALE environment which is made up of explicit metamodels and behaviors.
+ * An ALE environment which is based on a raw environment 
+ * made up of Ecore metamodels and ALE behaviors.
  * <p>
  * This class is not supposed to be instantiated by clients, call 
  * {@link IAleEnvironment#fromRaw(IQueryEnvironment, Collection, Collection)}
  * instead.
  */
-public class MadeUpAleEnvironment extends AbstractAleEnvironment {
+public class RawEnvironmentBasedAleEnvironment extends AbstractAleEnvironment {
 	
 	private final List<EPackage> metamodels;
 
@@ -43,7 +44,7 @@ public class MadeUpAleEnvironment extends AbstractAleEnvironment {
 	 * @param behaviors
 	 * 			The behaviors available in this environment.
 	 */
-	public MadeUpAleEnvironment(IQueryEnvironment context, Collection<EPackage> metamodels, Collection<ParsedFile<ModelUnit>> behaviors) {
+	public RawEnvironmentBasedAleEnvironment(IQueryEnvironment context, Collection<EPackage> metamodels, Collection<ParsedFile<ModelUnit>> behaviors) {
 		this.context = context;
 		this.behaviors = new ImmutableBehaviors(behaviors);
 		this.metamodels = new ArrayList<>(metamodels);

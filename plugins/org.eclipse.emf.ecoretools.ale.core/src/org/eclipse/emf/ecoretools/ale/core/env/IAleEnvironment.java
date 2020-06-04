@@ -15,6 +15,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Properties;
 
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.core.resources.IFile;
@@ -22,9 +23,9 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
-import org.eclipse.emf.ecoretools.ale.core.env.impl.InMemoryAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.env.impl.MadeUpAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.PathsBasedAleEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.RawEnvironmentBasedAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleInterpreter;
 import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
@@ -54,7 +55,14 @@ import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 public interface IAleEnvironment extends AutoCloseable, Closeable {
 	
 	/**
-	 * Creates a new environment which content is loaded from a .dsl configuration file.
+	 * Creates a new environment which content is loaded from a file.
+	 * <p>
+	 * This file is typically a .dsl {@link Properties property file}
+	 * which contains the following keys:
+	 * <ul>
+	 * 	<li>{@value FileBasedAleEnvironment#BEHAVIORS_KEY}: paths to ALE source files
+	 * 	<li>{@value FileBasedAleEnvironment#METAMODELS_KEY}: paths to Ecore metamodels
+	 * </ul>
 	 * <p>
 	 * <strong>Do not forget to close it to prevent memory leaks</strong>.
 	 * 
@@ -63,9 +71,11 @@ public interface IAleEnvironment extends AutoCloseable, Closeable {
 	 * 			May not exist.
 	 * 
 	 * @return a new environment which content is loaded from a .dsl configuration file
+	 * 
+	 * @see #fromFile(File)
 	 */
-	static DslConfiguration fromDslFile(IFile file) {
-		return new DslConfiguration(file);
+	static FileBasedAleEnvironment fromFile(IFile file) {
+		return new FileBasedAleEnvironment(file);
 	}
 	
 	/**
@@ -78,9 +88,11 @@ public interface IAleEnvironment extends AutoCloseable, Closeable {
 	 * 			May not exist.
 	 * 
 	 * @return a new environment which content is loaded from a .dsl configuration file
+	 * 
+	 * @see #fromFile(IFile)
 	 */
-	static DslConfiguration fromDslFile(File file) {
-		return new DslConfiguration(file);
+	static FileBasedAleEnvironment fromFile(File file) {
+		return new FileBasedAleEnvironment(file);
 	}
 	
 	/**
@@ -96,7 +108,7 @@ public interface IAleEnvironment extends AutoCloseable, Closeable {
 	 * @return a new runtime environment configured from given paths
 	 */
 	static IAleEnvironment fromPaths(Collection<String> metamodelPaths, Collection<String> behaviorPaths) {
-		return new InMemoryAleEnvironment(metamodelPaths, behaviorPaths);
+		return new PathsBasedAleEnvironment(metamodelPaths, behaviorPaths);
 	}
 	
 	/**
@@ -114,7 +126,7 @@ public interface IAleEnvironment extends AutoCloseable, Closeable {
 	 * @return a new runtime environment configured from raw components
 	 */
 	static IAleEnvironment fromRaw(IQueryEnvironment context, Collection<EPackage> metamodels, Collection<ParsedFile<ModelUnit>> behaviors) {
-		return new MadeUpAleEnvironment(context, metamodels, behaviors);
+		return new RawEnvironmentBasedAleEnvironment(context, metamodels, behaviors);
 	}
 	
 	/**

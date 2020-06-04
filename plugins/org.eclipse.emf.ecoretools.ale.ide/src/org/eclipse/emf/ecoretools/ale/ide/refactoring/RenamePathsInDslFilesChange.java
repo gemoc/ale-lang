@@ -20,7 +20,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.ide.Activator;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
@@ -89,7 +89,7 @@ public class RenamePathsInDslFilesChange extends Change {
 
 	@Override
 	public Change perform(IProgressMonitor monitor) throws CoreException {
-		try (DslConfiguration dsl = IAleEnvironment.fromDslFile(dslFile)) {
+		try (FileBasedAleEnvironment dsl = IAleEnvironment.fromFile(dslFile)) {
 			Collection<String> currentBehaviors = new LinkedHashSet<>(dsl.getBehaviorsSources());
 			Collection<String> currentMetamodels = new LinkedHashSet<>(dsl.getMetamodelsSources());
 			

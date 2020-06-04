@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.AleInterpreter;
 import org.eclipse.emf.ecoretools.ale.ide.ui.Activator;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
@@ -351,7 +351,7 @@ public class AleLaunchConfigurationTab extends AbstractLaunchConfigurationTab {
 	
 	private final List<Method> getAvailableMethods() throws CoreException, IOException {
 		IFile dslFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(dslSelection.getText()));
-		try (IAleEnvironment dsl = IAleEnvironment.fromDslFile(dslFile)) {
+		try (IAleEnvironment dsl = IAleEnvironment.fromFile(dslFile)) {
 			return dsl.getBehaviors().getMainMethods();
 		}
 	}

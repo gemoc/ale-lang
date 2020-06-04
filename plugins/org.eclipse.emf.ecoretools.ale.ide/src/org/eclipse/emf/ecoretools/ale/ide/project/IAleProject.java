@@ -16,7 +16,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.ide.project.impl.AleAware;
+import org.eclipse.emf.ecoretools.ale.ide.project.impl.AleProject;
 
 /**
  * <p>An Eclipse IDE project aimed at storing ALE source files.</p>
@@ -46,7 +46,7 @@ public interface IAleProject {
 	 * @return an ALE-aware version of the given project
 	 */
 	static IAleProject from(IProject project) {
-		return new AleAware(project);
+		return new AleProject(project);
 	}
 	
 	/**

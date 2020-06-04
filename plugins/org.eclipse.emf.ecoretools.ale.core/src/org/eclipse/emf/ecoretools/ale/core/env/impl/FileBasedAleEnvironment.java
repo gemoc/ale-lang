@@ -22,7 +22,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
@@ -40,12 +39,12 @@ import org.eclipse.emf.ecoretools.ale.core.io.IOResources;
  * a {@link Properties property file}.
  * <p>
  * This class is not supposed to be instantiated by clients, call 
- * {@link IAleEnvironment#fromPaths(Collection, Collection)}
+ * {@link IAleEnvironment#fromFile(File)}
  * instead.
  */
 // TODO [API] Should provide a load() method instead of loading
 //		      the .dsl file in the constructor
-public final class DslConfiguration extends AbstractAleEnvironment {
+public final class FileBasedAleEnvironment extends AbstractAleEnvironment {
 	
 	public static final String BEHAVIORS_KEY = "behavior";
 	public static final String METAMODELS_KEY = "syntax";
@@ -63,7 +62,7 @@ public final class DslConfiguration extends AbstractAleEnvironment {
 	 * 			The .dsl file defining the content of the environment.
 	 * 			May not exist.
 	 */
-	public DslConfiguration(IFile dslFile) {
+	public FileBasedAleEnvironment(IFile dslFile) {
 		load(dslFile);
 		this.workspaceFile = dslFile;
 		this.platformFile = toFile(workspaceFile).orElse(null);
@@ -77,7 +76,7 @@ public final class DslConfiguration extends AbstractAleEnvironment {
 	 * 			The .dsl file defining the content of the environment.
 	 * 			May not exist.
 	 */
-	public DslConfiguration(File dslFile) {
+	public FileBasedAleEnvironment(File dslFile) {
 		this.platformFile = dslFile;
 		Set<IFile> ifiles = IOResources.toIFiles(dslFile);
 		this.workspaceFile = ifiles.isEmpty() ? null : ifiles.iterator().next();
@@ -99,7 +98,7 @@ public final class DslConfiguration extends AbstractAleEnvironment {
 	 * 
 	 * @throws IOException an IO error occurs 
 	 */
-	public DslConfiguration(InputStream input) throws IOException {
+	public FileBasedAleEnvironment(InputStream input) throws IOException {
 		load(input);
 	}
 	

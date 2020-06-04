@@ -41,13 +41,13 @@ import org.osgi.framework.Bundle;
  * Below is a typical use of this decorator:
  * <pre>IAleEnvironment dslFile = new Normalized(new DslConfiguration(path));</pre>  
  */
-public class Normalized extends AbstractAleEnvironment {
+public class WithAbsoluteBehaviorPathsAleEnvironment extends AbstractAleEnvironment {
 	
 	private final LinkedHashSet<String> metamodels;
 	
 	private final LinkedHashSet<String> behaviors;
 	
-	public Normalized(IAleEnvironment environment) {
+	public WithAbsoluteBehaviorPathsAleEnvironment(IAleEnvironment environment) {
 		metamodels = new LinkedHashSet<>(environment.getMetamodelsSources());
 		behaviors = new LinkedHashSet<>(resolveUris(environment.getBehaviorsSources()));
 	}

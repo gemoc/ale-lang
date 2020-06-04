@@ -31,20 +31,20 @@ import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.ide.Activator;
 import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject;
 
 /**
  * Decorates an {@link IProject} to enhance them with ALE-specific features.
  */
-public class AleAware implements IAleProject {
+public class AleProject implements IAleProject {
 	
 	public static final String CORE_PLUGIN_ID = "org.eclipse.emf.ecoretools.ale.core";
 	
 	private final IProject project;
 
-	public AleAware(IProject project) {
+	public AleProject(IProject project) {
 		this.project = requireNonNull(project, "project");
 	}
 	
@@ -110,7 +110,7 @@ public class AleAware implements IAleProject {
 	private IAleEnvironment environmentFromDslConfigurationFile(IEclipsePreferences preferences) throws IOException {
 		IFile file = findDslFile().orElseThrow(() -> new IllegalArgumentException("Cannot load DSL file"));
 		try {
-			return new DslConfiguration(file.getContents());
+			return new FileBasedAleEnvironment(file.getContents());
 		} 
 		catch (CoreException e) {
 			throw new IOException("Unable to read the content of the DSL configuration file");

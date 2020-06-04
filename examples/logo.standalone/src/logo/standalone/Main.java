@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecoretools.ale.core.env.ClosedAleEnvironmentException;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.env.IBehaviors;
-import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleInterpreter;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
@@ -34,7 +34,7 @@ public class Main {
 		File dslFile = new File("logo-standalone.dsl");
 		String modelFile = "../logo.example/data/LogoProgram.xmi";
 		
-		try (DslConfiguration environment = IAleEnvironment.fromDslFile(dslFile)) {
+		try (FileBasedAleEnvironment environment = IAleEnvironment.fromFile(dslFile)) {
 			/*
 			 * Initialize evaluation environment
 			 */

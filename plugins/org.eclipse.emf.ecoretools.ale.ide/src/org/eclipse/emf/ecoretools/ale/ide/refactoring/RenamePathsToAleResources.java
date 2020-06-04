@@ -36,7 +36,7 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.ide.Activator;
 import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject;
 import org.eclipse.ltk.core.refactoring.Change;
@@ -107,7 +107,7 @@ public class RenamePathsToAleResources extends RenameParticipant {
 			public boolean visit(IResource resource) throws CoreException {
 				if (resource instanceof IFile && resource.getName().endsWith(".dsl")) {
 					IFile file = (IFile) resource;
-					try (DslConfiguration dsl = IAleEnvironment.fromDslFile(file)) {
+					try (FileBasedAleEnvironment dsl = IAleEnvironment.fromFile(file)) {
 						IFile fileAfterRenaming = toWorkspace(uriAfterRenaming(file, newName));
 
 						Collection<String> newBehaviors = renamedIfImpacted(dsl.getBehaviorsSources(), newName);

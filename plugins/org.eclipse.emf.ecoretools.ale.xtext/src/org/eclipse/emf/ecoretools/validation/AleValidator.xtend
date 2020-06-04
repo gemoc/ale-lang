@@ -20,7 +20,6 @@ import org.eclipse.emf.ecoretools.ale.SeqType
 import org.eclipse.emf.ecoretools.ale.Sequence
 import org.eclipse.emf.ecoretools.ale.SetType
 import org.eclipse.emf.ecoretools.ale.Unit
-import org.eclipse.emf.ecoretools.ale.core.env.impl.DslConfiguration
 import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.AleInterpreter
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator
 import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject
@@ -29,6 +28,7 @@ import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment
 
 /**
  * Delegate validation to ALE validator
@@ -124,7 +124,7 @@ class AleValidator extends AbstractAleValidator {
 	}
 	
 	// copied from WorkbenchDsl (which introduce cyclic dependency if used)
-	static def void resolveUris(DslConfiguration dsl) {
+	static def void resolveUris(FileBasedAleEnvironment dsl) {
 		val newSemantics = new ArrayList<String>();
 		val ws = ResourcesPlugin.getWorkspace();
 		dsl.getBehaviorsSources()
