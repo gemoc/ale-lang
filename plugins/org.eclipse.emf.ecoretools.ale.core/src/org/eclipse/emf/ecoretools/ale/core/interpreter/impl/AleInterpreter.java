@@ -16,6 +16,7 @@ import static java.util.stream.Collectors.toSet;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.eclipse.acceleo.query.ast.AstPackage;
@@ -43,7 +44,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.sirius.common.tools.api.interpreter.ClassLoadingCallback;
 import org.eclipse.sirius.common.tools.api.interpreter.EPackageLoadingCallback;
-import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
+import org.eclipse.sirius.common.tools.api.interpreter.IEvaluationResult;
 import org.eclipse.sirius.common.tools.api.interpreter.JavaExtensionsManager;
 
 /**
@@ -175,25 +176,9 @@ public class AleInterpreter implements IAleInterpreter, AutoCloseable {
 		if (Diagnostic.OK != evalResult.getDiagnostic().getSeverity()) {
 			diagnostic.merge(evalResult.getDiagnostic());
 		}
-		Object value = evalResult.getResult();
-		
-		return new IEvaluationResult() {
-
-			@Override
-			public Object getValue() {
-				return value;
-			}
-
-			@Override
-			public Diagnostic getDiagnostic() {
-				List<Diagnostic> children = diagnostic.getChildren();
-				if (children.size() == 1) {
-					return children.get(0);
-				} else {
-					return diagnostic;
-				}
-			}
-		};
+		return new OptimizedEvaluationResult(
+				Optional.ofNullable(evalResult.getResult()),
+				diagnostic);
     }
     
     private EvaluationResult doEval(EObject caller, Method operation, List<Object> args) {

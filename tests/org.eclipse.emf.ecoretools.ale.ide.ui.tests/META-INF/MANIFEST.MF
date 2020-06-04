@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Tests
 Bundle-SymbolicName: org.eclipse.emf.ecoretools.ale.ide.ui.tests
-Bundle-Version: 1.1.0.qualifier
+Bundle-Version: 1.2.0.qualifier
 Require-Bundle: org.junit,
  org.eclipse.swtbot.eclipse.finder,
  org.eclipse.swtbot.junit4_x,

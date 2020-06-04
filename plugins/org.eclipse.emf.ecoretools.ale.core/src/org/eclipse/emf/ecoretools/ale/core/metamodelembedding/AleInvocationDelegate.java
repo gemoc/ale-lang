@@ -15,13 +15,14 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EOperation.Internal.InvocationDelegate;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecoretools.ale.core.Activator;
 import org.eclipse.emf.ecoretools.ale.core.env.ClosedAleEnvironmentException;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
-import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
+import org.eclipse.sirius.common.tools.api.interpreter.IEvaluationResult;
 
 /**
  * Represents the actual behavior of an EOperation which body is defined

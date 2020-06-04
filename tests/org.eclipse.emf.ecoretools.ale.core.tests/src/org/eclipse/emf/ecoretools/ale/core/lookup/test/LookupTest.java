@@ -22,7 +22,7 @@ import org.eclipse.emf.ecoretools.ale.core.env.ClosedAleEnvironmentException;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.env.IBehaviors;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
-import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
+import org.eclipse.sirius.common.tools.api.interpreter.IEvaluationResult;
 import org.junit.After;
 import org.junit.Test;
 
