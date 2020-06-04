@@ -18,7 +18,7 @@ import org.eclipse.emf.ecoretools.ale.core.env.ClosedAleEnvironmentException;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.AleEngine;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
-import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
+import org.eclipse.sirius.common.tools.api.interpreter.IEvaluationResult;
 
 /**
  * Instances of this class are able to execute an {@link EObject} while taking
