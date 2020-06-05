@@ -8,7 +8,7 @@
  * Contributors:
  *     Inria - initial API and implementation
  *******************************************************************************/
-package org.eclipse.emf.ecoretools.ale.core.interpreter.internal;
+package org.eclipse.emf.ecoretools.ale.core.interpreter.notapi;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +28,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 
 // FIXME What's my purpose?
-class RuntimeInstanceHelper {
+public class RuntimeInstanceHelper {
 	
 	public static final String ALE_RUNTIME = "ALE_RUNTIME_";
 	public static final String ALE_RUNTIME_PKG = "ALE_RUNTIME_PKG";

@@ -30,7 +30,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.DynamicFeatureRegistry;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.notapi.DynamicFeatureRegistry;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;

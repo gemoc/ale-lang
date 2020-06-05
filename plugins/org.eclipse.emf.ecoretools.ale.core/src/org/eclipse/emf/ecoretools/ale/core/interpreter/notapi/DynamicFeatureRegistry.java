@@ -8,7 +8,7 @@
  * Contributors:
  *     Inria - initial API and implementation
  *******************************************************************************/
-package org.eclipse.emf.ecoretools.ale.core.interpreter.internal;
+package org.eclipse.emf.ecoretools.ale.core.interpreter.notapi;
 
 import java.util.ArrayList;
 import java.util.Collection;

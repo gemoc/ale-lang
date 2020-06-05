@@ -8,7 +8,7 @@
  * Contributors:
  *     Inria - initial API and implementation
  *******************************************************************************/
-package org.eclipse.emf.ecoretools.ale.core.interpreter.internal;
+package org.eclipse.emf.ecoretools.ale.core.interpreter.notapi;
 
 import static java.util.stream.Collectors.toList;
 
@@ -49,6 +49,7 @@ import org.eclipse.emf.ecoretools.ale.core.Activator;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.DiagnosticLogger;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.IServiceCallListener;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.ExtensionLookupEngine;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.DynamicEObjectServices;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.FactoryService;

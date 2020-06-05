@@ -33,7 +33,7 @@ import org.eclipse.acceleo.query.validation.type.SequenceType;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.DynamicFeatureRegistry;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.notapi.DynamicFeatureRegistry;
 import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
 import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
