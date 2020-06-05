@@ -16,7 +16,7 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecoretools.ale.core.env.ClosedAleEnvironmentException;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.AleEngine;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.notapi.AleEngine;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.sirius.common.tools.api.interpreter.IEvaluationResult;
 

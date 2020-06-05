@@ -13,7 +13,7 @@ package org.eclipse.emf.ecoretools.ale.core.interpreter.services;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.EvalEnvironment;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.notapi.EvalEnvironment;
 
 import com.google.common.collect.Sets;
 

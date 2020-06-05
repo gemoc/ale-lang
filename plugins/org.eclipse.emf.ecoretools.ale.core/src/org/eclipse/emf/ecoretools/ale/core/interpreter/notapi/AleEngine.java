@@ -8,7 +8,7 @@
  * Contributors:
  *     Inria - initial API and implementation
  *******************************************************************************/
-package org.eclipse.emf.ecoretools.ale.core.interpreter.internal;
+package org.eclipse.emf.ecoretools.ale.core.interpreter.notapi;
 
 import java.util.List;
 
@@ -19,15 +19,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecoretools.ale.core.Activator;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.CriticalFailureException;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.ExpressionEvaluationEngine;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.MethodEvaluator;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 
 // FIXME [API] What is the scope of this class?
 //			   Based on its current usage it looks like we could get rid of it.
 //			   Has it any purpose, like being more flexible than a whole AleInterpreter?
-/**
- * @deprecated this class does not seem useful
- */
-@Deprecated
+//   this class is used by GEMOC in order to manage complex execution (multiple evaluations and runtime access)
 public class AleEngine {
 	
 	private EvalEnvironment implemEnv;

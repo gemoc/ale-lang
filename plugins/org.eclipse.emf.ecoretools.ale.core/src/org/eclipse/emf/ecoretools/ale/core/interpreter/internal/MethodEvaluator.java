@@ -53,6 +53,7 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.CriticalFailureException;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.ServiceNotFoundException;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.Scopes.Scope;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.impl.StackedScopes;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.notapi.DynamicFeatureRegistry;
 import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.core.validation.IAstLookup;
 import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
