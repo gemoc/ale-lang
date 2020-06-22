@@ -23,7 +23,7 @@ import org.eclipse.emf.ecoretools.ale.core.env.IBehaviors;
 import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleInterpreter;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
-import org.eclipse.sirius.common.tools.api.interpreter.IInterpreterWithDiagnostic.IEvaluationResult;
+import org.eclipse.sirius.common.tools.api.interpreter.IEvaluationResult;
 
 public class Main {
 	
