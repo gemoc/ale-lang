@@ -40,6 +40,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - [#115](https://github.com/gemoc/ale-lang/pull/115) The _.dsl_ configuration file is generated at the root of the project
 - [#124](https://github.com/gemoc/ale-lang/pull/124) The errors shown in the ALE console are now clean, red stacktraces with hyperlinks to source files
 - [#136](https://github.com/gemoc/ale-lang/pull/136) The public API is easier to use **[breaking change]**
+- [#141](https://github.com/gemoc/ale-lang/issues/141) Move to ANTLR 4.7.1
 
 ## [] - 2019-12-08
 ### Changed
