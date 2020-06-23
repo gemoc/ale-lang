@@ -10,6 +10,7 @@
 - [How can I check that my changes are consistent with the codebase?](#how-can-i-check-that-my-changes-are-consistent-with-the-codebase)
 - [How can I check that the tests still pass?](#how-can-i-check-that-the-tests-still-pass)
 - [How can I manually test the plug-in?](#how-can-i-manually-test-the-plug-in)
+- [How do I update parser's ANTLR version?](#how-do-i-update-parsers-antlr-version)
 
 ## What can I do?
 
@@ -122,3 +123,14 @@ To open a new Eclipse IDE instance that uses the plug-in under development:
 2. `Run As` > `Eclipse application`
 
 A new Eclipse IDE window should open, in which new projects can be created for testing purposes.
+
+## How do I update parser's ANTLR version?
+
+1. Search for _ALE.g4_ and _Query.g4_ in `plugins/org.eclipse.emf.ecoretools.ale.core/src/org/eclipse/emf/ecoretools/ale/core/parser`
+2. Download _antlr-x.y.z-complete.jar_
+3. Run `java -cp "antlr-x.y.z-complete.jar" org.antlr.v4.Tool Query.g4 ALE.g4 -visitor`
+
+> Don't forget `-visitor` otherwise only listeners will be generated
+
+4. Cut new files and paste them to `plugins/org.eclipse.emf.ecoretools.ale.core/src-gen/org/eclipse/emf/ecoretools/ale/core/parser`
+5. Add `package org.eclipse.emf.ecoretools.ale.core.parser;` at the top of `Query*.java` files

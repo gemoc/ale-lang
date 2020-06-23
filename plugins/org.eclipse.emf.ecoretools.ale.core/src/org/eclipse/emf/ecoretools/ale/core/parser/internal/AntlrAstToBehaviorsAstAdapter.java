@@ -33,6 +33,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
+import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
 
 /**
  * An adapter that turns the AST produced by ANTLR into an AST
@@ -54,12 +55,12 @@ public class AntlrAstToBehaviorsAstAdapter {
 	/**
 	 * Transform ANTLR parse result to proper ALE model
 	 */
-	public List<ParsedFile<ModelUnit>> toBehaviors(List<RRootContext> rawParses, Map<RRootContext,String> sourceFiles){
+	public List<ParsedFile<ModelUnit>> toBehaviors(List<RRootContext> antlrASTs, Map<RRootContext,String> sourceFiles){
 		List<ParsedFile<ModelUnit>> build = new ArrayList<>();
 		
-		Map<String, List<EClass>> allNewClasses = createNewEClasses(rawParses);
+		Map<String, List<EClass>> allNewClasses = createNewEClassesFromDynamicClasses(antlrASTs);
 		
-		buildClassExtensions(rawParses, sourceFiles, build);
+		buildClassExtensions(antlrASTs, sourceFiles, build);
 		
 		updateDeclaredEClassDefinitions(build, allNewClasses);
 
@@ -71,28 +72,36 @@ public class AntlrAstToBehaviorsAstAdapter {
 	}
 
 	/**
-	 * Create & declare new EClasses
+	 * Create new {@link EClass} instances from AST's {@link RuntimeClass}es.
+	 * <p>
+	 * New EClasses are added to the EPackage named after the source file's behavior
+	 * (qualified name after the {@code behavior} keyword). A new EPackage is created
+	 * if the behavior doesn't match any existing EPackage.
 	 * 
-	 * @param rawParses
-	 * @return
+	 * @param antlrASTs
+	 * 			The ASTs built by ANTLR. Each AST correspond to a unique source file.
+	 * 
+	 * @return the new EClass instantiated from the definition of ALE dynamic classes.
 	 */
-	private Map<String, List<EClass>> createNewEClasses(List<RRootContext> rawParses) {
+	private Map<String, List<EClass>> createNewEClassesFromDynamicClasses(List<RRootContext> antlrASTs) {
 		Map<String,List<EClass>> allNewClasses = new HashMap<>();
-		rawParses
+		antlrASTs
 			.stream()
-			.forEach(implemParse -> {
-				List<EClass> newOnes = AstVisitors.preVisit(implemParse);
+			.forEach(sourceFileAST -> {
+				// == dynamic classes, that do not belong to a metamodel
+				List<EClass> newOnes = AstVisitors.preVisit(sourceFileAST);
 				
 				EPackage candidatePkg = null;
-				Collection<EPackage> pkgs = qryEnv.getEPackageProvider().getEPackage(implemParse.rQualified().getText());
+				Collection<EPackage> pkgs = qryEnv.getEPackageProvider().getEPackage(sourceFileAST.rQualified().getText());
 				if(pkgs != null && !pkgs.isEmpty()) {
 					candidatePkg = pkgs.iterator().next();
 				}
 				else {
-					candidatePkg = AntlrAstToAleBehaviorsFactory.singleton.buildEPackage(implemParse.rQualified().getText());
+					candidatePkg = AntlrAstToAleBehaviorsFactory.singleton.buildEPackage(sourceFileAST.rQualified().getText());
 				}
 				candidatePkg.getEClassifiers().addAll(newOnes);
-				allNewClasses.put(implemParse.rQualified().getText(),newOnes);
+				String behaviorName = sourceFileAST.rQualified().getText();
+				allNewClasses.put(behaviorName, newOnes);
 				
 				EPackage topPkg = candidatePkg;
 				while(topPkg.getESuperPackage() != null){

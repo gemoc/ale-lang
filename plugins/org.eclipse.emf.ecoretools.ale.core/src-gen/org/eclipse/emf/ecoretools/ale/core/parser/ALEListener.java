@@ -1,4 +1,4 @@
-// Generated from ALE.g4 by ANTLR 4.3
+// Generated from ALE.g4 by ANTLR 4.7.1
 
 /*******************************************************************************
  * Copyright (c) 2017 Inria and Obeo.
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.parser;
 
-import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -21,944 +20,867 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface ALEListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by the {@code Add}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterAdd(@NotNull ALEParser.AddContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Add}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitAdd(@NotNull ALEParser.AddContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code NullLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterNullLit(@NotNull ALEParser.NullLitContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code NullLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitNullLit(@NotNull ALEParser.NullLitContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code Nav}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterNav(@NotNull ALEParser.NavContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Nav}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitNav(@NotNull ALEParser.NavContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code TypeLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterTypeLit(@NotNull ALEParser.TypeLitContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code TypeLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitTypeLit(@NotNull ALEParser.TypeLitContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code Or}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterOr(@NotNull ALEParser.OrContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Or}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitOr(@NotNull ALEParser.OrContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code CallOrApply}
-	 * labeled alternative in {@link ALEParser#navigationSegment}.
-	 * @param ctx the parse tree
-	 */
-	void enterCallOrApply(@NotNull ALEParser.CallOrApplyContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code CallOrApply}
-	 * labeled alternative in {@link ALEParser#navigationSegment}.
-	 * @param ctx the parse tree
-	 */
-	void exitCallOrApply(@NotNull ALEParser.CallOrApplyContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code ErrorEnumLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterErrorEnumLit(@NotNull ALEParser.ErrorEnumLitContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ErrorEnumLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitErrorEnumLit(@NotNull ALEParser.ErrorEnumLitContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#binding}.
-	 * @param ctx the parse tree
-	 */
-	void enterBinding(@NotNull ALEParser.BindingContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#binding}.
-	 * @param ctx the parse tree
-	 */
-	void exitBinding(@NotNull ALEParser.BindingContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code FalseLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterFalseLit(@NotNull ALEParser.FalseLitContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code FalseLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitFalseLit(@NotNull ALEParser.FalseLitContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code Conditional}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterConditional(@NotNull ALEParser.ConditionalContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Conditional}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitConditional(@NotNull ALEParser.ConditionalContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code Feature}
-	 * labeled alternative in {@link ALEParser#navigationSegment}.
-	 * @param ctx the parse tree
-	 */
-	void enterFeature(@NotNull ALEParser.FeatureContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Feature}
-	 * labeled alternative in {@link ALEParser#navigationSegment}.
-	 * @param ctx the parse tree
-	 */
-	void exitFeature(@NotNull ALEParser.FeatureContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code RealType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void enterRealType(@NotNull ALEParser.RealTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code RealType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void exitRealType(@NotNull ALEParser.RealTypeContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rQualified}.
-	 * @param ctx the parse tree
-	 */
-	void enterRQualified(@NotNull ALEParser.RQualifiedContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rQualified}.
-	 * @param ctx the parse tree
-	 */
-	void exitRQualified(@NotNull ALEParser.RQualifiedContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterRExpression(@NotNull ALEParser.RExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitRExpression(@NotNull ALEParser.RExpressionContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code Comp}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterComp(@NotNull ALEParser.CompContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Comp}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitComp(@NotNull ALEParser.CompContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code StringLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterStringLit(@NotNull ALEParser.StringLitContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code StringLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitStringLit(@NotNull ALEParser.StringLitContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rForEach}.
-	 * @param ctx the parse tree
-	 */
-	void enterRForEach(@NotNull ALEParser.RForEachContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rForEach}.
-	 * @param ctx the parse tree
-	 */
-	void exitRForEach(@NotNull ALEParser.RForEachContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code Implies}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterImplies(@NotNull ALEParser.ImpliesContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Implies}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitImplies(@NotNull ALEParser.ImpliesContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rVarDecl}.
-	 * @param ctx the parse tree
-	 */
-	void enterRVarDecl(@NotNull ALEParser.RVarDeclContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rVarDecl}.
-	 * @param ctx the parse tree
-	 */
-	void exitRVarDecl(@NotNull ALEParser.RVarDeclContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code SetType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void enterSetType(@NotNull ALEParser.SetTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code SetType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void exitSetType(@NotNull ALEParser.SetTypeContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#collectionIterator}.
-	 * @param ctx the parse tree
-	 */
-	void enterCollectionIterator(@NotNull ALEParser.CollectionIteratorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#collectionIterator}.
-	 * @param ctx the parse tree
-	 */
-	void exitCollectionIterator(@NotNull ALEParser.CollectionIteratorContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rNewClass}.
-	 * @param ctx the parse tree
-	 */
-	void enterRNewClass(@NotNull ALEParser.RNewClassContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rNewClass}.
-	 * @param ctx the parse tree
-	 */
-	void exitRNewClass(@NotNull ALEParser.RNewClassContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rInsert}.
-	 * @param ctx the parse tree
-	 */
-	void enterRInsert(@NotNull ALEParser.RInsertContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rInsert}.
-	 * @param ctx the parse tree
-	 */
-	void exitRInsert(@NotNull ALEParser.RInsertContext ctx);
-
-	/**
 	 * Enter a parse tree produced by {@link ALEParser#rRoot}.
 	 * @param ctx the parse tree
 	 */
-	void enterRRoot(@NotNull ALEParser.RRootContext ctx);
+	void enterRRoot(ALEParser.RRootContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link ALEParser#rRoot}.
 	 * @param ctx the parse tree
 	 */
-	void exitRRoot(@NotNull ALEParser.RRootContext ctx);
-
+	void exitRRoot(ALEParser.RRootContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ALEParser#rRemove}.
+	 * Enter a parse tree produced by {@link ALEParser#rImport}.
 	 * @param ctx the parse tree
 	 */
-	void enterRRemove(@NotNull ALEParser.RRemoveContext ctx);
+	void enterRImport(ALEParser.RImportContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ALEParser#rRemove}.
+	 * Exit a parse tree produced by {@link ALEParser#rImport}.
 	 * @param ctx the parse tree
 	 */
-	void exitRRemove(@NotNull ALEParser.RRemoveContext ctx);
-
+	void exitRImport(ALEParser.RImportContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ALEParser#rService}.
 	 * @param ctx the parse tree
 	 */
-	void enterRService(@NotNull ALEParser.RServiceContext ctx);
+	void enterRService(ALEParser.RServiceContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link ALEParser#rService}.
 	 * @param ctx the parse tree
 	 */
-	void exitRService(@NotNull ALEParser.RServiceContext ctx);
-
+	void exitRService(ALEParser.RServiceContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ALEParser#rSwitch}.
+	 * Enter a parse tree produced by {@link ALEParser#rClass}.
 	 * @param ctx the parse tree
 	 */
-	void enterRSwitch(@NotNull ALEParser.RSwitchContext ctx);
+	void enterRClass(ALEParser.RClassContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ALEParser#rSwitch}.
+	 * Exit a parse tree produced by {@link ALEParser#rClass}.
 	 * @param ctx the parse tree
 	 */
-	void exitRSwitch(@NotNull ALEParser.RSwitchContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rType}.
-	 * @param ctx the parse tree
-	 */
-	void enterRType(@NotNull ALEParser.RTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rType}.
-	 * @param ctx the parse tree
-	 */
-	void exitRType(@NotNull ALEParser.RTypeContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#lambdaExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterLambdaExpression(@NotNull ALEParser.LambdaExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#lambdaExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitLambdaExpression(@NotNull ALEParser.LambdaExpressionContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rAttribute}.
-	 * @param ctx the parse tree
-	 */
-	void enterRAttribute(@NotNull ALEParser.RAttributeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rAttribute}.
-	 * @param ctx the parse tree
-	 */
-	void exitRAttribute(@NotNull ALEParser.RAttributeContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rCase}.
-	 * @param ctx the parse tree
-	 */
-	void enterRCase(@NotNull ALEParser.RCaseContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rCase}.
-	 * @param ctx the parse tree
-	 */
-	void exitRCase(@NotNull ALEParser.RCaseContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code LetExpr}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterLetExpr(@NotNull ALEParser.LetExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code LetExpr}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitLetExpr(@NotNull ALEParser.LetExprContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code IntegerLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterIntegerLit(@NotNull ALEParser.IntegerLitContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code IntegerLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitIntegerLit(@NotNull ALEParser.IntegerLitContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#variableDefinition}.
-	 * @param ctx the parse tree
-	 */
-	void enterVariableDefinition(@NotNull ALEParser.VariableDefinitionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#variableDefinition}.
-	 * @param ctx the parse tree
-	 */
-	void exitVariableDefinition(@NotNull ALEParser.VariableDefinitionContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rIf}.
-	 * @param ctx the parse tree
-	 */
-	void enterRIf(@NotNull ALEParser.RIfContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rIf}.
-	 * @param ctx the parse tree
-	 */
-	void exitRIf(@NotNull ALEParser.RIfContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code ClassifierSetType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void enterClassifierSetType(@NotNull ALEParser.ClassifierSetTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ClassifierSetType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void exitClassifierSetType(@NotNull ALEParser.ClassifierSetTypeContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code Not}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterNot(@NotNull ALEParser.NotContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Not}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitNot(@NotNull ALEParser.NotContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code Min}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterMin(@NotNull ALEParser.MinContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Min}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitMin(@NotNull ALEParser.MinContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code And}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterAnd(@NotNull ALEParser.AndContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code And}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitAnd(@NotNull ALEParser.AndContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code Xor}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterXor(@NotNull ALEParser.XorContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Xor}
-	 * labeled alternative in {@link ALEParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitXor(@NotNull ALEParser.XorContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code TrueLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterTrueLit(@NotNull ALEParser.TrueLitContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code TrueLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitTrueLit(@NotNull ALEParser.TrueLitContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code ExplicitSeqLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterExplicitSeqLit(@NotNull ALEParser.ExplicitSeqLitContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ExplicitSeqLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitExplicitSeqLit(@NotNull ALEParser.ExplicitSeqLitContext ctx);
-
+	void exitRClass(ALEParser.RClassContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ALEParser#rOpenClass}.
 	 * @param ctx the parse tree
 	 */
-	void enterROpenClass(@NotNull ALEParser.ROpenClassContext ctx);
+	void enterROpenClass(ALEParser.ROpenClassContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link ALEParser#rOpenClass}.
 	 * @param ctx the parse tree
 	 */
-	void exitROpenClass(@NotNull ALEParser.ROpenClassContext ctx);
-
+	void exitROpenClass(ALEParser.ROpenClassContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rNewClass}.
+	 * @param ctx the parse tree
+	 */
+	void enterRNewClass(ALEParser.RNewClassContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rNewClass}.
+	 * @param ctx the parse tree
+	 */
+	void exitRNewClass(ALEParser.RNewClassContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rOperation}.
+	 * @param ctx the parse tree
+	 */
+	void enterROperation(ALEParser.ROperationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rOperation}.
+	 * @param ctx the parse tree
+	 */
+	void exitROperation(ALEParser.ROperationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rTag}.
+	 * @param ctx the parse tree
+	 */
+	void enterRTag(ALEParser.RTagContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rTag}.
+	 * @param ctx the parse tree
+	 */
+	void exitRTag(ALEParser.RTagContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rParameters}.
+	 * @param ctx the parse tree
+	 */
+	void enterRParameters(ALEParser.RParametersContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rParameters}.
+	 * @param ctx the parse tree
+	 */
+	void exitRParameters(ALEParser.RParametersContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rVariable}.
+	 * @param ctx the parse tree
+	 */
+	void enterRVariable(ALEParser.RVariableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rVariable}.
+	 * @param ctx the parse tree
+	 */
+	void exitRVariable(ALEParser.RVariableContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rAttribute}.
+	 * @param ctx the parse tree
+	 */
+	void enterRAttribute(ALEParser.RAttributeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rAttribute}.
+	 * @param ctx the parse tree
+	 */
+	void exitRAttribute(ALEParser.RAttributeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rCardinality}.
+	 * @param ctx the parse tree
+	 */
+	void enterRCardinality(ALEParser.RCardinalityContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rCardinality}.
+	 * @param ctx the parse tree
+	 */
+	void exitRCardinality(ALEParser.RCardinalityContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rOpposite}.
+	 * @param ctx the parse tree
+	 */
+	void enterROpposite(ALEParser.ROppositeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rOpposite}.
+	 * @param ctx the parse tree
+	 */
+	void exitROpposite(ALEParser.ROppositeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ALEParser#rStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterRStatement(@NotNull ALEParser.RStatementContext ctx);
+	void enterRStatement(ALEParser.RStatementContext ctx);
 	/**
 	 * Exit a parse tree produced by {@link ALEParser#rStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitRStatement(@NotNull ALEParser.RStatementContext ctx);
-
+	void exitRStatement(ALEParser.RStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rVarDecl}.
+	 * @param ctx the parse tree
+	 */
+	void enterRVarDecl(ALEParser.RVarDeclContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rVarDecl}.
+	 * @param ctx the parse tree
+	 */
+	void exitRVarDecl(ALEParser.RVarDeclContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rAssign}.
+	 * @param ctx the parse tree
+	 */
+	void enterRAssign(ALEParser.RAssignContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rAssign}.
+	 * @param ctx the parse tree
+	 */
+	void exitRAssign(ALEParser.RAssignContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rInsert}.
+	 * @param ctx the parse tree
+	 */
+	void enterRInsert(ALEParser.RInsertContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rInsert}.
+	 * @param ctx the parse tree
+	 */
+	void exitRInsert(ALEParser.RInsertContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rRemove}.
+	 * @param ctx the parse tree
+	 */
+	void enterRRemove(ALEParser.RRemoveContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rRemove}.
+	 * @param ctx the parse tree
+	 */
+	void exitRRemove(ALEParser.RRemoveContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rForEach}.
+	 * @param ctx the parse tree
+	 */
+	void enterRForEach(ALEParser.RForEachContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rForEach}.
+	 * @param ctx the parse tree
+	 */
+	void exitRForEach(ALEParser.RForEachContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rCollection}.
+	 * @param ctx the parse tree
+	 */
+	void enterRCollection(ALEParser.RCollectionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rCollection}.
+	 * @param ctx the parse tree
+	 */
+	void exitRCollection(ALEParser.RCollectionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rBlock}.
+	 * @param ctx the parse tree
+	 */
+	void enterRBlock(ALEParser.RBlockContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rBlock}.
+	 * @param ctx the parse tree
+	 */
+	void exitRBlock(ALEParser.RBlockContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rIf}.
+	 * @param ctx the parse tree
+	 */
+	void enterRIf(ALEParser.RIfContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rIf}.
+	 * @param ctx the parse tree
+	 */
+	void exitRIf(ALEParser.RIfContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rWhile}.
+	 * @param ctx the parse tree
+	 */
+	void enterRWhile(ALEParser.RWhileContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rWhile}.
+	 * @param ctx the parse tree
+	 */
+	void exitRWhile(ALEParser.RWhileContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rExpressionStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterRExpressionStmt(ALEParser.RExpressionStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rExpressionStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitRExpressionStmt(ALEParser.RExpressionStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterRExpression(ALEParser.RExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitRExpression(ALEParser.RExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rType}.
+	 * @param ctx the parse tree
+	 */
+	void enterRType(ALEParser.RTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rType}.
+	 * @param ctx the parse tree
+	 */
+	void exitRType(ALEParser.RTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rQualified}.
+	 * @param ctx the parse tree
+	 */
+	void enterRQualified(ALEParser.RQualifiedContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rQualified}.
+	 * @param ctx the parse tree
+	 */
+	void exitRQualified(ALEParser.RQualifiedContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rSwitch}.
+	 * @param ctx the parse tree
+	 */
+	void enterRSwitch(ALEParser.RSwitchContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rSwitch}.
+	 * @param ctx the parse tree
+	 */
+	void exitRSwitch(ALEParser.RSwitchContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#rCase}.
+	 * @param ctx the parse tree
+	 */
+	void enterRCase(ALEParser.RCaseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#rCase}.
+	 * @param ctx the parse tree
+	 */
+	void exitRCase(ALEParser.RCaseContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code VarRef}
 	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterVarRef(@NotNull ALEParser.VarRefContext ctx);
+	void enterVarRef(ALEParser.VarRefContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code VarRef}
 	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitVarRef(@NotNull ALEParser.VarRefContext ctx);
-
+	void exitVarRef(ALEParser.VarRefContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ClassifierType}
-	 * labeled alternative in {@link ALEParser#classifierTypeRule}.
+	 * Enter a parse tree produced by the {@code Add}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterClassifierType(@NotNull ALEParser.ClassifierTypeContext ctx);
+	void enterAdd(ALEParser.AddContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ClassifierType}
-	 * labeled alternative in {@link ALEParser#classifierTypeRule}.
+	 * Exit a parse tree produced by the {@code Add}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitClassifierType(@NotNull ALEParser.ClassifierTypeContext ctx);
-
+	void exitAdd(ALEParser.AddContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code SeqType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * Enter a parse tree produced by the {@code Nav}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterSeqType(@NotNull ALEParser.SeqTypeContext ctx);
+	void enterNav(ALEParser.NavContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code SeqType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * Exit a parse tree produced by the {@code Nav}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitSeqType(@NotNull ALEParser.SeqTypeContext ctx);
-
+	void exitNav(ALEParser.NavContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ALEParser#rClass}.
+	 * Enter a parse tree produced by the {@code Or}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterRClass(@NotNull ALEParser.RClassContext ctx);
+	void enterOr(ALEParser.OrContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ALEParser#rClass}.
+	 * Exit a parse tree produced by the {@code Or}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitRClass(@NotNull ALEParser.RClassContext ctx);
-
+	void exitOr(ALEParser.OrContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ALEParser#expressionSequence}.
+	 * Enter a parse tree produced by the {@code LetExpr}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpressionSequence(@NotNull ALEParser.ExpressionSequenceContext ctx);
+	void enterLetExpr(ALEParser.LetExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ALEParser#expressionSequence}.
+	 * Exit a parse tree produced by the {@code LetExpr}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpressionSequence(@NotNull ALEParser.ExpressionSequenceContext ctx);
-
+	void exitLetExpr(ALEParser.LetExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code IntType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * Enter a parse tree produced by the {@code Conditional}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterIntType(@NotNull ALEParser.IntTypeContext ctx);
+	void enterConditional(ALEParser.ConditionalContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code IntType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * Exit a parse tree produced by the {@code Conditional}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitIntType(@NotNull ALEParser.IntTypeContext ctx);
-
+	void exitConditional(ALEParser.ConditionalContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code EnumLit}
-	 * labeled alternative in {@link ALEParser#literal}.
+	 * Enter a parse tree produced by the {@code Comp}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterEnumLit(@NotNull ALEParser.EnumLitContext ctx);
+	void enterComp(ALEParser.CompContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code EnumLit}
-	 * labeled alternative in {@link ALEParser#literal}.
+	 * Exit a parse tree produced by the {@code Comp}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitEnumLit(@NotNull ALEParser.EnumLitContext ctx);
-
+	void exitComp(ALEParser.CompContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ALEParser#rOperation}.
+	 * Enter a parse tree produced by the {@code Not}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterROperation(@NotNull ALEParser.ROperationContext ctx);
+	void enterNot(ALEParser.NotContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ALEParser#rOperation}.
+	 * Exit a parse tree produced by the {@code Not}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitROperation(@NotNull ALEParser.ROperationContext ctx);
-
+	void exitNot(ALEParser.NotContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ALEParser#rVariable}.
+	 * Enter a parse tree produced by the {@code Min}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterRVariable(@NotNull ALEParser.RVariableContext ctx);
+	void enterMin(ALEParser.MinContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ALEParser#rVariable}.
+	 * Exit a parse tree produced by the {@code Min}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitRVariable(@NotNull ALEParser.RVariableContext ctx);
-
+	void exitMin(ALEParser.MinContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ALEParser#rOpposite}.
+	 * Enter a parse tree produced by the {@code Implies}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterROpposite(@NotNull ALEParser.ROppositeContext ctx);
+	void enterImplies(ALEParser.ImpliesContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ALEParser#rOpposite}.
+	 * Exit a parse tree produced by the {@code Implies}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitROpposite(@NotNull ALEParser.ROppositeContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code RealLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterRealLit(@NotNull ALEParser.RealLitContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code RealLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitRealLit(@NotNull ALEParser.RealLitContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rCardinality}.
-	 * @param ctx the parse tree
-	 */
-	void enterRCardinality(@NotNull ALEParser.RCardinalityContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rCardinality}.
-	 * @param ctx the parse tree
-	 */
-	void exitRCardinality(@NotNull ALEParser.RCardinalityContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code ExplicitSetLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterExplicitSetLit(@NotNull ALEParser.ExplicitSetLitContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ExplicitSetLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitExplicitSetLit(@NotNull ALEParser.ExplicitSetLitContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code ErrorClassifierType}
-	 * labeled alternative in {@link ALEParser#classifierTypeRule}.
-	 * @param ctx the parse tree
-	 */
-	void enterErrorClassifierType(@NotNull ALEParser.ErrorClassifierTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ErrorClassifierType}
-	 * labeled alternative in {@link ALEParser#classifierTypeRule}.
-	 * @param ctx the parse tree
-	 */
-	void exitErrorClassifierType(@NotNull ALEParser.ErrorClassifierTypeContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rWhile}.
-	 * @param ctx the parse tree
-	 */
-	void enterRWhile(@NotNull ALEParser.RWhileContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rWhile}.
-	 * @param ctx the parse tree
-	 */
-	void exitRWhile(@NotNull ALEParser.RWhileContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code ServiceCall}
-	 * labeled alternative in {@link ALEParser#callExp}.
-	 * @param ctx the parse tree
-	 */
-	void enterServiceCall(@NotNull ALEParser.ServiceCallContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ServiceCall}
-	 * labeled alternative in {@link ALEParser#callExp}.
-	 * @param ctx the parse tree
-	 */
-	void exitServiceCall(@NotNull ALEParser.ServiceCallContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rBlock}.
-	 * @param ctx the parse tree
-	 */
-	void enterRBlock(@NotNull ALEParser.RBlockContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rBlock}.
-	 * @param ctx the parse tree
-	 */
-	void exitRBlock(@NotNull ALEParser.RBlockContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#addOp}.
-	 * @param ctx the parse tree
-	 */
-	void enterAddOp(@NotNull ALEParser.AddOpContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#addOp}.
-	 * @param ctx the parse tree
-	 */
-	void exitAddOp(@NotNull ALEParser.AddOpContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code BooleanType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void enterBooleanType(@NotNull ALEParser.BooleanTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code BooleanType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void exitBooleanType(@NotNull ALEParser.BooleanTypeContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code ClsType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void enterClsType(@NotNull ALEParser.ClsTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ClsType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void exitClsType(@NotNull ALEParser.ClsTypeContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code StrType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void enterStrType(@NotNull ALEParser.StrTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code StrType}
-	 * labeled alternative in {@link ALEParser#typeLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void exitStrType(@NotNull ALEParser.StrTypeContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rCollection}.
-	 * @param ctx the parse tree
-	 */
-	void enterRCollection(@NotNull ALEParser.RCollectionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rCollection}.
-	 * @param ctx the parse tree
-	 */
-	void exitRCollection(@NotNull ALEParser.RCollectionContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#compOp}.
-	 * @param ctx the parse tree
-	 */
-	void enterCompOp(@NotNull ALEParser.CompOpContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#compOp}.
-	 * @param ctx the parse tree
-	 */
-	void exitCompOp(@NotNull ALEParser.CompOpContext ctx);
-
+	void exitImplies(ALEParser.ImpliesContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Mult}
 	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterMult(@NotNull ALEParser.MultContext ctx);
+	void enterMult(ALEParser.MultContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code Mult}
 	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitMult(@NotNull ALEParser.MultContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rExpressionStmt}.
-	 * @param ctx the parse tree
-	 */
-	void enterRExpressionStmt(@NotNull ALEParser.RExpressionStmtContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rExpressionStmt}.
-	 * @param ctx the parse tree
-	 */
-	void exitRExpressionStmt(@NotNull ALEParser.RExpressionStmtContext ctx);
-
+	void exitMult(ALEParser.MultContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Lit}
 	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterLit(@NotNull ALEParser.LitContext ctx);
+	void enterLit(ALEParser.LitContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code Lit}
 	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitLit(@NotNull ALEParser.LitContext ctx);
-
+	void exitLit(ALEParser.LitContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ALEParser#rAssign}.
+	 * Enter a parse tree produced by the {@code And}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterRAssign(@NotNull ALEParser.RAssignContext ctx);
+	void enterAnd(ALEParser.AndContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ALEParser#rAssign}.
+	 * Exit a parse tree produced by the {@code And}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitRAssign(@NotNull ALEParser.RAssignContext ctx);
-
+	void exitAnd(ALEParser.AndContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ALEParser#rImport}.
+	 * Enter a parse tree produced by the {@code Xor}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterRImport(@NotNull ALEParser.RImportContext ctx);
+	void enterXor(ALEParser.XorContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ALEParser#rImport}.
+	 * Exit a parse tree produced by the {@code Xor}
+	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitRImport(@NotNull ALEParser.RImportContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code CollectionCall}
-	 * labeled alternative in {@link ALEParser#navigationSegment}.
-	 * @param ctx the parse tree
-	 */
-	void enterCollectionCall(@NotNull ALEParser.CollectionCallContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code CollectionCall}
-	 * labeled alternative in {@link ALEParser#navigationSegment}.
-	 * @param ctx the parse tree
-	 */
-	void exitCollectionCall(@NotNull ALEParser.CollectionCallContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code IterationCall}
-	 * labeled alternative in {@link ALEParser#callExp}.
-	 * @param ctx the parse tree
-	 */
-	void enterIterationCall(@NotNull ALEParser.IterationCallContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code IterationCall}
-	 * labeled alternative in {@link ALEParser#callExp}.
-	 * @param ctx the parse tree
-	 */
-	void exitIterationCall(@NotNull ALEParser.IterationCallContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rTag}.
-	 * @param ctx the parse tree
-	 */
-	void enterRTag(@NotNull ALEParser.RTagContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rTag}.
-	 * @param ctx the parse tree
-	 */
-	void exitRTag(@NotNull ALEParser.RTagContext ctx);
-
-	/**
-	 * Enter a parse tree produced by {@link ALEParser#rParameters}.
-	 * @param ctx the parse tree
-	 */
-	void enterRParameters(@NotNull ALEParser.RParametersContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ALEParser#rParameters}.
-	 * @param ctx the parse tree
-	 */
-	void exitRParameters(@NotNull ALEParser.RParametersContext ctx);
-
-	/**
-	 * Enter a parse tree produced by the {@code ErrorStringLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterErrorStringLit(@NotNull ALEParser.ErrorStringLitContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ErrorStringLit}
-	 * labeled alternative in {@link ALEParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitErrorStringLit(@NotNull ALEParser.ErrorStringLitContext ctx);
-
+	void exitXor(ALEParser.XorContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Paren}
 	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterParen(@NotNull ALEParser.ParenContext ctx);
+	void enterParen(ALEParser.ParenContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code Paren}
 	 * labeled alternative in {@link ALEParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitParen(@NotNull ALEParser.ParenContext ctx);
+	void exitParen(ALEParser.ParenContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#binding}.
+	 * @param ctx the parse tree
+	 */
+	void enterBinding(ALEParser.BindingContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#binding}.
+	 * @param ctx the parse tree
+	 */
+	void exitBinding(ALEParser.BindingContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#addOp}.
+	 * @param ctx the parse tree
+	 */
+	void enterAddOp(ALEParser.AddOpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#addOp}.
+	 * @param ctx the parse tree
+	 */
+	void exitAddOp(ALEParser.AddOpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#compOp}.
+	 * @param ctx the parse tree
+	 */
+	void enterCompOp(ALEParser.CompOpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#compOp}.
+	 * @param ctx the parse tree
+	 */
+	void exitCompOp(ALEParser.CompOpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Feature}
+	 * labeled alternative in {@link ALEParser#navigationSegment}.
+	 * @param ctx the parse tree
+	 */
+	void enterFeature(ALEParser.FeatureContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Feature}
+	 * labeled alternative in {@link ALEParser#navigationSegment}.
+	 * @param ctx the parse tree
+	 */
+	void exitFeature(ALEParser.FeatureContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CallOrApply}
+	 * labeled alternative in {@link ALEParser#navigationSegment}.
+	 * @param ctx the parse tree
+	 */
+	void enterCallOrApply(ALEParser.CallOrApplyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CallOrApply}
+	 * labeled alternative in {@link ALEParser#navigationSegment}.
+	 * @param ctx the parse tree
+	 */
+	void exitCallOrApply(ALEParser.CallOrApplyContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CollectionCall}
+	 * labeled alternative in {@link ALEParser#navigationSegment}.
+	 * @param ctx the parse tree
+	 */
+	void enterCollectionCall(ALEParser.CollectionCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CollectionCall}
+	 * labeled alternative in {@link ALEParser#navigationSegment}.
+	 * @param ctx the parse tree
+	 */
+	void exitCollectionCall(ALEParser.CollectionCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IterationCall}
+	 * labeled alternative in {@link ALEParser#callExp}.
+	 * @param ctx the parse tree
+	 */
+	void enterIterationCall(ALEParser.IterationCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IterationCall}
+	 * labeled alternative in {@link ALEParser#callExp}.
+	 * @param ctx the parse tree
+	 */
+	void exitIterationCall(ALEParser.IterationCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ServiceCall}
+	 * labeled alternative in {@link ALEParser#callExp}.
+	 * @param ctx the parse tree
+	 */
+	void enterServiceCall(ALEParser.ServiceCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ServiceCall}
+	 * labeled alternative in {@link ALEParser#callExp}.
+	 * @param ctx the parse tree
+	 */
+	void exitServiceCall(ALEParser.ServiceCallContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#lambdaExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterLambdaExpression(ALEParser.LambdaExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#lambdaExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitLambdaExpression(ALEParser.LambdaExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#collectionIterator}.
+	 * @param ctx the parse tree
+	 */
+	void enterCollectionIterator(ALEParser.CollectionIteratorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#collectionIterator}.
+	 * @param ctx the parse tree
+	 */
+	void exitCollectionIterator(ALEParser.CollectionIteratorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#expressionSequence}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionSequence(ALEParser.ExpressionSequenceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#expressionSequence}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionSequence(ALEParser.ExpressionSequenceContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ALEParser#variableDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableDefinition(ALEParser.VariableDefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ALEParser#variableDefinition}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableDefinition(ALEParser.VariableDefinitionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StringLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterStringLit(ALEParser.StringLitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StringLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitStringLit(ALEParser.StringLitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ErrorStringLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterErrorStringLit(ALEParser.ErrorStringLitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ErrorStringLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitErrorStringLit(ALEParser.ErrorStringLitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IntegerLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntegerLit(ALEParser.IntegerLitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IntegerLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntegerLit(ALEParser.IntegerLitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code RealLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterRealLit(ALEParser.RealLitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code RealLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitRealLit(ALEParser.RealLitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrueLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrueLit(ALEParser.TrueLitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrueLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrueLit(ALEParser.TrueLitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FalseLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterFalseLit(ALEParser.FalseLitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FalseLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitFalseLit(ALEParser.FalseLitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NullLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterNullLit(ALEParser.NullLitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NullLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitNullLit(ALEParser.NullLitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ExplicitSeqLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterExplicitSeqLit(ALEParser.ExplicitSeqLitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExplicitSeqLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitExplicitSeqLit(ALEParser.ExplicitSeqLitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ExplicitSetLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterExplicitSetLit(ALEParser.ExplicitSetLitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExplicitSetLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitExplicitSetLit(ALEParser.ExplicitSetLitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code EnumLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterEnumLit(ALEParser.EnumLitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code EnumLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitEnumLit(ALEParser.EnumLitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ErrorEnumLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterErrorEnumLit(ALEParser.ErrorEnumLitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ErrorEnumLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitErrorEnumLit(ALEParser.ErrorEnumLitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TypeLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypeLit(ALEParser.TypeLitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TypeLit}
+	 * labeled alternative in {@link ALEParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypeLit(ALEParser.TypeLitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StrType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterStrType(ALEParser.StrTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StrType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitStrType(ALEParser.StrTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IntType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterIntType(ALEParser.IntTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IntType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitIntType(ALEParser.IntTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code RealType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterRealType(ALEParser.RealTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code RealType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitRealType(ALEParser.RealTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BooleanType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleanType(ALEParser.BooleanTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BooleanType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleanType(ALEParser.BooleanTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SeqType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterSeqType(ALEParser.SeqTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SeqType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitSeqType(ALEParser.SeqTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SetType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterSetType(ALEParser.SetTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SetType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitSetType(ALEParser.SetTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ClsType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterClsType(ALEParser.ClsTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ClsType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitClsType(ALEParser.ClsTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ClassifierSetType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterClassifierSetType(ALEParser.ClassifierSetTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ClassifierSetType}
+	 * labeled alternative in {@link ALEParser#typeLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitClassifierSetType(ALEParser.ClassifierSetTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ClassifierType}
+	 * labeled alternative in {@link ALEParser#classifierTypeRule}.
+	 * @param ctx the parse tree
+	 */
+	void enterClassifierType(ALEParser.ClassifierTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ClassifierType}
+	 * labeled alternative in {@link ALEParser#classifierTypeRule}.
+	 * @param ctx the parse tree
+	 */
+	void exitClassifierType(ALEParser.ClassifierTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ErrorClassifierType}
+	 * labeled alternative in {@link ALEParser#classifierTypeRule}.
+	 * @param ctx the parse tree
+	 */
+	void enterErrorClassifierType(ALEParser.ErrorClassifierTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ErrorClassifierType}
+	 * labeled alternative in {@link ALEParser#classifierTypeRule}.
+	 * @param ctx the parse tree
+	 */
+	void exitErrorClassifierType(ALEParser.ErrorClassifierTypeContext ctx);
 }
