@@ -34,7 +34,7 @@ The [Eclipse IDE for Java and DSL developers](https://www.eclipse.org/downloads/
 
 ### How do I open the projects in Eclipse IDE?
 
-The projects can be imported from Eclipse IDE:
+The easiest way is to import ALE's project set as described in the [README](README.md#Contributing). The projects can also be imported manually:
 
 1. `File` > `Import...`
 2. `Existing Projects into Workspace`

@@ -89,13 +89,31 @@ ALE can be installed from its update site: http://www.kermeta.org/ale-lang/updat
 ## Contributing
 
 <details>
+  <summary><b>Requirements</b></summary>
+
+  - [Maven 3.x](https://maven.apache.org/download.cgi)
+  - [Java 8 JDK](https://adoptopenjdk.net/upstream.html)
+  - [Eclipse IDE for DSL Developers](https://www.eclipse.org/downloads/packages/) (latest release)
+</details>
+
+<details>
+  <summary><b>Import the projects in the IDE</b></summary>
+
+  1. *File > Import... > Team > Team Project Set*
+  2. Fill *URL* with "https://raw.githubusercontent.com/gemoc/ale-lang/master/eclipse-projectSet.psf"
+  3. Click on *Finish*
+
+  > Tip: use Working Sets for a better workspace organization:  
+  > - Open *Project Explorer*'s menu >  *Top Level Elements* > *Working Sets*
+  > - Open *Project Explorer*'s menu >  *Select Working Sets* > Check "examples", "features", "plugins", "tests" and "releng"
+</details>
+
+<details>
   <summary><b>Setup your dev environment</b></summary>
 
-  1. Clone the repository `git clone https://github.com/gemoc/ale-lang.git`
-  2. Import all projects in Eclipse IDE
-  3. Open the `releng/*.target/*.target` file
-  4. Click on *Set as Target Platform*
-  5. Wait for dependencies to be loaded
+  1. Open the `org.eclipse.emf.ecoretools.ale.target-platform/org.eclipse.emf.ecoretools.ale.target-platform.target` file
+  2. Click on *Set as Target Platform*
+  3. Wait for dependencies to be loaded (may take a while)
 </details>
 
 <details>
