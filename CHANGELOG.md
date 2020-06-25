@@ -45,6 +45,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [] - 2019-12-08
 ### Changed
+- [#26](https://github.com/gemoc/ale-lang/issues/26) Use `ecore` and `ale` keys instead of `syntax` and `semantics` in *.dsl* files **[breaking change]**
 - [#56](https://github.com/gemoc/ale-lang/issues/56) The interpreter now affects a default value to variables declared without an initial one
 
 ### Fixed
