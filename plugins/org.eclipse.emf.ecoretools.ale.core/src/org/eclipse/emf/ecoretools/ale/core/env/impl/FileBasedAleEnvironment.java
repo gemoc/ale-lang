@@ -46,8 +46,8 @@ import org.eclipse.emf.ecoretools.ale.core.io.IOResources;
 //		      the .dsl file in the constructor
 public final class FileBasedAleEnvironment extends AbstractAleEnvironment {
 	
-	public static final String BEHAVIORS_KEY = "behavior";
-	public static final String METAMODELS_KEY = "syntax";
+	public static final String BEHAVIORS_KEY = "ale";
+	public static final String METAMODELS_KEY = "ecore";
 	
 	private File platformFile;
 	private IFile workspaceFile;
