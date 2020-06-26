@@ -1,0 +1,10 @@
+behavior openEnum;
+
+open class MyEnum {
+
+	@main
+	def void main() {
+		String str := self;
+	}
+
+}

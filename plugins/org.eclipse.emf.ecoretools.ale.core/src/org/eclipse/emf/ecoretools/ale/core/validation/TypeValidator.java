@@ -53,7 +53,6 @@ import org.eclipse.emf.ecoretools.ale.implementation.VariableDeclaration;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
 import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.While;
-import org.eclipse.osgi.service.environment.EnvironmentInfo;
 
 import com.google.common.base.Objects;
 
@@ -119,19 +118,21 @@ public class TypeValidator implements IValidator {
 			msgs.add(messages.extendingItself(xtdClass));
 		}
 		EClass baseCls = xtdClass.getBaseClass();
-		EList<EClass> superTypes = baseCls.getESuperTypes();
-		
-		List<EClass> extendsBaseClasses =
-				xtdClass
-				.getExtends()
-				.stream()
-				.map(xtd -> xtd.getBaseClass())
-				.collect(toList());
-		
-		extendsBaseClasses.stream()
-						  .filter(noneOf(superTypes, baseCls))
-						  .map(superBase -> messages.indirectExtension(xtdClass, superBase, baseCls))
-						  .forEach(msgs::add);
+		if (baseCls != null) {
+			EList<EClass> superTypes = baseCls.getESuperTypes();
+			
+			List<EClass> extendsBaseClasses =
+					xtdClass
+					.getExtends()
+					.stream()
+					.map(xtd -> xtd.getBaseClass())
+					.collect(toList());
+			
+			extendsBaseClasses.stream()
+							  .filter(noneOf(superTypes, baseCls))
+							  .map(superBase -> messages.indirectExtension(xtdClass, superBase, baseCls))
+							  .forEach(msgs::add);
+		}
 		return msgs;
 	}
 

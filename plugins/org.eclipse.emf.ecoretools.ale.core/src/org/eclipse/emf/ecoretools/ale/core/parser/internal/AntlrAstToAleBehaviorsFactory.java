@@ -559,6 +559,8 @@ public class AntlrAstToAleBehaviorsFactory {
 			.stream()
 			.filter(cls -> !cls.getEPackage().getName().equals("implementation"))
 			.filter(cls -> cls.getName().equals(className))
+			// FIXME Should return all candidates to outline the fact that namesakes
+			// 		 have been found & allow to address the issue thereafter in validators
 			.findFirst();
 		
 		if(candidate.isPresent())

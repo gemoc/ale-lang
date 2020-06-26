@@ -47,7 +47,8 @@ public class OpenClassValidator implements IValidator {
 	
 	public static final String OPENCLASS_DUPLICATION = "The EClass %s is already opened (need explicit extends)";
 	public static final String EXTENDS_ORDER = "The extended EClass %s have to be after %s";
-	public static final String NOT_AN_OPENABLE_CLASS = "Cannot open class %s: the class must be defined in an Ecore metamodel";
+	public static final String NOT_AN_OPENABLE_CLASS = "Cannot open \"%s\": make sure it is an EClass (an not e.g. an EEnum)";
+	public static final String OPENING_A_NON_EXISTING_CLASS = "Cannot open class %s: the class must be defined in an Ecore metamodel";
 	public static final String OPENED_CLASS_HAS_NAMESAKE = "Opening %s, which has namesakes. Make sure you're opening the right class.\n" +
 														   " - Opened: %s\n" +
 														   " - Namesakes: %s";
@@ -109,33 +110,42 @@ public class OpenClassValidator implements IValidator {
 		}
 		EClass base = xtdClass.getBaseClass();
 		
-		validateExtendedClassHasNoNamesake(xtdClass, msgs);
-		validateExtendedClassExists(xtdClass, base, msgs);
-		
-		EList<EClass> superTypes = base.getESuperTypes();
-		List<EClass> extendsBaseClasses =
-			xtdClass
-			.getExtends()
-			.stream()
-			.map(xtd -> xtd.getBaseClass())
-			.collect(Collectors.toList());
-		
-		int upperIndex = -1;
-		for(EClass superType : superTypes) {
-			int currentIndex = extendsBaseClasses.indexOf(superType);
-			if(currentIndex != -1 && currentIndex <=  upperIndex) {
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(EXTENDS_ORDER, superType.getName(), extendsBaseClasses.get(upperIndex).getName()),
-						this.base.getStartOffset(xtdClass),
-						this.base.getEndOffset(xtdClass)
-						));
-			}
-			else {
-				upperIndex = currentIndex;
+		if (base == null) {
+			msgs.add(new ValidationMessage(
+					ValidationMessageLevel.ERROR,
+					String.format(NOT_AN_OPENABLE_CLASS, xtdClass.getName()),
+					this.base.getStartOffset(xtdClass),
+					this.base.getStartOffset(xtdClass) + "open class ".length() + xtdClass.getName().length()
+			));
+		}
+		else {
+			validateExtendedClassHasNoNamesake(xtdClass, msgs);
+			validateExtendedClassExists(xtdClass, base, msgs);
+			
+			EList<EClass> superTypes = base.getESuperTypes();
+			List<EClass> extendsBaseClasses =
+				xtdClass
+				.getExtends()
+				.stream()
+				.map(xtd -> xtd.getBaseClass())
+				.collect(Collectors.toList());
+			
+			int upperIndex = -1;
+			for(EClass superType : superTypes) {
+				int currentIndex = extendsBaseClasses.indexOf(superType);
+				if(currentIndex != -1 && currentIndex <=  upperIndex) {
+					msgs.add(new ValidationMessage(
+							ValidationMessageLevel.ERROR,
+							String.format(EXTENDS_ORDER, superType.getName(), extendsBaseClasses.get(upperIndex).getName()),
+							this.base.getStartOffset(xtdClass),
+							this.base.getEndOffset(xtdClass)
+							));
+				}
+				else {
+					upperIndex = currentIndex;
+				}
 			}
 		}
-		
 		return msgs;
 	}
 
@@ -144,7 +154,7 @@ public class OpenClassValidator implements IValidator {
 		if (baseClassDoesntExist) {
 			msgs.add(new ValidationMessage(
 					ValidationMessageLevel.ERROR,
-					String.format(NOT_AN_OPENABLE_CLASS, xtdClass.getName()),
+					String.format(OPENING_A_NON_EXISTING_CLASS, xtdClass.getName()),
 					this.base.getStartOffset(xtdClass),
 					this.base.getStartOffset(xtdClass) + "open class ".length() + xtdClass.getName().length()
 			));
