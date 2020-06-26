@@ -29,6 +29,7 @@ import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
 import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment
+import org.eclipse.emf.ecoretools.AleXtextPlugin
 
 /**
  * Delegate validation to ALE validator
@@ -75,7 +76,18 @@ class AleValidator extends AbstractAleValidator {
 				marker.setAttribute(IMarker.CHAR_END, msg.endPosition);
 			]
 		}
-		finally {dsl.close}
+		catch (Exception e) {
+			val marker = aleFile.createMarker(ALE_MARKER)
+			marker.setAttribute(IMarker.MESSAGE, "An internal error occurred while validating the file: " + e.message)
+			marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR)
+			marker.setAttribute(IMarker.CHAR_START, 0)
+			marker.setAttribute(IMarker.CHAR_END, 0)
+			
+			AleXtextPlugin.error("An internal error occurred while validating " + aleFile, e)
+		}
+		finally {
+			dsl.close()
+		}
 		
 	}
 	
