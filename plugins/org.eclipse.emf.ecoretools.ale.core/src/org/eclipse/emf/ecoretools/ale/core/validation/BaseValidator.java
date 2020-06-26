@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EParameter;
+import org.eclipse.emf.ecoretools.ale.core.Activator;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.Scopes;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.Scopes.Scope;
@@ -57,6 +58,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.FeatureInsert;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
+import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
@@ -108,6 +110,12 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 
 	protected IAleEnvironment environment;
 	
+	/**
+	 * 
+	 * @param environment
+	 * @param validators
+	 * 			All validators. Calls to validate method are made resilient to exceptions.
+	 */
 	public BaseValidator(IAleEnvironment environment, List<IValidator> validators) {
 		this.environment = environment;
 		this.qryEnv = environment.getContext();
@@ -117,7 +125,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		this.scopes = new StackedScopes();
 		this.validators = new ArrayList<>();
 		validators.forEach(validator -> {
-			this.validators.add(validator);
+			this.validators.add(new SafeValidator(validator));
 			validator.setBase(this);
 		});
 	}
@@ -146,7 +154,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		roots.forEach(root -> {
 			this.currentModel = root;
 			this.scopes.clear();
-			doSwitch(currentModel.getRoot());
+			doSwitchSafely(currentModel.getRoot());
 		});
 		
 		return msgs;
@@ -158,11 +166,11 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateModelUnit(root)));
 		
 		for(ExtendedClass xtdClass : root.getClassExtensions()){
-			doSwitch(xtdClass);
+			doSwitchSafely(xtdClass);
 		}
 		
 		for(RuntimeClass xtdClass : root.getClassDefinitions()){
-			doSwitch(xtdClass);
+			doSwitchSafely(xtdClass);
 		}
 		
 		return null;
@@ -178,14 +186,17 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			}
 			validators.stream().forEach(validator -> msgs.addAll(validator.validateExtendedClass(xtdClass)));
 			
-			
-			Set<IType> selfTypeSet = new HashSet<>();
-			EClassifierType selfType = new EClassifierType(qryEnv, xtdClass.getBaseClass());
-			selfTypeSet.add(selfType);
-			classScope.putTypes("self", selfTypeSet);
+			EClassifierType selfType;
+			if (xtdClass.getBaseClass() == null) {
+				selfType = new EClassifierType(qryEnv, ImplementationPackage.eINSTANCE.getUnresolvedEClassifier());
+			}
+			else {
+				selfType = new EClassifierType(qryEnv, xtdClass.getBaseClass());
+			}
+			classScope.putTypes("self", Sets.newHashSet(selfType));
 	
 			for (Method operation : xtdClass.getMethods()) {
-				doSwitch(operation);
+				doSwitchSafely(operation);
 			}
 		}
 		return null;
@@ -214,7 +225,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 				classScope.putTypes("self", selfTypeSet);
 			}
 			for (Method operation : runtimeCls.getMethods()) {
-				doSwitch(operation);
+				doSwitchSafely(operation);
 			}
 		}
 		return null;
@@ -250,7 +261,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 					methodScope.putTypes("result", Sets.newHashSet(returnType));
 				}
 			}
-			doSwitch(mtd.getBody());
+			doSwitchSafely(mtd.getBody());
 		}
 		return null;
 	}
@@ -260,7 +271,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		try (Scope blockScope = scopes.pushNew()) {
 			blockContexts.put(block, blockScope);
 			for(Statement stmt: block.getStatements()){
-				doSwitch(stmt);
+				doSwitchSafely(stmt);
 			}
 		}
 		return null;
@@ -312,7 +323,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		
 		try (Scope loopScope = scopes.pushNew()) {
 			loopScope.putTypes(loop.getVariable(), getPossibleCollectionTypes(loop.getCollectionExpression()));
-			doSwitch(loop.getBody());
+			doSwitchSafely(loop.getBody());
 		}
 		return null;
 	}
@@ -337,7 +348,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 						blockScope.putTypes(vartype.getKey(), vartype.getValue());
 					}
 				}
-				doSwitch(cBlock.getBlock());
+				doSwitchSafely(cBlock.getBlock());
 			}
 		}
 		
@@ -367,7 +378,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 				for (Entry<String, Set<IType>> vartype : vartypes.entrySet()) {
 					elseScope.putTypes(vartype.getKey(), vartype.getValue());
 				}
-				doSwitch(ifStmt.getElse());
+				doSwitchSafely(ifStmt.getElse());
 			}
 		}
 		return null;
@@ -436,9 +447,18 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 					loopScope.putTypes(vartype.getKey(), vartype.getValue());
 				}
 			}
-			doSwitch(loop.getBody());
+			doSwitchSafely(loop.getBody());
 		}
 		return null;
+	}
+	
+	private void doSwitchSafely(EObject object) {
+		try {
+			doSwitch(object);
+		}
+		catch (Exception e) {
+			Activator.error("An internal error occurred while validating switching on: " + object, e);
+		}
 	}
 
 	public Map<String, Set<IType>> getCurrentScope() {
@@ -483,6 +503,9 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		
 		if ( ! scopes.isEmpty()) {
 			Set<IType> inferredTypes = expValidation.getPossibleTypes(exp);
+			if (inferredTypes == null) {
+				inferredTypes = new HashSet<>();
+			}
 			scopes.getCurrent().putTypes(exp, inferredTypes);
 		}
 	}
@@ -534,6 +557,8 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			allModels
 			.stream()
 			.flatMap(m -> m.getRoot().getClassExtensions().stream())
+			// base class can be null when X match no existing class in "open class X"
+			.filter(xtdCls -> xtdCls.getBaseClass() != null)
 			.filter(xtdCls -> xtdCls.getBaseClass().isSuperTypeOf(realType))
 			.collect(Collectors.toList());
 	}

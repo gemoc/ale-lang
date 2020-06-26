@@ -133,48 +133,49 @@ public class NameValidator implements IValidator {
 		//TODO: check cycles in 'extends'
 		msgs.addAll(validateBehavioredClass(xtdClass));
 		
-		/*
-		 * Check name of base class attributes
-		 */
-		List<String> declarations = 
+		if (xtdClass.getBaseClass() != null) {
+			/*
+			 * Check name of base class attributes
+			 */
+			List<String> declarations = 
+				xtdClass
+				.getBaseClass()
+				.getEAllStructuralFeatures()
+				.stream().map(s -> s.getName())
+				.collect(Collectors.toList());
 			xtdClass
-			.getBaseClass()
-			.getEAllStructuralFeatures()
-			.stream().map(s -> s.getName())
-			.collect(Collectors.toList());
-		xtdClass
-		.getAttributes()
-		.stream()
-		.forEach(att -> {
-			String name = att.getFeatureRef().getName();
-			if(declarations.contains(name)) {
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(NAME_ALREADY_USED, name),
-						base.getStartOffset(att),
-						base.getEndOffset(att)
-						));
-			}
-		});
-		
-		/*
-		 * Check def methods must not override
-		 */
-		EList<EOperation> allEOperations = xtdClass.getBaseClass().getEAllOperations();
-		for (Method mtd : xtdClass.getMethods()) {
-			EOperation opRef = mtd.getOperationRef();
-			if(opRef!= null && opRef.getEContainingClass() != xtdClass.getBaseClass()) {
-				if(allEOperations.stream().anyMatch(op -> isMatching(opRef, op))){
+			.getAttributes()
+			.stream()
+			.forEach(att -> {
+				String name = att.getFeatureRef().getName();
+				if(declarations.contains(name)) {
 					msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(OP_MUST_OVERRIDE, getSignature(mtd)),
-						base.getStartOffset(mtd),
-						base.getEndOffset(mtd)
-						));
+							ValidationMessageLevel.ERROR,
+							String.format(NAME_ALREADY_USED, name),
+							base.getStartOffset(att),
+							base.getEndOffset(att)
+							));
+				}
+			});
+			
+			/*
+			 * Check def methods must not override
+			 */
+			EList<EOperation> allEOperations = xtdClass.getBaseClass().getEAllOperations();
+			for (Method mtd : xtdClass.getMethods()) {
+				EOperation opRef = mtd.getOperationRef();
+				if(opRef!= null && opRef.getEContainingClass() != xtdClass.getBaseClass()) {
+					if(allEOperations.stream().anyMatch(op -> isMatching(opRef, op))){
+						msgs.add(new ValidationMessage(
+							ValidationMessageLevel.ERROR,
+							String.format(OP_MUST_OVERRIDE, getSignature(mtd)),
+							base.getStartOffset(mtd),
+							base.getEndOffset(mtd)
+							));
+					}
 				}
 			}
 		}
-		
 		return msgs;
 	}
 	

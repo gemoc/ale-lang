@@ -120,4 +120,16 @@ public class OpenClassValidationTest {
 		assertTrue("Opening a locally defined class should not raise any error", msg.isEmpty());
 	}
 	
+	@Test
+	public void testOpeningEnumShouldShowAnError() {
+		env = IAleEnvironment.fromPaths(asList("model/test.ecore"),asList("input/validation/openingEnum.implem"));
+		ALEValidator validator = new ALEValidator(env);
+		validator.validate(env.getBehaviors().getParsedFiles());
+		List<IValidationMessage> msg = validator.getMessages();
+		
+		assertEquals(2, msg.size());
+		assertMsgEquals(ValidationMessageLevel.ERROR, 22, 39, "Cannot open \"MyEnum\": make sure it is an EClass (an not e.g. an EEnum)", msg.get(0));
+		assertMsgEquals(ValidationMessageLevel.ERROR, 75, 93, "Type mismatch: cannot assign [implementation::UnresolvedEClassifier] to [ecore::EString]", msg.get(1));
+	}
+	
 }

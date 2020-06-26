@@ -186,6 +186,8 @@ public final class AstLookup implements IAstLookup {
 			env.getBehaviors().getParsedFiles()
 			.stream()
 			.flatMap(m -> m.getRoot().getClassExtensions().stream())
+			// base class can be null when X match no existing class in "open class X"
+			.filter(xtdCls -> xtdCls.getBaseClass() != null)
 			.filter(xtdCls -> xtdCls.getBaseClass().isSuperTypeOf(realType))
 			.collect(Collectors.toList());
 	}
