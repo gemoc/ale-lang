@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecoretools.ale.core.Activator;
-import org.eclipse.emf.ecoretools.ale.core.diagnostics.AssignmentToSelf;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.ProhibitedAssignmentToSelf;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.AttributeNotFound;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.CodeLocation;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.Context;
@@ -26,7 +26,7 @@ import org.eclipse.emf.ecoretools.ale.core.diagnostics.Operator;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeMismatch;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeNotFound;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.UnsupportedOperator;
-import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableAlreadyBound;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableAlreadyDefined;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableNotFound;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.env.IBehaviors;
@@ -87,7 +87,7 @@ public class MessageToDiagnosticAdapter {
 		duplicateLocation.setLine(getLine(duplicate));
 		duplicateLocation.setSource(getFile(duplicate).orElse(""));
 		
-		VariableAlreadyBound unexpected = DiagnosticsFactory.eINSTANCE.createVariableAlreadyBound();
+		VariableAlreadyDefined unexpected = DiagnosticsFactory.eINSTANCE.createVariableAlreadyDefined();
 		unexpected.setName(source.getVariable());
 		unexpected.setSource(source);
 		unexpected.setContext(context);
@@ -112,7 +112,7 @@ public class MessageToDiagnosticAdapter {
 		duplicateLocation.setLine(getLine(duplicate));
 		duplicateLocation.setSource(getFile(duplicate).orElse(""));
 		
-		VariableAlreadyBound unexpected = DiagnosticsFactory.eINSTANCE.createVariableAlreadyBound();
+		VariableAlreadyDefined unexpected = DiagnosticsFactory.eINSTANCE.createVariableAlreadyDefined();
 		unexpected.setName(source.getName());
 		unexpected.setSource(source);
 		unexpected.setContext(context);
@@ -132,7 +132,7 @@ public class MessageToDiagnosticAdapter {
 		Context context = DiagnosticsFactory.eINSTANCE.createContext();
 		context.setScopes(scopes);
 		
-		AssignmentToSelf unexpected = DiagnosticsFactory.eINSTANCE.createAssignmentToSelf();
+		ProhibitedAssignmentToSelf unexpected = DiagnosticsFactory.eINSTANCE.createProhibitedAssignmentToSelf();
 		unexpected.setSource(assignment);
 		unexpected.setContext(context);
 		unexpected.setLocation(location);

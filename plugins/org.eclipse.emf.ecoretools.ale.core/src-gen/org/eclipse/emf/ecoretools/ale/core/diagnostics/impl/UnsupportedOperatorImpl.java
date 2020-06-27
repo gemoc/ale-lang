@@ -2,11 +2,19 @@
  */
 package org.eclipse.emf.ecoretools.ale.core.diagnostics.impl;
 
+import java.util.Collection;
+
+import org.eclipse.acceleo.query.validation.type.IType;
+
 import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsPackage;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.Operator;
@@ -22,6 +30,7 @@ import org.eclipse.emf.ecoretools.ale.core.diagnostics.UnsupportedOperator;
  * <ul>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.impl.UnsupportedOperatorImpl#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.impl.UnsupportedOperatorImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.impl.UnsupportedOperatorImpl#getTargetTypes <em>Target Types</em>}</li>
  * </ul>
  *
  * @generated
@@ -66,6 +75,16 @@ public class UnsupportedOperatorImpl extends MessageImpl implements UnsupportedO
 	 * @ordered
 	 */
 	protected Object target = TARGET_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getTargetTypes() <em>Target Types</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTargetTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<IType> targetTypes;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -138,12 +157,27 @@ public class UnsupportedOperatorImpl extends MessageImpl implements UnsupportedO
 	 * @generated
 	 */
 	@Override
+	public EList<IType> getTargetTypes() {
+		if (targetTypes == null) {
+			targetTypes = new EDataTypeUniqueEList<IType>(IType.class, this, DiagnosticsPackage.UNSUPPORTED_OPERATOR__TARGET_TYPES);
+		}
+		return targetTypes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case DiagnosticsPackage.UNSUPPORTED_OPERATOR__OPERATOR:
 				return getOperator();
 			case DiagnosticsPackage.UNSUPPORTED_OPERATOR__TARGET:
 				return getTarget();
+			case DiagnosticsPackage.UNSUPPORTED_OPERATOR__TARGET_TYPES:
+				return getTargetTypes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -153,6 +187,7 @@ public class UnsupportedOperatorImpl extends MessageImpl implements UnsupportedO
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -161,6 +196,10 @@ public class UnsupportedOperatorImpl extends MessageImpl implements UnsupportedO
 				return;
 			case DiagnosticsPackage.UNSUPPORTED_OPERATOR__TARGET:
 				setTarget(newValue);
+				return;
+			case DiagnosticsPackage.UNSUPPORTED_OPERATOR__TARGET_TYPES:
+				getTargetTypes().clear();
+				getTargetTypes().addAll((Collection<? extends IType>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -180,6 +219,9 @@ public class UnsupportedOperatorImpl extends MessageImpl implements UnsupportedO
 			case DiagnosticsPackage.UNSUPPORTED_OPERATOR__TARGET:
 				setTarget(TARGET_EDEFAULT);
 				return;
+			case DiagnosticsPackage.UNSUPPORTED_OPERATOR__TARGET_TYPES:
+				getTargetTypes().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -196,6 +238,8 @@ public class UnsupportedOperatorImpl extends MessageImpl implements UnsupportedO
 				return operator != OPERATOR_EDEFAULT;
 			case DiagnosticsPackage.UNSUPPORTED_OPERATOR__TARGET:
 				return TARGET_EDEFAULT == null ? target != null : !TARGET_EDEFAULT.equals(target);
+			case DiagnosticsPackage.UNSUPPORTED_OPERATOR__TARGET_TYPES:
+				return targetTypes != null && !targetTypes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -214,6 +258,8 @@ public class UnsupportedOperatorImpl extends MessageImpl implements UnsupportedO
 		result.append(operator);
 		result.append(", target: ");
 		result.append(target);
+		result.append(", targetTypes: ");
+		result.append(targetTypes);
 		result.append(')');
 		return result.toString();
 	}

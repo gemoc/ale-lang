@@ -2,6 +2,9 @@
  */
 package org.eclipse.emf.ecoretools.ale.core.diagnostics;
 
+import org.eclipse.acceleo.query.validation.type.IType;
+
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -14,6 +17,7 @@ package org.eclipse.emf.ecoretools.ale.core.diagnostics;
  * <ul>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.UnsupportedOperator#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.UnsupportedOperator#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.UnsupportedOperator#getTargetTypes <em>Target Types</em>}</li>
  * </ul>
  *
  * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsPackage#getUnsupportedOperator()
@@ -67,5 +71,17 @@ public interface UnsupportedOperator extends Message {
 	 * @generated
 	 */
 	void setTarget(Object value);
+
+	/**
+	 * Returns the value of the '<em><b>Target Types</b></em>' attribute list.
+	 * The list contents are of type {@link org.eclipse.acceleo.query.validation.type.IType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Target Types</em>' attribute list.
+	 * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsPackage#getUnsupportedOperator_TargetTypes()
+	 * @model dataType="org.eclipse.emf.ecoretools.ale.core.diagnostics.IType"
+	 * @generated
+	 */
+	EList<IType> getTargetTypes();
 
 } // UnsupportedOperator
