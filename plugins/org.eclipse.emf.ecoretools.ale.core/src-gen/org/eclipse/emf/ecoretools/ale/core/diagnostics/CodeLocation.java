@@ -15,6 +15,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.CodeLocation#getSource <em>Source</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.CodeLocation#getLine <em>Line</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.CodeLocation#getStartPosition <em>Start Position</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.CodeLocation#getEndPosition <em>End Position</em>}</li>
  * </ul>
  *
  * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsPackage#getCodeLocation()
@@ -65,5 +67,49 @@ public interface CodeLocation extends EObject {
 	 * @generated
 	 */
 	void setLine(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Start Position</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Start Position</em>' attribute.
+	 * @see #setStartPosition(int)
+	 * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsPackage#getCodeLocation_StartPosition()
+	 * @model
+	 * @generated
+	 */
+	int getStartPosition();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.CodeLocation#getStartPosition <em>Start Position</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Start Position</em>' attribute.
+	 * @see #getStartPosition()
+	 * @generated
+	 */
+	void setStartPosition(int value);
+
+	/**
+	 * Returns the value of the '<em><b>End Position</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>End Position</em>' attribute.
+	 * @see #setEndPosition(int)
+	 * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsPackage#getCodeLocation_EndPosition()
+	 * @model
+	 * @generated
+	 */
+	int getEndPosition();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.CodeLocation#getEndPosition <em>End Position</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>End Position</em>' attribute.
+	 * @see #getEndPosition()
+	 * @generated
+	 */
+	void setEndPosition(int value);
 
 } // CodeLocation

@@ -76,15 +76,6 @@ public interface DiagnosticsFactory extends EFactory {
 	VariableNotFound createVariableNotFound();
 
 	/**
-	 * Returns a new object of class '<em>Type Not Found</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Type Not Found</em>'.
-	 * @generated
-	 */
-	TypeNotFound createTypeNotFound();
-
-	/**
 	 * Returns a new object of class '<em>Type Mismatch</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -94,13 +85,13 @@ public interface DiagnosticsFactory extends EFactory {
 	TypeMismatch createTypeMismatch();
 
 	/**
-	 * Returns a new object of class '<em>Variable Already Bound</em>'.
+	 * Returns a new object of class '<em>Variable Already Defined</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Variable Already Bound</em>'.
+	 * @return a new object of class '<em>Variable Already Defined</em>'.
 	 * @generated
 	 */
-	VariableAlreadyBound createVariableAlreadyBound();
+	VariableAlreadyDefined createVariableAlreadyDefined();
 
 	/**
 	 * Returns a new object of class '<em>Internal Error</em>'.
@@ -112,13 +103,13 @@ public interface DiagnosticsFactory extends EFactory {
 	InternalError createInternalError();
 
 	/**
-	 * Returns a new object of class '<em>Assignment To Self</em>'.
+	 * Returns a new object of class '<em>Prohibited Assignment To Self</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Assignment To Self</em>'.
+	 * @return a new object of class '<em>Prohibited Assignment To Self</em>'.
 	 * @generated
 	 */
-	AssignmentToSelf createAssignmentToSelf();
+	ProhibitedAssignmentToSelf createProhibitedAssignmentToSelf();
 
 	/**
 	 * Returns a new object of class '<em>Assignment To Result In Void Operation</em>'.
@@ -155,6 +146,231 @@ public interface DiagnosticsFactory extends EFactory {
 	 * @generated
 	 */
 	MissingReturnStatement createMissingReturnStatement();
+
+	/**
+	 * Returns a new object of class '<em>Class Opened More Than Once</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Class Opened More Than Once</em>'.
+	 * @generated
+	 */
+	ClassOpenedMoreThanOnce createClassOpenedMoreThanOnce();
+
+	/**
+	 * Returns a new object of class '<em>Not An Openable Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Not An Openable Class</em>'.
+	 * @generated
+	 */
+	NotAnOpenableClass createNotAnOpenableClass();
+
+	/**
+	 * Returns a new object of class '<em>Open Class Not Found</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Open Class Not Found</em>'.
+	 * @generated
+	 */
+	OpenClassNotFound createOpenClassNotFound();
+
+	/**
+	 * Returns a new object of class '<em>Type Has Namesakes</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Has Namesakes</em>'.
+	 * @generated
+	 */
+	TypeHasNamesakes createTypeHasNamesakes();
+
+	/**
+	 * Returns a new object of class '<em>Incorrect Extend Order</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Incorrect Extend Order</em>'.
+	 * @generated
+	 */
+	IncorrectExtendOrder createIncorrectExtendOrder();
+
+	/**
+	 * Returns a new object of class '<em>Collection Type Mismatch</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Collection Type Mismatch</em>'.
+	 * @generated
+	 */
+	CollectionTypeMismatch createCollectionTypeMismatch();
+
+	/**
+	 * Returns a new object of class '<em>Class Extends Itself</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Class Extends Itself</em>'.
+	 * @generated
+	 */
+	ClassExtendsItself createClassExtendsItself();
+
+	/**
+	 * Returns a new object of class '<em>Illegal Assignment</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Illegal Assignment</em>'.
+	 * @generated
+	 */
+	IllegalAssignment createIllegalAssignment();
+
+	/**
+	 * Returns a new object of class '<em>Indirect Extension</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Indirect Extension</em>'.
+	 * @generated
+	 */
+	IndirectExtension createIndirectExtension();
+
+	/**
+	 * Returns a new object of class '<em>Prohibited Insertion To Self</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Prohibited Insertion To Self</em>'.
+	 * @generated
+	 */
+	ProhibitedInsertionToSelf createProhibitedInsertionToSelf();
+
+	/**
+	 * Returns a new object of class '<em>Prohibited Removal From Self</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Prohibited Removal From Self</em>'.
+	 * @generated
+	 */
+	ProhibitedRemovalFromSelf createProhibitedRemovalFromSelf();
+
+	/**
+	 * Returns a new object of class '<em>Type Not Found</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Not Found</em>'.
+	 * @generated
+	 */
+	TypeNotFound createTypeNotFound();
+
+	/**
+	 * Returns a new object of class '<em>Dynamic Class Already Defined</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Dynamic Class Already Defined</em>'.
+	 * @generated
+	 */
+	DynamicClassAlreadyDefined createDynamicClassAlreadyDefined();
+
+	/**
+	 * Returns a new object of class '<em>Attribute Already Defined In Base Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Attribute Already Defined In Base Class</em>'.
+	 * @generated
+	 */
+	AttributeAlreadyDefinedInBaseClass createAttributeAlreadyDefinedInBaseClass();
+
+	/**
+	 * Returns a new object of class '<em>Method Already Defined In Base Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Method Already Defined In Base Class</em>'.
+	 * @generated
+	 */
+	MethodAlreadyDefinedInBaseClass createMethodAlreadyDefinedInBaseClass();
+
+	/**
+	 * Returns a new object of class '<em>Attribute Already Defined In Current Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Attribute Already Defined In Current Class</em>'.
+	 * @generated
+	 */
+	AttributeAlreadyDefinedInCurrentClass createAttributeAlreadyDefinedInCurrentClass();
+
+	/**
+	 * Returns a new object of class '<em>Reserved Keyword Self</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Reserved Keyword Self</em>'.
+	 * @generated
+	 */
+	ReservedKeywordSelf createReservedKeywordSelf();
+
+	/**
+	 * Returns a new object of class '<em>Reserved Keyword Result</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Reserved Keyword Result</em>'.
+	 * @generated
+	 */
+	ReservedKeywordResult createReservedKeywordResult();
+
+	/**
+	 * Returns a new object of class '<em>Method Already Defined In Current Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Method Already Defined In Current Class</em>'.
+	 * @generated
+	 */
+	MethodAlreadyDefinedInCurrentClass createMethodAlreadyDefinedInCurrentClass();
+
+	/**
+	 * Returns a new object of class '<em>Method Parameter Already Defined</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Method Parameter Already Defined</em>'.
+	 * @generated
+	 */
+	MethodParameterAlreadyDefined createMethodParameterAlreadyDefined();
+
+	/**
+	 * Returns a new object of class '<em>Overridden Method Not Found</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Overridden Method Not Found</em>'.
+	 * @generated
+	 */
+	OverriddenMethodNotFound createOverriddenMethodNotFound();
+
+	/**
+	 * Returns a new object of class '<em>Prohibited Assignment To Method Parameter</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Prohibited Assignment To Method Parameter</em>'.
+	 * @generated
+	 */
+	ProhibitedAssignmentToMethodParameter createProhibitedAssignmentToMethodParameter();
+
+	/**
+	 * Returns a new object of class '<em>Acceleo Validation Message</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Acceleo Validation Message</em>'.
+	 * @generated
+	 */
+	AcceleoValidationMessage createAcceleoValidationMessage();
+
+	/**
+	 * Returns a new object of class '<em>Illegal Addition Assignment</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Illegal Addition Assignment</em>'.
+	 * @generated
+	 */
+	IllegalAdditionAssignment createIllegalAdditionAssignment();
+
+	/**
+	 * Returns a new object of class '<em>Illegal Substraction Assignment</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Illegal Substraction Assignment</em>'.
+	 * @generated
+	 */
+	IllegalSubstractionAssignment createIllegalSubstractionAssignment();
 
 	/**
 	 * Returns the package supported by this factory.

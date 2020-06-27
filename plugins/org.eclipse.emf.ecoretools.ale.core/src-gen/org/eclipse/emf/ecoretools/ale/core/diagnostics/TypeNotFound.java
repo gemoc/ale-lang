@@ -2,6 +2,9 @@
  */
 package org.eclipse.emf.ecoretools.ale.core.diagnostics;
 
+import org.eclipse.emf.common.util.EList;
+
+import org.eclipse.emf.ecore.EPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,6 +16,7 @@ package org.eclipse.emf.ecoretools.ale.core.diagnostics;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeNotFound#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeNotFound#getAvailableEPackages <em>Available EPackages</em>}</li>
  * </ul>
  *
  * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsPackage#getTypeNotFound()
@@ -41,5 +45,17 @@ public interface TypeNotFound extends Message {
 	 * @generated
 	 */
 	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Available EPackages</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.emf.ecore.EPackage}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Available EPackages</em>' reference list.
+	 * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsPackage#getTypeNotFound_AvailableEPackages()
+	 * @model
+	 * @generated
+	 */
+	EList<EPackage> getAvailableEPackages();
 
 } // TypeNotFound

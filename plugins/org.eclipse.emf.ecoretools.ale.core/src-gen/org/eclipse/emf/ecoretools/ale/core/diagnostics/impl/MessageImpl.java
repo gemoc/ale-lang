@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.CodeLocation;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.Context;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsPackage;
