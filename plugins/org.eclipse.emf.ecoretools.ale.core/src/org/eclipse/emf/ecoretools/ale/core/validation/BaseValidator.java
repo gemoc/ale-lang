@@ -41,6 +41,10 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecoretools.ale.core.Activator;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.AcceleoValidationMessage;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.CodeLocation;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsFactory;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.Scopes;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.Scopes.Scope;
@@ -77,7 +81,7 @@ import com.google.common.collect.Sets;
  */
 public class BaseValidator extends ImplementationSwitch<Object> {
 
-	private List<IValidationMessage> msgs;
+	private List<Message> msgs;
 	
 	private List<ParsedFile<ModelUnit>> allModels;
 	private ParsedFile<ModelUnit> currentModel;
@@ -134,7 +138,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		return scopes;
 	}
 	
-	public List<IValidationMessage> validate(List<ParsedFile<ModelUnit>> roots) {
+	public List<Message> validate(List<ParsedFile<ModelUnit>> roots) {
 		
 		this.msgs = new ArrayList<>();
 		this.validations = new HashMap<>();
@@ -488,16 +492,45 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	}
 	
 	public int getStartOffset(Object obj) {
-		return currentModel.getStartPositions().get(obj);
+		Integer start = currentModel.getStartPositions().get(obj);
+		// FIXME Happens when the object is never found (e.g. EParameter)
+		//		 but should never occur
+		return start == null ? 0 : start;
 	}
 	
 	public int getEndOffset(Object obj) {
-		return currentModel.getEndPositions().get(obj);
+		Integer start = currentModel.getEndPositions().get(obj);
+		// FIXME Happens when the object is never found (e.g. EParameter)
+		//		 but should never occur
+		return start == null ? 0 : start;
+	}
+	
+	public List<Integer> getLines(Object obj) {
+		List<Integer> lines = currentModel.getLines(obj);
+		if (lines.isEmpty()) {
+			// FIXME A hack to prevent runtime errors when lines are unknown
+			lines.add(0);
+		}
+		return lines;
+	}
+	
+	public String getSourceFile(Object obj) {
+		return currentModel.getSourceFile();
 	}
 	
 	private void validateAndStore(Expression exp, Map<String, Set<IType>> context) {
 		IValidationResult expValidation = validateExpression(exp, context);
-		msgs.addAll(expValidation.getMessages());
+		for (IValidationMessage validation : expValidation.getMessages()) {
+			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+			location.setStartPosition(validation.getStartPosition());
+			location.setEndPosition(validation.getEndPosition());
+			
+			AcceleoValidationMessage acceleoMessage = DiagnosticsFactory.eINSTANCE.createAcceleoValidationMessage();
+			acceleoMessage.setMessage(validation.getMessage());
+			acceleoMessage.setLevel(validation.getLevel());
+			acceleoMessage.setLocation(location);
+			msgs.add(acceleoMessage);
+		}
 		validations.put(exp,expValidation);
 		validationContexts.put(exp, context);
 		

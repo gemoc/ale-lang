@@ -18,6 +18,7 @@ import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.validation.type.IType;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
@@ -27,9 +28,9 @@ import com.google.common.collect.Lists;
 
 public class ALEValidator {
 	
-	List<IValidationMessage> msgs;
-	IQueryEnvironment qryEnv;
-	private IAleEnvironment environment;
+	private List<Message> msgs;
+	private final IQueryEnvironment qryEnv;
+	private final IAleEnvironment environment;
 	
 	public ALEValidator(IAleEnvironment environment) {
 		this.environment = environment;
@@ -42,7 +43,7 @@ public class ALEValidator {
 		msgs = base.validate(roots);
 	}
 	
-	public List<IValidationMessage> getMessages() {
+	public List<Message> getMessages() {
 		return msgs;
 	}
 	

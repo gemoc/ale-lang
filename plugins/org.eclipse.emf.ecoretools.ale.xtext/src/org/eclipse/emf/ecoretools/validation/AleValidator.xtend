@@ -15,11 +15,14 @@ import org.eclipse.core.resources.IResource
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecoretools.AleXtextPlugin
 import org.eclipse.emf.ecoretools.ale.OrderedSet
 import org.eclipse.emf.ecoretools.ale.SeqType
 import org.eclipse.emf.ecoretools.ale.Sequence
 import org.eclipse.emf.ecoretools.ale.SetType
 import org.eclipse.emf.ecoretools.ale.Unit
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment
 import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.AleInterpreter
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator
 import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject
@@ -28,8 +31,6 @@ import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
-import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment
-import org.eclipse.emf.ecoretools.AleXtextPlugin
 
 /**
  * Delegate validation to ALE validator
@@ -66,14 +67,14 @@ class AleValidator extends AbstractAleValidator {
 			
 			val ALEValidator validator = new ALEValidator(dsl);
 			validator.validate(parsedSemantics);
-			val List<IValidationMessage> msgs = validator.getMessages();
+			val List<Message> msgs = validator.getMessages();
 			
 			msgs.forEach[msg |
 				val marker = aleFile.createMarker(ALE_MARKER);
 				marker.setAttribute(IMarker.MESSAGE, msg.getMessage());
 				marker.setAttribute(IMarker.SEVERITY, severityOf(msg));
-				marker.setAttribute(IMarker.CHAR_START, msg.startPosition);
-				marker.setAttribute(IMarker.CHAR_END, msg.endPosition);
+				marker.setAttribute(IMarker.CHAR_START, msg.location.startPosition);
+				marker.setAttribute(IMarker.CHAR_END, msg.location.endPosition);
 			]
 		}
 		catch (Exception e) {

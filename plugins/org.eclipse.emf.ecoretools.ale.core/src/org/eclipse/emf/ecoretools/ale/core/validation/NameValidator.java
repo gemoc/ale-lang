@@ -10,23 +10,40 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.validation;
 
-import static java.util.stream.Collectors.joining;
+import static java.util.Collections.emptyList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.eclipse.acceleo.query.runtime.IValidationMessage;
-import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
-import org.eclipse.acceleo.query.runtime.impl.ValidationMessage;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.ProhibitedAssignmentToMethodParameter;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.ProhibitedAssignmentToSelf;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.AttributeAlreadyDefinedInBaseClass;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.AttributeAlreadyDefinedInCurrentClass;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.AttributeNotFound;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.CodeLocation;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Context;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsFactory;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.DynamicClassAlreadyDefined;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.MethodAlreadyDefinedInBaseClass;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.MethodAlreadyDefinedInCurrentClass;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.MethodParameterAlreadyDefined;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.OverriddenMethodNotFound;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.ReservedKeywordResult;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.ReservedKeywordSelf;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableAlreadyDefined;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableNotFound;
 import org.eclipse.emf.ecoretools.ale.core.validation.impl.ValidationMessageFactory;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass;
@@ -50,17 +67,6 @@ import org.eclipse.emf.ecoretools.ale.implementation.While;
  */
 public class NameValidator implements IValidator {
 	
-	public static final String NAME_ALREADY_USED = "The name %s is already used";
-	public static final String SELF_RESERVED = "'self' is a reserved name";
-	public static final String RESULT_RESERVED = "'result' is a reserved name";
-	public static final String OP_ALREADY_DECLARED = "The operation %s is already declared";
-	public static final String OP_MUST_OVERRIDE = "The operation %s must override";
-	public static final String FEATURE_UNDEFINED = "The feature %s is not defined";
-	public static final String VARIABLE_UNDEFINED = "The variable %s is not defined";
-	public static final String PARAM_ASSIGN = "%s is a parameter and can't be assigned";
-	public static final String SELF_ASSIGN = "'self' can't be assigned";
-	public static final String OVERRIDE_UNDEFINED = "Can't find matching EOperation in %s";
-	
 	BaseValidator base;
 	
 	private IValidationMessageFactory messages;
@@ -70,56 +76,37 @@ public class NameValidator implements IValidator {
 		this.messages = new ValidationMessageFactory(base);
 	}
 	
-	public List<IValidationMessage> validateModelBehavior(List<ModelUnit> units) {
-		List<IValidationMessage> msgs = new ArrayList<>();
-		
-		/*
-		 * Check ModelUnit names are unique
-		 */
-		List<String> declarations = new ArrayList<>();
-		units
-		.stream()
-		.forEach(unit -> {
-			if(declarations.contains(unit.getName())) {
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(NAME_ALREADY_USED, unit.getName()),
-						0,
-						0
-						));
-			}
-			else {
-				declarations.add(unit.getName());
-			}
-		});
-		
-		
-		return msgs;
-	}
-	
 	@Override
-	public List<IValidationMessage> validateModelUnit(ModelUnit unit) {
+	public List<Message> validateModelUnit(ModelUnit unit) {
 		
-		List<IValidationMessage> msgs = new ArrayList<>();
+		List<Message> msgs = new ArrayList<>();
 		
 		/*
 		 * Check duplication of RuntimeClass
 		 */
-		List<String> declarations = new ArrayList<>(); 
+		Map<String, RuntimeClass> declarations = new HashMap<>(5);
 		unit
 		.getClassDefinitions()
 		.stream()
 		.forEach(cls -> {
-			if(declarations.contains(cls.getName())) {
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(NAME_ALREADY_USED, cls.getName()),
-						base.getStartOffset(cls),
-						base.getEndOffset(cls)
-						));
+			if(declarations.containsKey(cls.getName())) {
+				CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+				location.setLine(base.getLines(cls).get(0));
+				location.setStartPosition(base.getStartOffset(cls));
+				location.setEndPosition(base.getStartOffset(cls) + ("class" + cls.getName()).length());
+				
+				Context context = DiagnosticsFactory.eINSTANCE.createContext();
+				
+				DynamicClassAlreadyDefined alreadyDeclared = DiagnosticsFactory.eINSTANCE.createDynamicClassAlreadyDefined();
+				alreadyDeclared.setContext(context);
+				alreadyDeclared.setLocation(location);
+				alreadyDeclared.setSource(cls);
+				alreadyDeclared.setCurrentDeclaration(cls);
+				alreadyDeclared.setPreviousDeclaration(declarations.get(cls.getName()));
+				msgs.add(alreadyDeclared);
 			}
 			else {
-				declarations.add(cls.getName());
+				declarations.put(cls.getName(), cls);
 			}
 		});
 		
@@ -127,8 +114,8 @@ public class NameValidator implements IValidator {
 	}
 	
 	@Override
-	public List<IValidationMessage> validateExtendedClass(ExtendedClass xtdClass) {
-		List<IValidationMessage> msgs = new ArrayList<>();
+	public List<Message> validateExtendedClass(ExtendedClass xtdClass) {
+		List<Message> msgs = new ArrayList<>();
 		
 		//TODO: check cycles in 'extends'
 		msgs.addAll(validateBehavioredClass(xtdClass));
@@ -149,12 +136,21 @@ public class NameValidator implements IValidator {
 			.forEach(att -> {
 				String name = att.getFeatureRef().getName();
 				if(declarations.contains(name)) {
-					msgs.add(new ValidationMessage(
-							ValidationMessageLevel.ERROR,
-							String.format(NAME_ALREADY_USED, name),
-							base.getStartOffset(att),
-							base.getEndOffset(att)
-							));
+					CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+					location.setLine(base.getLines(att).get(0));
+					location.setStartPosition(base.getStartOffset(att));
+					location.setEndPosition(base.getEndOffset(att));
+					
+					Context context = DiagnosticsFactory.eINSTANCE.createContext();
+					
+					AttributeAlreadyDefinedInBaseClass alreadyDeclared = DiagnosticsFactory.eINSTANCE.createAttributeAlreadyDefinedInBaseClass();
+					alreadyDeclared.setContext(context);
+					alreadyDeclared.setLocation(location);
+					alreadyDeclared.setSource(att);
+					alreadyDeclared.setAttributeName(name);
+					alreadyDeclared.setOpenClass(xtdClass);
+					alreadyDeclared.setBaseClass(xtdClass.getBaseClass());
+					msgs.add(alreadyDeclared);
 				}
 			});
 			
@@ -165,13 +161,19 @@ public class NameValidator implements IValidator {
 			for (Method mtd : xtdClass.getMethods()) {
 				EOperation opRef = mtd.getOperationRef();
 				if(opRef!= null && opRef.getEContainingClass() != xtdClass.getBaseClass()) {
-					if(allEOperations.stream().anyMatch(op -> isMatching(opRef, op))){
-						msgs.add(new ValidationMessage(
-							ValidationMessageLevel.ERROR,
-							String.format(OP_MUST_OVERRIDE, getSignature(mtd)),
-							base.getStartOffset(mtd),
-							base.getEndOffset(mtd)
-							));
+					if(allEOperations.stream().anyMatch(op -> areTheSame(opRef, op))){
+						CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+						location.setLine(base.getLines(mtd).get(0));
+						location.setStartPosition(base.getStartOffset(mtd));
+						location.setEndPosition(base.getEndOffset(mtd.getBody()));
+						
+						Context context = DiagnosticsFactory.eINSTANCE.createContext();
+						
+						MethodAlreadyDefinedInBaseClass alreadyDeclared = DiagnosticsFactory.eINSTANCE.createMethodAlreadyDefinedInBaseClass();
+						alreadyDeclared.setContext(context);
+						alreadyDeclared.setLocation(location);
+						alreadyDeclared.setNewDefinition(mtd);
+						msgs.add(alreadyDeclared);
 					}
 				}
 			}
@@ -180,68 +182,94 @@ public class NameValidator implements IValidator {
 	}
 	
 	@Override
-	public List<IValidationMessage> validateRuntimeClass(RuntimeClass classDef) {
-		List<IValidationMessage> msgs = new ArrayList<>();
-		
-		msgs.addAll(validateBehavioredClass(classDef));
-		
-		return msgs;
+	public List<Message> validateRuntimeClass(RuntimeClass classDef) {
+		return validateBehavioredClass(classDef);
 	}
 	
-	private List<IValidationMessage> validateBehavioredClass(BehavioredClass clazz) {
-		List<IValidationMessage> msgs = new ArrayList<>();
+	private List<Message> validateBehavioredClass(BehavioredClass clazz) {
+		List<Message> msgs = new ArrayList<>();
 		
 		/*
 		 * Check attributes names
 		 */
-		List<String> declarations = new ArrayList<>(); 
+		Map<String, Attribute> declarations = new HashMap<>(5); 
 		clazz
 		.getAttributes()
 		.stream()
 		.forEach(att -> {
 			String name = att.getFeatureRef().getName();
-			if(declarations.contains(name)) {
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(NAME_ALREADY_USED, name),
-						base.getStartOffset(att),
-						base.getEndOffset(att)
-						));
+			if(declarations.containsKey(name)) {
+				CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+				location.setLine(base.getLines(att).get(0));
+				location.setStartPosition(base.getStartOffset(att));
+				location.setEndPosition(base.getEndOffset(att));
+				
+				Context context = DiagnosticsFactory.eINSTANCE.createContext();
+				
+				AttributeAlreadyDefinedInCurrentClass alreadyDeclared = DiagnosticsFactory.eINSTANCE.createAttributeAlreadyDefinedInCurrentClass();
+				alreadyDeclared.setContext(context);
+				alreadyDeclared.setLocation(location);
+				alreadyDeclared.setSource(att);
+				alreadyDeclared.setAttributeName(name);
+				alreadyDeclared.setOwner(clazz);
+				alreadyDeclared.setPreviousDeclaration(declarations.get(name));
+				msgs.add(alreadyDeclared);
 			}
 			else if(name.equals("self")){
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(SELF_RESERVED, name),
-						base.getStartOffset(att),
-						base.getEndOffset(att)
-						));
+				CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+				location.setLine(base.getLines(att).get(0));
+				location.setStartPosition(base.getStartOffset(att));
+				location.setEndPosition(base.getEndOffset(att));
+				
+				Context context = DiagnosticsFactory.eINSTANCE.createContext();
+				
+				ReservedKeywordSelf reservedKeyword = DiagnosticsFactory.eINSTANCE.createReservedKeywordSelf();
+				reservedKeyword.setContext(context);
+				reservedKeyword.setLocation(location);
+				reservedKeyword.setSource(att);
+				msgs.add(reservedKeyword);
 			}
 			else if(name.equals("result")){
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(RESULT_RESERVED, name),
-						base.getStartOffset(att),
-						base.getEndOffset(att)
-						));
+				CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+				location.setLine(base.getLines(att).get(0));
+				location.setStartPosition(base.getStartOffset(att));
+				location.setEndPosition(base.getEndOffset(att));
+				
+				Context context = DiagnosticsFactory.eINSTANCE.createContext();
+				
+				ReservedKeywordResult reservedKeyword = DiagnosticsFactory.eINSTANCE.createReservedKeywordResult();
+				reservedKeyword.setContext(context);
+				reservedKeyword.setLocation(location);
+				reservedKeyword.setSource(att);
+				msgs.add(reservedKeyword);
 			}
 			else {
-				declarations.add(name);
+				declarations.put(name, att);
 			}
 		});
 		
 		/*
 		 * Check operation duplication
 		 */
-		List<Method> previousOp = new ArrayList<>(); 
+		List<Method> previousOp = new ArrayList<>(5); 
 		for (Method mtd : clazz.getMethods()) {
-			boolean isConflict = previousOp.stream().anyMatch(prevOp -> isMatching(mtd, prevOp));
-			if(isConflict) {
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(OP_ALREADY_DECLARED, getSignature(mtd)),
-						base.getStartOffset(mtd),
-						base.getEndOffset(mtd)
-						));
+			Optional<Method> previousDeclaration = previousOp.stream().filter(prevOp -> areTheSame(mtd, prevOp)).findFirst();
+			if(previousDeclaration.isPresent()) {
+				CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+				location.setLine(base.getLines(mtd).get(0));
+				location.setStartPosition(base.getStartOffset(mtd));
+				location.setEndPosition(base.getStartOffset(mtd.getBody()));
+				
+				Context context = DiagnosticsFactory.eINSTANCE.createContext();
+				
+				MethodAlreadyDefinedInCurrentClass alreadyDeclared = DiagnosticsFactory.eINSTANCE.createMethodAlreadyDefinedInCurrentClass();
+				alreadyDeclared.setContext(context);
+				alreadyDeclared.setLocation(location);
+				alreadyDeclared.setSource(mtd);
+				alreadyDeclared.setOwner(clazz);
+				alreadyDeclared.setCurrentDeclaration(mtd);
+				alreadyDeclared.setPreviousDeclaration(previousDeclaration.get());
+				msgs.add(alreadyDeclared);
 			}
 			previousOp.add(mtd);
 		}
@@ -250,8 +278,8 @@ public class NameValidator implements IValidator {
 	}
 	
 	@Override
-	public List<IValidationMessage> validateMethod(Method mtd) {
-		List<IValidationMessage> msgs = new ArrayList<>();
+	public List<Message> validateMethod(Method mtd) {
+		List<Message> msgs = new ArrayList<>();
 		
 		/*
 		 * Check parameter name
@@ -261,28 +289,62 @@ public class NameValidator implements IValidator {
 			for (EParameter param : mtd.getOperationRef().getEParameters()) {
 				String name = param.getName();
 				if(declarations.contains(name)) {
-					msgs.add(new ValidationMessage(
-							ValidationMessageLevel.ERROR,
-							String.format(NAME_ALREADY_USED,param.getName()),
-							base.getStartOffset(mtd),
-							base.getEndOffset(mtd)
-							));
+					CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+					location.setLine(base.getLines(mtd).get(0));
+					location.setStartPosition(base.getStartOffset(param));
+					location.setEndPosition(base.getEndOffset(param) + 1);
+					
+					if (location.getStartPosition() == 0) {
+						location.setStartPosition(base.getStartOffset(mtd));
+						location.setEndPosition(base.getStartOffset(mtd.getBody()));
+					}
+					
+					Context context = DiagnosticsFactory.eINSTANCE.createContext();
+					
+					MethodParameterAlreadyDefined alreadyDefined = DiagnosticsFactory.eINSTANCE.createMethodParameterAlreadyDefined();
+					alreadyDefined.setContext(context);
+					alreadyDefined.setLocation(location);
+					alreadyDefined.setSource(param);
+					alreadyDefined.setParameterName(name);
+					msgs.add(alreadyDefined);
 				}
 				else if(param.getName().equals("result")){
-					msgs.add(new ValidationMessage(
-							ValidationMessageLevel.ERROR,
-							String.format(RESULT_RESERVED,param.getName()),
-							base.getStartOffset(mtd),
-							base.getEndOffset(mtd)
-							));
+					CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+					location.setLine(base.getLines(mtd).get(0));
+					location.setStartPosition(base.getStartOffset(param));
+					location.setEndPosition(base.getEndOffset(param) + 1);
+					
+					if (location.getStartPosition() == 0) {
+						location.setStartPosition(base.getStartOffset(mtd));
+						location.setEndPosition(base.getStartOffset(mtd.getBody()));
+					}
+					
+					Context context = DiagnosticsFactory.eINSTANCE.createContext();
+					
+					ReservedKeywordResult reservedKeyword = DiagnosticsFactory.eINSTANCE.createReservedKeywordResult();
+					reservedKeyword.setContext(context);
+					reservedKeyword.setLocation(location);
+					reservedKeyword.setSource(param);
+					msgs.add(reservedKeyword);
 				}
 				else if(param.getName().equals("self")){
-					msgs.add(new ValidationMessage(
-							ValidationMessageLevel.ERROR,
-							String.format(SELF_RESERVED,param.getName()),
-							base.getStartOffset(mtd),
-							base.getEndOffset(mtd)
-							));
+					CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+					location.setLine(base.getLines(mtd).get(0));
+					location.setStartPosition(base.getStartOffset(param));
+					location.setEndPosition(base.getEndOffset(param) + 1);
+					
+					if (location.getStartPosition() == 0) {
+						location.setStartPosition(base.getStartOffset(mtd));
+						location.setEndPosition(base.getStartOffset(mtd.getBody()));
+					}
+					
+					Context context = DiagnosticsFactory.eINSTANCE.createContext();
+					
+					ReservedKeywordSelf reservedKeyword = DiagnosticsFactory.eINSTANCE.createReservedKeywordSelf();
+					reservedKeyword.setContext(context);
+					reservedKeyword.setLocation(location);
+					reservedKeyword.setSource(param);
+					msgs.add(reservedKeyword);
 				}
 				else {
 					declarations.add(name);
@@ -290,20 +352,28 @@ public class NameValidator implements IValidator {
 			}
 		}
 		else {
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(OVERRIDE_UNDEFINED, ((BehavioredClass)mtd.eContainer()).getName()),
-					base.getStartOffset(mtd),
-					base.getEndOffset(mtd)
-					));
+			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+			location.setLine(base.getLines(mtd).get(0));
+			location.setStartPosition(base.getStartOffset(mtd));
+			location.setEndPosition(base.getStartOffset(mtd.getBody()));
+			
+			Context context = DiagnosticsFactory.eINSTANCE.createContext();
+			
+			OverriddenMethodNotFound methodNotFound = DiagnosticsFactory.eINSTANCE.createOverriddenMethodNotFound();
+			methodNotFound.setContext(context);
+			methodNotFound.setLocation(location);
+			methodNotFound.setSource(mtd);
+			methodNotFound.setOverridingMethod(mtd);
+			methodNotFound.setOverridingMethodOwner((BehavioredClass) mtd.eContainer());
+			msgs.add(methodNotFound);
 		}
 		
 		return msgs;
 	}
 	
 	@Override
-	public List<IValidationMessage> validateFeatureAssignment(FeatureAssignment featAssign) {
-		List<IValidationMessage> msgs = new ArrayList<>();
+	public List<Message> validateFeatureAssignment(FeatureAssignment featAssign) {
+		List<Message> msgs = new ArrayList<>();
 		
 		/*
 		 * Check the assigned feature exist 
@@ -334,20 +404,28 @@ public class NameValidator implements IValidator {
 		}
 		
 		if(!isExistingFeature){
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(FEATURE_UNDEFINED,featAssign.getTargetFeature()),
-					base.getStartOffset(featAssign),
-					base.getEndOffset(featAssign)
-					));
+			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+			location.setLine(base.getLines(featAssign.getTarget()).get(0));
+			location.setStartPosition(base.getStartOffset(featAssign.getTarget()));
+			location.setEndPosition(base.getStartOffset(featAssign.getTarget()) + ("self." + featAssign.getTargetFeature()).length());
+			
+			Context context = DiagnosticsFactory.eINSTANCE.createContext();
+			
+			AttributeNotFound attributeNotFound = DiagnosticsFactory.eINSTANCE.createAttributeNotFound();
+			attributeNotFound.setContext(context);
+			attributeNotFound.setLocation(location);
+			attributeNotFound.setSource(featAssign);
+			attributeNotFound.setName(featAssign.getTargetFeature());
+			attributeNotFound.setOwner(null /* FIXME Find owner */);
+			msgs.add(attributeNotFound);
 		}
 		
 		return msgs;
 	}
 	
 	@Override
-	public List<IValidationMessage> validateFeatureInsert(FeatureInsert featInsert) {
-		List<IValidationMessage> msgs = new ArrayList<>();
+	public List<Message> validateFeatureInsert(FeatureInsert featInsert) {
+		List<Message> msgs = new ArrayList<>();
 		
 		/*
 		 * Check the assigned feature exist 
@@ -378,20 +456,28 @@ public class NameValidator implements IValidator {
 		}
 		
 		if(!isExistingFeature){
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(FEATURE_UNDEFINED,featInsert.getTargetFeature()),
-					base.getStartOffset(featInsert),
-					base.getEndOffset(featInsert)
-					));
+			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+			location.setLine(base.getLines(featInsert.getTarget()).get(0));
+			location.setStartPosition(base.getStartOffset(featInsert.getTarget()));
+			location.setEndPosition(base.getStartOffset(featInsert.getTarget()) + ("self." + featInsert.getTargetFeature()).length());
+			
+			Context context = DiagnosticsFactory.eINSTANCE.createContext();
+			
+			AttributeNotFound attributeNotFound = DiagnosticsFactory.eINSTANCE.createAttributeNotFound();
+			attributeNotFound.setContext(context);
+			attributeNotFound.setLocation(location);
+			attributeNotFound.setSource(featInsert);
+			attributeNotFound.setName(featInsert.getTargetFeature());
+			attributeNotFound.setOwner(null /* FIXME Find owner */);
+			msgs.add(attributeNotFound);
 		}
 		
 		return msgs;
 	}
 	
 	@Override
-	public List<IValidationMessage> validateFeatureRemove(FeatureRemove featRemove) {
-		List<IValidationMessage> msgs = new ArrayList<>();
+	public List<Message> validateFeatureRemove(FeatureRemove featRemove) {
+		List<Message> msgs = new ArrayList<>();
 		
 		/*
 		 * Check the assigned feature exist 
@@ -422,40 +508,61 @@ public class NameValidator implements IValidator {
 		}
 		
 		if(!isExistingFeature){
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(FEATURE_UNDEFINED,featRemove.getTargetFeature()),
-					base.getStartOffset(featRemove),
-					base.getEndOffset(featRemove)
-					));
+			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+			location.setLine(base.getLines(featRemove.getTarget()).get(0));
+			location.setStartPosition(base.getStartOffset(featRemove.getTarget()));
+			location.setEndPosition(base.getStartOffset(featRemove.getTarget()) + ("self." + featRemove.getTargetFeature()).length());
+			
+			Context context = DiagnosticsFactory.eINSTANCE.createContext();
+			
+			AttributeNotFound attributeNotFound = DiagnosticsFactory.eINSTANCE.createAttributeNotFound();
+			attributeNotFound.setContext(context);
+			attributeNotFound.setLocation(location);
+			attributeNotFound.setSource(featRemove);
+			attributeNotFound.setName(featRemove.getTargetFeature());
+			attributeNotFound.setOwner(null /* FIXME Find owner */);
+			msgs.add(attributeNotFound);
 		}
 		
 		return msgs;
 	}
 	
 	@Override
-	public List<IValidationMessage> validateVariableAssignment(VariableAssignment varAssign) {
-		List<IValidationMessage> msgs = new ArrayList<>();
+	public List<Message> validateVariableAssignment(VariableAssignment varAssign) {
+		List<Message> msgs = new ArrayList<>();
 		
 		/*
 		 * Check name
 		 */
 		Set<IType> declaringTypes = base.getCurrentScope().get(varAssign.getName());
 		if(declaringTypes == null && !varAssign.getName().equals("result")){
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(VARIABLE_UNDEFINED,varAssign.getName()),
-					base.getStartOffset(varAssign),
-					base.getEndOffset(varAssign)
-					));
+			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+			location.setLine(base.getLines(varAssign).get(0));
+			location.setStartPosition(base.getStartOffset(varAssign));
+			location.setEndPosition(base.getStartOffset(varAssign) + varAssign.getName().length());
+			
+			Context context = DiagnosticsFactory.eINSTANCE.createContext();
+			
+			VariableNotFound variableNotFound = DiagnosticsFactory.eINSTANCE.createVariableNotFound();
+			variableNotFound.setContext(context);
+			variableNotFound.setLocation(location);
+			variableNotFound.setSource(varAssign);
+			variableNotFound.setName(varAssign.getName());
+			msgs.add(variableNotFound);
 		}
 		else if(varAssign.getName().equals("self")){
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(SELF_ASSIGN,varAssign.getName()),
-					base.getStartOffset(varAssign),
-					base.getEndOffset(varAssign)
-					));
+			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+			location.setLine(base.getLines(varAssign).get(0));
+			location.setStartPosition(base.getStartOffset(varAssign));
+			location.setEndPosition(base.getStartOffset(varAssign) + varAssign.getName().length());
+			
+			Context context = DiagnosticsFactory.eINSTANCE.createContext();
+			
+			ProhibitedAssignmentToSelf assignmentToSelf = DiagnosticsFactory.eINSTANCE.createProhibitedAssignmentToSelf();
+			assignmentToSelf.setContext(context);
+			assignmentToSelf.setLocation(location);
+			assignmentToSelf.setSource(varAssign);
+			msgs.add(assignmentToSelf);
 		}
 		else {
 			Method method = base.getContainingOperation(varAssign);
@@ -464,19 +571,24 @@ public class NameValidator implements IValidator {
 				
 				// Check whether the variable is a parameter of the operation
 				
-				List<EParameter> params = enclosingOperation.getEParameters();
-				Optional<EParameter> matchingParam = 
-						params
+				boolean isProhibitedAssignmentToMethodParameter =
+						enclosingOperation.getEParameters()
 						.stream()
-						.filter(param -> param.getName().equals(varAssign.getName()))
-						.findFirst();
-				if(matchingParam.isPresent()){
-					msgs.add(new ValidationMessage(
-							ValidationMessageLevel.ERROR,
-							String.format(PARAM_ASSIGN,varAssign.getName()),
-							base.getStartOffset(varAssign),
-							base.getEndOffset(varAssign)
-							));
+						.anyMatch(param -> param.getName().equals(varAssign.getName()));
+				if(isProhibitedAssignmentToMethodParameter){
+					CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+					location.setLine(base.getLines(varAssign).get(0));
+					location.setStartPosition(base.getStartOffset(varAssign));
+					location.setEndPosition(base.getStartOffset(varAssign) + varAssign.getName().length());
+					
+					Context context = DiagnosticsFactory.eINSTANCE.createContext();
+					
+					ProhibitedAssignmentToMethodParameter assignmentToParam = DiagnosticsFactory.eINSTANCE.createProhibitedAssignmentToMethodParameter();
+					assignmentToParam.setContext(context);
+					assignmentToParam.setLocation(location);
+					assignmentToParam.setSource(varAssign);
+					assignmentToParam.setParameterName(varAssign.getName());
+					msgs.add(assignmentToParam);
 				}
 				
 				// Check attempts to assign 'result' in a void operation
@@ -484,7 +596,7 @@ public class NameValidator implements IValidator {
 				boolean assigningToResult = "result".equals(varAssign.getName());
 				boolean isVoidOperation = enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null;
 				if(assigningToResult && isVoidOperation) {
-					IValidationMessage invalidAssignment = messages.assignmentToResultInVoidOperation(varAssign);
+					Message invalidAssignment = messages.assignmentToResultInVoidOperation(varAssign);
 					msgs.add(invalidAssignment);
 					return msgs;
 				}
@@ -494,37 +606,56 @@ public class NameValidator implements IValidator {
 		return msgs;
 	}
 	
-	public List<IValidationMessage> validateVariableDeclaration(VariableDeclaration varDecl) {
-		List<IValidationMessage> msgs = new ArrayList<>();
+	public List<Message> validateVariableDeclaration(VariableDeclaration varDecl) {
+		List<Message> msgs = new ArrayList<>();
 		
 		/*
 		 * Check name
 		 */
 		if(varDecl.getName().equals("result")){
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(RESULT_RESERVED,varDecl.getName()),
-					base.getStartOffset(varDecl),
-					base.getEndOffset(varDecl)
-					));
+			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+			location.setLine(base.getLines(varDecl).get(0));
+			location.setStartPosition(base.getStartOffset(varDecl));
+			location.setEndPosition(base.getEndOffset(varDecl));
+			
+			Context context = DiagnosticsFactory.eINSTANCE.createContext();
+			
+			ReservedKeywordResult reservedKeyword = DiagnosticsFactory.eINSTANCE.createReservedKeywordResult();
+			reservedKeyword.setContext(context);
+			reservedKeyword.setLocation(location);
+			reservedKeyword.setSource(varDecl);
+			msgs.add(reservedKeyword);
 		}
 		else if(varDecl.getName().equals("self")){
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(SELF_RESERVED,varDecl.getName()),
-					base.getStartOffset(varDecl),
-					base.getEndOffset(varDecl)
-					));
+			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+			location.setLine(base.getLines(varDecl).get(0));
+			location.setStartPosition(base.getStartOffset(varDecl));
+			location.setEndPosition(base.getEndOffset(varDecl));
+			
+			Context context = DiagnosticsFactory.eINSTANCE.createContext();
+			
+			ReservedKeywordSelf reservedKeyword = DiagnosticsFactory.eINSTANCE.createReservedKeywordSelf();
+			reservedKeyword.setContext(context);
+			reservedKeyword.setLocation(location);
+			reservedKeyword.setSource(varDecl);
+			msgs.add(reservedKeyword);
 		}
 		else {
 			Set<IType> declaringTypes = base.getCurrentScope().get(varDecl.getName());
 			if(declaringTypes != null){
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(NAME_ALREADY_USED,varDecl.getName()),
-						base.getStartOffset(varDecl),
-						base.getEndOffset(varDecl)
-						));
+				CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+				location.setLine(base.getLines(varDecl).get(0));
+				location.setStartPosition(base.getStartOffset(varDecl));
+				location.setEndPosition(base.getEndOffset(varDecl));
+				
+				Context context = DiagnosticsFactory.eINSTANCE.createContext();
+				
+				VariableAlreadyDefined alreadyBound = DiagnosticsFactory.eINSTANCE.createVariableAlreadyDefined();
+				alreadyBound.setContext(context);
+				alreadyBound.setLocation(location);
+				alreadyBound.setSource(varDecl);
+				alreadyBound.setName(varDecl.getName());
+				msgs.add(alreadyBound);
 			}
 		}
 		
@@ -532,19 +663,26 @@ public class NameValidator implements IValidator {
 	}
 	
 	@Override
-	public List<IValidationMessage> validateVariableInsert(VariableInsert varInsert) {
-		List<IValidationMessage> msgs = new ArrayList<>();
+	public List<Message> validateVariableInsert(VariableInsert varInsert) {
+		List<Message> msgs = new ArrayList<>();
 		
 		boolean assigningToResult = "result".equals(varInsert.getName());
 		Set<IType> declaringTypes = base.getCurrentScope().get(varInsert.getName());
 
 		if(declaringTypes == null && !assigningToResult){
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(VARIABLE_UNDEFINED,varInsert.getName()),
-					base.getStartOffset(varInsert),
-					base.getEndOffset(varInsert)
-					));
+			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+			location.setLine(base.getLines(varInsert).get(0));
+			location.setStartPosition(base.getStartOffset(varInsert));
+			location.setEndPosition(base.getStartOffset(varInsert) + varInsert.getName().length());
+			
+			Context context = DiagnosticsFactory.eINSTANCE.createContext();
+			
+			VariableNotFound variableNotFound = DiagnosticsFactory.eINSTANCE.createVariableNotFound();
+			variableNotFound.setContext(context);
+			variableNotFound.setLocation(location);
+			variableNotFound.setSource(varInsert);
+			variableNotFound.setName(varInsert.getName());
+			msgs.add(variableNotFound);
 		}
 		else if (assigningToResult) {
 			// Check attempts to assign 'result' in a void operation
@@ -555,7 +693,7 @@ public class NameValidator implements IValidator {
 			if (enclosingOperation != null) {
 				boolean isVoidOperation = enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null;
 				if(isVoidOperation) {
-					IValidationMessage invalidAssignment = messages.assignmentToResultInVoidOperation(varInsert);
+					Message invalidAssignment = messages.assignmentToResultInVoidOperation(varInsert);
 					msgs.add(invalidAssignment);
 					return msgs;
 				}
@@ -565,19 +703,26 @@ public class NameValidator implements IValidator {
 	}
 	
 	@Override
-	public List<IValidationMessage> validateVariableRemove(VariableRemove varRemove) {
-		List<IValidationMessage> msgs = new ArrayList<>();
+	public List<Message> validateVariableRemove(VariableRemove varRemove) {
+		List<Message> msgs = new ArrayList<>();
 		
 		boolean assigningToResult = "result".equals(varRemove.getName());
 		Set<IType> declaringTypes = base.getCurrentScope().get(varRemove.getName());
 		
 		if(declaringTypes == null && !assigningToResult){
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(VARIABLE_UNDEFINED,varRemove.getName()),
-					base.getStartOffset(varRemove),
-					base.getEndOffset(varRemove)
-					));
+			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+			location.setLine(base.getLines(varRemove).get(0));
+			location.setStartPosition(base.getStartOffset(varRemove));
+			location.setEndPosition(base.getStartOffset(varRemove) + varRemove.getName().length());
+			
+			Context context = DiagnosticsFactory.eINSTANCE.createContext();
+			
+			VariableNotFound variableNotFound = DiagnosticsFactory.eINSTANCE.createVariableNotFound();
+			variableNotFound.setContext(context);
+			variableNotFound.setLocation(location);
+			variableNotFound.setSource(varRemove);
+			variableNotFound.setName(varRemove.getName());
+			msgs.add(variableNotFound);
 		}
 		else if (assigningToResult) {
 			// Check attempts to assign 'result' in a void operation
@@ -588,7 +733,7 @@ public class NameValidator implements IValidator {
 			if (enclosingOperation != null) {
 				boolean isVoidOperation = enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null;
 				if(isVoidOperation) {
-					IValidationMessage invalidAssignment = messages.assignmentToResultInVoidOperation(varRemove);
+					Message invalidAssignment = messages.assignmentToResultInVoidOperation(varRemove);
 					msgs.add(invalidAssignment);
 					return msgs;
 				}
@@ -597,71 +742,75 @@ public class NameValidator implements IValidator {
 		return msgs;
 	}
 	
-	public List<IValidationMessage> validateForEach(ForEach loop) {
-		List<IValidationMessage> msgs = new ArrayList<>();
+	public List<Message> validateForEach(ForEach loop) {
+		List<Message> msgs = new ArrayList<>();
 		
 		if(loop.getVariable().equals("result")){
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(RESULT_RESERVED,loop.getVariable()),
-					base.getStartOffset(loop),
-					base.getEndOffset(loop)
-					));
+			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+			location.setLine(base.getLines(loop).get(0));
+			location.setStartPosition(base.getStartOffset(loop));
+			location.setEndPosition(base.getEndOffset(loop));
+			
+			Context context = DiagnosticsFactory.eINSTANCE.createContext();
+			
+			ReservedKeywordResult reservedKeyword = DiagnosticsFactory.eINSTANCE.createReservedKeywordResult();
+			reservedKeyword.setContext(context);
+			reservedKeyword.setLocation(location);
+			reservedKeyword.setSource(loop);
+			msgs.add(reservedKeyword);
 		}
 		else if(loop.getVariable().equals("self")){
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(SELF_RESERVED,loop.getVariable()),
-					base.getStartOffset(loop),
-					base.getEndOffset(loop)
-					));
+			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+			location.setLine(base.getLines(loop).get(0));
+			location.setStartPosition(base.getStartOffset(loop));
+			location.setEndPosition(base.getEndOffset(loop));
+			
+			Context context = DiagnosticsFactory.eINSTANCE.createContext();
+			
+			ReservedKeywordSelf reservedKeyword = DiagnosticsFactory.eINSTANCE.createReservedKeywordSelf();
+			reservedKeyword.setContext(context);
+			reservedKeyword.setLocation(location);
+			reservedKeyword.setSource(loop);
+			msgs.add(reservedKeyword);
 		}
 		else {
 			Set<IType> declaringTypes = base.getCurrentScope().get(loop.getVariable());
 			if(declaringTypes != null){
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(NAME_ALREADY_USED,loop.getVariable()),
-						base.getStartOffset(loop),
-						base.getEndOffset(loop)
-						));
+				CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+				location.setLine(base.getLines(loop).get(0));
+				location.setStartPosition(base.getStartOffset(loop));
+				location.setEndPosition(base.getEndOffset(loop));
+				
+				Context context = DiagnosticsFactory.eINSTANCE.createContext();
+				
+				VariableAlreadyDefined alreadyBound = DiagnosticsFactory.eINSTANCE.createVariableAlreadyDefined();
+				alreadyBound.setContext(context);
+				alreadyBound.setLocation(location);
+				alreadyBound.setSource(loop);
+				alreadyBound.setName(loop.getVariable());
+				msgs.add(alreadyBound);
 			}
 		}
 		
 		return msgs;
 	}
 	
-	public List<IValidationMessage> validateIf(If ifStmt) {
-		return new ArrayList<>();
+	public List<Message> validateIf(If ifStmt) {
+		return emptyList();
 	}
 	
-	public List<IValidationMessage> validateWhile(While loop) {
-		return new ArrayList<>();
+	public List<Message> validateWhile(While loop) {
+		return emptyList();
 	}
 	
-	private String getSignature(Method op) {
-		EOperation eOp = op.getOperationRef();
-		if(eOp != null) {
-			String paramsToString = 
-					eOp
-					.getEParameters()
-					.stream()
-					.map(param -> param.getEType().getName())
-					.collect(joining(",","(",")"));
-			
-			return eOp.getName() + paramsToString; 
-		}
-		return "undefined";
-	}
-	
-	private boolean isMatching(Method op1, Method op2) {
+	private boolean areTheSame(Method op1, Method op2) {
 		EOperation eOp1 = op1.getOperationRef();
 		EOperation eOp2 = op2.getOperationRef();
 		
-		return isMatching(eOp1,eOp2);
+		return areTheSame(eOp1,eOp2);
 	}
 	
-	private boolean isMatching(EOperation eOp1, EOperation eOp2) {
+	private boolean areTheSame(EOperation eOp1, EOperation eOp2) {
 		
 		if(eOp1 == null || eOp2 == null) {
 			return false;
