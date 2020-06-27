@@ -11,19 +11,28 @@
 package org.eclipse.emf.ecoretools.ale.core.validation.impl;
 
 import static java.util.Objects.requireNonNull;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Stream.generate;
-import static org.eclipse.emf.ecoretools.ale.core.validation.QualifiedNames.getQualifiedName;
 
 import java.util.Set;
 
 import org.eclipse.acceleo.query.ast.Expression;
-import org.eclipse.acceleo.query.runtime.IValidationMessage;
-import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
-import org.eclipse.acceleo.query.runtime.impl.ValidationMessage;
+import org.eclipse.acceleo.query.validation.type.EClassifierType;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.ClassExtendsItself;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.CodeLocation;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Context;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsFactory;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.IndirectExtension;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.NotIterable;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Operator;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeMismatch;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeNotFound;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.UnsupportedOperator;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.IllegalAssignment;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableNotFound;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.impl.StackedScopes;
 import org.eclipse.emf.ecoretools.ale.core.validation.BaseValidator;
 import org.eclipse.emf.ecoretools.ale.core.validation.ITypeChecker;
@@ -31,17 +40,12 @@ import org.eclipse.emf.ecoretools.ale.core.validation.IValidationMessageFactory;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.Statement;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 
-@SuppressWarnings("restriction")
+import com.google.common.collect.Sets;
+
 public final class ValidationMessageFactory implements IValidationMessageFactory {
-
-	public static final String BOOLEAN_TYPE = "Expected a boolean expression but was %s";
-	public static final String COLLECTION_TYPE = "Expected Collection but was %s";
-	public static final String EXTENDS_ITSELF = "Reopened %s is extending itself";
-	public static final String ILLEGAL_ASSIGNMENT = "Type mismatch: cannot assign %s to %s";
-	public static final String ILLEGAL_INSERTION = "%s cannot be added to %s (expected %s)";
-	public static final String ILLEGAL_REMOVAL = "%s cannot be removed from %s (expected %s)";
-	public static final String INCOMPATIBLE_TYPES = "Expected %s but was %s";
 	public static final String INDIRECT_EXTENSION = "Can't extend %s since it is not a direct super type of %s";
 	public static final String UNSUPPORTED_OPERATOR = "%s does not support the '%s' operator";
 	public static final String VOID_RESULT_ASSIGN = "'result' is not available in a void method. Change method's return type";
@@ -54,94 +58,98 @@ public final class ValidationMessageFactory implements IValidationMessageFactory
 	}
 	
 	@Override
-	public IValidationMessage assignmentToResultInVoidOperation(Statement assignment) {
-		return new ValidationMessage(
-				ValidationMessageLevel.ERROR,
-				VOID_RESULT_ASSIGN,
-				base.getStartOffset(assignment),
-				base.getEndOffset(assignment)
-		);
+	public Message assignmentToResultInVoidOperation(Statement assignment) {
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(base.getLines(assignment).get(0));
+		location.setStartPosition(base.getStartOffset(assignment));
+		location.setEndPosition(base.getEndOffset(assignment));
+		
+		VariableNotFound notfound = DiagnosticsFactory.eINSTANCE.createAssignmentToResultInVoidOperation();
+		notfound.setName("result");
+		notfound.setSource(assignment);
+		notfound.setLocation(location);
+		return notfound;
 	}
 	
 	@Override
-	public IValidationMessage expectedBoolean(Expression exp) {
+	public Message expectedBoolean(Expression exp) {
+		Set<IType> expectedTypes = Sets.newHashSet(new EClassifierType(base.getQryEnv(), EcorePackage.eINSTANCE.getEBoolean()));
 		Set<IType> actualTypes = base.getPossibleTypes(exp);
-		return new ValidationMessage(
-				ValidationMessageLevel.ERROR,
-				String.format(BOOLEAN_TYPE, commaSeparated(actualTypes)),
-				base.getStartOffset(exp),
-				base.getEndOffset(exp)
-		);
+		
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(base.getLines(exp).get(0));
+		location.setStartPosition(base.getStartOffset(exp));
+		location.setEndPosition(base.getEndOffset(exp));
+		
+		TypeMismatch mismatch = DiagnosticsFactory.eINSTANCE.createTypeMismatch();
+		mismatch.setLocation(location);
+		mismatch.setSource(exp);
+		mismatch.getExpectedTypes().addAll(expectedTypes);
+		mismatch.getActualTypes().addAll(actualTypes);
+		return mismatch;
 	}
 	
 	@Override
-	public IValidationMessage extendingItself(ExtendedClass xtdClass) {
-		return new ValidationMessage(
-				ValidationMessageLevel.ERROR,
-				String.format(EXTENDS_ITSELF, getQualifiedName(xtdClass.getBaseClass())),
-				base.getStartOffset(xtdClass),
-				base.getEndOffset(xtdClass)
-		);
+	public Message extendingItself(ExtendedClass xtdClass) {
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(base.getLines(xtdClass).get(0));
+		location.setStartPosition(base.getStartOffset(xtdClass));
+		location.setEndPosition(base.getEndOffset(xtdClass));
+		
+		ClassExtendsItself extendsItself = DiagnosticsFactory.eINSTANCE.createClassExtendsItself();
+		extendsItself.setLocation(location);
+		extendsItself.setSource(xtdClass);
+		return extendsItself;
 	}
 	
 	@Override
-	public IValidationMessage forEachCanOnlyIterateOnCollections(ForEach loop) {
-		Set<IType> actualTypes = base.getPossibleTypes(loop.getCollectionExpression());
-		return new ValidationMessage(
-				ValidationMessageLevel.ERROR,
-				String.format(COLLECTION_TYPE, commaSeparated(actualTypes)),
-				base.getStartOffset(loop.getCollectionExpression()),
-				base.getEndOffset(loop.getCollectionExpression())
-		);
+	public Message forEachCanOnlyIterateOnCollections(ForEach loop) {
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(base.getLines(loop.getCollectionExpression()).get(0));
+		location.setStartPosition(base.getStartOffset(loop.getCollectionExpression()));
+		location.setEndPosition(base.getEndOffset(loop.getCollectionExpression()));
+		
+		NotIterable notIterable = DiagnosticsFactory.eINSTANCE.createNotIterable();
+		notIterable.setLocation(location);
+		notIterable.setSource(loop.getCollectionExpression());
+		notIterable.getActualTypes().addAll(base.getPossibleTypes(loop.getCollectionExpression()));
+		return notIterable;
 	}
 	
 	@Override
-	public IValidationMessage illegalAssignment(Set<IType> variableTypes, Set<IType> valueTypes, Object assignment) {
-		String errorMessage = String.format(ILLEGAL_ASSIGNMENT, commaSeparated(valueTypes), commaSeparated(variableTypes));
-		if (assigningSequenceToSet(variableTypes, valueTypes)) {
-			errorMessage += "\n" + generate(() -> "-").limit(errorMessage.length()).collect(joining());
-			errorMessage += "\nCall aSequence->asOrderedSet() to allow assignment";
-		}
-		else if (assigningSetToSequence(variableTypes, valueTypes)) {
-			errorMessage += "\n" + generate(() -> "-").limit(errorMessage.length()).collect(joining());
-			errorMessage += "\nCall anOrderedSet->asSequence() to allow assignment";
-		}
+	public Message illegalAssignment(Set<IType> variableTypes, Set<IType> valueTypes, EObject assignment, Object assignedValue) {
 		// Easiest hack I've found to identify the most relevant range of text to underline
 		boolean includesSemicolon = assignment.getClass().getName().startsWith("org.eclipse.emf.ecoretools.ale");
 		
-		return new ValidationMessage(
-				ValidationMessageLevel.ERROR,
-				errorMessage,
-				base.getStartOffset(assignment),
-				base.getEndOffset(assignment) + (includesSemicolon ? 0 : 1)
-		);
-	}
-	
-	private boolean assigningSequenceToSet(Set<IType> variableTypes, Set<IType> valueTypes) {
-		ITypeChecker types = new TypeChecker(new StackedScopes(), base.getQryEnv());
-		return variableTypes.stream().anyMatch(types::isSet)
-			&& valueTypes.stream().anyMatch(types::isSequence);
-	}
-	
-	private boolean assigningSetToSequence(Set<IType> variableTypes, Set<IType> valueTypes) {
-		ITypeChecker types = new TypeChecker(new StackedScopes(), base.getQryEnv());
-		return variableTypes.stream().anyMatch(types::isSequence)
-			&& valueTypes.stream().anyMatch(types::isSet);
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(base.getLines(assignment).get(0));
+		location.setStartPosition(base.getStartOffset(assignedValue));
+		location.setEndPosition(base.getEndOffset(assignedValue) + (includesSemicolon ? 1 : 1));
+		
+		IllegalAssignment illegalAssignment = DiagnosticsFactory.eINSTANCE.createIllegalAssignment();
+		illegalAssignment.setLocation(location);
+		illegalAssignment.setSource(assignment);
+		illegalAssignment.getExpectedTypes().addAll(variableTypes);
+		illegalAssignment.getTargetTypes().addAll(variableTypes);
+		illegalAssignment.getActualTypes().addAll(valueTypes);
+		illegalAssignment.setAssignedValue(assignedValue);
+		return illegalAssignment;
 	}
 
 	@Override
-	public IValidationMessage illegalInsertion(Set<IType> variableTypes, Set<IType> insertedValueTypes, Set<IType> acceptedValueTypes, Object value) {
-		String errorMessage = String.format(ILLEGAL_INSERTION, commaSeparated(insertedValueTypes), commaSeparated(variableTypes), commaSeparated(acceptedValueTypes));
-		if (assigningCollectionToCollection(variableTypes, insertedValueTypes)) {
-			errorMessage += "\n" + generate(() -> "-").limit(50).collect(joining());
-			errorMessage += "\nMake sure both collections hold the same type";
-		}
-		return new ValidationMessage(
-				ValidationMessageLevel.ERROR,
-				errorMessage,
-				base.getStartOffset(value),
-				base.getEndOffset(value) + 1
-		);
+	public Message illegalInsertion(Set<IType> variableTypes, Set<IType> insertedValueTypes, Set<IType> acceptedValueTypes, Expression value) {
+		TypeMismatch mismatch = DiagnosticsFactory.eINSTANCE.createIllegalAdditionAssignment();
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(base.getLines(value).get(0));
+		location.setStartPosition(base.getStartOffset(value));
+		location.setEndPosition(base.getEndOffset(value) + 1);
+		
+		mismatch.setLocation(location);
+		mismatch.setSource(value);
+		mismatch.getTargetTypes().addAll(variableTypes);
+		mismatch.getExpectedTypes().addAll(acceptedValueTypes);
+		mismatch.getActualTypes().addAll(insertedValueTypes);
+		return mismatch;
 	}
 	
 	private boolean assigningCollectionToCollection(Set<IType> variableTypes, Set<IType> valueTypes) {
@@ -151,100 +159,144 @@ public final class ValidationMessageFactory implements IValidationMessageFactory
 	}
 	
 	@Override
-	public IValidationMessage illegalRemoval(Set<IType> variableTypes, Set<IType> removedValueTypes, Set<IType> acceptedValueTypes, Object value) {
-		String errorMessage = String.format(ILLEGAL_REMOVAL, commaSeparated(removedValueTypes), commaSeparated(variableTypes), commaSeparated(acceptedValueTypes));
-		if (assigningCollectionToCollection(variableTypes, removedValueTypes)) {
-			errorMessage += "\n" + generate(() -> "-").limit(50).collect(joining());
-			errorMessage += "\nMake sure both collections hold the same type";
+	public Message illegalRemoval(Set<IType> variableTypes, Set<IType> removedValueTypes, Set<IType> acceptedValueTypes, Expression value) {
+		TypeMismatch mismatch = DiagnosticsFactory.eINSTANCE.createIllegalSubstractionAssignment();
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(base.getLines(value).get(0));
+		location.setStartPosition(base.getStartOffset(value));
+		location.setEndPosition(base.getEndOffset(value) + 1);
+		
+		mismatch.setLocation(location);
+		mismatch.setSource(value);
+		mismatch.getTargetTypes().addAll(variableTypes);
+		mismatch.getExpectedTypes().addAll(acceptedValueTypes);
+		mismatch.getActualTypes().addAll(removedValueTypes);
+		return mismatch;
+	}
+	
+	@Override
+	public Message incompatibleTypes(Set<IType> expected, Set<IType> actual, EObject statement) {
+		TypeMismatch mismatch;
+		if (assigningCollectionToCollection(expected, actual)) {
+			mismatch = DiagnosticsFactory.eINSTANCE.createCollectionTypeMismatch();
 		}
-		return new ValidationMessage(
-				ValidationMessageLevel.ERROR,
-				errorMessage,
-				base.getStartOffset(value),
-				base.getEndOffset(value) + 1
-		);
+		else {
+			mismatch = DiagnosticsFactory.eINSTANCE.createTypeMismatch();
+		}
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(base.getLines(statement).get(0));
+		location.setStartPosition(base.getStartOffset(statement));
+		location.setEndPosition(base.getEndOffset(statement));
+		
+		mismatch.setLocation(location);
+		mismatch.setSource(statement);
+		mismatch.getExpectedTypes().addAll(expected);
+		mismatch.getActualTypes().addAll(actual);
+		return mismatch;
 	}
 	
 	@Override
-	public IValidationMessage incompatibleTypes(Set<IType> expected, Set<IType> actual, Object statement) {
-		return new ValidationMessage(
-				ValidationMessageLevel.ERROR,
-				String.format(INCOMPATIBLE_TYPES, commaSeparated(expected), commaSeparated(actual)),
-				base.getStartOffset(statement),
-				base.getEndOffset(statement)
-		);
-	}
-	
-	
-	@Override
-	public IValidationMessage indirectExtension(ExtendedClass xtdClass, EClass superBase, EClass baseCls) {
-		return new ValidationMessage(
-				ValidationMessageLevel.ERROR,
-				String.format(INDIRECT_EXTENSION, getQualifiedName(superBase), getQualifiedName(baseCls)),
-				base.getStartOffset(xtdClass),
-				base.getEndOffset(xtdClass)
-		);
+	public Message indirectExtension(ExtendedClass xtdClass, EClass superBase, EClass baseCls) {
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(base.getLines(xtdClass).get(0));
+		location.setStartPosition(base.getStartOffset(xtdClass));
+		location.setEndPosition(base.getStartOffset(xtdClass) + ("open class " + xtdClass.getName() + " extends " + xtdClass.getBaseClass().getName()).length());
+		
+		IndirectExtension indirectExtension = DiagnosticsFactory.eINSTANCE.createIndirectExtension();
+		indirectExtension.setLocation(location);
+		indirectExtension.setSource(xtdClass);
+		indirectExtension.setOpenClass(baseCls);
+		indirectExtension.setInheritedClass(superBase);
+		return indirectExtension;
 	}
 
 	@Override
-	public IValidationMessage prohibitedInsertionToSelf(Object statement) {
-		return new ValidationMessage(
-				ValidationMessageLevel.ERROR,
-				String.format(UNSUPPORTED_OPERATOR, "'self'", "+="),
-				base.getStartOffset(statement),
-				base.getStartOffset(statement) + "self".length()
-		);
+	public Message prohibitedInsertionToSelf(VariableInsert statement) {
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(base.getLines(statement).get(0));
+		location.setStartPosition(base.getStartOffset(statement));
+		location.setEndPosition(base.getStartOffset(statement) + "self".length());
+		
+		Context context = DiagnosticsFactory.eINSTANCE.createContext();
+		
+		UnsupportedOperator unsupported = DiagnosticsFactory.eINSTANCE.createProhibitedInsertionToSelf();
+		unsupported.setSource(statement);
+		unsupported.setContext(context);
+		unsupported.setLocation(location);
+		unsupported.setOperator(Operator.ADDITION_ASSIGNMENT);
+		return unsupported;
 	}
 	
 	@Override
-	public IValidationMessage prohibitedRemovalFromSelf(Object statement) {
-		return new ValidationMessage(
-				ValidationMessageLevel.ERROR,
-				String.format(UNSUPPORTED_OPERATOR, "'self'", "-="),
-				base.getStartOffset(statement),
-				base.getStartOffset(statement) + "self".length()
-		);
+	public Message prohibitedRemovalFromSelf(VariableRemove statement) {
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(base.getLines(statement).get(0));
+		location.setStartPosition(base.getStartOffset(statement));
+		location.setEndPosition(base.getStartOffset(statement) + "self".length());
+		
+		Context context = DiagnosticsFactory.eINSTANCE.createContext();
+		
+		UnsupportedOperator unsupported = DiagnosticsFactory.eINSTANCE.createProhibitedRemovalFromSelf();
+		unsupported.setSource(statement);
+		unsupported.setContext(context);
+		unsupported.setLocation(location);
+		unsupported.setOperator(Operator.ADDITION_ASSIGNMENT);
+		return unsupported;
 	}
 	
 	@Override
-	public IValidationMessage unresolvedType(Object expression) {
-		String declaredPackages = base.getQryEnv().getEPackageProvider().getRegisteredEPackages().stream()
-												  .map(EPackage::getName)
-												  .collect(joining(", ","[","]")); 
-		return new ValidationMessage(
-				ValidationMessageLevel.ERROR,
-				// TODO implement a contextual UnresolvedType to get better name. cf. https://github.com/gemoc/ale-lang/issues/78
-				String.format(UNRESOLVED_TYPE, ""/*getQualifiedName(att.getFeatureRef().getEType())*/, declaredPackages),
-				base.getStartOffset(expression),
-				base.getEndOffset(expression)
-		);
+	public Message unresolvedType(EObject statement) {
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(base.getLines(statement).get(0));
+		location.setStartPosition(base.getStartOffset(statement));
+		location.setEndPosition(base.getEndOffset(statement));
+		
+		Context context = DiagnosticsFactory.eINSTANCE.createContext();
+		
+		TypeNotFound unresolved = DiagnosticsFactory.eINSTANCE.createTypeNotFound();
+		unresolved.setSource(statement);
+		unresolved.setContext(context);
+		unresolved.setLocation(location);
+		// FIXME implement a contextual TypeNotFound to get better name. cf. https://github.com/gemoc/ale-lang/issues/78
+		unresolved.setName("");
+		unresolved.getAvailableEPackages().addAll(base.getQryEnv().getEPackageProvider().getRegisteredEPackages());
+		return unresolved;
 	}
 	
 	@Override
-	public IValidationMessage unsupportedOperatorOnFeature(Set<IType> currentTypes, Object statement, String featureName, String operator) {
-		return new ValidationMessage(
-				ValidationMessageLevel.ERROR,
-				String.format(UNSUPPORTED_OPERATOR,commaSeparated(currentTypes), operator),
-				base.getStartOffset(statement),
-				base.getStartOffset(statement) + ("self." + featureName).length()
-		);
+	public Message unsupportedOperatorOnFeature(Set<IType> currentTypes, EObject statement, String featureName, Operator operator) {
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(base.getLines(statement).get(0));
+		location.setStartPosition(base.getStartOffset(statement));
+		location.setEndPosition(base.getStartOffset(statement) + ("self." + featureName).length());
+		
+		Context context = DiagnosticsFactory.eINSTANCE.createContext();
+		
+		UnsupportedOperator unsupported = DiagnosticsFactory.eINSTANCE.createUnsupportedOperator();
+		unsupported.setSource(statement);
+		unsupported.setContext(context);
+		unsupported.setLocation(location);
+		unsupported.setOperator(operator);
+		unsupported.getTargetTypes().addAll(currentTypes);
+		return unsupported;
 	}
 
 	@Override
-	public IValidationMessage unsupportedOperatorOnVariable(Set<IType> currentTypes, Object statement, String variableName, String operator) {
-		return new ValidationMessage(
-				ValidationMessageLevel.ERROR,
-				String.format(UNSUPPORTED_OPERATOR,commaSeparated(currentTypes), operator),
-				base.getStartOffset(statement),
-				base.getStartOffset(statement) + variableName.length()
-		);
+	public Message unsupportedOperatorOnVariable(Set<IType> currentTypes, EObject statement, String variableName, Operator operator) {
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(base.getLines(statement).get(0));
+		location.setStartPosition(base.getStartOffset(statement));
+		location.setEndPosition(base.getStartOffset(statement) + variableName.length());
+		
+		Context context = DiagnosticsFactory.eINSTANCE.createContext();
+		
+		UnsupportedOperator unsupported = DiagnosticsFactory.eINSTANCE.createUnsupportedOperator();
+		unsupported.setSource(statement);
+		unsupported.setContext(context);
+		unsupported.setLocation(location);
+		unsupported.setOperator(operator);
+		unsupported.getTargetTypes().addAll(currentTypes);
+		return unsupported;
 	}
 	
-	private static String commaSeparated(Set<IType> types) {
-		return types.stream()
-					.map(type -> getQualifiedName(type))
-					.sorted()
-					.distinct()
-					.collect(joining(",","[","]"));
-	}
 }

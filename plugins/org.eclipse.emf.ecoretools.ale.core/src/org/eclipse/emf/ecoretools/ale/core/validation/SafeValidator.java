@@ -15,8 +15,8 @@ import static java.util.Collections.emptyList;
 import java.util.List;
 import java.util.Objects;
 
-import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.emf.ecoretools.ale.core.Activator;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureInsert;
@@ -49,7 +49,7 @@ public final class SafeValidator implements IValidator {
 		unsafeValidator.setBase(baseValidator);
 	}
 
-	public List<IValidationMessage> validateModelBehavior(List<ModelUnit> units) {
+	public List<Message> validateModelBehavior(List<ModelUnit> units) {
 		try {
 			return unsafeValidator.validateModelBehavior(units);
 		} 
@@ -59,7 +59,7 @@ public final class SafeValidator implements IValidator {
 		}
 	}
 
-	public List<IValidationMessage> validateModelUnit(ModelUnit unit) {
+	public List<Message> validateModelUnit(ModelUnit unit) {
 		try {
 			return unsafeValidator.validateModelUnit(unit);
 		} 
@@ -69,7 +69,7 @@ public final class SafeValidator implements IValidator {
 		}
 	}
 
-	public List<IValidationMessage> validateExtendedClass(ExtendedClass xtdClass) {
+	public List<Message> validateExtendedClass(ExtendedClass xtdClass) {
 		try {
 			return unsafeValidator.validateExtendedClass(xtdClass);
 		} 
@@ -79,7 +79,7 @@ public final class SafeValidator implements IValidator {
 		}
 	}
 
-	public List<IValidationMessage> validateRuntimeClass(RuntimeClass classDef) {
+	public List<Message> validateRuntimeClass(RuntimeClass classDef) {
 		try {
 			return unsafeValidator.validateRuntimeClass(classDef);
 		} 
@@ -89,7 +89,7 @@ public final class SafeValidator implements IValidator {
 		}
 	}
 
-	public List<IValidationMessage> validateMethod(Method mtd) {
+	public List<Message> validateMethod(Method mtd) {
 		try {
 			return unsafeValidator.validateMethod(mtd);
 		} 
@@ -99,7 +99,7 @@ public final class SafeValidator implements IValidator {
 		}
 	}
 
-	public List<IValidationMessage> validateFeatureAssignment(FeatureAssignment featAssign) {
+	public List<Message> validateFeatureAssignment(FeatureAssignment featAssign) {
 		try {
 			return unsafeValidator.validateFeatureAssignment(featAssign);
 		}
@@ -109,7 +109,7 @@ public final class SafeValidator implements IValidator {
 		}
 	}
 
-	public List<IValidationMessage> validateFeatureInsert(FeatureInsert featInsert) {
+	public List<Message> validateFeatureInsert(FeatureInsert featInsert) {
 		try { 
 			return unsafeValidator.validateFeatureInsert(featInsert);
 		}
@@ -119,7 +119,7 @@ public final class SafeValidator implements IValidator {
 		}
 	}
 
-	public List<IValidationMessage> validateFeatureRemove(FeatureRemove featRemove) {
+	public List<Message> validateFeatureRemove(FeatureRemove featRemove) {
 		try {
 			return unsafeValidator.validateFeatureRemove(featRemove);
 		}
@@ -129,7 +129,7 @@ public final class SafeValidator implements IValidator {
 		}
 	}
 
-	public List<IValidationMessage> validateVariableAssignment(VariableAssignment varAssign) {
+	public List<Message> validateVariableAssignment(VariableAssignment varAssign) {
 		try {
 			return unsafeValidator.validateVariableAssignment(varAssign);
 		}
@@ -139,7 +139,7 @@ public final class SafeValidator implements IValidator {
 		}
 	}
 
-	public List<IValidationMessage> validateVariableDeclaration(VariableDeclaration varDecl) {
+	public List<Message> validateVariableDeclaration(VariableDeclaration varDecl) {
 		try {
 			return unsafeValidator.validateVariableDeclaration(varDecl);
 		}
@@ -149,7 +149,7 @@ public final class SafeValidator implements IValidator {
 		}
 	}
 
-	public List<IValidationMessage> validateVariableInsert(VariableInsert varInsert) {
+	public List<Message> validateVariableInsert(VariableInsert varInsert) {
 		try {
 			return unsafeValidator.validateVariableInsert(varInsert);
 		}
@@ -159,7 +159,7 @@ public final class SafeValidator implements IValidator {
 		}
 	}
 
-	public List<IValidationMessage> validateVariableRemove(VariableRemove varRemove) {
+	public List<Message> validateVariableRemove(VariableRemove varRemove) {
 		try {
 			return unsafeValidator.validateVariableRemove(varRemove);
 		}
@@ -169,7 +169,7 @@ public final class SafeValidator implements IValidator {
 		}
 	}
 
-	public List<IValidationMessage> validateForEach(ForEach loop) {
+	public List<Message> validateForEach(ForEach loop) {
 		try {
 			return unsafeValidator.validateForEach(loop);
 		}
@@ -179,7 +179,7 @@ public final class SafeValidator implements IValidator {
 		}
 	}
 
-	public List<IValidationMessage> validateIf(If ifStmt) {
+	public List<Message> validateIf(If ifStmt) {
 		try {
 			return unsafeValidator.validateIf(ifStmt);
 		}
@@ -189,7 +189,7 @@ public final class SafeValidator implements IValidator {
 		}
 	}
 
-	public List<IValidationMessage> validateWhile(While loop) {
+	public List<Message> validateWhile(While loop) {
 		try {
 			return unsafeValidator.validateWhile(loop);
 		}

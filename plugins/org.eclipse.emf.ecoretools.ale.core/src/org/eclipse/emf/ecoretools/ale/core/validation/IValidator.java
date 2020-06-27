@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyright (c) 2017 Inria and Obeo.
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+ * are made available under the terms of the Eclipse default License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
@@ -10,9 +10,10 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.validation;
 
+import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.acceleo.query.runtime.IValidationMessage;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureInsert;
@@ -30,23 +31,66 @@ import org.eclipse.emf.ecoretools.ale.implementation.While;
 
 public interface IValidator {
 	
-	public void setBase(BaseValidator baseValidator);
+	void setBase(BaseValidator baseValidator);
 	
-	public List<IValidationMessage> validateModelBehavior(List<ModelUnit> units);
-	public List<IValidationMessage> validateModelUnit(ModelUnit unit);
-	public List<IValidationMessage> validateExtendedClass(ExtendedClass xtdClass);
-	public List<IValidationMessage> validateRuntimeClass(RuntimeClass classDef);
-	public List<IValidationMessage> validateMethod(Method mtd);
+	default List<Message> validateModelBehavior(List<ModelUnit> units) {
+		return Collections.emptyList();
+	}
 	
-	public List<IValidationMessage> validateFeatureAssignment(FeatureAssignment featAssign);
-	public List<IValidationMessage> validateFeatureInsert(FeatureInsert featInsert);
-	public List<IValidationMessage> validateFeatureRemove(FeatureRemove featRemove);
-	public List<IValidationMessage> validateVariableAssignment(VariableAssignment varAssign);
-	public List<IValidationMessage> validateVariableDeclaration(VariableDeclaration varDecl);
-	public List<IValidationMessage> validateVariableInsert(VariableInsert varInsert);
-	public List<IValidationMessage> validateVariableRemove(VariableRemove varRemove);
-	public List<IValidationMessage> validateForEach(ForEach loop);
-	public List<IValidationMessage> validateIf(If ifStmt);
-	public List<IValidationMessage> validateWhile(While loop);
+	default List<Message> validateModelUnit(ModelUnit unit) {
+		return Collections.emptyList();
+	}
+	
+	default List<Message> validateExtendedClass(ExtendedClass xtdClass) {
+		return Collections.emptyList();
+	}
+	
+	default List<Message> validateRuntimeClass(RuntimeClass classDef) {
+		return Collections.emptyList();
+	}
+	
+	default List<Message> validateMethod(Method mtd) {
+		return Collections.emptyList();
+	}
+	
+	default List<Message> validateFeatureAssignment(FeatureAssignment featAssign) {
+		return Collections.emptyList();
+	}
+	
+	default List<Message> validateFeatureInsert(FeatureInsert featInsert) {
+		return Collections.emptyList();
+	}
+	
+	default List<Message> validateFeatureRemove(FeatureRemove featRemove) {
+		return Collections.emptyList();
+	}
+	
+	default List<Message> validateVariableAssignment(VariableAssignment varAssign) {
+		return Collections.emptyList();
+	}
+	
+	default List<Message> validateVariableDeclaration(VariableDeclaration varDecl) {
+		return Collections.emptyList();
+	}
+	
+	default List<Message> validateVariableInsert(VariableInsert varInsert) {
+		return Collections.emptyList();
+	}
+	
+	default List<Message> validateVariableRemove(VariableRemove varRemove) {
+		return Collections.emptyList();
+	}
+	
+	default List<Message> validateForEach(ForEach loop) {
+		return Collections.emptyList();
+	}
+	
+	default List<Message> validateIf(If ifStmt) {
+		return Collections.emptyList();
+	}
+	
+	default List<Message> validateWhile(While loop) {
+		return Collections.emptyList();
+	}
 	
 }

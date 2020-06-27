@@ -14,8 +14,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Set;
 
-import org.eclipse.acceleo.query.runtime.IValidationMessage;
+import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.validation.type.IType;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message;
 
 /**
  * Represents a modification that can be applied to a variable/feature.
@@ -78,7 +79,7 @@ interface IVariableModificationStrategy {
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage createIllegalModificationMessage(Set<IType> variableTypes, Set<IType> valueTypes, Set<IType> acceptedValueTypes, Object valueExpression);
+	Message createIllegalModificationMessage(Set<IType> variableTypes, Set<IType> valueTypes, Set<IType> acceptedValueTypes, Expression valueExpression);
 }
 
 /**
@@ -124,8 +125,8 @@ class InsertionStrategy implements IVariableModificationStrategy {
 	}
 
 	@Override
-	public IValidationMessage createIllegalModificationMessage(Set<IType> variableTypes, Set<IType> valueTypes,
-			Set<IType> acceptedValueTypes, Object valueExpression) {
+	public Message createIllegalModificationMessage(Set<IType> variableTypes, Set<IType> valueTypes,
+			Set<IType> acceptedValueTypes, Expression valueExpression) {
 		return messages.illegalInsertion(
 				variableTypes, valueTypes, acceptedValueTypes, valueExpression);
 	}
@@ -175,8 +176,8 @@ class RemovalStrategy implements IVariableModificationStrategy {
 	}
 
 	@Override
-	public IValidationMessage createIllegalModificationMessage(Set<IType> variableTypes, Set<IType> valueTypes,
-			Set<IType> acceptedValueTypes, Object valueExpression) {
+	public Message createIllegalModificationMessage(Set<IType> variableTypes, Set<IType> valueTypes,
+			Set<IType> acceptedValueTypes, Expression valueExpression) {
 		return messages.illegalRemoval(
 				variableTypes, valueTypes, acceptedValueTypes, valueExpression);
 	}
