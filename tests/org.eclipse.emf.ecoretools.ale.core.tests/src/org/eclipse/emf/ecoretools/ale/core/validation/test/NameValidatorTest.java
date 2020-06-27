@@ -16,8 +16,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator;
 import org.junit.After;
@@ -38,20 +38,6 @@ public class NameValidatorTest {
 	}
 	
 	/*
-	 * Test unique name for ModelUnit
-	 */
-	@Test
-	public void testUniqueModelUnit() {
-		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/unit1.implem","input/validation/unit2.implem"));
-		ALEValidator validator = new ALEValidator(env);
-		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
-		
-		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 0, 0, "The name test.unit is already used", msg.get(0));
-	}
-	
-	/*
 	 * Test unique name for RuntimeClass in a ModelUnit
 	 */
 	@Test
@@ -59,10 +45,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/uniqueRuntimeClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 57, 81, "The name MyRuntimeClass is already used", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 57, 76, "The name MyRuntimeClass is already used", msg.get(0));
 	}
 	
 	/*
@@ -73,7 +59,7 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/uniqueRuntimeClassGlobal1.implem","input/validation/uniqueRuntimeClassGlobal2.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
 	}
@@ -86,11 +72,11 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/operationDuplicationRuntime.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(2, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 67, 83, "The operation op() is already declared", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 143, 171, "The operation mtd(EString) is already declared", msg.get(1));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 67, 80, "The operation op() is already declared", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 143, 170, "The operation mtd(EString) is already declared", msg.get(1));
 	}
 	
 	/*
@@ -101,11 +87,11 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/operationDuplication.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
-		assertEquals(2, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 80, "The operation op() is already declared", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 140, 168, "The operation mtd(EString) is already declared", msg.get(1));
+		assertEquals(msg.toString(), 2, msg.size());
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 64, 77, "The operation op() is already declared", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 140, 167, "The operation mtd(EString) is already declared", msg.get(1));
 	}
 	
 	/*
@@ -116,10 +102,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/defOverrideConflict.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 56, 83, "The operation getFeatureCount() must override", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 56, 83, "The operation getFeatureCount() must override", msg.get(0));
 	}
 	
 	/*
@@ -130,10 +116,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/overrideNotFound.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 53, 86, "Can't find matching EOperation in EClass", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 53, 85, "Can't find matching EOperation in EClass", msg.get(0));
 	}
 	
 	/*
@@ -144,10 +130,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/duplicatedParametersRuntimeClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 46, 85, "The name param is already used", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 46, 82, "The name param is already used", msg.get(0));
 	}
 	
 	/*
@@ -158,10 +144,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/selfParamRuntimeClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 48, 71, "'self' is a reserved name", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 48, 68, "'self' is a reserved name", msg.get(0));
 	}
 	
 	/*
@@ -172,10 +158,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/resultParamRuntimeClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 48, 73, "'result' is a reserved name", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 48, 70, "'result' is a reserved name", msg.get(0));
 	}
 	
 	/*
@@ -186,10 +172,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/duplicatedParameters.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 43, 82, "The name param is already used", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 66, 78, "The name param is already used", msg.get(0));
 	}
 	
 	/*
@@ -200,10 +186,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/selfParamExtendedClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 45, 68, "'self' is a reserved name", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 56, 64, "'self' is a reserved name", msg.get(0));
 	}
 	
 	/*
@@ -214,10 +200,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/resultParamExtendedClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 45, 70, "'result' is a reserved name", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 56, 66, "'result' is a reserved name", msg.get(0));
 	}
 	
 	/*
@@ -228,10 +214,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/duplicatedAttribRuntimeClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 74, 95, "The name newAttribute is already used", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 74, 95, "The name newAttribute is already used", msg.get(0));
 	}
 	
 	/*
@@ -242,10 +228,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/selfAttributeRuntimeClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 48, 61, "'self' is a reserved name", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 48, 61, "'self' is a reserved name", msg.get(0));
 	}
 	
 	/*
@@ -256,10 +242,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/resultAttributeRuntimeClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 48, 63, "'result' is a reserved name", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 48, 63, "'result' is a reserved name", msg.get(0));
 	}
 	
 	/*
@@ -270,10 +256,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/duplicatedAttrib.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 71, 92, "The name newAttribute is already used", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 71, 92, "The name newAttribute is already used", msg.get(0));
 	}
 	
 	/*
@@ -284,10 +270,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/selfAttributeExtendedClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 45, 58, "'self' is a reserved name", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 45, 58, "'self' is a reserved name", msg.get(0));
 	}
 	
 	/*
@@ -298,10 +284,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/resultAttributeExtendedClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 45, 60, "'result' is a reserved name", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 45, 60, "'result' is a reserved name", msg.get(0));
 	}
 	
 	/*
@@ -312,10 +298,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/conflictAttrib.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 45, 61, "The name abstract is already used", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 45, 61, "The name abstract is already used", msg.get(0));
 	}
 	
 	/*
@@ -326,10 +312,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/conflictAttribParamLocal.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 87, 99, "The name foo is already used", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 87, 99, "The name foo is already used", msg.get(0));
 	}
 	
 	/*
@@ -340,12 +326,12 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/declareSelfError.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(3, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 45, 58, "'self' is a reserved name", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 101, "'self' is a reserved name", msg.get(1));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 85, 98, "'self' is a reserved name", msg.get(2));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 45, 58, "'self' is a reserved name", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 72, 80, "'self' is a reserved name", msg.get(1));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 85, 98, "'self' is a reserved name", msg.get(2));
 	}
 	
 	/*
@@ -356,12 +342,12 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/declareResultError.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(3, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 44, 59, "'result' is a reserved name", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 62, 106, "'result' is a reserved name", msg.get(1));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 88, 103, "'result' is a reserved name", msg.get(2));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 44, 59, "'result' is a reserved name", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 73, 83, "'result' is a reserved name", msg.get(1));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 88, 103, "'result' is a reserved name", msg.get(2));
 	}
 	
 	/*
@@ -372,10 +358,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/duplicatedLocalVariable.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 82, 99, "The name localVar is already used", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 82, 99, "The name localVar is already used", msg.get(0));
 	}
 	
 	/*
@@ -386,10 +372,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/scopeLocalVariable.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 93, 110, "The name localVar is already used", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 93, 110, "The name localVar is already used", msg.get(0));
 	}
 	
 	/*
@@ -400,7 +386,7 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/localAttribNoConflict.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
 	}
@@ -413,7 +399,7 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignLocal.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
 	}
@@ -426,10 +412,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignUnknownLocal.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 65, 82, "The variable wrong is not defined", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 65, 70, "The variable wrong is not defined", msg.get(0));
 	}
 	
 	/*
@@ -440,10 +426,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignSelfError.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 92, "'self' can't be assigned", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 64, 68, "'self' can't be assigned", msg.get(0));
 	}
 	
 	/*
@@ -454,10 +440,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignParamError.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 74, 85, "param is a parameter and can't be assigned", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 74, 79, "param is a parameter and can't be assigned", msg.get(0));
 	}
 	
 	/*
@@ -468,7 +454,7 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignEClassAttrib.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
 	}
@@ -481,7 +467,7 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignAttribExtendedClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
 	}
@@ -494,7 +480,7 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignAttribRuntimeClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
 	}
@@ -507,10 +493,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignUnknownFeature.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 86, "The feature wrong is not defined", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 64, 74, "The feature wrong is not defined", msg.get(0));
 	}
 	
 	/*
@@ -521,10 +507,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignUnknownFeatureRuntimeClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 67, 89, "The feature wrong is not defined", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 67, 77, "The feature wrong is not defined", msg.get(0));
 	}
 	
 	/*
@@ -535,7 +521,7 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertEClassAttrib.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
 	}
@@ -548,7 +534,7 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertAttribExtendedClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
 	}
@@ -561,7 +547,7 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertAttribRuntimeClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
 	}
@@ -574,10 +560,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertUnknownFeatureExtendedClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 86, "The feature wrong is not defined", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 64, 74, "The feature wrong is not defined", msg.get(0));
 	}
 	
 	/*
@@ -588,10 +574,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/insertUnknownFeatureRuntimeClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 67, 89, "The feature wrong is not defined", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 67, 77, "The feature wrong is not defined", msg.get(0));
 	}
 	
 	//Remove idem
@@ -604,7 +590,7 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeEClassAttrib.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
 	}
@@ -617,7 +603,7 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeAttribExtendedClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
 	}
@@ -630,7 +616,7 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeAttribRuntimeClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
 	}
@@ -643,10 +629,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeUnknownFeatureExtendedClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 64, 86, "The feature wrong is not defined", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 64, 74, "The feature wrong is not defined", msg.get(0));
 	}
 	
 	/*
@@ -657,10 +643,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/removeUnknownFeatureRuntimeClass.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 67, 89, "The feature wrong is not defined", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 67, 77, "The feature wrong is not defined", msg.get(0));
 	}
 	
 	/*
@@ -671,10 +657,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/forEachParamConflict.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 70, 95, "The name param is already used", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 70, 95, "The name param is already used", msg.get(0));
 	}
 	
 	/*
@@ -685,10 +671,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/forEachResult.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 87, "'result' is a reserved name", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 61, 87, "'result' is a reserved name", msg.get(0));
 	}
 	
 	/*
@@ -699,10 +685,10 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/forEachSelf.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 61, 85, "'self' is a reserved name", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 61, 85, "'self' is a reserved name", msg.get(0));
 	}
 	
 	/*
@@ -713,11 +699,11 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/forEachExternalBlock.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(msg.toString(), 2, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 83, 153, "The name localDef is already used", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 83, 153, "The name localDef is already used", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 83, 153, "The name localDef is already used", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 83, 153, "The name localDef is already used", msg.get(0));
 	}
 	
 	/*
@@ -728,7 +714,7 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureAccessTypes.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
 	}
@@ -741,25 +727,25 @@ public class NameValidatorTest {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/featureAccessTypesError.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals("messages: " + msg, 1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 112, 117, "Feature wrong not found in EClass EClass", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 112, 117, "Feature wrong not found in EClass EClass", msg.get(0));
 	}
 	
 	/*
-	 * Test that no value can be assigned (:=, ++, -=) to the 'result' variable
+	 * Test that no value can be assigned (:=, +=, -=) to the 'result' variable
 	 */
 	@Test
 	public void testReturnAssignVoid() {
 		env = IAleEnvironment.fromPaths(asList(),asList("input/validation/assignVoid.implem"));
 		ALEValidator validator = new ALEValidator(env);
 		validator.validate(env.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(3, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 65, 76, "'result' is not available in a void method. Change method's return type", msg.get(0));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 80, 91, "'result' is not available in a void method. Change method's return type", msg.get(1));
-		assertMsgEquals(ValidationMessageLevel.ERROR, 95, 106, "'result' is not available in a void method. Change method's return type", msg.get(2));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 65, 76, "'result' is not available in a void method. Change method's return type", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 80, 91, "'result' is not available in a void method. Change method's return type", msg.get(1));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 95, 106, "'result' is not available in a void method. Change method's return type", msg.get(2));
 	}
 }

@@ -46,10 +46,6 @@ import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 import com.google.common.collect.Sets;
 
 public final class ValidationMessageFactory implements IValidationMessageFactory {
-	public static final String INDIRECT_EXTENSION = "Can't extend %s since it is not a direct super type of %s";
-	public static final String UNSUPPORTED_OPERATOR = "%s does not support the '%s' operator";
-	public static final String VOID_RESULT_ASSIGN = "'result' is not available in a void method. Change method's return type";
-	public static final String UNRESOLVED_TYPE = "Unresolved type %s, it cannot be found in any of the declared packages: %s";
 	
 	private final BaseValidator base;
 	

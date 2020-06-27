@@ -6,8 +6,6 @@ package org.eclipse.emf.ecoretools.validation
 import com.google.common.collect.Sets
 import java.util.ArrayList
 import java.util.List
-import org.eclipse.acceleo.query.runtime.IValidationMessage
-import org.eclipse.acceleo.query.runtime.ValidationMessageLevel
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IMarker
 import org.eclipse.core.resources.IProject
@@ -25,7 +23,10 @@ import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message
 import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment
 import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.AleInterpreter
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator
+import org.eclipse.emf.ecoretools.ale.core.validation.impl.TypeChecker
 import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject
+import org.eclipse.emf.ecoretools.ale.validation.DiagnosticsToEditorMarkerAdapter
+import org.eclipse.emf.ecoretools.ale.validation.EditorMarkerFormatter
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer
 import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode
@@ -46,12 +47,12 @@ class AleValidator extends AbstractAleValidator {
 		cleanUpMarkers(aleFile);
 		
 		val IProject project = aleFile.project;
-		val dsl = IAleProject.from(project).environment;
+		val env = IAleProject.from(project).environment;
 
-		val interpreter = dsl.interpreter as AleInterpreter
+		val interpreter = env.interpreter as AleInterpreter
 		try {
 			interpreter.initScope(Sets.newHashSet(),Sets.newHashSet(#[project.name]))
-			val parsedSemantics = dsl.behaviors.parsedFiles
+			val parsedSemantics = env.behaviors.parsedFiles
 			
 			/*
 	    	 * Register services
@@ -65,17 +66,13 @@ class AleValidator extends AbstractAleValidator {
 		    	.toList
 	    	interpreter.registerServices(services)
 			
-			val ALEValidator validator = new ALEValidator(dsl);
+			val ALEValidator validator = new ALEValidator(env);
 			validator.validate(parsedSemantics);
 			val List<Message> msgs = validator.getMessages();
 			
-			msgs.forEach[msg |
-				val marker = aleFile.createMarker(ALE_MARKER);
-				marker.setAttribute(IMarker.MESSAGE, msg.getMessage());
-				marker.setAttribute(IMarker.SEVERITY, severityOf(msg));
-				marker.setAttribute(IMarker.CHAR_START, msg.location.startPosition);
-				marker.setAttribute(IMarker.CHAR_END, msg.location.endPosition);
-			]
+			val markerFactory = new DiagnosticsToEditorMarkerAdapter([ str | aleFile.createMarker(str) ], new EditorMarkerFormatter(new TypeChecker(null, env.context)))
+			
+			msgs.forEach[msg | markerFactory.doSwitch(msg)]
 		}
 		catch (Exception e) {
 			val marker = aleFile.createMarker(ALE_MARKER)
@@ -87,18 +84,9 @@ class AleValidator extends AbstractAleValidator {
 			AleXtextPlugin.error("An internal error occurred while validating " + aleFile, e)
 		}
 		finally {
-			dsl.close()
+			env.close()
 		}
 		
-	}
-	
-	private def severityOf(IValidationMessage message) {
-		switch message.level {
-			case ValidationMessageLevel.INFO: IMarker.SEVERITY_INFO
-			case ValidationMessageLevel.WARNING: IMarker.SEVERITY_WARNING
-			case ValidationMessageLevel.ERROR: IMarker.SEVERITY_ERROR
-			default: ValidationMessageLevel.ERROR
-		}
 	}
 	
 	@Check
