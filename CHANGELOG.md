@@ -35,6 +35,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - [#115](https://github.com/gemoc/ale-lang/pull/115) The interpreter can be run by right-clicking on an ALE project
 - [#129](https://github.com/gemoc/ale-lang/pull/129) The editor warns when the `+=` and `-=` operators ared used on the `result` variable in a void method
 - [#131](https://github.com/gemoc/ale-lang/pull/131) The editor autocompletes attributes and methods of local variables and method parameters (support limited to model instances)
+- [#153](https://github.com/gemoc/ale-lang/pull/153) The editor shows a warning when editing an _.ale_ source file that is not part of the project's ALE environment. A quick fix allows to automatically add the _.ale_ source file to the project's ALE environment
 - [#169](https://github.com/gemoc/ale-lang/pull/169) The editor shows documentation about the _open_ and _behavior_ keywords on hover
 - [#169](https://github.com/gemoc/ale-lang/pull/169) The editor shows the fully qualified name of an open class on hover as well as information about its EPackage
 
