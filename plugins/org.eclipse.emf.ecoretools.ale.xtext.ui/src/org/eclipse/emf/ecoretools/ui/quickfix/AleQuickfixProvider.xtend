@@ -3,7 +3,26 @@
  */
 package org.eclipse.emf.ecoretools.ui.quickfix
 
+import java.util.Optional
+import java.util.Set
+import org.eclipse.core.resources.IFile
+import org.eclipse.core.resources.ProjectScope
+import org.eclipse.core.runtime.preferences.IEclipsePreferences
+import org.eclipse.core.runtime.preferences.IScopeContext
+import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment
+import org.eclipse.emf.ecoretools.ale.core.io.IOResources
+import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject
+import org.eclipse.emf.ecoretools.ale.xtext.ui.internal.XtextActivator
+import org.eclipse.emf.ecoretools.validation.AleMarkerTypes
 import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider
+import org.eclipse.xtext.ui.editor.quickfix.Fix
+import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
+import org.eclipse.xtext.validation.Issue
+import org.osgi.service.prefs.BackingStoreException
+
+import static org.eclipse.emf.ecoretools.ale.ide.project.AleProjectPreferences.ALE_SOURCE_FILES
 
 /**
  * Custom quickfixes.
@@ -11,14 +30,46 @@ import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider
  * See https://www.eclipse.org/Xtext/documentation/310_eclipse_support.html#quick-fixes
  */
 class AleQuickfixProvider extends DefaultQuickfixProvider {
+	
+	public static final String CORE_PLUGIN_ID = "org.eclipse.emf.ecoretools.ale.core";
 
-//	@Fix(AleValidator.INVALID_NAME)
-//	def capitalizeName(Issue issue, IssueResolutionAcceptor acceptor) {
-//		acceptor.accept(issue, 'Capitalize name', 'Capitalize the name.', 'upcase.png') [
-//			context |
-//			val xtextDocument = context.xtextDocument
-//			val firstLetter = xtextDocument.get(issue.offset, 1)
-//			xtextDocument.replace(issue.offset, 1, firstLetter.toUpperCase)
-//		]
-//	}
+	@Fix(AleMarkerTypes.SOURCE_FILE_NOT_IN_ENV)
+	def capitalize(Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, 'Add file to ALE environment', 'Adds the file to the project\'s ALE environment (either in the configured .dsl file\nor in project`s preferences)', 'upcase.png') [
+			context |
+			val xtextDocument = context.xtextDocument
+			val Optional<IFile> aleFile = IOResources.toIFile(xtextDocument.resourceURI)
+			
+			if (aleFile.isPresent) {
+				val IAleProject project = IAleProject.from(aleFile.get.project)
+				val IAleEnvironment env = project.environment
+		        
+		        val Set<String> aleSourceFilesPath = env.behaviorsSources
+		        val URI aleFileURI = URI.createPlatformResourceURI(aleFile.get.fullPath.toString, true)
+		        aleSourceFilesPath += aleFileURI.toString 
+				
+				if (project.isConfiguredFromPreferences) {
+					val IScopeContext projectContext = new ProjectScope(aleFile.get.project);
+			        val IEclipsePreferences preferences = projectContext.getNode(CORE_PLUGIN_ID);
+					val commaSeparatedPaths = aleSourceFilesPath.map[trim].filter[!isEmpty].join(",")			        
+			        
+			        try {
+			        	preferences.put(ALE_SOURCE_FILES.property, commaSeparatedPaths)
+			        	preferences.flush()
+		        	}
+			        catch (IllegalStateException | BackingStoreException unlikelyToHappen) {
+			            XtextActivator.instance.log.error("An unexpected error occurred while saving preferences", unlikelyToHappen);
+			        }
+				}
+				else {
+					val dsl = project.findDslFile
+					if (dsl.isPresent) {
+						val FileBasedAleEnvironment dslEnv = IAleEnvironment.fromFile(dsl.get)
+						val IAleEnvironment newEnv = IAleEnvironment.fromPaths(env.metamodelsSources, aleSourceFilesPath)
+						dslEnv.save(newEnv)
+					}
+				}
+			}
+		]
+	}
 }

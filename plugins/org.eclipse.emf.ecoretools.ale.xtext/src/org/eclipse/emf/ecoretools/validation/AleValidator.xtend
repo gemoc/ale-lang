@@ -34,13 +34,12 @@ import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
+import org.eclipse.xtext.validation.Issue
 
 /**
  * Delegate validation to ALE validator
  */
 class AleValidator extends AbstractAleValidator {
-	
-	public static String ALE_MARKER = "org.eclipse.emf.ecoretools.ale.xtext.AleMarker";
 	
 	@Check
 	def checkIsValid(Unit root) {
@@ -55,6 +54,13 @@ class AleValidator extends AbstractAleValidator {
 		try {
 			interpreter.initScope(Sets.newHashSet(),Sets.newHashSet(#[project.name]))
 			val parsedSemantics = env.behaviors.parsedFiles
+			
+			val parsed = parsedSemantics.findFirst[sem | aleFile == IOResources.toIFile(new File(sem.sourceFile))]
+			val aleFileIsNotInEnv = parsed === null
+			if (aleFileIsNotInEnv) {
+				aleFile.createFileNotInEnvMarker()
+				return
+			}
 			
 			/*
 	    	 * Register services
@@ -92,7 +98,7 @@ class AleValidator extends AbstractAleValidator {
 				.forEach[msg | markerFactory.doSwitch(msg)]
 		}
 		catch (Exception e) {
-			val marker = aleFile.createMarker(ALE_MARKER)
+			val marker = aleFile.createMarker(AleMarkerTypes.DEFAULT)
 			marker.setAttribute(IMarker.MESSAGE, "An internal error occurred while validating the file: " + e.message)
 			marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR)
 			marker.setAttribute(IMarker.CHAR_START, 0)
@@ -162,6 +168,35 @@ class AleValidator extends AbstractAleValidator {
 	}
 	
 	private def cleanUpMarkers(IFile file) {
-		file.deleteMarkers(ALE_MARKER, true, IResource.DEPTH_ZERO);
+		file.deleteMarkers(AleMarkerTypes.DEFAULT, true, IResource.DEPTH_ZERO);
+		file.deleteMarkers(AleMarkerTypes.SOURCE_FILE_NOT_IN_ENV, true, IResource.DEPTH_ZERO);
+	}
+	
+	/** Adds a marker warning about the file not being part of ALE environment */
+	private static def createFileNotInEnvMarker(IFile file) {
+		val marker = file.createMarker(AleMarkerTypes.SOURCE_FILE_NOT_IN_ENV)
+		marker.setAttribute(IMarker.MESSAGE, "This file is not part of the project's ALE environment, it won't be validated")
+		marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING)
+		marker.setAttribute(IMarker.CHAR_START, 0)
+		marker.setAttribute(IMarker.LINE_NUMBER, 0)
+		marker.setAttribute(IMarker.LOCATION, "line: " + 0 + " " + file.fullPath.toString())
+		
+		// Attributes used by Xtext to find the associated quick fix
+		
+		marker.setAttribute(Issue.CODE_KEY, AleMarkerTypes.SOURCE_FILE_NOT_IN_ENV)
+		marker.setAttribute(Issue.COLUMN_KEY, 0)
+		marker.setAttribute(Issue.URI_KEY, URI.createPlatformResourceURI(file.fullPath.toString(), true).toString)
+		marker.setAttribute("FIXABLE_KEY", true);
+		
+		/*
+		 * MUST BE SET LAST.
+		 * 
+		 * Looks like the editor is updated when CHAR_END is set,
+		 * and the editor must be updated once all other attributes
+		 * are properly set.
+		 * 
+		 * See https://www.eclipse.org/forums/index.php?t=msg&th=1104367&goto=1829410&#msg_1829410
+		 */
+		marker.setAttribute(IMarker.CHAR_END, 0)
 	}
 }
