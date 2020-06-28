@@ -4,6 +4,7 @@
 package org.eclipse.emf.ecoretools.validation
 
 import com.google.common.collect.Sets
+import java.io.File
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.core.resources.IFile
@@ -22,6 +23,7 @@ import org.eclipse.emf.ecoretools.ale.Unit
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message
 import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment
 import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.AleInterpreter
+import org.eclipse.emf.ecoretools.ale.core.io.IOResources
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator
 import org.eclipse.emf.ecoretools.ale.core.validation.impl.TypeChecker
 import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject
@@ -72,7 +74,20 @@ class AleValidator extends AbstractAleValidator {
 			
 			val markerFactory = new DiagnosticsToEditorMarkerAdapter([ str | aleFile.createMarker(str) ], new EditorMarkerFormatter(new TypeChecker(null, env.context)))
 			
-			msgs.forEach[msg | markerFactory.doSwitch(msg)]
+			msgs.filter[ msg |
+					try { 
+						val file = env.behaviors.findParsedFileDefining(msg.source)
+						if (! file.isPresent) {
+							return false
+						}
+						return IOResources.toIFile(new File(file.get.sourceFile)) == aleFile
+					}
+					catch (Exception e) {
+						AleXtextPlugin.error("Unable to check whether the error comes from the current editor: " + msg, e)
+						return true
+					}
+				]
+				.forEach[msg | markerFactory.doSwitch(msg)]
 		}
 		catch (Exception e) {
 			val marker = aleFile.createMarker(ALE_MARKER)

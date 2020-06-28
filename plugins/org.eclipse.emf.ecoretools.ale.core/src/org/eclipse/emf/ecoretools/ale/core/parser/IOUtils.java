@@ -42,6 +42,9 @@ class IOUtils {
     		catch (IllegalArgumentException e) {
     			// URI is ill-formatted, skip it
     		}
+    		catch (NullPointerException e) {
+    			// The file doesn't exist, skip it
+    		}
 		}
     	return absolutePaths;
     }
