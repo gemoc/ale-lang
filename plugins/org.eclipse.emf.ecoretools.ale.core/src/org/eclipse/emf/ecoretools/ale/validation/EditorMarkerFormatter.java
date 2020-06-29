@@ -135,9 +135,14 @@ public final class EditorMarkerFormatter extends DiagnosticsSwitch<String> imple
 	}
 
 	@Override
-	public String caseInternalError(InternalError object) {
-		// TODO Auto-generated method stub
-		return super.caseInternalError(object);
+	public String caseInternalError(InternalError error) {
+		if (error.getMessage() != null) {
+			return AleEditorMessages.internalError(error.getMessage());
+		}
+		if (error.getCause() != null && error.getCause().getMessage() != null) {
+			return AleEditorMessages.internalError(error.getCause().getMessage());
+		}
+		return AleEditorMessages.internalError("unknown error");
 	}
 
 	@Override

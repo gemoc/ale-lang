@@ -72,6 +72,8 @@ class AleValidator extends AbstractAleValidator {
 			validator.validate(parsedSemantics);
 			val List<Message> msgs = validator.getMessages();
 			
+			logInternalErrors(aleFile, msgs)
+			
 			val markerFactory = new DiagnosticsToEditorMarkerAdapter([ str | aleFile.createMarker(str) ], new EditorMarkerFormatter(new TypeChecker(null, env.context)))
 			
 			msgs.filter[ msg |
@@ -132,6 +134,11 @@ class AleValidator extends AbstractAleValidator {
 			messageAcceptor.acceptError("Extra space in " + message, grammarElement,
 				keywordNode.endOffset, keywordNode.nextSibling.length, "")
 		}
+	}
+	
+	private static def void logInternalErrors(IFile aleFile, List<Message> messages) {
+		messages.filter(typeof(InternalError))
+				.forEach[ internalError | AleXtextPlugin.error("An internal error occurred during validation of " + aleFile.fullPath, internalError.cause)]
 	}
 	
 	// copied from WorkbenchDsl (which introduce cyclic dependency if used)
