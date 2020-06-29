@@ -63,6 +63,11 @@ public final class AleEditorMessages extends NLS {
     public static String RESULT_RESERVED;
     public static String EXTENDING_ITSELF;
     public static String METHOD_ALREADY_DEFINED;
+    public static String INTERNAL_ERROR;
+    
+    public static String internalError(String message) {
+    	return MessageFormat.format(INTERNAL_ERROR, message);
+    }
     
     public static String assignIllegal(String valueTypes, String variableTypes, String expectedTypes) {
     	return MessageFormat.format(ASSIGN_ILLEGAL, valueTypes, variableTypes, expectedTypes);

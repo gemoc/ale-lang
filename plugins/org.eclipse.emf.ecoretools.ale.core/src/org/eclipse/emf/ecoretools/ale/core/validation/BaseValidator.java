@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.validation;
 
+import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ import org.eclipse.emf.ecoretools.ale.core.Activator;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.AcceleoValidationMessage;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.CodeLocation;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsFactory;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.InternalError;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.Scopes;
@@ -472,7 +474,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	/*
 	 * Use embedded validator to check Expressions
 	 */
-	private IValidationResult validateExpression(Expression exp, Map<String, Set<IType>> variableTypes) {
+	private IValidationResult validateExpression(Expression exp, Map<String, Set<IType>> variableTypes, List<Message> messages) {
 		//Make an AstResult with positions from Implementation parser
 		AstResult fakeAst = new AstResult(
 				exp,
@@ -482,13 +484,38 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 				new BasicDiagnostic()
 				);
 		try {
-			return expValidator.validate(variableTypes, fakeAst);
+			IValidationResult validations = expValidator.validate(variableTypes, fakeAst);
+			msgs.addAll(toMessages(validations));
+			return validations;
 		}
 		catch(AcceleoQueryValidationException e) {
-			System.out.println(e);
-			//TODO: something bad appened
+			InternalError internalError = DiagnosticsFactory.eINSTANCE.createInternalError();
+			internalError.setLocation(DiagnosticsFactory.eINSTANCE.createCodeLocation());
+			internalError.getLocation().setStartPosition(currentModel.getStartPositions().get(exp));
+			internalError.getLocation().setEndPosition(currentModel.getEndPositions().get(exp));
+			internalError.setMessage(e.getMessage());
+			internalError.setCause(e);
+			internalError.setSource(exp);
+			msgs.add(internalError);
+			
+			return  new ValidationResult(fakeAst);
 		}
-		return  new ValidationResult(fakeAst);
+	}
+	
+	private static List<Message> toMessages(IValidationResult validations) {
+		List<Message> messages = new ArrayList<>(validations.getMessages().size());
+		for (IValidationMessage validation : validations.getMessages()) {
+			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+			location.setStartPosition(validation.getStartPosition());
+			location.setEndPosition(validation.getEndPosition());
+			
+			AcceleoValidationMessage acceleoMessage = DiagnosticsFactory.eINSTANCE.createAcceleoValidationMessage();
+			acceleoMessage.setMessage(validation.getMessage());
+			acceleoMessage.setLevel(validation.getLevel());
+			acceleoMessage.setLocation(location);
+			messages.add(acceleoMessage);
+		}
+		return messages;
 	}
 	
 	public int getStartOffset(Object obj) {
@@ -519,18 +546,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	}
 	
 	private void validateAndStore(Expression exp, Map<String, Set<IType>> context) {
-		IValidationResult expValidation = validateExpression(exp, context);
-		for (IValidationMessage validation : expValidation.getMessages()) {
-			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
-			location.setStartPosition(validation.getStartPosition());
-			location.setEndPosition(validation.getEndPosition());
-			
-			AcceleoValidationMessage acceleoMessage = DiagnosticsFactory.eINSTANCE.createAcceleoValidationMessage();
-			acceleoMessage.setMessage(validation.getMessage());
-			acceleoMessage.setLevel(validation.getLevel());
-			acceleoMessage.setLocation(location);
-			msgs.add(acceleoMessage);
-		}
+		IValidationResult expValidation = validateExpression(exp, context, msgs);
 		validations.put(exp,expValidation);
 		validationContexts.put(exp, context);
 		
@@ -545,22 +561,23 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	
 	public Set<IType> getPossibleTypes(Expression exp) {
 		IValidationResult validRes = validations.get(exp);
+		Set<IType> possibleTypes = null;
 		
 		if(validRes != null) {
-			return validRes.getPossibleTypes(exp);
+			possibleTypes = validRes.getPossibleTypes(exp);
 		}
 		else {
 			EObject parent = exp.eContainer();
 			while(parent instanceof Expression) {
 				if(validations.get(parent) != null) {
-					return validations.get(parent).getPossibleTypes(exp);
+					possibleTypes = validations.get(parent).getPossibleTypes(exp);
+					break;
 				}
 				parent = parent.eContainer();
 			}
 			
 		}
-		
-		return new HashSet<>();
+		return possibleTypes == null ? emptySet() : possibleTypes;
 	}
 	
 	public Set<IType> getPossibleCollectionTypes(Expression exp) {

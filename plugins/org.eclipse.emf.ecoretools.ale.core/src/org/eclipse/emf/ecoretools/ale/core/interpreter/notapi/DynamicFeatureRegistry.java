@@ -204,7 +204,7 @@ public class DynamicFeatureRegistry {
 	}
 	
 	/**
-	 * returns the first feature in the extended class hieararchy that applies to this type that declares a feature with this name
+	 * returns the first feature in the extended class hierarchy that applies to this type that declares a feature with this name
 	 * @param type
 	 * @param featureName
 	 * @return
@@ -214,6 +214,7 @@ public class DynamicFeatureRegistry {
 		List<ExtendedClass> extendedClasses = allImplemModels
 			.stream()
 			.flatMap(m -> m.getClassExtensions().stream())
+			.filter(cls -> cls.getBaseClass() != null)
 			.filter(cls -> cls.getBaseClass().isSuperTypeOf(type)).collect(Collectors.toList());
 		for(ExtendedClass extendedClass : extendedClasses) {
 			Optional<Attribute> featureDeclaration = extendedClass.getAttributes().stream()
