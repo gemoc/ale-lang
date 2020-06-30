@@ -37,6 +37,7 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.DiagnosticLogger;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.IAleInterpreter;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.ILookupEngineListener;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.IServiceCallListener;
+import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.impl.AleEnvironmentClassLoading;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.notapi.AleEngine;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.notapi.EvalEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.services.EvalBodyService;
@@ -131,6 +132,7 @@ public class AleInterpreter implements IAleInterpreter, AutoCloseable {
             }
         };
         this.javaExtensions = JavaExtensionsManager.createManagerWithOverride();
+        this.javaExtensions.setClassLoadingOverride(new AleEnvironmentClassLoading());
         this.javaExtensions.addClassLoadingCallBack(callback);
         this.javaExtensions.addEPackageCallBack(ePackageCallBack);
         this.serviceListeners = new ArrayList<>();

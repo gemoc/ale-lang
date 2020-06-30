@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - [#126](https://github.com/gemoc/ale-lang/issues/126) The interpreter evaluates an expression even if a subexpression produces an error
 - [#128](https://github.com/gemoc/ale-lang/issues/128) The interpreter allows to concatenate heterogeneous collections
 - [#149](https://github.com/gemoc/ale-lang/issues/149) Xtext validators are not resilient
+- [#151](https://github.com/gemoc/ale-lang/issues/151) Every EPackage found in project's dependencies is added to the environment
 - [#159](https://github.com/gemoc/ale-lang/issues/159) The editor shows all validation errors, even the ones that come from other ALE files
 
 ### Added
