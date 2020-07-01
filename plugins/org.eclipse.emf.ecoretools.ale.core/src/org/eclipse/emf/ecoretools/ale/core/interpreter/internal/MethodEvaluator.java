@@ -717,7 +717,6 @@ public class MethodEvaluator {
 	 * Validates an Expression and stored its types in the current scope.
 	 */
 	private Set<IType> validateAndStoreType(Expression expression) throws CriticalFailureException {
-		// FIXME [Validation] Should do something with validation.getMessages()
 		IValidationResult validation = validate(expression);
 		Set<IType> inferredTypes = validation.getPossibleTypes(expression);
 		inferredTypes = inferredTypes == null ? new HashSet<>() : inferredTypes;
