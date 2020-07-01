@@ -484,9 +484,9 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 				new BasicDiagnostic()
 				);
 		try {
-			IValidationResult validations = expValidator.validate(variableTypes, fakeAst);
-			msgs.addAll(toMessages(validations));
-			return validations;
+			IValidationResult validationResult = expValidator.validate(variableTypes, fakeAst);
+			msgs.addAll(toMessages(validationResult, exp));
+			return validationResult;
 		}
 		catch(AcceleoQueryValidationException e) {
 			InternalError internalError = DiagnosticsFactory.eINSTANCE.createInternalError();
@@ -498,13 +498,23 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			internalError.setSource(exp);
 			msgs.add(internalError);
 			
-			return  new ValidationResult(fakeAst);
+			return new ValidationResult(fakeAst);
 		}
 	}
 	
-	private static List<Message> toMessages(IValidationResult validations) {
-		List<Message> messages = new ArrayList<>(validations.getMessages().size());
-		for (IValidationMessage validation : validations.getMessages()) {
+	/**
+	 * Turns given validation result into {@link Message} instances for better error reporting.
+	 * 
+	 * @param validationResult
+	 * 			Acceleo validation result.
+	 * @param ast
+	 * 			The AST that has been validated.
+	 * 
+	 * @return the Messages corresponding to given validation result.
+	 */
+	private static List<Message> toMessages(IValidationResult validationResult, EObject ast) {
+		List<Message> messages = new ArrayList<>(validationResult.getMessages().size());
+		for (IValidationMessage validation : validationResult.getMessages()) {
 			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
 			location.setStartPosition(validation.getStartPosition());
 			location.setEndPosition(validation.getEndPosition());
@@ -513,6 +523,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			acceleoMessage.setMessage(validation.getMessage());
 			acceleoMessage.setLevel(validation.getLevel());
 			acceleoMessage.setLocation(location);
+			acceleoMessage.setSource(ast);
 			messages.add(acceleoMessage);
 		}
 		return messages;
@@ -553,7 +564,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		if ( ! scopes.isEmpty()) {
 			Set<IType> inferredTypes = expValidation.getPossibleTypes(exp);
 			if (inferredTypes == null) {
-				inferredTypes = new HashSet<>();
+				inferredTypes = new HashSet<>(0);
 			}
 			scopes.getCurrent().putTypes(exp, inferredTypes);
 		}
