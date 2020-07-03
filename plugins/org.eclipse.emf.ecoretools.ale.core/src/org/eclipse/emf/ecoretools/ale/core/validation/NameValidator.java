@@ -53,6 +53,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.FeatureInsert;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
+import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
@@ -594,7 +595,8 @@ public class NameValidator implements IValidator {
 				// Check attempts to assign 'result' in a void operation
 				
 				boolean assigningToResult = "result".equals(varAssign.getName());
-				boolean isVoidOperation = enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null;
+				boolean isVoidOperation = (enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null)
+									   || enclosingOperation.getEType() == ImplementationPackage.eINSTANCE.getVoidEClassifier();
 				if(assigningToResult && isVoidOperation) {
 					Message invalidAssignment = messages.assignmentToResultInVoidOperation(varAssign);
 					msgs.add(invalidAssignment);
@@ -691,7 +693,8 @@ public class NameValidator implements IValidator {
 			EOperation enclosingOperation = method.getOperationRef();
 			
 			if (enclosingOperation != null) {
-				boolean isVoidOperation = enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null;
+				boolean isVoidOperation = (enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null)
+									   || enclosingOperation.getEType() == ImplementationPackage.eINSTANCE.getVoidEClassifier();
 				if(isVoidOperation) {
 					Message invalidAssignment = messages.assignmentToResultInVoidOperation(varInsert);
 					msgs.add(invalidAssignment);
@@ -731,7 +734,8 @@ public class NameValidator implements IValidator {
 			EOperation enclosingOperation = method.getOperationRef();
 			
 			if (enclosingOperation != null) {
-				boolean isVoidOperation = enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null;
+				boolean isVoidOperation = (enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null)
+						   				|| enclosingOperation.getEType() == ImplementationPackage.eINSTANCE.getVoidEClassifier();
 				if(isVoidOperation) {
 					Message invalidAssignment = messages.assignmentToResultInVoidOperation(varRemove);
 					msgs.add(invalidAssignment);

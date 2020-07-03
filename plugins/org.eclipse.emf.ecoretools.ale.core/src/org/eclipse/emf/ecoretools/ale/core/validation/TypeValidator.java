@@ -46,6 +46,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.FeatureInsert;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
+import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
@@ -385,7 +386,8 @@ public class TypeValidator implements IValidator {
 			// Assignment outside of a method, should never happen
 			return PROBLEM_HANDLED_BY_ANOTHER_VALIDATOR;
 		}
-		boolean isVoidOperation = enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null;
+		boolean isVoidOperation = (enclosingOperation.getEType() == null && enclosingOperation.getEGenericType() == null)
+							   || enclosingOperation.getEType() == ImplementationPackage.eINSTANCE.getVoidEClassifier();
 		if(isVoidOperation) {
 			// A void operation should not return anything but this is handled by the NameValidator
 			return PROBLEM_HANDLED_BY_ANOTHER_VALIDATOR;

@@ -743,7 +743,7 @@ public class NameValidatorTest {
 		validator.validate(env.getBehaviors().getParsedFiles());
 		List<Message> msg = validator.getMessages();
 		
-		assertEquals(3, msg.size());
+		assertEquals(msg.toString(), 3, msg.size());
 		assertMsgEquals(env, ValidationMessageLevel.ERROR, 65, 76, "'result' is not available in a void method. Change method's return type", msg.get(0));
 		assertMsgEquals(env, ValidationMessageLevel.ERROR, 80, 91, "'result' is not available in a void method. Change method's return type", msg.get(1));
 		assertMsgEquals(env, ValidationMessageLevel.ERROR, 95, 106, "'result' is not available in a void method. Change method's return type", msg.get(2));

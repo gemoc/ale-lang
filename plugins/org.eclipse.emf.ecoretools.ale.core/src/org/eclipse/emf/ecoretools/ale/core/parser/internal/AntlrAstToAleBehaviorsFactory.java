@@ -527,12 +527,13 @@ public class AntlrAstToAleBehaviorsFactory {
 	//Can return null
 	public Optional<EOperation> resolve(String className, String methodName, int nbArgs, RTypeContext returnType) {
 		EClassifier type = resolve(returnType).getEType();
-		//TODO: manage qualified name		
+		// FIXME: manage qualified name		
 		return qryEnv.getEPackageProvider()
 					 .getEClassifiers().stream()
 					 .filter(cls -> cls instanceof EClass)
+					 .map(EClass.class::cast)
 					 .filter(cls -> cls.getName().equals(className))
-					 .flatMap(cls -> ((EClass)cls).getEOperations().stream())
+					 .flatMap(cls -> cls.getEAllOperations().stream())
 					 .filter(op -> op.getName().equals(methodName) && op.getEParameters().size() == nbArgs && op.getEType() == type)
 					 .findFirst();
 	}

@@ -78,7 +78,7 @@ public final class ConvertType implements IConvertType {
 			}
 			return new SequenceType(queryEnvironment, collectionType);
 		}
-		if(type == null) {
+		if(type == null || type == ImplementationPackage.eINSTANCE.getVoidEClassifier()) {
 			return new NothingType("void");
 		}
 		return new EClassifierType(queryEnvironment, type);
