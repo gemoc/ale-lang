@@ -151,4 +151,5 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UnresolvedEClassifier"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="VoidEClassifier" instanceClassName="java.lang.Void"/>
 </ecore:EPackage>
