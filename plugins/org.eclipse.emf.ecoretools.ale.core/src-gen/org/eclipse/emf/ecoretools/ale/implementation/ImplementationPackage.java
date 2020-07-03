@@ -432,13 +432,22 @@ public interface ImplementationPackage extends EPackage {
 	int METHOD__TAGS = 2;
 
 	/**
+	 * The feature id for the '<em><b>Overriding</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD__OVERRIDING = 3;
+
+	/**
 	 * The number of structural features of the '<em>Method</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD_FEATURE_COUNT = 3;
+	int METHOD_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Method</em>' class.
@@ -1630,6 +1639,17 @@ public interface ImplementationPackage extends EPackage {
 	EAttribute getMethod_Tags();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.implementation.Method#isOverriding <em>Overriding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Overriding</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Method#isOverriding()
+	 * @see #getMethod()
+	 * @generated
+	 */
+	EAttribute getMethod_Overriding();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.ModelUnit <em>Model Unit</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2448,6 +2468,14 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute METHOD__TAGS = eINSTANCE.getMethod_Tags();
+
+		/**
+		 * The meta object literal for the '<em><b>Overriding</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD__OVERRIDING = eINSTANCE.getMethod_Overriding();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ModelUnitImpl <em>Model Unit</em>}' class.

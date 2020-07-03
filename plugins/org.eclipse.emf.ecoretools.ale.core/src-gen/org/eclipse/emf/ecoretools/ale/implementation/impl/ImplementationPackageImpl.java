@@ -445,6 +445,16 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * @generated
 	 */
 	@Override
+	public EAttribute getMethod_Overriding() {
+		return (EAttribute)methodEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getModelUnit() {
 		return modelUnitEClass;
 	}
@@ -1133,6 +1143,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		createEReference(methodEClass, METHOD__OPERATION_REF);
 		createEReference(methodEClass, METHOD__BODY);
 		createEAttribute(methodEClass, METHOD__TAGS);
+		createEAttribute(methodEClass, METHOD__OVERRIDING);
 
 		modelUnitEClass = createEClass(MODEL_UNIT);
 		createEAttribute(modelUnitEClass, MODEL_UNIT__SERVICES);
@@ -1294,6 +1305,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		initEReference(getMethod_OperationRef(), ecorePackage.getEOperation(), null, "operationRef", null, 1, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMethod_Body(), this.getBlock(), null, "body", null, 1, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMethod_Tags(), ecorePackage.getEString(), "tags", null, 0, -1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMethod_Overriding(), ecorePackage.getEBoolean(), "overriding", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelUnitEClass, ModelUnit.class, "ModelUnit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getModelUnit_Services(), ecorePackage.getEString(), "services", null, 0, -1, ModelUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

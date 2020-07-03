@@ -13,6 +13,7 @@ package org.eclipse.emf.ecoretools.ale.core.validation.test;
 import static java.util.Arrays.asList;
 import static org.eclipse.emf.ecoretools.ale.core.validation.test.ValidationMessages.assertMsgEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -105,7 +106,7 @@ public class NameValidatorTest {
 		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(env, ValidationMessageLevel.ERROR, 56, 83, "The operation getFeatureCount() must override", msg.get(0));
+		assertMsgEquals(env, ValidationMessageLevel.ERROR, 56, 82, "Use the 'override' keyword to override the getFeatureCount() operation", msg.get(0));
 	}
 	
 	/*
@@ -747,5 +748,18 @@ public class NameValidatorTest {
 		assertMsgEquals(env, ValidationMessageLevel.ERROR, 65, 76, "'result' is not available in a void method. Change method's return type", msg.get(0));
 		assertMsgEquals(env, ValidationMessageLevel.ERROR, 80, 91, "'result' is not available in a void method. Change method's return type", msg.get(1));
 		assertMsgEquals(env, ValidationMessageLevel.ERROR, 95, 106, "'result' is not available in a void method. Change method's return type", msg.get(2));
+	}
+	
+	/*
+	 * Test a method declared in a parent class can be overridden.
+	 */
+	@Test
+	public void testOverrideMethodFromParent() {
+		env = IAleEnvironment.fromPaths(asList("model/doubleMulti.ecore"), asList("input/overrideMethodFromParent.implem"));
+		ALEValidator validator = new ALEValidator(env);
+		validator.validate(env.getBehaviors().getParsedFiles());
+		List<Message> msg = validator.getMessages();
+		
+		assertTrue(msg.toString(), msg.isEmpty());
 	}
 }

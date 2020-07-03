@@ -160,13 +160,16 @@ public class NameValidator implements IValidator {
 			 */
 			EList<EOperation> allEOperations = xtdClass.getBaseClass().getEAllOperations();
 			for (Method mtd : xtdClass.getMethods()) {
+				if (mtd.isOverriding()) {
+					continue;
+				}
 				EOperation opRef = mtd.getOperationRef();
 				if(opRef!= null && opRef.getEContainingClass() != xtdClass.getBaseClass()) {
 					if(allEOperations.stream().anyMatch(op -> areTheSame(opRef, op))){
 						CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
 						location.setLine(base.getLines(mtd).get(0));
 						location.setStartPosition(base.getStartOffset(mtd));
-						location.setEndPosition(base.getEndOffset(mtd.getBody()));
+						location.setEndPosition(base.getStartOffset(mtd.getBody()));
 						
 						Context context = DiagnosticsFactory.eINSTANCE.createContext();
 						
@@ -174,6 +177,7 @@ public class NameValidator implements IValidator {
 						alreadyDeclared.setContext(context);
 						alreadyDeclared.setLocation(location);
 						alreadyDeclared.setNewDefinition(mtd);
+						alreadyDeclared.setSource(mtd);
 						msgs.add(alreadyDeclared);
 					}
 				}
