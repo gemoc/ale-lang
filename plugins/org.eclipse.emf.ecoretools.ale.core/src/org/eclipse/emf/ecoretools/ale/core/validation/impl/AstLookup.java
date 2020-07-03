@@ -134,13 +134,15 @@ public final class AstLookup implements IAstLookup {
 			// Look at enclosing method's parameters
 			else if (currentScope instanceof Method) {
 				Method method = (Method) currentScope;
-				Optional<EParameter> parameter = method.getOperationRef()
-													   .getEParameters().stream()
-													   .filter(param -> param.getName().equals(variableName))
-													   .findFirst();
-				
-				if (parameter.isPresent()) {
-					declaredTypes.add(convert.toAQL(parameter.get()));
+				if (method.getOperationRef() != null) {
+					Optional<EParameter> parameter = method.getOperationRef()
+														   .getEParameters().stream()
+														   .filter(param -> param.getName().equals(variableName))
+														   .findFirst();
+					
+					if (parameter.isPresent()) {
+						declaredTypes.add(convert.toAQL(parameter.get()));
+					}
 				}
 			}
 			currentObject = currentScope;

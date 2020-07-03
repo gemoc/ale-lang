@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - [#67](https://github.com/gemoc/ale-lang/issues/67) `Sequence` values can be assigned to variables which type is `OrderedSet` and vice versa
 - [#70](https://github.com/gemoc/ale-lang/issues/70) Paths to ALE resources (in _.dsl_ files and projects' preferences) are not updated when the project is renamed
 - [#102](https://github.com/gemoc/ale-lang/issues/102) The editor shows an error when a method is used to define the range of a for-each loop
+- [#119](https://github.com/gemoc/ale-lang/issues/119) Cannot override static EOperations from a subclass
 - [#120](https://github.com/gemoc/ale-lang/issues/120) The `+=` operator cannot be used to concatenate two collections
 - [#126](https://github.com/gemoc/ale-lang/issues/126) The interpreter evaluates an expression even if a subexpression produces an error
 - [#128](https://github.com/gemoc/ale-lang/issues/128) The interpreter allows to concatenate heterogeneous collections
