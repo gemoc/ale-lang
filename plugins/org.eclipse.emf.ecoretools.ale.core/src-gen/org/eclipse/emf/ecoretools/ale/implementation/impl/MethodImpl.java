@@ -42,6 +42,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.Method;
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.MethodImpl#getOperationRef <em>Operation Ref</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.MethodImpl#getBody <em>Body</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.MethodImpl#getTags <em>Tags</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.impl.MethodImpl#isOverriding <em>Overriding</em>}</li>
  * </ul>
  *
  * @generated
@@ -83,6 +84,26 @@ public class MethodImpl extends MinimalEObjectImpl.Container implements Method {
 	 * @ordered
 	 */
 	protected EList<String> tags;
+
+	/**
+	 * The default value of the '{@link #isOverriding() <em>Overriding</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOverriding()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean OVERRIDING_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isOverriding() <em>Overriding</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOverriding()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean overriding = OVERRIDING_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -207,6 +228,29 @@ public class MethodImpl extends MinimalEObjectImpl.Container implements Method {
 	 * @generated
 	 */
 	@Override
+	public boolean isOverriding() {
+		return overriding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setOverriding(boolean newOverriding) {
+		boolean oldOverriding = overriding;
+		overriding = newOverriding;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ImplementationPackage.METHOD__OVERRIDING, oldOverriding, overriding));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ImplementationPackage.METHOD__BODY:
@@ -230,6 +274,8 @@ public class MethodImpl extends MinimalEObjectImpl.Container implements Method {
 				return getBody();
 			case ImplementationPackage.METHOD__TAGS:
 				return getTags();
+			case ImplementationPackage.METHOD__OVERRIDING:
+				return isOverriding();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -253,6 +299,9 @@ public class MethodImpl extends MinimalEObjectImpl.Container implements Method {
 				getTags().clear();
 				getTags().addAll((Collection<? extends String>)newValue);
 				return;
+			case ImplementationPackage.METHOD__OVERRIDING:
+				setOverriding((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -274,6 +323,9 @@ public class MethodImpl extends MinimalEObjectImpl.Container implements Method {
 			case ImplementationPackage.METHOD__TAGS:
 				getTags().clear();
 				return;
+			case ImplementationPackage.METHOD__OVERRIDING:
+				setOverriding(OVERRIDING_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -292,6 +344,8 @@ public class MethodImpl extends MinimalEObjectImpl.Container implements Method {
 				return body != null;
 			case ImplementationPackage.METHOD__TAGS:
 				return tags != null && !tags.isEmpty();
+			case ImplementationPackage.METHOD__OVERRIDING:
+				return overriding != OVERRIDING_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -308,6 +362,8 @@ public class MethodImpl extends MinimalEObjectImpl.Container implements Method {
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (tags: ");
 		result.append(tags);
+		result.append(", overriding: ");
+		result.append(overriding);
 		result.append(')');
 		return result.toString();
 	}
