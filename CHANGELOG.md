@@ -36,6 +36,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - [#129](https://github.com/gemoc/ale-lang/pull/129) The editor warns when the `+=` and `-=` operators ared used on the `result` variable in a void method
 - [#131](https://github.com/gemoc/ale-lang/pull/131) The editor autocompletes attributes and methods of local variables and method parameters (support limited to model instances)
 - [#169](https://github.com/gemoc/ale-lang/pull/169) The editor shows documentation about the _open_ and _behavior_ keywords on hover
+- [#169](https://github.com/gemoc/ale-lang/pull/169) The editor shows the fully qualified name of an open class on hover as well as information about its EPackage
 
 ### Changed
 - [#93](https://github.com/gemoc/ale-lang/issues/93) More tokens are available to tailor editor's syntax coloring
