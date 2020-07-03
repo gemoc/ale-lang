@@ -204,6 +204,9 @@ public class AntlrAstToAleBehaviorsFactory {
 		newMethod.setBody(body);
 		newMethod.getTags().addAll(tags);
 		
+		if (operation != null && operation.getEType() == null) {
+//			operation.setEType(ImplementationPackage.eINSTANCE.getVoidEClassifier());
+		}
 		return newMethod;
 	}
 	
@@ -577,7 +580,7 @@ public class AntlrAstToAleBehaviorsFactory {
 			case "float" 	: return EcorePackage.eINSTANCE.getEFloat();
 			case "double" 	: return EcorePackage.eINSTANCE.getEDouble();
 			case "Double"   : return EcorePackage.eINSTANCE.getEDouble();
-			case "void"		: return null;
+			case "void"		: return ImplementationPackage.eINSTANCE.getVoidEClassifier();
 			default			: return ImplementationPackage.eINSTANCE.getUnresolvedEClassifier();
 		}
 	}

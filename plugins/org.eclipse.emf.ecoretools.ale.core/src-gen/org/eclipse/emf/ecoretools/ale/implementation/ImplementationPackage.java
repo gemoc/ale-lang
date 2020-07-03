@@ -14,6 +14,7 @@ package org.eclipse.emf.ecoretools.ale.implementation;
 import org.eclipse.acceleo.query.ast.AstPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -1490,6 +1491,17 @@ public interface ImplementationPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '<em>Void EClassifier</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.Void
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getVoidEClassifier()
+	 * @generated
+	 */
+	int VOID_ECLASSIFIER = 26;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior <em>Model Behavior</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2300,6 +2312,17 @@ public interface ImplementationPackage extends EPackage {
 	EClass getUnresolvedEClassifier();
 
 	/**
+	 * Returns the meta object for data type '{@link java.lang.Void <em>Void EClassifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Void EClassifier</em>'.
+	 * @see java.lang.Void
+	 * @model instanceClass="java.lang.Void"
+	 * @generated
+	 */
+	EDataType getVoidEClassifier();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2981,6 +3004,16 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EClass UNRESOLVED_ECLASSIFIER = eINSTANCE.getUnresolvedEClassifier();
+
+		/**
+		 * The meta object literal for the '<em>Void EClassifier</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.Void
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getVoidEClassifier()
+		 * @generated
+		 */
+		EDataType VOID_ECLASSIFIER = eINSTANCE.getVoidEClassifier();
 
 	}
 
