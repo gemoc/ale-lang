@@ -25,7 +25,7 @@ import org.eclipse.emf.common.util.URI;
 import org.osgi.framework.Bundle;
 
 // TODO [Refactor] Can this be merged with IOResources?
-class IOUtils {
+public class IOUtils {
 	
 	private IOUtils() {
 		// utility classes should not be instantiated
@@ -52,8 +52,8 @@ class IOUtils {
 	/**
 	 * Convert platform URI to file path
 	 */
-	private static String convertToFile(String path) {
-		URI uri = URI.createURI(path);
+	public static String convertToFile(String platformUriString) {
+		URI uri = URI.createURI(platformUriString);
 		
 		String res = null;
 		
@@ -68,7 +68,7 @@ class IOUtils {
 		}
 		
 		if(res == null) {
-			res = path;
+			res = platformUriString;
 		}
 		
 		return res;
