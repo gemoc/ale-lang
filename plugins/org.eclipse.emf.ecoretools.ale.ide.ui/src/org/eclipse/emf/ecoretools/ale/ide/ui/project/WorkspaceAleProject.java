@@ -183,7 +183,7 @@ public class WorkspaceAleProject {
 			
 			IFile ecoreFile = project.getFolder("model").getFile(project.getName() + ".ecore");
 			ResourceSet resources = new ResourceSetImpl();
-			Resource resource = resources.createResource(URI.createFileURI(ecoreFile.getFullPath().toOSString()));
+			Resource resource = resources.createResource(URI.createPlatformResourceURI(ecoreFile.getFullPath().toOSString(), true));
 			
 			resource.getContents().add(pkg);
 			resource.save(emptyMap());
@@ -205,9 +205,15 @@ public class WorkspaceAleProject {
 			return src.getFullPath();
 		}
 		
+
+		/**
+		 * 
+		 * @param path the path in the wizard as a workspace relative path
+		 * @return the ePackage of the corresponding 
+		 */
 		private static EPackage getEcoreModel(IPath path) {
 			ResourceSet resources = new ResourceSetImpl();
-			Resource resource = resources.getResource(URI.createFileURI(path.toOSString()), true);
+			Resource resource = resources.getResource(URI.createPlatformResourceURI(path.toOSString(), true), true);
 			return (EPackage) resource.getContents().get(0);
 		}
 		
