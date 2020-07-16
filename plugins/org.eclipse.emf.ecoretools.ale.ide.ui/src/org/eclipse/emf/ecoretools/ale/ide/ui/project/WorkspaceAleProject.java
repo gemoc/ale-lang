@@ -121,7 +121,11 @@ public class WorkspaceAleProject {
 					EPackage epackage = getOrCreateEcoreModel(project, subMonitor.split(1));
 					IPath aleFilePath = createAleSourceFile(project, epackage, subMonitor.split(1));
 					
-					configureAleEnvironment(project, asList(URI.createPlatformResourceURI(epackage.eResource().getURI().toString(), true).toString()), asList(URI.createPlatformResourceURI(aleFilePath.toPortableString(), true).toString()), subMonitor.split(1));
+					
+					configureAleEnvironment(project, 
+							asList(epackage.eResource().getURI().toString()), 
+							asList(URI.createPlatformResourceURI(aleFilePath.toPortableString(), true).toString()), 
+							subMonitor.split(1));
 					createRepresentation(project, epackage, subMonitor.split(1));
 					addJavaNature(project, subMonitor.split(1));
 					
