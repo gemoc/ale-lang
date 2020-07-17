@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.validation;
 
+import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
@@ -40,6 +41,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EParameter;
+import org.eclipse.emf.ecoretools.ale.core.Activator;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.AcceleoValidationMessage;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.CodeLocation;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsFactory;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.InternalError;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.Scopes;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.Scopes.Scope;
@@ -57,6 +64,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.FeatureInsert;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
+import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.RuntimeClass;
@@ -75,7 +83,7 @@ import com.google.common.collect.Sets;
  */
 public class BaseValidator extends ImplementationSwitch<Object> {
 
-	private List<IValidationMessage> msgs;
+	private List<Message> msgs;
 	
 	private List<ParsedFile<ModelUnit>> allModels;
 	private ParsedFile<ModelUnit> currentModel;
@@ -108,6 +116,12 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 
 	protected IAleEnvironment environment;
 	
+	/**
+	 * 
+	 * @param environment
+	 * @param validators
+	 * 			All validators. Calls to validate method are made resilient to exceptions.
+	 */
 	public BaseValidator(IAleEnvironment environment, List<IValidator> validators) {
 		this.environment = environment;
 		this.qryEnv = environment.getContext();
@@ -117,7 +131,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		this.scopes = new StackedScopes();
 		this.validators = new ArrayList<>();
 		validators.forEach(validator -> {
-			this.validators.add(validator);
+			this.validators.add(new SafeValidator(validator));
 			validator.setBase(this);
 		});
 	}
@@ -126,7 +140,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		return scopes;
 	}
 	
-	public List<IValidationMessage> validate(List<ParsedFile<ModelUnit>> roots) {
+	public List<Message> validate(List<ParsedFile<ModelUnit>> roots) {
 		
 		this.msgs = new ArrayList<>();
 		this.validations = new HashMap<>();
@@ -146,7 +160,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		roots.forEach(root -> {
 			this.currentModel = root;
 			this.scopes.clear();
-			doSwitch(currentModel.getRoot());
+			doSwitchSafely(currentModel.getRoot());
 		});
 		
 		return msgs;
@@ -158,11 +172,11 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		validators.stream().forEach(validator -> msgs.addAll(validator.validateModelUnit(root)));
 		
 		for(ExtendedClass xtdClass : root.getClassExtensions()){
-			doSwitch(xtdClass);
+			doSwitchSafely(xtdClass);
 		}
 		
 		for(RuntimeClass xtdClass : root.getClassDefinitions()){
-			doSwitch(xtdClass);
+			doSwitchSafely(xtdClass);
 		}
 		
 		return null;
@@ -178,14 +192,17 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			}
 			validators.stream().forEach(validator -> msgs.addAll(validator.validateExtendedClass(xtdClass)));
 			
-			
-			Set<IType> selfTypeSet = new HashSet<>();
-			EClassifierType selfType = new EClassifierType(qryEnv, xtdClass.getBaseClass());
-			selfTypeSet.add(selfType);
-			classScope.putTypes("self", selfTypeSet);
+			EClassifierType selfType;
+			if (xtdClass.getBaseClass() == null) {
+				selfType = new EClassifierType(qryEnv, ImplementationPackage.eINSTANCE.getUnresolvedEClassifier());
+			}
+			else {
+				selfType = new EClassifierType(qryEnv, xtdClass.getBaseClass());
+			}
+			classScope.putTypes("self", Sets.newHashSet(selfType));
 	
 			for (Method operation : xtdClass.getMethods()) {
-				doSwitch(operation);
+				doSwitchSafely(operation);
 			}
 		}
 		return null;
@@ -214,7 +231,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 				classScope.putTypes("self", selfTypeSet);
 			}
 			for (Method operation : runtimeCls.getMethods()) {
-				doSwitch(operation);
+				doSwitchSafely(operation);
 			}
 		}
 		return null;
@@ -250,7 +267,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 					methodScope.putTypes("result", Sets.newHashSet(returnType));
 				}
 			}
-			doSwitch(mtd.getBody());
+			doSwitchSafely(mtd.getBody());
 		}
 		return null;
 	}
@@ -260,7 +277,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		try (Scope blockScope = scopes.pushNew()) {
 			blockContexts.put(block, blockScope);
 			for(Statement stmt: block.getStatements()){
-				doSwitch(stmt);
+				doSwitchSafely(stmt);
 			}
 		}
 		return null;
@@ -312,7 +329,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 		
 		try (Scope loopScope = scopes.pushNew()) {
 			loopScope.putTypes(loop.getVariable(), getPossibleCollectionTypes(loop.getCollectionExpression()));
-			doSwitch(loop.getBody());
+			doSwitchSafely(loop.getBody());
 		}
 		return null;
 	}
@@ -337,7 +354,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 						blockScope.putTypes(vartype.getKey(), vartype.getValue());
 					}
 				}
-				doSwitch(cBlock.getBlock());
+				doSwitchSafely(cBlock.getBlock());
 			}
 		}
 		
@@ -367,7 +384,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 				for (Entry<String, Set<IType>> vartype : vartypes.entrySet()) {
 					elseScope.putTypes(vartype.getKey(), vartype.getValue());
 				}
-				doSwitch(ifStmt.getElse());
+				doSwitchSafely(ifStmt.getElse());
 			}
 		}
 		return null;
@@ -436,9 +453,18 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 					loopScope.putTypes(vartype.getKey(), vartype.getValue());
 				}
 			}
-			doSwitch(loop.getBody());
+			doSwitchSafely(loop.getBody());
 		}
 		return null;
+	}
+	
+	private void doSwitchSafely(EObject object) {
+		try {
+			doSwitch(object);
+		}
+		catch (Exception e) {
+			Activator.error("An internal error occurred while validating switching on: " + object, e);
+		}
 	}
 
 	public Map<String, Set<IType>> getCurrentScope() {
@@ -448,7 +474,7 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 	/*
 	 * Use embedded validator to check Expressions
 	 */
-	private IValidationResult validateExpression(Expression exp, Map<String, Set<IType>> variableTypes) {
+	private IValidationResult validateExpression(Expression exp, Map<String, Set<IType>> variableTypes, List<Message> messages) {
 		//Make an AstResult with positions from Implementation parser
 		AstResult fakeAst = new AstResult(
 				exp,
@@ -458,53 +484,111 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 				new BasicDiagnostic()
 				);
 		try {
-			return expValidator.validate(variableTypes, fakeAst);
+			IValidationResult validationResult = expValidator.validate(variableTypes, fakeAst);
+			msgs.addAll(toMessages(validationResult, exp));
+			return validationResult;
 		}
 		catch(AcceleoQueryValidationException e) {
-			System.out.println(e);
-			//TODO: something bad appened
+			InternalError internalError = DiagnosticsFactory.eINSTANCE.createInternalError();
+			internalError.setLocation(DiagnosticsFactory.eINSTANCE.createCodeLocation());
+			internalError.getLocation().setStartPosition(currentModel.getStartPositions().get(exp));
+			internalError.getLocation().setEndPosition(currentModel.getEndPositions().get(exp));
+			internalError.setMessage(e.getMessage());
+			internalError.setCause(e);
+			internalError.setSource(exp);
+			msgs.add(internalError);
+			
+			return new ValidationResult(fakeAst);
 		}
-		return  new ValidationResult(fakeAst);
+	}
+	
+	/**
+	 * Turns given validation result into {@link Message} instances for better error reporting.
+	 * 
+	 * @param validationResult
+	 * 			Acceleo validation result.
+	 * @param ast
+	 * 			The AST that has been validated.
+	 * 
+	 * @return the Messages corresponding to given validation result.
+	 */
+	private static List<Message> toMessages(IValidationResult validationResult, EObject ast) {
+		List<Message> messages = new ArrayList<>(validationResult.getMessages().size());
+		for (IValidationMessage validation : validationResult.getMessages()) {
+			CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+			location.setStartPosition(validation.getStartPosition());
+			location.setEndPosition(validation.getEndPosition());
+			
+			AcceleoValidationMessage acceleoMessage = DiagnosticsFactory.eINSTANCE.createAcceleoValidationMessage();
+			acceleoMessage.setMessage(validation.getMessage());
+			acceleoMessage.setLevel(validation.getLevel());
+			acceleoMessage.setLocation(location);
+			acceleoMessage.setSource(ast);
+			messages.add(acceleoMessage);
+		}
+		return messages;
 	}
 	
 	public int getStartOffset(Object obj) {
-		return currentModel.getStartPositions().get(obj);
+		Integer start = currentModel.getStartPositions().get(obj);
+		// FIXME Happens when the object is never found (e.g. EParameter)
+		//		 but should never occur
+		return start == null ? 0 : start;
 	}
 	
 	public int getEndOffset(Object obj) {
-		return currentModel.getEndPositions().get(obj);
+		Integer start = currentModel.getEndPositions().get(obj);
+		// FIXME Happens when the object is never found (e.g. EParameter)
+		//		 but should never occur
+		return start == null ? 0 : start;
+	}
+	
+	public List<Integer> getLines(Object obj) {
+		List<Integer> lines = currentModel.getLines(obj);
+		if (lines.isEmpty()) {
+			// FIXME A hack to prevent runtime errors when lines are unknown
+			lines.add(0);
+		}
+		return lines;
+	}
+	
+	public String getSourceFile(Object obj) {
+		return currentModel.getSourceFile();
 	}
 	
 	private void validateAndStore(Expression exp, Map<String, Set<IType>> context) {
-		IValidationResult expValidation = validateExpression(exp, context);
-		msgs.addAll(expValidation.getMessages());
+		IValidationResult expValidation = validateExpression(exp, context, msgs);
 		validations.put(exp,expValidation);
 		validationContexts.put(exp, context);
 		
 		if ( ! scopes.isEmpty()) {
 			Set<IType> inferredTypes = expValidation.getPossibleTypes(exp);
+			if (inferredTypes == null) {
+				inferredTypes = new HashSet<>(0);
+			}
 			scopes.getCurrent().putTypes(exp, inferredTypes);
 		}
 	}
 	
 	public Set<IType> getPossibleTypes(Expression exp) {
 		IValidationResult validRes = validations.get(exp);
+		Set<IType> possibleTypes = null;
 		
 		if(validRes != null) {
-			return validRes.getPossibleTypes(exp);
+			possibleTypes = validRes.getPossibleTypes(exp);
 		}
 		else {
 			EObject parent = exp.eContainer();
 			while(parent instanceof Expression) {
 				if(validations.get(parent) != null) {
-					return validations.get(parent).getPossibleTypes(exp);
+					possibleTypes = validations.get(parent).getPossibleTypes(exp);
+					break;
 				}
 				parent = parent.eContainer();
 			}
 			
 		}
-		
-		return new HashSet<>();
+		return possibleTypes == null ? emptySet() : possibleTypes;
 	}
 	
 	public Set<IType> getPossibleCollectionTypes(Expression exp) {
@@ -534,6 +618,8 @@ public class BaseValidator extends ImplementationSwitch<Object> {
 			allModels
 			.stream()
 			.flatMap(m -> m.getRoot().getClassExtensions().stream())
+			// base class can be null when X match no existing class in "open class X"
+			.filter(xtdCls -> xtdCls.getBaseClass() != null)
 			.filter(xtdCls -> xtdCls.getBaseClass().isSuperTypeOf(realType))
 			.collect(Collectors.toList());
 	}

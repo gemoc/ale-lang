@@ -4,10 +4,9 @@
 package org.eclipse.emf.ecoretools.validation
 
 import com.google.common.collect.Sets
+import java.io.File
 import java.util.ArrayList
 import java.util.List
-import org.eclipse.acceleo.query.runtime.IValidationMessage
-import org.eclipse.acceleo.query.runtime.ValidationMessageLevel
 import org.eclipse.core.resources.IFile
 import org.eclipse.core.resources.IMarker
 import org.eclipse.core.resources.IProject
@@ -15,27 +14,32 @@ import org.eclipse.core.resources.IResource
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecoretools.AleXtextPlugin
 import org.eclipse.emf.ecoretools.ale.OrderedSet
 import org.eclipse.emf.ecoretools.ale.SeqType
 import org.eclipse.emf.ecoretools.ale.Sequence
 import org.eclipse.emf.ecoretools.ale.SetType
 import org.eclipse.emf.ecoretools.ale.Unit
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment
 import org.eclipse.emf.ecoretools.ale.core.interpreter.impl.AleInterpreter
+import org.eclipse.emf.ecoretools.ale.core.io.IOResources
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator
+import org.eclipse.emf.ecoretools.ale.core.validation.impl.TypeChecker
 import org.eclipse.emf.ecoretools.ale.ide.project.IAleProject
+import org.eclipse.emf.ecoretools.ale.validation.DiagnosticsToEditorMarkerAdapter
+import org.eclipse.emf.ecoretools.ale.validation.EditorMarkerFormatter
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer
 import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
-import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment
+import org.eclipse.xtext.validation.Issue
 
 /**
  * Delegate validation to ALE validator
  */
 class AleValidator extends AbstractAleValidator {
-	
-	public static String ALE_MARKER = "org.eclipse.emf.ecoretools.ale.xtext.AleMarker";
 	
 	@Check
 	def checkIsValid(Unit root) {
@@ -44,12 +48,19 @@ class AleValidator extends AbstractAleValidator {
 		cleanUpMarkers(aleFile);
 		
 		val IProject project = aleFile.project;
-		val dsl = IAleProject.from(project).environment;
+		val env = IAleProject.from(project).environment;
 
-		val interpreter = dsl.interpreter as AleInterpreter
+		val interpreter = env.interpreter as AleInterpreter
 		try {
 			interpreter.initScope(Sets.newHashSet(),Sets.newHashSet(#[project.name]))
-			val parsedSemantics = dsl.behaviors.parsedFiles
+			val parsedSemantics = env.behaviors.parsedFiles
+			
+			val parsed = parsedSemantics.findFirst[sem | aleFile == IOResources.toIFile(new File(sem.sourceFile))]
+			val aleFileIsNotInEnv = parsed === null
+			if (aleFileIsNotInEnv) {
+				aleFile.createFileNotInEnvMarker()
+				return
+			}
 			
 			/*
 	    	 * Register services
@@ -63,29 +74,42 @@ class AleValidator extends AbstractAleValidator {
 		    	.toList
 	    	interpreter.registerServices(services)
 			
-			val ALEValidator validator = new ALEValidator(dsl);
+			val ALEValidator validator = new ALEValidator(env);
 			validator.validate(parsedSemantics);
-			val List<IValidationMessage> msgs = validator.getMessages();
+			val List<Message> msgs = validator.getMessages();
 			
-			msgs.forEach[msg |
-				val marker = aleFile.createMarker(ALE_MARKER);
-				marker.setAttribute(IMarker.MESSAGE, msg.getMessage());
-				marker.setAttribute(IMarker.SEVERITY, severityOf(msg));
-				marker.setAttribute(IMarker.CHAR_START, msg.startPosition);
-				marker.setAttribute(IMarker.CHAR_END, msg.endPosition);
-			]
+			logInternalErrors(aleFile, msgs)
+			
+			val markerFactory = new DiagnosticsToEditorMarkerAdapter([ str | aleFile.createMarker(str) ], new EditorMarkerFormatter(new TypeChecker(null, env.context)))
+			
+			msgs.filter[ msg |
+					try { 
+						val file = env.behaviors.findParsedFileDefining(msg.source)
+						if (! file.isPresent) {
+							return false
+						}
+						return IOResources.toIFile(new File(file.get.sourceFile)) == aleFile
+					}
+					catch (Exception e) {
+						AleXtextPlugin.error("Unable to check whether the error comes from the current editor: " + msg, e)
+						return true
+					}
+				]
+				.forEach[msg | markerFactory.doSwitch(msg)]
 		}
-		finally {dsl.close}
+		catch (Exception e) {
+			val marker = aleFile.createMarker(AleMarkerTypes.DEFAULT)
+			marker.setAttribute(IMarker.MESSAGE, "An internal error occurred while validating the file: " + e.message)
+			marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR)
+			marker.setAttribute(IMarker.CHAR_START, 0)
+			marker.setAttribute(IMarker.CHAR_END, 0)
+			
+			AleXtextPlugin.error("An internal error occurred while validating " + aleFile, e)
+		}
+		finally {
+			env.close()
+		}
 		
-	}
-	
-	private def severityOf(IValidationMessage message) {
-		switch message.level {
-			case ValidationMessageLevel.INFO: IMarker.SEVERITY_INFO
-			case ValidationMessageLevel.WARNING: IMarker.SEVERITY_WARNING
-			case ValidationMessageLevel.ERROR: IMarker.SEVERITY_ERROR
-			default: ValidationMessageLevel.ERROR
-		}
 	}
 	
 	@Check
@@ -118,6 +142,11 @@ class AleValidator extends AbstractAleValidator {
 		}
 	}
 	
+	private static def void logInternalErrors(IFile aleFile, List<Message> messages) {
+		messages.filter(typeof(InternalError))
+				.forEach[ internalError | AleXtextPlugin.error("An internal error occurred during validation of " + aleFile.fullPath, internalError.cause)]
+	}
+	
 	// copied from WorkbenchDsl (which introduce cyclic dependency if used)
 	static def void resolveUris(FileBasedAleEnvironment dsl) {
 		val newSemantics = new ArrayList<String>();
@@ -139,6 +168,35 @@ class AleValidator extends AbstractAleValidator {
 	}
 	
 	private def cleanUpMarkers(IFile file) {
-		file.deleteMarkers(ALE_MARKER, true, IResource.DEPTH_ZERO);
+		file.deleteMarkers(AleMarkerTypes.DEFAULT, true, IResource.DEPTH_ZERO);
+		file.deleteMarkers(AleMarkerTypes.SOURCE_FILE_NOT_IN_ENV, true, IResource.DEPTH_ZERO);
+	}
+	
+	/** Adds a marker warning about the file not being part of ALE environment */
+	private static def createFileNotInEnvMarker(IFile file) {
+		val marker = file.createMarker(AleMarkerTypes.SOURCE_FILE_NOT_IN_ENV)
+		marker.setAttribute(IMarker.MESSAGE, "This file is not part of the project's ALE environment, it won't be validated")
+		marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING)
+		marker.setAttribute(IMarker.CHAR_START, 0)
+		marker.setAttribute(IMarker.LINE_NUMBER, 0)
+		marker.setAttribute(IMarker.LOCATION, "line: " + 0 + " " + file.fullPath.toString())
+		
+		// Attributes used by Xtext to find the associated quick fix
+		
+		marker.setAttribute(Issue.CODE_KEY, AleMarkerTypes.SOURCE_FILE_NOT_IN_ENV)
+		marker.setAttribute(Issue.COLUMN_KEY, 0)
+		marker.setAttribute(Issue.URI_KEY, URI.createPlatformResourceURI(file.fullPath.toString(), true).toString)
+		marker.setAttribute("FIXABLE_KEY", true);
+		
+		/*
+		 * MUST BE SET LAST.
+		 * 
+		 * Looks like the editor is updated when CHAR_END is set,
+		 * and the editor must be updated once all other attributes
+		 * are properly set.
+		 * 
+		 * See https://www.eclipse.org/forums/index.php?t=msg&th=1104367&goto=1829410&#msg_1829410
+		 */
+		marker.setAttribute(IMarker.CHAR_END, 0)
 	}
 }

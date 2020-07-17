@@ -22,7 +22,6 @@ import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.AssignmentToResultInVoidOperation;
-import org.eclipse.emf.ecoretools.ale.core.diagnostics.AssignmentToSelf;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.AttributeNotFound;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.IDiagnosticFormatter;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.InternalError;
@@ -31,10 +30,11 @@ import org.eclipse.emf.ecoretools.ale.core.diagnostics.MethodNotFound;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.MissingReturnStatement;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.NotIterable;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.Operator;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.ProhibitedAssignmentToSelf;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeMismatch;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeNotFound;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.UnsupportedOperator;
-import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableAlreadyBound;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableAlreadyDefined;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableNotFound;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.util.DiagnosticsSwitch;
 import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.LookalikeStrings;
@@ -45,7 +45,7 @@ import org.eclipse.emf.ecoretools.ale.core.interpreter.internal.Scopes.Scope;
 import com.google.common.base.Strings;
 
 /**
- * Turns {@link Message}s to String aimed at be printed in the console.
+ * Turns {@link Message}s into String aimed at be printed in the console.
  */
 public class ConsoleDiagnosticsFormatter extends DiagnosticsSwitch<String> implements IDiagnosticFormatter {
 	
@@ -64,7 +64,7 @@ public class ConsoleDiagnosticsFormatter extends DiagnosticsSwitch<String> imple
 	}
 	
 	@Override
-	public String caseAssignmentToSelf(AssignmentToSelf error) {
+	public String caseProhibitedAssignmentToSelf(ProhibitedAssignmentToSelf error) {
 		String headline  = Messages.selfCannotBeAssigned();
 		String snippet   = Messages.codeSnippet(error.getLocation().getLine(), error.getWholeCode());
 		String underline = underlineFirst(snippet, error.getIncriminatedCode());
@@ -139,7 +139,7 @@ public class ConsoleDiagnosticsFormatter extends DiagnosticsSwitch<String> imple
 	}
 
 	@Override
-	public String caseVariableAlreadyBound(VariableAlreadyBound error) {
+	public String caseVariableAlreadyDefined(VariableAlreadyDefined error) {
 		String headline  = Messages.variableAlreadyBound(error.getName());
 		String snippet   = Messages.codeSnippet(error.getLocation().getLine(), error.getWholeCode());
 		String underline = underlineFirst(snippet, error.getIncriminatedCode());

@@ -58,6 +58,7 @@ import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.RVariableContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ALEParser.TypeLiteralContext;
 import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile;
 import org.eclipse.emf.ecoretools.ale.core.validation.IConvertType;
+import org.eclipse.emf.ecoretools.ale.core.validation.QualifiedNames;
 import org.eclipse.emf.ecoretools.ale.core.validation.impl.ConvertType;
 import org.eclipse.emf.ecoretools.ale.implementation.Attribute;
 import org.eclipse.emf.ecoretools.ale.implementation.Block;
@@ -204,17 +205,17 @@ public class AntlrAstToAleBehaviorsFactory {
 		newMethod.setBody(body);
 		newMethod.getTags().addAll(tags);
 		
+		if (operation != null && operation.getEType() == null) {
+//			operation.setEType(ImplementationPackage.eINSTANCE.getVoidEClassifier());
+		}
 		return newMethod;
 	}
 	
 	public Method buildImplementation(String containingClass, String name, List<Parameter> params, RTypeContext returnType, Block body, List<String> tags) {
 		Optional<EOperation> existingOperation = resolve(containingClass, name, params.size(), returnType);
-		
-		if(!existingOperation.isPresent()){
-			return buildMethod(null,body,tags);
-		}
-		
-		return buildMethod(existingOperation.get(),body,tags);
+		Method method = buildMethod(existingOperation.orElse(null), body, tags);
+		method.setOverriding(true);
+		return method;
 	}
 	
 	
@@ -524,12 +525,22 @@ public class AntlrAstToAleBehaviorsFactory {
 	//Can return null
 	public Optional<EOperation> resolve(String className, String methodName, int nbArgs, RTypeContext returnType) {
 		EClassifier type = resolve(returnType).getEType();
-		//TODO: manage qualified name		
+		String packageName = null;
+		
+		boolean isFullyQualifiedName = className.contains(".");
+		if (isFullyQualifiedName) {
+			packageName = className.substring(0, className.lastIndexOf('.')).replace(".", "::");
+			className = className.substring(className.lastIndexOf('.') + 1);
+		}
+		String finalPackageName = packageName;
+		String finalClassName = className;
 		return qryEnv.getEPackageProvider()
 					 .getEClassifiers().stream()
 					 .filter(cls -> cls instanceof EClass)
-					 .filter(cls -> cls.getName().equals(className))
-					 .flatMap(cls -> ((EClass)cls).getEOperations().stream())
+					 .map(EClass.class::cast)
+					 .filter(cls -> cls.getName().equals(finalClassName))
+					 .filter(cls -> finalPackageName == null ? true : (finalPackageName.equals(QualifiedNames.getQualifiedName(cls.getEPackage())) ? true : false))
+					 .flatMap(cls -> cls.getEAllOperations().stream())
 					 .filter(op -> op.getName().equals(methodName) && op.getEParameters().size() == nbArgs && op.getEType() == type)
 					 .findFirst();
 	}
@@ -559,6 +570,8 @@ public class AntlrAstToAleBehaviorsFactory {
 			.stream()
 			.filter(cls -> !cls.getEPackage().getName().equals("implementation"))
 			.filter(cls -> cls.getName().equals(className))
+			// FIXME Should return all candidates to outline the fact that namesakes
+			// 		 have been found & allow to address the issue thereafter in validators
 			.findFirst();
 		
 		if(candidate.isPresent())
@@ -575,7 +588,7 @@ public class AntlrAstToAleBehaviorsFactory {
 			case "float" 	: return EcorePackage.eINSTANCE.getEFloat();
 			case "double" 	: return EcorePackage.eINSTANCE.getEDouble();
 			case "Double"   : return EcorePackage.eINSTANCE.getEDouble();
-			case "void"		: return null;
+			case "void"		: return ImplementationPackage.eINSTANCE.getVoidEClassifier();
 			default			: return ImplementationPackage.eINSTANCE.getUnresolvedEClassifier();
 		}
 	}

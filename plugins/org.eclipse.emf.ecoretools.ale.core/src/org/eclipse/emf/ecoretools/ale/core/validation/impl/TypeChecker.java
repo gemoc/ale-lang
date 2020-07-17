@@ -40,7 +40,7 @@ public final class TypeChecker implements ITypeChecker {
 	private final IQueryEnvironment context;
 	
 	public TypeChecker(Scopes scopes, IQueryEnvironment context) {
-		this.scopes = requireNonNull(scopes, "scopes");
+		this.scopes = scopes; //requireNonNull(scopes, "scopes");
 		this.context = requireNonNull(context, "context");
 	}
 	

@@ -10,20 +10,25 @@
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.validation;
 
-import static java.util.stream.Collectors.toList;
-import static org.eclipse.emf.ecoretools.ale.core.validation.QualifiedNames.getQualifiedName;
+import static java.util.Collections.emptyList;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.eclipse.acceleo.query.runtime.IValidationMessage;
-import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
-import org.eclipse.acceleo.query.runtime.impl.ValidationMessage;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.ClassOpenedMoreThanOnce;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsFactory;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.IncorrectExtendOrder;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.NotAnOpenableClass;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.OpenClassNotFound;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeHasNamesakes;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureAssignment;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureInsert;
@@ -43,17 +48,13 @@ import org.eclipse.emf.ecoretools.ale.implementation.While;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
+/**
+ * Validates properties of {@link ExtendedClass} in ALE programs.
+ */
 public class OpenClassValidator implements IValidator {
 	
-	public static final String OPENCLASS_DUPLICATION = "The EClass %s is already opened (need explicit extends)";
-	public static final String EXTENDS_ORDER = "The extended EClass %s have to be after %s";
-	public static final String NOT_AN_OPENABLE_CLASS = "Cannot open class %s: the class must be defined in an Ecore metamodel";
-	public static final String OPENED_CLASS_HAS_NAMESAKE = "Opening %s, which has namesakes. Make sure you're opening the right class.\n" +
-														   " - Opened: %s\n" +
-														   " - Namesakes: %s";
-	
-	BaseValidator base;
-	List<ExtendedClass> duplicatedExensions = new ArrayList<>();
+	private BaseValidator base;
+	private Map<String, ExtendedClass> duplicatedExensions = new HashMap<>();
 
 	@Override
 	public void setBase(BaseValidator baseValidator) {
@@ -61,8 +62,8 @@ public class OpenClassValidator implements IValidator {
 	}
 
 	@Override
-	public List<IValidationMessage> validateModelBehavior(List<ModelUnit> units) {
-		List<IValidationMessage> msgs = new ArrayList<>();
+	public List<Message> validateModelBehavior(List<ModelUnit> units) {
+		List<Message> msgs = new ArrayList<>();
 		duplicatedExensions.clear();
 		
 		Multimap<EClass, ExtendedClass> extensionByBase = ArrayListMultimap.create();
@@ -81,7 +82,7 @@ public class OpenClassValidator implements IValidator {
 				.stream()
 				.skip(1)
 				.filter(xtd -> xtd.getExtends().isEmpty())
-				.forEach(xtd -> duplicatedExensions.add(xtd));
+				.forEach(xtd -> duplicatedExensions.put(xtd.getName(), xtd));
 			}
 		});
 		
@@ -89,144 +90,170 @@ public class OpenClassValidator implements IValidator {
 	}
 
 	@Override
-	public List<IValidationMessage> validateModelUnit(ModelUnit unit) {
-		List<IValidationMessage> msgs = new ArrayList<>();
+	public List<Message> validateModelUnit(ModelUnit unit) {
+		List<Message> msgs = new ArrayList<>();
 		return msgs;
 	}
 
 	@Override
-	public List<IValidationMessage> validateExtendedClass(ExtendedClass xtdClass) {
+	public List<Message> validateExtendedClass(ExtendedClass xtdClass) {
 		
-		List<IValidationMessage> msgs = new ArrayList<>();
+		List<Message> msgs = new ArrayList<>();
 		
-		if(duplicatedExensions.contains(xtdClass)) {
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(OPENCLASS_DUPLICATION, xtdClass.getBaseClass().getName()),
-					this.base.getStartOffset(xtdClass),
-					this.base.getEndOffset(xtdClass)
-					));
+		if(duplicatedExensions.containsKey(xtdClass.getName())) {
+			ClassOpenedMoreThanOnce classOpenedMoreThanOnce = DiagnosticsFactory.eINSTANCE.createClassOpenedMoreThanOnce();
+			classOpenedMoreThanOnce.setSource(xtdClass);
+			classOpenedMoreThanOnce.setLocation(DiagnosticsFactory.eINSTANCE.createCodeLocation());
+			classOpenedMoreThanOnce.getLocation().setStartPosition(base.getStartOffset(xtdClass));
+			classOpenedMoreThanOnce.getLocation().setEndPosition(base.getEndOffset(xtdClass));
+			classOpenedMoreThanOnce.getLocation().setLine(base.getLines(xtdClass).get(0));
+			classOpenedMoreThanOnce.getLocation().setSource(base.getSourceFile(xtdClass));
+			classOpenedMoreThanOnce.setCurrentDeclaration(xtdClass);
+			classOpenedMoreThanOnce.setPreviousDeclaration(duplicatedExensions.get(xtdClass.getName()));
+			
+			msgs.add(classOpenedMoreThanOnce);
 		}
-		EClass base = xtdClass.getBaseClass();
+		EClass baseClass = xtdClass.getBaseClass();
 		
-		validateExtendedClassHasNoNamesake(xtdClass, msgs);
-		validateExtendedClassExists(xtdClass, base, msgs);
-		
-		EList<EClass> superTypes = base.getESuperTypes();
-		List<EClass> extendsBaseClasses =
-			xtdClass
-			.getExtends()
-			.stream()
-			.map(xtd -> xtd.getBaseClass())
-			.collect(Collectors.toList());
-		
-		int upperIndex = -1;
-		for(EClass superType : superTypes) {
-			int currentIndex = extendsBaseClasses.indexOf(superType);
-			if(currentIndex != -1 && currentIndex <=  upperIndex) {
-				msgs.add(new ValidationMessage(
-						ValidationMessageLevel.ERROR,
-						String.format(EXTENDS_ORDER, superType.getName(), extendsBaseClasses.get(upperIndex).getName()),
-						this.base.getStartOffset(xtdClass),
-						this.base.getEndOffset(xtdClass)
-						));
-			}
-			else {
-				upperIndex = currentIndex;
+		if (baseClass == null) {
+			NotAnOpenableClass notAnOpenableClass = DiagnosticsFactory.eINSTANCE.createNotAnOpenableClass();
+			notAnOpenableClass.setSource(xtdClass);
+			notAnOpenableClass.setLocation(DiagnosticsFactory.eINSTANCE.createCodeLocation());
+			notAnOpenableClass.getLocation().setStartPosition(base.getStartOffset(xtdClass));
+			notAnOpenableClass.getLocation().setEndPosition(base.getStartOffset(xtdClass) + "open class ".length() + xtdClass.getName().length());
+			notAnOpenableClass.getLocation().setLine(base.getLines(xtdClass).get(0));
+			notAnOpenableClass.getLocation().setSource(base.getSourceFile(xtdClass));
+			notAnOpenableClass.setOpenClass(xtdClass);
+
+			msgs.add(notAnOpenableClass);
+		}
+		else {
+			validateExtendedClassHasNoNamesake(xtdClass, msgs);
+			validateExtendedClassExists(xtdClass, baseClass, msgs);
+			
+			EList<EClass> superTypes = baseClass.getESuperTypes();
+			List<EClass> extendsBaseClasses =
+				xtdClass
+				.getExtends()
+				.stream()
+				.map(xtd -> xtd.getBaseClass())
+				.collect(Collectors.toList());
+			
+			int upperIndex = -1;
+			for(EClass superType : superTypes) {
+				int currentIndex = extendsBaseClasses.indexOf(superType);
+				if(currentIndex != -1 && currentIndex <=  upperIndex) {
+					IncorrectExtendOrder incorrectExtendOrder = DiagnosticsFactory.eINSTANCE.createIncorrectExtendOrder();
+					incorrectExtendOrder.setSource(xtdClass);
+					incorrectExtendOrder.setLocation(DiagnosticsFactory.eINSTANCE.createCodeLocation());
+					incorrectExtendOrder.getLocation().setStartPosition(base.getStartOffset(xtdClass));
+					incorrectExtendOrder.getLocation().setEndPosition(base.getStartOffset(xtdClass) + ("open class " + xtdClass.getName() + " extends " + xtdClass.getBaseClass().getName()).length());
+					incorrectExtendOrder.getLocation().setLine(base.getLines(xtdClass).get(0));
+					incorrectExtendOrder.getLocation().setSource(base.getSourceFile(xtdClass));
+					incorrectExtendOrder.setSuperType(superType);
+					incorrectExtendOrder.setSuperSuperType(extendsBaseClasses.get(upperIndex));
+					
+					msgs.add(incorrectExtendOrder);
+				}
+				else {
+					upperIndex = currentIndex;
+				}
 			}
 		}
-		
 		return msgs;
 	}
 
-	private void validateExtendedClassExists(ExtendedClass xtdClass, EClass base, List<IValidationMessage> msgs) {
-		boolean baseClassDoesntExist = UnresolvedEClassifier.class.equals(base.getInstanceClass());
+	private void validateExtendedClassExists(ExtendedClass xtdClass, EClass baseClass, List<Message> msgs) {
+		boolean baseClassDoesntExist = UnresolvedEClassifier.class.equals(baseClass.getInstanceClass());
 		if (baseClassDoesntExist) {
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.ERROR,
-					String.format(NOT_AN_OPENABLE_CLASS, xtdClass.getName()),
-					this.base.getStartOffset(xtdClass),
-					this.base.getStartOffset(xtdClass) + "open class ".length() + xtdClass.getName().length()
-			));
+			OpenClassNotFound openClassDoesNotExist = DiagnosticsFactory.eINSTANCE.createOpenClassNotFound();
+			openClassDoesNotExist.setSource(xtdClass);
+			openClassDoesNotExist.setLocation(DiagnosticsFactory.eINSTANCE.createCodeLocation());
+			openClassDoesNotExist.getLocation().setStartPosition(base.getStartOffset(xtdClass));
+			openClassDoesNotExist.getLocation().setEndPosition(base.getStartOffset(xtdClass) + "open class ".length() + xtdClass.getName().length());
+			openClassDoesNotExist.getLocation().setLine(base.getLines(xtdClass).get(0));
+			openClassDoesNotExist.getLocation().setSource(base.getSourceFile(xtdClass));
+			openClassDoesNotExist.setOpenClass(xtdClass);
+			
+			msgs.add(openClassDoesNotExist);
 		}
 	}
 
-	private void validateExtendedClassHasNoNamesake(ExtendedClass xtdClass, List<IValidationMessage> msgs) {
-		Collection<EClassifier> potentialNamesakes = this.base.getQryEnv().getEPackageProvider().getTypes(xtdClass.getName());
-		Collection<String> namesakes = potentialNamesakes
-												  .stream()
-												  .filter(classi -> !classi.getEPackage().equals(xtdClass.getBaseClass().getEPackage()))
-												  .map(QualifiedNames::getQualifiedName)
-												  .collect(toList());
-		
-		if (!namesakes.isEmpty()) {
-			msgs.add(new ValidationMessage(
-					ValidationMessageLevel.WARNING,
-					String.format(OPENED_CLASS_HAS_NAMESAKE, xtdClass.getName(), getQualifiedName(xtdClass.getBaseClass().getEPackage()), namesakes),
-					this.base.getStartOffset(xtdClass),
-					this.base.getEndOffset(xtdClass)
-			));
+	private void validateExtendedClassHasNoNamesake(ExtendedClass xtdClass, List<Message> msgs) {
+		Collection<EClassifier> namesakes = this.base.getQryEnv().getEPackageProvider().getTypes(xtdClass.getName());
+		boolean hasNamesakes = namesakes.size() > 1;
+		if (hasNamesakes) {
+			TypeHasNamesakes openClassHasNamesakes = DiagnosticsFactory.eINSTANCE.createTypeHasNamesakes();
+			openClassHasNamesakes.setSource(xtdClass);
+			openClassHasNamesakes.getNamesakes().addAll(namesakes);
+			openClassHasNamesakes.setLocation(DiagnosticsFactory.eINSTANCE.createCodeLocation());
+			openClassHasNamesakes.getLocation().setStartPosition(base.getStartOffset(xtdClass));
+			openClassHasNamesakes.getLocation().setEndPosition(base.getStartOffset(xtdClass) + "open class ".length() + xtdClass.getName().length());
+			openClassHasNamesakes.getLocation().setLine(base.getLines(xtdClass).get(0));
+			openClassHasNamesakes.getLocation().setSource(base.getSourceFile(xtdClass));
+			
+			msgs.add(openClassHasNamesakes);
 		}
 	}
 
 	@Override
-	public List<IValidationMessage> validateRuntimeClass(RuntimeClass classDef) {
-		return new ArrayList<>();
+	public List<Message> validateRuntimeClass(RuntimeClass classDef) {
+		return emptyList();
 	}
 
 	@Override
-	public List<IValidationMessage> validateMethod(Method mtd) {
-		return new ArrayList<>();
+	public List<Message> validateMethod(Method mtd) {
+		return emptyList();
 	}
 
 	@Override
-	public List<IValidationMessage> validateFeatureAssignment(FeatureAssignment featAssign) {
-		return new ArrayList<>();
+	public List<Message> validateFeatureAssignment(FeatureAssignment featAssign) {
+		return emptyList();
 	}
 
 	@Override
-	public List<IValidationMessage> validateFeatureInsert(FeatureInsert featInsert) {
-		return new ArrayList<>();
+	public List<Message> validateFeatureInsert(FeatureInsert featInsert) {
+		return emptyList();
 	}
 
 	@Override
-	public List<IValidationMessage> validateFeatureRemove(FeatureRemove featRemove) {
-		return new ArrayList<>();
+	public List<Message> validateFeatureRemove(FeatureRemove featRemove) {
+		return emptyList();
 	}
 
 	@Override
-	public List<IValidationMessage> validateVariableAssignment(VariableAssignment varAssign) {
-		return new ArrayList<>();
+	public List<Message> validateVariableAssignment(VariableAssignment varAssign) {
+		return emptyList();
 	}
 
 	@Override
-	public List<IValidationMessage> validateVariableDeclaration(VariableDeclaration varDecl) {
-		return new ArrayList<>();
+	public List<Message> validateVariableDeclaration(VariableDeclaration varDecl) {
+		return emptyList();
 	}
 	
 	@Override
-	public List<IValidationMessage> validateVariableInsert(VariableInsert varInsert) {
-		return new ArrayList<>();
+	public List<Message> validateVariableInsert(VariableInsert varInsert) {
+		return emptyList();
 	}
 	
 	@Override
-	public List<IValidationMessage> validateVariableRemove(VariableRemove varRemove) {
-		return new ArrayList<>();
+	public List<Message> validateVariableRemove(VariableRemove varRemove) {
+		return emptyList();
 	}
 
 	@Override
-	public List<IValidationMessage> validateForEach(ForEach loop) {
-		return new ArrayList<>();
+	public List<Message> validateForEach(ForEach loop) {
+		return emptyList();
 	}
 
 	@Override
-	public List<IValidationMessage> validateIf(If ifStmt) {
-		return new ArrayList<>();
+	public List<Message> validateIf(If ifStmt) {
+		return emptyList();
 	}
 
 	@Override
-	public List<IValidationMessage> validateWhile(While loop) {
-		return new ArrayList<>();
+	public List<Message> validateWhile(While loop) {
+		return emptyList();
 	}
 
 }

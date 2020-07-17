@@ -13,15 +13,19 @@ package org.eclipse.emf.ecoretools.ale.core.validation;
 import java.util.Set;
 
 import org.eclipse.acceleo.query.ast.Expression;
-import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Operator;
 import org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.Statement;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableInsert;
+import org.eclipse.emf.ecoretools.ale.implementation.VariableRemove;
 
 /**
- * A factory that creates new, tailored, {@link IValidationMessage validation messages}.
+ * A factory that creates new, tailored, {@link Message validation messages}.
  * <p>
  * A lot of methods need a reference to an AST element. This element is used to set the position
  * of the message in the corresponding source code.
@@ -39,7 +43,7 @@ public interface IValidationMessageFactory {
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage assignmentToResultInVoidOperation(Statement statement);
+	Message assignmentToResultInVoidOperation(Statement statement);
 	
 	/**
 	 * Creates a message telling that an expression was supposed to be boolean.
@@ -49,7 +53,7 @@ public interface IValidationMessageFactory {
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage expectedBoolean(Expression exp);
+	Message expectedBoolean(Expression exp);
 	
 	/**
 	 * Creates a message warning about a class extending itself.
@@ -59,7 +63,7 @@ public interface IValidationMessageFactory {
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage extendingItself(ExtendedClass xtdClass);
+	Message extendingItself(ExtendedClass xtdClass);
 	
 	/**
 	 * Creates a message warning about an attempt to iterate over a scalar
@@ -70,7 +74,7 @@ public interface IValidationMessageFactory {
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage forEachCanOnlyIterateOnCollections(ForEach loop);
+	Message forEachCanOnlyIterateOnCollections(ForEach loop);
 	
 	/**
 	 * Creates a message warning about an attempt to assign a value to a variable
@@ -82,10 +86,12 @@ public interface IValidationMessageFactory {
 	 * 			The types of the value
 	 * @param assignment
 	 * 			The assignment statement
+	 * @param assignedValue
+	 * 			The value assigned to the variable
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage illegalAssignment(Set<IType> variableTypes, Set<IType> valueTypes, Object assignment);
+	Message illegalAssignment(Set<IType> variableTypes, Set<IType> valueTypes, EObject assignment, Object assignedValue);
 	
 	/**
 	 * Creates a message warning about an attempt to insert a value into a variable
@@ -102,7 +108,7 @@ public interface IValidationMessageFactory {
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage illegalInsertion(Set<IType> variableTypes, Set<IType> insertedValueTypes, Set<IType> acceptedValueTypes, Object value);
+	Message illegalInsertion(Set<IType> variableTypes, Set<IType> insertedValueTypes, Set<IType> acceptedValueTypes, Expression value);
 	
 	/**
 	 * Creates a message warning about an attempt to remove a value from a variable
@@ -119,7 +125,7 @@ public interface IValidationMessageFactory {
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage illegalRemoval(Set<IType> variableTypes, Set<IType> removedValueTypes, Set<IType> acceptedValueTypes, Object value);
+	Message illegalRemoval(Set<IType> variableTypes, Set<IType> removedValueTypes, Set<IType> acceptedValueTypes, Expression value);
 	
 	/**
 	 * Creates a message warning about unexpected types.
@@ -133,7 +139,7 @@ public interface IValidationMessageFactory {
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage incompatibleTypes(Set<IType> expected, Set<IType> actual, Object statement);
+	Message incompatibleTypes(Set<IType> expected, Set<IType> actual, EObject statement);
 	
 	/**
 	 * Creates a message warning about an attempt to extend a class that is not 
@@ -148,7 +154,7 @@ public interface IValidationMessageFactory {
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage indirectExtension(ExtendedClass xtdClass, EClass superBase, EClass baseCls);
+	Message indirectExtension(ExtendedClass xtdClass, EClass superBase, EClass baseCls);
 	
 	/**
 	 * Creates a message warning about an attempt to insert a value into 'self'.
@@ -158,7 +164,7 @@ public interface IValidationMessageFactory {
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage prohibitedInsertionToSelf(Object statement);
+	Message prohibitedInsertionToSelf(VariableInsert statement);
 
 	/**
 	 * Creates a message warning about an attempt to remove a value from 'self'.
@@ -168,18 +174,18 @@ public interface IValidationMessageFactory {
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage prohibitedRemovalFromSelf(Object statement);
+	Message prohibitedRemovalFromSelf(VariableRemove statement);
 
 	/**
 	 * Creates a message warning about the use of a variable which type
 	 * could not being resolved.
 	 * 
-	 * @param expression
-	 * 			The expression where the variable is used
+	 * @param statement
+	 * 			The statement or expression where the variable is used
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage unresolvedType(Object expression);
+	Message unresolvedType(EObject statement);
 	
 	/**
 	 * Creates a message warning about the use of an operator on a feature
@@ -196,7 +202,7 @@ public interface IValidationMessageFactory {
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage unsupportedOperatorOnFeature(Set<IType> featureTypes, Object statement, String featureName, String operator);
+	Message unsupportedOperatorOnFeature(Set<IType> featureTypes, EObject statement, String featureName, Operator operator);
 	
 	/**
 	 * Creates a message warning about the use of an operator on a variable
@@ -213,6 +219,6 @@ public interface IValidationMessageFactory {
 	 * 
 	 * @return a new validation message
 	 */
-	IValidationMessage unsupportedOperatorOnVariable(Set<IType> variableTypes, Object statement, String variableName, String operator);
+	Message unsupportedOperatorOnVariable(Set<IType> variableTypes, EObject statement, String variableName, Operator operator);
 
 }

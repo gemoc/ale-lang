@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EOperation;
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.Method#getOperationRef <em>Operation Ref</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.Method#getBody <em>Body</em>}</li>
  *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.Method#getTags <em>Tags</em>}</li>
+ *   <li>{@link org.eclipse.emf.ecoretools.ale.implementation.Method#isOverriding <em>Overriding</em>}</li>
  * </ul>
  *
  * @see org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage#getMethod()
@@ -109,5 +110,27 @@ public interface Method extends EObject {
 	 * @generated
 	 */
 	EList<String> getTags();
+
+	/**
+	 * Returns the value of the '<em><b>Overriding</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Overriding</em>' attribute.
+	 * @see #setOverriding(boolean)
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage#getMethod_Overriding()
+	 * @model
+	 * @generated
+	 */
+	boolean isOverriding();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.emf.ecoretools.ale.implementation.Method#isOverriding <em>Overriding</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Overriding</em>' attribute.
+	 * @see #isOverriding()
+	 * @generated
+	 */
+	void setOverriding(boolean value);
 
 } // Method

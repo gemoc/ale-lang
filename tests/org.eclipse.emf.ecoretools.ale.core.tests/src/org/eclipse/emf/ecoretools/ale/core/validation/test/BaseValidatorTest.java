@@ -17,8 +17,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator;
 import org.eclipse.emf.ecoretools.ale.core.validation.BaseValidator;
@@ -47,7 +47,7 @@ public class BaseValidatorTest {
 		environment = IAleEnvironment.fromPaths(emptyList(), asList("input/validation/resultRead.implem"));
 		ALEValidator validator = new ALEValidator(environment);
 		validator.validate(environment.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(0, msg.size());
 	}
@@ -61,10 +61,10 @@ public class BaseValidatorTest {
 		environment = IAleEnvironment.fromPaths(emptyList(), asList("input/validation/assignForbiddenValueToResult.implem"));
 		ALEValidator validator = new ALEValidator(environment);
 		validator.validate(environment.getBehaviors().getParsedFiles());
-		List<IValidationMessage> msg = validator.getMessages();
+		List<Message> msg = validator.getMessages();
 		
 		assertEquals(1, msg.size());
-		assertMsgEquals(ValidationMessageLevel.ERROR, 77, 92, "Type mismatch: cannot assign [java.lang.String] to [ecore::EBoolean]", msg.get(0));
+		assertMsgEquals(environment, ValidationMessageLevel.ERROR, 77, 92, "Type mismatch: cannot assign [java.lang.String] to [ecore::EBoolean]", msg.get(0));
 	}
 
 }

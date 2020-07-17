@@ -12,17 +12,21 @@ package org.eclipse.emf.ecoretools.ale.core.interpreter.test;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message;
 import org.eclipse.emf.ecoretools.ale.core.env.ClosedAleEnvironmentException;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.env.IBehaviors;
+import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.junit.After;
 import org.junit.Before;
@@ -614,6 +618,40 @@ public class InterpreterDiagnosticTest {
 						  "7| while ('Hello World!') {" + nl() + 
 						  "          ^^^^^^^^^^^^^^ should be `ecore::EBoolean`" + nlnl() + 
 						  "  At input/diagnostics/whileNonBooleanCondition.ale:7" + nl(); 
+		assertEquals("Wrong output on stderr", expected, getErr());
+	}
+	
+	/*
+	 * Test a method declared in a parent class can be overridden.
+	 */
+	@Test
+	public void callMethodOverriddenFromParent() throws ClosedAleEnvironmentException {
+		environment = IAleEnvironment.fromPaths(asList("model/doubleMulti.ecore"), asList("input/overrideMethodFromParent.implem"));
+
+		EObject caller = environment.loadModel(URI.createURI("model/doubleMultiC.xmi")).get(0);
+		IBehaviors behaviors = environment.getBehaviors();
+		Method main = behaviors.getMainMethods().get(0);
+		environment.getInterpreter().eval(caller, main, asList());
+		environment.getInterpreter().getLogger().diagnosticForHuman();
+		
+		String expected = ""; 
+		assertEquals("Wrong output on stderr", expected, getErr());
+	}
+	
+	/*
+	 * Test a method declared in a parent class can be overridden.
+	 */
+	@Test
+	public void callMethodOverriddenFromParent2() throws ClosedAleEnvironmentException {
+		environment = IAleEnvironment.fromPaths(asList("model/doubleMulti.ecore"), asList("input/overrideMethodFromParent.implem"));
+
+		EObject caller = environment.loadModel(URI.createURI("model/doubleMultiD.xmi")).get(0);
+		IBehaviors behaviors = environment.getBehaviors();
+		Method main = behaviors.getMainMethods().get(0);
+		environment.getInterpreter().eval(caller, main, asList());
+		environment.getInterpreter().getLogger().diagnosticForHuman();
+		
+		String expected = ""; 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
 

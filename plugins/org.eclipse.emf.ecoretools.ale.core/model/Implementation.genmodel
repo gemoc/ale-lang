@@ -10,6 +10,7 @@
   <foreignModel>Implementation.ecore</foreignModel>
   <genPackages prefix="Implementation" basePackage="org.eclipse.emf.ecoretools.ale"
       disposableProviderFactory="true" ecorePackage="Implementation.ecore#/">
+    <genDataTypes ecoreDataType="Implementation.ecore#//VoidEClassifier"/>
     <genClasses ecoreClass="Implementation.ecore#//ModelBehavior">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//ModelBehavior/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//ModelBehavior/units"/>
@@ -24,6 +25,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Implementation.ecore#//Method/operationRef"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Implementation.ecore#//Method/body"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//Method/tags"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//Method/overriding"/>
     </genClasses>
     <genClasses ecoreClass="Implementation.ecore#//ModelUnit">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Implementation.ecore#//ModelUnit/services"/>

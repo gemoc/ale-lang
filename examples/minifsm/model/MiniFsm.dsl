@@ -1,2 +1,2 @@
-syntax=platform:/resource/minifsm/model/MiniFsm.ecore
-behavior=platform:/resource/minifsm/model/MiniFsm.ale
+ecore=platform:/resource/minifsm/model/MiniFsm.ecore
+ale=platform:/resource/minifsm/model/MiniFsm.ale

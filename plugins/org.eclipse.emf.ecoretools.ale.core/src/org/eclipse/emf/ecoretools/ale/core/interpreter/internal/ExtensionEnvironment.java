@@ -23,8 +23,12 @@ import org.eclipse.acceleo.query.runtime.ServiceUtils;
 import org.eclipse.acceleo.query.runtime.impl.EPackageProvider;
 import org.eclipse.acceleo.query.runtime.impl.QueryEvaluationEngine;
 import org.eclipse.acceleo.query.runtime.lookup.basic.BasicLookupEngine;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 
 //FIXME: copy/past from org.eclipse.acceleo.query.runtime.impl.QueryEnvironment because no other way to change the lookupEngine implem :(
 public class ExtensionEnvironment implements IQueryEnvironment {
@@ -92,6 +96,22 @@ public class ExtensionEnvironment implements IQueryEnvironment {
 		if (registeredEPackage != null) {
 			for (IQueryEnvironmentListener listener : getListeners()) {
 				listener.ePackageRegistered(ePackage);
+			}
+			/*
+			 * Set 'VoidEClassifier' as EType of EOperation that don't have one.
+			 * 
+			 * The rational is that AQL doesn't handle EOperation without an explicit 
+			 * return type and throws unexpected NullPointerException when calling them.
+			 * 
+			 * See https://github.com/gemoc/ale-lang/issues/165
+			 */
+			TreeIterator<EObject> eAllContents = registeredEPackage.eAllContents();
+			while (eAllContents.hasNext()) {
+				EObject content = eAllContents.next();
+				if (content instanceof EOperation && ((EOperation) content).getEType() == null) {
+					EOperation operation = (EOperation) content;
+					operation.setEType(ImplementationPackage.eINSTANCE.getVoidEClassifier());
+				}
 			}
 			final Set<IService> services = ServiceUtils.getServices(ePackage);
 			ServiceUtils.registerServices(this, services);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Inria and Obeo.
+ * Copyright (c) 2017, 2020 Inria and Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,14 +16,14 @@ import static java.util.stream.Collectors.toList;
 import static org.eclipse.emf.ecoretools.ale.core.io.IOResources.toFile;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
@@ -46,8 +46,8 @@ import org.eclipse.emf.ecoretools.ale.core.io.IOResources;
 //		      the .dsl file in the constructor
 public final class FileBasedAleEnvironment extends AbstractAleEnvironment {
 	
-	public static final String BEHAVIORS_KEY = "behavior";
-	public static final String METAMODELS_KEY = "syntax";
+	public static final String BEHAVIORS_KEY = "ale";
+	public static final String METAMODELS_KEY = "ecore";
 	
 	private File platformFile;
 	private IFile workspaceFile;
@@ -145,9 +145,12 @@ public final class FileBasedAleEnvironment extends AbstractAleEnvironment {
 			write(workspaceFile, newProperties);
 		}
 		else if (platformFile != null) {
-			try (FileOutputStream output = new FileOutputStream(platformFile)) {
-				newProperties.store(output, "");
+			StringBuilder sb = new  StringBuilder();
+			sb.append("#\n");
+			for(Entry<Object, Object> entry : newProperties.entrySet()) {
+				sb.append(entry.getKey() + " = " +entry.getValue()+"\n");
 			}
+			Files.write(platformFile.toPath(), sb.toString().getBytes());
 		}
 	}
 	
@@ -186,10 +189,13 @@ public final class FileBasedAleEnvironment extends AbstractAleEnvironment {
 	 * @throws IOException if the properties cannot be saved
 	 */
 	private static void write(IFile workspaceFile, Properties newProperties) throws IOException {
-		ByteArrayOutputStream writableProperties = new ByteArrayOutputStream(100);
-		newProperties.store(writableProperties, "");
+		StringBuilder sb = new  StringBuilder();
+		sb.append("#\n");
+		for(Entry<Object, Object> entry : newProperties.entrySet()) {
+			sb.append(entry.getKey() + " = " +entry.getValue()+"\n");
+		}
 		
-		InputStream readableProperties = new ByteArrayInputStream(writableProperties.toByteArray());
+		InputStream readableProperties = new ByteArrayInputStream(sb.toString().getBytes());
 		try {
 			if (! workspaceFile.exists()) {
 				workspaceFile.create(readableProperties, false, new NullProgressMonitor());

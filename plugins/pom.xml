@@ -20,6 +20,7 @@
 		<module>org.eclipse.emf.ecoretools.ale.examples</module>
 		<module>org.eclipse.emf.ecoretools.ale.xtext</module>
 		<module>org.eclipse.emf.ecoretools.ale.xtext.ide</module>
+		<module>org.eclipse.emf.ecoretools.ale.xtext.ide.theme</module>
 		<module>org.eclipse.emf.ecoretools.ale.xtext.ui</module>
 	</modules>
 

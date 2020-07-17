@@ -72,6 +72,7 @@ import org.eclipse.emf.ecoretools.ale.implementation.FeaturePut;
 import org.eclipse.emf.ecoretools.ale.implementation.FeatureRemove;
 import org.eclipse.emf.ecoretools.ale.implementation.ForEach;
 import org.eclipse.emf.ecoretools.ale.implementation.If;
+import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit;
 import org.eclipse.emf.ecoretools.ale.implementation.Statement;
@@ -175,7 +176,8 @@ public class MethodEvaluator {
 			methodScope.putValue("self", target);
 			methodScope.putTypes("self", newHashSet(convert.toAQL(target.eClass())));
 			
-			boolean isVoidMethod = operation.getOperationRef().getEType() == null;
+			boolean isVoidMethod = operation.getOperationRef().getEType() == null 
+								|| operation.getOperationRef().getEType() == ImplementationPackage.eINSTANCE.getVoidEClassifier();
 			if (!isVoidMethod) {
 				methodScope.putTypes("result", newHashSet(convert.toAQL(operation.getOperationRef())));
 			}
@@ -717,7 +719,6 @@ public class MethodEvaluator {
 	 * Validates an Expression and stored its types in the current scope.
 	 */
 	private Set<IType> validateAndStoreType(Expression expression) throws CriticalFailureException {
-		// FIXME [Validation] Should do something with validation.getMessages()
 		IValidationResult validation = validate(expression);
 		Set<IType> inferredTypes = validation.getPossibleTypes(expression);
 		inferredTypes = inferredTypes == null ? new HashSet<>() : inferredTypes;

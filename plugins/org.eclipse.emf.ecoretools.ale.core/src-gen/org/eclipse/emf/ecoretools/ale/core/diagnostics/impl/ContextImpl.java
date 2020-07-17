@@ -3,10 +3,12 @@
 package org.eclipse.emf.ecoretools.ale.core.diagnostics.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.Context;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.DiagnosticsPackage;
 
@@ -33,6 +35,7 @@ public class ContextImpl extends MinimalEObjectImpl.Container implements Context
 	 * @ordered
 	 */
 	protected static final Object SCOPES_EDEFAULT = null;
+
 	/**
 	 * The cached value of the '{@link #getScopes() <em>Scopes</em>}' attribute.
 	 * <!-- begin-user-doc -->

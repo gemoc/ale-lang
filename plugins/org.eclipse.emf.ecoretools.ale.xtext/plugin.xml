@@ -14,6 +14,15 @@
       <super type="org.eclipse.core.resources.problemmarker" />
       <super type="org.eclipse.core.resources.textmarker" /> 
       <persistent value="true" />
+      <super
+            type="org.eclipse.emf.ecoretools.ale.xtext.ui.ale.check.normal">
+      </super>
    </extension>
-      
+	
+   <extension point="org.eclipse.core.resources.markers"
+         id="SourceFileNotInEnvironmentMarker"
+         name="ALE Problem">
+      <persistent value="true" />
+      <super type="org.eclipse.emf.ecoretools.ale.xtext.AleMarker" />
+   </extension>
 </plugin>

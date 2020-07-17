@@ -6,32 +6,39 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 ### Fixed
 - [#4](https://github.com/gemoc/ale-lang/issues/4) The .dsl configuration file and the .ale source file must have the same base name
-- [#28](https://github.com/gemoc/ale-lang/issues/28) The interpreter ignore use of non existings attribute, variables and methods
+- [#28](https://github.com/gemoc/ale-lang/issues/28) The interpreter ignores references to non-existing attributes or variables and calls to non-existing methods
 - [#38](https://github.com/gemoc/ale-lang/issues/38) The interpreter is not interrupted when an unexpected error occurs
-- [#39](https://github.com/gemoc/ale-lang/issues/39) Sirius' _Behavior_ layer does not show runtime data when (_.ale_ andPure ALE classes are not handled by the type checker
+- [#39](https://github.com/gemoc/ale-lang/issues/39) Sirius' _Behavior_ layer does not show dynamic information when _.ale_ source files and the Ecore metamodel are located in different projects
 - [#51](https://github.com/gemoc/ale-lang/issues/51) Pure ALE classes are not handled by the type checker
 - [#64](https://github.com/gemoc/ale-lang/issues/64) `null` cannot be assigned to variables
-- [#67](https://github.com/gemoc/ale-lang/issues/67) `Sequence` vales can be assigned to variable which type is `OrderedSet` and vice versa
+- [#67](https://github.com/gemoc/ale-lang/issues/67) `Sequence` values can be assigned to variables which type is `OrderedSet` and vice versa
 - [#70](https://github.com/gemoc/ale-lang/issues/70) Paths to ALE resources (in _.dsl_ files and projects' preferences) are not updated when the project is renamed
 - [#102](https://github.com/gemoc/ale-lang/issues/102) The editor shows an error when a method is used to define the range of a for-each loop
+- [#119](https://github.com/gemoc/ale-lang/issues/119) Cannot override static EOperations from a subclass
 - [#120](https://github.com/gemoc/ale-lang/issues/120) The `+=` operator cannot be used to concatenate two collections
 - [#126](https://github.com/gemoc/ale-lang/issues/126) The interpreter evaluates an expression even if a subexpression produces an error
 - [#128](https://github.com/gemoc/ale-lang/issues/128) The interpreter allows to concatenate heterogeneous collections
+- [#149](https://github.com/gemoc/ale-lang/issues/149) Xtext validators are not resilient
+- [#151](https://github.com/gemoc/ale-lang/issues/151) Every EPackage found in project's dependencies is added to the environment
+- [#159](https://github.com/gemoc/ale-lang/issues/159) The editor shows all validation errors, even the ones that come from other ALE files
 
 ### Added
 - [#60](https://github.com/gemoc/ale-lang/issues/60) An ALE Run Configuration is created when launching ALE through the contextual menu shortcut
-- [#86](https://github.com/gemoc/ale-lang/issues/86) The XMI model and the ALE entry point to execute are prompted when an ambiguity is detected while launching the interpreter
+- [#86](https://github.com/gemoc/ale-lang/issues/86) The XMI model and the ALE entry point to execute are prompted when they can't be automatically inferred while launching the interpreter
 - [#86](https://github.com/gemoc/ale-lang/issues/86) The XMI model and the ALE entry point to execute can be set from the *Launch Configuration Tab*
 - [#92](https://github.com/gemoc/ale-lang/issues/92) The editor autocompletes attributes and methods of `self`
 - [#94](https://github.com/gemoc/ale-lang/issues/94) The editor automatically switches to dark colors when Eclipse IDE is in dark theme
 - [#98](https://github.com/gemoc/ale-lang/issues/98) The _New ALE Project_ wizard can be used to create ALE projects
 - [#110](https://github.com/gemoc/ale-lang/issues/110) The title of the ALE console is updated as the execution progresses
-- [#115](https://github.com/gemoc/ale-lang/pull/115) Multiple .ale source files can be taken into account when executing an ALE program
-- [#115](https://github.com/gemoc/ale-lang/pull/115) The ALE environment (the _.ale_ source files and the _.ecore_ metamodels) can now be stored in the project's preferences, allowing to get rid of the .dsl configuration file
+- [#115](https://github.com/gemoc/ale-lang/pull/115) Multiple _.ale_ source files can be taken into account when executing an ALE program
+- [#115](https://github.com/gemoc/ale-lang/pull/115) The ALE environment (the _.ale_ source files and the _.ecore_ metamodels) can now be stored in the project's preferences, allowing to get rid of the _.dsl_ configuration file **[breaking change]**
 - [#115](https://github.com/gemoc/ale-lang/pull/115) The interpreter can be run by right-clicking on an ALE project
 - [#129](https://github.com/gemoc/ale-lang/pull/129) The editor warns when the `+=` and `-=` operators ared used on the `result` variable in a void method
 - [#131](https://github.com/gemoc/ale-lang/pull/131) The editor autocompletes attributes and methods of local variables and method parameters (support limited to model instances)
 - [#143](https://github.com/gemoc/ale-lang/pull/143) The *eclipse-projectSet.psf* makes easier to start collaborating on the project (*File* > *Import...* > *Team* > *Team Project Set*)
+- [#153](https://github.com/gemoc/ale-lang/pull/153) The editor shows a warning when editing an _.ale_ source file that is not part of the project's ALE environment. A quick fix allows to automatically add the _.ale_ source file to the project's ALE environment
+- [#169](https://github.com/gemoc/ale-lang/pull/169) The editor shows documentation about the _open_ and _behavior_ keywords on hover
+- [#169](https://github.com/gemoc/ale-lang/pull/169) The editor shows the fully qualified name of an open class on hover as well as information about its EPackage
 
 ### Changed
 - [#93](https://github.com/gemoc/ale-lang/issues/93) More tokens are available to tailor editor's syntax coloring
@@ -45,7 +52,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [] - 2019-12-08
 ### Changed
-- [#56](https://github.com/gemoc/ale-lang/issues/56) The interpreter affects a default value to variables declared without an initial one
+- [#26](https://github.com/gemoc/ale-lang/issues/26) Use `ecore` and `ale` keys instead of `syntax` and `semantics` in *.dsl* files **[breaking change]**
+- [#56](https://github.com/gemoc/ale-lang/issues/56) The interpreter now affects a default value to variables declared without an initial one
 
 ### Fixed
 - [#3](https://github.com/gemoc/ale-lang/issues/3) The editor shows errors when a parameter of type Sequence is used in a method

@@ -15,6 +15,7 @@ import org.eclipse.acceleo.query.ast.AstPackage;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -247,6 +248,13 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	private EClass unresolvedEClassifierEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType voidEClassifierEDataType = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -429,6 +437,16 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	@Override
 	public EAttribute getMethod_Tags() {
 		return (EAttribute)methodEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getMethod_Overriding() {
+		return (EAttribute)methodEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1077,6 +1095,16 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 	 * @generated
 	 */
 	@Override
+	public EDataType getVoidEClassifier() {
+		return voidEClassifierEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public ImplementationFactory getImplementationFactory() {
 		return (ImplementationFactory)getEFactoryInstance();
 	}
@@ -1115,6 +1143,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		createEReference(methodEClass, METHOD__OPERATION_REF);
 		createEReference(methodEClass, METHOD__BODY);
 		createEAttribute(methodEClass, METHOD__TAGS);
+		createEAttribute(methodEClass, METHOD__OVERRIDING);
 
 		modelUnitEClass = createEClass(MODEL_UNIT);
 		createEAttribute(modelUnitEClass, MODEL_UNIT__SERVICES);
@@ -1201,6 +1230,9 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		createEReference(caseEClass, CASE__VALUE);
 
 		unresolvedEClassifierEClass = createEClass(UNRESOLVED_ECLASSIFIER);
+
+		// Create data types
+		voidEClassifierEDataType = createEDataType(VOID_ECLASSIFIER);
 	}
 
 	/**
@@ -1273,6 +1305,7 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		initEReference(getMethod_OperationRef(), ecorePackage.getEOperation(), null, "operationRef", null, 1, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMethod_Body(), this.getBlock(), null, "body", null, 1, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMethod_Tags(), ecorePackage.getEString(), "tags", null, 0, -1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMethod_Overriding(), ecorePackage.getEBoolean(), "overriding", null, 0, 1, Method.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelUnitEClass, ModelUnit.class, "ModelUnit", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getModelUnit_Services(), ecorePackage.getEString(), "services", null, 0, -1, ModelUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1359,6 +1392,9 @@ public class ImplementationPackageImpl extends EPackageImpl implements Implement
 		initEReference(getCase_Value(), theAstPackage.getExpression(), null, "value", null, 1, 1, Case.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(unresolvedEClassifierEClass, UnresolvedEClassifier.class, "UnresolvedEClassifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		// Initialize data types
+		initEDataType(voidEClassifierEDataType, Void.class, "VoidEClassifier", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

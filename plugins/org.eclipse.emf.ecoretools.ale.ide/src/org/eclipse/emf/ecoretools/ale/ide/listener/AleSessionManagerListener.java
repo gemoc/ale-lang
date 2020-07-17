@@ -28,6 +28,7 @@ import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecoretools.ale.core.env.impl.FileBasedAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.ide.resource.AleResource;
 import org.eclipse.emf.ecoretools.design.service.EcoreToolsDesignPlugin;
 import org.eclipse.emf.transaction.RecordingCommand;
@@ -159,7 +160,7 @@ public class AleSessionManagerListener implements SessionManagerListener {
 			IPath dslPath = file.getFullPath().removeFileExtension().addFileExtension(DSL_EXTENSION);
 			
 			String aleContent = "behavior "+ getSimpleName(ecoreResource) +";\n";
-			String dslContent = "syntax=" + ecoreURI + "\nbehavior=" + aleURI + "\n";
+			String dslContent = FileBasedAleEnvironment.METAMODELS_KEY + "=" + ecoreURI + "\n" + FileBasedAleEnvironment.BEHAVIORS_KEY + "=" + aleURI + "\n";
 			
 			createFile(alePath, aleContent);
 			createFile(dslPath, dslContent);

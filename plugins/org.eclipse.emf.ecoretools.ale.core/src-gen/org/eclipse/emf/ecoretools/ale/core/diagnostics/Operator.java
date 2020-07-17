@@ -26,7 +26,9 @@ public enum Operator implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SUBSTRACTION(0, "SUBSTRACTION", "SUBSTRACTION"), /**
+	SUBSTRACTION(0, "SUBSTRACTION", "SUBSTRACTION"),
+
+	/**
 	 * The '<em><b>ADDITION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -34,7 +36,9 @@ public enum Operator implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ADDITION(1, "ADDITION", "ADDITION"), /**
+	ADDITION(1, "ADDITION", "ADDITION"),
+
+	/**
 	 * The '<em><b>LOWER THAN</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -42,7 +46,9 @@ public enum Operator implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LOWER_THAN(2, "LOWER_THAN", "LOWER_THAN"), /**
+	LOWER_THAN(2, "LOWER_THAN", "LOWER_THAN"),
+
+	/**
 	 * The '<em><b>GREATER THAN</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -50,7 +56,9 @@ public enum Operator implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	GREATER_THAN(3, "GREATER_THAN", "GREATER_THAN"), /**
+	GREATER_THAN(3, "GREATER_THAN", "GREATER_THAN"),
+
+	/**
 	 * The '<em><b>EQUAL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -58,7 +66,9 @@ public enum Operator implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	EQUAL(4, "EQUAL", "EQUAL"), /**
+	EQUAL(4, "EQUAL", "EQUAL"),
+
+	/**
 	 * The '<em><b>DOT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -66,7 +76,9 @@ public enum Operator implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	DOT(5, "DOT", "DOT"), /**
+	DOT(5, "DOT", "DOT"),
+
+	/**
 	 * The '<em><b>LOWER OR EQUAL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -74,7 +86,9 @@ public enum Operator implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	LOWER_OR_EQUAL(6, "LOWER_OR_EQUAL", "LOWER_OR_EQUAL"), /**
+	LOWER_OR_EQUAL(6, "LOWER_OR_EQUAL", "LOWER_OR_EQUAL"),
+
+	/**
 	 * The '<em><b>GREATER OR EQUAL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -82,7 +96,9 @@ public enum Operator implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	GREATER_OR_EQUAL(7, "GREATER_OR_EQUAL", "GREATER_OR_EQUAL"), /**
+	GREATER_OR_EQUAL(7, "GREATER_OR_EQUAL", "GREATER_OR_EQUAL"),
+
+	/**
 	 * The '<em><b>ASSIGNMENT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -90,7 +106,9 @@ public enum Operator implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ASSIGNMENT(8, "ASSIGNMENT", "ASSIGNMENT"), /**
+	ASSIGNMENT(8, "ASSIGNMENT", "ASSIGNMENT"),
+
+	/**
 	 * The '<em><b>ADDITION ASSIGNMENT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -98,7 +116,9 @@ public enum Operator implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	ADDITION_ASSIGNMENT(9, "ADDITION_ASSIGNMENT", "ADDITION_ASSIGNMENT"), /**
+	ADDITION_ASSIGNMENT(9, "ADDITION_ASSIGNMENT", "ADDITION_ASSIGNMENT"),
+
+	/**
 	 * The '<em><b>SUBSTRACTION ASSIGNMENT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

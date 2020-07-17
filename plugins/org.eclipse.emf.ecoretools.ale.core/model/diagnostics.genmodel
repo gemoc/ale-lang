@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.emf.ecoretools.ale.core/src-gen" editDirectory="/org.eclipse.emf.ecoretools.ale.core.edit/src-gen"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2020 Inria and Obeo.&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html&#xA;&#xA;Contributors:&#xA;   Inria - initial API and implementation"
+    modelDirectory="/org.eclipse.emf.ecoretools.ale.core/src-gen" editDirectory="/org.eclipse.emf.ecoretools.ale.core.edit/src-gen"
     modelPluginID="org.eclipse.emf.ecoretools.ale.core" modelName="Diagnostics" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
     usedGenPackages="../../org.eclipse.acceleo.query/model/ast.genmodel#//ast ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel Implementation.genmodel#//implementation"
@@ -23,6 +24,7 @@
     </genEnums>
     <genDataTypes ecoreDataType="diagnostics.ecore#//IType"/>
     <genDataTypes ecoreDataType="diagnostics.ecore#//Throwable"/>
+    <genDataTypes ecoreDataType="diagnostics.ecore#//ValidationMessageLevel"/>
     <genClasses ecoreClass="diagnostics.ecore#//AttributeNotFound">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//AttributeNotFound/owner"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//AttributeNotFound/name"/>
@@ -38,6 +40,8 @@
     <genClasses ecoreClass="diagnostics.ecore#//CodeLocation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//CodeLocation/source"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//CodeLocation/line"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//CodeLocation/startPosition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//CodeLocation/endPosition"/>
     </genClasses>
     <genClasses ecoreClass="diagnostics.ecore#//Context">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//Context/scopes"/>
@@ -51,30 +55,103 @@
     <genClasses ecoreClass="diagnostics.ecore#//VariableNotFound">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//VariableNotFound/name"/>
     </genClasses>
-    <genClasses ecoreClass="diagnostics.ecore#//TypeNotFound">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//TypeNotFound/name"/>
-    </genClasses>
     <genClasses ecoreClass="diagnostics.ecore#//TypeMismatch">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//TypeMismatch/expectedTypes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//TypeMismatch/actualTypes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//TypeMismatch/targetTypes"/>
     </genClasses>
-    <genClasses ecoreClass="diagnostics.ecore#//VariableAlreadyBound">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//VariableAlreadyBound/name"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//VariableAlreadyBound/duplicateLocation"/>
+    <genClasses ecoreClass="diagnostics.ecore#//VariableAlreadyDefined">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//VariableAlreadyDefined/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//VariableAlreadyDefined/duplicateLocation"/>
     </genClasses>
     <genClasses ecoreClass="diagnostics.ecore#//InternalError">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//InternalError/message"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//InternalError/cause"/>
     </genClasses>
-    <genClasses ecoreClass="diagnostics.ecore#//AssignmentToSelf"/>
+    <genClasses ecoreClass="diagnostics.ecore#//ProhibitedAssignmentToSelf"/>
     <genClasses ecoreClass="diagnostics.ecore#//AssignmentToResultInVoidOperation"/>
     <genClasses ecoreClass="diagnostics.ecore#//NotIterable"/>
     <genClasses ecoreClass="diagnostics.ecore#//UnsupportedOperator">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//UnsupportedOperator/operator"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//UnsupportedOperator/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//UnsupportedOperator/targetTypes"/>
     </genClasses>
     <genClasses ecoreClass="diagnostics.ecore#//MissingReturnStatement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//MissingReturnStatement/method"/>
     </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//ClassOpenedMoreThanOnce">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//ClassOpenedMoreThanOnce/currentDeclaration"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//ClassOpenedMoreThanOnce/previousDeclaration"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//NotAnOpenableClass">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//NotAnOpenableClass/openClass"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//OpenClassNotFound">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//OpenClassNotFound/openClass"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//TypeHasNamesakes">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//TypeHasNamesakes/namesakes"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//IncorrectExtendOrder">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//IncorrectExtendOrder/superType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//IncorrectExtendOrder/superSuperType"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//CollectionTypeMismatch"/>
+    <genClasses ecoreClass="diagnostics.ecore#//ClassExtendsItself"/>
+    <genClasses ecoreClass="diagnostics.ecore#//IllegalAssignment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//IllegalAssignment/assignedValue"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//IndirectExtension">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//IndirectExtension/openClass"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//IndirectExtension/inheritedClass"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//ProhibitedInsertionToSelf"/>
+    <genClasses ecoreClass="diagnostics.ecore#//ProhibitedRemovalFromSelf"/>
+    <genClasses ecoreClass="diagnostics.ecore#//TypeNotFound">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//TypeNotFound/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//TypeNotFound/availableEPackages"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//DynamicClassAlreadyDefined">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//DynamicClassAlreadyDefined/previousDeclaration"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//DynamicClassAlreadyDefined/currentDeclaration"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//AttributeAlreadyDefinedInBaseClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//AttributeAlreadyDefinedInBaseClass/attributeName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//AttributeAlreadyDefinedInBaseClass/openClass"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//AttributeAlreadyDefinedInBaseClass/baseClass"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//MethodAlreadyDefinedInBaseClass">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//MethodAlreadyDefinedInBaseClass/newDefinition"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//AttributeAlreadyDefinedInCurrentClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//AttributeAlreadyDefinedInCurrentClass/attributeName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//AttributeAlreadyDefinedInCurrentClass/owner"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//AttributeAlreadyDefinedInCurrentClass/previousDeclaration"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//AttributeAlreadyDefinedInCurrentClass/currentDeclaration"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//ReservedKeywordSelf"/>
+    <genClasses ecoreClass="diagnostics.ecore#//ReservedKeywordResult"/>
+    <genClasses ecoreClass="diagnostics.ecore#//MethodAlreadyDefinedInCurrentClass">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//MethodAlreadyDefinedInCurrentClass/previousDeclaration"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//MethodAlreadyDefinedInCurrentClass/currentDeclaration"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//MethodAlreadyDefinedInCurrentClass/owner"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//MethodParameterAlreadyDefined">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//MethodParameterAlreadyDefined/parameterName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//MethodParameterAlreadyDefined/method"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//OverriddenMethodNotFound">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//OverriddenMethodNotFound/overridingMethod"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference diagnostics.ecore#//OverriddenMethodNotFound/overridingMethodOwner"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//ProhibitedAssignmentToMethodParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//ProhibitedAssignmentToMethodParameter/parameterName"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//AcceleoValidationMessage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//AcceleoValidationMessage/message"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//AcceleoValidationMessage/level"/>
+    </genClasses>
+    <genClasses ecoreClass="diagnostics.ecore#//IllegalAdditionAssignment"/>
+    <genClasses ecoreClass="diagnostics.ecore#//IllegalSubstractionAssignment"/>
   </genPackages>
 </genmodel:GenModel>

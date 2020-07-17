@@ -14,6 +14,7 @@ package org.eclipse.emf.ecoretools.ale.implementation;
 import org.eclipse.acceleo.query.ast.AstPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -431,13 +432,22 @@ public interface ImplementationPackage extends EPackage {
 	int METHOD__TAGS = 2;
 
 	/**
+	 * The feature id for the '<em><b>Overriding</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD__OVERRIDING = 3;
+
+	/**
 	 * The number of structural features of the '<em>Method</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD_FEATURE_COUNT = 3;
+	int METHOD_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Method</em>' class.
@@ -1490,6 +1500,17 @@ public interface ImplementationPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '<em>Void EClassifier</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.Void
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getVoidEClassifier()
+	 * @generated
+	 */
+	int VOID_ECLASSIFIER = 26;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.ModelBehavior <em>Model Behavior</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1616,6 +1637,17 @@ public interface ImplementationPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getMethod_Tags();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.implementation.Method#isOverriding <em>Overriding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Overriding</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.implementation.Method#isOverriding()
+	 * @see #getMethod()
+	 * @generated
+	 */
+	EAttribute getMethod_Overriding();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.implementation.ModelUnit <em>Model Unit</em>}'.
@@ -2300,6 +2332,17 @@ public interface ImplementationPackage extends EPackage {
 	EClass getUnresolvedEClassifier();
 
 	/**
+	 * Returns the meta object for data type '{@link java.lang.Void <em>Void EClassifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Void EClassifier</em>'.
+	 * @see java.lang.Void
+	 * @model instanceClass="java.lang.Void"
+	 * @generated
+	 */
+	EDataType getVoidEClassifier();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2425,6 +2468,14 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute METHOD__TAGS = eINSTANCE.getMethod_Tags();
+
+		/**
+		 * The meta object literal for the '<em><b>Overriding</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute METHOD__OVERRIDING = eINSTANCE.getMethod_Overriding();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.implementation.impl.ModelUnitImpl <em>Model Unit</em>}' class.
@@ -2981,6 +3032,16 @@ public interface ImplementationPackage extends EPackage {
 		 * @generated
 		 */
 		EClass UNRESOLVED_ECLASSIFIER = eINSTANCE.getUnresolvedEClassifier();
+
+		/**
+		 * The meta object literal for the '<em>Void EClassifier</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.Void
+		 * @see org.eclipse.emf.ecoretools.ale.implementation.impl.ImplementationPackageImpl#getVoidEClassifier()
+		 * @generated
+		 */
+		EDataType VOID_ECLASSIFIER = eINSTANCE.getVoidEClassifier();
 
 	}
 

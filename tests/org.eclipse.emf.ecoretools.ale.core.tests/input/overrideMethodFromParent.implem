@@ -1,0 +1,27 @@
+behavior overrideMethod;
+
+open class D {
+	
+	@main
+	def void main() {
+		self.foo();
+	}
+	
+	override void foo() {
+	
+	}
+}
+
+// Same but with fully qualified name
+
+open class doublemulti.C {
+	
+	@main
+	def void main() {
+		self.foo();
+	}
+	
+	override void foo() {
+	
+	}
+}

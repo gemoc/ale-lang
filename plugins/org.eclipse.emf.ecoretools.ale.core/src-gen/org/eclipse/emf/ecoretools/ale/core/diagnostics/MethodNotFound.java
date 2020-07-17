@@ -3,7 +3,9 @@
 package org.eclipse.emf.ecoretools.ale.core.diagnostics;
 
 import org.eclipse.acceleo.query.validation.type.IType;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass;
 
 /**

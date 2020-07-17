@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Context extends EObject {
-
 	/**
 	 * Returns the value of the '<em><b>Scopes</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -43,4 +42,5 @@ public interface Context extends EObject {
 	 * @generated
 	 */
 	void setScopes(Object value);
+
 } // Context

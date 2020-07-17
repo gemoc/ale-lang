@@ -4,8 +4,12 @@
 package org.eclipse.emf.ecoretools.ui
 
 import org.eclipse.emf.ecoretools.ui.contentassist.AleTemplateProposalProvider
+import org.eclipse.emf.ecoretools.ui.hover.AleDispatchingEObjectHover
+import org.eclipse.emf.ecoretools.ui.hover.AleHoverProvider
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import org.eclipse.xtext.ide.editor.syntaxcoloring.ISemanticHighlightingCalculator
+import org.eclipse.xtext.ui.editor.hover.IEObjectHover
+import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration
 
 /**
@@ -24,6 +28,14 @@ class AleUiModule extends AbstractAleUiModule {
 	
 	def Class<? extends ISemanticHighlightingCalculator> bindISemanticHighlightingCalculator() {
 		return typeof(AleSemanticHighlightingCalculator);
+	}
+	
+	override Class<? extends IEObjectHover> bindIEObjectHover() {
+		return typeof(AleDispatchingEObjectHover)
+	}
+	
+	def Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
+	    return typeof(AleHoverProvider)
 	}
 	
 }

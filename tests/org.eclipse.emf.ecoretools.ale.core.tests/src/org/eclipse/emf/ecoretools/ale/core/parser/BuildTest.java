@@ -144,7 +144,7 @@ public class BuildTest {
 		EOperation eOperationDef = method.getOperationRef();
 		assertNotNull(eOperationDef);
 		assertEquals("fooBar",eOperationDef.getName());
-		assertNull(eOperationDef.getEType());
+		assertEquals(ImplementationPackage.eINSTANCE.getVoidEClassifier(), eOperationDef.getEType());
 		assertEquals(2, eOperationDef.getEParameters().size());
 		assertEquals("param1", eOperationDef.getEParameters().get(0).getName());
 		assertEquals(EcorePackage.eINSTANCE.getEObject(), eOperationDef.getEParameters().get(0).getEType());
@@ -234,7 +234,7 @@ public class BuildTest {
 		EOperation eOperationDef = method.getOperationRef();
 		assertNotNull(eOperationDef);
 		assertEquals("entryPoint",eOperationDef.getName());
-		assertNull(eOperationDef.getEType());
+		assertEquals(ImplementationPackage.eINSTANCE.getVoidEClassifier(), eOperationDef.getEType());
 		assertEquals(1, eOperationDef.getEParameters().size());
 		assertEquals("arg", eOperationDef.getEParameters().get(0).getName());
 		assertEquals(EcorePackage.eINSTANCE.getEInt(), eOperationDef.getEParameters().get(0).getEType());
@@ -340,7 +340,7 @@ public class BuildTest {
 		EOperation eOperationDef = method.getOperationRef();
 		assertNotNull(eOperationDef);
 		assertEquals("entryPoint",eOperationDef.getName());
-		assertNull(eOperationDef.getEType());
+		assertEquals(ImplementationPackage.eINSTANCE.getVoidEClassifier(), eOperationDef.getEType());
 		assertEquals(1, eOperationDef.getEParameters().size());
 		assertEquals("arg", eOperationDef.getEParameters().get(0).getName());
 		assertEquals(EcorePackage.eINSTANCE.getEInt(), eOperationDef.getEParameters().get(0).getEType());
@@ -383,7 +383,7 @@ public class BuildTest {
 		EOperation eOperationDef = method.getOperationRef();
 		assertNotNull(eOperationDef);
 		assertEquals("entryPoint",eOperationDef.getName());
-		assertNull(eOperationDef.getEType());
+		assertEquals(ImplementationPackage.eINSTANCE.getVoidEClassifier(), eOperationDef.getEType());
 		assertEquals(1, eOperationDef.getEParameters().size());
 		assertEquals("arg", eOperationDef.getEParameters().get(0).getName());
 		assertEquals(EcorePackage.eINSTANCE.getEInt(), eOperationDef.getEParameters().get(0).getEType());
@@ -455,7 +455,7 @@ public class BuildTest {
 		EOperation eOperationDef = ((Method)method).getOperationRef();
 		assertNotNull(eOperationDef);
 		assertEquals("entryPoint",eOperationDef.getName());
-		assertNull(eOperationDef.getEType());
+		assertEquals(ImplementationPackage.eINSTANCE.getVoidEClassifier(), eOperationDef.getEType());
 		assertEquals(1, eOperationDef.getEParameters().size());
 		assertEquals("arg", eOperationDef.getEParameters().get(0).getName());
 		assertEquals(EcorePackage.eINSTANCE.getEInt(), eOperationDef.getEParameters().get(0).getEType());
@@ -877,7 +877,7 @@ public class BuildTest {
 		EOperation eOperationDef = method.getOperationRef();
 		assertNotNull(eOperationDef);
 		assertEquals("main",eOperationDef.getName());
-		assertEquals(null,eOperationDef.getEType());
+		assertEquals(ImplementationPackage.eINSTANCE.getVoidEClassifier(), eOperationDef.getEType());
 		assertEquals(0, eOperationDef.getEParameters().size());
 		
 		Block body = ((Method)method).getBody();
@@ -920,7 +920,7 @@ public class BuildTest {
 		EOperation eOperationDef = method.getOperationRef();
 		assertNotNull(eOperationDef);
 		assertEquals("main",eOperationDef.getName());
-		assertEquals(null,eOperationDef.getEType());
+		assertEquals(ImplementationPackage.eINSTANCE.getVoidEClassifier(), eOperationDef.getEType());
 		assertEquals(0, eOperationDef.getEParameters().size());
 		
 		Block body = ((Method)method).getBody();
