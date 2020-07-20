@@ -25,7 +25,7 @@
   </extension>
   <extension point="org.eclipse.emf.ecore.invocation_delegate">
       <factory
-            class="org.eclipse.emf.ecoretools.ale.core.delegate.ALEInvocationDelegateFactory"
+            class="org.eclipse.emf.ecoretools.ale.core.metamodelembedding.AleInvocationDelegateFactory"
             uri="http://implementation/">
       </factory>
    </extension>
