@@ -198,6 +198,40 @@ public class InterpreterDiagnosticTest {
 						  "  At input/diagnostics/assignmentToVariableUndeclared.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
+	
+	@Test
+	public void assignmentToUninitializedVariable() throws ClosedAleEnvironmentException {
+		environment = IAleEnvironment.fromPaths(asList("model/test.ecore"), asList("input/diagnostics/assignmentToUninitializedVariable.ale"));
+		
+		EObject caller = environment.loadModel(URI.createURI("model/ClassA.xmi")).get(0);
+		IBehaviors behaviors = environment.getBehaviors();
+		Method main = behaviors.getMainMethods().get(0);
+		environment.getInterpreter().eval(caller, main, asList());
+		environment.getInterpreter().getLogger().diagnosticForHuman();
+
+		String expected = "Variable or feature not initialized." + nlnl() + 
+						  "10| aClassA" + nl() + 
+						  nlnl() +
+						  "  At input/diagnostics/assignmentToUninitializedVariable.ale:10" + nl(); 
+		assertEquals("Wrong output on stderr", expected, getErr());
+	}
+	
+	@Test
+	public void assignmentToUninitializedFeature() throws ClosedAleEnvironmentException {
+		environment = IAleEnvironment.fromPaths(asList("model/test.ecore"), asList("input/diagnostics/assignmentToUninitializedFeature.ale"));
+		
+		EObject caller = environment.loadModel(URI.createURI("model/ClassA.xmi")).get(0);
+		IBehaviors behaviors = environment.getBehaviors();
+		Method main = behaviors.getMainMethods().get(0);
+		environment.getInterpreter().eval(caller, main, asList());
+		environment.getInterpreter().getLogger().diagnosticForHuman();
+
+		String expected = "Variable or feature not initialized." + nlnl() + 
+						  "10| self.aClassA" + nl() + 
+						  nlnl() +
+						  "  At input/diagnostics/assignmentToUninitializedFeature.ale:10" + nl(); 
+		assertEquals("Wrong output on stderr", expected, getErr());
+	}
 
 	@Test
 	public void declarationOfVariableAlreadyDeclared() throws ClosedAleEnvironmentException {
