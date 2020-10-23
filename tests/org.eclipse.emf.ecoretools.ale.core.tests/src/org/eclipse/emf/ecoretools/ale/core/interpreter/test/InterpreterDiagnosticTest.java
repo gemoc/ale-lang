@@ -12,21 +12,17 @@ package org.eclipse.emf.ecoretools.ale.core.interpreter.test;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
-import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecoretools.ale.core.diagnostics.Message;
 import org.eclipse.emf.ecoretools.ale.core.env.ClosedAleEnvironmentException;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 import org.eclipse.emf.ecoretools.ale.core.env.IBehaviors;
-import org.eclipse.emf.ecoretools.ale.core.validation.ALEValidator;
 import org.eclipse.emf.ecoretools.ale.implementation.Method;
 import org.junit.After;
 import org.junit.Before;
@@ -89,7 +85,7 @@ public class InterpreterDiagnosticTest {
 
 		String expected = "Type mismatch between expected type `ecore::EString` and actual type `java.lang.Integer`." + nlnl() + 
 						  "9| self.str := 42;" + nl() + 
-						  "               ^^ should be `ecore::EString`" + nlnl() + 
+						  "               ^^ should be `ecore::EString`" + nl() + 
 						  "  At input/diagnostics/assignmentToDynamicFeatureTypeMismatch.ale:9" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -106,7 +102,7 @@ public class InterpreterDiagnosticTest {
 
 		String expected = "Cannot find attribute `str` in class `ClassA`." + nlnl() + 
 						  "7| self.str := self;" + nl() + 
-						  "        ^^^" + nlnl() + 
+						  "        ^^^" + nl() + 
 						  "  At input/diagnostics/assignmentToDynamicFeatureUndeclared.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -125,7 +121,7 @@ public class InterpreterDiagnosticTest {
 						  "7| result := 'Hello World!';" + nl() +
 						  "   ^^^^^^" + nl() +
 						  "`result` is not available in a void method. Maybe you want one of the following?" + nlnl() + 
-						  "    self" + nlnl() +
+						  "    self" + nl() +
 						  "  At input/diagnostics/assignmentToResultInVoidMethod.ale:7" + nl();
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -144,7 +140,7 @@ public class InterpreterDiagnosticTest {
 						  "10| def boolean foo(String name, int age) {" + nl() + 
 						  "11| 		// result := true;" + nl() + 
 						  "12| 	}" + nl() + 
-						  "        ^ missing `result := ...;` " + nlnl() +
+						  "        ^ missing `result := ...;` " + nl() +
 						  "  At input/diagnostics/assignmentToResultMissingInNonVoidMethod.ale:10" + nl() +
 						  "  At input/diagnostics/assignmentToResultMissingInNonVoidMethod.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
@@ -162,7 +158,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "`self` cannot be assigned." + nlnl() + 
 						  "7| self := 42;" + nl() + 
-						  "   ^^^^ reserved keyword" + nlnl() + 
+						  "   ^^^^ reserved keyword" + nl() + 
 						  "  At input/diagnostics/assignmentToSelf.ale:7" + nl();
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -179,7 +175,7 @@ public class InterpreterDiagnosticTest {
 
 		String expected = "Type mismatch between expected type `ecore::EString` and actual type `java.lang.Integer`." + nlnl() + 
 						  "8| str := 42;" + nl() + 
-						  "          ^^ should be `ecore::EString`" + nlnl() + 
+						  "          ^^ should be `ecore::EString`" + nl() + 
 						  "  At input/diagnostics/assignmentToVariableTypeMismatch.ale:8" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -198,7 +194,7 @@ public class InterpreterDiagnosticTest {
 						  "7| str := self;" + nl() + 
 						  "   ^^^" + nl() + 
 						  "Maybe you want one of the following?" + nlnl() + 
-						  "    self" + nlnl() + 
+						  "    self" + nl() + 
 						  "  At input/diagnostics/assignmentToVariableUndeclared.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -215,7 +211,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "A variable named `sentences` already exists." + nlnl() + 
 						  "8| Sequence(String) sentences := Sequence{'Hello World!'};" + nl() + 
-						  "                    ^^^^^^^^^ already declared at :7" + nlnl() +
+						  "                    ^^^^^^^^^ already declared at :7" + nl() +
 						  "  At input/diagnostics/declarationOfVariableAlreadyDeclared.ale:8" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -232,7 +228,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "A variable named `number` already exists." + nlnl() + 
 						  "11| int number := 42;" + nl() + 
-						  "        ^^^^^^ already declared at :10" + nlnl() + 
+						  "        ^^^^^^ already declared at :10" + nl() + 
 						  "  At input/diagnostics/declarationOfVariableNamedAfterParameter.ale:11" + nl() + 
 						  "  At input/diagnostics/declarationOfVariableNamedAfterParameter.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
@@ -250,7 +246,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "Type mismatch between expected type `ecore::EString` and actual type `Set(java.lang.String)`." + nlnl() + 
 						  "7| String str := OrderedSet{'Hello World!'};" + nl() +
-						  "                 ^^^^^^^^^^^^^^^^^^^^^^^^^^ should be `ecore::EString`" + nlnl() + 
+						  "                 ^^^^^^^^^^^^^^^^^^^^^^^^^^ should be `ecore::EString`" + nl() + 
 						  "  At input/diagnostics/declarationOfVariableWithIllegalInitialValue.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -267,7 +263,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "Cannot iterate over `java.lang.Integer`" + nlnl() + 
 						  "7| for (i in 42) {" + nl() + 
-						  "             ^^ should be a Sequence or an OrderedSet" + nlnl() + 
+						  "             ^^ should be a Sequence or an OrderedSet" + nl() + 
 						  "  At input/diagnostics/foreachNotIterable.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -286,7 +282,7 @@ public class InterpreterDiagnosticTest {
 						  "11| for (i in [1..5]) {" + nl() + 
 						  "12| 		" + nl() + 
 						  "13| 		}" + nl() +
-						  "         ^ already declared at :10" + nlnl() + 
+						  "         ^ already declared at :10" + nl() + 
 						  "  At input/diagnostics/foreachVariableAlreadyBoundToParameter.ale:11" + nl() +
 						  "  At input/diagnostics/foreachVariableAlreadyBoundToParameter.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
@@ -306,7 +302,7 @@ public class InterpreterDiagnosticTest {
 						  "8| for (i in [1..5]) {" + nl() + 
 						  "9| 		" + nl() + 
 						  "10| 		}" + nl() + 
-						  "        ^ already declared at :7" + nlnl() + 
+						  "        ^ already declared at :7" + nl() + 
 						  "  At input/diagnostics/foreachVariableAlreadyBoundToVariable.ale:8" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -323,7 +319,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "Type mismatch between expected type `ecore::EBoolean` and actual type `java.lang.String`." + nlnl() + 
 						  "7| if ('Hello World!') {" + nl() + 
-						  "       ^^^^^^^^^^^^^^ should be `ecore::EBoolean`" + nlnl() + 
+						  "       ^^^^^^^^^^^^^^ should be `ecore::EBoolean`" + nl() + 
 						  "  At input/diagnostics/ifNonBooleanCondition.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -340,7 +336,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "`test::ClassA` does not support the `+=` operator" + nlnl() + 
 						  "8| other += self;" + nl() + 
-						  "   ^^^^^" + nlnl() + 
+						  "   ^^^^^" + nl() + 
 						  "  At input/diagnostics/insertionToVariableThatDoesNotSupportOperator.ale:8" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -357,7 +353,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "Type mismatch between expected type `Sequence(ecore::EString)` and actual type `Sequence(java.lang.Integer)`." + nlnl() + 
 						  "8| numbers += Sequence{3, 4, 5};" + nl() + 
-						  "              ^^^^^^^^^^^^^^^^^ should be `Sequence(ecore::EString)`" + nlnl() + 
+						  "              ^^^^^^^^^^^^^^^^^ should be `Sequence(ecore::EString)`" + nl() + 
 						  "  At input/diagnostics/insertionToVariableTypeMismatch.ale:8" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -376,7 +372,7 @@ public class InterpreterDiagnosticTest {
 						  "7| str += ' World!';" + nl() + 
 						  "   ^^^" + nl() + 
 						  "Maybe you want one of the following?" + nlnl() + 
-						  "    self" + nlnl() + 
+						  "    self" + nl() + 
 						  "  At input/diagnostics/insertionToVariableUndeclared.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -393,7 +389,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "`ecore::EBoolean` does not support the `+=` operator" + nlnl() + 
 				"9| self.isHappy += true;" + nl() + 
-				"        ^^^^^^^" + nlnl() + 
+				"        ^^^^^^^" + nl() + 
 				"  At input/diagnostics/insertionToDynamicFeatureThatDoesNotSupportOperator.ale:9" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -410,7 +406,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "Type mismatch between expected type `ecore::EInt` and actual type `java.lang.Boolean`." + nlnl() + 
 				"9| self.i += true;" + nl() + 
-				"             ^^^^ should be `ecore::EInt`" + nlnl() + 
+				"             ^^^^ should be `ecore::EInt`" + nl() + 
 				"  At input/diagnostics/insertionToDynamicFeatureTypeMismatch.ale:9" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -427,7 +423,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "Cannot find attribute `undeclared` in class `ClassA`." + nlnl() + 
 				"7| self.undeclared += 42;" + nl() + 
-				"        ^^^^^^^^^^" + nlnl() + 
+				"        ^^^^^^^^^^" + nl() + 
 				"  At input/diagnostics/insertionToDynamicFeatureUndeclared.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -444,7 +440,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "`ecore::EBoolean` does not support the `+=` operator" + nlnl() + 
 				"7| self.bool += true;" + nl() + 
-				"        ^^^^" + nlnl() + 
+				"        ^^^^" + nl() + 
 				"  At input/diagnostics/insertionToStaticFeatureThatDoesNotSupportOperator.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -461,7 +457,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "Type mismatch between expected type `Sequence(ecore::EString)` and actual type `java.lang.Boolean`." + nlnl() + 
 				"7| self.strings += true;" + nl() + 
-				"                   ^^^^ should be `Sequence(ecore::EString)`" + nlnl() + 
+				"                   ^^^^ should be `Sequence(ecore::EString)`" + nl() + 
 				"  At input/diagnostics/insertionToStaticFeatureTypeMismatch.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -478,7 +474,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "`ecore::EBoolean` does not support the `-=` operator" + nlnl() + 
 				"9| self.isHappy -= true;" + nl() + 
-				"        ^^^^^^^" + nlnl() + 
+				"        ^^^^^^^" + nl() + 
 				"  At input/diagnostics/removeToDynamicFeatureThatDoesNotSupportOperator.ale:9" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -495,7 +491,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "Type mismatch between expected type `ecore::EInt` and actual type `java.lang.Boolean`." + nlnl() + 
 				"9| self.i -= true;" + nl() + 
-				"             ^^^^ should be `ecore::EInt`" + nlnl() + 
+				"             ^^^^ should be `ecore::EInt`" + nl() + 
 				"  At input/diagnostics/removeToDynamicFeatureTypeMismatch.ale:9" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -512,7 +508,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "Cannot find attribute `undeclared` in class `ClassA`." + nlnl() + 
 				"7| self.undeclared -= 42;" + nl() + 
-				"        ^^^^^^^^^^" + nlnl() + 
+				"        ^^^^^^^^^^" + nl() + 
 				"  At input/diagnostics/removeToDynamicFeatureUndeclared.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -529,7 +525,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "`ecore::EBoolean` does not support the `-=` operator" + nlnl() + 
 				"7| self.bool -= true;" + nl() + 
-				"        ^^^^" + nlnl() + 
+				"        ^^^^" + nl() + 
 				"  At input/diagnostics/removeToStaticFeatureThatDoesNotSupportOperator.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -546,7 +542,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "Type mismatch between expected type `Sequence(ecore::EString)` and actual type `java.lang.Boolean`." + nlnl() + 
 				"7| self.strings -= true;" + nl() + 
-				"                   ^^^^ should be `Sequence(ecore::EString)`" + nlnl() + 
+				"                   ^^^^ should be `Sequence(ecore::EString)`" + nl() + 
 				"  At input/diagnostics/removeToStaticFeatureTypeMismatch.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -563,7 +559,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "`test::ClassA` does not support the `-=` operator" + nlnl() + 
 				"8| other -= self;" + nl() + 
-				"   ^^^^^" + nlnl() + 
+				"   ^^^^^" + nl() + 
 				"  At input/diagnostics/removeToVariableThatDoesNotSupportOperator.ale:8" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -580,7 +576,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "Type mismatch between expected type `Sequence(ecore::EString)` and actual type `Sequence(java.lang.Integer)`." + nlnl() + 
 				"8| numbers -= Sequence{3, 4, 5};" + nl() + 
-				"              ^^^^^^^^^^^^^^^^^ should be `Sequence(ecore::EString)`" + nlnl() + 
+				"              ^^^^^^^^^^^^^^^^^ should be `Sequence(ecore::EString)`" + nl() + 
 				"  At input/diagnostics/removeToVariableTypeMismatch.ale:8" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -599,7 +595,7 @@ public class InterpreterDiagnosticTest {
 						  "7| str -= ' World!';" + nl() + 
 						  "   ^^^" + nl() + 
 						  "Maybe you want one of the following?" + nlnl() + 
-						  "    self" + nlnl() + 
+						  "    self" + nl() + 
 						  "  At input/diagnostics/removeToVariableUndeclared.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
@@ -616,7 +612,7 @@ public class InterpreterDiagnosticTest {
 		
 		String expected = "Type mismatch between expected type `ecore::EBoolean` and actual type `java.lang.String`." + nlnl() + 
 						  "7| while ('Hello World!') {" + nl() + 
-						  "          ^^^^^^^^^^^^^^ should be `ecore::EBoolean`" + nlnl() + 
+						  "          ^^^^^^^^^^^^^^ should be `ecore::EBoolean`" + nl() + 
 						  "  At input/diagnostics/whileNonBooleanCondition.ale:7" + nl(); 
 		assertEquals("Wrong output on stderr", expected, getErr());
 	}
