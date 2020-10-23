@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Inria and Obeo.
+ * Copyright (c) 2017, 2020 Inria and Obeo.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Inria - initial API and implementation
+ *     Inria - several fix
  *******************************************************************************/
 package org.eclipse.emf.ecoretools.ale.core.interpreter;
 
@@ -24,6 +25,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import org.eclipse.acceleo.query.runtime.AcceleoQueryEvaluationException;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.BasicDiagnostic;
@@ -80,10 +82,10 @@ public class DiagnosticLogger {
 						if(diag.getData().size() > 1) {
 							diagExp = (Diagnostic) diag.getData().get(1);
 						}
-						printError(failedExp, diagExp, stacktrace);
 						if(diagExp instanceof BasicDiagnostic) {
 							diagnosticForHuman((BasicDiagnostic) diagExp, stacktrace);
 						}
+						printError(failedExp, diagExp, stacktrace);
 					}
 					else {
 						if(!diag.getData().isEmpty() && diag.getData().get(0) instanceof Exception) {
@@ -91,6 +93,14 @@ public class DiagnosticLogger {
 							if(e.getCause() instanceof CriticalFailureException) {
 								CriticalFailureException interpreterFailure = (CriticalFailureException) e.getCause();
 								diagnosticForHuman(interpreterFailure.getDiagnostic(), stacktrace);
+							} else {
+								//AcceleoQueryEvaluationException interpreterFailure = (AcceleoQueryEvaluationException) e.getCause();
+								Object failedExp = diag.getData().get(0);
+								Diagnostic diagExp = diag;
+								if(diagExp instanceof BasicDiagnostic) {
+									diagnosticForHuman((BasicDiagnostic) diagExp, stacktrace);
+								}
+								printError(failedExp, diagExp, stacktrace);
 							}
 						}
 					}
@@ -125,6 +135,7 @@ public class DiagnosticLogger {
 				filePath = filePath.replace('\\', '/');
 				int line =  getLine(startPos,file);
 				stacktrace.addFirst("At " + filePath + ":" + line);
+				
 				Stream.concat(Stream.of(diagnostic), diagnostic.getChildren().stream())
 					  .map(Diagnostic::getMessage)
 					  .filter(msg -> msg != null && !msg.trim().isEmpty())
@@ -132,14 +143,14 @@ public class DiagnosticLogger {
 					  .filter(msg -> !MethodEvaluator.ROOT_ERROR_MESSAGE.equals(msg))
 					  .forEach(message -> {
 						  System.err.println(message);
-						  unfold(stacktrace);
 					  });
+				unfold(stacktrace);
 			}
 		}
 	}
 	
 	private static void unfold(List<String> stacktrace) {
-		System.err.println();
+		//System.err.println();
 		for (String trace : stacktrace) {
 			System.err.println("  " + trace);
 		}
