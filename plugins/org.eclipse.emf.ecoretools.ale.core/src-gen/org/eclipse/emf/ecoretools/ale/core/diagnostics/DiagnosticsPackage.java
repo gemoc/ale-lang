@@ -3842,6 +3842,97 @@ public interface DiagnosticsPackage extends EPackage {
 	int ILLEGAL_SUBSTRACTION_ASSIGNMENT_OPERATION_COUNT = TYPE_MISMATCH_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.impl.UninitializedImpl <em>Uninitialized</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.impl.UninitializedImpl
+	 * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.impl.DiagnosticsPackageImpl#getUninitialized()
+	 * @generated
+	 */
+	int UNINITIALIZED = 39;
+
+	/**
+	 * The feature id for the '<em><b>Location</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNINITIALIZED__LOCATION = MESSAGE__LOCATION;
+
+	/**
+	 * The feature id for the '<em><b>Stacktrace</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNINITIALIZED__STACKTRACE = MESSAGE__STACKTRACE;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNINITIALIZED__CONTEXT = MESSAGE__CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Whole Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNINITIALIZED__WHOLE_CODE = MESSAGE__WHOLE_CODE;
+
+	/**
+	 * The feature id for the '<em><b>Incriminated Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNINITIALIZED__INCRIMINATED_CODE = MESSAGE__INCRIMINATED_CODE;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNINITIALIZED__SOURCE = MESSAGE__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNINITIALIZED__NAME = MESSAGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Uninitialized</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNINITIALIZED_FEATURE_COUNT = MESSAGE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Uninitialized</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNINITIALIZED_OPERATION_COUNT = MESSAGE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.Operator <em>Operator</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3849,7 +3940,7 @@ public interface DiagnosticsPackage extends EPackage {
 	 * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.impl.DiagnosticsPackageImpl#getOperator()
 	 * @generated
 	 */
-	int OPERATOR = 39;
+	int OPERATOR = 40;
 
 	/**
 	 * The meta object id for the '<em>IType</em>' data type.
@@ -3859,7 +3950,7 @@ public interface DiagnosticsPackage extends EPackage {
 	 * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.impl.DiagnosticsPackageImpl#getIType()
 	 * @generated
 	 */
-	int ITYPE = 40;
+	int ITYPE = 41;
 
 	/**
 	 * The meta object id for the '<em>Throwable</em>' data type.
@@ -3869,7 +3960,7 @@ public interface DiagnosticsPackage extends EPackage {
 	 * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.impl.DiagnosticsPackageImpl#getThrowable()
 	 * @generated
 	 */
-	int THROWABLE = 41;
+	int THROWABLE = 42;
 
 	/**
 	 * The meta object id for the '<em>Validation Message Level</em>' data type.
@@ -3879,7 +3970,7 @@ public interface DiagnosticsPackage extends EPackage {
 	 * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.impl.DiagnosticsPackageImpl#getValidationMessageLevel()
 	 * @generated
 	 */
-	int VALIDATION_MESSAGE_LEVEL = 42;
+	int VALIDATION_MESSAGE_LEVEL = 43;
 
 
 	/**
@@ -4944,6 +5035,27 @@ public interface DiagnosticsPackage extends EPackage {
 	EClass getIllegalSubstractionAssignment();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.Uninitialized <em>Uninitialized</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Uninitialized</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.Uninitialized
+	 * @generated
+	 */
+	EClass getUninitialized();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.Uninitialized#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.Uninitialized#getName()
+	 * @see #getUninitialized()
+	 * @generated
+	 */
+	EAttribute getUninitialized_Name();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.Operator <em>Operator</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5886,6 +5998,24 @@ public interface DiagnosticsPackage extends EPackage {
 		 * @generated
 		 */
 		EClass ILLEGAL_SUBSTRACTION_ASSIGNMENT = eINSTANCE.getIllegalSubstractionAssignment();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.impl.UninitializedImpl <em>Uninitialized</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.impl.UninitializedImpl
+		 * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.impl.DiagnosticsPackageImpl#getUninitialized()
+		 * @generated
+		 */
+		EClass UNINITIALIZED = eINSTANCE.getUninitialized();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute UNINITIALIZED__NAME = eINSTANCE.getUninitialized_Name();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.Operator <em>Operator</em>}' enum.

@@ -45,6 +45,7 @@ import org.eclipse.emf.ecoretools.ale.core.diagnostics.ReservedKeywordSelf;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeHasNamesakes;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeMismatch;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeNotFound;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Uninitialized;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.UnsupportedOperator;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableAlreadyDefined;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableNotFound;
@@ -260,6 +261,10 @@ public class DiagnosticsAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseIllegalSubstractionAssignment(IllegalSubstractionAssignment object) {
 				return createIllegalSubstractionAssignmentAdapter();
+			}
+			@Override
+			public Adapter caseUninitialized(Uninitialized object) {
+				return createUninitializedAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -824,6 +829,20 @@ public class DiagnosticsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createIllegalSubstractionAssignmentAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.ecoretools.ale.core.diagnostics.Uninitialized <em>Uninitialized</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.emf.ecoretools.ale.core.diagnostics.Uninitialized
+	 * @generated
+	 */
+	public Adapter createUninitializedAdapter() {
 		return null;
 	}
 

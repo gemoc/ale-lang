@@ -12,7 +12,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecoretools.ale.core.Activator;
-import org.eclipse.emf.ecoretools.ale.core.diagnostics.ProhibitedAssignmentToSelf;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.AttributeNotFound;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.CodeLocation;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.Context;
@@ -23,8 +22,10 @@ import org.eclipse.emf.ecoretools.ale.core.diagnostics.MethodNotFound;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.MissingReturnStatement;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.NotIterable;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.Operator;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.ProhibitedAssignmentToSelf;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeMismatch;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeNotFound;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Uninitialized;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.UnsupportedOperator;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableAlreadyDefined;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableNotFound;
@@ -141,6 +142,27 @@ public class MessageToDiagnosticAdapter {
 		
 		return newDiagnostic(assignment, formatter.adapt(unexpected));
 	}
+
+
+	
+	BasicDiagnostic uninitializedFeature(String name, EObject source,  Scopes scopes) {
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(getLine(source));
+		behaviors.findParsedFileDefining(source).map(ParsedFile::getSourceFile).ifPresent(location::setSource);
+		
+		Context context = DiagnosticsFactory.eINSTANCE.createContext();
+		context.setScopes(scopes);
+		
+		Uninitialized diag = DiagnosticsFactory.eINSTANCE.createUninitialized();
+		diag.setName(name);
+		diag.setSource(source);
+		diag.setContext(context);
+		diag.setLocation(location);
+		diag.setWholeCode(getCode(source));
+		diag.setIncriminatedCode(name);
+		
+		return newDiagnostic(source, formatter.adapt(diag));
+	}
 	
 	BasicDiagnostic attributeNotFound(String name, EObject source, EClass owner, Scopes scopes) {
 		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
@@ -167,6 +189,25 @@ public class MessageToDiagnosticAdapter {
 		internal.setMessage(cause.getMessage());
 		internal.setCause(cause);
 		return newDiagnostic(data, formatter.adapt(internal));
+	}
+	
+	BasicDiagnostic internalError(Object data, Throwable cause, EObject source,  Scopes scopes) {
+		CodeLocation location = DiagnosticsFactory.eINSTANCE.createCodeLocation();
+		location.setLine(getLine(source));
+		behaviors.findParsedFileDefining(source).map(ParsedFile::getSourceFile).ifPresent(location::setSource);
+		
+		Context context = DiagnosticsFactory.eINSTANCE.createContext();
+		context.setScopes(scopes);
+		
+		org.eclipse.emf.ecoretools.ale.core.diagnostics.InternalError diag = DiagnosticsFactory.eINSTANCE.createInternalError();
+		diag.setMessage(cause.getMessage());
+		diag.setCause(cause);
+		diag.setSource(source);
+		diag.setContext(context);
+		diag.setLocation(location);
+		diag.setWholeCode(getCode(source));
+		
+		return newDiagnostic(source, formatter.adapt(diag));
 	}
 	
 	BasicDiagnostic methodNotFound(Expression expression, ServiceNotFoundException notFound, Scopes scopes) {

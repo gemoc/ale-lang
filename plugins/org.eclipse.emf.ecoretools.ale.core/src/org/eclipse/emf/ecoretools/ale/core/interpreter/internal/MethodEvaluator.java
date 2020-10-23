@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecoretools.ale.core.Activator;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.InternalError;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.Operator;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.impl.ConsoleDiagnosticsFormatter;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
@@ -287,6 +288,11 @@ public class MethodEvaluator {
 		
 		Object rawOwner = aqlEval(featAssign.getTarget());
 		if (! (rawOwner instanceof EObject)) {
+			if(rawOwner == null && featAssign.getTarget() != null) {
+				diagnostic.add(errors.uninitializedFeature(featAssign.getTarget().toString(), featAssign.getTarget(),  scopes));
+			} else {
+				diagnostic.add(errors.internalError(rawOwner, new Throwable("Unsupported feature assignment "), featAssign , scopes));	
+			}
 			stopExecution(ROOT_ERROR_MESSAGE);
 		}
 		validateAndStoreType(featAssign.getTarget());

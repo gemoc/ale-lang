@@ -33,6 +33,7 @@ import org.eclipse.emf.ecoretools.ale.core.diagnostics.Operator;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.ProhibitedAssignmentToSelf;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeMismatch;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeNotFound;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Uninitialized;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.UnsupportedOperator;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableAlreadyDefined;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableNotFound;
@@ -154,6 +155,14 @@ public class ConsoleDiagnosticsFormatter extends DiagnosticsSwitch<String> imple
 		String underline = underlineFirst(snippet, error.getIncriminatedCode());
 		String advises   = replacementProposals(error.getName(), getScope(error).getVariableNames());
 		return headline + nlnl() + snippet + nl() + underline + nl() + advises;
+	}
+	
+	@Override
+	public String caseUninitialized(Uninitialized error) {
+		String headline  = Messages.uninitializedVariableOrFeature(error.getName());
+		String snippet   = Messages.codeSnippet(error.getLocation().getLine(), error.getWholeCode());
+		String underline = underlineFirst(snippet, error.getIncriminatedCode());
+		return headline + nlnl() + snippet + nl() + underline + nl() ;
 	}
 
 	private static String doPropositions(String actual, Collection<String> expected) {

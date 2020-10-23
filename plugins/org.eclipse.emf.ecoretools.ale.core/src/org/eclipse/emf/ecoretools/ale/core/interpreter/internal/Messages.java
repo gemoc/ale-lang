@@ -44,6 +44,7 @@ public final class Messages extends NLS {
     public static String IF_GUARD_IS_NOT_BOOLEAN;
     public static String ATTRIBUTE_NOT_FOUND;
     public static String VARIABLE_NOT_FOUND;
+    public static String UNINITIALIZED;
     public static String METHOD_NOT_FOUND;
     public static String TYPE_MISMATCH;
     public static String CODE_SNIPPET;
@@ -125,6 +126,10 @@ public final class Messages extends NLS {
     
     public static String variableNotFound(String name) {
     	return MessageFormat.format(VARIABLE_NOT_FOUND, name);
+    }
+    
+    public static String uninitializedVariableOrFeature(String varName) {
+    	return MessageFormat.format(UNINITIALIZED, varName);
     }
     
     public static String typeMismatch(Collection<IType> expectedTypes, Collection<IType> actualTypes) {

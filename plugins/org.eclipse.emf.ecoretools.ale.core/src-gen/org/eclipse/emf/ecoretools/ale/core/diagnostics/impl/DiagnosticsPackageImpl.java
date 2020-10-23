@@ -58,6 +58,7 @@ import org.eclipse.emf.ecoretools.ale.core.diagnostics.ReservedKeywordSelf;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeHasNamesakes;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeMismatch;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeNotFound;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Uninitialized;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.UnsupportedOperator;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableAlreadyDefined;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableNotFound;
@@ -343,6 +344,13 @@ public class DiagnosticsPackageImpl extends EPackageImpl implements DiagnosticsP
 	 * @generated
 	 */
 	private EClass illegalSubstractionAssignmentEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass uninitializedEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1445,6 +1453,26 @@ public class DiagnosticsPackageImpl extends EPackageImpl implements DiagnosticsP
 	 * @generated
 	 */
 	@Override
+	public EClass getUninitialized() {
+		return uninitializedEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getUninitialized_Name() {
+		return (EAttribute)uninitializedEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EEnum getOperator() {
 		return operatorEEnum;
 	}
@@ -1647,6 +1675,9 @@ public class DiagnosticsPackageImpl extends EPackageImpl implements DiagnosticsP
 
 		illegalSubstractionAssignmentEClass = createEClass(ILLEGAL_SUBSTRACTION_ASSIGNMENT);
 
+		uninitializedEClass = createEClass(UNINITIALIZED);
+		createEAttribute(uninitializedEClass, UNINITIALIZED__NAME);
+
 		// Create enums
 		operatorEEnum = createEEnum(OPERATOR);
 
@@ -1725,6 +1756,7 @@ public class DiagnosticsPackageImpl extends EPackageImpl implements DiagnosticsP
 		acceleoValidationMessageEClass.getESuperTypes().add(this.getMessage());
 		illegalAdditionAssignmentEClass.getESuperTypes().add(this.getTypeMismatch());
 		illegalSubstractionAssignmentEClass.getESuperTypes().add(this.getTypeMismatch());
+		uninitializedEClass.getESuperTypes().add(this.getMessage());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(attributeNotFoundEClass, AttributeNotFound.class, "AttributeNotFound", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1865,6 +1897,9 @@ public class DiagnosticsPackageImpl extends EPackageImpl implements DiagnosticsP
 		initEClass(illegalAdditionAssignmentEClass, IllegalAdditionAssignment.class, "IllegalAdditionAssignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(illegalSubstractionAssignmentEClass, IllegalSubstractionAssignment.class, "IllegalSubstractionAssignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(uninitializedEClass, Uninitialized.class, "Uninitialized", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getUninitialized_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Uninitialized.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(operatorEEnum, Operator.class, "Operator");

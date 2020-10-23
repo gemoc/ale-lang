@@ -43,6 +43,7 @@ import org.eclipse.emf.ecoretools.ale.core.diagnostics.ReservedKeywordSelf;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeHasNamesakes;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeMismatch;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeNotFound;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Uninitialized;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.UnsupportedOperator;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableAlreadyDefined;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableNotFound;
@@ -379,6 +380,13 @@ public class DiagnosticsSwitch<T> extends Switch<T> {
 				T result = caseIllegalSubstractionAssignment(illegalSubstractionAssignment);
 				if (result == null) result = caseTypeMismatch(illegalSubstractionAssignment);
 				if (result == null) result = caseMessage(illegalSubstractionAssignment);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DiagnosticsPackage.UNINITIALIZED: {
+				Uninitialized uninitialized = (Uninitialized)theEObject;
+				T result = caseUninitialized(uninitialized);
+				if (result == null) result = caseMessage(uninitialized);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -968,6 +976,21 @@ public class DiagnosticsSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseIllegalSubstractionAssignment(IllegalSubstractionAssignment object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Uninitialized</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Uninitialized</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUninitialized(Uninitialized object) {
 		return null;
 	}
 

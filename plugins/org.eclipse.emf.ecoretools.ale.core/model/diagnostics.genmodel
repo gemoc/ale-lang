@@ -153,5 +153,8 @@
     </genClasses>
     <genClasses ecoreClass="diagnostics.ecore#//IllegalAdditionAssignment"/>
     <genClasses ecoreClass="diagnostics.ecore#//IllegalSubstractionAssignment"/>
+    <genClasses ecoreClass="diagnostics.ecore#//Uninitialized">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagnostics.ecore#//Uninitialized/name"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

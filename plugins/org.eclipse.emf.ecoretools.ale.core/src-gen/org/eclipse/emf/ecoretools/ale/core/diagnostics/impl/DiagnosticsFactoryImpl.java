@@ -53,6 +53,7 @@ import org.eclipse.emf.ecoretools.ale.core.diagnostics.ReservedKeywordSelf;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeHasNamesakes;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeMismatch;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.TypeNotFound;
+import org.eclipse.emf.ecoretools.ale.core.diagnostics.Uninitialized;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.UnsupportedOperator;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableAlreadyDefined;
 import org.eclipse.emf.ecoretools.ale.core.diagnostics.VariableNotFound;
@@ -140,6 +141,7 @@ public class DiagnosticsFactoryImpl extends EFactoryImpl implements DiagnosticsF
 			case DiagnosticsPackage.ACCELEO_VALIDATION_MESSAGE: return createAcceleoValidationMessage();
 			case DiagnosticsPackage.ILLEGAL_ADDITION_ASSIGNMENT: return createIllegalAdditionAssignment();
 			case DiagnosticsPackage.ILLEGAL_SUBSTRACTION_ASSIGNMENT: return createIllegalSubstractionAssignment();
+			case DiagnosticsPackage.UNINITIALIZED: return createUninitialized();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -614,6 +616,17 @@ public class DiagnosticsFactoryImpl extends EFactoryImpl implements DiagnosticsF
 	public IllegalSubstractionAssignment createIllegalSubstractionAssignment() {
 		IllegalSubstractionAssignmentImpl illegalSubstractionAssignment = new IllegalSubstractionAssignmentImpl();
 		return illegalSubstractionAssignment;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Uninitialized createUninitialized() {
+		UninitializedImpl uninitialized = new UninitializedImpl();
+		return uninitialized;
 	}
 
 	/**
