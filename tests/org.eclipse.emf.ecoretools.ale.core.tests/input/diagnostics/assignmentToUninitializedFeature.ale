@@ -1,0 +1,14 @@
+behavior test.calldynaattr;
+open class ClassA {
+	
+	
+	ClassA aClassA;	
+	String msg;
+	
+	@main
+	def String main() {
+		self.aClassA.msg := '';  // should fail and report an exception because aClassA isn't initialized
+		
+		result := 'res';
+	}
+}

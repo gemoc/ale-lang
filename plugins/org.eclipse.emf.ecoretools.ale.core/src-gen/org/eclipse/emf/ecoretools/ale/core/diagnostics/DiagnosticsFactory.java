@@ -373,6 +373,15 @@ public interface DiagnosticsFactory extends EFactory {
 	IllegalSubstractionAssignment createIllegalSubstractionAssignment();
 
 	/**
+	 * Returns a new object of class '<em>Uninitialized</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Uninitialized</em>'.
+	 * @generated
+	 */
+	Uninitialized createUninitialized();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

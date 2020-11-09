@@ -191,6 +191,38 @@ public class EvalTest {
 		assertEquals(Diagnostic.ERROR, res.getDiagnostic().getSeverity());
 		assertEquals(null, res.getValue());
 	}
+	
+	/**
+	 * test contributing to https://github.com/gemoc/ale-lang/issues/38
+	 */
+	@Test
+	public void testUninitializedClassAttributeAssignment()  throws ClosedAleEnvironmentException {
+		environment = IAleEnvironment.fromPaths(asList("model/test.ecore"),
+				asList("input/eval/uninitializedClassAttributeAssignment.implem"));
+		IBehaviors behaviors = environment.getBehaviors();
+		EObject caller = environment.loadModel(URI.createURI("model/ClassA.xmi")).get(0);
+		Method main = behaviors.getMainMethods().get(0);
+		IEvaluationResult res = environment.getInterpreter().eval(caller, main, asList());
+
+		assertEquals(Diagnostic.ERROR, res.getDiagnostic().getSeverity());
+		assertEquals(null, res.getValue());
+	}
+	
+	/**
+	 * test contributing to https://github.com/gemoc/ale-lang/issues/38
+	 */
+	@Test
+	public void testUninitializedVariableAssignment()  throws ClosedAleEnvironmentException {
+		environment = IAleEnvironment.fromPaths(asList("model/test.ecore"),
+				asList("input/eval/uninitializedVariableAssignment.implem"));
+		IBehaviors behaviors = environment.getBehaviors();
+		EObject caller = environment.loadModel(URI.createURI("model/ClassA.xmi")).get(0);
+		Method main = behaviors.getMainMethods().get(0);
+		IEvaluationResult res = environment.getInterpreter().eval(caller, main, asList());
+
+		assertEquals(Diagnostic.ERROR, res.getDiagnostic().getSeverity());
+		assertEquals(null, res.getValue());
+	}
 
 	@Test
 	public void testAccessSelfAttribute()  throws ClosedAleEnvironmentException {

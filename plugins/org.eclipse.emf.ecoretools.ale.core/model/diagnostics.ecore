@@ -162,4 +162,7 @@
   <eClassifiers xsi:type="ecore:EDataType" name="ValidationMessageLevel" instanceClassName="org.eclipse.acceleo.query.runtime.ValidationMessageLevel"/>
   <eClassifiers xsi:type="ecore:EClass" name="IllegalAdditionAssignment" eSuperTypes="#//TypeMismatch"/>
   <eClassifiers xsi:type="ecore:EClass" name="IllegalSubstractionAssignment" eSuperTypes="#//TypeMismatch"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Uninitialized" eSuperTypes="#//Message">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>
