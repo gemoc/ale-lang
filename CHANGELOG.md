@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 ### Fixed
+
+### Added
+
+### Changed
+
+
+## [] - 2020-11-09
+### Fixed
 - [#4](https://github.com/gemoc/ale-lang/issues/4) The .dsl configuration file and the .ale source file must have the same base name
 - [#28](https://github.com/gemoc/ale-lang/issues/28) The interpreter ignores references to non-existing attributes or variables and calls to non-existing methods
 - [#38](https://github.com/gemoc/ale-lang/issues/38) The interpreter is not interrupted when an unexpected error occurs
@@ -21,6 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - [#149](https://github.com/gemoc/ale-lang/issues/149) Xtext validators are not resilient
 - [#151](https://github.com/gemoc/ale-lang/issues/151) Every EPackage found in project's dependencies is added to the environment
 - [#159](https://github.com/gemoc/ale-lang/issues/159) The editor shows all validation errors, even the ones that come from other ALE files
+- [#193](https://github.com/gemoc/ale-lang/pull/193) Enhance error reporting and detection of assignment on uninitialized variable or feature
 
 ### Added
 - [#60](https://github.com/gemoc/ale-lang/issues/60) An ALE Run Configuration is created when launching ALE through the contextual menu shortcut
