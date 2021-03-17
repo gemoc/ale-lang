@@ -65,6 +65,8 @@ public class IOUtils {
 		}
 		else if(uri.isPlatformPlugin()) {
 			res = pluginToFile(uri);
+		} else if(uri.isFile()) {
+			res = uri.path();
 		}
 		
 		if(res == null) {

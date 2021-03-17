@@ -36,8 +36,15 @@ public class IOResources {
 	private IOResources() {
 		// utility class should not be instantiated
 	}
-	
-	private static IWorkspace workspace = ResourcesPlugin.getWorkspace();
+
+	private static IWorkspace workspace;
+	static {
+		try {
+			workspace = ResourcesPlugin.getWorkspace();
+		} catch (IllegalStateException e) {
+			// Eclipse-less mode
+		}
+	}
 	
 	/**
 	 * Configures the Eclipse workspace used by this utility class.
