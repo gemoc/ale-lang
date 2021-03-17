@@ -4,3 +4,5 @@ target/
 xtend-gen/
 **/.META-INF_MANIFEST.MF
 **/.polyglot.*
+**/.settings
+tests/org.eclipse.emf.ecoretools.ale.ide.ui.tests/screenshots

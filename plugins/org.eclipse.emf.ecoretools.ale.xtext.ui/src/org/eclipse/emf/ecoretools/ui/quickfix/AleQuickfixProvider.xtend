@@ -58,7 +58,7 @@ class AleQuickfixProvider extends DefaultQuickfixProvider {
 			        	preferences.flush()
 		        	}
 			        catch (IllegalStateException | BackingStoreException unlikelyToHappen) {
-			            XtextActivator.instance.log.error("An unexpected error occurred while saving preferences", unlikelyToHappen);
+			            //XtextActivator.instance.log.error("An unexpected error occurred while saving preferences", unlikelyToHappen);
 			        }
 				}
 				else {
