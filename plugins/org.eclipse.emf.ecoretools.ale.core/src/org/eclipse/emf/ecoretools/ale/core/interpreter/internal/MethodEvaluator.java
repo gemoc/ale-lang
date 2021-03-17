@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.acceleo.query.ast.Expression;
 import org.eclipse.acceleo.query.parser.AstValidator;
@@ -34,6 +35,7 @@ import org.eclipse.acceleo.query.runtime.IValidationMessage;
 import org.eclipse.acceleo.query.runtime.IValidationResult;
 import org.eclipse.acceleo.query.runtime.ValidationMessageLevel;
 import org.eclipse.acceleo.query.runtime.impl.ValidationServices;
+import org.eclipse.acceleo.query.validation.type.ICollectionType;
 import org.eclipse.acceleo.query.validation.type.IType;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.BasicEList;
@@ -637,9 +639,13 @@ public class MethodEvaluator {
 		}
 		Object iterable = aqlEval(forEach.getCollectionExpression());
 		Collection<Object> iterableElements = (Collection<Object>) iterable;
+		Set<IType> iterableTypes = collectionTypes.stream()
+				.filter(types::isCollection)
+				.map(c -> ((ICollectionType) c).getCollectionType())
+				.collect(Collectors.toSet());
 		for (Object currentElement : iterableElements) {
 			try (Scope newScope = scopes.pushNew()) {
-				newScope.putVariable(forEach.getVariable(), collectionTypes, currentElement);
+				newScope.putVariable(forEach.getVariable(), iterableTypes, currentElement);
 				throwableSwitch(forEach.getBody());
 			}
 		}
