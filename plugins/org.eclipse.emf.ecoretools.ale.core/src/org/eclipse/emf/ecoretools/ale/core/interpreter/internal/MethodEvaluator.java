@@ -660,7 +660,9 @@ public class MethodEvaluator {
 		}
 		boolean conditionValue = (boolean) aqlEval(loop.getCondition());
 		while (conditionValue){
-			throwableSwitch(loop.getBody());
+			try (Scope newScope = scopes.pushNew()) {
+				throwableSwitch(loop.getBody());
+			}
 			conditionValue = (boolean) aqlEval(loop.getCondition());
 		}
 		return NO_VALUE_RETURNED;
@@ -681,10 +683,14 @@ public class MethodEvaluator {
 			}
 		}
 		if (selectedBlock != null){
-			throwableSwitch(selectedBlock);
+			try (Scope newScope = scopes.pushNew()) {
+				throwableSwitch(selectedBlock);
+			}
 		}
 		else if (ifStmt.getElse() != null){
-			throwableSwitch(ifStmt.getElse());
+			try (Scope newScope = scopes.pushNew()) {
+				throwableSwitch(ifStmt.getElse());
+			}
 		}
 		return NO_VALUE_RETURNED;
 	}
