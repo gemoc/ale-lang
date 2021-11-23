@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
 import org.eclipse.emf.ecore.EPackage;
@@ -48,6 +49,16 @@ public class RawEnvironmentBasedAleEnvironment extends AbstractAleEnvironment {
 		this.context = context;
 		this.behaviors = new ImmutableBehaviors(behaviors);
 		this.metamodels = new ArrayList<>(metamodels);
+	}
+
+	@Override
+	public Optional<String> findSourceFileName() {
+		return Optional.empty();
+	}
+
+	@Override
+	public Optional<String> findProperty(String property) {
+		return Optional.empty();
 	}
 
 	@Override

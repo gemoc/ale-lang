@@ -15,6 +15,7 @@ import static java.util.stream.Collectors.toList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
@@ -36,23 +37,30 @@ import org.eclipse.emf.ecoretools.ale.core.parser.IOUtils;
  */
 public class WithAbsoluteBehaviorPathsAleEnvironment extends AbstractAleEnvironment {
 	
-	private final LinkedHashSet<String> metamodels;
-	
-	private final LinkedHashSet<String> behaviors;
+	private final IAleEnvironment delegate;
 	
 	public WithAbsoluteBehaviorPathsAleEnvironment(IAleEnvironment environment) {
-		metamodels = new LinkedHashSet<>(environment.getMetamodelsSources());
-		behaviors = new LinkedHashSet<>(resolveUris(environment.getBehaviorsSources()));
+		this.delegate = environment;
 	}
 	
 	@Override
+	public Optional<String> findSourceFileName() {
+		return delegate.findSourceFileName();
+	}
+
+	@Override
+	public Optional<String> findProperty(String property) {
+		return delegate.findProperty(property);
+	}
+
+	@Override
 	public LinkedHashSet<String> getBehaviorsSources() {
-		return behaviors;
+		return new LinkedHashSet<>(resolveUris(delegate.getBehaviorsSources()));
 	}
 	
 	@Override
 	public LinkedHashSet<String> getMetamodelsSources() {
-		return metamodels;
+		return new LinkedHashSet<>(delegate.getMetamodelsSources());
 	}
 	
 	private static Collection<String> resolveUris(Collection<String> uris) {
@@ -61,6 +69,5 @@ public class WithAbsoluteBehaviorPathsAleEnvironment extends AbstractAleEnvironm
 				   .filter(Objects::nonNull)
 				   .collect(toList());
 	}
-	
 	
 }
