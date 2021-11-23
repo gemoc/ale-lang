@@ -21,9 +21,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
 
@@ -54,6 +57,7 @@ public final class FileBasedAleEnvironment extends AbstractAleEnvironment {
 	
 	private LinkedHashSet<String> metamodels = new LinkedHashSet<>();
 	private LinkedHashSet<String> behaviors = new LinkedHashSet<>();
+	private Map<String, String> properties = new HashMap<>();
 	
 	/**
 	 * Creates a new environment from a .dsl file.
@@ -112,6 +116,23 @@ public final class FileBasedAleEnvironment extends AbstractAleEnvironment {
 	}
 	
 	@Override
+	public Optional<String> findSourceFileName() {
+		if (this.platformFile != null) {
+			return Optional.ofNullable(platformFile.getName());
+		}
+		if (this.workspaceFile != null) {
+			return Optional.ofNullable(workspaceFile.getName());
+		}
+		return Optional.empty();
+	}
+	
+	@Override
+	public Optional<String> findProperty(String property) {
+		return Optional.ofNullable(properties.getOrDefault(property, null));
+	}
+
+
+	@Override
 	public LinkedHashSet<String> getBehaviorsSources() {
 		return behaviors;
 	}
@@ -156,11 +177,15 @@ public final class FileBasedAleEnvironment extends AbstractAleEnvironment {
 	
 	private void load(InputStream input) throws IOException {
 		try {
-			Properties properties = new Properties();
-			properties.load(input);
+			// Use Java's Properties API to load the file
 			
-			String allMetamodels = (String) properties.get(METAMODELS_KEY);
-			String allBehaviors = (String) properties.get(BEHAVIORS_KEY);
+			Properties fileProperties = new Properties();
+			fileProperties.load(input);
+			
+			// Extract paths to Ecore metamodels and ALE source files
+			
+			String allMetamodels = (String) fileProperties.get(METAMODELS_KEY);
+			String allBehaviors = (String) fileProperties.get(BEHAVIORS_KEY);
 			
 			if (allMetamodels != null) {
 				String[] rawMetamodels = allMetamodels.split(",");
@@ -169,6 +194,12 @@ public final class FileBasedAleEnvironment extends AbstractAleEnvironment {
 			if (allBehaviors!= null) {
 				String[] rawBehaviors = allBehaviors.split(",");
 				this.behaviors.addAll(trim(rawBehaviors));
+			}
+			
+			// Keep track of all defined properties (key/value pairs in the file)
+			
+			for(String property : fileProperties.stringPropertyNames()) {
+				this.properties.put(property, fileProperties.getProperty(property));
 			}
 		} 
 		finally {

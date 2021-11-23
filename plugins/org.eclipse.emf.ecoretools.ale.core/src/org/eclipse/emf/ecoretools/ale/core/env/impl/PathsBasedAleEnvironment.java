@@ -12,6 +12,7 @@ package org.eclipse.emf.ecoretools.ale.core.env.impl;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.Optional;
 
 import org.eclipse.emf.ecoretools.ale.core.env.IAleEnvironment;
 
@@ -42,6 +43,16 @@ public class PathsBasedAleEnvironment extends AbstractAleEnvironment {
 		this.behaviors = new LinkedHashSet<>(behaviors);
 	}
 	
+	@Override
+	public Optional<String> findSourceFileName() {
+		return Optional.empty();
+	}
+
+	@Override
+	public Optional<String> findProperty(String property) {
+		return Optional.empty();
+	}
+
 	@Override
 	public LinkedHashSet<String> getBehaviorsSources() {
 		return behaviors;

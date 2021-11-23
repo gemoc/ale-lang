@@ -15,6 +15,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 
 import org.eclipse.acceleo.query.runtime.IQueryEnvironment;
@@ -208,6 +209,25 @@ public interface IAleEnvironment extends AutoCloseable, Closeable {
 	 * @return the resource identified by given URI
 	 */
 	Resource loadResource(URI resourceURI);
+	
+	/**
+	 * Returns the name of the resource associated with this environment, if any.
+	 * <p>
+	 * This associated resource is typically the .dsl file that defines the environment.
+	 * 
+	 * @return the name of the associated resource, if any
+	 */
+	Optional<String> findSourceFileName();
+	
+	/**
+	 * Returns the value associated to a given property, if defined in the environment.
+	 * 
+	 * @param property
+	 * 			The property to look for
+	 * 
+	 * @return the value associated to a given property, if defined in the environment
+	 */
+	Optional<String> findProperty(String property);
 	
 	/**
 	 * Releases any resource held by this environment.
