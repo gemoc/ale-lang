@@ -13,9 +13,10 @@ pipeline {
 	stages {
 		
 		stage('Build and verify') {
-	    	steps { 
+	    	steps {         
 				wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
-					sh "mvn -Dmaven.test.failure.ignore clean verify --errors --show-version"
+					sh 'printenv'
+					sh "mvn --fail-at-end clean verify --errors --show-version"
 				}
 			}
 			post {
