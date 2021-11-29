@@ -12,21 +12,13 @@
 
 
 	<properties>
-		<tycho.version>1.7.0</tycho.version>
+		<tycho.version>2.5.0</tycho.version>
 		<xtend.version>2.24.0</xtend.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<tycho.scmUrl>scm:git:https://github.com/gemoc/ale-lang.git</tycho.scmUrl>
 	</properties>
-
-	<repositories>
-		<repository>
-			<id>acceleo</id>
-			<url>http://download.eclipse.org/acceleo/updates/releases/</url>
-			<layout>p2</layout>
-		</repository>
-	</repositories>
 
 	<modules>
 		<module>plugins</module>
@@ -142,18 +134,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- enable plugin tests -->
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-surefire-plugin</artifactId>
-				<version>${tycho.version}</version>
-				<configuration>
-					<useUIHarness>true</useUIHarness>
-					<useUIThread>false</useUIThread>
-					<product>org.eclipse.platform.ide</product>
-					<application>org.eclipse.ui.ide.workbench</application>
-				</configuration>
-			</plugin>
 
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
@@ -190,6 +170,23 @@
 							<version>1.2.0-SNAPSHOT</version>
 						</artifact>
 					</target>
+					<environments>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
 				</configuration>
 			</plugin>
 		</plugins>
