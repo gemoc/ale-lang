@@ -7,7 +7,7 @@ pipeline {
 	}
 	tools {
         	maven 'apache-maven-latest'
-        	jdk 'oracle-jdk8-latest'
+        	jdk 'open-jdk-11'
 	}
 	// 
 	stages {
