@@ -13,6 +13,7 @@ package org.eclipse.emf.ecoretools.ale.core.validation.impl;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -53,7 +54,11 @@ public final class ConvertType implements IConvertType {
 		}
 		else {
 			if(typedElement.isMany()) {
-				if(typedElement.isUnique()) {
+				if(Map.Entry.class == typedElement.getEType().getInstanceClass() || "java.util.Map$Entry".equals(typedElement.getEType().getInstanceClassName())) {
+					// Maps are considered as lists of MapEntry
+					return new SequenceType(queryEnvironment, toAQL(typedElement.getEType()));
+				}
+				if(typedElement.isUnique() && !typedElement.isOrdered()) {
 					return new SetType(queryEnvironment, toAQL(typedElement.getEType()));
 				}
 				else {
@@ -140,6 +145,7 @@ public final class ConvertType implements IConvertType {
 		else if(type == java.lang.Boolean.class)	return EcorePackage.eINSTANCE.getEBoolean();
 		else if(type == List.class)					return EcorePackage.eINSTANCE.getEEList();
 		else if(type == Set.class)					return EcorePackage.eINSTANCE.getEEList();
+		else if(type == Map.class)					return EcorePackage.eINSTANCE.getEEList();
 		else										return ImplementationPackage.eINSTANCE.getUnresolvedEClassifier();
 	}
 	

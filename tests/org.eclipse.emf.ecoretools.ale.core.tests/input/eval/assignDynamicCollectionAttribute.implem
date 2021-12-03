@@ -7,7 +7,7 @@ open class ClassA {
 	def String main() {
 		ClassA a := test::ClassA.create();
 		a.seq := Sequence{test::ClassA.create()};
-		a.collection := a.seq->asOrderedSet();
+		a.collection := a.seq->asSequence();
 		result := a.seq->size() + ' '+ a.collection->size();
 	}
 }
