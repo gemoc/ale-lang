@@ -603,7 +603,7 @@ public class AntlrAstToAleBehaviorsFactory {
 			if (astResult.getAst() instanceof CollectionTypeLiteral) {
 				CollectionTypeLiteral aqlCollection = (CollectionTypeLiteral) astResult.getAst();
 				boolean isUnique = Set.class.equals(aqlCollection.getValue());
-				EClassifier classifier = convert.toEMF(aqlCollection.getElementType()).orElse(ImplementationPackage.eINSTANCE.getUnresolvedEClassifier());
+				EClassifier classifier = convert.toEMF(aqlCollection.getElementType()).orElseGet(ImplementationPackage.eINSTANCE::getUnresolvedEClassifier);
 				return createRawType(classifier, isUnique, 0, -1);
 			}
 			else if (result instanceof EClassifier) {

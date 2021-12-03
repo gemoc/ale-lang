@@ -7,7 +7,7 @@ open class Mix {
 		self.int := 0;
 		self.string := '';
 		self.strings := Sequence{};
-		self.integers := OrderedSet{};
+		self.integers := Sequence{};
 		
 		self.int += 42;
 		self.string += 'Hello World!';

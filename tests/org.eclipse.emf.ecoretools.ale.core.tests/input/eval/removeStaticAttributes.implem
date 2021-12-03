@@ -6,7 +6,7 @@ open class Mix {
 	def void main() {
 		self.int := 0;
 		self.strings := Sequence{'a', 'b'};
-		self.integers := OrderedSet{1, 2, 2, 3, 3};
+		self.integers := Sequence{1, 2, 2, 3, 3};
 		
 		self.int -= 38;
 		self.strings -= 'a';

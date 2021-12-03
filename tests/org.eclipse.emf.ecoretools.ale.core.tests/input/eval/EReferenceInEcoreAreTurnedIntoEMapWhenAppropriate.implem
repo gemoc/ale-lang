@@ -1,0 +1,11 @@
+behavior test.assigncollection;
+
+open class Ctx {
+
+	@main
+	def Boolean isEnvAnEMap(){
+		result := self.env.oclIsKindOf(ecore::EMap);
+		//result := self.env.oclType();
+	}
+	
+}
