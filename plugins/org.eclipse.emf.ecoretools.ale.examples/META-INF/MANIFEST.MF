@@ -5,3 +5,5 @@ Bundle-Vendor: %providerName
 Bundle-SymbolicName: org.eclipse.emf.ecoretools.ale.examples;singleton:=true
 Bundle-Version: 1.2.0.qualifier
 Require-Bundle: org.eclipse.emf.common.ui
+Automatic-Module-Name: org.eclipse.emf.ecoretools.ale.examples
+Bundle-RequiredExecutionEnvironment: JavaSE-11

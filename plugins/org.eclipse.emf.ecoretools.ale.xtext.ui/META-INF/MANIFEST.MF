@@ -22,8 +22,9 @@ Require-Bundle: org.eclipse.emf.ecoretools.ale.xtext,
  org.eclipse.acceleo.query,
  org.eclipse.emf.ecoretools.ale.ide;bundle-version="1.2.0"
 Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.emf.ecoretools.ui.quickfix,
  org.eclipse.emf.ecoretools.ui.contentassist,
  org.eclipse.emf.ecoretools.ale.xtext.ui.internal
 Bundle-Activator: org.eclipse.emf.ecoretools.ale.xtext.ui.internal.XtextActivator
+Automatic-Module-Name: org.eclipse.emf.ecoretools.ale.xtext.ui
