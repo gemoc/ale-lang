@@ -29,5 +29,5 @@ Require-Bundle: org.eclipse.emf.ecoretools.ale.ide,
  org.eclipse.sirius.ui,
  org.eclipse.core.filesystem
 Bundle-Vendor: Inria/Obeo
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.eclipse.emf.ecoretools.ale.ide.ui
