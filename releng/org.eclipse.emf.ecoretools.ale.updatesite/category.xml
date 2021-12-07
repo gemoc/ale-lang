@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.eclipse.emf.ecoretools.ale.feature_1.2.0.qualifier.jar" id="org.eclipse.emf.ecoretools.ale.feature" version="1.2.0.qualifier">
+   <feature url="features/org.eclipse.emf.ecoretools.ale.feature_1.3.0.qualifier.jar" id="org.eclipse.emf.ecoretools.ale.feature" version="1.3.0.qualifier">
       <category name="ALE"/>
    </feature>
-   <feature url="features/org.eclipse.emf.ecoretools.ale.feature.source_1.2.0.qualifier.jar" id="org.eclipse.emf.ecoretools.ale.feature.source" version="1.2.0.qualifier">
+   <feature url="features/org.eclipse.emf.ecoretools.ale.feature.source_1.3.0.qualifier.jar" id="org.eclipse.emf.ecoretools.ale.feature.source" version="1.3.0.qualifier">
       <category name="ALE"/>
    </feature>
    <category-def name="ALE" label="ALE"/>
