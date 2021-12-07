@@ -54,16 +54,26 @@ public final class ConvertType implements IConvertType {
 		}
 		else {
 			if(typedElement.isMany()) {
+				//
+				// Map
+				//
 				if(Map.Entry.class == typedElement.getEType().getInstanceClass() || "java.util.Map$Entry".equals(typedElement.getEType().getInstanceClassName())) {
 					// Maps are considered as lists of MapEntry
 					return new SequenceType(queryEnvironment, toAQL(typedElement.getEType()));
 				}
+				// Set
+				//
 				if(typedElement.isUnique() && !typedElement.isOrdered()) {
 					return new SetType(queryEnvironment, toAQL(typedElement.getEType()));
 				}
-				else {
-					return new SequenceType(queryEnvironment, toAQL(typedElement.getEType()));
+				// Ordered Set
+				//
+				if(typedElement.isUnique() && typedElement.isOrdered()) {
+					return new OrderedSetType(queryEnvironment, toAQL(typedElement.getEType()));
 				}
+				// Sequence
+				//
+				return new SequenceType(queryEnvironment, toAQL(typedElement.getEType()));
 			}
 		}
 		return toAQL(typedElement.getEType());
