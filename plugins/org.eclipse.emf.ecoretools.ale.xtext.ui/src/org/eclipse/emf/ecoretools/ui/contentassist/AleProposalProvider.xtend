@@ -8,6 +8,7 @@ import org.eclipse.acceleo.query.ast.Expression
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.ETypedElement
+import org.eclipse.emf.ecore.EcorePackage
 import org.eclipse.emf.ecoretools.ale.ExtendedClass
 import org.eclipse.emf.ecoretools.ale.VarRef
 import org.eclipse.emf.ecoretools.ale.core.env.IBehaviors
@@ -19,6 +20,7 @@ import org.eclipse.jface.viewers.StyledString
 import org.eclipse.jface.viewers.StyledString.Styler
 import org.eclipse.swt.graphics.TextStyle
 import org.eclipse.xtext.Assignment
+import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.RuleCall
 import org.eclipse.xtext.nodemodel.INode
@@ -87,8 +89,39 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 		}
 	}
 	
+	override completeRForEach_Collection(EObject element, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		val typed = if (context.prefix.contains('.')) context.prefix.substring(context.prefix.indexOf('.') + 1) else context.prefix
+			
+		val enclosingClass = EcoreUtil2.getContainerOfType(element, org.eclipse.emf.ecoretools.ale.BehavioredClass)
+
+		if (enclosingClass !== null) {
+			val semantics = element.semantics
+			semantics.findClass(enclosingClass.name).ifPresent[ behaviorClass |
+
+				// Autocomplete attributes declared in the .ale
+				//
+				behaviorClass.attributes
+					 		 .filter[attribute | matchesCandidatesContainingTypedText.isCandidateMatchingPrefix(attribute.featureRef.name, typed)]
+					 		 .filter[attribute | attribute.featureRef.isMany || attribute.featureRef.EType == EcorePackage.eINSTANCE.EEList]
+					 		 .forEach[attribute | acceptor.createAttributeProposal('self.' + attribute.featureRef.name, attribute.featureRef.typeAsString, typed, context)]
+					
+				// Autocomplete attributes declared in the .ecore
+				// 		 
+				if (behaviorClass instanceof org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass) {
+					behaviorClass.baseClass.EStructuralFeatures
+										   .filter[feature | matchesCandidatesContainingTypedText.isCandidateMatchingPrefix(feature.name, typed)]
+										   .filter[feature| feature.isMany || feature.EType == EcorePackage.eINSTANCE.EEList]
+										   .forEach[feature | acceptor.createAttributeProposal('self.' + feature.name, feature.typeAsString, typed, context)]
+				}
+			]
+		}
+	}
+	
 	override completeExpression_Feature(EObject element, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		val prefix = getOffsetPrefix(context)
+		
+		// FIXME get expected type to filter out irrelevant proposals
+		//		 e.g. do not suggests 'self.name' when completing 'for (i in self.|)'
 		
 		/*
 		 * Autocomplete <element>.<typed>|
