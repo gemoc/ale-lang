@@ -21,6 +21,7 @@ import org.eclipse.acceleo.query.validation.type.SequenceType;
 import org.eclipse.acceleo.query.validation.type.SetType;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecoretools.ale.core.validation.impl.OrderedSetType;
 
 /**
  * Utility methods to compute qualified names.
@@ -60,6 +61,10 @@ final public class QualifiedNames {
 		if(type instanceof SequenceType) {
 			AbstractCollectionType collectionType = (AbstractCollectionType) type;
 			return "Sequence(" + getQualifiedName(collectionType.getCollectionType()) + ")";
+		}
+		if(type instanceof OrderedSetType) {
+			AbstractCollectionType collectionType = (AbstractCollectionType) type;
+			return "OrderedSet(" + getQualifiedName(collectionType.getCollectionType()) + ")";
 		}
 		if(type instanceof AbstractCollectionType) {
 			AbstractCollectionType collectionType = (AbstractCollectionType) type;
