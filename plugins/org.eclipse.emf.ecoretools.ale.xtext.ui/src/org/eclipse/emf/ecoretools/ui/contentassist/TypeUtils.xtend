@@ -47,21 +47,17 @@ final class TypeUtils {
 		// this utility provide extension methods, it should not be instantiated
 	}
 	
-	def static getSemantics(EObject model) {
+	def static IAleEnvironment getAleEnvironment(EObject model) {
 		/*
 		 * Metamodel input
 		 */
 		val IFile aleFile = WorkspaceSynchronizer.getFile(model.eResource);
-		
-		var IAleEnvironment environment = null
-		try {
-			environment = IAleProject.from(aleFile.project).environment
-			return environment.behaviors	
-		}
-		finally {
-			if (environment !== null) {
-				environment.close()
-			}
+		return IAleProject.from(aleFile.project).environment
+	}
+	
+	def static IBehaviors getSemantics(EObject model) {
+		try (val env = model.aleEnvironment) {
+			return env.behaviors	
 		}
 	}
 	

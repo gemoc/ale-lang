@@ -78,6 +78,14 @@ class AleProposalProvider extends AbstractAleProposalProvider {
     	// Prevent Xtext from proposing unexpected proposals (such as '1')
     	return;
     }
+    
+    override completeROpenClass_Name(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		try (val env = model.aleEnvironment) {
+			val eClasses = env.metamodels.flatMap[EClassifiers.filter[EClass.isAssignableFrom(it.class)].map[EClass.cast(it)]]
+										 .filter[name.startsWith(context.prefix)]
+			acceptor.createOpenClassProposal(eClasses, context)
+		}
+	}
 	
 	override completeExpression_Feature(EObject element, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		val prefix = getOffsetPrefix(context)
@@ -109,8 +117,8 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 			 
 		// Autocomplete features declared in the Ecore model
 			 
-		if (clazz instanceof org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass) {
-			val extendedClassInEcore = clazz as org.eclipse.emf.ecoretools.ale.implementation.ExtendedClass
+		if (clazz instanceof ExtendedClass) {
+			val extendedClassInEcore = clazz as ExtendedClass
 			val extendedClassInAleScript = semantics.openClasses
 					          						.findFirst[ext | extendedClassInEcore.name == ext.baseClass.name]
 					          
@@ -167,6 +175,23 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 			completion.matcher = matchesCandidatesContainingTypedText;
 		}
 		acceptor.accept(completion)
+	}
+	
+	private def createOpenClassProposal(ICompletionProposalAcceptor acceptor, Iterable<EClass> candidateEClasses, ContentAssistContext context) {
+		for (EClass candidateEClass : candidateEClasses) {
+			val eClassName = candidateEClass.asString
+			val styledText = new StyledString(eClassName)
+//		/*
+//		 * Style attribute's name
+//		 */
+//		styledText.setStyle(0, eClassName.length, attributeNameStyler);
+		
+			val completion = doCreateProposal(eClassName, styledText, null, getPriorityHelper().getDefaultPriority(), context)
+			if (completion instanceof ConfigurableCompletionProposal) {
+				completion.matcher = matchesCandidatesContainingTypedText;
+			}
+			acceptor.accept(completion)
+		}
 	}
 	
 	override completeExpression_Name(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
@@ -320,7 +345,7 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 		var current = node;
 		while(current != null) {
 			if(current instanceof CompositeNodeWithSemanticElement) {
-				if(current.semanticElement instanceof org.eclipse.emf.ecoretools.ale.Block){
+				if(current.semanticElement instanceof Block){
 					return current;
 				}
 			}
