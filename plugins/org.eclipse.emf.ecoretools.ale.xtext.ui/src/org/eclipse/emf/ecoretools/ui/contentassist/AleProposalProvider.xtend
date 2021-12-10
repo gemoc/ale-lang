@@ -3,18 +3,28 @@
  */
 package org.eclipse.emf.ecoretools.ui.contentassist
 
+import java.util.Collections
+import java.util.HashMap
 import java.util.List
+import java.util.Map
 import org.eclipse.acceleo.query.ast.Expression
 import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.ETypedElement
+import org.eclipse.emf.ecore.EcoreFactory
 import org.eclipse.emf.ecore.EcorePackage
 import org.eclipse.emf.ecoretools.ale.ExtendedClass
+import org.eclipse.emf.ecoretools.ale.ForEach
+import org.eclipse.emf.ecoretools.ale.Statement
 import org.eclipse.emf.ecoretools.ale.VarRef
+import org.eclipse.emf.ecoretools.ale.While
 import org.eclipse.emf.ecoretools.ale.core.env.IBehaviors
 import org.eclipse.emf.ecoretools.ale.core.parser.ParsedFile
 import org.eclipse.emf.ecoretools.ale.implementation.BehavioredClass
 import org.eclipse.emf.ecoretools.ale.implementation.Block
+import org.eclipse.emf.ecoretools.ale.implementation.ImplementationPackage
+import org.eclipse.emf.ecoretools.ale.implementation.Method
 import org.eclipse.emf.ecoretools.ale.implementation.ModelUnit
 import org.eclipse.jface.viewers.StyledString
 import org.eclipse.jface.viewers.StyledString.Styler
@@ -34,6 +44,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 import org.eclipse.xtext.ui.editor.contentassist.PrefixMatcher
 
 import static extension org.eclipse.emf.ecoretools.ui.contentassist.TypeUtils.*
+import org.eclipse.emf.ecoretools.ale.VarDecl
 
 /**
  * Provides autocomplete for ALE.
@@ -62,8 +73,15 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 			// keep default style
 		}
 	}
-	
 	val attributeTypeStyler = StyledString.QUALIFIER_STYLER
+	
+	val variableNameStyler = new Styler() {
+		override applyStyles(TextStyle textStyle) {
+			// keep default style
+		}
+	}
+	val variableTypeStyler = StyledString.QUALIFIER_STYLER
+	
 	
 	val matchingCharactersStyler = new Styler() {
 		override applyStyles(TextStyle textStyle) {
@@ -91,7 +109,9 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 	
 	override completeRForEach_Collection(EObject element, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		val typed = if (context.prefix.contains('.')) context.prefix.substring(context.prefix.indexOf('.') + 1) else context.prefix
-			
+		//			
+		// Autocomplete with attributes of the current EClass
+		//
 		val enclosingClass = EcoreUtil2.getContainerOfType(element, org.eclipse.emf.ecoretools.ale.BehavioredClass)
 
 		if (enclosingClass !== null) {
@@ -115,6 +135,12 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 				}
 			]
 		}
+		//
+		// Autocomplete with variables in scope
+		//
+		element.collectVariablesInScope.forEach[name, type |
+			acceptor.createVariableProposal(name, type.typeAsString, typed, context)
+		]
 	}
 	
 	override completeExpression_Feature(EObject element, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
@@ -210,6 +236,29 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 		acceptor.accept(completion)
 	}
 	
+	private def createVariableProposal(ICompletionProposalAcceptor acceptor, String name, String type, String typed, ContentAssistContext context) {
+		val styledText = new StyledString(name + " : " + type)
+		/*
+		 * Style attribute's name
+		 */
+		styledText.setStyle(0, name.length, variableNameStyler);
+		/*
+		 * Style attribute's type
+		 */
+		styledText.setStyle(styledText.length - type.length, type.length, variableTypeStyler);
+		/*
+		 * Outline the matching characters
+		 */
+		val matchingCharactersIndex = name.indexOf(typed)
+		styledText.setStyle(matchingCharactersIndex, typed.length, matchingCharactersStyler)
+		
+		val completion = doCreateProposal(name, styledText, null, getPriorityHelper().getDefaultPriority(), context)
+		if (completion instanceof ConfigurableCompletionProposal) {
+			completion.matcher = matchesCandidatesContainingTypedText;
+		}
+		acceptor.accept(completion)
+	}
+	
 	private def createOpenClassProposal(ICompletionProposalAcceptor acceptor, Iterable<EClass> candidateEClasses, ContentAssistContext context) {
 		for (EClass candidateEClass : candidateEClasses) {
 			val eClassName = candidateEClass.asString
@@ -235,6 +284,59 @@ class AleProposalProvider extends AbstractAleProposalProvider {
 	override complete_expression(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 //		addProposals(candidate,model,context,acceptor)
 //		acceptor.accept(doCreateProposal("[DEBUG] expression", null, null, getPriorityHelper().getDefaultPriority()+1,context))
+	}
+	
+	private def Map<String, ETypedElement> collectVariablesDeclaredInPreviousStatements(Statement element) {
+		val parentScope = element.eContainer.collectVariablesInScope
+		val elementScope = new HashMap(parentScope)
+		val container = element.eContainer
+		if (container instanceof org.eclipse.emf.ecoretools.ale.Block) {
+			val currentStatementIndex = container.statements.indexOf(element)
+			val declaredVariables = container.statements.take(currentStatementIndex + 1)
+														.filter(VarDecl)
+														// FIXME Compute the type of the variable instead of using "unresolved classifier"
+														.toMap[name].mapValues[ImplementationPackage.eINSTANCE.unresolvedEClassifier.asETypedElement]
+			elementScope.putAll(declaredVariables)
+		}
+		elementScope
+	}
+	
+	private def Map<String, ETypedElement> collectVariablesInScope(EObject element) {
+		if (element instanceof ForEach) {
+			val foreachScope = element.eContainer.collectVariablesInScope
+			foreachScope.putAll(element.collectVariablesDeclaredInPreviousStatements)
+			// FIXME Compute the type of the variable instead of using "unresolved classifier"
+			foreachScope.put(element.iterator, ImplementationPackage.eINSTANCE.unresolvedEClassifier.asETypedElement)
+			foreachScope
+		}
+		else if (element instanceof While) {
+			val parentScope = element.eContainer.collectVariablesInScope
+			parentScope.putAll(element.collectVariablesDeclaredInPreviousStatements)
+			parentScope
+		}
+		else if (element instanceof Method) {
+			val parentScope = element.eContainer.collectVariablesInScope
+			val methodScope = element.operationRef.EParameters.toMap[name].mapValues[EType.asETypedElement]
+			parentScope.forEach[name, variable | methodScope.putIfAbsent(name, variable)]
+			methodScope
+		}
+		else if (element instanceof Statement) {
+			element.collectVariablesDeclaredInPreviousStatements
+		}
+		else if (element.eContainer !== null) {
+			return element.eContainer.collectVariablesInScope
+		}
+		else {
+			return new HashMap();
+		}
+	}
+	
+	private def ETypedElement asETypedElement(EClassifier eClassifier) {
+		val ETypedElement typed = EcoreFactory.eINSTANCE.createEParameter()
+		typed.EType = eClassifier
+		typed.upperBound = 1
+		
+		typed
 	}
 	
 	private def void addProposals(String expression, EObject model, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
